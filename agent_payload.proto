@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+message CommonMetadata {
+	string agent_version = 1;
+	string timezone = 2;
+	double current_epoch = 3;
+	string internal_ip = 4;
+	string public_ip = 5;
+	string api_key = 6;
+}
+
+message MetricsPayload {
+	message Sample {
+		message Point {
+			int64 ts = 1;
+			double value = 2;
+		}
+		string metric = 1;
+		string type = 2;
+		string host = 3;
+		repeated Point points = 4;
+		repeated string tags = 5;
+	}
+	repeated Sample samples = 1;
+	CommonMetadata metadata = 2;
+}
+
+message CheckRunsPayload {
+	message CheckRun {
+		string name = 1;
+		string host = 2;
+		int64 ts = 3;
+		int32 status = 4;
+		string message = 5;
+		repeated string tags = 6;
+	}
+	repeated CheckRun check_runs = 1;
+	CommonMetadata metadata = 2;
+}
+
+message EventsPayload {
+	message Event {
+		string title = 1;
+		string text = 2;
+		int64 ts = 3;
+		string priority = 4;
+		string host = 5;
+		repeated string tags = 6;
+		string alert_type = 7;
+		string aggregation_key = 8;
+		string source_type_name = 9;
+	}
+	repeated Event events = 1;
+	CommonMetadata metadata = 2;
+}
+
+message HostMetadataPayload {
+	message HostMetadata {
+		string hostname = 1;
+		repeated string tags = 2;
+		repeated string aliases = 3;
+	}
+	repeated HostMetadata hosts_metadata = 1;
+	CommonMetadata metadata = 2;
+}
