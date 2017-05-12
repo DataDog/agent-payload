@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='agent_payload.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x13\x61gent_payload.proto\"\x89\x01\n\x0e\x43ommonMetadata\x12\x15\n\ragent_version\x18\x01 \x01(\t\x12\x10\n\x08timezone\x18\x02 \x01(\t\x12\x15\n\rcurrent_epoch\x18\x03 \x01(\x01\x12\x13\n\x0binternal_ip\x18\x04 \x01(\t\x12\x11\n\tpublic_ip\x18\x05 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x06 \x01(\t\"\xf3\x01\n\x0eMetricsPayload\x12\'\n\x07samples\x18\x01 \x03(\x0b\x32\x16.MetricsPayload.Sample\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\x94\x01\n\x06Sample\x12\x0e\n\x06metric\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x0c\n\x04host\x18\x03 \x01(\t\x12,\n\x06points\x18\x04 \x03(\x0b\x32\x1c.MetricsPayload.Sample.Point\x12\x0c\n\x04tags\x18\x05 \x03(\t\x1a\"\n\x05Point\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\r\n\x05value\x18\x02 \x01(\x01\"\xc8\x01\n\x10\x43heckRunsPayload\x12.\n\ncheck_runs\x18\x01 \x03(\x0b\x32\x1a.CheckRunsPayload.CheckRun\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\x61\n\x08\x43heckRun\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x0e\n\x06status\x18\x04 \x01(\x05\x12\x0f\n\x07message\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\"\x80\x02\n\rEventsPayload\x12$\n\x06\x65vents\x18\x01 \x03(\x0b\x32\x14.EventsPayload.Event\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\xa5\x01\n\x05\x45vent\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x10\n\x08priority\x18\x04 \x01(\t\x12\x0c\n\x04host\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x12\n\nalert_type\x18\x07 \x01(\t\x12\x17\n\x0f\x61ggregation_key\x18\x08 \x01(\t\x12\x18\n\x10source_type_name\x18\t \x01(\t\"\xb4\x01\n\x13HostMetadataPayload\x12\x39\n\x0ehosts_metadata\x18\x01 \x03(\x0b\x32!.HostMetadataPayload.HostMetadata\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a?\n\x0cHostMetadata\x12\x10\n\x08hostname\x18\x01 \x01(\t\x12\x0c\n\x04tags\x18\x02 \x03(\t\x12\x0f\n\x07\x61liases\x18\x03 \x03(\tb\x06proto3')
+  serialized_pb=_b('\n\x13\x61gent_payload.proto\"\x89\x01\n\x0e\x43ommonMetadata\x12\x15\n\ragent_version\x18\x01 \x01(\t\x12\x10\n\x08timezone\x18\x02 \x01(\t\x12\x15\n\rcurrent_epoch\x18\x03 \x01(\x01\x12\x13\n\x0binternal_ip\x18\x04 \x01(\t\x12\x11\n\tpublic_ip\x18\x05 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x06 \x01(\t\"\xf3\x01\n\x0eMetricsPayload\x12\'\n\x07samples\x18\x01 \x03(\x0b\x32\x16.MetricsPayload.Sample\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\x94\x01\n\x06Sample\x12\x0e\n\x06metric\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x0c\n\x04host\x18\x03 \x01(\t\x12,\n\x06points\x18\x04 \x03(\x0b\x32\x1c.MetricsPayload.Sample.Point\x12\x0c\n\x04tags\x18\x05 \x03(\t\x1a\"\n\x05Point\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\r\n\x05value\x18\x02 \x01(\x01\"\xdc\x01\n\x14ServiceChecksPayload\x12:\n\x0eservice_checks\x18\x01 \x03(\x0b\x32\".ServiceChecksPayload.ServiceCheck\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\x65\n\x0cServiceCheck\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x0e\n\x06status\x18\x04 \x01(\x05\x12\x0f\n\x07message\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\"\x80\x02\n\rEventsPayload\x12$\n\x06\x65vents\x18\x01 \x03(\x0b\x32\x14.EventsPayload.Event\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\xa5\x01\n\x05\x45vent\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x10\n\x08priority\x18\x04 \x01(\t\x12\x0c\n\x04host\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x12\n\nalert_type\x18\x07 \x01(\t\x12\x17\n\x0f\x61ggregation_key\x18\x08 \x01(\t\x12\x18\n\x10source_type_name\x18\t \x01(\t\"\xb4\x01\n\x13HostMetadataPayload\x12\x39\n\x0ehosts_metadata\x18\x01 \x03(\x0b\x32!.HostMetadataPayload.HostMetadata\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a?\n\x0cHostMetadata\x12\x10\n\x08hostname\x18\x01 \x01(\t\x12\x0c\n\x04tags\x18\x02 \x03(\t\x12\x0f\n\x07\x61liases\x18\x03 \x03(\tb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -225,50 +225,50 @@ _METRICSPAYLOAD = _descriptor.Descriptor(
 )
 
 
-_CHECKRUNSPAYLOAD_CHECKRUN = _descriptor.Descriptor(
-  name='CheckRun',
-  full_name='CheckRunsPayload.CheckRun',
+_SERVICECHECKSPAYLOAD_SERVICECHECK = _descriptor.Descriptor(
+  name='ServiceCheck',
+  full_name='ServiceChecksPayload.ServiceCheck',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='CheckRunsPayload.CheckRun.name', index=0,
+      name='name', full_name='ServiceChecksPayload.ServiceCheck.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='host', full_name='CheckRunsPayload.CheckRun.host', index=1,
+      name='host', full_name='ServiceChecksPayload.ServiceCheck.host', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='ts', full_name='CheckRunsPayload.CheckRun.ts', index=2,
+      name='ts', full_name='ServiceChecksPayload.ServiceCheck.ts', index=2,
       number=3, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='status', full_name='CheckRunsPayload.CheckRun.status', index=3,
+      name='status', full_name='ServiceChecksPayload.ServiceCheck.status', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='message', full_name='CheckRunsPayload.CheckRun.message', index=4,
+      name='message', full_name='ServiceChecksPayload.ServiceCheck.message', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='tags', full_name='CheckRunsPayload.CheckRun.tags', index=5,
+      name='tags', full_name='ServiceChecksPayload.ServiceCheck.tags', index=5,
       number=6, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -286,26 +286,26 @@ _CHECKRUNSPAYLOAD_CHECKRUN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=513,
-  serialized_end=610,
+  serialized_start=529,
+  serialized_end=630,
 )
 
-_CHECKRUNSPAYLOAD = _descriptor.Descriptor(
-  name='CheckRunsPayload',
-  full_name='CheckRunsPayload',
+_SERVICECHECKSPAYLOAD = _descriptor.Descriptor(
+  name='ServiceChecksPayload',
+  full_name='ServiceChecksPayload',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='check_runs', full_name='CheckRunsPayload.check_runs', index=0,
+      name='service_checks', full_name='ServiceChecksPayload.service_checks', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='metadata', full_name='CheckRunsPayload.metadata', index=1,
+      name='metadata', full_name='ServiceChecksPayload.metadata', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -314,7 +314,7 @@ _CHECKRUNSPAYLOAD = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_CHECKRUNSPAYLOAD_CHECKRUN, ],
+  nested_types=[_SERVICECHECKSPAYLOAD_SERVICECHECK, ],
   enum_types=[
   ],
   options=None,
@@ -324,7 +324,7 @@ _CHECKRUNSPAYLOAD = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=410,
-  serialized_end=610,
+  serialized_end=630,
 )
 
 
@@ -410,8 +410,8 @@ _EVENTSPAYLOAD_EVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=704,
-  serialized_end=869,
+  serialized_start=724,
+  serialized_end=889,
 )
 
 _EVENTSPAYLOAD = _descriptor.Descriptor(
@@ -447,8 +447,8 @@ _EVENTSPAYLOAD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=613,
-  serialized_end=869,
+  serialized_start=633,
+  serialized_end=889,
 )
 
 
@@ -492,8 +492,8 @@ _HOSTMETADATAPAYLOAD_HOSTMETADATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=989,
-  serialized_end=1052,
+  serialized_start=1009,
+  serialized_end=1072,
 )
 
 _HOSTMETADATAPAYLOAD = _descriptor.Descriptor(
@@ -529,8 +529,8 @@ _HOSTMETADATAPAYLOAD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=872,
-  serialized_end=1052,
+  serialized_start=892,
+  serialized_end=1072,
 )
 
 _METRICSPAYLOAD_SAMPLE_POINT.containing_type = _METRICSPAYLOAD_SAMPLE
@@ -538,9 +538,9 @@ _METRICSPAYLOAD_SAMPLE.fields_by_name['points'].message_type = _METRICSPAYLOAD_S
 _METRICSPAYLOAD_SAMPLE.containing_type = _METRICSPAYLOAD
 _METRICSPAYLOAD.fields_by_name['samples'].message_type = _METRICSPAYLOAD_SAMPLE
 _METRICSPAYLOAD.fields_by_name['metadata'].message_type = _COMMONMETADATA
-_CHECKRUNSPAYLOAD_CHECKRUN.containing_type = _CHECKRUNSPAYLOAD
-_CHECKRUNSPAYLOAD.fields_by_name['check_runs'].message_type = _CHECKRUNSPAYLOAD_CHECKRUN
-_CHECKRUNSPAYLOAD.fields_by_name['metadata'].message_type = _COMMONMETADATA
+_SERVICECHECKSPAYLOAD_SERVICECHECK.containing_type = _SERVICECHECKSPAYLOAD
+_SERVICECHECKSPAYLOAD.fields_by_name['service_checks'].message_type = _SERVICECHECKSPAYLOAD_SERVICECHECK
+_SERVICECHECKSPAYLOAD.fields_by_name['metadata'].message_type = _COMMONMETADATA
 _EVENTSPAYLOAD_EVENT.containing_type = _EVENTSPAYLOAD
 _EVENTSPAYLOAD.fields_by_name['events'].message_type = _EVENTSPAYLOAD_EVENT
 _EVENTSPAYLOAD.fields_by_name['metadata'].message_type = _COMMONMETADATA
@@ -549,7 +549,7 @@ _HOSTMETADATAPAYLOAD.fields_by_name['hosts_metadata'].message_type = _HOSTMETADA
 _HOSTMETADATAPAYLOAD.fields_by_name['metadata'].message_type = _COMMONMETADATA
 DESCRIPTOR.message_types_by_name['CommonMetadata'] = _COMMONMETADATA
 DESCRIPTOR.message_types_by_name['MetricsPayload'] = _METRICSPAYLOAD
-DESCRIPTOR.message_types_by_name['CheckRunsPayload'] = _CHECKRUNSPAYLOAD
+DESCRIPTOR.message_types_by_name['ServiceChecksPayload'] = _SERVICECHECKSPAYLOAD
 DESCRIPTOR.message_types_by_name['EventsPayload'] = _EVENTSPAYLOAD
 DESCRIPTOR.message_types_by_name['HostMetadataPayload'] = _HOSTMETADATAPAYLOAD
 
@@ -583,20 +583,20 @@ _sym_db.RegisterMessage(MetricsPayload)
 _sym_db.RegisterMessage(MetricsPayload.Sample)
 _sym_db.RegisterMessage(MetricsPayload.Sample.Point)
 
-CheckRunsPayload = _reflection.GeneratedProtocolMessageType('CheckRunsPayload', (_message.Message,), dict(
+ServiceChecksPayload = _reflection.GeneratedProtocolMessageType('ServiceChecksPayload', (_message.Message,), dict(
 
-  CheckRun = _reflection.GeneratedProtocolMessageType('CheckRun', (_message.Message,), dict(
-    DESCRIPTOR = _CHECKRUNSPAYLOAD_CHECKRUN,
+  ServiceCheck = _reflection.GeneratedProtocolMessageType('ServiceCheck', (_message.Message,), dict(
+    DESCRIPTOR = _SERVICECHECKSPAYLOAD_SERVICECHECK,
     __module__ = 'agent_payload_pb2'
-    # @@protoc_insertion_point(class_scope:CheckRunsPayload.CheckRun)
+    # @@protoc_insertion_point(class_scope:ServiceChecksPayload.ServiceCheck)
     ))
   ,
-  DESCRIPTOR = _CHECKRUNSPAYLOAD,
+  DESCRIPTOR = _SERVICECHECKSPAYLOAD,
   __module__ = 'agent_payload_pb2'
-  # @@protoc_insertion_point(class_scope:CheckRunsPayload)
+  # @@protoc_insertion_point(class_scope:ServiceChecksPayload)
   ))
-_sym_db.RegisterMessage(CheckRunsPayload)
-_sym_db.RegisterMessage(CheckRunsPayload.CheckRun)
+_sym_db.RegisterMessage(ServiceChecksPayload)
+_sym_db.RegisterMessage(ServiceChecksPayload.ServiceCheck)
 
 EventsPayload = _reflection.GeneratedProtocolMessageType('EventsPayload', (_message.Message,), dict(
 

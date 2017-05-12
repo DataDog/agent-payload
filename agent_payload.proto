@@ -25,8 +25,8 @@ message MetricsPayload {
 	CommonMetadata metadata = 2;
 }
 
-message CheckRunsPayload {
-	message CheckRun {
+message ServiceChecksPayload {
+	message ServiceCheck {
 		string name = 1;
 		string host = 2;
 		int64 ts = 3;
@@ -34,7 +34,7 @@ message CheckRunsPayload {
 		string message = 5;
 		repeated string tags = 6;
 	}
-	repeated CheckRun check_runs = 1;
+	repeated ServiceCheck service_checks = 1;
 	CommonMetadata metadata = 2;
 }
 
