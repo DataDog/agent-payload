@@ -48,48 +48,6 @@ func (m *CommonMetadata) String() string            { return proto.CompactTextSt
 func (*CommonMetadata) ProtoMessage()               {}
 func (*CommonMetadata) Descriptor() ([]byte, []int) { return fileDescriptorAgentPayload, []int{0} }
 
-func (m *CommonMetadata) GetAgentVersion() string {
-	if m != nil {
-		return m.AgentVersion
-	}
-	return ""
-}
-
-func (m *CommonMetadata) GetTimezone() string {
-	if m != nil {
-		return m.Timezone
-	}
-	return ""
-}
-
-func (m *CommonMetadata) GetCurrentEpoch() float64 {
-	if m != nil {
-		return m.CurrentEpoch
-	}
-	return 0
-}
-
-func (m *CommonMetadata) GetInternalIp() string {
-	if m != nil {
-		return m.InternalIp
-	}
-	return ""
-}
-
-func (m *CommonMetadata) GetPublicIp() string {
-	if m != nil {
-		return m.PublicIp
-	}
-	return ""
-}
-
-func (m *CommonMetadata) GetApiKey() string {
-	if m != nil {
-		return m.ApiKey
-	}
-	return ""
-}
-
 type MetricsPayload struct {
 	Samples  []*MetricsPayload_Sample `protobuf:"bytes,1,rep,name=samples" json:"samples,omitempty"`
 	Metadata *CommonMetadata          `protobuf:"bytes,2,opt,name=metadata" json:"metadata,omitempty"`
@@ -129,37 +87,9 @@ func (*MetricsPayload_Sample) Descriptor() ([]byte, []int) {
 	return fileDescriptorAgentPayload, []int{1, 0}
 }
 
-func (m *MetricsPayload_Sample) GetMetric() string {
-	if m != nil {
-		return m.Metric
-	}
-	return ""
-}
-
-func (m *MetricsPayload_Sample) GetType() string {
-	if m != nil {
-		return m.Type
-	}
-	return ""
-}
-
-func (m *MetricsPayload_Sample) GetHost() string {
-	if m != nil {
-		return m.Host
-	}
-	return ""
-}
-
 func (m *MetricsPayload_Sample) GetPoints() []*MetricsPayload_Sample_Point {
 	if m != nil {
 		return m.Points
-	}
-	return nil
-}
-
-func (m *MetricsPayload_Sample) GetTags() []string {
-	if m != nil {
-		return m.Tags
 	}
 	return nil
 }
@@ -174,20 +104,6 @@ func (m *MetricsPayload_Sample_Point) String() string { return proto.CompactText
 func (*MetricsPayload_Sample_Point) ProtoMessage()    {}
 func (*MetricsPayload_Sample_Point) Descriptor() ([]byte, []int) {
 	return fileDescriptorAgentPayload, []int{1, 0, 0}
-}
-
-func (m *MetricsPayload_Sample_Point) GetTs() int64 {
-	if m != nil {
-		return m.Ts
-	}
-	return 0
-}
-
-func (m *MetricsPayload_Sample_Point) GetValue() float64 {
-	if m != nil {
-		return m.Value
-	}
-	return 0
 }
 
 type ServiceChecksPayload struct {
@@ -228,48 +144,6 @@ func (m *ServiceChecksPayload_ServiceCheck) String() string { return proto.Compa
 func (*ServiceChecksPayload_ServiceCheck) ProtoMessage()    {}
 func (*ServiceChecksPayload_ServiceCheck) Descriptor() ([]byte, []int) {
 	return fileDescriptorAgentPayload, []int{2, 0}
-}
-
-func (m *ServiceChecksPayload_ServiceCheck) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *ServiceChecksPayload_ServiceCheck) GetHost() string {
-	if m != nil {
-		return m.Host
-	}
-	return ""
-}
-
-func (m *ServiceChecksPayload_ServiceCheck) GetTs() int64 {
-	if m != nil {
-		return m.Ts
-	}
-	return 0
-}
-
-func (m *ServiceChecksPayload_ServiceCheck) GetStatus() int32 {
-	if m != nil {
-		return m.Status
-	}
-	return 0
-}
-
-func (m *ServiceChecksPayload_ServiceCheck) GetMessage() string {
-	if m != nil {
-		return m.Message
-	}
-	return ""
-}
-
-func (m *ServiceChecksPayload_ServiceCheck) GetTags() []string {
-	if m != nil {
-		return m.Tags
-	}
-	return nil
 }
 
 type EventsPayload struct {
@@ -315,69 +189,6 @@ func (*EventsPayload_Event) Descriptor() ([]byte, []int) {
 	return fileDescriptorAgentPayload, []int{3, 0}
 }
 
-func (m *EventsPayload_Event) GetTitle() string {
-	if m != nil {
-		return m.Title
-	}
-	return ""
-}
-
-func (m *EventsPayload_Event) GetText() string {
-	if m != nil {
-		return m.Text
-	}
-	return ""
-}
-
-func (m *EventsPayload_Event) GetTs() int64 {
-	if m != nil {
-		return m.Ts
-	}
-	return 0
-}
-
-func (m *EventsPayload_Event) GetPriority() string {
-	if m != nil {
-		return m.Priority
-	}
-	return ""
-}
-
-func (m *EventsPayload_Event) GetHost() string {
-	if m != nil {
-		return m.Host
-	}
-	return ""
-}
-
-func (m *EventsPayload_Event) GetTags() []string {
-	if m != nil {
-		return m.Tags
-	}
-	return nil
-}
-
-func (m *EventsPayload_Event) GetAlertType() string {
-	if m != nil {
-		return m.AlertType
-	}
-	return ""
-}
-
-func (m *EventsPayload_Event) GetAggregationKey() string {
-	if m != nil {
-		return m.AggregationKey
-	}
-	return ""
-}
-
-func (m *EventsPayload_Event) GetSourceTypeName() string {
-	if m != nil {
-		return m.SourceTypeName
-	}
-	return ""
-}
-
 type HostMetadataPayload struct {
 	HostsMetadata []*HostMetadataPayload_HostMetadata `protobuf:"bytes,1,rep,name=hosts_metadata,json=hostsMetadata" json:"hosts_metadata,omitempty"`
 	Metadata      *CommonMetadata                     `protobuf:"bytes,2,opt,name=metadata" json:"metadata,omitempty"`
@@ -402,36 +213,34 @@ func (m *HostMetadataPayload) GetMetadata() *CommonMetadata {
 	return nil
 }
 
+type HostMetadataPayload_TagSet struct {
+	Type string   `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Tags []string `protobuf:"bytes,2,rep,name=tags" json:"tags,omitempty"`
+}
+
+func (m *HostMetadataPayload_TagSet) Reset()         { *m = HostMetadataPayload_TagSet{} }
+func (m *HostMetadataPayload_TagSet) String() string { return proto.CompactTextString(m) }
+func (*HostMetadataPayload_TagSet) ProtoMessage()    {}
+func (*HostMetadataPayload_TagSet) Descriptor() ([]byte, []int) {
+	return fileDescriptorAgentPayload, []int{4, 0}
+}
+
 type HostMetadataPayload_HostMetadata struct {
-	Hostname string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Tags     []string `protobuf:"bytes,2,rep,name=tags" json:"tags,omitempty"`
-	Aliases  []string `protobuf:"bytes,3,rep,name=aliases" json:"aliases,omitempty"`
+	Hostname string                        `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Tags     []*HostMetadataPayload_TagSet `protobuf:"bytes,2,rep,name=tags" json:"tags,omitempty"`
+	Aliases  []string                      `protobuf:"bytes,3,rep,name=aliases" json:"aliases,omitempty"`
 }
 
 func (m *HostMetadataPayload_HostMetadata) Reset()         { *m = HostMetadataPayload_HostMetadata{} }
 func (m *HostMetadataPayload_HostMetadata) String() string { return proto.CompactTextString(m) }
 func (*HostMetadataPayload_HostMetadata) ProtoMessage()    {}
 func (*HostMetadataPayload_HostMetadata) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgentPayload, []int{4, 0}
+	return fileDescriptorAgentPayload, []int{4, 1}
 }
 
-func (m *HostMetadataPayload_HostMetadata) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *HostMetadataPayload_HostMetadata) GetTags() []string {
+func (m *HostMetadataPayload_HostMetadata) GetTags() []*HostMetadataPayload_TagSet {
 	if m != nil {
 		return m.Tags
-	}
-	return nil
-}
-
-func (m *HostMetadataPayload_HostMetadata) GetAliases() []string {
-	if m != nil {
-		return m.Aliases
 	}
 	return nil
 }
@@ -446,82 +255,83 @@ func init() {
 	proto.RegisterType((*EventsPayload)(nil), "EventsPayload")
 	proto.RegisterType((*EventsPayload_Event)(nil), "EventsPayload.Event")
 	proto.RegisterType((*HostMetadataPayload)(nil), "HostMetadataPayload")
+	proto.RegisterType((*HostMetadataPayload_TagSet)(nil), "HostMetadataPayload.TagSet")
 	proto.RegisterType((*HostMetadataPayload_HostMetadata)(nil), "HostMetadataPayload.HostMetadata")
 }
-func (m *CommonMetadata) Marshal() (dAtA []byte, err error) {
+func (m *CommonMetadata) Marshal() (data []byte, err error) {
 	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
 	if err != nil {
 		return nil, err
 	}
-	return dAtA[:n], nil
+	return data[:n], nil
 }
 
-func (m *CommonMetadata) MarshalTo(dAtA []byte) (int, error) {
+func (m *CommonMetadata) MarshalTo(data []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
 	_ = l
 	if len(m.AgentVersion) > 0 {
-		dAtA[i] = 0xa
+		data[i] = 0xa
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.AgentVersion)))
-		i += copy(dAtA[i:], m.AgentVersion)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.AgentVersion)))
+		i += copy(data[i:], m.AgentVersion)
 	}
 	if len(m.Timezone) > 0 {
-		dAtA[i] = 0x12
+		data[i] = 0x12
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Timezone)))
-		i += copy(dAtA[i:], m.Timezone)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Timezone)))
+		i += copy(data[i:], m.Timezone)
 	}
 	if m.CurrentEpoch != 0 {
-		dAtA[i] = 0x19
+		data[i] = 0x19
 		i++
-		i = encodeFixed64AgentPayload(dAtA, i, uint64(math.Float64bits(float64(m.CurrentEpoch))))
+		i = encodeFixed64AgentPayload(data, i, uint64(math.Float64bits(float64(m.CurrentEpoch))))
 	}
 	if len(m.InternalIp) > 0 {
-		dAtA[i] = 0x22
+		data[i] = 0x22
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.InternalIp)))
-		i += copy(dAtA[i:], m.InternalIp)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.InternalIp)))
+		i += copy(data[i:], m.InternalIp)
 	}
 	if len(m.PublicIp) > 0 {
-		dAtA[i] = 0x2a
+		data[i] = 0x2a
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.PublicIp)))
-		i += copy(dAtA[i:], m.PublicIp)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.PublicIp)))
+		i += copy(data[i:], m.PublicIp)
 	}
 	if len(m.ApiKey) > 0 {
-		dAtA[i] = 0x32
+		data[i] = 0x32
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.ApiKey)))
-		i += copy(dAtA[i:], m.ApiKey)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.ApiKey)))
+		i += copy(data[i:], m.ApiKey)
 	}
 	return i, nil
 }
 
-func (m *MetricsPayload) Marshal() (dAtA []byte, err error) {
+func (m *MetricsPayload) Marshal() (data []byte, err error) {
 	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
 	if err != nil {
 		return nil, err
 	}
-	return dAtA[:n], nil
+	return data[:n], nil
 }
 
-func (m *MetricsPayload) MarshalTo(dAtA []byte) (int, error) {
+func (m *MetricsPayload) MarshalTo(data []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
 	_ = l
 	if len(m.Samples) > 0 {
 		for _, msg := range m.Samples {
-			dAtA[i] = 0xa
+			data[i] = 0xa
 			i++
-			i = encodeVarintAgentPayload(dAtA, i, uint64(msg.Size()))
-			n, err := msg.MarshalTo(dAtA[i:])
+			i = encodeVarintAgentPayload(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
 			if err != nil {
 				return 0, err
 			}
@@ -529,10 +339,10 @@ func (m *MetricsPayload) MarshalTo(dAtA []byte) (int, error) {
 		}
 	}
 	if m.Metadata != nil {
-		dAtA[i] = 0x12
+		data[i] = 0x12
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(m.Metadata.Size()))
-		n1, err := m.Metadata.MarshalTo(dAtA[i:])
+		i = encodeVarintAgentPayload(data, i, uint64(m.Metadata.Size()))
+		n1, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
@@ -541,45 +351,45 @@ func (m *MetricsPayload) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *MetricsPayload_Sample) Marshal() (dAtA []byte, err error) {
+func (m *MetricsPayload_Sample) Marshal() (data []byte, err error) {
 	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
 	if err != nil {
 		return nil, err
 	}
-	return dAtA[:n], nil
+	return data[:n], nil
 }
 
-func (m *MetricsPayload_Sample) MarshalTo(dAtA []byte) (int, error) {
+func (m *MetricsPayload_Sample) MarshalTo(data []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
 	_ = l
 	if len(m.Metric) > 0 {
-		dAtA[i] = 0xa
+		data[i] = 0xa
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Metric)))
-		i += copy(dAtA[i:], m.Metric)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Metric)))
+		i += copy(data[i:], m.Metric)
 	}
 	if len(m.Type) > 0 {
-		dAtA[i] = 0x12
+		data[i] = 0x12
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Type)))
-		i += copy(dAtA[i:], m.Type)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Type)))
+		i += copy(data[i:], m.Type)
 	}
 	if len(m.Host) > 0 {
-		dAtA[i] = 0x1a
+		data[i] = 0x1a
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Host)))
-		i += copy(dAtA[i:], m.Host)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Host)))
+		i += copy(data[i:], m.Host)
 	}
 	if len(m.Points) > 0 {
 		for _, msg := range m.Points {
-			dAtA[i] = 0x22
+			data[i] = 0x22
 			i++
-			i = encodeVarintAgentPayload(dAtA, i, uint64(msg.Size()))
-			n, err := msg.MarshalTo(dAtA[i:])
+			i = encodeVarintAgentPayload(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
 			if err != nil {
 				return 0, err
 			}
@@ -588,71 +398,71 @@ func (m *MetricsPayload_Sample) MarshalTo(dAtA []byte) (int, error) {
 	}
 	if len(m.Tags) > 0 {
 		for _, s := range m.Tags {
-			dAtA[i] = 0x2a
+			data[i] = 0x2a
 			i++
 			l = len(s)
 			for l >= 1<<7 {
-				dAtA[i] = uint8(uint64(l)&0x7f | 0x80)
+				data[i] = uint8(uint64(l)&0x7f | 0x80)
 				l >>= 7
 				i++
 			}
-			dAtA[i] = uint8(l)
+			data[i] = uint8(l)
 			i++
-			i += copy(dAtA[i:], s)
+			i += copy(data[i:], s)
 		}
 	}
 	return i, nil
 }
 
-func (m *MetricsPayload_Sample_Point) Marshal() (dAtA []byte, err error) {
+func (m *MetricsPayload_Sample_Point) Marshal() (data []byte, err error) {
 	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
 	if err != nil {
 		return nil, err
 	}
-	return dAtA[:n], nil
+	return data[:n], nil
 }
 
-func (m *MetricsPayload_Sample_Point) MarshalTo(dAtA []byte) (int, error) {
+func (m *MetricsPayload_Sample_Point) MarshalTo(data []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
 	_ = l
 	if m.Ts != 0 {
-		dAtA[i] = 0x8
+		data[i] = 0x8
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(m.Ts))
+		i = encodeVarintAgentPayload(data, i, uint64(m.Ts))
 	}
 	if m.Value != 0 {
-		dAtA[i] = 0x11
+		data[i] = 0x11
 		i++
-		i = encodeFixed64AgentPayload(dAtA, i, uint64(math.Float64bits(float64(m.Value))))
+		i = encodeFixed64AgentPayload(data, i, uint64(math.Float64bits(float64(m.Value))))
 	}
 	return i, nil
 }
 
-func (m *ServiceChecksPayload) Marshal() (dAtA []byte, err error) {
+func (m *ServiceChecksPayload) Marshal() (data []byte, err error) {
 	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
 	if err != nil {
 		return nil, err
 	}
-	return dAtA[:n], nil
+	return data[:n], nil
 }
 
-func (m *ServiceChecksPayload) MarshalTo(dAtA []byte) (int, error) {
+func (m *ServiceChecksPayload) MarshalTo(data []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
 	_ = l
 	if len(m.ServiceChecks) > 0 {
 		for _, msg := range m.ServiceChecks {
-			dAtA[i] = 0xa
+			data[i] = 0xa
 			i++
-			i = encodeVarintAgentPayload(dAtA, i, uint64(msg.Size()))
-			n, err := msg.MarshalTo(dAtA[i:])
+			i = encodeVarintAgentPayload(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
 			if err != nil {
 				return 0, err
 			}
@@ -660,10 +470,10 @@ func (m *ServiceChecksPayload) MarshalTo(dAtA []byte) (int, error) {
 		}
 	}
 	if m.Metadata != nil {
-		dAtA[i] = 0x12
+		data[i] = 0x12
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(m.Metadata.Size()))
-		n2, err := m.Metadata.MarshalTo(dAtA[i:])
+		i = encodeVarintAgentPayload(data, i, uint64(m.Metadata.Size()))
+		n2, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
@@ -672,88 +482,88 @@ func (m *ServiceChecksPayload) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *ServiceChecksPayload_ServiceCheck) Marshal() (dAtA []byte, err error) {
+func (m *ServiceChecksPayload_ServiceCheck) Marshal() (data []byte, err error) {
 	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
 	if err != nil {
 		return nil, err
 	}
-	return dAtA[:n], nil
+	return data[:n], nil
 }
 
-func (m *ServiceChecksPayload_ServiceCheck) MarshalTo(dAtA []byte) (int, error) {
+func (m *ServiceChecksPayload_ServiceCheck) MarshalTo(data []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
 	_ = l
 	if len(m.Name) > 0 {
-		dAtA[i] = 0xa
+		data[i] = 0xa
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Name)))
-		i += copy(dAtA[i:], m.Name)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Name)))
+		i += copy(data[i:], m.Name)
 	}
 	if len(m.Host) > 0 {
-		dAtA[i] = 0x12
+		data[i] = 0x12
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Host)))
-		i += copy(dAtA[i:], m.Host)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Host)))
+		i += copy(data[i:], m.Host)
 	}
 	if m.Ts != 0 {
-		dAtA[i] = 0x18
+		data[i] = 0x18
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(m.Ts))
+		i = encodeVarintAgentPayload(data, i, uint64(m.Ts))
 	}
 	if m.Status != 0 {
-		dAtA[i] = 0x20
+		data[i] = 0x20
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(m.Status))
+		i = encodeVarintAgentPayload(data, i, uint64(m.Status))
 	}
 	if len(m.Message) > 0 {
-		dAtA[i] = 0x2a
+		data[i] = 0x2a
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Message)))
-		i += copy(dAtA[i:], m.Message)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Message)))
+		i += copy(data[i:], m.Message)
 	}
 	if len(m.Tags) > 0 {
 		for _, s := range m.Tags {
-			dAtA[i] = 0x32
+			data[i] = 0x32
 			i++
 			l = len(s)
 			for l >= 1<<7 {
-				dAtA[i] = uint8(uint64(l)&0x7f | 0x80)
+				data[i] = uint8(uint64(l)&0x7f | 0x80)
 				l >>= 7
 				i++
 			}
-			dAtA[i] = uint8(l)
+			data[i] = uint8(l)
 			i++
-			i += copy(dAtA[i:], s)
+			i += copy(data[i:], s)
 		}
 	}
 	return i, nil
 }
 
-func (m *EventsPayload) Marshal() (dAtA []byte, err error) {
+func (m *EventsPayload) Marshal() (data []byte, err error) {
 	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
 	if err != nil {
 		return nil, err
 	}
-	return dAtA[:n], nil
+	return data[:n], nil
 }
 
-func (m *EventsPayload) MarshalTo(dAtA []byte) (int, error) {
+func (m *EventsPayload) MarshalTo(data []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
 	_ = l
 	if len(m.Events) > 0 {
 		for _, msg := range m.Events {
-			dAtA[i] = 0xa
+			data[i] = 0xa
 			i++
-			i = encodeVarintAgentPayload(dAtA, i, uint64(msg.Size()))
-			n, err := msg.MarshalTo(dAtA[i:])
+			i = encodeVarintAgentPayload(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
 			if err != nil {
 				return 0, err
 			}
@@ -761,10 +571,10 @@ func (m *EventsPayload) MarshalTo(dAtA []byte) (int, error) {
 		}
 	}
 	if m.Metadata != nil {
-		dAtA[i] = 0x12
+		data[i] = 0x12
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(m.Metadata.Size()))
-		n3, err := m.Metadata.MarshalTo(dAtA[i:])
+		i = encodeVarintAgentPayload(data, i, uint64(m.Metadata.Size()))
+		n3, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
@@ -773,107 +583,107 @@ func (m *EventsPayload) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *EventsPayload_Event) Marshal() (dAtA []byte, err error) {
+func (m *EventsPayload_Event) Marshal() (data []byte, err error) {
 	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
 	if err != nil {
 		return nil, err
 	}
-	return dAtA[:n], nil
+	return data[:n], nil
 }
 
-func (m *EventsPayload_Event) MarshalTo(dAtA []byte) (int, error) {
+func (m *EventsPayload_Event) MarshalTo(data []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
 	_ = l
 	if len(m.Title) > 0 {
-		dAtA[i] = 0xa
+		data[i] = 0xa
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Title)))
-		i += copy(dAtA[i:], m.Title)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Title)))
+		i += copy(data[i:], m.Title)
 	}
 	if len(m.Text) > 0 {
-		dAtA[i] = 0x12
+		data[i] = 0x12
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Text)))
-		i += copy(dAtA[i:], m.Text)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Text)))
+		i += copy(data[i:], m.Text)
 	}
 	if m.Ts != 0 {
-		dAtA[i] = 0x18
+		data[i] = 0x18
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(m.Ts))
+		i = encodeVarintAgentPayload(data, i, uint64(m.Ts))
 	}
 	if len(m.Priority) > 0 {
-		dAtA[i] = 0x22
+		data[i] = 0x22
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Priority)))
-		i += copy(dAtA[i:], m.Priority)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Priority)))
+		i += copy(data[i:], m.Priority)
 	}
 	if len(m.Host) > 0 {
-		dAtA[i] = 0x2a
+		data[i] = 0x2a
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Host)))
-		i += copy(dAtA[i:], m.Host)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Host)))
+		i += copy(data[i:], m.Host)
 	}
 	if len(m.Tags) > 0 {
 		for _, s := range m.Tags {
-			dAtA[i] = 0x32
+			data[i] = 0x32
 			i++
 			l = len(s)
 			for l >= 1<<7 {
-				dAtA[i] = uint8(uint64(l)&0x7f | 0x80)
+				data[i] = uint8(uint64(l)&0x7f | 0x80)
 				l >>= 7
 				i++
 			}
-			dAtA[i] = uint8(l)
+			data[i] = uint8(l)
 			i++
-			i += copy(dAtA[i:], s)
+			i += copy(data[i:], s)
 		}
 	}
 	if len(m.AlertType) > 0 {
-		dAtA[i] = 0x3a
+		data[i] = 0x3a
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.AlertType)))
-		i += copy(dAtA[i:], m.AlertType)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.AlertType)))
+		i += copy(data[i:], m.AlertType)
 	}
 	if len(m.AggregationKey) > 0 {
-		dAtA[i] = 0x42
+		data[i] = 0x42
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.AggregationKey)))
-		i += copy(dAtA[i:], m.AggregationKey)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.AggregationKey)))
+		i += copy(data[i:], m.AggregationKey)
 	}
 	if len(m.SourceTypeName) > 0 {
-		dAtA[i] = 0x4a
+		data[i] = 0x4a
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.SourceTypeName)))
-		i += copy(dAtA[i:], m.SourceTypeName)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.SourceTypeName)))
+		i += copy(data[i:], m.SourceTypeName)
 	}
 	return i, nil
 }
 
-func (m *HostMetadataPayload) Marshal() (dAtA []byte, err error) {
+func (m *HostMetadataPayload) Marshal() (data []byte, err error) {
 	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
 	if err != nil {
 		return nil, err
 	}
-	return dAtA[:n], nil
+	return data[:n], nil
 }
 
-func (m *HostMetadataPayload) MarshalTo(dAtA []byte) (int, error) {
+func (m *HostMetadataPayload) MarshalTo(data []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
 	_ = l
 	if len(m.HostsMetadata) > 0 {
 		for _, msg := range m.HostsMetadata {
-			dAtA[i] = 0xa
+			data[i] = 0xa
 			i++
-			i = encodeVarintAgentPayload(dAtA, i, uint64(msg.Size()))
-			n, err := msg.MarshalTo(dAtA[i:])
+			i = encodeVarintAgentPayload(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
 			if err != nil {
 				return 0, err
 			}
@@ -881,10 +691,10 @@ func (m *HostMetadataPayload) MarshalTo(dAtA []byte) (int, error) {
 		}
 	}
 	if m.Metadata != nil {
-		dAtA[i] = 0x12
+		data[i] = 0x12
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(m.Metadata.Size()))
-		n4, err := m.Metadata.MarshalTo(dAtA[i:])
+		i = encodeVarintAgentPayload(data, i, uint64(m.Metadata.Size()))
+		n4, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
@@ -893,85 +703,121 @@ func (m *HostMetadataPayload) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *HostMetadataPayload_HostMetadata) Marshal() (dAtA []byte, err error) {
+func (m *HostMetadataPayload_TagSet) Marshal() (data []byte, err error) {
 	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
 	if err != nil {
 		return nil, err
 	}
-	return dAtA[:n], nil
+	return data[:n], nil
 }
 
-func (m *HostMetadataPayload_HostMetadata) MarshalTo(dAtA []byte) (int, error) {
+func (m *HostMetadataPayload_TagSet) MarshalTo(data []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
 	_ = l
-	if len(m.Hostname) > 0 {
-		dAtA[i] = 0xa
+	if len(m.Type) > 0 {
+		data[i] = 0xa
 		i++
-		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Hostname)))
-		i += copy(dAtA[i:], m.Hostname)
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Type)))
+		i += copy(data[i:], m.Type)
 	}
 	if len(m.Tags) > 0 {
 		for _, s := range m.Tags {
-			dAtA[i] = 0x12
+			data[i] = 0x12
 			i++
 			l = len(s)
 			for l >= 1<<7 {
-				dAtA[i] = uint8(uint64(l)&0x7f | 0x80)
+				data[i] = uint8(uint64(l)&0x7f | 0x80)
 				l >>= 7
 				i++
 			}
-			dAtA[i] = uint8(l)
+			data[i] = uint8(l)
 			i++
-			i += copy(dAtA[i:], s)
-		}
-	}
-	if len(m.Aliases) > 0 {
-		for _, s := range m.Aliases {
-			dAtA[i] = 0x1a
-			i++
-			l = len(s)
-			for l >= 1<<7 {
-				dAtA[i] = uint8(uint64(l)&0x7f | 0x80)
-				l >>= 7
-				i++
-			}
-			dAtA[i] = uint8(l)
-			i++
-			i += copy(dAtA[i:], s)
+			i += copy(data[i:], s)
 		}
 	}
 	return i, nil
 }
 
-func encodeFixed64AgentPayload(dAtA []byte, offset int, v uint64) int {
-	dAtA[offset] = uint8(v)
-	dAtA[offset+1] = uint8(v >> 8)
-	dAtA[offset+2] = uint8(v >> 16)
-	dAtA[offset+3] = uint8(v >> 24)
-	dAtA[offset+4] = uint8(v >> 32)
-	dAtA[offset+5] = uint8(v >> 40)
-	dAtA[offset+6] = uint8(v >> 48)
-	dAtA[offset+7] = uint8(v >> 56)
+func (m *HostMetadataPayload_HostMetadata) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *HostMetadataPayload_HostMetadata) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Hostname) > 0 {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Hostname)))
+		i += copy(data[i:], m.Hostname)
+	}
+	if len(m.Tags) > 0 {
+		for _, msg := range m.Tags {
+			data[i] = 0x12
+			i++
+			i = encodeVarintAgentPayload(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if len(m.Aliases) > 0 {
+		for _, s := range m.Aliases {
+			data[i] = 0x1a
+			i++
+			l = len(s)
+			for l >= 1<<7 {
+				data[i] = uint8(uint64(l)&0x7f | 0x80)
+				l >>= 7
+				i++
+			}
+			data[i] = uint8(l)
+			i++
+			i += copy(data[i:], s)
+		}
+	}
+	return i, nil
+}
+
+func encodeFixed64AgentPayload(data []byte, offset int, v uint64) int {
+	data[offset] = uint8(v)
+	data[offset+1] = uint8(v >> 8)
+	data[offset+2] = uint8(v >> 16)
+	data[offset+3] = uint8(v >> 24)
+	data[offset+4] = uint8(v >> 32)
+	data[offset+5] = uint8(v >> 40)
+	data[offset+6] = uint8(v >> 48)
+	data[offset+7] = uint8(v >> 56)
 	return offset + 8
 }
-func encodeFixed32AgentPayload(dAtA []byte, offset int, v uint32) int {
-	dAtA[offset] = uint8(v)
-	dAtA[offset+1] = uint8(v >> 8)
-	dAtA[offset+2] = uint8(v >> 16)
-	dAtA[offset+3] = uint8(v >> 24)
+func encodeFixed32AgentPayload(data []byte, offset int, v uint32) int {
+	data[offset] = uint8(v)
+	data[offset+1] = uint8(v >> 8)
+	data[offset+2] = uint8(v >> 16)
+	data[offset+3] = uint8(v >> 24)
 	return offset + 4
 }
-func encodeVarintAgentPayload(dAtA []byte, offset int, v uint64) int {
+func encodeVarintAgentPayload(data []byte, offset int, v uint64) int {
 	for v >= 1<<7 {
-		dAtA[offset] = uint8(v&0x7f | 0x80)
+		data[offset] = uint8(v&0x7f | 0x80)
 		v >>= 7
 		offset++
 	}
-	dAtA[offset] = uint8(v)
+	data[offset] = uint8(v)
 	return offset + 1
 }
 func (m *CommonMetadata) Size() (n int) {
@@ -1182,6 +1028,22 @@ func (m *HostMetadataPayload) Size() (n int) {
 	return n
 }
 
+func (m *HostMetadataPayload_TagSet) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			l = len(s)
+			n += 1 + l + sovAgentPayload(uint64(l))
+		}
+	}
+	return n
+}
+
 func (m *HostMetadataPayload_HostMetadata) Size() (n int) {
 	var l int
 	_ = l
@@ -1190,8 +1052,8 @@ func (m *HostMetadataPayload_HostMetadata) Size() (n int) {
 		n += 1 + l + sovAgentPayload(uint64(l))
 	}
 	if len(m.Tags) > 0 {
-		for _, s := range m.Tags {
-			l = len(s)
+		for _, e := range m.Tags {
+			l = e.Size()
 			n += 1 + l + sovAgentPayload(uint64(l))
 		}
 	}
@@ -1217,8 +1079,8 @@ func sovAgentPayload(x uint64) (n int) {
 func sozAgentPayload(x uint64) (n int) {
 	return sovAgentPayload(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
+func (m *CommonMetadata) Unmarshal(data []byte) error {
+	l := len(data)
 	iNdEx := 0
 	for iNdEx < l {
 		preIndex := iNdEx
@@ -1230,7 +1092,7 @@ func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
 			if iNdEx >= l {
 				return io.ErrUnexpectedEOF
 			}
-			b := dAtA[iNdEx]
+			b := data[iNdEx]
 			iNdEx++
 			wire |= (uint64(b) & 0x7F) << shift
 			if b < 0x80 {
@@ -1258,7 +1120,7 @@ func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1273,7 +1135,7 @@ func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.AgentVersion = string(dAtA[iNdEx:postIndex])
+			m.AgentVersion = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
@@ -1287,7 +1149,7 @@ func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1302,7 +1164,7 @@ func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Timezone = string(dAtA[iNdEx:postIndex])
+			m.Timezone = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 1 {
@@ -1313,14 +1175,14 @@ func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			iNdEx += 8
-			v = uint64(dAtA[iNdEx-8])
-			v |= uint64(dAtA[iNdEx-7]) << 8
-			v |= uint64(dAtA[iNdEx-6]) << 16
-			v |= uint64(dAtA[iNdEx-5]) << 24
-			v |= uint64(dAtA[iNdEx-4]) << 32
-			v |= uint64(dAtA[iNdEx-3]) << 40
-			v |= uint64(dAtA[iNdEx-2]) << 48
-			v |= uint64(dAtA[iNdEx-1]) << 56
+			v = uint64(data[iNdEx-8])
+			v |= uint64(data[iNdEx-7]) << 8
+			v |= uint64(data[iNdEx-6]) << 16
+			v |= uint64(data[iNdEx-5]) << 24
+			v |= uint64(data[iNdEx-4]) << 32
+			v |= uint64(data[iNdEx-3]) << 40
+			v |= uint64(data[iNdEx-2]) << 48
+			v |= uint64(data[iNdEx-1]) << 56
 			m.CurrentEpoch = float64(math.Float64frombits(v))
 		case 4:
 			if wireType != 2 {
@@ -1334,7 +1196,7 @@ func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1349,7 +1211,7 @@ func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.InternalIp = string(dAtA[iNdEx:postIndex])
+			m.InternalIp = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 5:
 			if wireType != 2 {
@@ -1363,7 +1225,7 @@ func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1378,7 +1240,7 @@ func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.PublicIp = string(dAtA[iNdEx:postIndex])
+			m.PublicIp = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 6:
 			if wireType != 2 {
@@ -1392,7 +1254,7 @@ func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1407,11 +1269,11 @@ func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.ApiKey = string(dAtA[iNdEx:postIndex])
+			m.ApiKey = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
-			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			skippy, err := skipAgentPayload(data[iNdEx:])
 			if err != nil {
 				return err
 			}
@@ -1430,8 +1292,8 @@ func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MetricsPayload) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
+func (m *MetricsPayload) Unmarshal(data []byte) error {
+	l := len(data)
 	iNdEx := 0
 	for iNdEx < l {
 		preIndex := iNdEx
@@ -1443,7 +1305,7 @@ func (m *MetricsPayload) Unmarshal(dAtA []byte) error {
 			if iNdEx >= l {
 				return io.ErrUnexpectedEOF
 			}
-			b := dAtA[iNdEx]
+			b := data[iNdEx]
 			iNdEx++
 			wire |= (uint64(b) & 0x7F) << shift
 			if b < 0x80 {
@@ -1471,7 +1333,7 @@ func (m *MetricsPayload) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				msglen |= (int(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1486,7 +1348,7 @@ func (m *MetricsPayload) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Samples = append(m.Samples, &MetricsPayload_Sample{})
-			if err := m.Samples[len(m.Samples)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.Samples[len(m.Samples)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -1502,7 +1364,7 @@ func (m *MetricsPayload) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				msglen |= (int(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1519,13 +1381,13 @@ func (m *MetricsPayload) Unmarshal(dAtA []byte) error {
 			if m.Metadata == nil {
 				m.Metadata = &CommonMetadata{}
 			}
-			if err := m.Metadata.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.Metadata.Unmarshal(data[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
-			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			skippy, err := skipAgentPayload(data[iNdEx:])
 			if err != nil {
 				return err
 			}
@@ -1544,8 +1406,8 @@ func (m *MetricsPayload) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MetricsPayload_Sample) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
+func (m *MetricsPayload_Sample) Unmarshal(data []byte) error {
+	l := len(data)
 	iNdEx := 0
 	for iNdEx < l {
 		preIndex := iNdEx
@@ -1557,7 +1419,7 @@ func (m *MetricsPayload_Sample) Unmarshal(dAtA []byte) error {
 			if iNdEx >= l {
 				return io.ErrUnexpectedEOF
 			}
-			b := dAtA[iNdEx]
+			b := data[iNdEx]
 			iNdEx++
 			wire |= (uint64(b) & 0x7F) << shift
 			if b < 0x80 {
@@ -1585,7 +1447,7 @@ func (m *MetricsPayload_Sample) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1600,7 +1462,7 @@ func (m *MetricsPayload_Sample) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Metric = string(dAtA[iNdEx:postIndex])
+			m.Metric = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
@@ -1614,7 +1476,7 @@ func (m *MetricsPayload_Sample) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1629,7 +1491,7 @@ func (m *MetricsPayload_Sample) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Type = string(dAtA[iNdEx:postIndex])
+			m.Type = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
@@ -1643,7 +1505,7 @@ func (m *MetricsPayload_Sample) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1658,7 +1520,7 @@ func (m *MetricsPayload_Sample) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Host = string(dAtA[iNdEx:postIndex])
+			m.Host = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
@@ -1672,7 +1534,7 @@ func (m *MetricsPayload_Sample) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				msglen |= (int(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1687,7 +1549,7 @@ func (m *MetricsPayload_Sample) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Points = append(m.Points, &MetricsPayload_Sample_Point{})
-			if err := m.Points[len(m.Points)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.Points[len(m.Points)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -1703,7 +1565,7 @@ func (m *MetricsPayload_Sample) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1718,11 +1580,11 @@ func (m *MetricsPayload_Sample) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Tags = append(m.Tags, string(dAtA[iNdEx:postIndex]))
+			m.Tags = append(m.Tags, string(data[iNdEx:postIndex]))
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
-			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			skippy, err := skipAgentPayload(data[iNdEx:])
 			if err != nil {
 				return err
 			}
@@ -1741,8 +1603,8 @@ func (m *MetricsPayload_Sample) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MetricsPayload_Sample_Point) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
+func (m *MetricsPayload_Sample_Point) Unmarshal(data []byte) error {
+	l := len(data)
 	iNdEx := 0
 	for iNdEx < l {
 		preIndex := iNdEx
@@ -1754,7 +1616,7 @@ func (m *MetricsPayload_Sample_Point) Unmarshal(dAtA []byte) error {
 			if iNdEx >= l {
 				return io.ErrUnexpectedEOF
 			}
-			b := dAtA[iNdEx]
+			b := data[iNdEx]
 			iNdEx++
 			wire |= (uint64(b) & 0x7F) << shift
 			if b < 0x80 {
@@ -1782,7 +1644,7 @@ func (m *MetricsPayload_Sample_Point) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				m.Ts |= (int64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1798,18 +1660,18 @@ func (m *MetricsPayload_Sample_Point) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			iNdEx += 8
-			v = uint64(dAtA[iNdEx-8])
-			v |= uint64(dAtA[iNdEx-7]) << 8
-			v |= uint64(dAtA[iNdEx-6]) << 16
-			v |= uint64(dAtA[iNdEx-5]) << 24
-			v |= uint64(dAtA[iNdEx-4]) << 32
-			v |= uint64(dAtA[iNdEx-3]) << 40
-			v |= uint64(dAtA[iNdEx-2]) << 48
-			v |= uint64(dAtA[iNdEx-1]) << 56
+			v = uint64(data[iNdEx-8])
+			v |= uint64(data[iNdEx-7]) << 8
+			v |= uint64(data[iNdEx-6]) << 16
+			v |= uint64(data[iNdEx-5]) << 24
+			v |= uint64(data[iNdEx-4]) << 32
+			v |= uint64(data[iNdEx-3]) << 40
+			v |= uint64(data[iNdEx-2]) << 48
+			v |= uint64(data[iNdEx-1]) << 56
 			m.Value = float64(math.Float64frombits(v))
 		default:
 			iNdEx = preIndex
-			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			skippy, err := skipAgentPayload(data[iNdEx:])
 			if err != nil {
 				return err
 			}
@@ -1828,8 +1690,8 @@ func (m *MetricsPayload_Sample_Point) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *ServiceChecksPayload) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
+func (m *ServiceChecksPayload) Unmarshal(data []byte) error {
+	l := len(data)
 	iNdEx := 0
 	for iNdEx < l {
 		preIndex := iNdEx
@@ -1841,7 +1703,7 @@ func (m *ServiceChecksPayload) Unmarshal(dAtA []byte) error {
 			if iNdEx >= l {
 				return io.ErrUnexpectedEOF
 			}
-			b := dAtA[iNdEx]
+			b := data[iNdEx]
 			iNdEx++
 			wire |= (uint64(b) & 0x7F) << shift
 			if b < 0x80 {
@@ -1869,7 +1731,7 @@ func (m *ServiceChecksPayload) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				msglen |= (int(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1884,7 +1746,7 @@ func (m *ServiceChecksPayload) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.ServiceChecks = append(m.ServiceChecks, &ServiceChecksPayload_ServiceCheck{})
-			if err := m.ServiceChecks[len(m.ServiceChecks)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.ServiceChecks[len(m.ServiceChecks)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -1900,7 +1762,7 @@ func (m *ServiceChecksPayload) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				msglen |= (int(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1917,13 +1779,13 @@ func (m *ServiceChecksPayload) Unmarshal(dAtA []byte) error {
 			if m.Metadata == nil {
 				m.Metadata = &CommonMetadata{}
 			}
-			if err := m.Metadata.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.Metadata.Unmarshal(data[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
-			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			skippy, err := skipAgentPayload(data[iNdEx:])
 			if err != nil {
 				return err
 			}
@@ -1942,8 +1804,8 @@ func (m *ServiceChecksPayload) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *ServiceChecksPayload_ServiceCheck) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
+func (m *ServiceChecksPayload_ServiceCheck) Unmarshal(data []byte) error {
+	l := len(data)
 	iNdEx := 0
 	for iNdEx < l {
 		preIndex := iNdEx
@@ -1955,7 +1817,7 @@ func (m *ServiceChecksPayload_ServiceCheck) Unmarshal(dAtA []byte) error {
 			if iNdEx >= l {
 				return io.ErrUnexpectedEOF
 			}
-			b := dAtA[iNdEx]
+			b := data[iNdEx]
 			iNdEx++
 			wire |= (uint64(b) & 0x7F) << shift
 			if b < 0x80 {
@@ -1983,7 +1845,7 @@ func (m *ServiceChecksPayload_ServiceCheck) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -1998,7 +1860,7 @@ func (m *ServiceChecksPayload_ServiceCheck) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Name = string(dAtA[iNdEx:postIndex])
+			m.Name = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
@@ -2012,7 +1874,7 @@ func (m *ServiceChecksPayload_ServiceCheck) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2027,7 +1889,7 @@ func (m *ServiceChecksPayload_ServiceCheck) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Host = string(dAtA[iNdEx:postIndex])
+			m.Host = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 0 {
@@ -2041,7 +1903,7 @@ func (m *ServiceChecksPayload_ServiceCheck) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				m.Ts |= (int64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2060,7 +1922,7 @@ func (m *ServiceChecksPayload_ServiceCheck) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				m.Status |= (int32(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2079,7 +1941,7 @@ func (m *ServiceChecksPayload_ServiceCheck) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2094,7 +1956,7 @@ func (m *ServiceChecksPayload_ServiceCheck) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Message = string(dAtA[iNdEx:postIndex])
+			m.Message = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 6:
 			if wireType != 2 {
@@ -2108,7 +1970,7 @@ func (m *ServiceChecksPayload_ServiceCheck) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2123,11 +1985,11 @@ func (m *ServiceChecksPayload_ServiceCheck) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Tags = append(m.Tags, string(dAtA[iNdEx:postIndex]))
+			m.Tags = append(m.Tags, string(data[iNdEx:postIndex]))
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
-			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			skippy, err := skipAgentPayload(data[iNdEx:])
 			if err != nil {
 				return err
 			}
@@ -2146,8 +2008,8 @@ func (m *ServiceChecksPayload_ServiceCheck) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *EventsPayload) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
+func (m *EventsPayload) Unmarshal(data []byte) error {
+	l := len(data)
 	iNdEx := 0
 	for iNdEx < l {
 		preIndex := iNdEx
@@ -2159,7 +2021,7 @@ func (m *EventsPayload) Unmarshal(dAtA []byte) error {
 			if iNdEx >= l {
 				return io.ErrUnexpectedEOF
 			}
-			b := dAtA[iNdEx]
+			b := data[iNdEx]
 			iNdEx++
 			wire |= (uint64(b) & 0x7F) << shift
 			if b < 0x80 {
@@ -2187,7 +2049,7 @@ func (m *EventsPayload) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				msglen |= (int(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2202,7 +2064,7 @@ func (m *EventsPayload) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Events = append(m.Events, &EventsPayload_Event{})
-			if err := m.Events[len(m.Events)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.Events[len(m.Events)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -2218,7 +2080,7 @@ func (m *EventsPayload) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				msglen |= (int(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2235,13 +2097,13 @@ func (m *EventsPayload) Unmarshal(dAtA []byte) error {
 			if m.Metadata == nil {
 				m.Metadata = &CommonMetadata{}
 			}
-			if err := m.Metadata.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.Metadata.Unmarshal(data[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
-			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			skippy, err := skipAgentPayload(data[iNdEx:])
 			if err != nil {
 				return err
 			}
@@ -2260,8 +2122,8 @@ func (m *EventsPayload) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
+func (m *EventsPayload_Event) Unmarshal(data []byte) error {
+	l := len(data)
 	iNdEx := 0
 	for iNdEx < l {
 		preIndex := iNdEx
@@ -2273,7 +2135,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 			if iNdEx >= l {
 				return io.ErrUnexpectedEOF
 			}
-			b := dAtA[iNdEx]
+			b := data[iNdEx]
 			iNdEx++
 			wire |= (uint64(b) & 0x7F) << shift
 			if b < 0x80 {
@@ -2301,7 +2163,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2316,7 +2178,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Title = string(dAtA[iNdEx:postIndex])
+			m.Title = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
@@ -2330,7 +2192,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2345,7 +2207,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Text = string(dAtA[iNdEx:postIndex])
+			m.Text = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
 			if wireType != 0 {
@@ -2359,7 +2221,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				m.Ts |= (int64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2378,7 +2240,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2393,7 +2255,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Priority = string(dAtA[iNdEx:postIndex])
+			m.Priority = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 5:
 			if wireType != 2 {
@@ -2407,7 +2269,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2422,7 +2284,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Host = string(dAtA[iNdEx:postIndex])
+			m.Host = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 6:
 			if wireType != 2 {
@@ -2436,7 +2298,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2451,7 +2313,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Tags = append(m.Tags, string(dAtA[iNdEx:postIndex]))
+			m.Tags = append(m.Tags, string(data[iNdEx:postIndex]))
 			iNdEx = postIndex
 		case 7:
 			if wireType != 2 {
@@ -2465,7 +2327,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2480,7 +2342,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.AlertType = string(dAtA[iNdEx:postIndex])
+			m.AlertType = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 8:
 			if wireType != 2 {
@@ -2494,7 +2356,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2509,7 +2371,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.AggregationKey = string(dAtA[iNdEx:postIndex])
+			m.AggregationKey = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 9:
 			if wireType != 2 {
@@ -2523,7 +2385,7 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2538,11 +2400,11 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.SourceTypeName = string(dAtA[iNdEx:postIndex])
+			m.SourceTypeName = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
-			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			skippy, err := skipAgentPayload(data[iNdEx:])
 			if err != nil {
 				return err
 			}
@@ -2561,8 +2423,8 @@ func (m *EventsPayload_Event) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *HostMetadataPayload) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
+func (m *HostMetadataPayload) Unmarshal(data []byte) error {
+	l := len(data)
 	iNdEx := 0
 	for iNdEx < l {
 		preIndex := iNdEx
@@ -2574,7 +2436,7 @@ func (m *HostMetadataPayload) Unmarshal(dAtA []byte) error {
 			if iNdEx >= l {
 				return io.ErrUnexpectedEOF
 			}
-			b := dAtA[iNdEx]
+			b := data[iNdEx]
 			iNdEx++
 			wire |= (uint64(b) & 0x7F) << shift
 			if b < 0x80 {
@@ -2602,7 +2464,7 @@ func (m *HostMetadataPayload) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				msglen |= (int(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2617,7 +2479,7 @@ func (m *HostMetadataPayload) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.HostsMetadata = append(m.HostsMetadata, &HostMetadataPayload_HostMetadata{})
-			if err := m.HostsMetadata[len(m.HostsMetadata)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.HostsMetadata[len(m.HostsMetadata)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -2633,7 +2495,7 @@ func (m *HostMetadataPayload) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				msglen |= (int(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2650,13 +2512,13 @@ func (m *HostMetadataPayload) Unmarshal(dAtA []byte) error {
 			if m.Metadata == nil {
 				m.Metadata = &CommonMetadata{}
 			}
-			if err := m.Metadata.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.Metadata.Unmarshal(data[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
-			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			skippy, err := skipAgentPayload(data[iNdEx:])
 			if err != nil {
 				return err
 			}
@@ -2675,8 +2537,8 @@ func (m *HostMetadataPayload) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *HostMetadataPayload_HostMetadata) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
+func (m *HostMetadataPayload_TagSet) Unmarshal(data []byte) error {
+	l := len(data)
 	iNdEx := 0
 	for iNdEx < l {
 		preIndex := iNdEx
@@ -2688,7 +2550,115 @@ func (m *HostMetadataPayload_HostMetadata) Unmarshal(dAtA []byte) error {
 			if iNdEx >= l {
 				return io.ErrUnexpectedEOF
 			}
-			b := dAtA[iNdEx]
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: TagSet: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: TagSet: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tags", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Tags = append(m.Tags, string(data[iNdEx:postIndex]))
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgentPayload(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *HostMetadataPayload_HostMetadata) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgentPayload
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
 			iNdEx++
 			wire |= (uint64(b) & 0x7F) << shift
 			if b < 0x80 {
@@ -2716,7 +2686,7 @@ func (m *HostMetadataPayload_HostMetadata) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2731,13 +2701,13 @@ func (m *HostMetadataPayload_HostMetadata) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Hostname = string(dAtA[iNdEx:postIndex])
+			m.Hostname = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Tags", wireType)
 			}
-			var stringLen uint64
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAgentPayload
@@ -2745,22 +2715,24 @@ func (m *HostMetadataPayload_HostMetadata) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
+				msglen |= (int(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if msglen < 0 {
 				return ErrInvalidLengthAgentPayload
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + msglen
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Tags = append(m.Tags, string(dAtA[iNdEx:postIndex]))
+			m.Tags = append(m.Tags, &HostMetadataPayload_TagSet{})
+			if err := m.Tags[len(m.Tags)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
@@ -2774,7 +2746,7 @@ func (m *HostMetadataPayload_HostMetadata) Unmarshal(dAtA []byte) error {
 				if iNdEx >= l {
 					return io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2789,11 +2761,11 @@ func (m *HostMetadataPayload_HostMetadata) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Aliases = append(m.Aliases, string(dAtA[iNdEx:postIndex]))
+			m.Aliases = append(m.Aliases, string(data[iNdEx:postIndex]))
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
-			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			skippy, err := skipAgentPayload(data[iNdEx:])
 			if err != nil {
 				return err
 			}
@@ -2812,8 +2784,8 @@ func (m *HostMetadataPayload_HostMetadata) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func skipAgentPayload(dAtA []byte) (n int, err error) {
-	l := len(dAtA)
+func skipAgentPayload(data []byte) (n int, err error) {
+	l := len(data)
 	iNdEx := 0
 	for iNdEx < l {
 		var wire uint64
@@ -2824,7 +2796,7 @@ func skipAgentPayload(dAtA []byte) (n int, err error) {
 			if iNdEx >= l {
 				return 0, io.ErrUnexpectedEOF
 			}
-			b := dAtA[iNdEx]
+			b := data[iNdEx]
 			iNdEx++
 			wire |= (uint64(b) & 0x7F) << shift
 			if b < 0x80 {
@@ -2842,7 +2814,7 @@ func skipAgentPayload(dAtA []byte) (n int, err error) {
 					return 0, io.ErrUnexpectedEOF
 				}
 				iNdEx++
-				if dAtA[iNdEx-1] < 0x80 {
+				if data[iNdEx-1] < 0x80 {
 					break
 				}
 			}
@@ -2859,7 +2831,7 @@ func skipAgentPayload(dAtA []byte) (n int, err error) {
 				if iNdEx >= l {
 					return 0, io.ErrUnexpectedEOF
 				}
-				b := dAtA[iNdEx]
+				b := data[iNdEx]
 				iNdEx++
 				length |= (int(b) & 0x7F) << shift
 				if b < 0x80 {
@@ -2882,7 +2854,7 @@ func skipAgentPayload(dAtA []byte) (n int, err error) {
 					if iNdEx >= l {
 						return 0, io.ErrUnexpectedEOF
 					}
-					b := dAtA[iNdEx]
+					b := data[iNdEx]
 					iNdEx++
 					innerWire |= (uint64(b) & 0x7F) << shift
 					if b < 0x80 {
@@ -2893,7 +2865,7 @@ func skipAgentPayload(dAtA []byte) (n int, err error) {
 				if innerWireType == 4 {
 					break
 				}
-				next, err := skipAgentPayload(dAtA[start:])
+				next, err := skipAgentPayload(data[start:])
 				if err != nil {
 					return 0, err
 				}
@@ -2920,47 +2892,49 @@ var (
 func init() { proto.RegisterFile("agent_payload.proto", fileDescriptorAgentPayload) }
 
 var fileDescriptorAgentPayload = []byte{
-	// 671 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x94, 0x94, 0xc1, 0x6e, 0xd3, 0x4a,
-	0x14, 0x86, 0xef, 0x38, 0x8d, 0x93, 0x9c, 0x26, 0x69, 0x35, 0xad, 0x7a, 0xad, 0xdc, 0x4b, 0x08,
-	0x61, 0x41, 0x24, 0xc0, 0x42, 0x85, 0x27, 0xa0, 0xaa, 0xd4, 0xaa, 0x2a, 0xaa, 0x5c, 0x84, 0xd8,
-	0x45, 0x53, 0x77, 0x94, 0x8e, 0x6a, 0x7b, 0x2c, 0xcf, 0x24, 0x22, 0x3c, 0x03, 0x0f, 0xc0, 0x86,
-	0xa7, 0xe0, 0x09, 0xd8, 0xb1, 0x41, 0xe2, 0x11, 0x50, 0x41, 0xbc, 0x02, 0x5b, 0x34, 0x67, 0xec,
-	0xc1, 0x11, 0xd9, 0x74, 0x37, 0xe7, 0x9f, 0xdf, 0xbf, 0xcf, 0xf9, 0x66, 0x6c, 0xd8, 0x61, 0x33,
-	0x9e, 0xe9, 0x69, 0xce, 0x96, 0x89, 0x64, 0x97, 0x61, 0x5e, 0x48, 0x2d, 0xc7, 0x5f, 0x08, 0xf4,
-	0x0f, 0x64, 0x9a, 0xca, 0xec, 0x94, 0x6b, 0x76, 0xc9, 0x34, 0xa3, 0xf7, 0xa1, 0x67, 0x9d, 0x0b,
-	0x5e, 0x28, 0x21, 0xb3, 0x80, 0x8c, 0xc8, 0xa4, 0x13, 0x75, 0x51, 0x7c, 0x65, 0x35, 0x3a, 0x80,
-	0xb6, 0x16, 0x29, 0x7f, 0x2b, 0x33, 0x1e, 0x78, 0xb8, 0xef, 0x6a, 0x13, 0x10, 0xcf, 0x8b, 0xc2,
-	0x44, 0xf0, 0x5c, 0xc6, 0x57, 0x41, 0x63, 0x44, 0x26, 0x24, 0xea, 0x96, 0xe2, 0xa1, 0xd1, 0xe8,
-	0x5d, 0xd8, 0x14, 0x99, 0xe6, 0x45, 0xc6, 0x92, 0xa9, 0xc8, 0x83, 0x0d, 0xcc, 0x80, 0x4a, 0x3a,
-	0xce, 0xe9, 0x7f, 0xd0, 0xc9, 0xe7, 0x17, 0x89, 0x88, 0xcd, 0x76, 0xd3, 0xbe, 0xc2, 0x0a, 0xc7,
-	0x39, 0xfd, 0x17, 0x5a, 0x2c, 0x17, 0xd3, 0x6b, 0xbe, 0x0c, 0x7c, 0xdc, 0xf2, 0x59, 0x2e, 0x4e,
-	0xf8, 0x72, 0xfc, 0xd1, 0x83, 0xfe, 0x29, 0xd7, 0x85, 0x88, 0xd5, 0x99, 0x1d, 0x94, 0x3e, 0x81,
-	0x96, 0x62, 0x69, 0x9e, 0x70, 0x15, 0x90, 0x51, 0x63, 0xb2, 0xb9, 0xbf, 0x17, 0xae, 0x3a, 0xc2,
-	0x73, 0xdc, 0x8e, 0x2a, 0x1b, 0x7d, 0x08, 0xed, 0xb4, 0xa4, 0x81, 0xc3, 0x6d, 0xee, 0x6f, 0x85,
-	0xab, 0x90, 0x22, 0x67, 0x18, 0x7c, 0x22, 0xe0, 0xdb, 0x00, 0xba, 0x07, 0x7e, 0x8a, 0xc9, 0x25,
-	0xb2, 0xb2, 0xa2, 0x14, 0x36, 0xf4, 0x32, 0xaf, 0x40, 0xe1, 0xda, 0x68, 0x57, 0x52, 0x69, 0x64,
-	0xd3, 0x89, 0x70, 0x4d, 0x9f, 0x81, 0x9f, 0x4b, 0x91, 0x69, 0x15, 0x6c, 0x60, 0xa3, 0xff, 0xaf,
-	0x6f, 0x34, 0x3c, 0x33, 0xa6, 0xa8, 0xf4, 0x62, 0x3a, 0x9b, 0xa9, 0xa0, 0x39, 0x6a, 0x60, 0x3a,
-	0x9b, 0xa9, 0xc1, 0x63, 0x68, 0xa2, 0x89, 0xf6, 0xc1, 0xd3, 0x0a, 0xdb, 0x69, 0x44, 0x9e, 0x56,
-	0x74, 0x17, 0x9a, 0x0b, 0x96, 0xcc, 0x6d, 0x2f, 0x24, 0xb2, 0xc5, 0xf8, 0x83, 0x07, 0xbb, 0xe7,
-	0xbc, 0x58, 0x88, 0x98, 0x1f, 0x5c, 0xf1, 0xf8, 0xda, 0xb1, 0x3b, 0x86, 0xbe, 0xb2, 0xfa, 0x34,
-	0xc6, 0x8d, 0x12, 0xe1, 0x38, 0x5c, 0x67, 0x5f, 0x11, 0xa3, 0x9e, 0xaa, 0x5b, 0x6e, 0x07, 0xf5,
-	0x1d, 0x81, 0x6e, 0x3d, 0xcc, 0x0c, 0x99, 0xb1, 0x94, 0x97, 0x60, 0x71, 0xed, 0x10, 0x7a, 0x35,
-	0x84, 0x76, 0xde, 0x86, 0x9b, 0x77, 0x0f, 0x7c, 0xa5, 0x99, 0x9e, 0x2b, 0xbc, 0x61, 0xcd, 0xa8,
-	0xac, 0x68, 0x00, 0xad, 0x94, 0x2b, 0xc5, 0x66, 0xbc, 0xbc, 0x5b, 0x55, 0xe9, 0x70, 0xfa, 0x7f,
-	0x70, 0x8e, 0x7f, 0x78, 0xd0, 0x3b, 0x5c, 0xf0, 0x4c, 0x3b, 0x30, 0x8f, 0xc0, 0xe7, 0x28, 0x94,
-	0x40, 0x76, 0xc3, 0x95, 0x7d, 0x5b, 0x45, 0xa5, 0xe7, 0x76, 0xb3, 0xff, 0x22, 0xd0, 0xc4, 0xc7,
-	0xcd, 0x61, 0x69, 0xa1, 0x93, 0x6a, 0x6a, 0x5b, 0x60, 0x83, 0xfc, 0x8d, 0x1b, 0xdb, 0xac, 0xff,
-	0x1a, 0x7b, 0x00, 0xed, 0xbc, 0x10, 0xb2, 0x10, 0x7a, 0x59, 0x7e, 0x5a, 0xae, 0x76, 0xd8, 0x9a,
-	0x35, 0x6c, 0x6b, 0x86, 0xa6, 0x77, 0x00, 0x58, 0xc2, 0x0b, 0x3d, 0xc5, 0xbb, 0xdb, 0x42, 0x77,
-	0x07, 0x95, 0x97, 0xe6, 0x02, 0x3f, 0x80, 0x2d, 0x36, 0x9b, 0x15, 0x7c, 0xc6, 0xb4, 0x90, 0x19,
-	0x7e, 0x8a, 0x6d, 0xf4, 0xf4, 0x6b, 0xf2, 0x09, 0x5f, 0xd2, 0x09, 0x6c, 0x2b, 0x39, 0x2f, 0x62,
-	0x8e, 0x41, 0x53, 0x3c, 0xc6, 0x8e, 0x75, 0x5a, 0xdd, 0xc4, 0xbd, 0x60, 0x29, 0x1f, 0xff, 0x24,
-	0xb0, 0x73, 0x24, 0x95, 0xae, 0xa0, 0x54, 0xb0, 0x8f, 0xa0, 0x6f, 0xba, 0x54, 0x53, 0x07, 0xd1,
-	0x42, 0xbf, 0x17, 0xae, 0x71, 0xaf, 0x68, 0x51, 0x0f, 0x1f, 0x74, 0xff, 0xb6, 0x5b, 0x1d, 0xc4,
-	0x6b, 0xe8, 0xd6, 0xb3, 0x0c, 0x54, 0x93, 0x56, 0xbb, 0x87, 0xae, 0x76, 0x00, 0xbd, 0x1a, 0xc0,
-	0x00, 0x5a, 0x2c, 0x11, 0x4c, 0x71, 0x73, 0x32, 0x46, 0xae, 0xca, 0xe7, 0xdb, 0x9f, 0x6f, 0x86,
-	0xe4, 0xeb, 0xcd, 0x90, 0x7c, 0xbb, 0x19, 0x92, 0xf7, 0xdf, 0x87, 0xff, 0x5c, 0xf8, 0xf8, 0x3b,
-	0x7e, 0xfa, 0x3b, 0x00, 0x00, 0xff, 0xff, 0xd5, 0x67, 0xd7, 0x72, 0xa5, 0x05, 0x00, 0x00,
+	// 700 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x94, 0xcf, 0x6e, 0xd3, 0x4a,
+	0x14, 0xc6, 0xaf, 0x9d, 0xc6, 0x49, 0x4e, 0xfe, 0xb4, 0x9a, 0x56, 0xbd, 0x56, 0x7a, 0x6f, 0x6e,
+	0x6e, 0x58, 0x10, 0x09, 0x30, 0x55, 0xe1, 0x09, 0xa8, 0x2a, 0xb5, 0xaa, 0x8a, 0x2a, 0xb7, 0x62,
+	0x1b, 0x4d, 0xdd, 0x91, 0x3b, 0xaa, 0xed, 0xb1, 0x3c, 0x93, 0x88, 0xf0, 0x0c, 0x3c, 0x00, 0x1b,
+	0x9e, 0x02, 0xf1, 0x00, 0xec, 0xd8, 0x20, 0xf1, 0x08, 0xa8, 0xf0, 0x0e, 0x6c, 0xd1, 0x9c, 0xb1,
+	0x07, 0x47, 0x64, 0xd3, 0xdd, 0x9c, 0x6f, 0x3e, 0x9f, 0x39, 0xe7, 0x77, 0x66, 0x0c, 0xdb, 0x34,
+	0x66, 0x99, 0x9a, 0xe5, 0x74, 0x99, 0x08, 0x7a, 0x1d, 0xe4, 0x85, 0x50, 0x62, 0xf2, 0xc5, 0x81,
+	0xc1, 0xa1, 0x48, 0x53, 0x91, 0x9d, 0x31, 0x45, 0xaf, 0xa9, 0xa2, 0xe4, 0x01, 0xf4, 0x8d, 0x73,
+	0xc1, 0x0a, 0xc9, 0x45, 0xe6, 0x3b, 0x63, 0x67, 0xda, 0x09, 0x7b, 0x28, 0xbe, 0x32, 0x1a, 0x19,
+	0x42, 0x5b, 0xf1, 0x94, 0xbd, 0x11, 0x19, 0xf3, 0x5d, 0xdc, 0xb7, 0xb1, 0x4e, 0x10, 0xcd, 0x8b,
+	0x42, 0xa7, 0x60, 0xb9, 0x88, 0x6e, 0xfc, 0xc6, 0xd8, 0x99, 0x3a, 0x61, 0xaf, 0x14, 0x8f, 0xb4,
+	0x46, 0xfe, 0x83, 0x2e, 0xcf, 0x14, 0x2b, 0x32, 0x9a, 0xcc, 0x78, 0xee, 0x6f, 0x60, 0x0e, 0xa8,
+	0xa4, 0x93, 0x9c, 0xec, 0x41, 0x27, 0x9f, 0x5f, 0x25, 0x3c, 0xd2, 0xdb, 0x4d, 0x73, 0x84, 0x11,
+	0x4e, 0x72, 0xf2, 0x37, 0xb4, 0x68, 0xce, 0x67, 0xb7, 0x6c, 0xe9, 0x7b, 0xb8, 0xe5, 0xd1, 0x9c,
+	0x9f, 0xb2, 0xe5, 0xe4, 0x83, 0x0b, 0x83, 0x33, 0xa6, 0x0a, 0x1e, 0xc9, 0x73, 0xd3, 0x28, 0xd9,
+	0x87, 0x96, 0xa4, 0x69, 0x9e, 0x30, 0xe9, 0x3b, 0xe3, 0xc6, 0xb4, 0x7b, 0xb0, 0x1b, 0xac, 0x3a,
+	0x82, 0x0b, 0xdc, 0x0e, 0x2b, 0x1b, 0x79, 0x04, 0xed, 0xb4, 0xa4, 0x81, 0xcd, 0x75, 0x0f, 0x36,
+	0x83, 0x55, 0x48, 0xa1, 0x35, 0x0c, 0x3f, 0x39, 0xe0, 0x99, 0x04, 0x64, 0x17, 0xbc, 0x14, 0x33,
+	0x97, 0xc8, 0xca, 0x88, 0x10, 0xd8, 0x50, 0xcb, 0xbc, 0x02, 0x85, 0x6b, 0xad, 0xdd, 0x08, 0xa9,
+	0x90, 0x4d, 0x27, 0xc4, 0x35, 0x79, 0x0e, 0x5e, 0x2e, 0x78, 0xa6, 0xa4, 0xbf, 0x81, 0x85, 0xfe,
+	0xb3, 0xbe, 0xd0, 0xe0, 0x5c, 0x9b, 0xc2, 0xd2, 0x8b, 0xd9, 0x69, 0x2c, 0xfd, 0xe6, 0xb8, 0x81,
+	0xd9, 0x69, 0x2c, 0x87, 0x4f, 0xa0, 0x89, 0x26, 0x32, 0x00, 0x57, 0x49, 0x2c, 0xa7, 0x11, 0xba,
+	0x4a, 0x92, 0x1d, 0x68, 0x2e, 0x68, 0x32, 0x37, 0xb5, 0x38, 0xa1, 0x09, 0x26, 0xef, 0x5d, 0xd8,
+	0xb9, 0x60, 0xc5, 0x82, 0x47, 0xec, 0xf0, 0x86, 0x45, 0xb7, 0x96, 0xdd, 0x09, 0x0c, 0xa4, 0xd1,
+	0x67, 0x11, 0x6e, 0x94, 0x08, 0x27, 0xc1, 0x3a, 0xfb, 0x8a, 0x18, 0xf6, 0x65, 0xdd, 0x72, 0x3f,
+	0xa8, 0x6f, 0x1d, 0xe8, 0xd5, 0x93, 0xe9, 0x26, 0x33, 0x9a, 0xb2, 0x12, 0x2c, 0xae, 0x2d, 0x42,
+	0xb7, 0x86, 0xd0, 0xf4, 0xdb, 0xb0, 0xfd, 0xee, 0x82, 0x27, 0x15, 0x55, 0x73, 0x89, 0x37, 0xac,
+	0x19, 0x96, 0x11, 0xf1, 0xa1, 0x95, 0x32, 0x29, 0x69, 0xcc, 0xca, 0xbb, 0x55, 0x85, 0x16, 0xa7,
+	0xf7, 0x1b, 0xe7, 0xe4, 0x87, 0x0b, 0xfd, 0xa3, 0x05, 0xcb, 0x94, 0x05, 0xf3, 0x18, 0x3c, 0x86,
+	0x42, 0x09, 0x64, 0x27, 0x58, 0xd9, 0x37, 0x51, 0x58, 0x7a, 0xee, 0xd7, 0xfb, 0x4f, 0x07, 0x9a,
+	0xf8, 0xb9, 0x1e, 0x96, 0xe2, 0x2a, 0xa9, 0xba, 0x36, 0x01, 0x16, 0xc8, 0x5e, 0xdb, 0xb6, 0xf5,
+	0xfa, 0x8f, 0xb6, 0x87, 0xd0, 0xce, 0x0b, 0x2e, 0x0a, 0xae, 0x96, 0xe5, 0xd3, 0xb2, 0xb1, 0xc5,
+	0xd6, 0xac, 0x61, 0x5b, 0xd3, 0x34, 0xf9, 0x17, 0x80, 0x26, 0xac, 0x50, 0x33, 0xbc, 0xbb, 0x2d,
+	0x74, 0x77, 0x50, 0xb9, 0xd4, 0x17, 0xf8, 0x21, 0x6c, 0xd2, 0x38, 0x2e, 0x58, 0x4c, 0x15, 0x17,
+	0x19, 0x3e, 0xc5, 0x36, 0x7a, 0x06, 0x35, 0xf9, 0x94, 0x2d, 0xc9, 0x14, 0xb6, 0xa4, 0x98, 0x17,
+	0x11, 0xc3, 0x44, 0x33, 0x1c, 0x63, 0xc7, 0x38, 0x8d, 0xae, 0xd3, 0xbd, 0xa4, 0x29, 0x9b, 0x7c,
+	0x74, 0x61, 0xfb, 0x58, 0x48, 0x55, 0x41, 0xa9, 0x60, 0x1f, 0xc3, 0x40, 0x57, 0x29, 0x67, 0x16,
+	0xa2, 0x81, 0xfe, 0x7f, 0xb0, 0xc6, 0xbd, 0xa2, 0x85, 0x7d, 0xfc, 0xd0, 0xfe, 0xdb, 0xee, 0x35,
+	0x88, 0x7d, 0xf0, 0x2e, 0x69, 0x7c, 0xc1, 0x94, 0x7d, 0xc0, 0xce, 0xea, 0x03, 0x46, 0x64, 0x6e,
+	0xed, 0xd9, 0xcd, 0xa1, 0x57, 0x3f, 0x5d, 0x8f, 0x41, 0x9f, 0x5f, 0xbb, 0xb9, 0x36, 0x26, 0x4f,
+	0x6b, 0xdf, 0x77, 0x0f, 0xf6, 0xd6, 0xb6, 0x62, 0x8e, 0x2f, 0xe7, 0xe1, 0x43, 0x8b, 0x26, 0x9c,
+	0x4a, 0xa6, 0x07, 0xad, 0xcf, 0xac, 0xc2, 0x17, 0x5b, 0x9f, 0xef, 0x46, 0xce, 0xd7, 0xbb, 0x91,
+	0xf3, 0xed, 0x6e, 0xe4, 0xbc, 0xfb, 0x3e, 0xfa, 0xeb, 0xca, 0xc3, 0xbf, 0xfb, 0xb3, 0x5f, 0x01,
+	0x00, 0x00, 0xff, 0xff, 0x4a, 0x13, 0xe3, 0x5e, 0xf4, 0x05, 0x00, 0x00,
 }
