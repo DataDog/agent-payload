@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='agent_payload.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x13\x61gent_payload.proto\"\x89\x01\n\x0e\x43ommonMetadata\x12\x15\n\ragent_version\x18\x01 \x01(\t\x12\x10\n\x08timezone\x18\x02 \x01(\t\x12\x15\n\rcurrent_epoch\x18\x03 \x01(\x01\x12\x13\n\x0binternal_ip\x18\x04 \x01(\t\x12\x11\n\tpublic_ip\x18\x05 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x06 \x01(\t\"\xf3\x01\n\x0eMetricsPayload\x12\'\n\x07samples\x18\x01 \x03(\x0b\x32\x16.MetricsPayload.Sample\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\x94\x01\n\x06Sample\x12\x0e\n\x06metric\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x0c\n\x04host\x18\x03 \x01(\t\x12,\n\x06points\x18\x04 \x03(\x0b\x32\x1c.MetricsPayload.Sample.Point\x12\x0c\n\x04tags\x18\x05 \x03(\t\x1a\"\n\x05Point\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\r\n\x05value\x18\x02 \x01(\x01\"\xdc\x01\n\x14ServiceChecksPayload\x12:\n\x0eservice_checks\x18\x01 \x03(\x0b\x32\".ServiceChecksPayload.ServiceCheck\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\x65\n\x0cServiceCheck\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x0e\n\x06status\x18\x04 \x01(\x05\x12\x0f\n\x07message\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\"\x80\x02\n\rEventsPayload\x12$\n\x06\x65vents\x18\x01 \x03(\x0b\x32\x14.EventsPayload.Event\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\xa5\x01\n\x05\x45vent\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x10\n\x08priority\x18\x04 \x01(\t\x12\x0c\n\x04host\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x12\n\nalert_type\x18\x07 \x01(\t\x12\x17\n\x0f\x61ggregation_key\x18\x08 \x01(\t\x12\x18\n\x10source_type_name\x18\t \x01(\t\"\xb4\x01\n\x13HostMetadataPayload\x12\x39\n\x0ehosts_metadata\x18\x01 \x03(\x0b\x32!.HostMetadataPayload.HostMetadata\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a?\n\x0cHostMetadata\x12\x10\n\x08hostname\x18\x01 \x01(\t\x12\x0c\n\x04tags\x18\x02 \x03(\t\x12\x0f\n\x07\x61liases\x18\x03 \x03(\tb\x06proto3')
+  serialized_pb=_b('\n\x13\x61gent_payload.proto\"\x89\x01\n\x0e\x43ommonMetadata\x12\x15\n\ragent_version\x18\x01 \x01(\t\x12\x10\n\x08timezone\x18\x02 \x01(\t\x12\x15\n\rcurrent_epoch\x18\x03 \x01(\x01\x12\x13\n\x0binternal_ip\x18\x04 \x01(\t\x12\x11\n\tpublic_ip\x18\x05 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x06 \x01(\t\"\xf3\x01\n\x0eMetricsPayload\x12\'\n\x07samples\x18\x01 \x03(\x0b\x32\x16.MetricsPayload.Sample\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\x94\x01\n\x06Sample\x12\x0e\n\x06metric\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x0c\n\x04host\x18\x03 \x01(\t\x12,\n\x06points\x18\x04 \x03(\x0b\x32\x1c.MetricsPayload.Sample.Point\x12\x0c\n\x04tags\x18\x05 \x03(\t\x1a\"\n\x05Point\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\r\n\x05value\x18\x02 \x01(\x01\"\xdc\x01\n\x14ServiceChecksPayload\x12:\n\x0eservice_checks\x18\x01 \x03(\x0b\x32\".ServiceChecksPayload.ServiceCheck\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\x65\n\x0cServiceCheck\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x0e\n\x06status\x18\x04 \x01(\x05\x12\x0f\n\x07message\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\"\x80\x02\n\rEventsPayload\x12$\n\x06\x65vents\x18\x01 \x03(\x0b\x32\x14.EventsPayload.Event\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\xa5\x01\n\x05\x45vent\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x10\n\x08priority\x18\x04 \x01(\t\x12\x0c\n\x04host\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x12\n\nalert_type\x18\x07 \x01(\t\x12\x17\n\x0f\x61ggregation_key\x18\x08 \x01(\t\x12\x18\n\x10source_type_name\x18\t \x01(\t\"\xf7\x01\n\x13HostMetadataPayload\x12\x39\n\x0ehosts_metadata\x18\x01 \x03(\x0b\x32!.HostMetadataPayload.HostMetadata\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a$\n\x06TagSet\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04tags\x18\x02 \x03(\t\x1a\\\n\x0cHostMetadata\x12\x10\n\x08hostname\x18\x01 \x01(\t\x12)\n\x04tags\x18\x02 \x03(\x0b\x32\x1b.HostMetadataPayload.TagSet\x12\x0f\n\x07\x61liases\x18\x03 \x03(\tb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -452,6 +452,43 @@ _EVENTSPAYLOAD = _descriptor.Descriptor(
 )
 
 
+_HOSTMETADATAPAYLOAD_TAGSET = _descriptor.Descriptor(
+  name='TagSet',
+  full_name='HostMetadataPayload.TagSet',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='type', full_name='HostMetadataPayload.TagSet.type', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='tags', full_name='HostMetadataPayload.TagSet.tags', index=1,
+      number=2, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1009,
+  serialized_end=1045,
+)
+
 _HOSTMETADATAPAYLOAD_HOSTMETADATA = _descriptor.Descriptor(
   name='HostMetadata',
   full_name='HostMetadataPayload.HostMetadata',
@@ -468,7 +505,7 @@ _HOSTMETADATAPAYLOAD_HOSTMETADATA = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='tags', full_name='HostMetadataPayload.HostMetadata.tags', index=1,
-      number=2, type=9, cpp_type=9, label=3,
+      number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -492,8 +529,8 @@ _HOSTMETADATAPAYLOAD_HOSTMETADATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1009,
-  serialized_end=1072,
+  serialized_start=1047,
+  serialized_end=1139,
 )
 
 _HOSTMETADATAPAYLOAD = _descriptor.Descriptor(
@@ -520,7 +557,7 @@ _HOSTMETADATAPAYLOAD = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_HOSTMETADATAPAYLOAD_HOSTMETADATA, ],
+  nested_types=[_HOSTMETADATAPAYLOAD_TAGSET, _HOSTMETADATAPAYLOAD_HOSTMETADATA, ],
   enum_types=[
   ],
   options=None,
@@ -530,7 +567,7 @@ _HOSTMETADATAPAYLOAD = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=892,
-  serialized_end=1072,
+  serialized_end=1139,
 )
 
 _METRICSPAYLOAD_SAMPLE_POINT.containing_type = _METRICSPAYLOAD_SAMPLE
@@ -544,6 +581,8 @@ _SERVICECHECKSPAYLOAD.fields_by_name['metadata'].message_type = _COMMONMETADATA
 _EVENTSPAYLOAD_EVENT.containing_type = _EVENTSPAYLOAD
 _EVENTSPAYLOAD.fields_by_name['events'].message_type = _EVENTSPAYLOAD_EVENT
 _EVENTSPAYLOAD.fields_by_name['metadata'].message_type = _COMMONMETADATA
+_HOSTMETADATAPAYLOAD_TAGSET.containing_type = _HOSTMETADATAPAYLOAD
+_HOSTMETADATAPAYLOAD_HOSTMETADATA.fields_by_name['tags'].message_type = _HOSTMETADATAPAYLOAD_TAGSET
 _HOSTMETADATAPAYLOAD_HOSTMETADATA.containing_type = _HOSTMETADATAPAYLOAD
 _HOSTMETADATAPAYLOAD.fields_by_name['hosts_metadata'].message_type = _HOSTMETADATAPAYLOAD_HOSTMETADATA
 _HOSTMETADATAPAYLOAD.fields_by_name['metadata'].message_type = _COMMONMETADATA
@@ -615,6 +654,13 @@ _sym_db.RegisterMessage(EventsPayload.Event)
 
 HostMetadataPayload = _reflection.GeneratedProtocolMessageType('HostMetadataPayload', (_message.Message,), dict(
 
+  TagSet = _reflection.GeneratedProtocolMessageType('TagSet', (_message.Message,), dict(
+    DESCRIPTOR = _HOSTMETADATAPAYLOAD_TAGSET,
+    __module__ = 'agent_payload_pb2'
+    # @@protoc_insertion_point(class_scope:HostMetadataPayload.TagSet)
+    ))
+  ,
+
   HostMetadata = _reflection.GeneratedProtocolMessageType('HostMetadata', (_message.Message,), dict(
     DESCRIPTOR = _HOSTMETADATAPAYLOAD_HOSTMETADATA,
     __module__ = 'agent_payload_pb2'
@@ -626,6 +672,7 @@ HostMetadataPayload = _reflection.GeneratedProtocolMessageType('HostMetadataPayl
   # @@protoc_insertion_point(class_scope:HostMetadataPayload)
   ))
 _sym_db.RegisterMessage(HostMetadataPayload)
+_sym_db.RegisterMessage(HostMetadataPayload.TagSet)
 _sym_db.RegisterMessage(HostMetadataPayload.HostMetadata)
 
 
