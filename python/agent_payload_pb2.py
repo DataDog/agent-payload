@@ -19,9 +19,8 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='agent_payload.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\x13\x61gent_payload.proto\"\x89\x01\n\x0e\x43ommonMetadata\x12\x15\n\ragent_version\x18\x01 \x01(\t\x12\x10\n\x08timezone\x18\x02 \x01(\t\x12\x15\n\rcurrent_epoch\x18\x03 \x01(\x01\x12\x13\n\x0binternal_ip\x18\x04 \x01(\t\x12\x11\n\tpublic_ip\x18\x05 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x06 \x01(\t\"\xf3\x01\n\x0eMetricsPayload\x12\'\n\x07samples\x18\x01 \x03(\x0b\x32\x16.MetricsPayload.Sample\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\x94\x01\n\x06Sample\x12\x0e\n\x06metric\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x0c\n\x04host\x18\x03 \x01(\t\x12,\n\x06points\x18\x04 \x03(\x0b\x32\x1c.MetricsPayload.Sample.Point\x12\x0c\n\x04tags\x18\x05 \x03(\t\x1a\"\n\x05Point\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\r\n\x05value\x18\x02 \x01(\x01\"\xdc\x01\n\x14ServiceChecksPayload\x12:\n\x0eservice_checks\x18\x01 \x03(\x0b\x32\".ServiceChecksPayload.ServiceCheck\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\x65\n\x0cServiceCheck\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x0e\n\x06status\x18\x04 \x01(\x05\x12\x0f\n\x07message\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\"\x80\x02\n\rEventsPayload\x12$\n\x06\x65vents\x18\x01 \x03(\x0b\x32\x14.EventsPayload.Event\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\xa5\x01\n\x05\x45vent\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x10\n\x08priority\x18\x04 \x01(\t\x12\x0c\n\x04host\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x12\n\nalert_type\x18\x07 \x01(\t\x12\x17\n\x0f\x61ggregation_key\x18\x08 \x01(\t\x12\x18\n\x10source_type_name\x18\t \x01(\t\"\xf7\x01\n\x13HostMetadataPayload\x12\x39\n\x0ehosts_metadata\x18\x01 \x03(\x0b\x32!.HostMetadataPayload.HostMetadata\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a$\n\x06TagSet\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04tags\x18\x02 \x03(\t\x1a\\\n\x0cHostMetadata\x12\x10\n\x08hostname\x18\x01 \x01(\t\x12)\n\x04tags\x18\x02 \x03(\x0b\x32\x1b.HostMetadataPayload.TagSet\x12\x0f\n\x07\x61liases\x18\x03 \x03(\tb\x06proto3')
+  serialized_pb=_b('\n\x13\x61gent_payload.proto\"\x89\x01\n\x0e\x43ommonMetadata\x12\x15\n\ragent_version\x18\x01 \x01(\t\x12\x10\n\x08timezone\x18\x02 \x01(\t\x12\x15\n\rcurrent_epoch\x18\x03 \x01(\x01\x12\x13\n\x0binternal_ip\x18\x04 \x01(\t\x12\x11\n\tpublic_ip\x18\x05 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x06 \x01(\t\"\xf3\x01\n\x0eMetricsPayload\x12\'\n\x07samples\x18\x01 \x03(\x0b\x32\x16.MetricsPayload.Sample\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\x94\x01\n\x06Sample\x12\x0e\n\x06metric\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x0c\n\x04host\x18\x03 \x01(\t\x12,\n\x06points\x18\x04 \x03(\x0b\x32\x1c.MetricsPayload.Sample.Point\x12\x0c\n\x04tags\x18\x05 \x03(\t\x1a\"\n\x05Point\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\r\n\x05value\x18\x02 \x01(\x01\"\xdc\x01\n\x14ServiceChecksPayload\x12:\n\x0eservice_checks\x18\x01 \x03(\x0b\x32\".ServiceChecksPayload.ServiceCheck\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\x65\n\x0cServiceCheck\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x0e\n\x06status\x18\x04 \x01(\x05\x12\x0f\n\x07message\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\"\x80\x02\n\rEventsPayload\x12$\n\x06\x65vents\x18\x01 \x03(\x0b\x32\x14.EventsPayload.Event\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a\xa5\x01\n\x05\x45vent\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x10\n\x08priority\x18\x04 \x01(\t\x12\x0c\n\x04host\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x12\n\nalert_type\x18\x07 \x01(\t\x12\x17\n\x0f\x61ggregation_key\x18\x08 \x01(\t\x12\x18\n\x10source_type_name\x18\t \x01(\t\"\xf7\x01\n\x13HostMetadataPayload\x12\x39\n\x0ehosts_metadata\x18\x01 \x03(\x0b\x32!.HostMetadataPayload.HostMetadata\x12!\n\x08metadata\x18\x02 \x01(\x0b\x32\x0f.CommonMetadata\x1a$\n\x06TagSet\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04tags\x18\x02 \x03(\t\x1a\\\n\x0cHostMetadata\x12\x10\n\x08hostname\x18\x01 \x01(\t\x12)\n\x04tags\x18\x02 \x03(\x0b\x32\x1b.HostMetadataPayload.TagSet\x12\x0f\n\x07\x61liases\x18\x03 \x03(\t\"\xa5\t\n\x13KubeMetadataPayload\x12\x34\n\x0b\x64\x65ployments\x18\x01 \x03(\x0b\x32\x1f.KubeMetadataPayload.Deployment\x12\x35\n\x0creplica_sets\x18\x02 \x03(\x0b\x32\x1f.KubeMetadataPayload.ReplicaSet\x12\x33\n\x0b\x64\x61\x65mon_sets\x18\x03 \x03(\x0b\x32\x1e.KubeMetadataPayload.DaemonSet\x12.\n\x08services\x18\x04 \x03(\x0b\x32\x1c.KubeMetadataPayload.Service\x12&\n\x04jobs\x18\x05 \x03(\x0b\x32\x18.KubeMetadataPayload.Job\x12&\n\x04pods\x18\x06 \x03(\x0b\x32\x18.KubeMetadataPayload.Pod\x12\x32\n\ncontainers\x18\x07 \x03(\x0b\x32\x1e.KubeMetadataPayload.Container\x1a:\n\nDeployment\x12\x0b\n\x03uid\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\tnamespace\x18\x03 \x01(\t\x1aN\n\nReplicaSet\x12\x0b\n\x03uid\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\tnamespace\x18\x03 \x01(\t\x12\x12\n\ndeployment\x18\x04 \x01(\t\x1a\x39\n\tDaemonSet\x12\x0b\n\x03uid\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\tnamespace\x18\x03 \x01(\t\x1a\xb4\x01\n\x07Service\x12\x0b\n\x03uid\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\tnamespace\x18\x03 \x01(\t\x12<\n\x08selector\x18\x04 \x03(\x0b\x32*.KubeMetadataPayload.Service.SelectorEntry\x12\x0c\n\x04type\x18\x05 \x01(\t\x1a/\n\rSelectorEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a\x33\n\x03Job\x12\x0b\n\x03uid\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\tnamespace\x18\x03 \x01(\t\x1a\xbc\x02\n\x03Pod\x12\x0b\n\x03uid\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\tnamespace\x18\x03 \x01(\t\x12\x0f\n\x07host_ip\x18\x04 \x01(\t\x12\x0e\n\x06pod_ip\x18\x05 \x01(\t\x12\x34\n\x06labels\x18\x06 \x03(\x0b\x32$.KubeMetadataPayload.Pod.LabelsEntry\x12\x14\n\x0cservice_uids\x18\x07 \x03(\t\x12\x15\n\rcontainer_ids\x18\x08 \x03(\t\x12\x12\n\ndaemon_set\x18\t \x01(\t\x12\x13\n\x0breplica_set\x18\n \x01(\t\x12\x1e\n\x16replication_controller\x18\x0b \x01(\t\x12\x0b\n\x03job\x18\x0c \x01(\t\x1a-\n\x0bLabelsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a\x46\n\tContainer\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05image\x18\x03 \x01(\t\x12\x10\n\x08image_id\x18\x04 \x01(\tb\x06proto3')
 )
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -570,6 +569,552 @@ _HOSTMETADATAPAYLOAD = _descriptor.Descriptor(
   serialized_end=1139,
 )
 
+
+_KUBEMETADATAPAYLOAD_DEPLOYMENT = _descriptor.Descriptor(
+  name='Deployment',
+  full_name='KubeMetadataPayload.Deployment',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='KubeMetadataPayload.Deployment.uid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='KubeMetadataPayload.Deployment.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='namespace', full_name='KubeMetadataPayload.Deployment.namespace', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1507,
+  serialized_end=1565,
+)
+
+_KUBEMETADATAPAYLOAD_REPLICASET = _descriptor.Descriptor(
+  name='ReplicaSet',
+  full_name='KubeMetadataPayload.ReplicaSet',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='KubeMetadataPayload.ReplicaSet.uid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='KubeMetadataPayload.ReplicaSet.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='namespace', full_name='KubeMetadataPayload.ReplicaSet.namespace', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='deployment', full_name='KubeMetadataPayload.ReplicaSet.deployment', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1567,
+  serialized_end=1645,
+)
+
+_KUBEMETADATAPAYLOAD_DAEMONSET = _descriptor.Descriptor(
+  name='DaemonSet',
+  full_name='KubeMetadataPayload.DaemonSet',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='KubeMetadataPayload.DaemonSet.uid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='KubeMetadataPayload.DaemonSet.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='namespace', full_name='KubeMetadataPayload.DaemonSet.namespace', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1647,
+  serialized_end=1704,
+)
+
+_KUBEMETADATAPAYLOAD_SERVICE_SELECTORENTRY = _descriptor.Descriptor(
+  name='SelectorEntry',
+  full_name='KubeMetadataPayload.Service.SelectorEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='KubeMetadataPayload.Service.SelectorEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='KubeMetadataPayload.Service.SelectorEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=_descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001')),
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1840,
+  serialized_end=1887,
+)
+
+_KUBEMETADATAPAYLOAD_SERVICE = _descriptor.Descriptor(
+  name='Service',
+  full_name='KubeMetadataPayload.Service',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='KubeMetadataPayload.Service.uid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='KubeMetadataPayload.Service.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='namespace', full_name='KubeMetadataPayload.Service.namespace', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='selector', full_name='KubeMetadataPayload.Service.selector', index=3,
+      number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='type', full_name='KubeMetadataPayload.Service.type', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_KUBEMETADATAPAYLOAD_SERVICE_SELECTORENTRY, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1707,
+  serialized_end=1887,
+)
+
+_KUBEMETADATAPAYLOAD_JOB = _descriptor.Descriptor(
+  name='Job',
+  full_name='KubeMetadataPayload.Job',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='KubeMetadataPayload.Job.uid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='KubeMetadataPayload.Job.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='namespace', full_name='KubeMetadataPayload.Job.namespace', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1889,
+  serialized_end=1940,
+)
+
+_KUBEMETADATAPAYLOAD_POD_LABELSENTRY = _descriptor.Descriptor(
+  name='LabelsEntry',
+  full_name='KubeMetadataPayload.Pod.LabelsEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='KubeMetadataPayload.Pod.LabelsEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='KubeMetadataPayload.Pod.LabelsEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=_descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001')),
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2214,
+  serialized_end=2259,
+)
+
+_KUBEMETADATAPAYLOAD_POD = _descriptor.Descriptor(
+  name='Pod',
+  full_name='KubeMetadataPayload.Pod',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='uid', full_name='KubeMetadataPayload.Pod.uid', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='KubeMetadataPayload.Pod.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='namespace', full_name='KubeMetadataPayload.Pod.namespace', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='host_ip', full_name='KubeMetadataPayload.Pod.host_ip', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='pod_ip', full_name='KubeMetadataPayload.Pod.pod_ip', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='labels', full_name='KubeMetadataPayload.Pod.labels', index=5,
+      number=6, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='service_uids', full_name='KubeMetadataPayload.Pod.service_uids', index=6,
+      number=7, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='container_ids', full_name='KubeMetadataPayload.Pod.container_ids', index=7,
+      number=8, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='daemon_set', full_name='KubeMetadataPayload.Pod.daemon_set', index=8,
+      number=9, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='replica_set', full_name='KubeMetadataPayload.Pod.replica_set', index=9,
+      number=10, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='replication_controller', full_name='KubeMetadataPayload.Pod.replication_controller', index=10,
+      number=11, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='job', full_name='KubeMetadataPayload.Pod.job', index=11,
+      number=12, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_KUBEMETADATAPAYLOAD_POD_LABELSENTRY, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1943,
+  serialized_end=2259,
+)
+
+_KUBEMETADATAPAYLOAD_CONTAINER = _descriptor.Descriptor(
+  name='Container',
+  full_name='KubeMetadataPayload.Container',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='KubeMetadataPayload.Container.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='KubeMetadataPayload.Container.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='image', full_name='KubeMetadataPayload.Container.image', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='image_id', full_name='KubeMetadataPayload.Container.image_id', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2261,
+  serialized_end=2331,
+)
+
+_KUBEMETADATAPAYLOAD = _descriptor.Descriptor(
+  name='KubeMetadataPayload',
+  full_name='KubeMetadataPayload',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='deployments', full_name='KubeMetadataPayload.deployments', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='replica_sets', full_name='KubeMetadataPayload.replica_sets', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='daemon_sets', full_name='KubeMetadataPayload.daemon_sets', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='services', full_name='KubeMetadataPayload.services', index=3,
+      number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='jobs', full_name='KubeMetadataPayload.jobs', index=4,
+      number=5, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='pods', full_name='KubeMetadataPayload.pods', index=5,
+      number=6, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='containers', full_name='KubeMetadataPayload.containers', index=6,
+      number=7, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_KUBEMETADATAPAYLOAD_DEPLOYMENT, _KUBEMETADATAPAYLOAD_REPLICASET, _KUBEMETADATAPAYLOAD_DAEMONSET, _KUBEMETADATAPAYLOAD_SERVICE, _KUBEMETADATAPAYLOAD_JOB, _KUBEMETADATAPAYLOAD_POD, _KUBEMETADATAPAYLOAD_CONTAINER, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1142,
+  serialized_end=2331,
+)
+
 _METRICSPAYLOAD_SAMPLE_POINT.containing_type = _METRICSPAYLOAD_SAMPLE
 _METRICSPAYLOAD_SAMPLE.fields_by_name['points'].message_type = _METRICSPAYLOAD_SAMPLE_POINT
 _METRICSPAYLOAD_SAMPLE.containing_type = _METRICSPAYLOAD
@@ -586,11 +1131,31 @@ _HOSTMETADATAPAYLOAD_HOSTMETADATA.fields_by_name['tags'].message_type = _HOSTMET
 _HOSTMETADATAPAYLOAD_HOSTMETADATA.containing_type = _HOSTMETADATAPAYLOAD
 _HOSTMETADATAPAYLOAD.fields_by_name['hosts_metadata'].message_type = _HOSTMETADATAPAYLOAD_HOSTMETADATA
 _HOSTMETADATAPAYLOAD.fields_by_name['metadata'].message_type = _COMMONMETADATA
+_KUBEMETADATAPAYLOAD_DEPLOYMENT.containing_type = _KUBEMETADATAPAYLOAD
+_KUBEMETADATAPAYLOAD_REPLICASET.containing_type = _KUBEMETADATAPAYLOAD
+_KUBEMETADATAPAYLOAD_DAEMONSET.containing_type = _KUBEMETADATAPAYLOAD
+_KUBEMETADATAPAYLOAD_SERVICE_SELECTORENTRY.containing_type = _KUBEMETADATAPAYLOAD_SERVICE
+_KUBEMETADATAPAYLOAD_SERVICE.fields_by_name['selector'].message_type = _KUBEMETADATAPAYLOAD_SERVICE_SELECTORENTRY
+_KUBEMETADATAPAYLOAD_SERVICE.containing_type = _KUBEMETADATAPAYLOAD
+_KUBEMETADATAPAYLOAD_JOB.containing_type = _KUBEMETADATAPAYLOAD
+_KUBEMETADATAPAYLOAD_POD_LABELSENTRY.containing_type = _KUBEMETADATAPAYLOAD_POD
+_KUBEMETADATAPAYLOAD_POD.fields_by_name['labels'].message_type = _KUBEMETADATAPAYLOAD_POD_LABELSENTRY
+_KUBEMETADATAPAYLOAD_POD.containing_type = _KUBEMETADATAPAYLOAD
+_KUBEMETADATAPAYLOAD_CONTAINER.containing_type = _KUBEMETADATAPAYLOAD
+_KUBEMETADATAPAYLOAD.fields_by_name['deployments'].message_type = _KUBEMETADATAPAYLOAD_DEPLOYMENT
+_KUBEMETADATAPAYLOAD.fields_by_name['replica_sets'].message_type = _KUBEMETADATAPAYLOAD_REPLICASET
+_KUBEMETADATAPAYLOAD.fields_by_name['daemon_sets'].message_type = _KUBEMETADATAPAYLOAD_DAEMONSET
+_KUBEMETADATAPAYLOAD.fields_by_name['services'].message_type = _KUBEMETADATAPAYLOAD_SERVICE
+_KUBEMETADATAPAYLOAD.fields_by_name['jobs'].message_type = _KUBEMETADATAPAYLOAD_JOB
+_KUBEMETADATAPAYLOAD.fields_by_name['pods'].message_type = _KUBEMETADATAPAYLOAD_POD
+_KUBEMETADATAPAYLOAD.fields_by_name['containers'].message_type = _KUBEMETADATAPAYLOAD_CONTAINER
 DESCRIPTOR.message_types_by_name['CommonMetadata'] = _COMMONMETADATA
 DESCRIPTOR.message_types_by_name['MetricsPayload'] = _METRICSPAYLOAD
 DESCRIPTOR.message_types_by_name['ServiceChecksPayload'] = _SERVICECHECKSPAYLOAD
 DESCRIPTOR.message_types_by_name['EventsPayload'] = _EVENTSPAYLOAD
 DESCRIPTOR.message_types_by_name['HostMetadataPayload'] = _HOSTMETADATAPAYLOAD
+DESCRIPTOR.message_types_by_name['KubeMetadataPayload'] = _KUBEMETADATAPAYLOAD
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 CommonMetadata = _reflection.GeneratedProtocolMessageType('CommonMetadata', (_message.Message,), dict(
   DESCRIPTOR = _COMMONMETADATA,
@@ -675,5 +1240,88 @@ _sym_db.RegisterMessage(HostMetadataPayload)
 _sym_db.RegisterMessage(HostMetadataPayload.TagSet)
 _sym_db.RegisterMessage(HostMetadataPayload.HostMetadata)
 
+KubeMetadataPayload = _reflection.GeneratedProtocolMessageType('KubeMetadataPayload', (_message.Message,), dict(
 
+  Deployment = _reflection.GeneratedProtocolMessageType('Deployment', (_message.Message,), dict(
+    DESCRIPTOR = _KUBEMETADATAPAYLOAD_DEPLOYMENT,
+    __module__ = 'agent_payload_pb2'
+    # @@protoc_insertion_point(class_scope:KubeMetadataPayload.Deployment)
+    ))
+  ,
+
+  ReplicaSet = _reflection.GeneratedProtocolMessageType('ReplicaSet', (_message.Message,), dict(
+    DESCRIPTOR = _KUBEMETADATAPAYLOAD_REPLICASET,
+    __module__ = 'agent_payload_pb2'
+    # @@protoc_insertion_point(class_scope:KubeMetadataPayload.ReplicaSet)
+    ))
+  ,
+
+  DaemonSet = _reflection.GeneratedProtocolMessageType('DaemonSet', (_message.Message,), dict(
+    DESCRIPTOR = _KUBEMETADATAPAYLOAD_DAEMONSET,
+    __module__ = 'agent_payload_pb2'
+    # @@protoc_insertion_point(class_scope:KubeMetadataPayload.DaemonSet)
+    ))
+  ,
+
+  Service = _reflection.GeneratedProtocolMessageType('Service', (_message.Message,), dict(
+
+    SelectorEntry = _reflection.GeneratedProtocolMessageType('SelectorEntry', (_message.Message,), dict(
+      DESCRIPTOR = _KUBEMETADATAPAYLOAD_SERVICE_SELECTORENTRY,
+      __module__ = 'agent_payload_pb2'
+      # @@protoc_insertion_point(class_scope:KubeMetadataPayload.Service.SelectorEntry)
+      ))
+    ,
+    DESCRIPTOR = _KUBEMETADATAPAYLOAD_SERVICE,
+    __module__ = 'agent_payload_pb2'
+    # @@protoc_insertion_point(class_scope:KubeMetadataPayload.Service)
+    ))
+  ,
+
+  Job = _reflection.GeneratedProtocolMessageType('Job', (_message.Message,), dict(
+    DESCRIPTOR = _KUBEMETADATAPAYLOAD_JOB,
+    __module__ = 'agent_payload_pb2'
+    # @@protoc_insertion_point(class_scope:KubeMetadataPayload.Job)
+    ))
+  ,
+
+  Pod = _reflection.GeneratedProtocolMessageType('Pod', (_message.Message,), dict(
+
+    LabelsEntry = _reflection.GeneratedProtocolMessageType('LabelsEntry', (_message.Message,), dict(
+      DESCRIPTOR = _KUBEMETADATAPAYLOAD_POD_LABELSENTRY,
+      __module__ = 'agent_payload_pb2'
+      # @@protoc_insertion_point(class_scope:KubeMetadataPayload.Pod.LabelsEntry)
+      ))
+    ,
+    DESCRIPTOR = _KUBEMETADATAPAYLOAD_POD,
+    __module__ = 'agent_payload_pb2'
+    # @@protoc_insertion_point(class_scope:KubeMetadataPayload.Pod)
+    ))
+  ,
+
+  Container = _reflection.GeneratedProtocolMessageType('Container', (_message.Message,), dict(
+    DESCRIPTOR = _KUBEMETADATAPAYLOAD_CONTAINER,
+    __module__ = 'agent_payload_pb2'
+    # @@protoc_insertion_point(class_scope:KubeMetadataPayload.Container)
+    ))
+  ,
+  DESCRIPTOR = _KUBEMETADATAPAYLOAD,
+  __module__ = 'agent_payload_pb2'
+  # @@protoc_insertion_point(class_scope:KubeMetadataPayload)
+  ))
+_sym_db.RegisterMessage(KubeMetadataPayload)
+_sym_db.RegisterMessage(KubeMetadataPayload.Deployment)
+_sym_db.RegisterMessage(KubeMetadataPayload.ReplicaSet)
+_sym_db.RegisterMessage(KubeMetadataPayload.DaemonSet)
+_sym_db.RegisterMessage(KubeMetadataPayload.Service)
+_sym_db.RegisterMessage(KubeMetadataPayload.Service.SelectorEntry)
+_sym_db.RegisterMessage(KubeMetadataPayload.Job)
+_sym_db.RegisterMessage(KubeMetadataPayload.Pod)
+_sym_db.RegisterMessage(KubeMetadataPayload.Pod.LabelsEntry)
+_sym_db.RegisterMessage(KubeMetadataPayload.Container)
+
+
+_KUBEMETADATAPAYLOAD_SERVICE_SELECTORENTRY.has_options = True
+_KUBEMETADATAPAYLOAD_SERVICE_SELECTORENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
+_KUBEMETADATAPAYLOAD_POD_LABELSENTRY.has_options = True
+_KUBEMETADATAPAYLOAD_POD_LABELSENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
 # @@protoc_insertion_point(module_scope)

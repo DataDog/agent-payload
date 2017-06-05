@@ -14,6 +14,7 @@
 		ServiceChecksPayload
 		EventsPayload
 		HostMetadataPayload
+		KubeMetadataPayload
 */
 package agent_payload
 
@@ -245,6 +246,188 @@ func (m *HostMetadataPayload_HostMetadata) GetTags() []*HostMetadataPayload_TagS
 	return nil
 }
 
+type KubeMetadataPayload struct {
+	Deployments []*KubeMetadataPayload_Deployment `protobuf:"bytes,1,rep,name=deployments" json:"deployments,omitempty"`
+	ReplicaSets []*KubeMetadataPayload_ReplicaSet `protobuf:"bytes,2,rep,name=replica_sets,json=replicaSets" json:"replica_sets,omitempty"`
+	DaemonSets  []*KubeMetadataPayload_DaemonSet  `protobuf:"bytes,3,rep,name=daemon_sets,json=daemonSets" json:"daemon_sets,omitempty"`
+	Services    []*KubeMetadataPayload_Service    `protobuf:"bytes,4,rep,name=services" json:"services,omitempty"`
+	Jobs        []*KubeMetadataPayload_Job        `protobuf:"bytes,5,rep,name=jobs" json:"jobs,omitempty"`
+	Pods        []*KubeMetadataPayload_Pod        `protobuf:"bytes,6,rep,name=pods" json:"pods,omitempty"`
+	Containers  []*KubeMetadataPayload_Container  `protobuf:"bytes,7,rep,name=containers" json:"containers,omitempty"`
+}
+
+func (m *KubeMetadataPayload) Reset()                    { *m = KubeMetadataPayload{} }
+func (m *KubeMetadataPayload) String() string            { return proto.CompactTextString(m) }
+func (*KubeMetadataPayload) ProtoMessage()               {}
+func (*KubeMetadataPayload) Descriptor() ([]byte, []int) { return fileDescriptorAgentPayload, []int{5} }
+
+func (m *KubeMetadataPayload) GetDeployments() []*KubeMetadataPayload_Deployment {
+	if m != nil {
+		return m.Deployments
+	}
+	return nil
+}
+
+func (m *KubeMetadataPayload) GetReplicaSets() []*KubeMetadataPayload_ReplicaSet {
+	if m != nil {
+		return m.ReplicaSets
+	}
+	return nil
+}
+
+func (m *KubeMetadataPayload) GetDaemonSets() []*KubeMetadataPayload_DaemonSet {
+	if m != nil {
+		return m.DaemonSets
+	}
+	return nil
+}
+
+func (m *KubeMetadataPayload) GetServices() []*KubeMetadataPayload_Service {
+	if m != nil {
+		return m.Services
+	}
+	return nil
+}
+
+func (m *KubeMetadataPayload) GetJobs() []*KubeMetadataPayload_Job {
+	if m != nil {
+		return m.Jobs
+	}
+	return nil
+}
+
+func (m *KubeMetadataPayload) GetPods() []*KubeMetadataPayload_Pod {
+	if m != nil {
+		return m.Pods
+	}
+	return nil
+}
+
+func (m *KubeMetadataPayload) GetContainers() []*KubeMetadataPayload_Container {
+	if m != nil {
+		return m.Containers
+	}
+	return nil
+}
+
+type KubeMetadataPayload_Deployment struct {
+	Uid       string `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
+	Name      string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Namespace string `protobuf:"bytes,3,opt,name=namespace,proto3" json:"namespace,omitempty"`
+}
+
+func (m *KubeMetadataPayload_Deployment) Reset()         { *m = KubeMetadataPayload_Deployment{} }
+func (m *KubeMetadataPayload_Deployment) String() string { return proto.CompactTextString(m) }
+func (*KubeMetadataPayload_Deployment) ProtoMessage()    {}
+func (*KubeMetadataPayload_Deployment) Descriptor() ([]byte, []int) {
+	return fileDescriptorAgentPayload, []int{5, 0}
+}
+
+type KubeMetadataPayload_ReplicaSet struct {
+	Uid        string `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
+	Name       string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Namespace  string `protobuf:"bytes,3,opt,name=namespace,proto3" json:"namespace,omitempty"`
+	Deployment string `protobuf:"bytes,4,opt,name=deployment,proto3" json:"deployment,omitempty"`
+}
+
+func (m *KubeMetadataPayload_ReplicaSet) Reset()         { *m = KubeMetadataPayload_ReplicaSet{} }
+func (m *KubeMetadataPayload_ReplicaSet) String() string { return proto.CompactTextString(m) }
+func (*KubeMetadataPayload_ReplicaSet) ProtoMessage()    {}
+func (*KubeMetadataPayload_ReplicaSet) Descriptor() ([]byte, []int) {
+	return fileDescriptorAgentPayload, []int{5, 1}
+}
+
+type KubeMetadataPayload_DaemonSet struct {
+	Uid       string `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
+	Name      string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Namespace string `protobuf:"bytes,3,opt,name=namespace,proto3" json:"namespace,omitempty"`
+}
+
+func (m *KubeMetadataPayload_DaemonSet) Reset()         { *m = KubeMetadataPayload_DaemonSet{} }
+func (m *KubeMetadataPayload_DaemonSet) String() string { return proto.CompactTextString(m) }
+func (*KubeMetadataPayload_DaemonSet) ProtoMessage()    {}
+func (*KubeMetadataPayload_DaemonSet) Descriptor() ([]byte, []int) {
+	return fileDescriptorAgentPayload, []int{5, 2}
+}
+
+type KubeMetadataPayload_Service struct {
+	Uid       string            `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
+	Name      string            `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Namespace string            `protobuf:"bytes,3,opt,name=namespace,proto3" json:"namespace,omitempty"`
+	Selector  map[string]string `protobuf:"bytes,4,rep,name=selector" json:"selector,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Type      string            `protobuf:"bytes,5,opt,name=type,proto3" json:"type,omitempty"`
+}
+
+func (m *KubeMetadataPayload_Service) Reset()         { *m = KubeMetadataPayload_Service{} }
+func (m *KubeMetadataPayload_Service) String() string { return proto.CompactTextString(m) }
+func (*KubeMetadataPayload_Service) ProtoMessage()    {}
+func (*KubeMetadataPayload_Service) Descriptor() ([]byte, []int) {
+	return fileDescriptorAgentPayload, []int{5, 3}
+}
+
+func (m *KubeMetadataPayload_Service) GetSelector() map[string]string {
+	if m != nil {
+		return m.Selector
+	}
+	return nil
+}
+
+type KubeMetadataPayload_Job struct {
+	Uid       string `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
+	Name      string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Namespace string `protobuf:"bytes,3,opt,name=namespace,proto3" json:"namespace,omitempty"`
+}
+
+func (m *KubeMetadataPayload_Job) Reset()         { *m = KubeMetadataPayload_Job{} }
+func (m *KubeMetadataPayload_Job) String() string { return proto.CompactTextString(m) }
+func (*KubeMetadataPayload_Job) ProtoMessage()    {}
+func (*KubeMetadataPayload_Job) Descriptor() ([]byte, []int) {
+	return fileDescriptorAgentPayload, []int{5, 4}
+}
+
+type KubeMetadataPayload_Pod struct {
+	Uid                   string            `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
+	Name                  string            `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Namespace             string            `protobuf:"bytes,3,opt,name=namespace,proto3" json:"namespace,omitempty"`
+	HostIp                string            `protobuf:"bytes,4,opt,name=host_ip,json=hostIp,proto3" json:"host_ip,omitempty"`
+	PodIp                 string            `protobuf:"bytes,5,opt,name=pod_ip,json=podIp,proto3" json:"pod_ip,omitempty"`
+	Labels                map[string]string `protobuf:"bytes,6,rep,name=labels" json:"labels,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	ServiceUids           []string          `protobuf:"bytes,7,rep,name=service_uids,json=serviceUids" json:"service_uids,omitempty"`
+	ContainerIds          []string          `protobuf:"bytes,8,rep,name=container_ids,json=containerIds" json:"container_ids,omitempty"`
+	DaemonSet             string            `protobuf:"bytes,9,opt,name=daemon_set,json=daemonSet,proto3" json:"daemon_set,omitempty"`
+	ReplicaSet            string            `protobuf:"bytes,10,opt,name=replica_set,json=replicaSet,proto3" json:"replica_set,omitempty"`
+	ReplicationController string            `protobuf:"bytes,11,opt,name=replication_controller,json=replicationController,proto3" json:"replication_controller,omitempty"`
+	Job                   string            `protobuf:"bytes,12,opt,name=job,proto3" json:"job,omitempty"`
+}
+
+func (m *KubeMetadataPayload_Pod) Reset()         { *m = KubeMetadataPayload_Pod{} }
+func (m *KubeMetadataPayload_Pod) String() string { return proto.CompactTextString(m) }
+func (*KubeMetadataPayload_Pod) ProtoMessage()    {}
+func (*KubeMetadataPayload_Pod) Descriptor() ([]byte, []int) {
+	return fileDescriptorAgentPayload, []int{5, 5}
+}
+
+func (m *KubeMetadataPayload_Pod) GetLabels() map[string]string {
+	if m != nil {
+		return m.Labels
+	}
+	return nil
+}
+
+type KubeMetadataPayload_Container struct {
+	Id      string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name    string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Image   string `protobuf:"bytes,3,opt,name=image,proto3" json:"image,omitempty"`
+	ImageId string `protobuf:"bytes,4,opt,name=image_id,json=imageId,proto3" json:"image_id,omitempty"`
+}
+
+func (m *KubeMetadataPayload_Container) Reset()         { *m = KubeMetadataPayload_Container{} }
+func (m *KubeMetadataPayload_Container) String() string { return proto.CompactTextString(m) }
+func (*KubeMetadataPayload_Container) ProtoMessage()    {}
+func (*KubeMetadataPayload_Container) Descriptor() ([]byte, []int) {
+	return fileDescriptorAgentPayload, []int{5, 6}
+}
+
 func init() {
 	proto.RegisterType((*CommonMetadata)(nil), "CommonMetadata")
 	proto.RegisterType((*MetricsPayload)(nil), "MetricsPayload")
@@ -257,6 +440,14 @@ func init() {
 	proto.RegisterType((*HostMetadataPayload)(nil), "HostMetadataPayload")
 	proto.RegisterType((*HostMetadataPayload_TagSet)(nil), "HostMetadataPayload.TagSet")
 	proto.RegisterType((*HostMetadataPayload_HostMetadata)(nil), "HostMetadataPayload.HostMetadata")
+	proto.RegisterType((*KubeMetadataPayload)(nil), "KubeMetadataPayload")
+	proto.RegisterType((*KubeMetadataPayload_Deployment)(nil), "KubeMetadataPayload.Deployment")
+	proto.RegisterType((*KubeMetadataPayload_ReplicaSet)(nil), "KubeMetadataPayload.ReplicaSet")
+	proto.RegisterType((*KubeMetadataPayload_DaemonSet)(nil), "KubeMetadataPayload.DaemonSet")
+	proto.RegisterType((*KubeMetadataPayload_Service)(nil), "KubeMetadataPayload.Service")
+	proto.RegisterType((*KubeMetadataPayload_Job)(nil), "KubeMetadataPayload.Job")
+	proto.RegisterType((*KubeMetadataPayload_Pod)(nil), "KubeMetadataPayload.Pod")
+	proto.RegisterType((*KubeMetadataPayload_Container)(nil), "KubeMetadataPayload.Container")
 }
 func (m *CommonMetadata) Marshal() (data []byte, err error) {
 	size := m.Size()
@@ -793,6 +984,478 @@ func (m *HostMetadataPayload_HostMetadata) MarshalTo(data []byte) (int, error) {
 	return i, nil
 }
 
+func (m *KubeMetadataPayload) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *KubeMetadataPayload) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Deployments) > 0 {
+		for _, msg := range m.Deployments {
+			data[i] = 0xa
+			i++
+			i = encodeVarintAgentPayload(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if len(m.ReplicaSets) > 0 {
+		for _, msg := range m.ReplicaSets {
+			data[i] = 0x12
+			i++
+			i = encodeVarintAgentPayload(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if len(m.DaemonSets) > 0 {
+		for _, msg := range m.DaemonSets {
+			data[i] = 0x1a
+			i++
+			i = encodeVarintAgentPayload(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if len(m.Services) > 0 {
+		for _, msg := range m.Services {
+			data[i] = 0x22
+			i++
+			i = encodeVarintAgentPayload(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if len(m.Jobs) > 0 {
+		for _, msg := range m.Jobs {
+			data[i] = 0x2a
+			i++
+			i = encodeVarintAgentPayload(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if len(m.Pods) > 0 {
+		for _, msg := range m.Pods {
+			data[i] = 0x32
+			i++
+			i = encodeVarintAgentPayload(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if len(m.Containers) > 0 {
+		for _, msg := range m.Containers {
+			data[i] = 0x3a
+			i++
+			i = encodeVarintAgentPayload(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	return i, nil
+}
+
+func (m *KubeMetadataPayload_Deployment) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *KubeMetadataPayload_Deployment) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Uid) > 0 {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Uid)))
+		i += copy(data[i:], m.Uid)
+	}
+	if len(m.Name) > 0 {
+		data[i] = 0x12
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Name)))
+		i += copy(data[i:], m.Name)
+	}
+	if len(m.Namespace) > 0 {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Namespace)))
+		i += copy(data[i:], m.Namespace)
+	}
+	return i, nil
+}
+
+func (m *KubeMetadataPayload_ReplicaSet) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *KubeMetadataPayload_ReplicaSet) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Uid) > 0 {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Uid)))
+		i += copy(data[i:], m.Uid)
+	}
+	if len(m.Name) > 0 {
+		data[i] = 0x12
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Name)))
+		i += copy(data[i:], m.Name)
+	}
+	if len(m.Namespace) > 0 {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Namespace)))
+		i += copy(data[i:], m.Namespace)
+	}
+	if len(m.Deployment) > 0 {
+		data[i] = 0x22
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Deployment)))
+		i += copy(data[i:], m.Deployment)
+	}
+	return i, nil
+}
+
+func (m *KubeMetadataPayload_DaemonSet) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *KubeMetadataPayload_DaemonSet) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Uid) > 0 {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Uid)))
+		i += copy(data[i:], m.Uid)
+	}
+	if len(m.Name) > 0 {
+		data[i] = 0x12
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Name)))
+		i += copy(data[i:], m.Name)
+	}
+	if len(m.Namespace) > 0 {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Namespace)))
+		i += copy(data[i:], m.Namespace)
+	}
+	return i, nil
+}
+
+func (m *KubeMetadataPayload_Service) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *KubeMetadataPayload_Service) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Uid) > 0 {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Uid)))
+		i += copy(data[i:], m.Uid)
+	}
+	if len(m.Name) > 0 {
+		data[i] = 0x12
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Name)))
+		i += copy(data[i:], m.Name)
+	}
+	if len(m.Namespace) > 0 {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Namespace)))
+		i += copy(data[i:], m.Namespace)
+	}
+	if len(m.Selector) > 0 {
+		for k, _ := range m.Selector {
+			data[i] = 0x22
+			i++
+			v := m.Selector[k]
+			mapSize := 1 + len(k) + sovAgentPayload(uint64(len(k))) + 1 + len(v) + sovAgentPayload(uint64(len(v)))
+			i = encodeVarintAgentPayload(data, i, uint64(mapSize))
+			data[i] = 0xa
+			i++
+			i = encodeVarintAgentPayload(data, i, uint64(len(k)))
+			i += copy(data[i:], k)
+			data[i] = 0x12
+			i++
+			i = encodeVarintAgentPayload(data, i, uint64(len(v)))
+			i += copy(data[i:], v)
+		}
+	}
+	if len(m.Type) > 0 {
+		data[i] = 0x2a
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Type)))
+		i += copy(data[i:], m.Type)
+	}
+	return i, nil
+}
+
+func (m *KubeMetadataPayload_Job) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *KubeMetadataPayload_Job) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Uid) > 0 {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Uid)))
+		i += copy(data[i:], m.Uid)
+	}
+	if len(m.Name) > 0 {
+		data[i] = 0x12
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Name)))
+		i += copy(data[i:], m.Name)
+	}
+	if len(m.Namespace) > 0 {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Namespace)))
+		i += copy(data[i:], m.Namespace)
+	}
+	return i, nil
+}
+
+func (m *KubeMetadataPayload_Pod) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *KubeMetadataPayload_Pod) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Uid) > 0 {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Uid)))
+		i += copy(data[i:], m.Uid)
+	}
+	if len(m.Name) > 0 {
+		data[i] = 0x12
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Name)))
+		i += copy(data[i:], m.Name)
+	}
+	if len(m.Namespace) > 0 {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Namespace)))
+		i += copy(data[i:], m.Namespace)
+	}
+	if len(m.HostIp) > 0 {
+		data[i] = 0x22
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.HostIp)))
+		i += copy(data[i:], m.HostIp)
+	}
+	if len(m.PodIp) > 0 {
+		data[i] = 0x2a
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.PodIp)))
+		i += copy(data[i:], m.PodIp)
+	}
+	if len(m.Labels) > 0 {
+		for k, _ := range m.Labels {
+			data[i] = 0x32
+			i++
+			v := m.Labels[k]
+			mapSize := 1 + len(k) + sovAgentPayload(uint64(len(k))) + 1 + len(v) + sovAgentPayload(uint64(len(v)))
+			i = encodeVarintAgentPayload(data, i, uint64(mapSize))
+			data[i] = 0xa
+			i++
+			i = encodeVarintAgentPayload(data, i, uint64(len(k)))
+			i += copy(data[i:], k)
+			data[i] = 0x12
+			i++
+			i = encodeVarintAgentPayload(data, i, uint64(len(v)))
+			i += copy(data[i:], v)
+		}
+	}
+	if len(m.ServiceUids) > 0 {
+		for _, s := range m.ServiceUids {
+			data[i] = 0x3a
+			i++
+			l = len(s)
+			for l >= 1<<7 {
+				data[i] = uint8(uint64(l)&0x7f | 0x80)
+				l >>= 7
+				i++
+			}
+			data[i] = uint8(l)
+			i++
+			i += copy(data[i:], s)
+		}
+	}
+	if len(m.ContainerIds) > 0 {
+		for _, s := range m.ContainerIds {
+			data[i] = 0x42
+			i++
+			l = len(s)
+			for l >= 1<<7 {
+				data[i] = uint8(uint64(l)&0x7f | 0x80)
+				l >>= 7
+				i++
+			}
+			data[i] = uint8(l)
+			i++
+			i += copy(data[i:], s)
+		}
+	}
+	if len(m.DaemonSet) > 0 {
+		data[i] = 0x4a
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.DaemonSet)))
+		i += copy(data[i:], m.DaemonSet)
+	}
+	if len(m.ReplicaSet) > 0 {
+		data[i] = 0x52
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.ReplicaSet)))
+		i += copy(data[i:], m.ReplicaSet)
+	}
+	if len(m.ReplicationController) > 0 {
+		data[i] = 0x5a
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.ReplicationController)))
+		i += copy(data[i:], m.ReplicationController)
+	}
+	if len(m.Job) > 0 {
+		data[i] = 0x62
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Job)))
+		i += copy(data[i:], m.Job)
+	}
+	return i, nil
+}
+
+func (m *KubeMetadataPayload_Container) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *KubeMetadataPayload_Container) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Id) > 0 {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Id)))
+		i += copy(data[i:], m.Id)
+	}
+	if len(m.Name) > 0 {
+		data[i] = 0x12
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Name)))
+		i += copy(data[i:], m.Name)
+	}
+	if len(m.Image) > 0 {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.Image)))
+		i += copy(data[i:], m.Image)
+	}
+	if len(m.ImageId) > 0 {
+		data[i] = 0x22
+		i++
+		i = encodeVarintAgentPayload(data, i, uint64(len(m.ImageId)))
+		i += copy(data[i:], m.ImageId)
+	}
+	return i, nil
+}
+
 func encodeFixed64AgentPayload(data []byte, offset int, v uint64) int {
 	data[offset] = uint8(v)
 	data[offset+1] = uint8(v >> 8)
@@ -1062,6 +1725,244 @@ func (m *HostMetadataPayload_HostMetadata) Size() (n int) {
 			l = len(s)
 			n += 1 + l + sovAgentPayload(uint64(l))
 		}
+	}
+	return n
+}
+
+func (m *KubeMetadataPayload) Size() (n int) {
+	var l int
+	_ = l
+	if len(m.Deployments) > 0 {
+		for _, e := range m.Deployments {
+			l = e.Size()
+			n += 1 + l + sovAgentPayload(uint64(l))
+		}
+	}
+	if len(m.ReplicaSets) > 0 {
+		for _, e := range m.ReplicaSets {
+			l = e.Size()
+			n += 1 + l + sovAgentPayload(uint64(l))
+		}
+	}
+	if len(m.DaemonSets) > 0 {
+		for _, e := range m.DaemonSets {
+			l = e.Size()
+			n += 1 + l + sovAgentPayload(uint64(l))
+		}
+	}
+	if len(m.Services) > 0 {
+		for _, e := range m.Services {
+			l = e.Size()
+			n += 1 + l + sovAgentPayload(uint64(l))
+		}
+	}
+	if len(m.Jobs) > 0 {
+		for _, e := range m.Jobs {
+			l = e.Size()
+			n += 1 + l + sovAgentPayload(uint64(l))
+		}
+	}
+	if len(m.Pods) > 0 {
+		for _, e := range m.Pods {
+			l = e.Size()
+			n += 1 + l + sovAgentPayload(uint64(l))
+		}
+	}
+	if len(m.Containers) > 0 {
+		for _, e := range m.Containers {
+			l = e.Size()
+			n += 1 + l + sovAgentPayload(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *KubeMetadataPayload_Deployment) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Uid)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Namespace)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	return n
+}
+
+func (m *KubeMetadataPayload_ReplicaSet) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Uid)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Namespace)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Deployment)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	return n
+}
+
+func (m *KubeMetadataPayload_DaemonSet) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Uid)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Namespace)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	return n
+}
+
+func (m *KubeMetadataPayload_Service) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Uid)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Namespace)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	if len(m.Selector) > 0 {
+		for k, v := range m.Selector {
+			_ = k
+			_ = v
+			mapEntrySize := 1 + len(k) + sovAgentPayload(uint64(len(k))) + 1 + len(v) + sovAgentPayload(uint64(len(v)))
+			n += mapEntrySize + 1 + sovAgentPayload(uint64(mapEntrySize))
+		}
+	}
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	return n
+}
+
+func (m *KubeMetadataPayload_Job) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Uid)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Namespace)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	return n
+}
+
+func (m *KubeMetadataPayload_Pod) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Uid)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Namespace)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.HostIp)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.PodIp)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	if len(m.Labels) > 0 {
+		for k, v := range m.Labels {
+			_ = k
+			_ = v
+			mapEntrySize := 1 + len(k) + sovAgentPayload(uint64(len(k))) + 1 + len(v) + sovAgentPayload(uint64(len(v)))
+			n += mapEntrySize + 1 + sovAgentPayload(uint64(mapEntrySize))
+		}
+	}
+	if len(m.ServiceUids) > 0 {
+		for _, s := range m.ServiceUids {
+			l = len(s)
+			n += 1 + l + sovAgentPayload(uint64(l))
+		}
+	}
+	if len(m.ContainerIds) > 0 {
+		for _, s := range m.ContainerIds {
+			l = len(s)
+			n += 1 + l + sovAgentPayload(uint64(l))
+		}
+	}
+	l = len(m.DaemonSet)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.ReplicaSet)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.ReplicationController)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Job)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	return n
+}
+
+func (m *KubeMetadataPayload_Container) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Image)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.ImageId)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
 	}
 	return n
 }
@@ -2784,6 +3685,1783 @@ func (m *HostMetadataPayload_HostMetadata) Unmarshal(data []byte) error {
 	}
 	return nil
 }
+func (m *KubeMetadataPayload) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgentPayload
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: KubeMetadataPayload: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: KubeMetadataPayload: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Deployments", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Deployments = append(m.Deployments, &KubeMetadataPayload_Deployment{})
+			if err := m.Deployments[len(m.Deployments)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplicaSets", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ReplicaSets = append(m.ReplicaSets, &KubeMetadataPayload_ReplicaSet{})
+			if err := m.ReplicaSets[len(m.ReplicaSets)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DaemonSets", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DaemonSets = append(m.DaemonSets, &KubeMetadataPayload_DaemonSet{})
+			if err := m.DaemonSets[len(m.DaemonSets)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Services", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Services = append(m.Services, &KubeMetadataPayload_Service{})
+			if err := m.Services[len(m.Services)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Jobs", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Jobs = append(m.Jobs, &KubeMetadataPayload_Job{})
+			if err := m.Jobs[len(m.Jobs)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pods", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Pods = append(m.Pods, &KubeMetadataPayload_Pod{})
+			if err := m.Pods[len(m.Pods)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Containers", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Containers = append(m.Containers, &KubeMetadataPayload_Container{})
+			if err := m.Containers[len(m.Containers)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgentPayload(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *KubeMetadataPayload_Deployment) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgentPayload
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Deployment: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Deployment: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Uid", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Uid = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Namespace", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Namespace = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgentPayload(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *KubeMetadataPayload_ReplicaSet) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgentPayload
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ReplicaSet: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ReplicaSet: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Uid", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Uid = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Namespace", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Namespace = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Deployment", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Deployment = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgentPayload(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *KubeMetadataPayload_DaemonSet) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgentPayload
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: DaemonSet: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: DaemonSet: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Uid", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Uid = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Namespace", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Namespace = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgentPayload(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *KubeMetadataPayload_Service) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgentPayload
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Service: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Service: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Uid", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Uid = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Namespace", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Namespace = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Selector", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			var keykey uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				keykey |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			var stringLenmapkey uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLenmapkey |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLenmapkey := int(stringLenmapkey)
+			if intStringLenmapkey < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postStringIndexmapkey := iNdEx + intStringLenmapkey
+			if postStringIndexmapkey > l {
+				return io.ErrUnexpectedEOF
+			}
+			mapkey := string(data[iNdEx:postStringIndexmapkey])
+			iNdEx = postStringIndexmapkey
+			if m.Selector == nil {
+				m.Selector = make(map[string]string)
+			}
+			if iNdEx < postIndex {
+				var valuekey uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowAgentPayload
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := data[iNdEx]
+					iNdEx++
+					valuekey |= (uint64(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				var stringLenmapvalue uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowAgentPayload
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := data[iNdEx]
+					iNdEx++
+					stringLenmapvalue |= (uint64(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLenmapvalue := int(stringLenmapvalue)
+				if intStringLenmapvalue < 0 {
+					return ErrInvalidLengthAgentPayload
+				}
+				postStringIndexmapvalue := iNdEx + intStringLenmapvalue
+				if postStringIndexmapvalue > l {
+					return io.ErrUnexpectedEOF
+				}
+				mapvalue := string(data[iNdEx:postStringIndexmapvalue])
+				iNdEx = postStringIndexmapvalue
+				m.Selector[mapkey] = mapvalue
+			} else {
+				var mapvalue string
+				m.Selector[mapkey] = mapvalue
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgentPayload(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *KubeMetadataPayload_Job) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgentPayload
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Job: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Job: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Uid", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Uid = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Namespace", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Namespace = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgentPayload(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *KubeMetadataPayload_Pod) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgentPayload
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Pod: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Pod: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Uid", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Uid = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Namespace", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Namespace = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HostIp", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.HostIp = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PodIp", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PodIp = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Labels", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			var keykey uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				keykey |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			var stringLenmapkey uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLenmapkey |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLenmapkey := int(stringLenmapkey)
+			if intStringLenmapkey < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postStringIndexmapkey := iNdEx + intStringLenmapkey
+			if postStringIndexmapkey > l {
+				return io.ErrUnexpectedEOF
+			}
+			mapkey := string(data[iNdEx:postStringIndexmapkey])
+			iNdEx = postStringIndexmapkey
+			if m.Labels == nil {
+				m.Labels = make(map[string]string)
+			}
+			if iNdEx < postIndex {
+				var valuekey uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowAgentPayload
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := data[iNdEx]
+					iNdEx++
+					valuekey |= (uint64(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				var stringLenmapvalue uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowAgentPayload
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := data[iNdEx]
+					iNdEx++
+					stringLenmapvalue |= (uint64(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLenmapvalue := int(stringLenmapvalue)
+				if intStringLenmapvalue < 0 {
+					return ErrInvalidLengthAgentPayload
+				}
+				postStringIndexmapvalue := iNdEx + intStringLenmapvalue
+				if postStringIndexmapvalue > l {
+					return io.ErrUnexpectedEOF
+				}
+				mapvalue := string(data[iNdEx:postStringIndexmapvalue])
+				iNdEx = postStringIndexmapvalue
+				m.Labels[mapkey] = mapvalue
+			} else {
+				var mapvalue string
+				m.Labels[mapkey] = mapvalue
+			}
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ServiceUids", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ServiceUids = append(m.ServiceUids, string(data[iNdEx:postIndex]))
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContainerIds", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContainerIds = append(m.ContainerIds, string(data[iNdEx:postIndex]))
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DaemonSet", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DaemonSet = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplicaSet", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ReplicaSet = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplicationController", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ReplicationController = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Job", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Job = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgentPayload(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *KubeMetadataPayload_Container) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgentPayload
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Container: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Container: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Image", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Image = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ImageId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ImageId = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgentPayload(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func skipAgentPayload(data []byte) (n int, err error) {
 	l := len(data)
 	iNdEx := 0
@@ -2892,49 +5570,78 @@ var (
 func init() { proto.RegisterFile("agent_payload.proto", fileDescriptorAgentPayload) }
 
 var fileDescriptorAgentPayload = []byte{
-	// 700 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x94, 0xcf, 0x6e, 0xd3, 0x4a,
-	0x14, 0xc6, 0xaf, 0x9d, 0xc6, 0x49, 0x4e, 0xfe, 0xb4, 0x9a, 0x56, 0xbd, 0x56, 0x7a, 0x6f, 0x6e,
-	0x6e, 0x58, 0x10, 0x09, 0x30, 0x55, 0xe1, 0x09, 0xa8, 0x2a, 0xb5, 0xaa, 0x8a, 0x2a, 0xb7, 0x62,
-	0x1b, 0x4d, 0xdd, 0x91, 0x3b, 0xaa, 0xed, 0xb1, 0x3c, 0x93, 0x88, 0xf0, 0x0c, 0x3c, 0x00, 0x1b,
-	0x9e, 0x02, 0xf1, 0x00, 0xec, 0xd8, 0x20, 0xf1, 0x08, 0xa8, 0xf0, 0x0e, 0x6c, 0xd1, 0x9c, 0xb1,
-	0x07, 0x47, 0x64, 0xd3, 0xdd, 0x9c, 0x6f, 0x3e, 0x9f, 0x39, 0xe7, 0x77, 0x66, 0x0c, 0xdb, 0x34,
-	0x66, 0x99, 0x9a, 0xe5, 0x74, 0x99, 0x08, 0x7a, 0x1d, 0xe4, 0x85, 0x50, 0x62, 0xf2, 0xc5, 0x81,
-	0xc1, 0xa1, 0x48, 0x53, 0x91, 0x9d, 0x31, 0x45, 0xaf, 0xa9, 0xa2, 0xe4, 0x01, 0xf4, 0x8d, 0x73,
-	0xc1, 0x0a, 0xc9, 0x45, 0xe6, 0x3b, 0x63, 0x67, 0xda, 0x09, 0x7b, 0x28, 0xbe, 0x32, 0x1a, 0x19,
-	0x42, 0x5b, 0xf1, 0x94, 0xbd, 0x11, 0x19, 0xf3, 0x5d, 0xdc, 0xb7, 0xb1, 0x4e, 0x10, 0xcd, 0x8b,
-	0x42, 0xa7, 0x60, 0xb9, 0x88, 0x6e, 0xfc, 0xc6, 0xd8, 0x99, 0x3a, 0x61, 0xaf, 0x14, 0x8f, 0xb4,
-	0x46, 0xfe, 0x83, 0x2e, 0xcf, 0x14, 0x2b, 0x32, 0x9a, 0xcc, 0x78, 0xee, 0x6f, 0x60, 0x0e, 0xa8,
-	0xa4, 0x93, 0x9c, 0xec, 0x41, 0x27, 0x9f, 0x5f, 0x25, 0x3c, 0xd2, 0xdb, 0x4d, 0x73, 0x84, 0x11,
-	0x4e, 0x72, 0xf2, 0x37, 0xb4, 0x68, 0xce, 0x67, 0xb7, 0x6c, 0xe9, 0x7b, 0xb8, 0xe5, 0xd1, 0x9c,
-	0x9f, 0xb2, 0xe5, 0xe4, 0x83, 0x0b, 0x83, 0x33, 0xa6, 0x0a, 0x1e, 0xc9, 0x73, 0xd3, 0x28, 0xd9,
-	0x87, 0x96, 0xa4, 0x69, 0x9e, 0x30, 0xe9, 0x3b, 0xe3, 0xc6, 0xb4, 0x7b, 0xb0, 0x1b, 0xac, 0x3a,
-	0x82, 0x0b, 0xdc, 0x0e, 0x2b, 0x1b, 0x79, 0x04, 0xed, 0xb4, 0xa4, 0x81, 0xcd, 0x75, 0x0f, 0x36,
-	0x83, 0x55, 0x48, 0xa1, 0x35, 0x0c, 0x3f, 0x39, 0xe0, 0x99, 0x04, 0x64, 0x17, 0xbc, 0x14, 0x33,
-	0x97, 0xc8, 0xca, 0x88, 0x10, 0xd8, 0x50, 0xcb, 0xbc, 0x02, 0x85, 0x6b, 0xad, 0xdd, 0x08, 0xa9,
-	0x90, 0x4d, 0x27, 0xc4, 0x35, 0x79, 0x0e, 0x5e, 0x2e, 0x78, 0xa6, 0xa4, 0xbf, 0x81, 0x85, 0xfe,
-	0xb3, 0xbe, 0xd0, 0xe0, 0x5c, 0x9b, 0xc2, 0xd2, 0x8b, 0xd9, 0x69, 0x2c, 0xfd, 0xe6, 0xb8, 0x81,
-	0xd9, 0x69, 0x2c, 0x87, 0x4f, 0xa0, 0x89, 0x26, 0x32, 0x00, 0x57, 0x49, 0x2c, 0xa7, 0x11, 0xba,
-	0x4a, 0x92, 0x1d, 0x68, 0x2e, 0x68, 0x32, 0x37, 0xb5, 0x38, 0xa1, 0x09, 0x26, 0xef, 0x5d, 0xd8,
-	0xb9, 0x60, 0xc5, 0x82, 0x47, 0xec, 0xf0, 0x86, 0x45, 0xb7, 0x96, 0xdd, 0x09, 0x0c, 0xa4, 0xd1,
-	0x67, 0x11, 0x6e, 0x94, 0x08, 0x27, 0xc1, 0x3a, 0xfb, 0x8a, 0x18, 0xf6, 0x65, 0xdd, 0x72, 0x3f,
-	0xa8, 0x6f, 0x1d, 0xe8, 0xd5, 0x93, 0xe9, 0x26, 0x33, 0x9a, 0xb2, 0x12, 0x2c, 0xae, 0x2d, 0x42,
-	0xb7, 0x86, 0xd0, 0xf4, 0xdb, 0xb0, 0xfd, 0xee, 0x82, 0x27, 0x15, 0x55, 0x73, 0x89, 0x37, 0xac,
-	0x19, 0x96, 0x11, 0xf1, 0xa1, 0x95, 0x32, 0x29, 0x69, 0xcc, 0xca, 0xbb, 0x55, 0x85, 0x16, 0xa7,
-	0xf7, 0x1b, 0xe7, 0xe4, 0x87, 0x0b, 0xfd, 0xa3, 0x05, 0xcb, 0x94, 0x05, 0xf3, 0x18, 0x3c, 0x86,
-	0x42, 0x09, 0x64, 0x27, 0x58, 0xd9, 0x37, 0x51, 0x58, 0x7a, 0xee, 0xd7, 0xfb, 0x4f, 0x07, 0x9a,
-	0xf8, 0xb9, 0x1e, 0x96, 0xe2, 0x2a, 0xa9, 0xba, 0x36, 0x01, 0x16, 0xc8, 0x5e, 0xdb, 0xb6, 0xf5,
-	0xfa, 0x8f, 0xb6, 0x87, 0xd0, 0xce, 0x0b, 0x2e, 0x0a, 0xae, 0x96, 0xe5, 0xd3, 0xb2, 0xb1, 0xc5,
-	0xd6, 0xac, 0x61, 0x5b, 0xd3, 0x34, 0xf9, 0x17, 0x80, 0x26, 0xac, 0x50, 0x33, 0xbc, 0xbb, 0x2d,
-	0x74, 0x77, 0x50, 0xb9, 0xd4, 0x17, 0xf8, 0x21, 0x6c, 0xd2, 0x38, 0x2e, 0x58, 0x4c, 0x15, 0x17,
-	0x19, 0x3e, 0xc5, 0x36, 0x7a, 0x06, 0x35, 0xf9, 0x94, 0x2d, 0xc9, 0x14, 0xb6, 0xa4, 0x98, 0x17,
-	0x11, 0xc3, 0x44, 0x33, 0x1c, 0x63, 0xc7, 0x38, 0x8d, 0xae, 0xd3, 0xbd, 0xa4, 0x29, 0x9b, 0x7c,
-	0x74, 0x61, 0xfb, 0x58, 0x48, 0x55, 0x41, 0xa9, 0x60, 0x1f, 0xc3, 0x40, 0x57, 0x29, 0x67, 0x16,
-	0xa2, 0x81, 0xfe, 0x7f, 0xb0, 0xc6, 0xbd, 0xa2, 0x85, 0x7d, 0xfc, 0xd0, 0xfe, 0xdb, 0xee, 0x35,
-	0x88, 0x7d, 0xf0, 0x2e, 0x69, 0x7c, 0xc1, 0x94, 0x7d, 0xc0, 0xce, 0xea, 0x03, 0x46, 0x64, 0x6e,
-	0xed, 0xd9, 0xcd, 0xa1, 0x57, 0x3f, 0x5d, 0x8f, 0x41, 0x9f, 0x5f, 0xbb, 0xb9, 0x36, 0x26, 0x4f,
-	0x6b, 0xdf, 0x77, 0x0f, 0xf6, 0xd6, 0xb6, 0x62, 0x8e, 0x2f, 0xe7, 0xe1, 0x43, 0x8b, 0x26, 0x9c,
-	0x4a, 0xa6, 0x07, 0xad, 0xcf, 0xac, 0xc2, 0x17, 0x5b, 0x9f, 0xef, 0x46, 0xce, 0xd7, 0xbb, 0x91,
-	0xf3, 0xed, 0x6e, 0xe4, 0xbc, 0xfb, 0x3e, 0xfa, 0xeb, 0xca, 0xc3, 0xbf, 0xfb, 0xb3, 0x5f, 0x01,
-	0x00, 0x00, 0xff, 0xff, 0x4a, 0x13, 0xe3, 0x5e, 0xf4, 0x05, 0x00, 0x00,
+	// 1164 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x57, 0xdd, 0x6e, 0xe3, 0xc4,
+	0x17, 0xff, 0xdb, 0x69, 0x9c, 0xe4, 0x24, 0xcd, 0x56, 0xd3, 0x6e, 0xd7, 0xff, 0xec, 0x92, 0xed,
+	0x06, 0x24, 0x2a, 0x58, 0xcc, 0xaa, 0x80, 0xb4, 0x7c, 0x08, 0xc4, 0x96, 0xa2, 0xcd, 0x96, 0x85,
+	0xca, 0x5d, 0xb8, 0x0d, 0x13, 0x7b, 0x94, 0x4e, 0x6b, 0x7b, 0x2c, 0xcf, 0xa4, 0x22, 0x3c, 0x03,
+	0x0f, 0xc0, 0x0d, 0x77, 0xbc, 0x01, 0xe2, 0x01, 0x10, 0x37, 0xdc, 0x20, 0xf1, 0x08, 0xa8, 0x20,
+	0x5e, 0x81, 0x5b, 0x34, 0x1f, 0x1e, 0x3b, 0x90, 0xae, 0x54, 0xa9, 0x57, 0x99, 0x73, 0xe6, 0x37,
+	0xc7, 0xe7, 0xfc, 0xce, 0xc7, 0x4c, 0x60, 0x13, 0xcf, 0x48, 0x26, 0x26, 0x39, 0x5e, 0x24, 0x0c,
+	0xc7, 0x41, 0x5e, 0x30, 0xc1, 0x46, 0xbf, 0x3a, 0xd0, 0xdf, 0x67, 0x69, 0xca, 0xb2, 0xa7, 0x44,
+	0xe0, 0x18, 0x0b, 0x8c, 0x5e, 0x84, 0x75, 0x8d, 0x3c, 0x27, 0x05, 0xa7, 0x2c, 0xf3, 0x9d, 0x1d,
+	0x67, 0xb7, 0x13, 0xf6, 0x94, 0xf2, 0x0b, 0xad, 0x43, 0x03, 0x68, 0x0b, 0x9a, 0x92, 0xaf, 0x59,
+	0x46, 0x7c, 0x57, 0xed, 0x5b, 0x59, 0x1a, 0x88, 0xe6, 0x45, 0x21, 0x4d, 0x90, 0x9c, 0x45, 0x27,
+	0x7e, 0x63, 0xc7, 0xd9, 0x75, 0xc2, 0x9e, 0x51, 0x1e, 0x48, 0x1d, 0xba, 0x0b, 0x5d, 0x9a, 0x09,
+	0x52, 0x64, 0x38, 0x99, 0xd0, 0xdc, 0x5f, 0x53, 0x36, 0xa0, 0x54, 0x8d, 0x73, 0x74, 0x1b, 0x3a,
+	0xf9, 0x7c, 0x9a, 0xd0, 0x48, 0x6e, 0x37, 0xf5, 0x27, 0xb4, 0x62, 0x9c, 0xa3, 0x5b, 0xd0, 0xc2,
+	0x39, 0x9d, 0x9c, 0x91, 0x85, 0xef, 0xa9, 0x2d, 0x0f, 0xe7, 0xf4, 0x90, 0x2c, 0x46, 0x3f, 0xb8,
+	0xd0, 0x7f, 0x4a, 0x44, 0x41, 0x23, 0x7e, 0xa4, 0x03, 0x45, 0x0f, 0xa0, 0xc5, 0x71, 0x9a, 0x27,
+	0x84, 0xfb, 0xce, 0x4e, 0x63, 0xb7, 0xbb, 0xb7, 0x1d, 0x2c, 0x23, 0x82, 0x63, 0xb5, 0x1d, 0x96,
+	0x30, 0xf4, 0x2a, 0xb4, 0x53, 0xc3, 0x86, 0x0a, 0xae, 0xbb, 0x77, 0x23, 0x58, 0x26, 0x29, 0xb4,
+	0x80, 0xc1, 0x4f, 0x0e, 0x78, 0xda, 0x00, 0xda, 0x06, 0x2f, 0x55, 0x96, 0x0d, 0x65, 0x46, 0x42,
+	0x08, 0xd6, 0xc4, 0x22, 0x2f, 0x89, 0x52, 0x6b, 0xa9, 0x3b, 0x61, 0x5c, 0x28, 0x6e, 0x3a, 0xa1,
+	0x5a, 0xa3, 0x37, 0xc1, 0xcb, 0x19, 0xcd, 0x04, 0xf7, 0xd7, 0x94, 0xa3, 0x77, 0x56, 0x3b, 0x1a,
+	0x1c, 0x49, 0x50, 0x68, 0xb0, 0xca, 0x3a, 0x9e, 0x71, 0xbf, 0xb9, 0xd3, 0x50, 0xd6, 0xf1, 0x8c,
+	0x0f, 0x5e, 0x83, 0xa6, 0x02, 0xa1, 0x3e, 0xb8, 0x82, 0x2b, 0x77, 0x1a, 0xa1, 0x2b, 0x38, 0xda,
+	0x82, 0xe6, 0x39, 0x4e, 0xe6, 0xda, 0x17, 0x27, 0xd4, 0xc2, 0xe8, 0x3b, 0x17, 0xb6, 0x8e, 0x49,
+	0x71, 0x4e, 0x23, 0xb2, 0x7f, 0x42, 0xa2, 0x33, 0xcb, 0xdd, 0x18, 0xfa, 0x5c, 0xeb, 0x27, 0x91,
+	0xda, 0x30, 0x14, 0x8e, 0x82, 0x55, 0xf0, 0x25, 0x65, 0xb8, 0xce, 0xeb, 0x90, 0xab, 0x91, 0xfa,
+	0x8d, 0x03, 0xbd, 0xba, 0x31, 0x19, 0x64, 0x86, 0x53, 0x62, 0x88, 0x55, 0x6b, 0x4b, 0xa1, 0x5b,
+	0xa3, 0x50, 0xc7, 0xdb, 0xb0, 0xf1, 0x6e, 0x83, 0xc7, 0x05, 0x16, 0x73, 0xae, 0x2a, 0xac, 0x19,
+	0x1a, 0x09, 0xf9, 0xd0, 0x4a, 0x09, 0xe7, 0x78, 0x46, 0x4c, 0x6d, 0x95, 0xa2, 0xa5, 0xd3, 0xab,
+	0xe8, 0x1c, 0xfd, 0xe9, 0xc2, 0xfa, 0xc1, 0x39, 0xc9, 0x84, 0x25, 0xe6, 0x3e, 0x78, 0x44, 0x29,
+	0x0c, 0x21, 0x5b, 0xc1, 0xd2, 0xbe, 0x96, 0x42, 0x83, 0xb9, 0x5a, 0xec, 0x7f, 0x3b, 0xd0, 0x54,
+	0xc7, 0x65, 0xb2, 0x04, 0x15, 0x49, 0x19, 0xb5, 0x16, 0x94, 0x83, 0xe4, 0x2b, 0x1b, 0xb6, 0x5c,
+	0xff, 0x27, 0xec, 0x01, 0xb4, 0xf3, 0x82, 0xb2, 0x82, 0x8a, 0x85, 0x69, 0x2d, 0x2b, 0x5b, 0xda,
+	0x9a, 0x35, 0xda, 0x56, 0x04, 0x8d, 0x5e, 0x00, 0xc0, 0x09, 0x29, 0xc4, 0x44, 0xd5, 0x6e, 0x4b,
+	0xa1, 0x3b, 0x4a, 0xf3, 0x4c, 0x16, 0xf0, 0xcb, 0x70, 0x03, 0xcf, 0x66, 0x05, 0x99, 0x61, 0x41,
+	0x59, 0xa6, 0x5a, 0xb1, 0xad, 0x30, 0xfd, 0x9a, 0xfa, 0x90, 0x2c, 0xd0, 0x2e, 0x6c, 0x70, 0x36,
+	0x2f, 0x22, 0xa2, 0x0c, 0x4d, 0x54, 0x1a, 0x3b, 0x1a, 0xa9, 0xf5, 0xd2, 0xdc, 0xa7, 0x38, 0x25,
+	0xa3, 0x1f, 0x5d, 0xd8, 0x7c, 0xcc, 0xb8, 0x28, 0x49, 0x29, 0xc9, 0x7e, 0x0c, 0x7d, 0xe9, 0x25,
+	0x9f, 0x58, 0x12, 0x35, 0xe9, 0xf7, 0x82, 0x15, 0xe8, 0x25, 0x5d, 0xb8, 0xae, 0x0e, 0xda, 0xd9,
+	0x76, 0xa5, 0x44, 0x3c, 0x00, 0xef, 0x19, 0x9e, 0x1d, 0x13, 0x61, 0x1b, 0xd8, 0x59, 0x6e, 0x60,
+	0x45, 0x99, 0x5b, 0x6b, 0xbb, 0x39, 0xf4, 0xea, 0x5f, 0x97, 0x69, 0x90, 0xdf, 0xaf, 0x55, 0xae,
+	0x95, 0xd1, 0xeb, 0xb5, 0xf3, 0xdd, 0xbd, 0xdb, 0x2b, 0x43, 0xd1, 0x9f, 0x37, 0xf9, 0xf0, 0xa1,
+	0x85, 0x13, 0x8a, 0x39, 0x91, 0x89, 0x96, 0xdf, 0x2c, 0xc5, 0xd1, 0xf7, 0x3d, 0xd8, 0x3c, 0x9c,
+	0x4f, 0xc9, 0xbf, 0x79, 0xfb, 0x10, 0xba, 0x31, 0xc9, 0x13, 0xb6, 0x48, 0x6b, 0x95, 0x7a, 0x37,
+	0x58, 0x01, 0x0d, 0x3e, 0xb2, 0xb8, 0xb0, 0x7e, 0x06, 0x3d, 0x82, 0x5e, 0x41, 0xf2, 0x84, 0x46,
+	0x78, 0xc2, 0x89, 0x28, 0xbd, 0x5d, 0x6d, 0x23, 0xd4, 0x40, 0xe9, 0x71, 0xb7, 0xb0, 0x6b, 0x8e,
+	0x3e, 0x80, 0x6e, 0x8c, 0x49, 0xca, 0x32, 0x6d, 0xa2, 0xa1, 0x4c, 0x0c, 0x57, 0xbb, 0xa1, 0x70,
+	0xd2, 0x02, 0xc4, 0xe5, 0x92, 0xa3, 0x87, 0xd0, 0x36, 0xb3, 0xa4, 0x9a, 0x8c, 0xab, 0x4e, 0x9b,
+	0x89, 0x11, 0x5a, 0x34, 0xba, 0x0f, 0x6b, 0xa7, 0x6c, 0xaa, 0x67, 0x63, 0x77, 0xcf, 0x5f, 0x79,
+	0xea, 0x09, 0x9b, 0x86, 0x0a, 0x25, 0xd1, 0x39, 0x8b, 0x75, 0x17, 0x5c, 0x86, 0x3e, 0x62, 0x71,
+	0xa8, 0x50, 0xe8, 0x7d, 0x80, 0x88, 0x65, 0x02, 0xd3, 0x8c, 0x14, 0xdc, 0x6f, 0x3d, 0x27, 0xaa,
+	0xfd, 0x12, 0x16, 0xd6, 0x4e, 0x0c, 0x8e, 0x00, 0x2a, 0xd6, 0xd1, 0x06, 0x34, 0xe6, 0x34, 0x36,
+	0x55, 0x22, 0x97, 0x76, 0xe4, 0xb9, 0xb5, 0x91, 0x77, 0x07, 0x3a, 0xf2, 0x97, 0xe7, 0x38, 0x22,
+	0xe6, 0xea, 0xa8, 0x14, 0x83, 0x1c, 0xa0, 0xca, 0xc1, 0x75, 0x58, 0x44, 0x43, 0x80, 0xaa, 0x1a,
+	0xca, 0x4b, 0xba, 0xd2, 0x0c, 0x3e, 0x83, 0x8e, 0x4d, 0xd9, 0xb5, 0x84, 0xf0, 0x97, 0x03, 0x2d,
+	0x93, 0xc6, 0x6b, 0x09, 0xe0, 0x63, 0x59, 0x3a, 0x09, 0x89, 0x04, 0x2b, 0x4c, 0xe9, 0xbc, 0xf2,
+	0xbc, 0xd2, 0x09, 0x8e, 0x0d, 0xf8, 0x20, 0x13, 0xc5, 0x22, 0xb4, 0x67, 0xed, 0x04, 0x68, 0x56,
+	0x13, 0x60, 0xf0, 0x2e, 0xac, 0x2f, 0xc1, 0xa5, 0xc3, 0x72, 0x0c, 0x1a, 0x87, 0xcf, 0xc8, 0x62,
+	0xf9, 0xba, 0xed, 0x98, 0xeb, 0xf6, 0x1d, 0xf7, 0xa1, 0x33, 0x18, 0x43, 0xe3, 0x09, 0x9b, 0x5e,
+	0x0b, 0x67, 0x3f, 0x37, 0xa0, 0x71, 0xc4, 0xe2, 0x6b, 0xe1, 0xeb, 0x16, 0xb4, 0xe4, 0x84, 0xaa,
+	0x9e, 0x64, 0x9e, 0x14, 0xc7, 0x39, 0xba, 0x29, 0xdf, 0x26, 0x71, 0xf5, 0x16, 0x6b, 0xe6, 0x2c,
+	0x1e, 0xe7, 0xe8, 0x3d, 0xf0, 0x12, 0x3c, 0x25, 0x49, 0xd9, 0x34, 0x2f, 0x5d, 0xd6, 0x34, 0xc1,
+	0x27, 0x0a, 0xa6, 0x79, 0x35, 0x67, 0xd0, 0x3d, 0xe8, 0x95, 0xcf, 0x8b, 0x39, 0x8d, 0x75, 0x13,
+	0x75, 0xc2, 0xae, 0xd1, 0x7d, 0x4e, 0x63, 0xae, 0x1e, 0x93, 0x65, 0xcf, 0x4c, 0x24, 0xa6, 0xad,
+	0x30, 0x3d, 0xab, 0x1c, 0xc7, 0xea, 0xaa, 0xaa, 0x26, 0x8c, 0xb9, 0x5c, 0x3a, 0x76, 0x80, 0xc8,
+	0xb7, 0x66, 0x6d, 0x88, 0xf9, 0xa0, 0xcb, 0xb8, 0x1a, 0x51, 0xe8, 0x2d, 0xd8, 0x36, 0x92, 0xba,
+	0xcb, 0xa4, 0xed, 0x82, 0x25, 0x09, 0x29, 0xfc, 0xae, 0xc2, 0xde, 0xac, 0xed, 0xee, 0xdb, 0x4d,
+	0x49, 0xf8, 0x29, 0x9b, 0xfa, 0x3d, 0x4d, 0xf8, 0x29, 0x9b, 0x0e, 0xde, 0x86, 0x6e, 0x2d, 0xce,
+	0x2b, 0x15, 0xc4, 0x97, 0xd0, 0xb1, 0x73, 0x42, 0xde, 0xe7, 0x36, 0x93, 0xee, 0x25, 0x89, 0xdc,
+	0x82, 0x26, 0x4d, 0xe5, 0x03, 0x46, 0x27, 0x51, 0x0b, 0xe8, 0xff, 0xd0, 0x56, 0x8b, 0x09, 0x8d,
+	0x4d, 0x06, 0x5b, 0x4a, 0x1e, 0xc7, 0x8f, 0x36, 0x7e, 0xb9, 0x18, 0x3a, 0xbf, 0x5d, 0x0c, 0x9d,
+	0xdf, 0x2f, 0x86, 0xce, 0xb7, 0x7f, 0x0c, 0xff, 0x37, 0xf5, 0xd4, 0x9f, 0x80, 0x37, 0xfe, 0x09,
+	0x00, 0x00, 0xff, 0xff, 0x9d, 0x92, 0x0b, 0x18, 0x1b, 0x0c, 0x00, 0x00,
 }
