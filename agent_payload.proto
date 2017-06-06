@@ -1,5 +1,9 @@
 syntax = "proto3";
 
+package datadog.agentpayload;
+
+option go_package = "github.com/DataDog/agent-payload/gogen";
+
 message CommonMetadata {
 	string agent_version = 1;
 	string timezone = 2;
