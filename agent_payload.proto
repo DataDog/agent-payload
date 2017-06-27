@@ -59,6 +59,28 @@ message EventsPayload {
 	CommonMetadata metadata = 2;
 }
 
+message SketchPayload {
+        message Summary {
+                message Sketch {
+                        message Entry {
+                                double v = 1;
+                                int64 g = 2;
+                                int64 delta = 3;
+                        }
+                        int64 ts = 1;
+                        int64 n = 2;
+                        double min = 3;  
+                        repeated Entry entries = 4;
+                }
+                string metric = 1;
+                string host = 2;
+                repeated Sketch sketches = 3;
+                repeated string tags = 4;
+        }
+        repeated Summary summaries = 1;
+        CommonMetadata metadata = 2;
+}
+
 message HostMetadataPayload {
 	message TagSet {
 		string type = 1;
