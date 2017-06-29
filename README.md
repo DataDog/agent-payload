@@ -13,7 +13,14 @@ The Go and Python code are already generated along the `.proto` file.
 
 # Updates
 
-You will need to install ProtoGoFast: github.com/gogo/protobuf
+You will need to install gogoprotobuf: github.com/gogo/protobuf
+
+```
+go get github.com/gogo/protobuf/proto
+go get github.com/gogo/protobuf/protoc-gen-gofast
+go get github.com/gogo/protobuf/protoc-gen-gogofast
+go get github.com/gogo/protobuf/gogoproto
+```
 
 After updating the IDL you must:
 
