@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package datadog.agentpayload;
 
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
 option go_package = "github.com/DataDog/agent-payload/gogen";
 
 message CommonMetadata {
@@ -57,6 +59,28 @@ message EventsPayload {
 	}
 	repeated Event events = 1;
 	CommonMetadata metadata = 2;
+}
+
+message SketchPayload {
+        message Summary {
+                message Sketch {
+                        message Entry {
+                                double v = 1;
+                                int64 g = 2;
+                                int64 delta = 3;
+                        }
+                        int64 ts = 1;
+                        int64 n = 2;
+                        double min = 3;  
+                        repeated Entry entries = 4 [(gogoproto.nullable) = false];
+                }
+                string metric = 1;
+                string host = 2;
+                repeated Sketch sketches = 3 [(gogoproto.nullable) = false];
+                repeated string tags = 4;
+        }
+        repeated Summary summaries = 1 [(gogoproto.nullable) = false];
+        CommonMetadata metadata = 2 [(gogoproto.nullable) = false];
 }
 
 message HostMetadataPayload {
