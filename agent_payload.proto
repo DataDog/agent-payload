@@ -73,6 +73,9 @@ message SketchPayload {
                         int64 n = 2;
                         double min = 3;  
                         repeated Entry entries = 4 [(gogoproto.nullable) = false];
+                        double max = 5;
+                        double avg = 6;
+                        double sum = 7;
                 }
                 string metric = 1;
                 string host = 2;
