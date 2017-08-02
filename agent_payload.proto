@@ -157,3 +157,20 @@ message KubeMetadataPayload {
 	repeated Pod pods = 6;
 	repeated Container containers = 7;
 }
+
+message ECSMetadataPayload {
+	message Task {
+		string arn = 1;
+		string desired_status = 2;
+		string known_status = 3;
+		string family = 4;
+		string version = 5;
+		repeated Container containers = 6;
+	}
+	message Container {
+		string docker_id = 1;
+		string docker_name = 2;
+		string name = 3;
+	}
+	repeated Task tasks = 1;
+}
