@@ -73,6 +73,7 @@ message SketchPayload {
                         repeated double v = 7;
                         repeated uint32 g = 8;
                         repeated uint32 delta = 9;
+                        repeated double buf = 10;
                 }
                 string metric = 1;
                 string host = 2;
