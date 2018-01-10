@@ -79,6 +79,8 @@ message SketchPayload {
 		string host = 2;
 		repeated Distribution distributions = 3 [(gogoproto.nullable) = false];
 		repeated string tags = 4;
+                reserved 5, 6;
+                reserved "distributionsK", "distributionsC";
 	}
 	repeated Sketch sketches = 1 [(gogoproto.nullable) = false];
 	CommonMetadata metadata = 2 [(gogoproto.nullable) = false];
