@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "github.com/DataDog/agent-payload/pb";
+
+option java_multiple_files = true;
+option java_package = "com.dd.agent.pb";
+option java_outer_classname = "AgentPayload";
+
+message Log {
+
+    string message = 1;
+    string status = 2; // previously known as "severity"
+    string timestamp = 3;
+
+    // from host
+    string hostname = 4;
+
+    // from config
+    string service = 5;
+    string source = 6;
+    string category = 7;
+
+    // from config, container tags, ...
+    repeated string tags = 8;
+
+}
+
+message LogPayload {
+    Log log = 1;
+    string api_key = 2;
+    string logset = 3; // deprecated, will be removed one day
+}
