@@ -92,21 +92,11 @@ public interface LogOrBuilder extends
       getSourceBytes();
 
   /**
-   * <code>string category = 7;</code>
-   */
-  java.lang.String getCategory();
-  /**
-   * <code>string category = 7;</code>
-   */
-  com.google.protobuf.ByteString
-      getCategoryBytes();
-
-  /**
    * <pre>
    * from config, container tags, ...
    * </pre>
    *
-   * <code>repeated string tags = 8;</code>
+   * <code>repeated string tags = 7;</code>
    */
   java.util.List<java.lang.String>
       getTagsList();
@@ -115,7 +105,7 @@ public interface LogOrBuilder extends
    * from config, container tags, ...
    * </pre>
    *
-   * <code>repeated string tags = 8;</code>
+   * <code>repeated string tags = 7;</code>
    */
   int getTagsCount();
   /**
@@ -123,7 +113,7 @@ public interface LogOrBuilder extends
    * from config, container tags, ...
    * </pre>
    *
-   * <code>repeated string tags = 8;</code>
+   * <code>repeated string tags = 7;</code>
    */
   java.lang.String getTags(int index);
   /**
@@ -131,7 +121,7 @@ public interface LogOrBuilder extends
    * from config, container tags, ...
    * </pre>
    *
-   * <code>repeated string tags = 8;</code>
+   * <code>repeated string tags = 7;</code>
    */
   com.google.protobuf.ByteString
       getTagsBytes(int index);

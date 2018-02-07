@@ -22,7 +22,6 @@ private static final long serialVersionUID = 0L;
     hostname_ = "";
     service_ = "";
     source_ = "";
-    category_ = "";
     tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
   }
 
@@ -95,15 +94,9 @@ private static final long serialVersionUID = 0L;
           }
           case 58: {
             java.lang.String s = input.readStringRequireUtf8();
-
-            category_ = s;
-            break;
-          }
-          case 66: {
-            java.lang.String s = input.readStringRequireUtf8();
-            if (!((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
+            if (!((mutable_bitField0_ & 0x00000040) == 0x00000040)) {
               tags_ = new com.google.protobuf.LazyStringArrayList();
-              mutable_bitField0_ |= 0x00000080;
+              mutable_bitField0_ |= 0x00000040;
             }
             tags_.add(s);
             break;
@@ -116,7 +109,7 @@ private static final long serialVersionUID = 0L;
       throw new com.google.protobuf.InvalidProtocolBufferException(
           e).setUnfinishedMessage(this);
     } finally {
-      if (((mutable_bitField0_ & 0x00000080) == 0x00000080)) {
+      if (((mutable_bitField0_ & 0x00000040) == 0x00000040)) {
         tags_ = tags_.getUnmodifiableView();
       }
       this.unknownFields = unknownFields.build();
@@ -364,48 +357,14 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int CATEGORY_FIELD_NUMBER = 7;
-  private volatile java.lang.Object category_;
-  /**
-   * <code>string category = 7;</code>
-   */
-  public java.lang.String getCategory() {
-    java.lang.Object ref = category_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      category_ = s;
-      return s;
-    }
-  }
-  /**
-   * <code>string category = 7;</code>
-   */
-  public com.google.protobuf.ByteString
-      getCategoryBytes() {
-    java.lang.Object ref = category_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      category_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
-  }
-
-  public static final int TAGS_FIELD_NUMBER = 8;
+  public static final int TAGS_FIELD_NUMBER = 7;
   private com.google.protobuf.LazyStringList tags_;
   /**
    * <pre>
    * from config, container tags, ...
    * </pre>
    *
-   * <code>repeated string tags = 8;</code>
+   * <code>repeated string tags = 7;</code>
    */
   public com.google.protobuf.ProtocolStringList
       getTagsList() {
@@ -416,7 +375,7 @@ private static final long serialVersionUID = 0L;
    * from config, container tags, ...
    * </pre>
    *
-   * <code>repeated string tags = 8;</code>
+   * <code>repeated string tags = 7;</code>
    */
   public int getTagsCount() {
     return tags_.size();
@@ -426,7 +385,7 @@ private static final long serialVersionUID = 0L;
    * from config, container tags, ...
    * </pre>
    *
-   * <code>repeated string tags = 8;</code>
+   * <code>repeated string tags = 7;</code>
    */
   public java.lang.String getTags(int index) {
     return tags_.get(index);
@@ -436,7 +395,7 @@ private static final long serialVersionUID = 0L;
    * from config, container tags, ...
    * </pre>
    *
-   * <code>repeated string tags = 8;</code>
+   * <code>repeated string tags = 7;</code>
    */
   public com.google.protobuf.ByteString
       getTagsBytes(int index) {
@@ -473,11 +432,8 @@ private static final long serialVersionUID = 0L;
     if (!getSourceBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 6, source_);
     }
-    if (!getCategoryBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 7, category_);
-    }
     for (int i = 0; i < tags_.size(); i++) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 8, tags_.getRaw(i));
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 7, tags_.getRaw(i));
     }
     unknownFields.writeTo(output);
   }
@@ -504,9 +460,6 @@ private static final long serialVersionUID = 0L;
     }
     if (!getSourceBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, source_);
-    }
-    if (!getCategoryBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, category_);
     }
     {
       int dataSize = 0;
@@ -544,8 +497,6 @@ private static final long serialVersionUID = 0L;
         .equals(other.getService());
     result = result && getSource()
         .equals(other.getSource());
-    result = result && getCategory()
-        .equals(other.getCategory());
     result = result && getTagsList()
         .equals(other.getTagsList());
     result = result && unknownFields.equals(other.unknownFields);
@@ -571,8 +522,6 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getService().hashCode();
     hash = (37 * hash) + SOURCE_FIELD_NUMBER;
     hash = (53 * hash) + getSource().hashCode();
-    hash = (37 * hash) + CATEGORY_FIELD_NUMBER;
-    hash = (53 * hash) + getCategory().hashCode();
     if (getTagsCount() > 0) {
       hash = (37 * hash) + TAGS_FIELD_NUMBER;
       hash = (53 * hash) + getTagsList().hashCode();
@@ -718,10 +667,8 @@ private static final long serialVersionUID = 0L;
 
       source_ = "";
 
-      category_ = "";
-
       tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      bitField0_ = (bitField0_ & ~0x00000080);
+      bitField0_ = (bitField0_ & ~0x00000040);
       return this;
     }
 
@@ -752,10 +699,9 @@ private static final long serialVersionUID = 0L;
       result.hostname_ = hostname_;
       result.service_ = service_;
       result.source_ = source_;
-      result.category_ = category_;
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
         tags_ = tags_.getUnmodifiableView();
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000040);
       }
       result.tags_ = tags_;
       result.bitField0_ = to_bitField0_;
@@ -824,14 +770,10 @@ private static final long serialVersionUID = 0L;
         source_ = other.source_;
         onChanged();
       }
-      if (!other.getCategory().isEmpty()) {
-        category_ = other.category_;
-        onChanged();
-      }
       if (!other.tags_.isEmpty()) {
         if (tags_.isEmpty()) {
           tags_ = other.tags_;
-          bitField0_ = (bitField0_ & ~0x00000080);
+          bitField0_ = (bitField0_ & ~0x00000040);
         } else {
           ensureTagsIsMutable();
           tags_.addAll(other.tags_);
@@ -1340,80 +1282,11 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object category_ = "";
-    /**
-     * <code>string category = 7;</code>
-     */
-    public java.lang.String getCategory() {
-      java.lang.Object ref = category_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        category_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
-    }
-    /**
-     * <code>string category = 7;</code>
-     */
-    public com.google.protobuf.ByteString
-        getCategoryBytes() {
-      java.lang.Object ref = category_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        category_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>string category = 7;</code>
-     */
-    public Builder setCategory(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      category_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string category = 7;</code>
-     */
-    public Builder clearCategory() {
-      
-      category_ = getDefaultInstance().getCategory();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string category = 7;</code>
-     */
-    public Builder setCategoryBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      category_ = value;
-      onChanged();
-      return this;
-    }
-
     private com.google.protobuf.LazyStringList tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     private void ensureTagsIsMutable() {
-      if (!((bitField0_ & 0x00000080) == 0x00000080)) {
+      if (!((bitField0_ & 0x00000040) == 0x00000040)) {
         tags_ = new com.google.protobuf.LazyStringArrayList(tags_);
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000040;
        }
     }
     /**
@@ -1421,7 +1294,7 @@ private static final long serialVersionUID = 0L;
      * from config, container tags, ...
      * </pre>
      *
-     * <code>repeated string tags = 8;</code>
+     * <code>repeated string tags = 7;</code>
      */
     public com.google.protobuf.ProtocolStringList
         getTagsList() {
@@ -1432,7 +1305,7 @@ private static final long serialVersionUID = 0L;
      * from config, container tags, ...
      * </pre>
      *
-     * <code>repeated string tags = 8;</code>
+     * <code>repeated string tags = 7;</code>
      */
     public int getTagsCount() {
       return tags_.size();
@@ -1442,7 +1315,7 @@ private static final long serialVersionUID = 0L;
      * from config, container tags, ...
      * </pre>
      *
-     * <code>repeated string tags = 8;</code>
+     * <code>repeated string tags = 7;</code>
      */
     public java.lang.String getTags(int index) {
       return tags_.get(index);
@@ -1452,7 +1325,7 @@ private static final long serialVersionUID = 0L;
      * from config, container tags, ...
      * </pre>
      *
-     * <code>repeated string tags = 8;</code>
+     * <code>repeated string tags = 7;</code>
      */
     public com.google.protobuf.ByteString
         getTagsBytes(int index) {
@@ -1463,7 +1336,7 @@ private static final long serialVersionUID = 0L;
      * from config, container tags, ...
      * </pre>
      *
-     * <code>repeated string tags = 8;</code>
+     * <code>repeated string tags = 7;</code>
      */
     public Builder setTags(
         int index, java.lang.String value) {
@@ -1480,7 +1353,7 @@ private static final long serialVersionUID = 0L;
      * from config, container tags, ...
      * </pre>
      *
-     * <code>repeated string tags = 8;</code>
+     * <code>repeated string tags = 7;</code>
      */
     public Builder addTags(
         java.lang.String value) {
@@ -1497,7 +1370,7 @@ private static final long serialVersionUID = 0L;
      * from config, container tags, ...
      * </pre>
      *
-     * <code>repeated string tags = 8;</code>
+     * <code>repeated string tags = 7;</code>
      */
     public Builder addAllTags(
         java.lang.Iterable<java.lang.String> values) {
@@ -1512,11 +1385,11 @@ private static final long serialVersionUID = 0L;
      * from config, container tags, ...
      * </pre>
      *
-     * <code>repeated string tags = 8;</code>
+     * <code>repeated string tags = 7;</code>
      */
     public Builder clearTags() {
       tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      bitField0_ = (bitField0_ & ~0x00000080);
+      bitField0_ = (bitField0_ & ~0x00000040);
       onChanged();
       return this;
     }
@@ -1525,7 +1398,7 @@ private static final long serialVersionUID = 0L;
      * from config, container tags, ...
      * </pre>
      *
-     * <code>repeated string tags = 8;</code>
+     * <code>repeated string tags = 7;</code>
      */
     public Builder addTagsBytes(
         com.google.protobuf.ByteString value) {

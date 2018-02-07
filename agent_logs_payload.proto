@@ -20,15 +20,8 @@ message Log {
     // from config
     string service = 5;
     string source = 6;
-    string category = 7;
 
     // from config, container tags, ...
-    repeated string tags = 8;
+    repeated string tags = 7;
 
-}
-
-message LogPayload {
-    Log log = 1;
-    string api_key = 2;
-    string logset = 3; // deprecated, will be removed one day
 }
