@@ -30,7 +30,7 @@ public final class AgentPayload {
     java.lang.String[] descriptorData = {
       "\n\030agent_logs_payload.proto\022\002pb\"z\n\003Log\022\017\n" +
       "\007message\030\001 \001(\t\022\016\n\006status\030\002 \001(\t\022\021\n\ttimest" +
-      "amp\030\003 \001(\t\022\020\n\010hostname\030\004 \001(\t\022\017\n\007service\030\005" +
+      "amp\030\003 \001(\003\022\020\n\010hostname\030\004 \001(\t\022\017\n\007service\030\005" +
       " \001(\t\022\016\n\006source\030\006 \001(\t\022\014\n\004tags\030\007 \003(\tBF\n\017co" +
       "m.dd.agent.pbB\014AgentPayloadP\001Z#github.co" +
       "m/DataDog/agent-payload/pbb\006proto3"

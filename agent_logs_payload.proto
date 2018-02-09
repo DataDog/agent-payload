@@ -12,7 +12,7 @@ message Log {
 
     string message = 1;
     string status = 2; // previously known as "severity"
-    string timestamp = 3;
+    int64 timestamp = 3;
 
     // from host
     string hostname = 4;

@@ -36,14 +36,9 @@ public interface LogOrBuilder extends
       getStatusBytes();
 
   /**
-   * <code>string timestamp = 3;</code>
+   * <code>int64 timestamp = 3;</code>
    */
-  java.lang.String getTimestamp();
-  /**
-   * <code>string timestamp = 3;</code>
-   */
-  com.google.protobuf.ByteString
-      getTimestampBytes();
+  long getTimestamp();
 
   /**
    * <pre>

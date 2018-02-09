@@ -18,7 +18,7 @@ private static final long serialVersionUID = 0L;
   private Log() {
     message_ = "";
     status_ = "";
-    timestamp_ = "";
+    timestamp_ = 0L;
     hostname_ = "";
     service_ = "";
     source_ = "";
@@ -68,10 +68,9 @@ private static final long serialVersionUID = 0L;
             status_ = s;
             break;
           }
-          case 26: {
-            java.lang.String s = input.readStringRequireUtf8();
+          case 24: {
 
-            timestamp_ = s;
+            timestamp_ = input.readInt64();
             break;
           }
           case 34: {
@@ -206,37 +205,12 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int TIMESTAMP_FIELD_NUMBER = 3;
-  private volatile java.lang.Object timestamp_;
+  private long timestamp_;
   /**
-   * <code>string timestamp = 3;</code>
+   * <code>int64 timestamp = 3;</code>
    */
-  public java.lang.String getTimestamp() {
-    java.lang.Object ref = timestamp_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      timestamp_ = s;
-      return s;
-    }
-  }
-  /**
-   * <code>string timestamp = 3;</code>
-   */
-  public com.google.protobuf.ByteString
-      getTimestampBytes() {
-    java.lang.Object ref = timestamp_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      timestamp_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
+  public long getTimestamp() {
+    return timestamp_;
   }
 
   public static final int HOSTNAME_FIELD_NUMBER = 4;
@@ -420,8 +394,8 @@ private static final long serialVersionUID = 0L;
     if (!getStatusBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, status_);
     }
-    if (!getTimestampBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, timestamp_);
+    if (timestamp_ != 0L) {
+      output.writeInt64(3, timestamp_);
     }
     if (!getHostnameBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, hostname_);
@@ -449,8 +423,9 @@ private static final long serialVersionUID = 0L;
     if (!getStatusBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, status_);
     }
-    if (!getTimestampBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, timestamp_);
+    if (timestamp_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(3, timestamp_);
     }
     if (!getHostnameBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, hostname_);
@@ -489,8 +464,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getMessage());
     result = result && getStatus()
         .equals(other.getStatus());
-    result = result && getTimestamp()
-        .equals(other.getTimestamp());
+    result = result && (getTimestamp()
+        == other.getTimestamp());
     result = result && getHostname()
         .equals(other.getHostname());
     result = result && getService()
@@ -515,7 +490,8 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + STATUS_FIELD_NUMBER;
     hash = (53 * hash) + getStatus().hashCode();
     hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
-    hash = (53 * hash) + getTimestamp().hashCode();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getTimestamp());
     hash = (37 * hash) + HOSTNAME_FIELD_NUMBER;
     hash = (53 * hash) + getHostname().hashCode();
     hash = (37 * hash) + SERVICE_FIELD_NUMBER;
@@ -659,7 +635,7 @@ private static final long serialVersionUID = 0L;
 
       status_ = "";
 
-      timestamp_ = "";
+      timestamp_ = 0L;
 
       hostname_ = "";
 
@@ -754,9 +730,8 @@ private static final long serialVersionUID = 0L;
         status_ = other.status_;
         onChanged();
       }
-      if (!other.getTimestamp().isEmpty()) {
-        timestamp_ = other.timestamp_;
-        onChanged();
+      if (other.getTimestamp() != 0L) {
+        setTimestamp(other.getTimestamp());
       }
       if (!other.getHostname().isEmpty()) {
         hostname_ = other.hostname_;
@@ -966,71 +941,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object timestamp_ = "";
+    private long timestamp_ ;
     /**
-     * <code>string timestamp = 3;</code>
+     * <code>int64 timestamp = 3;</code>
      */
-    public java.lang.String getTimestamp() {
-      java.lang.Object ref = timestamp_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        timestamp_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
+    public long getTimestamp() {
+      return timestamp_;
     }
     /**
-     * <code>string timestamp = 3;</code>
+     * <code>int64 timestamp = 3;</code>
      */
-    public com.google.protobuf.ByteString
-        getTimestampBytes() {
-      java.lang.Object ref = timestamp_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        timestamp_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>string timestamp = 3;</code>
-     */
-    public Builder setTimestamp(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+    public Builder setTimestamp(long value) {
+      
       timestamp_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string timestamp = 3;</code>
+     * <code>int64 timestamp = 3;</code>
      */
     public Builder clearTimestamp() {
       
-      timestamp_ = getDefaultInstance().getTimestamp();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string timestamp = 3;</code>
-     */
-    public Builder setTimestampBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      timestamp_ = value;
+      timestamp_ = 0L;
       onChanged();
       return this;
     }
