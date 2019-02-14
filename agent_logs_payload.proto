@@ -19,9 +19,9 @@ message Log {
 
     // from config
     string service = 5;
-    string source = 6;
+    string source = 6 [json_name="ddsource"];
 
     // from config, container tags, ...
-    repeated string tags = 7;
+    repeated string tags = 7 [json_name="ddtags"];
 
 }
