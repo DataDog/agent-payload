@@ -48,13 +48,13 @@ BASH
       popd
 
       echo "Generating logs proto"
-      PATH=$PATH:/tmp/gogo-bin-v1.0.0 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out $GOPATH/src --java_out=java proto/logs/agent_logs_payload.proto
+      PATH=/tmp/gogo-bin-v1.0.0 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src --java_out=java proto/logs/agent_logs_payload.proto
 
       echo "Generating metrics proto (go)"
-      PATH=$PATH:/tmp/gogo-bin-v1.0.0 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out $GOPATH/src proto/metrics/agent_payload.proto
+      PATH=/tmp/gogo-bin-v1.0.0 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src proto/metrics/agent_payload.proto
 
       echo "Generating metrics proto (python)"
-      PATH=$PATH:/tmp/gogo-bin-v1.0.0 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:./proto/metrics --python_out=python agent_payload.proto
+      #{protoc_binary} --proto_path=#{gogo_dir}/src:$GOPATH/src:./proto/metrics --python_out=python agent_payload.proto
 
       # Install the specific tag that the process-agent needs
       pushd #{gogo_dir}/src/github.com/gogo/protobuf
@@ -64,7 +64,7 @@ BASH
       popd
 
       echo "Generating process proto"
-      PATH=$PATH:/tmp/gogo-bin-d76fbc1373015ced59b43ac267f28d546b955683 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofaster_out $GOPATH/src proto/process/agent.proto
+      PATH=/tmp/gogo-bin-d76fbc1373015ced59b43ac267f28d546b955683 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofaster_out=$GOPATH/src proto/process/agent.proto
 BASH
     EOF
   end
