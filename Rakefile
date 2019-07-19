@@ -74,8 +74,21 @@ BASH
 
 end
 
+desc "Setup dependencies"
+task :deps do
+  system("dep ensure -v")
+end
+
+desc "Run tests"
+task :test do
+  cmd = "go list ./... | grep -v vendor | xargs go test -v "
+  sh cmd
+end
+
 desc "Run all code generation."
 task :codegen => ['codegen:all']
 
 desc "Run all protobuf code generation."
 task :protobuf => ['codegen:protoc']
+
+task :default => [:deps, :test, :codegen]
