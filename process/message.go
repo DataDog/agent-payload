@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"reflect"
 
-	zstd "github.com/DataDog/zstd.v0.5"
+	"github.com/DataDog/zstd"
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/proto"
 )
