@@ -59,6 +59,8 @@ message CollectorConnections {
 
 	// mapping of processes running in each container
 	map<int32, string> containerForPid = 10;
+
+	bytes encodedTags = 11;
 }
 
 message CollectorRealTime {
@@ -307,6 +309,8 @@ message ContainerMetadata {
 	uint32 key = 2;
 	bytes byteKey = 3;
 	repeated string tags = 4;
+	int32 tagIndex = 5;
+	int64 tagsModified = 6;
 }
 
 message SystemInfo {
@@ -438,19 +442,17 @@ message CPUInfo {
 	int32 cacheSize = 9;
 }
 
-// Host and HostTags are used in backend post-resolution
+// Host is used in backend post-resolution
 
 message Host {
+	reserved 4, 5;
+
 	int32 id = 1;
 	int32 orgId = 2;
 	string name = 3;
-	repeated HostTags tags = 4;
 	repeated string allTags = 6;
 	int32 numCpus = 7;
 	int64 totalMemory = 8;
-}
-
-message HostTags {
-	uint32 sourceType = 1;
-	repeated string tags = 2;
+	int32 tagIndex = 9;
+	int64 tagsModified = 10;
 }

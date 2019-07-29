@@ -10,3 +10,5 @@
 
 # jetbrains IDE directory
 /.idea/
+
+vendor/
