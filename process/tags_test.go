@@ -28,6 +28,16 @@ func TestTagSerde(t *testing.T) {
 	assert.Equal(t, []string{"seven", "eight", "nine", "ten"}, getTags(encoder.Buffer(), e))
 }
 
+func TestUnicodeTags(t *testing.T) {
+	encoder := NewTagEncoder()
+
+	tags := []string{"データベース", "ロガー", "english", "ウェブホスト"}
+
+	a := encoder.Encode(tags)
+
+	assert.Equal(t, tags, getTags(encoder.Buffer(), a))
+}
+
 func TestTagSerdeRealTags(t *testing.T) {
 	allTags := readTestTags(t)
 
