@@ -1,6 +1,7 @@
 package process
 
 import (
+	"encoding/base64"
 	"fmt"
 	"io/ioutil"
 	"math"
@@ -41,6 +42,29 @@ func TestTagSerdeRealTags(t *testing.T) {
 
 	for i, tagIndex := range tagIndices {
 		assert.Equal(t, allTags[i], getTags(encoder.Buffer(), tagIndex))
+	}
+}
+
+func TestDecodedTags(t *testing.T) {
+	allTags := readTestTags(t)
+
+	encoder := NewTagEncoder()
+
+	var tagIndices []int
+
+	for _, tags := range allTags {
+		tagIndex := encoder.Encode(tags)
+		tagIndices = append(tagIndices, tagIndex)
+	}
+
+	b64, err := ioutil.ReadFile("testdata/tags_encoded.txt")
+	require.NoError(t, err)
+
+	buf, err := base64.StdEncoding.DecodeString(string(b64))
+	require.NoError(t, err)
+
+	for i, tagIndex := range tagIndices {
+		assert.Equal(t, allTags[i], getTags(buf, tagIndex))
 	}
 }
 
