@@ -81,7 +81,7 @@ message CollectorRealTime {
 
 message CollectorContainer {
 	string hostName = 1;
-	string networkId = 9;
+	string networkId = 11;
 	SystemInfo info = 2;
 	repeated Container containers = 3;
 	int32 groupId = 4;
