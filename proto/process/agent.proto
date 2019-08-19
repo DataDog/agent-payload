@@ -24,6 +24,7 @@ message ResCollector {
 
 message CollectorProc {
 	string  hostName = 2;
+	string networkId = 11;
 	repeated Process processes = 3;
 	Host host = 4;
 	SystemInfo info = 5;
@@ -41,6 +42,7 @@ message CollectorConnections {
 	reserved 1, 4;
 
 	string hostName = 2;
+	string networkId = 12;
 	int32 hostId = 9; // Post-resolution field.
 	repeated Connection connections = 3;
 
@@ -79,6 +81,7 @@ message CollectorRealTime {
 
 message CollectorContainer {
 	string hostName = 1;
+	string networkId = 9;
 	SystemInfo info = 2;
 	repeated Container containers = 3;
 	int32 groupId = 4;
