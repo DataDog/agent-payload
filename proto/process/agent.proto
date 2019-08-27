@@ -383,6 +383,10 @@ message Connection {
 
 	// the conntrack entry associated with the connection. May be null on systems which don't support querying conntrack.
 	IPTranslation ipTranslation = 21;
+
+	// TCP-specific metrics
+	uint32 rtt = 22;
+	uint32 rttVar = 23;
 }
 
 message Connections {
