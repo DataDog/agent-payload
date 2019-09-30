@@ -391,6 +391,7 @@ message Connection {
 
 message Connections {
   repeated Connection conns = 1;
+  map<string, DNSEntry> dns  = 2;
 }
 
 message Addr {
@@ -462,4 +463,8 @@ message Host {
 	int64 totalMemory = 8;
 	int32 tagIndex = 9;
 	int64 tagsModified = 10;
+}
+
+message DNSEntry {
+  repeated string names = 1;
 }
