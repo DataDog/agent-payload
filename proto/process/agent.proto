@@ -121,6 +121,7 @@ message CollectorReqStatus {
 message CollectorStatus {
 	int32 activeClients = 1;
 	int32 interval = 2;
+	int32 batchSize = 3;
 }
 
 message Process {
