@@ -50,17 +50,18 @@ message CollectorConnections {
 	int32 groupId = 5;
 	int32 groupSize = 6;
 
-	// post-resolution field; all the hosts referenced in `connections` keyed by
-	// hostId. This should also include an entry for the host on which these connections
-	// were gathered.
-	map<int32, Host> resolvedHosts = 7;
+	// Mapping of hostId to Host. Each `connection` has a hostId field which can be mapped here.
+	// This should also include an entry for the host on which these connections were gathered.
+	map<int32, Host> resolvedHosts = 7; // Post-resolution field
 
-	// post-resolution field: all of the containers referenced in `connections` keyed by
-	// containerId
-	map<string, ContainerMetadata> resolvedContainers = 8;
+	// Mapping of containerId to container data. Each `connection` has a containerId field which can be mapped here.
+	map<string, ContainerMetadata> resolvedContainers = 8; // Post-resolution field
 
-	// mapping of processes running in each container
+	// Mapping of processes running in each container
 	map<int32, string> containerForPid = 10;
+
+	// Mapping of IP address to DNS entries
+	map<string, DNSEntry> dns = 13;
 
 	bytes encodedTags = 11;
 }
