@@ -359,7 +359,7 @@ enum ConnectionDirection {
 }
 
 message Connection {
-	reserved 2, 3, 4, 7, 8, 9;
+	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15;
 
 	int32 pid = 1;
 	Addr laddr = 5; // Local address
@@ -367,11 +367,6 @@ message Connection {
 	ConnectionFamily family = 10;
 	ConnectionType type = 11;
 	int64 pidCreateTime = 12;
-
-	// Monotonic counters
-	uint64 totalBytesSent = 13;
-	uint64 totalBytesReceived = 14;
-	uint32 totalRetransmits = 15;
 
 	// Relative counters since last check
 	uint64 lastBytesSent = 16;
