@@ -60,7 +60,7 @@ message CollectorConnections {
 	// Mapping of processes running in each container
 	map<int32, string> containerForPid = 10;
 
-	// Mapping of IP address to DNS entries
+	// Mapping of IP address to DNS entries. Key is the IP Byte String format.
 	map<string, DNSEntry> dns = 13;
 
 	bytes encodedTags = 11;
@@ -393,17 +393,20 @@ message Connections {
 message Addr {
 	reserved 1, 4;
 
-	string ip = 2;
-	string ipByteString = 7; // byte-representation of IP in string format (for easy support of v4 and v6 addresses)
+	string ip = 2;           // DEPRECATED - left in place to support previous versions.
+	string ipByteString = 7; // byte-representation of IP in string format (for easy support of both v4 & v6 addresses)
 	int32  port = 3;
-	string containerId = 5; // post-resolution field
-	int32  hostId = 6;      // post-resolution field
+	string containerId = 5;  // post-resolution field
+	int32  hostId = 6;       // post-resolution field
 }
 
 message IPTranslation {
-	string replSrcIP  = 1;
-	string replDstIP  = 2;
+	string replSrcIP  = 1;           // DEPRECATED - left in place to support previous versions.
+	string replSrcIPByteString  = 5; // byte-representation of IP in string format (for easy support of both v4 & v6 addresses)
 	int32 replSrcPort = 3;
+
+	string replDstIP  = 2;           // DEPRECATED - left in place to support previous versions.
+	string replDstIPByteString  = 6; // byte-representation of IP in string format (for easy support of both v4 & v6 addresses)
 	int32 replDstPort = 4;
 }
 
