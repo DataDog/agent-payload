@@ -394,6 +394,7 @@ message Addr {
 	reserved 1, 4;
 
 	string ip = 2;
+	string ipByteString = 7; // byte-representation of IP in string format (for easy support of v4 and v6 addresses)
 	int32  port = 3;
 	string containerId = 5; // post-resolution field
 	int32  hostId = 6;      // post-resolution field
