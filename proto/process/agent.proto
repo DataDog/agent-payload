@@ -470,7 +470,7 @@ message DNSEntry {
 message Pod {
 	string name = 1;
 	string namespace = 2;
-	int64 age = 3;
+	int64 startTime = 3;
 	string IP = 4;
 	string nominatedNodeName = 5;
 	string nodeName = 6;
