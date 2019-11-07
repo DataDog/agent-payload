@@ -476,8 +476,8 @@ message Pod {
 	string nodeName = 6;
 	int32 restartCount = 7;
 	repeated ContainerStatus containerStatuses = 8;
-	map<string, string> labels = 9;
-	map<string, string> annotations = 10;
+	repeated string labels = 9;
+	repeated string annotations = 10;
 	repeated OwnerReference ownerReferences = 11;
 	repeated string tags = 12;
 	bytes yaml = 13;
