@@ -491,9 +491,9 @@ message ContainerStatus {
 }
 
 message OwnerReference {
-	string apiVersion = 5;
-	string kind = 1;
-	string name = 3;
-	string uid = 4;
-	bool controller = 6;
+	string name = 1;
+	string uid = 2;
+	string kind = 3;
+	string apiVersion = 4;
+	bool controller = 5;
 }
