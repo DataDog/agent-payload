@@ -115,6 +115,13 @@ message CollectorReqStatus {
 	string hostName = 2;
 }
 
+message CollectorPod {
+	string hostName = 1;
+	repeated Pod pods = 2;
+	// Post-resolved fields
+	int32 hostId = 3;
+}
+
 //
 // Models
 //
