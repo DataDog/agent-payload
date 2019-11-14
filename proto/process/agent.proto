@@ -118,8 +118,10 @@ message CollectorReqStatus {
 message CollectorPod {
 	string hostName = 1;
 	repeated Pod pods = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
 	// Post-resolved fields
-	int32 hostId = 3;
+	int32 hostId = 5;
 }
 
 //
