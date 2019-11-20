@@ -479,30 +479,31 @@ message DNSEntry {
 message Pod {
 	string name = 1;
 	string namespace = 2;
-	int64 startTime = 3;
+	int64 creationTimestamp = 3;
 	string IP = 4;
 	string nominatedNodeName = 5;
 	string nodeName = 6;
-	int32 restartCount = 7;
-	repeated ContainerStatus containerStatuses = 8;
-	repeated string labels = 9;
-	repeated string annotations = 10;
-	repeated OwnerReference ownerReferences = 11;
-	repeated string tags = 12;
-	bytes yaml = 13;
+	string phase = 7;
+	int32 restartCount = 8;
+	repeated ContainerStatus containerStatuses = 9;
+	repeated string labels = 10;
+	repeated string annotations = 11;
+	repeated OwnerReference ownerReferences = 12;
+	repeated string tags = 13;
+	bytes yaml = 14;
 }
 
 message ContainerStatus {
 	string name = 1;
 	string containerID = 2;
 	bool ready = 3;
-	bool started = 4;
+	int32 restartCount = 4;
+	string state = 5;
+	string message = 6;
 }
 
 message OwnerReference {
 	string name = 1;
 	string uid = 2;
 	string kind = 3;
-	string apiVersion = 4;
-	bool controller = 5;
 }
