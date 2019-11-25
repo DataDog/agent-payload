@@ -121,7 +121,7 @@ message CollectorPod {
 	int32 groupId = 3;
 	int32 groupSize = 4;
 	// Post-resolved fields
-	int32 hostId = 5;
+	Host host = 5;
 }
 
 //
