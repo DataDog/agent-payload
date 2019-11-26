@@ -115,6 +115,15 @@ message CollectorReqStatus {
 	string hostName = 2;
 }
 
+message CollectorPod {
+	string hostName = 1;
+	repeated Pod pods = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	// Post-resolved fields
+	Host host = 5;
+}
+
 //
 // Models
 //
@@ -464,4 +473,37 @@ message Host {
 
 message DNSEntry {
   repeated string names = 1;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto
+message Pod {
+	string name = 1;
+	string namespace = 2;
+	int64 creationTimestamp = 3;
+	string IP = 4;
+	string nominatedNodeName = 5;
+	string nodeName = 6;
+	string phase = 7;
+	int32 restartCount = 8;
+	repeated ContainerStatus containerStatuses = 9;
+	repeated string labels = 10;
+	repeated string annotations = 11;
+	repeated OwnerReference ownerReferences = 12;
+	repeated string tags = 13;
+	bytes yaml = 14;
+}
+
+message ContainerStatus {
+	string name = 1;
+	string containerID = 2;
+	bool ready = 3;
+	int32 restartCount = 4;
+	string state = 5;
+	string message = 6;
+}
+
+message OwnerReference {
+	string name = 1;
+	string uid = 2;
+	string kind = 3;
 }
