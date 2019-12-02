@@ -3,6 +3,7 @@ package process
 import (
 	"encoding/base64"
 	"fmt"
+	"github.com/stretchr/testify/suite"
 	"io/ioutil"
 	"math"
 	"strings"
@@ -12,36 +13,45 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestTagSerde(t *testing.T) {
-	encoder := NewTagEncoder()
-
-	a := encoder.Encode([]string{"one", "two", "three"})
-	b := encoder.Encode([]string{})
-	c := encoder.Encode([]string{"four", "five"})
-	d := encoder.Encode([]string{"six"})
-	e := encoder.Encode([]string{"seven", "eight", "nine", "ten"})
-
-	assert.Equal(t, []string{"one", "two", "three"}, getTags(encoder.Buffer(), a))
-	assert.Equal(t, []string{}, getTags(encoder.Buffer(), b))
-	assert.Equal(t, []string{"four", "five"}, getTags(encoder.Buffer(), c))
-	assert.Equal(t, []string{"six"}, getTags(encoder.Buffer(), d))
-	assert.Equal(t, []string{"seven", "eight", "nine", "ten"}, getTags(encoder.Buffer(), e))
+type TagSerdeTestSuite struct {
+	suite.Suite
+	encoder TagEncoder
 }
 
-func TestUnicodeTags(t *testing.T) {
-	encoder := NewTagEncoder()
+func TestV1TagEncoder(t *testing.T) {
+	suite.Run(t, &TagSerdeTestSuite{encoder: NewTagEncoder()})
+}
+
+func (suite *TagSerdeTestSuite) TestTagSerde() {
+	a := suite.encoder.Encode([]string{"one", "two", "three"})
+	b := suite.encoder.Encode([]string{})
+	c := suite.encoder.Encode([]string{"four", "five"})
+	d := suite.encoder.Encode([]string{"six"})
+	e := suite.encoder.Encode([]string{"seven", "eight", "nine", "ten"})
+
+	buf := suite.encoder.Buffer()
+
+	assert.Equal(suite.T(), []string{"one", "two", "three"}, getTags(buf, a))
+	assert.Empty(suite.T(), getTags(buf, b))
+	assert.Equal(suite.T(), []string{"four", "five"}, getTags(buf, c))
+	assert.Equal(suite.T(), []string{"six"}, getTags(buf, d))
+	assert.Equal(suite.T(), []string{"seven", "eight", "nine", "ten"}, getTags(buf, e))
+}
+
+func (suite *TagSerdeTestSuite) TestUnicodeTags() {
+	encoder := suite.encoder
 
 	tags := []string{"データベース", "ロガー", "english", "ウェブホスト"}
 
 	a := encoder.Encode(tags)
 
-	assert.Equal(t, tags, getTags(encoder.Buffer(), a))
+	assert.Equal(suite.T(), tags, getTags(encoder.Buffer(), a))
 }
 
-func TestTagSerdeRealTags(t *testing.T) {
-	allTags := readTestTags(t)
+func (suite *TagSerdeTestSuite) TestTagSerdeRealTags() {
+	allTags := readTestTags(suite.T(), "testdata/tags.txt")
 
-	encoder := NewTagEncoder()
+	encoder := suite.encoder
 
 	var tagIndices []int
 
@@ -51,12 +61,45 @@ func TestTagSerdeRealTags(t *testing.T) {
 	}
 
 	for i, tagIndex := range tagIndices {
-		assert.Equal(t, allTags[i], getTags(encoder.Buffer(), tagIndex))
+		assert.Equal(suite.T(), allTags[i], getTags(encoder.Buffer(), tagIndex))
 	}
 }
 
-func TestDecodedTags(t *testing.T) {
-	allTags := readTestTags(t)
+func (suite *TagSerdeTestSuite) TestGetTagsEmpty() {
+	assert.Empty(suite.T(), getTags(nil, 1234))
+}
+
+func (suite *TagSerdeTestSuite) TestOverflowNumberOfTags() {
+	var tags []string
+
+	for i := 0; i < math.MaxUint16+1; i++ {
+		tags = append(tags, fmt.Sprintf("%d", i))
+	}
+
+	idx := suite.encoder.Encode(tags)
+
+	assert.Len(suite.T(), getTags(suite.encoder.Buffer(), idx), math.MaxUint16)
+}
+
+func (suite *TagSerdeTestSuite) TestOverflowTagLength() {
+	tag := ""
+
+	for i := 0; i < math.MaxUint16+1; i++ {
+		tag += "0"
+	}
+
+	idx := suite.encoder.Encode([]string{tag})
+
+	buffer := suite.encoder.Buffer()
+
+	tags := getTags(buffer, idx)
+
+	require.Len(suite.T(), tags, 1)
+	assert.Len(suite.T(), tags[0], math.MaxUint16)
+}
+
+func TestV1DecodedTags(t *testing.T) {
+	allTags := readTestTags(t, "testdata/tags.txt")
 
 	encoder := NewTagEncoder()
 
@@ -78,43 +121,8 @@ func TestDecodedTags(t *testing.T) {
 	}
 }
 
-func TestGetTagsEmpty(t *testing.T) {
-	assert.Empty(t, getTags(nil, 1234))
-}
-
-func TestOverflowNumberOfTags(t *testing.T) {
-	var tags []string
-
-	for i := 0; i < math.MaxUint16+1; i++ {
-		tags = append(tags, fmt.Sprintf("%d", i))
-	}
-
-	encoder := NewTagEncoder()
-
-	idx := encoder.Encode(tags)
-
-	assert.Len(t, getTags(encoder.Buffer(), idx), math.MaxUint16)
-}
-
-func TestOverflowTagLength(t *testing.T) {
-	tag := ""
-
-	for i := 0; i < math.MaxUint16+1; i++ {
-		tag += "0"
-	}
-
-	encoder := NewTagEncoder()
-
-	idx := encoder.Encode([]string{tag})
-
-	tags := getTags(encoder.Buffer(), idx)
-
-	require.Len(t, tags, 1)
-	assert.Len(t, tags[0], math.MaxUint16)
-}
-
 func BenchmarkTagEncode(b *testing.B) {
-	allTags := readTestTags(b)
+	allTags := readTestTags(b, "testdata/tags.txt")
 
 	b.ReportAllocs()
 	b.ResetTimer()
@@ -128,8 +136,8 @@ func BenchmarkTagEncode(b *testing.B) {
 	}
 }
 
-func readTestTags(t require.TestingT) [][]string {
-	buf, err := ioutil.ReadFile("testdata/tags.txt")
+func readTestTags(t require.TestingT, filename string) [][]string {
+	buf, err := ioutil.ReadFile(filename)
 	require.NoError(t, err)
 
 	var allTags [][]string
