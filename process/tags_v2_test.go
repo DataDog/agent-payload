@@ -2,11 +2,10 @@ package process
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/suite"
-	"path/filepath"
 	"runtime"
-	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/suite"
 )
 
 func TestV2TagEncoder(t *testing.T) {
@@ -41,25 +40,7 @@ func BenchmarkTagEncoders(b *testing.B) {
 		encoderFactory func() TagEncoder
 	}{
 		{
-			name: "v2_no_map_pool_map_size_100",
-			encoderFactory: func() TagEncoder {
-				return NewV2TagEncoderWithOptions(false, 100)
-			},
-		},
-		{
-			name: "v2_no_map_pool_map_size_200",
-			encoderFactory: func() TagEncoder {
-				return NewV2TagEncoderWithOptions(false, 200)
-			},
-		},
-		{
-			name: "v2_no_map_pool",
-			encoderFactory: func() TagEncoder {
-				return NewV2TagEncoderWithOptions(false, 0)
-			},
-		},
-		{
-			name:           "v2_map_pool",
+			name:           "v2",
 			encoderFactory: NewV2TagEncoder,
 		},
 		{
@@ -90,53 +71,9 @@ func BenchmarkTagEncoders(b *testing.B) {
 
 					buf = encoder.Buffer()
 				}
+				b.ReportMetric(float64(len(buf)), "bytes")
 				runtime.KeepAlive(buf)
 			})
 		}
-	}
-}
-
-func BenchmarkMaps(b *testing.B) {
-	files := []string{
-		"testdata/low_dups.txt",
-		"testdata/high_dups.txt",
-		"testdata/high_dups_2.txt",
-	}
-
-	for _, file := range files {
-		tagGroups := readTestTags(b, file)
-
-		name := fmt.Sprintf("intkey_%s", filepath.Base(file[:strings.Index(file, ".")]))
-		b.Run(name, func(b *testing.B) {
-			b.ReportAllocs()
-
-			var data map[string]uint32
-			for i := 0; i < b.N; i++ {
-				data = make(map[string]uint32)
-				for i, tags := range tagGroups {
-					for j, tag := range tags {
-						data[tag] = uint32(i + j)
-					}
-				}
-
-			}
-			runtime.KeepAlive(data)
-		})
-
-		name = fmt.Sprintf("emptykey_%s", filepath.Base(file[:strings.Index(file, ".")]))
-		b.Run(name, func(b *testing.B) {
-			b.ReportAllocs()
-
-			var data map[string]struct{}
-			for i := 0; i < b.N; i++ {
-				data = make(map[string]struct{})
-				for _, tags := range tagGroups {
-					for _, tag := range tags {
-						data[tag] = struct{}{}
-					}
-				}
-			}
-			runtime.KeepAlive(data)
-		})
 	}
 }

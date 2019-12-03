@@ -6,16 +6,29 @@ import (
 	"sync"
 )
 
+// V2TagEncoder operates on the theory that a good portion of the tags for an overall message across connections
+// will be duplicated.
+//
+// Each tag is encoded exactly once in the message at a given position.  Each collection of tags is a list of
+// integers representing the position of each tag.  The collection of tag positions is referred to as the footer
+// and is appended to the end of the buffer
+//
+// The format of the buffer is:
+// - 1 byte for meta (currently used for specifying version)
+// - 4 bytes for position of footer blob in overall buffer
+// - N bytes for all tags, stored sequentially.
+//		Each tag is 2 bytes for the length of the tag and N bytes for the tag itself
+// - N bytes for the footer blob.  Each entry in the footer is 2 bytes for the number of tags and then N 4 byte
+//		integers, each representing the location of the tag in the tag blob
+type V2TagEncoder struct {
+	tags        map[string]uint32
+	order       []string
+	footer      []byte
+	tagPosition uint32
+}
+
 // 1 meta byte + 4 bytes for the index of the footer block
 const v2PreambleLength = 1 + 4
-
-type V2TagEncoder struct {
-	tags          map[string]uint32
-	order         []string
-	footer        []byte
-	tagPosition   uint32
-	usePooledMaps bool
-}
 
 var footerPool = sync.Pool{
 	New: func() interface{} {
@@ -39,26 +52,15 @@ var tagsPool = sync.Pool{
 }
 
 func NewV2TagEncoder() TagEncoder {
-	return NewV2TagEncoderWithOptions(true, 0)
-}
-
-func NewV2TagEncoderWithOptions(usePooledMaps bool, mapSize int) TagEncoder {
 	footer := *footerPool.Get().(*[]byte)
 	order := *orderPool.Get().(*[]string)
-
-	var tags map[string]uint32
-	if usePooledMaps {
-		tags = *tagsPool.Get().(*map[string]uint32)
-	} else {
-		tags = make(map[string]uint32, mapSize)
-	}
+	tags := *tagsPool.Get().(*map[string]uint32)
 
 	return &V2TagEncoder{
-		tags:          tags,
-		order:         order[:0],
-		footer:        footer[:0],
-		tagPosition:   v2PreambleLength,
-		usePooledMaps: usePooledMaps,
+		tags:        tags,
+		order:       order[:0],
+		footer:      footer[:0],
+		tagPosition: v2PreambleLength, // Tags start after the preamble
 	}
 }
 
@@ -69,10 +71,9 @@ func (t *V2TagEncoder) Buffer() []byte {
 		tagsSize += 2 + len(tag)
 	}
 
-	bufferSize := v2PreambleLength + tagsSize + len(t.footer)
-
 	footerPosition := uint32(v2PreambleLength + tagsSize)
 
+	bufferSize := v2PreambleLength + tagsSize + len(t.footer)
 	buffer := make([]byte, 0, bufferSize)
 	buffer = append(buffer, version2)
 
@@ -92,13 +93,11 @@ func (t *V2TagEncoder) Buffer() []byte {
 	footerPool.Put(&t.footer)
 	orderPool.Put(&t.order)
 
-	if t.usePooledMaps {
-		for k := range t.tags {
-			delete(t.tags, k)
-		}
-
-		tagsPool.Put(&t.tags)
+	for k := range t.tags {
+		delete(t.tags, k)
 	}
+
+	tagsPool.Put(&t.tags)
 
 	return buffer
 }
@@ -108,6 +107,9 @@ func (t *V2TagEncoder) Encode(tags []string) int {
 		return -1
 	}
 
+	var shortBuf [2]byte
+	var intBuf [4]byte
+
 	// We only allow 2 bytes for the number of the tags, ensure we don't exceed it
 	if len(tags) > math.MaxUint16 {
 		tags = tags[0:math.MaxUint16]
@@ -115,9 +117,6 @@ func (t *V2TagEncoder) Encode(tags []string) int {
 
 	// The index for these tags is the current end of the footer
 	tagIndex := len(t.footer)
-
-	var shortBuf [2]byte
-	var intBuf [4]byte
 
 	binary.LittleEndian.PutUint16(shortBuf[:], uint16(len(tags)))
 	t.footer = append(t.footer, shortBuf[:]...)
@@ -161,7 +160,10 @@ func decodeV2(buffer []byte, tagIndex int) []string {
 
 		tagLength := int(binary.LittleEndian.Uint16(buffer[tagPosition:]))
 
-		tag := string(buffer[tagPosition+2 : tagPosition+2+tagLength])
+		start := tagPosition + 2
+		end := start + tagLength
+
+		tag := string(buffer[start:end])
 		tags = append(tags, tag)
 
 		footerIndex += 4
