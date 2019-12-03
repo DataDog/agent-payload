@@ -3,11 +3,12 @@ package process
 import (
 	"encoding/base64"
 	"fmt"
-	"github.com/stretchr/testify/suite"
 	"io/ioutil"
 	"math"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/suite"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
