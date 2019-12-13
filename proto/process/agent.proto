@@ -492,6 +492,7 @@ message Pod {
 	repeated OwnerReference ownerReferences = 12;
 	repeated string tags = 13;
 	bytes yaml = 14;
+	string uid = 15;
 }
 
 message ContainerStatus {
