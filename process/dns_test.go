@@ -140,7 +140,7 @@ func BenchmarkDNSEncode(b *testing.B) {
 				}
 			}
 
-			b.ReportMetric(float64(count), "bytes")
+			b.ReportMetric(float64(count)/float64(b.N), "bytes")
 			runtime.KeepAlive(buf)
 		})
 	}
