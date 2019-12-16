@@ -116,11 +116,12 @@ message CollectorReqStatus {
 
 message CollectorPod {
 	string hostName = 1;
-	repeated Pod pods = 2;
-	int32 groupId = 3;
-	int32 groupSize = 4;
+	string clusterName = 2;
+	repeated Pod pods = 3;
+	int32 groupId = 4;
+	int32 groupSize = 5;
 	// Post-resolved fields
-	Host host = 5;
+	Host host = 6;
 }
 
 //
@@ -490,6 +491,7 @@ message Pod {
 	repeated OwnerReference ownerReferences = 12;
 	repeated string tags = 13;
 	bytes yaml = 14;
+	string uid = 15;
 }
 
 message ContainerStatus {
