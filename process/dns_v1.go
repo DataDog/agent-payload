@@ -16,9 +16,9 @@ import (
 //	The "bucket" block contains all of the hash buckets.  The format of each bucket is:
 //		varint for number of entries in bucket
 //		For each entry in the bucket:
-//			varint for length of key
-//			key bytes
-//			varint for number of names associated with the key
+//			varint for length of ip
+//			ip bytes
+//			varint for number of names associated with the ip
 //			Each associated name is encoded as a varint which is the position of the actual name string in the name block
 //
 //	The "position" block is a list of varints, one for each bucket, where each varint is a pointer to the start
