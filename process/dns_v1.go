@@ -121,7 +121,7 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) []byte {
 	bucketBufferLength := 0
 	positionBufferLength := 0
 
-	// We encode the position nof the "middle" bucket in the position buffer as an optimization for reads that
+	// We encode the position of the "middle" bucket in the position buffer as an optimization for reads that
 	// lets us skip half of the buckets when scanning for the bucket index
 	middleBucket := bucketCount / 2
 	middleBucketPosition := 0
