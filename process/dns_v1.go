@@ -26,7 +26,7 @@ import (
 //
 // The overall buffer is encoded as:
 //	1 byte indicating version
-// 	1 byte indicating the number of buckets
+// 	2 bytes indicating the number of buckets
 //	varint indicating the length of the name buffer.
 //	varint indicating the length of the position buffer
 // 	varint indicating the position of the "middle" (bucketCount / 2) bucket in the position block
@@ -54,8 +54,8 @@ type bucketEntry struct {
 	size int
 }
 
-// 1 byte for version, 1 byte for bucket count
-const dns1Version1PreambleLength = 2
+// 1 byte for version, 2 byte for bucket count
+const dns1Version1PreambleLength = 3
 
 // Used for calculating the number of buckets for a given input map.
 // Currently the bucket count is calculated as `len(input) * bucketFactor`
@@ -141,6 +141,9 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) []byte {
 		bucketBufferLength += buckets[i].size
 	}
 
+	var bucketCountBuf [2]byte
+	binary.LittleEndian.PutUint16(bucketCountBuf[:], uint16(bucketCount))
+
 	sizeOfPositionBufferLength := e.varIntSize(positionBufferLength)
 	sizeOfNameBufferLength := e.varIntSize(nameBufferLength)
 	sizeOfMiddleBucketPosition := e.varIntSize(middleBucketPosition)
@@ -155,7 +158,7 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) []byte {
 	nameBuffer := buffer[metaLength+positionBufferLength+bucketBufferLength:]
 
 	metaBuffer = append(metaBuffer, dnsVersion1)
-	metaBuffer = append(metaBuffer, uint8(bucketCount))
+	metaBuffer = append(metaBuffer, bucketCountBuf[:]...)
 	metaBuffer = e.appendVarInt(metaBuffer, positionBufferLength)
 	metaBuffer = e.appendVarInt(metaBuffer, nameBufferLength)
 	metaBuffer = e.appendVarInt(metaBuffer, middleBucketPosition)
@@ -220,7 +223,7 @@ func getV1(buf []byte, ip string) (string, []string) {
 	//			If the key was a match, load the name value and add it to the result list.  Return once all names are processed
 	//			Otherwise iterate through the name positions to reach the next bucket entry
 
-	bucketCount := int(buf[1])
+	bucketCount := int(binary.LittleEndian.Uint16(buf[1:]))
 
 	// skip the preamble
 	index := dns1Version1PreambleLength
@@ -328,8 +331,8 @@ func getBucketCount(dns map[string]*DNSEntry, bucketFactor float64) int {
 		return 1
 	}
 
-	if bucketCount > math.MaxUint8 {
-		return math.MaxUint8
+	if bucketCount > math.MaxUint16 {
+		return math.MaxUint16
 	}
 
 	return bucketCount
