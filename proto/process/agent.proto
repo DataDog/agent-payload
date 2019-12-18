@@ -39,7 +39,7 @@ message CollectorProc {
 }
 
 message CollectorConnections {
-	reserved 1, 4;
+	reserved 1, 4, 13;
 
 	string hostName = 2;
 	string networkId = 12;
@@ -60,10 +60,9 @@ message CollectorConnections {
 	// Mapping of processes running in each container
 	map<int32, string> containerForPid = 10;
 
-	// Mapping of IP address to DNS entries
-	map<string, DNSEntry> dns = 13;
-
 	bytes encodedTags = 11;
+
+	bytes encodedDNS = 14;
 }
 
 message CollectorRealTime {
