@@ -14,7 +14,10 @@ type TagEncoder interface {
 }
 
 // Version for the encoding format
-const version1 = 1
+const (
+	version1 = 1
+	version2 = 2
+)
 
 // Groups of tags are successively encoded in to a single buffer. For each group of tags, the format is:
 // - Number of tags encoded as a 2-byte uint16.
@@ -80,10 +83,21 @@ func (t *v1TagEncoder) Encode(tags []string) int {
 }
 
 func getTags(buffer []byte, tagIndex int) []string {
-	if len(buffer) == 0 {
+	if len(buffer) == 0 || tagIndex < 0 {
 		return nil
 	}
 
+	switch buffer[0] {
+	case version1:
+		return decodeV1(buffer, tagIndex)
+	case version2:
+		return decodeV2(buffer, tagIndex)
+	default:
+		return nil
+	}
+}
+
+func decodeV1(buffer []byte, tagIndex int) []string {
 	tagBuffer := buffer[tagIndex:]
 	readIndex := 0
 
