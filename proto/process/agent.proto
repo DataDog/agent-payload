@@ -406,7 +406,7 @@ message Addr {
 	string ip = 2;
 	int32  port = 3;
 	string containerId = 5; // post-resolution field
-	int32  hostId = 6;      // post-resolution field
+	int64  hostId = 6;      // post-resolution field
 }
 
 message IPTranslation {
