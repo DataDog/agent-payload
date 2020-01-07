@@ -43,7 +43,7 @@ message CollectorConnections {
 
 	string hostName = 2;
 	string networkId = 12;
-	int32 hostId = 9; // Post-resolution field.
+	int64 hostId = 9; // Post-resolution field.
 	repeated Connection connections = 3;
 
 	// Message batching metadata
@@ -52,7 +52,7 @@ message CollectorConnections {
 
 	// Mapping of hostId to Host. Each `connection` has a hostId field which can be mapped here.
 	// This should also include an entry for the host on which these connections were gathered.
-	map<int32, Host> resolvedHosts = 7; // Post-resolution field
+	map<int64, Host> resolvedHosts = 7; // Post-resolution field
 
 	// Mapping of containerId to container data. Each `connection` has a containerId field which can be mapped here.
 	map<string, ContainerMetadata> resolvedContainers = 8; // Post-resolution field
@@ -69,7 +69,7 @@ message CollectorRealTime {
 	string hostName = 2;
 	repeated ProcessStat stats = 3;
 	// Post-resolved fields
-	int32 hostId = 4;
+	int64 hostId = 4;
 	int32 orgId = 5;
 	int32 groupId = 6;
 	int32 groupSize = 7;
@@ -104,7 +104,7 @@ message CollectorContainerRealTime {
 	int64 totalMemory = 4;
 
 	// Post-resolved fields
-	int32 hostId = 5;
+	int64 hostId = 5;
 
 	int32 groupId = 6;
 	int32 groupSize = 7;
@@ -406,7 +406,7 @@ message Addr {
 	string ip = 2;
 	int32  port = 3;
 	string containerId = 5; // post-resolution field
-	int32  hostId = 6;      // post-resolution field
+	int64  hostId = 6;      // post-resolution field
 }
 
 message IPTranslation {
@@ -461,7 +461,7 @@ message CPUInfo {
 message Host {
 	reserved 4, 5;
 
-	int32 id = 1;
+	int64 id = 1;
 	int32 orgId = 2;
 	string name = 3;
 	repeated string allTags = 6;
