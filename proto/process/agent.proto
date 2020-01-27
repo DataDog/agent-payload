@@ -497,6 +497,7 @@ message Pod {
 	repeated string tags = 13;
 	bytes yaml = 14;
 	string uid = 15;
+	Host host = 16; // Used post-resolution
 }
 
 message ContainerStatus {
