@@ -396,6 +396,8 @@ message Connection {
 	// TCP-specific metrics
 	uint32 rtt = 22;
 	uint32 rttVar = 23;
+	// Indicates that this connection begins and ends on the same host
+	bool intraHost = 24;
 }
 
 message Connections {
