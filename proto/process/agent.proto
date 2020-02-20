@@ -498,7 +498,7 @@ message Pod {
 	bytes yaml = 14;
 	string uid = 15;
 	Host host = 16; // Used post-resolution
-	string kubectlStatus = 17; // pod status displayed by "kubectl get pod"
+	string status = 17; // pod status displayed by "kubectl get pod"
 	string conditionMessage = 18;
 }
 
