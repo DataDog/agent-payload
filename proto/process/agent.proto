@@ -500,6 +500,7 @@ message Pod {
 	Host host = 16; // Used post-resolution
 	string status = 17; // pod status displayed by "kubectl get pod"
 	string conditionMessage = 18;
+	string clusterName = 19;
 }
 
 message ContainerStatus {
