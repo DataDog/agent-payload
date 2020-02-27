@@ -123,8 +123,10 @@ message CollectorPod {
 	repeated Pod pods = 3;
 	int32 groupId = 4;
 	int32 groupSize = 5;
-	// Post-resolved fields
+	// Post-resolved field
 	Host host = 6;
+
+	string clusterId = 7;
 }
 
 //
