@@ -480,26 +480,83 @@ message DNSEntry {
   repeated string names = 1;
 }
 
-// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto
-message Pod {
+// reference https://github.com/kubernetes/apimachinery/blob/2373d029717c4d169463414a6127cd1d0d12680e/pkg/apis/meta/v1/generated.proto#L521
+message Metadata {
 	string name = 1;
 	string namespace = 2;
-	int64 creationTimestamp = 3;
-	string IP = 4;
-	string nominatedNodeName = 5;
-	string nodeName = 6;
-	string phase = 7;
-	int32 restartCount = 8;
-	repeated ContainerStatus containerStatuses = 9;
-	repeated string labels = 10;
-	repeated string annotations = 11;
-	repeated OwnerReference ownerReferences = 12;
-	repeated string tags = 13;
-	bytes yaml = 14;
-	string uid = 15;
-	Host host = 16; // Used post-resolution
-	string status = 17; // pod status displayed by "kubectl get pod"
-	string conditionMessage = 18;
+	string uid = 3;
+	int64 creationTimestamp = 4;
+	int64 deletionTimestamp = 5;
+	repeated string labels = 6;
+	repeated string annotations = 7;
+	repeated OwnerReference ownerReferences = 8;
+}
+
+message OwnerReference {
+	string name = 1;
+	string uid = 2;
+	string kind = 3;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L221
+message Deployment {
+	Metadata metadata = 1;
+	// spec
+	int32 replicasDesired = 2;
+	int32 minReadySeconds = 3;
+	string deploymentStrategy = 4;
+	string maxUnavailable = 5; // int or str
+	string maxSurge = 6; // int or str
+	bool paused = 7;
+	repeated LabelSelectorRequirement selectors = 8;
+	// status
+	int32 replicas = 9;
+	int32 updatedReplicas= 10;
+	int32 readyReplicas = 11;
+	int32 availableReplicas = 12;
+	int32 unavailableReplicas = 13;
+	string conditionMessage = 14;
+	bytes yaml = 15;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L366
+message ReplicaSet {
+	Metadata metadata = 1;
+	// spec
+	int32 replicasDesired = 2;
+	int32 minReadySeconds = 3;
+	repeated LabelSelectorRequirement selectors = 4;
+	// status
+	int32 replicas = 5;
+	int32 fullyLabeledReplicas = 6;
+	int32 readyReplicas = 7;
+	int32 availableReplicas = 8;
+	string conditionMessage = 9;
+	bytes yaml = 10;
+}
+
+message LabelSelectorRequirement {
+  string key = 1;
+  // Valid operators are In, NotIn, Exists and DoesNotExist.
+  string operator = 2;
+  repeated string values = 3;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto
+message Pod {
+	Metadata metadata = 1;
+	// status
+	string IP = 2;
+	string nominatedNodeName = 3;
+	string nodeName = 4;
+	string phase = 5;
+	int32 restartCount = 6;
+	repeated ContainerStatus containerStatuses = 7;
+	string conditionMessage = 8;
+	string status = 9; // pod status displayed by "kubectl get pod"
+	bytes yaml = 10;
+	repeated string tags = 11;
+	Host host = 12; // Used post-resolution
 }
 
 message ContainerStatus {
@@ -509,10 +566,4 @@ message ContainerStatus {
 	int32 restartCount = 4;
 	string state = 5;
 	string message = 6;
-}
-
-message OwnerReference {
-	string name = 1;
-	string uid = 2;
-	string kind = 3;
 }
