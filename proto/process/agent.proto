@@ -895,9 +895,19 @@ enum HTTPResponseStatus {
     ServerErr = 4;	// 5XX
 }
 
+enum RuntimeCompilationResult {
+	CompilationSuccess = 0;
+	KernelVersionErr = 1;
+	VerificationError = 2;
+	OutputDirErr = 3;
+	OutputFileErr = 4;
+	NewCompilerErr = 5;
+	CompilationErr = 6;
+	ResultReadErr = 7;
+}
+
 message NetworkTracerTelemetry {
-	int64 runtimeCompilationEnabled = 1;
-	int64 runtimeCompilationSuccess = 2;
-	int64 runtimeCompilationFailure = 3;
-	int64 runtimeCompilationDuration = 4;
+	bool runtimeCompilationEnabled = 1;
+	RuntimeCompilationResult runtimeCompilationResult = 2;
+	int64 runtimeCompilationDuration = 3;
 }
