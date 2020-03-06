@@ -398,6 +398,9 @@ message Connection {
 	uint32 rttVar = 23;
 	// Indicates that this connection begins and ends on the same host
 	bool intraHost = 24;
+
+	// DNS-specific metrics
+	uint32 dnsReplyCount = 25;
 }
 
 message Connections {
