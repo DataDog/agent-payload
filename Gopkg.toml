@@ -8,4 +8,4 @@
 
 [[constraint]]
   name = "github.com/DataDog/mmh3"
-  revision = "6574a4241c5250712174e75a1042b4595124889e"
+  version = "^1.0.0"
