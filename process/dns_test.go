@@ -53,6 +53,19 @@ func TestV1EncodeDNS_NoNames(t *testing.T) {
 	assertDNSEqual(t, nil, buf, "10.128.99.240")
 }
 
+func TestV1EncodeDNS_MixedCaseNames(t *testing.T) {
+	dns := make(map[string]*DNSEntry)
+
+	dns["10.128.98.75"] = &DNSEntry{Names: []string{"k8s-pareNt1.uS1.sTaGing.dog", "K8S-Parent1.us1.staging.dog"}}
+	dns["10.128.99.240"] = &DNSEntry{Names: []string{"k8s-parent1.US1.staging.DOG"}}
+
+	encoder := NewV1DNSEncoder()
+	buf := encoder.Encode(dns)
+
+	assertDNSEqual(t, []string{"k8s-parent1.us1.staging.dog"}, buf, "10.128.98.75")
+	assertDNSEqual(t, []string{"k8s-parent1.us1.staging.dog"}, buf, "10.128.99.240")
+}
+
 func TestV1EncodeDNS_SampleData(t *testing.T) {
 	sampleFiles := []string{
 		"testdata/dns/samples.txt",

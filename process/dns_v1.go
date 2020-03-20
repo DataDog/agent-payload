@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"math"
+	"strings"
 
 	"github.com/DataDog/mmh3"
 )
@@ -89,6 +90,8 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) []byte {
 			continue
 		}
 
+		normalizedNames := normalizeNames(entry.Names)
+
 		allBucketsEmpty = false
 
 		bucket := int(mmh3.Hash32([]byte(ip))) % bucketCount
@@ -97,9 +100,9 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) []byte {
 
 		buckets[bucket].size += e.varIntSize(len(ip))
 		buckets[bucket].size += len(ip)
-		buckets[bucket].size += e.varIntSize(len(entry.Names))
+		buckets[bucket].size += e.varIntSize(len(normalizedNames))
 
-		for _, name := range entry.Names {
+		for _, name := range normalizedNames {
 			position, ok := namePositions[name]
 			if !ok {
 				position = nameBufferLength // Position is at the current end of the name buffer
@@ -169,11 +172,13 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) []byte {
 		for _, ip := range buckets[i].keys {
 			entry := dns[ip]
 
+			normalizedNames := normalizeNames(entry.Names)
+
 			bucketBuffer = e.appendVarInt(bucketBuffer, len(ip))
 			bucketBuffer = append(bucketBuffer, ip...)
-			bucketBuffer = e.appendVarInt(bucketBuffer, len(entry.Names))
+			bucketBuffer = e.appendVarInt(bucketBuffer, len(normalizedNames))
 
-			for _, name := range entry.Names {
+			for _, name := range normalizedNames {
 				position := namePositions[name]
 
 				bucketBuffer = e.appendVarInt(bucketBuffer, position)
@@ -336,4 +341,23 @@ func getBucketCount(dns map[string]*DNSEntry, bucketFactor float64) int {
 	}
 
 	return bucketCount
+}
+
+// normalizeNames normalizes the list of tags by converting them to lowercase and removing any duplicates
+func normalizeNames(names []string) []string {
+	seenNames := make(map[string]struct{})
+	var normalizedNames []string
+
+	for _, name := range names {
+		normalizedName := strings.ToLower(name)
+
+		if _, ok := seenNames[normalizedName]; ok {
+			continue
+		}
+
+		seenNames[normalizedName] = struct{}{}
+		normalizedNames = append(normalizedNames, normalizedName)
+	}
+
+	return normalizedNames
 }
