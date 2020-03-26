@@ -415,7 +415,7 @@ message Connection {
 	bool intraHost = 24;
 
 	// DNS-specific metrics
-	uint32 dnsReplyCount = 25;
+	uint32 dnsSuccessfulResponses = 25;
 }
 
 message Connections {
