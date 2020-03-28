@@ -97,6 +97,20 @@ func getTags(buffer []byte, tagIndex int) []string {
 	}
 }
 
+func iterateTags(buffer []byte, tagIndex int, cb func(tag string)) {
+	if len(buffer) == 0 || tagIndex < 0 {
+		return
+	}
+
+	switch buffer[0] {
+	case version1:
+		iterateV1(buffer, tagIndex, cb)
+	case version2:
+		iterateV2(buffer, tagIndex, cb)
+	default:
+	}
+}
+
 func decodeV1(buffer []byte, tagIndex int) []string {
 	tagBuffer := buffer[tagIndex:]
 	readIndex := 0
@@ -117,6 +131,23 @@ func decodeV1(buffer []byte, tagIndex int) []string {
 	}
 
 	return tags
+}
+
+func iterateV1(buffer []byte, tagIndex int, cb func(tag string)) {
+	tagBuffer := buffer[tagIndex:]
+	readIndex := 0
+
+	numTags := int(binary.LittleEndian.Uint16(tagBuffer[readIndex:]))
+	readIndex += 2
+
+	for i := 0; i < numTags; i++ {
+		tagLength := int(binary.LittleEndian.Uint16(tagBuffer[readIndex:]))
+		readIndex += 2
+
+		cb(string(tagBuffer[readIndex : readIndex+tagLength]))
+
+		readIndex += tagLength
+	}
 }
 
 // bufferSize returns the number of bytes required to store the given tags
