@@ -216,7 +216,7 @@ func getV1(buf []byte, ip string) (string, []string) {
 	var first string
 	var names []string
 
-	iterateDNSV1(buf, ip, func(i, total int, entry string) {
+	iterateDNSV1(buf, ip, func(i, total int, entry string) bool {
 		if i == 0 {
 			first = entry
 			if total > 1 {
@@ -225,12 +225,13 @@ func getV1(buf []byte, ip string) (string, []string) {
 		} else {
 			names = append(names, entry)
 		}
+		return true
 	})
 
 	return first, names
 }
 
-func iterateDNSV1(buf []byte, ip string, cb func(i, total int, entry string)) {
+func iterateDNSV1(buf []byte, ip string, cb func(i, total int, entry string) bool) {
 	// Read overview:
 	//	Compute the target bucket for the given ip
 	//	Iterate over all the buckets to find position of the given bucket
@@ -322,7 +323,9 @@ func iterateDNSV1(buf []byte, ip string, cb func(i, total int, entry string)) {
 			start := int(namePosition) + bytesReadForName
 
 			name := string(nameBuffer[start : start+int(nameLength)])
-			cb(j, int(nameCount), name)
+			if !cb(j, int(nameCount), name) {
+				return
+			}
 		}
 
 		if matched {

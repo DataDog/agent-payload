@@ -19,7 +19,7 @@ func getDNS(buf []byte, ip string) (string, []string) {
 	return "", nil
 }
 
-func iterateDNS(buf []byte, ip string, cb func(i, total int, entry string)) {
+func iterateDNS(buf []byte, ip string, cb func(i, total int, entry string) bool) {
 	if len(buf) == 0 || ip == "" {
 		return
 	}
