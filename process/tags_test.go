@@ -65,7 +65,7 @@ func (suite *TagSerdeTestSuite) TestTagSerdeRealTags() {
 		assert.Equal(suite.T(), allTags[i], getTags(encoder.Buffer(), tagIndex))
 
 		var iterated []string
-		iterateTags(encoder.Buffer(), tagIndex, func(tag string) {
+		iterateTags(encoder.Buffer(), tagIndex, func(i, total int, tag string) {
 			iterated = append(iterated, tag)
 		})
 		assert.Equal(suite.T(), allTags[i], iterated)

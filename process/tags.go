@@ -97,7 +97,7 @@ func getTags(buffer []byte, tagIndex int) []string {
 	}
 }
 
-func iterateTags(buffer []byte, tagIndex int, cb func(tag string)) {
+func iterateTags(buffer []byte, tagIndex int, cb func(i, total int, tag string)) {
 	if len(buffer) == 0 || tagIndex < 0 {
 		return
 	}
@@ -112,28 +112,20 @@ func iterateTags(buffer []byte, tagIndex int, cb func(tag string)) {
 }
 
 func decodeV1(buffer []byte, tagIndex int) []string {
-	tagBuffer := buffer[tagIndex:]
-	readIndex := 0
+	var tags []string
 
-	numTags := int(binary.LittleEndian.Uint16(tagBuffer[readIndex:]))
-	readIndex += 2
+	iterateV1(buffer, tagIndex, func(i, total int, tag string) {
+		if i == 0 {
+			tags = make([]string, 0, total)
+		}
 
-	tags := make([]string, 0, numTags)
-
-	for i := 0; i < numTags; i++ {
-		tagLength := int(binary.LittleEndian.Uint16(tagBuffer[readIndex:]))
-		readIndex += 2
-
-		tag := string(tagBuffer[readIndex : readIndex+tagLength])
 		tags = append(tags, tag)
-
-		readIndex += tagLength
-	}
+	})
 
 	return tags
 }
 
-func iterateV1(buffer []byte, tagIndex int, cb func(tag string)) {
+func iterateV1(buffer []byte, tagIndex int, cb func(i, total int, tag string)) {
 	tagBuffer := buffer[tagIndex:]
 	readIndex := 0
 
@@ -144,7 +136,7 @@ func iterateV1(buffer []byte, tagIndex int, cb func(tag string)) {
 		tagLength := int(binary.LittleEndian.Uint16(tagBuffer[readIndex:]))
 		readIndex += 2
 
-		cb(string(tagBuffer[readIndex : readIndex+tagLength]))
+		cb(i, numTags, string(tagBuffer[readIndex:readIndex+tagLength]))
 
 		readIndex += tagLength
 	}

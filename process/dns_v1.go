@@ -213,6 +213,24 @@ func (e *V1DNSEncoder) appendVarInt(buf []byte, value int) []byte {
 }
 
 func getV1(buf []byte, ip string) (string, []string) {
+	var first string
+	var names []string
+
+	iterateDNSV1(buf, ip, func(i, total int, entry string) {
+		if i == 0 {
+			first = entry
+			if total > 1 {
+				names = make([]string, 0, total-1)
+			}
+		} else {
+			names = append(names, entry)
+		}
+	})
+
+	return first, names
+}
+
+func iterateDNSV1(buf []byte, ip string, cb func(i, total int, entry string)) {
 	// Read overview:
 	//	Compute the target bucket for the given ip
 	//	Iterate over all the buckets to find position of the given bucket
@@ -289,12 +307,6 @@ func getV1(buf []byte, ip string) (string, []string) {
 		nameCount, bytesRead := binary.Uvarint(buf[index:])
 		index += bytesRead
 
-		var first string
-		var names []string
-		if matched && nameCount > 1 {
-			names = make([]string, 0, int(nameCount-1))
-		}
-
 		// Advance through all name positions
 		// We still need to do this even if the current entry didn't match in order to get to the next bucket entry
 		for j := 0; j < int(nameCount); j++ {
@@ -310,19 +322,13 @@ func getV1(buf []byte, ip string) (string, []string) {
 			start := int(namePosition) + bytesReadForName
 
 			name := string(nameBuffer[start : start+int(nameLength)])
-			if j == 0 {
-				first = name
-			} else {
-				names = append(names, name)
-			}
+			cb(j, int(nameCount), name)
 		}
 
 		if matched {
-			return first, names
+			return
 		}
 	}
-
-	return "", nil
 }
 
 func getBucketCount(dns map[string]*DNSEntry, bucketFactor float64) int {

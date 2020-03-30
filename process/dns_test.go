@@ -198,4 +198,20 @@ func assertDNSEqual(t *testing.T, expected []string, buf []byte, key string) {
 		assert.Equal(t, expected[0], name)
 		assert.Equal(t, expected[1:], names)
 	}
+
+	var iterValues []string
+	iterateDNS(buf, key, func(i, total int, entry string) {
+		iterValues = append(iterValues, entry)
+	})
+
+	switch len(iterValues) {
+	case 0:
+		assert.Empty(t, name)
+		assert.Empty(t, names)
+	case 1:
+		assert.Equal(t, name, iterValues[0])
+	default:
+		assert.Equal(t, name, iterValues[0])
+		assert.Equal(t, names, iterValues[1:])
+	}
 }

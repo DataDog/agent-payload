@@ -18,3 +18,14 @@ func getDNS(buf []byte, ip string) (string, []string) {
 
 	return "", nil
 }
+
+func iterateDNS(buf []byte, ip string, cb func(i, total int, entry string)) {
+	if len(buf) == 0 || ip == "" {
+		return
+	}
+
+	switch buf[0] {
+	case dnsVersion1:
+		iterateDNSV1(buf, ip, cb)
+	}
+}
