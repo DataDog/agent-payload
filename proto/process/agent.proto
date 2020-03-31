@@ -5,6 +5,7 @@ option go_package = "github.com/DataDog/agent-payload/process";
 package datadog.process_agent;
 
 import "github.com/DataDog/agent-payload/proto/metrics/agent_payload.proto";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 
 //
 // Message Types
@@ -390,8 +391,8 @@ message Connection {
 	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15;
 
 	int32 pid = 1;
-	Addr laddr = 5; // Local address
-	Addr raddr = 6; // Remote address
+	Addr laddr = 5 [(gogoproto.nullable) = false]; // Local address
+	Addr raddr = 6 [(gogoproto.nullable) = false]; // Remote address
 	ConnectionFamily family = 10;
 	ConnectionType type = 11;
 	int64 pidCreateTime = 12;
