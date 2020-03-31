@@ -143,6 +143,20 @@ func (t *V2TagEncoder) Encode(tags []string) int {
 }
 
 func decodeV2(buffer []byte, tagIndex int) []string {
+	var tags []string
+
+	iterateV2(buffer, tagIndex, func(i, total int, tag string) bool {
+		if i == 0 {
+			tags = make([]string, 0, total)
+		}
+		tags = append(tags, tag)
+		return true
+	})
+
+	return tags
+}
+
+func iterateV2(buffer []byte, tagIndex int, cb func(i, total int, tag string) bool) {
 	footerPosition := binary.LittleEndian.Uint32(buffer[1:])
 
 	idx := int(footerPosition) + tagIndex
@@ -153,8 +167,6 @@ func decodeV2(buffer []byte, tagIndex int) []string {
 	numTags := int(binary.LittleEndian.Uint16(footerBuffer[footerIndex:]))
 	footerIndex += 2
 
-	tags := make([]string, 0, numTags)
-
 	for i := 0; i < numTags; i++ {
 		tagPosition := int(binary.LittleEndian.Uint32(footerBuffer[footerIndex:]))
 
@@ -163,11 +175,10 @@ func decodeV2(buffer []byte, tagIndex int) []string {
 		start := tagPosition + 2
 		end := start + tagLength
 
-		tag := string(buffer[start:end])
-		tags = append(tags, tag)
+		if !cb(i, numTags, string(buffer[start:end])) {
+			return
+		}
 
 		footerIndex += 4
 	}
-
-	return tags
 }

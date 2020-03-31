@@ -63,6 +63,24 @@ func (suite *TagSerdeTestSuite) TestTagSerdeRealTags() {
 
 	for i, tagIndex := range tagIndices {
 		assert.Equal(suite.T(), allTags[i], getTags(encoder.Buffer(), tagIndex))
+
+		var iterated []string
+		iterateTags(encoder.Buffer(), tagIndex, func(i, total int, tag string) bool {
+			iterated = append(iterated, tag)
+			return true
+		})
+		assert.Equal(suite.T(), allTags[i], iterated)
+
+		iterated = nil
+		iterateTags(encoder.Buffer(), tagIndex, func(i, total int, tag string) bool {
+			if i == total-1 {
+				return false
+			}
+			iterated = append(iterated, tag)
+			return true
+		})
+		assert.Equal(suite.T(), allTags[i][0:len(allTags[i])-1], iterated)
+
 	}
 }
 

@@ -4,8 +4,16 @@ func (m *CollectorConnections) GetHostTags(host *Host) []string {
 	return m.GetTags(int(host.TagIndex))
 }
 
+func (m *CollectorConnections) IterateHostTags(host *Host, cb func(i, total int, tag string) bool) {
+	iterateTags(m.EncodedTags, int(host.TagIndex), cb)
+}
+
 func (m *CollectorConnections) GetContainerTags(container *ContainerMetadata) []string {
 	return m.GetTags(int(container.TagIndex))
+}
+
+func (m *CollectorConnections) IterateContainerTags(container *ContainerMetadata, cb func(i, total int, tag string) bool) {
+	iterateTags(m.EncodedTags, int(container.TagIndex), cb)
 }
 
 func (m *CollectorConnections) GetTags(tagIndex int) []string {
@@ -18,4 +26,9 @@ func (m *CollectorConnections) GetTags(tagIndex int) []string {
 // multiple name resolutions, there is no implied priority between the dual values
 func (m *CollectorConnections) GetDNS(addr *Addr) (string, []string) {
 	return getDNS(m.EncodedDNS, addr.Ip)
+}
+
+// IterateDNS iterates over all of the DNS entries for the given addr, invoking the provided callback for each one
+func (m *CollectorConnections) IterateDNS(addr *Addr, cb func(i, total int, entry string) bool) {
+	iterateDNS(m.EncodedDNS, addr.Ip, cb)
 }
