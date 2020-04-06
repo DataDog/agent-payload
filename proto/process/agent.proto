@@ -14,7 +14,7 @@ import "github.com/DataDog/agent-payload/proto/metrics/agent_payload.proto";
 // Sometimes containers are running on host-less environment, we'll need additional information to identify them
 // This will help with the host resolution when we resolve container payloads
 enum ContainerHostType {
-	default = 0;
+	notSpecified = 0;
 	fargateECS = 1;
 	fargateEKS = 2;
 }
