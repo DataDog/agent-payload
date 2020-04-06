@@ -45,6 +45,8 @@ message CollectorProc {
 	datadog.agentpayload.ECSMetadataPayload ecs = 9; // DEPRECATED - left in place to support previous versions
 
 	repeated Container containers = 10;
+
+	ContainerHostType containerHostType = 12;
 }
 
 message CollectorConnections {
@@ -72,6 +74,8 @@ message CollectorConnections {
 	bytes encodedTags = 11;
 
 	bytes encodedDNS = 14;
+
+	ContainerHostType containerHostType = 15;
 }
 
 message CollectorRealTime {
@@ -86,6 +90,8 @@ message CollectorRealTime {
 	int64 totalMemory = 9;
 
 	repeated ContainerStat containerStats = 10;
+
+	ContainerHostType containerHostType = 11;
 }
 
 message CollectorContainer {
@@ -119,6 +125,8 @@ message CollectorContainerRealTime {
 
 	int32 groupId = 6;
 	int32 groupSize = 7;
+
+	ContainerHostType containerHostType = 8;
 }
 
 message CollectorReqStatus {
