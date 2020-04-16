@@ -10,6 +10,15 @@ import "github.com/DataDog/agent-payload/proto/metrics/agent_payload.proto";
 // Message Types
 //
 
+// ContainerHostType is a enum that represents the type of host detected for container collection.
+// Sometimes containers are running on host-less environment, we'll need additional information to identify them
+// This will help with the host resolution when we resolve container payloads
+enum ContainerHostType {
+	notSpecified = 0;
+	fargateECS = 1;
+	fargateEKS = 2;
+}
+
 message ResCollector {
 	// Header must exist at position 1 for compatibility
 	// with older version of the Agent. We should be able
@@ -36,6 +45,8 @@ message CollectorProc {
 	datadog.agentpayload.ECSMetadataPayload ecs = 9; // DEPRECATED - left in place to support previous versions
 
 	repeated Container containers = 10;
+
+	ContainerHostType containerHostType = 12;
 }
 
 message CollectorConnections {
@@ -63,6 +74,8 @@ message CollectorConnections {
 	bytes encodedTags = 11;
 
 	bytes encodedDNS = 14;
+
+	ContainerHostType containerHostType = 15;
 }
 
 message CollectorRealTime {
@@ -77,6 +90,8 @@ message CollectorRealTime {
 	int64 totalMemory = 9;
 
 	repeated ContainerStat containerStats = 10;
+
+	ContainerHostType containerHostType = 11;
 }
 
 message CollectorContainer {
@@ -93,6 +108,8 @@ message CollectorContainer {
 
 	// Post-resolved fields
 	Host host = 8;
+
+	ContainerHostType containerHostType = 9;
 }
 
 message CollectorContainerRealTime {
@@ -108,6 +125,8 @@ message CollectorContainerRealTime {
 
 	int32 groupId = 6;
 	int32 groupSize = 7;
+
+	ContainerHostType containerHostType = 8;
 }
 
 message CollectorReqStatus {
