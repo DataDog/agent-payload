@@ -435,6 +435,7 @@ message Connection {
 
 	// DNS-specific metrics
 	uint32 dnsSuccessfulResponses = 25;
+	uint32 dnsFailedResponses = 26;
 }
 
 message Connections {
