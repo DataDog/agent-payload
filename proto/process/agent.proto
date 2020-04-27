@@ -437,8 +437,8 @@ message Connection {
 	uint32 dnsSuccessfulResponses = 25;
 	uint32 dnsFailedResponses = 26;
 	uint32 dnsTimeouts = 27;
-	uint64 dnsSuccessLatency = 28;
-	uint64 dnsFailureLatency = 29;
+	uint64 dnsSuccessLatencySum = 28;
+	uint64 dnsFailureLatencySum = 29;
 }
 
 message Connections {
