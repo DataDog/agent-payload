@@ -144,21 +144,19 @@ message CollectorPod {
 }
 
 message CollectorReplicaSet {
-	string hostName = 1;
-	string clusterName = 2;
-	string clusterId = 3;
-	int32 groupId = 4;
-	int32 groupSize = 5;
-	repeated ReplicaSet replicasets = 6;
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated ReplicaSet replicasets = 5;
 }
 
 message CollectorDeployment {
-	string hostName = 1;
-	string clusterName = 2;
-	string clusterId = 3;
-	int32 groupId = 4;
-	int32 groupSize = 5;
-	repeated Deployment deployments = 6;
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated Deployment deployments = 5;
 }
 
 //
@@ -570,8 +568,7 @@ message ReplicaSet {
 	int32 fullyLabeledReplicas = 5;
 	int32 readyReplicas = 6;
 	int32 availableReplicas = 7;
-	string conditionMessage = 8;
-	bytes yaml = 9;
+	bytes yaml = 8;
 }
 
 message LabelSelectorRequirement {
