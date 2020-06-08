@@ -613,7 +613,8 @@ message ConnectionsTelemetry {
 	int64 monotonicConntrackRegisters = 3;
 	int64 monotonicConntrackRegistersDropped = 4;
 	int64 monotonicDnsPacketsProcessed = 5;
-	int64 monotonicConnsOpened = 6;
+	int64 monotonicConnsClosed = 6;
+	int64 connsBpfMapSize = 7;
 }
 
 message CollectorConnectionsTelemetry {
@@ -622,5 +623,6 @@ message CollectorConnectionsTelemetry {
 	int64 conntrackRegisters = 3;
 	int64 conntrackRegistersDropped = 4;
 	int64 dnsPacketsProcessed = 5;
-	int64 connsOpened = 6;
+	int64 connsClosed = 6;
+	int64 connsBpfMapSize = 7;
 }
