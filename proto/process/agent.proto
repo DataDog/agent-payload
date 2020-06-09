@@ -76,6 +76,8 @@ message CollectorConnections {
 	bytes encodedDNS = 14;
 
 	ContainerHostType containerHostType = 15;
+
+	CollectorConnectionsTelemetry telemetry = 16;
 }
 
 message CollectorRealTime {
@@ -442,6 +444,7 @@ message Connection {
 message Connections {
   repeated Connection conns = 1;
   map<string, DNSEntry> dns  = 2;
+  ConnectionsTelemetry telemetry = 3;
 }
 
 message Addr {
@@ -602,4 +605,24 @@ message ContainerStatus {
 	int32 restartCount = 4;
 	string state = 5;
 	string message = 6;
+}
+
+message ConnectionsTelemetry {
+	int64 monotonicKprobesTriggered = 1;
+	int64 monotonicKprobesMissed = 2;
+	int64 monotonicConntrackRegisters = 3;
+	int64 monotonicConntrackRegistersDropped = 4;
+	int64 monotonicDnsPacketsProcessed = 5;
+	int64 monotonicConnsClosed = 6;
+	int64 connsBpfMapSize = 7;
+}
+
+message CollectorConnectionsTelemetry {
+	int64 kprobesTriggered = 1;
+	int64 kprobesMissed = 2;
+	int64 conntrackRegisters = 3;
+	int64 conntrackRegistersDropped = 4;
+	int64 dnsPacketsProcessed = 5;
+	int64 connsClosed = 6;
+	int64 connsBpfMapSize = 7;
 }
