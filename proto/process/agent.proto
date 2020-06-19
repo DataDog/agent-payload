@@ -175,6 +175,7 @@ message Process {
 
 	uint32 key = 1;
 	int32 pid = 2;
+	int32 nsPid = 20;
 	Host host = 3;
 	Command command = 4;
 	ProcessUser user = 5;
