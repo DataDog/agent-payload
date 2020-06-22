@@ -596,6 +596,7 @@ message Pod {
 	bytes yaml = 10;
 	repeated string tags = 11;
 	Host host = 12; // Used post-resolution
+	ResourceRequirements resourceRequirements = 13;
 }
 
 message ContainerStatus {
@@ -605,6 +606,18 @@ message ContainerStatus {
 	int32 restartCount = 4;
 	string state = 5;
 	string message = 6;
+}
+
+// Using smallest possible quantity levels.
+// For memory it is bytes, for CPU it is millicore.
+message ResourceRequirements{
+	// Limits describes the maximum amount of compute resources allowed.
+	// Key/Value of a resource type and a corresponding quantity as an uint64.
+	map<string, uint64> limits = 1;
+
+	// Requests describes the minimum amount of compute resources required.
+	// Key/Value of a resource type and a corresponding quantity as an uint64.
+	map<string, uint64> requests = 2;
 }
 
 message ConnectionsTelemetry {
