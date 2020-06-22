@@ -591,6 +591,7 @@ message Pod {
 	string phase = 5;
 	int32 restartCount = 6;
 	repeated ContainerStatus containerStatuses = 7;
+	repeated ContainerStatus initContainerStatuses = 14;
 	string conditionMessage = 8;
 	string status = 9; // pod status displayed by "kubectl get pod"
 	bytes yaml = 10;
