@@ -610,9 +610,13 @@ message ContainerStatus {
 	string message = 6;
 }
 
+// https://github.com/kubernetes/kubernetes/blob/4112d8db20c5550cc27d30d3cee2723db0f8e1c4/staging/src/k8s.io/api/core/v1/types.go#L2097
 // Using smallest possible quantity levels.
 // For memory it is bytes, for CPU it is millicore.
 message ResourceRequirements{
+	// Name describes the name of the holder of the resource requirements (e.g. a container name)
+ 	string name = 3;
+
 	// Limits describes the maximum amount of compute resources allowed.
 	// Key/Value of a resource type and a corresponding quantity as an uint64.
 	map<string, uint64> limits = 1;
