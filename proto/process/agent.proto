@@ -614,16 +614,16 @@ message ContainerStatus {
 // Using smallest possible quantity levels.
 // For memory it is bytes, for CPU it is millicore.
 message ResourceRequirements{
-	// Name describes the name of the holder of the resource requirements (e.g. a container name)
- 	string name = 3;
-
 	// Limits describes the maximum amount of compute resources allowed.
-	// Key/Value of a resource type and a corresponding quantity as an uint64.
-	map<string, uint64> limits = 1;
+	// Key/Value of a resource type and a corresponding quantity as an int64.
+	map<string, int64> limits = 1;
 
 	// Requests describes the minimum amount of compute resources required.
-	// Key/Value of a resource type and a corresponding quantity as an uint64.
-	map<string, uint64> requests = 2;
+	// Key/Value of a resource type and a corresponding quantity as an int64.
+	map<string, int64> requests = 2;
+
+	// Name describes the name of the holder of the resource requirements (e.g. a container name)
+	string name = 3;
 }
 
 message ConnectionsTelemetry {
