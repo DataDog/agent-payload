@@ -598,7 +598,7 @@ message Pod {
 	bytes yaml = 10;
 	repeated string tags = 11;
 	Host host = 12; // Used post-resolution
-	ResourceRequirements resourceRequirements = 13;
+	repeated ResourceRequirements resourceRequirements = 13;
 }
 
 message ContainerStatus {
@@ -622,8 +622,18 @@ message ResourceRequirements{
 	// Key/Value of a resource type and a corresponding quantity as an int64.
 	map<string, int64> requests = 2;
 
-	// Name describes the name of the holder of the resource requirements (e.g. a container name)
+	// Name describes the name of the holder of the resource requirements (e.g. a container name).
 	string name = 3;
+
+	// ResourceRequirementsType describes the type which uses the ResourceRequirements.
+	ResourceRequirementsType type = 4;
+}
+
+enum ResourceRequirementsType {
+	unknownType = 0;
+	container = 1;
+	initContainer = 2;
+	ephemeralContainer = 3;
 }
 
 message ConnectionsTelemetry {
