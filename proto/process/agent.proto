@@ -161,6 +161,14 @@ message CollectorDeployment {
 	repeated Deployment deployments = 5;
 }
 
+message CollectorService {
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated Service services = 5;
+}
+
 //
 // Models
 //
@@ -539,6 +547,53 @@ message OwnerReference {
 	string name = 1;
 	string uid = 2;
 	string kind = 3;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/release-1.19/staging/src/k8s.io/api/core/v1/generated.proto#L4712
+message ServicePort {
+    string name = 1;
+    string protocol = 2;
+    int32 port = 3;
+    string targetPort = 4; // int or str
+    int32 nodePort = 5;
+    string appProtocol = 6;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/release-1.19/staging/src/k8s.io/api/core/v1/generated.proto#L4933
+message ServiceSessionAffinityConfig {
+    int32 clientIPTimeoutSeconds = 1;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/release-1.19/staging/src/k8s.io/api/core/v1/generated.proto#L4772
+message ServiceSpec {
+    repeated ServicePort ports = 2;
+    repeated LabelSelectorRequirement selectors = 3;
+    string clusterIP = 4;
+    string type = 5;
+    repeated string externalIPs = 6;
+    string sessionAffinity = 7;
+    string loadBalancerIP = 8;
+    repeated string loadBalancerSourceRanges = 9;
+    string externalName = 10;
+    string externalTrafficPolicy = 11;
+    int32 healthCheckNodePort = 12;
+    bool publishNotReadyAddresses = 13;
+    ServiceSessionAffinityConfig sessionAffinityConfig = 14;
+    string ipFamily = 15;
+    repeated string topologyKeys = 16;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/release-1.19/staging/src/k8s.io/api/core/v1/generated.proto#L4925
+message ServiceStatus {
+    repeated string ingress = 17;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/release-1.19/staging/src/k8s.io/api/core/v1/generated.proto
+message Service {
+    Metadata metadata = 1;
+    ServiceSpec spec = 2;
+    ServiceStatus status = 3;
+    bytes yaml = 4;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L221
