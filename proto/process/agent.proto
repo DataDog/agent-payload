@@ -161,6 +161,15 @@ message CollectorDeployment {
 	repeated Deployment deployments = 5;
 }
 
+message CollectorESShard {
+	string  hostName = 1;
+	Host host = 2;
+	string clusterName = 3;
+	repeated ESShard shards = 4;
+	int32 groupId = 5;
+	int32 groupSize = 6;
+}
+
 //
 // Models
 //
@@ -639,4 +648,22 @@ message CollectorConnectionsTelemetry {
 	int64 dnsPacketsProcessed = 5;
 	int64 connsClosed = 6;
 	int64 connsBpfMapSize = 7;
+}
+
+message ESShard {
+	int32 number = 1;
+	bool primary = 2;
+	string  state = 3;
+	string indexName = 4;
+	repeated ESNode nodes = 5;
+	uint32 docsCount = 6;
+	uint32 docsSize = 7;
+	string unassignedReason = 8;
+	bytes byteKey = 9;
+}
+
+message ESNode {
+	string id = 1;
+	string name = 2;
+	Host host = 3; // Post-resolved field
 }
