@@ -623,20 +623,17 @@ message ESShard {
 	int32 number = 1;
 	bool primary = 2;
 	string  state = 3;
-	ESIndex index = 4;
+	string indexName = 4;
 	repeated ESNode nodes = 5;
 	uint32 docsCount = 6;
 	uint32 docsSize = 7;
 	string unassignedReason = 8;
 }
 
-message ESIndex {
-	string name = 1;
-}
-
 message ESNode {
 	string id = 1;
 	string name = 2;
+	Host host = 3; // Post-resolved field
 }
 // https://github.com/kubernetes/kubernetes/blob/4112d8db20c5550cc27d30d3cee2723db0f8e1c4/staging/src/k8s.io/api/core/v1/types.go#L2097
 // Using smallest possible quantity levels.
