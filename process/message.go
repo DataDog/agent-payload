@@ -82,6 +82,7 @@ const (
 	TypeCollectorPod               = 41
 	TypeCollectorReplicaSet        = 42
 	TypeCollectorDeployment        = 43
+	TypeCollectorESShard           = 50
 )
 
 // Message is a generic type for all messages with a Header and Body.
@@ -116,6 +117,8 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorRealTime{}
 	case TypeResCollector:
 		m = &ResCollector{}
+	case TypeCollectorESShard:
+		m = &CollectorESShard{}
 	case TypeCollectorContainer:
 		m = &CollectorContainer{}
 	case TypeCollectorContainerRealTime:
@@ -147,6 +150,8 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorRealTime
 	case *ResCollector:
 		t = TypeResCollector
+	case *CollectorESShard:
+		t = TypeCollectorESShard
 	case *CollectorContainer:
 		t = TypeCollectorContainer
 	case *CollectorContainerRealTime:
