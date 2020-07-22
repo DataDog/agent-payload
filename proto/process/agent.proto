@@ -566,21 +566,21 @@ message ServiceSessionAffinityConfig {
 
 // reference https://github.com/kubernetes/kubernetes/blob/release-1.19/staging/src/k8s.io/api/core/v1/generated.proto#L4772
 message ServiceSpec {
-    repeated ServicePort ports = 2;
-    repeated LabelSelectorRequirement selectors = 3;
-    string clusterIP = 4;
-    string type = 5;
-    repeated string externalIPs = 6;
-    string sessionAffinity = 7;
-    string loadBalancerIP = 8;
-    repeated string loadBalancerSourceRanges = 9;
-    string externalName = 10;
-    string externalTrafficPolicy = 11;
-    int32 healthCheckNodePort = 12;
-    bool publishNotReadyAddresses = 13;
-    ServiceSessionAffinityConfig sessionAffinityConfig = 14;
-    string ipFamily = 15;
-    repeated string topologyKeys = 16;
+    repeated ServicePort ports = 1;
+    repeated LabelSelectorRequirement selectors = 2;
+    string clusterIP = 3;
+    string type = 4;
+    repeated string externalIPs = 5;
+    string sessionAffinity = 6;
+    string loadBalancerIP = 7;
+    repeated string loadBalancerSourceRanges = 8;
+    string externalName = 9;
+    string externalTrafficPolicy = 10;
+    int32 healthCheckNodePort = 11;
+    bool publishNotReadyAddresses = 12;
+    ServiceSessionAffinityConfig sessionAffinityConfig = 13;
+    string ipFamily = 14;
+    repeated string topologyKeys = 15;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/release-1.19/staging/src/k8s.io/api/core/v1/generated.proto#L4925
