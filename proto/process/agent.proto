@@ -150,7 +150,7 @@ message CollectorReplicaSet {
 	string clusterId = 2;
 	int32 groupId = 3;
 	int32 groupSize = 4;
-	repeated ReplicaSet replicasets = 5;
+	repeated ReplicaSet replicaSets = 5;
 }
 
 message CollectorDeployment {
