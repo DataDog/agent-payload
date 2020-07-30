@@ -585,7 +585,7 @@ message ServiceSpec {
 
 // reference https://github.com/kubernetes/kubernetes/blob/release-1.19/staging/src/k8s.io/api/core/v1/generated.proto#L4925
 message ServiceStatus {
-    repeated string ingress = 17;
+    repeated string loadBalancerIngress = 17;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/release-1.19/staging/src/k8s.io/api/core/v1/generated.proto
