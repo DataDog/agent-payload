@@ -82,6 +82,7 @@ const (
 	TypeCollectorPod               = 41
 	TypeCollectorReplicaSet        = 42
 	TypeCollectorDeployment        = 43
+	TypeCollectorService           = 44
 )
 
 // Message is a generic type for all messages with a Header and Body.
@@ -126,6 +127,8 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorReplicaSet{}
 	case TypeCollectorDeployment:
 		m = &CollectorDeployment{}
+	case TypeCollectorService:
+		m = &CollectorService{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -157,6 +160,8 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorReplicaSet
 	case *CollectorDeployment:
 		t = TypeCollectorDeployment
+	case *CollectorService:
+		t = TypeCollectorService
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}
