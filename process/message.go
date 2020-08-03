@@ -106,9 +106,10 @@ func (m MessageType) String() string {
 		return "deployment"
 	case TypeCollectorService:
 		return "service"
+	default:
+		// otherwise convert the type identifier
+		return strconv.Itoa(int(m))
 	}
-	// otherwise convert the type identifier
-	return strconv.Itoa(int(m))
 }
 
 // Message is a generic type for all messages with a Header and Body.
