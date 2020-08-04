@@ -32,9 +32,16 @@ func TestDecodeZstd05Payload(t *testing.T) {
 
 func TestMessageTypeString(t *testing.T) {
 	cases := map[MessageType]string{
-		TypeCollectorPod:        "pod",
-		TypeCollectorReplicaSet: "replica-set",
-		TypeResCollector:        "23",
+		TypeCollectorProc:              "process",
+		TypeCollectorConnections:       "network",
+		TypeCollectorRealTime:          "process-rt",
+		TypeCollectorContainer:         "container",
+		TypeCollectorContainerRealTime: "container-rt",
+		TypeCollectorPod:               "pod",
+		TypeCollectorReplicaSet:        "replica-set",
+		TypeCollectorDeployment:        "deployment",
+		TypeCollectorService:           "service",
+		TypeResCollector:               "23",
 	}
 	for input, expected := range cases {
 		assert.Equal(t, input.String(), expected)
