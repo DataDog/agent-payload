@@ -9,6 +9,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"reflect"
+	"strconv"
 
 	"github.com/DataDog/zstd"
 	"github.com/gogo/protobuf/jsonpb"
@@ -84,6 +85,32 @@ const (
 	TypeCollectorDeployment        = 43
 	TypeCollectorService           = 44
 )
+
+func (m MessageType) String() string {
+	switch m {
+	case TypeCollectorProc:
+		return "process"
+	case TypeCollectorConnections:
+		return "network"
+	case TypeCollectorRealTime:
+		return "process-rt"
+	case TypeCollectorContainer:
+		return "container"
+	case TypeCollectorContainerRealTime:
+		return "container-rt"
+	case TypeCollectorPod:
+		return "pod"
+	case TypeCollectorReplicaSet:
+		return "replica-set"
+	case TypeCollectorDeployment:
+		return "deployment"
+	case TypeCollectorService:
+		return "service"
+	default:
+		// otherwise convert the type identifier
+		return strconv.Itoa(int(m))
+	}
+}
 
 // Message is a generic type for all messages with a Header and Body.
 type Message struct {
