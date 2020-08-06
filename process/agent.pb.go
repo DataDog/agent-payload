@@ -308,9 +308,7 @@ var ResourceRequirementsType_value = map[string]int32{
 func (x ResourceRequirementsType) String() string {
 	return proto.EnumName(ResourceRequirementsType_name, int32(x))
 }
-func (ResourceRequirementsType) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptorAgent, []int{7}
-}
+func (ResourceRequirementsType) EnumDescriptor() ([]byte, []int) { return fileDescriptorAgent, []int{7} }
 
 type ResCollector struct {
 	Header  *ResCollector_Header `protobuf:"bytes,1,opt,name=header" json:"header,omitempty"`
