@@ -453,7 +453,7 @@ message Connection {
 	uint32 lastTcpEstablished = 30;
 	uint32 lastTcpClosed = 31;
 
-	map<uint32, uint32> dnsErorCount = 32;
+	map<uint32, uint32> dnsErrorCount = 32;
 }
 
 message Connections {
