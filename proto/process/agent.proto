@@ -433,6 +433,9 @@ message Connection {
 	// Network namespace
 	uint32 netNS = 20;
 
+        // NetworkID of the remote address (post-resolution field)
+        string remoteNetworkId = 32;
+
 	// the conntrack entry associated with the connection. May be null on systems which don't support querying conntrack.
 	IPTranslation ipTranslation = 21;
 
@@ -448,12 +451,11 @@ message Connection {
 	uint32 dnsTimeouts = 27;
 	uint64 dnsSuccessLatencySum = 28;
 	uint64 dnsFailureLatencySum = 29;
+	map<uint32, uint32> countByDNSRcode = 33;
 
 	// TCP state transition counters relative to last check
 	uint32 lastTcpEstablished = 30;
 	uint32 lastTcpClosed = 31;
-
-	map<uint32, uint32> dnsErrorCount = 32;
 }
 
 message Connections {
