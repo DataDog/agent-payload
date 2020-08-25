@@ -173,8 +173,7 @@ message CollectorCluster {
 	string clusterName = 1;
 	string clusterId = 2;
 	int32 groupId = 3;
-	int32 groupSize = 4;
-	Cluster cluster = 5;
+	Cluster cluster = 4;
 }
 
 //
@@ -615,9 +614,10 @@ message Cluster {
 	string uid = 2;
 	int32 namespaceCount = 3;
 	int32 nodeCount = 4;
-// int64 creationTimestamp = 4;
 	map<string, int32> kubeletVersions = 5;
 	string apiServerVersions = 6;
+	map<string, int64> capacity = 7;
+	map<string, int64> allocatable = 8;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L221
