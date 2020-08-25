@@ -616,7 +616,7 @@ message Cluster {
 	int32 namespaceCount = 3;
 	int32 nodeCount = 4;
 // int64 creationTimestamp = 4;
-	map<string, int64> kubeletVersions = 5;
+	map<string, int32> kubeletVersions = 5;
 	string apiServerVersions = 6;
 }
 
