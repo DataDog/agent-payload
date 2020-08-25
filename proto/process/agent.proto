@@ -169,6 +169,14 @@ message CollectorService {
 	repeated Service services = 5;
 }
 
+message CollectorNameSpace {
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated NameSpace nameSpaces = 5;
+}
+
 //
 // Models
 //
@@ -568,6 +576,126 @@ message ServicePort {
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4756
 message ServiceSessionAffinityConfig {
     int32 clientIPTimeoutSeconds = 1;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2036
+message NameSpace {
+	Metadata metadata = 1;
+	// spec
+	NamespaceSpec spec = 2;
+	NamespaceStatus status = 3;
+	bytes yaml = 4;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2083
+message NamespaceSpec {
+	repeated string finalizers = 1;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2092
+message NamespaceStatus {
+	string phase = 1;
+	repeated NamespaceCondition conditions = 2;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2054
+message NamespaceCondition {
+	string type = 1;
+	string status = 2;
+	int64 lastTransitionTime = 4;
+	string reason = 5;
+	string message = 6;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2107
+message Node {
+	Metadata metadata = 1;
+	NodeSpec spec = 2;
+	NodeStatus status = 3;
+	bytes yaml = 4;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2312
+message NodeSpec {
+	string podCIDR = 1;
+	string externalID = 2;
+	repeated string podCIDRs = 3;
+	string providerID = 4;
+	bool unschedulable = 5;
+	string kubeletVersion = 6;
+	repeated Taint taints = 7;
+
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2348
+// skipping NodeConfigStatus as we do not need this now.
+message NodeStatus {
+	// Key/Value of a resource type and a corresponding quantity as an int64.
+	map<string, int64> capacity = 1;
+	// Key/Value of a resource type and a corresponding quantity as an int64.
+	map<string, int64> allocatable = 2;
+	repeated NodeAddress addresses = 3;
+	repeated NodeCondition conditions = 4;
+	NodeDaemonEndpoints daemonEndpoints = 5;
+	NodeSystemInfo nodeInfo = 6;
+	repeated string volumesInUse = 7;
+	repeated AttachedVolume volumesAttached = 8;
+	repeated ContainerImage images = 9;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2158
+message NodeCondition {
+	string type = 1;
+	string status = 2;
+	int64 lastHeartbeatTime = 3;
+	int64 lastTransitionTime = 4;
+ 	string reason = 5;
+ 	string message = 6;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L777
+message ContainerImage {
+	repeated string names = 1;
+	int64 sizeBytes = 2;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2127
+message NodeAddress {
+	string type = 1;
+	string address = 2;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2240
+message NodeDaemonEndpoints {
+	int32 kubeletEndpoint = 1;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L82
+message AttachedVolume {
+	string name = 1;
+  string devicePath = 2;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2411
+message NodeSystemInfo {
+	string machineID = 1;
+	string systemUUID = 2;
+	string bootID = 3;
+	string kernelVersion = 4;
+	string osImage = 5;
+	string containerRuntimeVersion = 6;
+	string kubeletVersion = 7;
+	string kubeProxyVersion = 8;
+	string operatingSystem = 9;
+	string architecture = 10;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4849
+message Taint {
+	string key = 1;
+	string value = 2;
+	string effect = 3;
+	int64 timeAdded = 4;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4620
