@@ -700,33 +700,33 @@ message Taint {
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4620
 message ServiceSpec {
-    repeated ServicePort ports = 1;
-    repeated LabelSelectorRequirement selectors = 2;
-    string clusterIP = 3;
-    string type = 4;
-    repeated string externalIPs = 5;
-    string sessionAffinity = 6;
-    string loadBalancerIP = 7;
-    repeated string loadBalancerSourceRanges = 8;
-    string externalName = 9;
-    string externalTrafficPolicy = 10;
-    int32 healthCheckNodePort = 11;
-    bool publishNotReadyAddresses = 12;
-    ServiceSessionAffinityConfig sessionAffinityConfig = 13;
-    string ipFamily = 14;
+	repeated ServicePort ports = 1;
+	repeated LabelSelectorRequirement selectors = 2;
+	string clusterIP = 3;
+	string type = 4;
+	repeated string externalIPs = 5;
+	string sessionAffinity = 6;
+	string loadBalancerIP = 7;
+	repeated string loadBalancerSourceRanges = 8;
+	string externalName = 9;
+	string externalTrafficPolicy = 10;
+	int32 healthCheckNodePort = 11;
+	bool publishNotReadyAddresses = 12;
+	ServiceSessionAffinityConfig sessionAffinityConfig = 13;
+	string ipFamily = 14;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4748
 message ServiceStatus {
-    repeated string loadBalancerIngress = 17;
+	repeated string loadBalancerIngress = 17;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/release-1.19/staging/src/k8s.io/api/core/v1/generated.proto
 message Service {
-    Metadata metadata = 1;
-    ServiceSpec spec = 2;
-    ServiceStatus status = 3;
-    bytes yaml = 4;
+	Metadata metadata = 1;
+	ServiceSpec spec = 2;
+	ServiceStatus status = 3;
+	bytes yaml = 4;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L221
