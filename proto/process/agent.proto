@@ -177,6 +177,14 @@ message CollectorNameSpace {
 	repeated NameSpace nameSpaces = 5;
 }
 
+message CollectorNode {
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated Node nodes = 5;
+}
+
 //
 // Models
 //
@@ -673,7 +681,7 @@ message NodeDaemonEndpoints {
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L82
 message AttachedVolume {
 	string name = 1;
-  string devicePath = 2;
+	string devicePath = 2;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2411
