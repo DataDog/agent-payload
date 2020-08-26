@@ -706,6 +706,7 @@ message ConnectionsTelemetry {
 	int64 connsBpfMapSize = 7;
 	int64 monotonicUdpSendsProcessed = 8;
 	int64 monotonicUdpSendsMissed = 9;
+	int64 conntrackSamplingPercent = 10;
 }
 
 message CollectorConnectionsTelemetry {
