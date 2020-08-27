@@ -610,13 +610,15 @@ message Service {
 
 message Cluster {
 	string name = 1;
-	//	UID of the kube-system namespace
+	// UID of the kube-system namespace
 	string uid = 2;
 	int32 namespaceCount = 3;
 	int32 nodeCount = 4;
 	map<string, int32> kubeletVersions = 5;
 	string apiServerVersions = 6;
+	// maps to resource type and a corresponding quantity as an int64. E.g. pod > number of pods, memory > bytes, cpu > millicores
 	map<string, int64> capacity = 7;
+  // same as above
 	map<string, int64> allocatable = 8;
 }
 
