@@ -615,7 +615,7 @@ message Cluster {
 	int32 namespaceCount = 3;
 	int32 nodeCount = 4;
 	map<string, int32> kubeletVersions = 5;
-	string apiServerVersions = 6;
+	string apiServerVersion = 6;
 	// maps to resource type and a corresponding quantity as an int64. E.g. pod > number of pods, memory > bytes, cpu > millicores
 	map<string, int64> capacity = 7;
   // same as above
