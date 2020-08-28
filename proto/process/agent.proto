@@ -169,14 +169,6 @@ message CollectorService {
 	repeated Service services = 5;
 }
 
-message CollectorNameSpace {
-	string clusterName = 1;
-	string clusterId = 2;
-	int32 groupId = 3;
-	int32 groupSize = 4;
-	repeated NameSpace nameSpaces = 5;
-}
-
 message CollectorNode {
 	string clusterName = 1;
 	string clusterId = 2;
