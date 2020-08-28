@@ -589,9 +589,8 @@ message Node {
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2312
 message NodeSpec {
 	string podCIDR = 1;
-	string externalID = 2;
-	repeated string podCIDRs = 7;
-	string providerID = 3;
+	repeated string podCIDRs = 3;
+	string providerID = 2;
 	bool unschedulable = 4;
 	repeated Taint taints = 5;
 	ConfigMapNodeConfigSource configSource = 6;
