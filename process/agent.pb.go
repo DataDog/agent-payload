@@ -1412,14 +1412,16 @@ func (m *Service) GetStatus() *ServiceStatus {
 
 type Cluster struct {
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	// 	UID of the kube-system namespace
+	// UID of the kube-system namespace
 	Uid               string           `protobuf:"bytes,2,opt,name=uid,proto3" json:"uid,omitempty"`
 	NamespaceCount    int32            `protobuf:"varint,3,opt,name=namespaceCount,proto3" json:"namespaceCount,omitempty"`
 	NodeCount         int32            `protobuf:"varint,4,opt,name=nodeCount,proto3" json:"nodeCount,omitempty"`
 	KubeletVersions   map[string]int32 `protobuf:"bytes,5,rep,name=kubeletVersions" json:"kubeletVersions,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
 	ApiServerVersions string           `protobuf:"bytes,6,opt,name=apiServerVersions,proto3" json:"apiServerVersions,omitempty"`
-	Capacity          map[string]int64 `protobuf:"bytes,7,rep,name=capacity" json:"capacity,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
-	Allocatable       map[string]int64 `protobuf:"bytes,8,rep,name=allocatable" json:"allocatable,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	// maps to resource type and a corresponding quantity as an int64. E.g. pod > number of pods, memory > bytes, cpu > millicores
+	Capacity map[string]int64 `protobuf:"bytes,7,rep,name=capacity" json:"capacity,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	// same as above
+	Allocatable map[string]int64 `protobuf:"bytes,8,rep,name=allocatable" json:"allocatable,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
 }
 
 func (m *Cluster) Reset()                    { *m = Cluster{} }
