@@ -590,16 +590,25 @@ message Node {
 message NodeSpec {
 	string podCIDR = 1;
 	string externalID = 2;
-	repeated string podCIDRs = 3;
-	string providerID = 4;
-	bool unschedulable = 5;
-	string kubeletVersion = 6;
-	repeated Taint taints = 7;
+	repeated string podCIDRs = 7;
+	string providerID = 3;
+	bool unschedulable = 4;
+	repeated Taint taints = 5;
+	ConfigMapNodeConfigSource configSource = 6;
 
 }
 
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L515
+message ConfigMapNodeConfigSource {
+	string namespace = 1;
+	string name = 2;
+	string uid = 3;
+	string resourceVersion = 4;
+	string kubeletConfigKey = 5;
+}
+
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2348
-// skipping NodeConfigStatus as we do not need this now.
+// skipping NodeConfigStatus for now.
 message NodeStatus {
 	// Key/Value of a resource type and a corresponding quantity as an int64.
 	map<string, int64> capacity = 1;
