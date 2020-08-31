@@ -584,6 +584,8 @@ message Node {
 	NodeSpec spec = 2;
 	NodeStatus status = 3;
 	bytes yaml = 4;
+	repeated string tags = 5;
+	Host host = 6; // Used post-resolution
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2312
@@ -593,17 +595,6 @@ message NodeSpec {
 	string providerID = 2;
 	bool unschedulable = 4;
 	repeated Taint taints = 5;
-	ConfigMapNodeConfigSource configSource = 6;
-
-}
-
-// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L515
-message ConfigMapNodeConfigSource {
-	string namespace = 1;
-	string name = 2;
-	string uid = 3;
-	string resourceVersion = 4;
-	string kubeletConfigKey = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2348
@@ -613,12 +604,13 @@ message NodeStatus {
 	map<string, int64> capacity = 1;
 	// Key/Value of a resource type and a corresponding quantity as an int64.
 	map<string, int64> allocatable = 2;
-	repeated NodeAddress addresses = 3;
+	// https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2127
+	map<string,string> nodeAddresses = 3;
 	repeated NodeCondition conditions = 4;
-	NodeDaemonEndpoints daemonEndpoints = 5;
+	// https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2240
+	int32 daemonEndpoints = 5;
 	NodeSystemInfo nodeInfo = 6;
 	repeated string volumesInUse = 7;
-	repeated AttachedVolume volumesAttached = 8;
 	repeated ContainerImage images = 9;
 }
 
@@ -636,23 +628,6 @@ message NodeCondition {
 message ContainerImage {
 	repeated string names = 1;
 	int64 sizeBytes = 2;
-}
-
-// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2127
-message NodeAddress {
-	string type = 1;
-	string address = 2;
-}
-
-// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2240
-message NodeDaemonEndpoints {
-	int32 kubeletEndpoint = 1;
-}
-
-// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L82
-message AttachedVolume {
-	string name = 1;
-	string devicePath = 2;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2411
