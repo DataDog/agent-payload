@@ -581,24 +581,22 @@ message ServiceSessionAffinityConfig {
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2107
 message Node {
 	Metadata metadata = 1;
-	NodeSpec spec = 2;
-	NodeStatus status = 3;
-	bytes yaml = 4;
-	repeated string tags = 5;
-	Host host = 6; // Used post-resolution
-}
-
-// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2312
-message NodeSpec {
-	string podCIDR = 1;
+	// spec reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2312
+	string podCIDR = 2;
 	repeated string podCIDRs = 3;
-	string providerID = 2;
+	string providerID = 10;
 	bool unschedulable = 4;
 	repeated Taint taints = 5;
+
+	NodeStatus status = 6;
+	bytes yaml = 7;
+	repeated string roles = 8;
+	repeated string tags = 9;
+	Host host = 11; // Used post-resolution
 }
 
+
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2348
-// skipping NodeConfigStatus for now.
 message NodeStatus {
 	// Key/Value of a resource type and a corresponding quantity as an int64.
 	map<string, int64> capacity = 1;
@@ -606,42 +604,28 @@ message NodeStatus {
 	map<string, int64> allocatable = 2;
 	// https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2127
 	map<string,string> nodeAddresses = 3;
-	repeated NodeCondition conditions = 4;
+	// node status displayed by "kubectl get node"
+	// mostly based on NodeCondition https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2158
+	// and https://github.com/kubernetes/kubernetes/blob/1e12d92a5179dbfeb455c79dbf9120c8536e5f9c/pkg/printers/internalversion/printers.go#L1410
+	string status = 4;
 	// https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2240
 	int32 daemonEndpoints = 5;
-	NodeSystemInfo nodeInfo = 6;
-	repeated string volumesInUse = 7;
-	repeated ContainerImage images = 9;
-}
+	repeated ContainerImage images = 7;
 
-// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2158
-message NodeCondition {
-	string type = 1;
-	string status = 2;
-	int64 lastHeartbeatTime = 3;
-	int64 lastTransitionTime = 4;
- 	string reason = 5;
- 	string message = 6;
+	// node system info reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2411
+	string kubeProxyVersion = 8;
+	string operatingSystem = 9;
+	string architecture = 10;
+	string kernelVersion = 11;
+	string osImage = 12;
+	string containerRuntimeVersion = 13;
+	string kubeletVersion = 14;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L777
 message ContainerImage {
 	repeated string names = 1;
 	int64 sizeBytes = 2;
-}
-
-// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2411
-message NodeSystemInfo {
-	string machineID = 1;
-	string systemUUID = 2;
-	string bootID = 3;
-	string kernelVersion = 4;
-	string osImage = 5;
-	string containerRuntimeVersion = 6;
-	string kubeletVersion = 7;
-	string kubeProxyVersion = 8;
-	string operatingSystem = 9;
-	string architecture = 10;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4849
