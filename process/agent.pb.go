@@ -1384,6 +1384,7 @@ type NodeStatus struct {
 	// Key/Value of a resource type and a corresponding quantity as an int64.
 	Allocatable map[string]int64 `protobuf:"bytes,2,rep,name=allocatable" json:"allocatable,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
 	// https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2127
+	// these are valid types https://github.com/kubernetes/api/blob/master/core/v1/types.go#L4739-L4753
 	NodeAddresses map[string]string `protobuf:"bytes,3,rep,name=nodeAddresses" json:"nodeAddresses,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 	// node status displayed by "kubectl get node"
 	// mostly based on NodeCondition
