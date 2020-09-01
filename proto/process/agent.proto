@@ -587,9 +587,9 @@ message Node {
 	string providerID = 10;
 	bool unschedulable = 4;
 	repeated Taint taints = 5;
-
 	NodeStatus status = 6;
 	bytes yaml = 7;
+	// we parse it from the labels. Similar to upstream https://github.com/kubernetes/kubernetes/blob/1e12d92a5179dbfeb455c79dbf9120c8536e5f9c/pkg/printers/internalversion/printers.go#L1487
 	repeated string roles = 8;
 	repeated string tags = 9;
 	Host host = 11; // Used post-resolution
@@ -605,7 +605,7 @@ message NodeStatus {
 	// https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2127
 	map<string,string> nodeAddresses = 3;
 	// node status displayed by "kubectl get node"
-	// mostly based on NodeCondition https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2158
+	// mostly based on NodeCondition
 	// and https://github.com/kubernetes/kubernetes/blob/1e12d92a5179dbfeb455c79dbf9120c8536e5f9c/pkg/printers/internalversion/printers.go#L1410
 	string status = 4;
 	// https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2240
@@ -620,6 +620,16 @@ message NodeStatus {
 	string osImage = 12;
 	string containerRuntimeVersion = 13;
 	string kubeletVersion = 14;
+	repeated NodeCondition conditions = 15;
+}
+
+// reference: https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2158
+message NodeCondition {
+	string type = 1;
+	string status = 2;
+	int64 lastTransitionTime = 3;
+	string reason = 4;
+	string message = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L777
