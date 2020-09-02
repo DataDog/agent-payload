@@ -584,7 +584,6 @@ message Node {
 	// spec reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2312
 	string podCIDR = 2;
 	repeated string podCIDRs = 3;
-	string providerID = 10;
 	bool unschedulable = 4;
 	repeated Taint taints = 5;
 	NodeStatus status = 6;
@@ -592,6 +591,7 @@ message Node {
 	// we parse it from the labels. Similar to upstream https://github.com/kubernetes/kubernetes/blob/1e12d92a5179dbfeb455c79dbf9120c8536e5f9c/pkg/printers/internalversion/printers.go#L1487
 	repeated string roles = 8;
 	repeated string tags = 9;
+	string providerID = 10;
 	Host host = 11; // Used post-resolution
 }
 
@@ -609,8 +609,8 @@ message NodeStatus {
 	// mostly based on NodeCondition
 	// and https://github.com/kubernetes/kubernetes/blob/1e12d92a5179dbfeb455c79dbf9120c8536e5f9c/pkg/printers/internalversion/printers.go#L1410
 	string status = 4;
-	// https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2240
-	int32 daemonEndpoints = 5;
+	string kubeletVersion = 5;
+	repeated NodeCondition conditions = 6;
 	repeated ContainerImage images = 7;
 
 	// node system info reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2411
@@ -620,8 +620,6 @@ message NodeStatus {
 	string kernelVersion = 11;
 	string osImage = 12;
 	string containerRuntimeVersion = 13;
-	string kubeletVersion = 14;
-	repeated NodeCondition conditions = 15;
 }
 
 // reference: https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2158
