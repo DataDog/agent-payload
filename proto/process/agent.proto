@@ -603,7 +603,7 @@ message NodeStatus {
 	// Key/Value of a resource type and a corresponding quantity as an int64.
 	map<string, int64> allocatable = 2;
 	// https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2127
-  // these are valid types https://github.com/kubernetes/api/blob/master/core/v1/types.go#L4739-L4753
+	// these are valid types https://github.com/kubernetes/api/blob/master/core/v1/types.go#L4739-L4753
 	map<string,string> nodeAddresses = 3;
 	// node status displayed by "kubectl get node"
 	// mostly based on NodeCondition
