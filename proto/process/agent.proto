@@ -169,6 +169,14 @@ message CollectorService {
 	repeated Service services = 5;
 }
 
+message CollectorNode {
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated Node nodes = 5;
+}
+
 //
 // Models
 //
@@ -570,35 +578,102 @@ message ServiceSessionAffinityConfig {
     int32 clientIPTimeoutSeconds = 1;
 }
 
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2107
+message Node {
+	Metadata metadata = 1;
+	// spec reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2312
+	string podCIDR = 2;
+	repeated string podCIDRs = 3;
+	bool unschedulable = 4;
+	repeated Taint taints = 5;
+	NodeStatus status = 6;
+	bytes yaml = 7;
+	// we parse it from the labels. Similar to upstream https://github.com/kubernetes/kubernetes/blob/1e12d92a5179dbfeb455c79dbf9120c8536e5f9c/pkg/printers/internalversion/printers.go#L1487
+	repeated string roles = 8;
+	repeated string tags = 9;
+	string providerID = 10;
+	Host host = 11; // Used post-resolution
+}
+
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2348
+message NodeStatus {
+	// Key/Value of a resource type and a corresponding quantity as an int64.
+	map<string, int64> capacity = 1;
+	// Key/Value of a resource type and a corresponding quantity as an int64.
+	map<string, int64> allocatable = 2;
+	// https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2127
+	// these are valid types https://github.com/kubernetes/api/blob/master/core/v1/types.go#L4739-L4753
+	map<string,string> nodeAddresses = 3;
+	// node status displayed by "kubectl get node"
+	// mostly based on NodeCondition
+	// and https://github.com/kubernetes/kubernetes/blob/1e12d92a5179dbfeb455c79dbf9120c8536e5f9c/pkg/printers/internalversion/printers.go#L1410
+	string status = 4;
+	string kubeletVersion = 5;
+	repeated NodeCondition conditions = 6;
+	repeated ContainerImage images = 7;
+
+	// node system info reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2411
+	string kubeProxyVersion = 8;
+	string operatingSystem = 9;
+	string architecture = 10;
+	string kernelVersion = 11;
+	string osImage = 12;
+	string containerRuntimeVersion = 13;
+}
+
+// reference: https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2158
+message NodeCondition {
+	string type = 1;
+	string status = 2;
+	int64 lastTransitionTime = 3;
+	string reason = 4;
+	string message = 5;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L777
+message ContainerImage {
+	repeated string names = 1;
+	int64 sizeBytes = 2;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4849
+message Taint {
+	string key = 1;
+	string value = 2;
+	string effect = 3;
+	int64 timeAdded = 4;
+}
+
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4620
 message ServiceSpec {
-    repeated ServicePort ports = 1;
-    repeated LabelSelectorRequirement selectors = 2;
-    string clusterIP = 3;
-    string type = 4;
-    repeated string externalIPs = 5;
-    string sessionAffinity = 6;
-    string loadBalancerIP = 7;
-    repeated string loadBalancerSourceRanges = 8;
-    string externalName = 9;
-    string externalTrafficPolicy = 10;
-    int32 healthCheckNodePort = 11;
-    bool publishNotReadyAddresses = 12;
-    ServiceSessionAffinityConfig sessionAffinityConfig = 13;
-    string ipFamily = 14;
+	repeated ServicePort ports = 1;
+	repeated LabelSelectorRequirement selectors = 2;
+	string clusterIP = 3;
+	string type = 4;
+	repeated string externalIPs = 5;
+	string sessionAffinity = 6;
+	string loadBalancerIP = 7;
+	repeated string loadBalancerSourceRanges = 8;
+	string externalName = 9;
+	string externalTrafficPolicy = 10;
+	int32 healthCheckNodePort = 11;
+	bool publishNotReadyAddresses = 12;
+	ServiceSessionAffinityConfig sessionAffinityConfig = 13;
+	string ipFamily = 14;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4748
 message ServiceStatus {
-    repeated string loadBalancerIngress = 17;
+	repeated string loadBalancerIngress = 17;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/release-1.19/staging/src/k8s.io/api/core/v1/generated.proto
 message Service {
-    Metadata metadata = 1;
-    ServiceSpec spec = 2;
-    ServiceStatus status = 3;
-    bytes yaml = 4;
+	Metadata metadata = 1;
+	ServiceSpec spec = 2;
+	ServiceStatus status = 3;
+	bytes yaml = 4;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L221

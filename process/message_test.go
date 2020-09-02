@@ -41,6 +41,7 @@ func TestMessageTypeString(t *testing.T) {
 		TypeCollectorReplicaSet:        "replica-set",
 		TypeCollectorDeployment:        "deployment",
 		TypeCollectorService:           "service",
+		TypeCollectorNode:              "node",
 		TypeResCollector:               "23",
 	}
 	for input, expected := range cases {
