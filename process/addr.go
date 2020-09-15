@@ -5,6 +5,16 @@ import (
 	"net"
 )
 
+// ParseIPAddress parses the given string in to an IPAddress
+func ParseIPAddress(s string) IPAddress {
+	ip := net.ParseIP(s)
+
+	return IPAddress{
+		High: int64(binary.LittleEndian.Uint64(ip[0:8])),
+		Low:  int64(binary.LittleEndian.Uint64(ip[8:])),
+	}
+}
+
 // ToIP returns the `net.IP` version of this value
 func (m *IPAddress) ToIP() net.IP {
 	var buf [16]byte
