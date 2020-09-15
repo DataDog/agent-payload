@@ -5,6 +5,7 @@ option go_package = "github.com/DataDog/agent-payload/process";
 package datadog.process_agent;
 
 import "github.com/DataDog/agent-payload/proto/metrics/agent_payload.proto";
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 
 //
 // Message Types
@@ -471,6 +472,11 @@ message Connections {
   ConnectionsTelemetry telemetry = 3;
 }
 
+message IPAddress {
+	int64 high = 1;
+	int64 low = 2;
+}
+
 message Addr {
 	reserved 1, 4;
 
@@ -478,6 +484,7 @@ message Addr {
 	int32  port = 3;
 	string containerId = 5; // post-resolution field
 	int64  hostId = 6;      // post-resolution field
+	IPAddress address = 7 [(gogoproto.nullable) = false];
 }
 
 message IPTranslation {
