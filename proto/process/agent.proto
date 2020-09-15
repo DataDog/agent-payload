@@ -492,6 +492,9 @@ message IPTranslation {
 	string replDstIP  = 2;
 	int32 replSrcPort = 3;
 	int32 replDstPort = 4;
+
+	IPAddress replSrcAddress = 5;
+	IPAddress replDstAddress = 6;
 }
 
 message MemoryStat {
