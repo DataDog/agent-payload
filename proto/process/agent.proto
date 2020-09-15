@@ -473,6 +473,7 @@ message Connections {
 }
 
 message IPAddress {
+	option (gogoproto.goproto_stringer) = false;
 	int64 high = 1;
 	int64 low = 2;
 }
