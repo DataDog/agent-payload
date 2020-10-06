@@ -674,6 +674,7 @@ message Service {
 	ServiceSpec spec = 2;
 	ServiceStatus status = 3;
 	bytes yaml = 4;
+	repeated string tags = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L221
@@ -694,6 +695,7 @@ message Deployment {
 	int32 unavailableReplicas = 12;
 	string conditionMessage = 13;
 	bytes yaml = 14;
+	repeated string tags = 15;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L366
@@ -708,6 +710,7 @@ message ReplicaSet {
 	int32 readyReplicas = 6;
 	int32 availableReplicas = 7;
 	bytes yaml = 8;
+	repeated string tags = 9;
 }
 
 message LabelSelectorRequirement {
