@@ -143,6 +143,7 @@ message CollectorPod {
 	int32 groupSize = 5;
 	repeated Pod pods = 6;
 	Host host = 7; // Post-resolved field
+	repeated string tags = 8;
 }
 
 message CollectorReplicaSet {
@@ -151,6 +152,7 @@ message CollectorReplicaSet {
 	int32 groupId = 3;
 	int32 groupSize = 4;
 	repeated ReplicaSet replicaSets = 5;
+	repeated string tags = 6;
 }
 
 message CollectorDeployment {
@@ -159,6 +161,7 @@ message CollectorDeployment {
 	int32 groupId = 3;
 	int32 groupSize = 4;
 	repeated Deployment deployments = 5;
+	repeated string tags = 6;
 }
 
 message CollectorService {
@@ -167,6 +170,7 @@ message CollectorService {
 	int32 groupId = 3;
 	int32 groupSize = 4;
 	repeated Service services = 5;
+	repeated string tags = 6;
 }
 
 message CollectorNode {
@@ -175,6 +179,7 @@ message CollectorNode {
 	int32 groupId = 3;
 	int32 groupSize = 4;
 	repeated Node nodes = 5;
+	repeated string tags = 6;
 }
 
 //
