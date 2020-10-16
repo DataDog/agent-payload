@@ -208,12 +208,10 @@ type ServiceChecksPayload struct {
 	Metadata      *CommonMetadata                      `protobuf:"bytes,2,opt,name=metadata" json:"metadata,omitempty"`
 }
 
-func (m *ServiceChecksPayload) Reset()         { *m = ServiceChecksPayload{} }
-func (m *ServiceChecksPayload) String() string { return proto.CompactTextString(m) }
-func (*ServiceChecksPayload) ProtoMessage()    {}
-func (*ServiceChecksPayload) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgentPayload, []int{2}
-}
+func (m *ServiceChecksPayload) Reset()                    { *m = ServiceChecksPayload{} }
+func (m *ServiceChecksPayload) String() string            { return proto.CompactTextString(m) }
+func (*ServiceChecksPayload) ProtoMessage()               {}
+func (*ServiceChecksPayload) Descriptor() ([]byte, []int) { return fileDescriptorAgentPayload, []int{2} }
 
 func (m *ServiceChecksPayload) GetServiceChecks() []*ServiceChecksPayload_ServiceCheck {
 	if m != nil {
