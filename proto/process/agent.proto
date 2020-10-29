@@ -470,7 +470,7 @@ message Connection {
 	uint32 lastTcpClosed = 31;
 
 	// dns stats based on domain queried
-	map<string, DNSStats> dnsStats = 34;
+	map<string, DNSStats> dnsStatsByDomain = 34;
 }
 
 message Connections {
