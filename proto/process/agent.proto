@@ -78,6 +78,12 @@ message CollectorConnections {
 	ContainerHostType containerHostType = 15;
 
 	CollectorConnectionsTelemetry telemetry = 16;
+
+	// OS Telemetry
+	string architecture = 17;
+	string kernelVersion = 18;
+	string platform = 19;
+	string platformVersion = 20;
 }
 
 message CollectorRealTime {
