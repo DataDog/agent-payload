@@ -27,6 +27,7 @@ func TestV1EncodeDNS(t *testing.T) {
 	assertDNSEqual(t, []string{"app.datad0g.com"}, buf, "34.231.44.115")
 	assertDNSEqual(t, nil, buf, "134.231.44.115")
 	assertDNSEqual(t, nil, buf, "1.1.1.1")
+	assert.Equal(t, 3, len(getDNSNames(buf)))
 }
 
 func TestV1EncodeDNS_Empty(t *testing.T) {
@@ -37,6 +38,7 @@ func TestV1EncodeDNS_Empty(t *testing.T) {
 
 	assert.Empty(t, buf)
 	assertDNSEqual(t, nil, buf, "1.1.1.1")
+	assert.Equal(t, 0, len(getDNSNames(buf)))
 }
 
 func TestV1EncodeDNS_NoNames(t *testing.T) {
@@ -51,6 +53,7 @@ func TestV1EncodeDNS_NoNames(t *testing.T) {
 	assert.Empty(t, buf)
 	assertDNSEqual(t, nil, buf, "10.128.98.75")
 	assertDNSEqual(t, nil, buf, "10.128.99.240")
+	assert.Equal(t, 0, len(getDNSNames(buf)))
 }
 
 func TestV1EncodeDNS_SampleData(t *testing.T) {

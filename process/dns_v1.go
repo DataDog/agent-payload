@@ -231,6 +231,27 @@ func getV1(buf []byte, ip string) (string, []string) {
 	return first, names
 }
 
+func getDNSNamesV1(buf []byte) []string {
+	var names []string
+	// skip the preamble
+	index := dns1Version1PreambleLength
+
+	_, bytesRead := binary.Uvarint(buf[index:])
+	index += bytesRead
+	nameBufferLen, bytesRead := binary.Uvarint(buf[index:])
+
+	start := len(buf) - int(nameBufferLen)
+	nameBuffer := buf[start:]
+
+	for namePosition := 0; namePosition < len(nameBuffer); {
+		nameLength, bytesReadForName := binary.Uvarint(nameBuffer[namePosition:])
+		namePosition += bytesReadForName
+		name := string(nameBuffer[namePosition : namePosition+int(nameLength)])
+		names = append(names, name)
+		namePosition += int(nameLength)
+	}
+	return names
+}
 func iterateDNSV1(buf []byte, ip string, cb func(i, total int, entry string) bool) {
 	// Read overview:
 	//	Compute the target bucket for the given ip
