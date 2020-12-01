@@ -231,7 +231,7 @@ func getV1(buf []byte, ip string) (string, []string) {
 	return first, names
 }
 
-func getNamesV1(buf []byte) []string {
+func getDNSNamesV1(buf []byte) []string {
 	var names []string
 	// skip the preamble
 	index := dns1Version1PreambleLength

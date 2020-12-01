@@ -19,14 +19,14 @@ func getDNS(buf []byte, ip string) (string, []string) {
 	return "", nil
 }
 
-func getNames(buf []byte) []string {
+func getDNSNames(buf []byte) []string {
 	if len(buf) == 0 {
 		return nil
 	}
 
 	switch buf[0] {
 	case dnsVersion1:
-		return getNamesV1(buf)
+		return getDNSNamesV1(buf)
 	}
 	return nil
 }
