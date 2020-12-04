@@ -32,3 +32,8 @@ func (m *CollectorConnections) GetDNS(addr *Addr) (string, []string) {
 func (m *CollectorConnections) IterateDNS(addr *Addr, cb func(i, total int, entry string) bool) {
 	iterateDNS(m.EncodedDNS, addr.Ip, cb)
 }
+
+// GetDNSNames returns all the DNS entries
+func (m *CollectorConnections) GetDNSNames() []string {
+	return getDNSNames(m.EncodedDNS)
+}
