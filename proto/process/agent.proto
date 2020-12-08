@@ -476,13 +476,14 @@ message Connection {
 	uint32 lastTcpClosed = 31;
 
 	// dns stats based on domain queried
-	map<string, DNSStats> dnsStatsByDomain = 34;
+	map<int32, DNSStats> dnsStatsByDomain = 34;
 }
 
 message Connections {
   repeated Connection conns = 1;
   map<string, DNSEntry> dns  = 2;
   ConnectionsTelemetry telemetry = 3;
+  repeated string domains = 4;
 }
 
 message Addr {
