@@ -451,8 +451,8 @@ message Connection {
 
 	// Network namespace
 	uint32 netNS = 20;
-    // NetworkID of the remote address (post-resolution field)
-    string remoteNetworkId = 32;
+        // NetworkID of the remote address (post-resolution field)
+        string remoteNetworkId = 32;
 
 	// the conntrack entry associated with the connection. May be null on systems which don't support querying conntrack.
 	IPTranslation ipTranslation = 21;
@@ -474,6 +474,8 @@ message Connection {
 	// TCP state transition counters relative to last check
 	uint32 lastTcpEstablished = 30;
 	uint32 lastTcpClosed = 31;
+
+        Addr via = 34;
 }
 
 message Connections {
@@ -489,6 +491,12 @@ message Addr {
 	int32  port = 3;
 	string containerId = 5; // post-resolution field
 	int64  hostId = 6;      // post-resolution field
+        Subnet subnet = 7;
+}
+
+message Subnet {
+    string alias = 1;
+    string cidr = 2;
 }
 
 message IPTranslation {
