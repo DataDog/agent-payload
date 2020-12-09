@@ -475,7 +475,7 @@ message Connection {
 	uint32 lastTcpEstablished = 30;
 	uint32 lastTcpClosed = 31;
 
-        Addr via = 34;
+        Via via = 34;
 }
 
 message Connections {
@@ -491,7 +491,11 @@ message Addr {
 	int32  port = 3;
 	string containerId = 5; // post-resolution field
 	int64  hostId = 6;      // post-resolution field
-        Subnet subnet = 7;
+}
+
+message Via {
+    string ip = 1;
+    Subnet subnet = 2;
 }
 
 message Subnet {
