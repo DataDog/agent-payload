@@ -572,9 +572,7 @@ var (
 	ErrIntOverflowAgentLogsPayload   = fmt.Errorf("proto: integer overflow")
 )
 
-func init() {
-	proto.RegisterFile("proto/logs/agent_logs_payload.proto", fileDescriptorAgentLogsPayload)
-}
+func init() { proto.RegisterFile("proto/logs/agent_logs_payload.proto", fileDescriptorAgentLogsPayload) }
 
 var fileDescriptorAgentLogsPayload = []byte{
 	// 254 bytes of a gzipped FileDescriptorProto
