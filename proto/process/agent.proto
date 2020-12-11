@@ -84,6 +84,9 @@ message CollectorConnections {
 	string kernelVersion = 18;
 	string platform = 19;
 	string platformVersion = 20;
+
+	// All queried DNS domains for which we have collected stats
+	repeated string domains = 30;
 }
 
 message CollectorRealTime {
@@ -474,12 +477,16 @@ message Connection {
 	// TCP state transition counters relative to last check
 	uint32 lastTcpEstablished = 30;
 	uint32 lastTcpClosed = 31;
+
+	// dns stats based on domain queried, the key corresponds to an index into the `domains` field
+	map<int32, DNSStats> dnsStatsByDomain = 34;
 }
 
 message Connections {
   repeated Connection conns = 1;
   map<string, DNSEntry> dns  = 2;
   ConnectionsTelemetry telemetry = 3;
+  repeated string domains = 4;
 }
 
 message Addr {
@@ -809,4 +816,11 @@ message CollectorConnectionsTelemetry {
 	int64 udpSendsProcessed = 8;
 	int64 udpSendsMissed = 9;
 	int64 conntrackSamplingPercent = 10;
+}
+
+message DNSStats {
+	uint32 dnsTimeouts = 1;
+	uint64 dnsSuccessLatencySum = 2;
+	uint64 dnsFailureLatencySum = 3;
+	map<uint32, uint32> dnsCountByRcode = 4;
 }
