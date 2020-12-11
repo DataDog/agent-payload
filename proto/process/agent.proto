@@ -84,6 +84,9 @@ message CollectorConnections {
 	string kernelVersion = 18;
 	string platform = 19;
 	string platformVersion = 20;
+
+	// All queried DNS domains for which we collected stats
+	repeated string domains = 30;
 }
 
 message CollectorRealTime {
