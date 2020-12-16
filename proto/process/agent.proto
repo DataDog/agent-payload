@@ -506,7 +506,6 @@ message Via {
 
 message Subnet {
     string alias = 1;
-    string cidr = 2;
 }
 
 message IPTranslation {
