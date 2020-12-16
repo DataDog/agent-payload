@@ -494,8 +494,7 @@ message Addr {
 }
 
 message Via {
-    string ip = 1;
-    Subnet subnet = 2;
+    Subnet subnet = 1;
 }
 
 message Subnet {
