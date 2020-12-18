@@ -481,7 +481,8 @@ message Connection {
 	// dns stats based on domain queried, the key corresponds to an index into the `domains` field
 	map<int32, DNSStats> dnsStatsByDomain = 34;
 
-        Via via = 35;
+        uint32 routeIdx = 35;
+        repeated Route routes = 36;
 }
 
 message Connections {
@@ -500,7 +501,7 @@ message Addr {
 	int64  hostId = 6;      // post-resolution field
 }
 
-message Via {
+message Route {
     Subnet subnet = 1;
 }
 
