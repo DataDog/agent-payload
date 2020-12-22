@@ -6,7 +6,8 @@ type DNSEncoder interface {
 
 const dnsVersion1 byte = 1
 
-func getDNS(buf []byte, ip string) (string, []string) {
+// GetDNS gets the DNS entries for the given IP from the given buffer
+func GetDNS(buf []byte, ip string) (string, []string) {
 	if len(buf) == 0 || ip == "" {
 		return "", nil
 	}
@@ -31,7 +32,8 @@ func getDNSNames(buf []byte) []string {
 	return nil
 }
 
-func iterateDNS(buf []byte, ip string, cb func(i, total int, entry string) bool) {
+// IterateDNS invokes the callback function for each DNS entry for the given IP in the given buffer
+func IterateDNS(buf []byte, ip string, cb func(i, total int, entry string) bool) {
 	if len(buf) == 0 || ip == "" {
 		return
 	}

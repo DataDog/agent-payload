@@ -107,7 +107,7 @@ func BenchmarkDNSDecode(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				for i, dns := range samples {
 					for ip := range dns {
-						_, s = getDNS(bufs[i], ip)
+						_, s = GetDNS(bufs[i], ip)
 					}
 				}
 			}
@@ -188,7 +188,7 @@ func readTestDns(t require.TestingT, filename string) []map[string]*DNSEntry {
 }
 
 func assertDNSEqual(t *testing.T, expected []string, buf []byte, key string) {
-	name, names := getDNS(buf, key)
+	name, names := GetDNS(buf, key)
 
 	switch len(expected) {
 	case 0:
@@ -203,13 +203,13 @@ func assertDNSEqual(t *testing.T, expected []string, buf []byte, key string) {
 	}
 
 	var iterValues []string
-	iterateDNS(buf, key, func(i, total int, entry string) bool {
+	IterateDNS(buf, key, func(i, total int, entry string) bool {
 		iterValues = append(iterValues, entry)
 		return true
 	})
 
 	var truncatedValues []string
-	iterateDNS(buf, key, func(i, total int, entry string) bool {
+	IterateDNS(buf, key, func(i, total int, entry string) bool {
 		if i == total-1 {
 			return false
 		}
