@@ -191,6 +191,14 @@ message CollectorNode {
 	repeated string tags = 6;
 }
 
+message CollectorStatic {
+	string orchestrator = 1;
+	string type = 2;
+	string uid = 3;
+	bytes content = 4;
+	string extension = 5;
+}
+
 //
 // Models
 //

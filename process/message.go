@@ -85,6 +85,7 @@ const (
 	TypeCollectorDeployment        = 43
 	TypeCollectorService           = 44
 	TypeCollectorNode              = 45
+	TypeCollectorStatic            = 80
 )
 
 func (m MessageType) String() string {
@@ -109,6 +110,8 @@ func (m MessageType) String() string {
 		return "service"
 	case TypeCollectorNode:
 		return "node"
+	case TypeCollectorStatic:
+		return "static"
 	default:
 		// otherwise convert the type identifier
 		return strconv.Itoa(int(m))
@@ -161,6 +164,8 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorService{}
 	case TypeCollectorNode:
 		m = &CollectorNode{}
+	case TypeCollectorStatic:
+		m = &CollectorStatic{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -196,6 +201,8 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorService
 	case *CollectorNode:
 		t = TypeCollectorNode
+	case *CollectorStatic:
+		t = TypeCollectorStatic
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}
