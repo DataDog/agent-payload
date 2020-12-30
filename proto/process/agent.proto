@@ -191,7 +191,7 @@ message CollectorNode {
 	repeated string tags = 6;
 }
 
-message CollectorStatic {
+message CollectorManifest {
 	string orchestrator = 1;
 	string type = 2;
 	string uid = 3;
