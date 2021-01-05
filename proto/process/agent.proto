@@ -192,11 +192,11 @@ message CollectorNode {
 }
 
 message CollectorManifest {
-	string orchestrator = 1;
-	string type = 2;
-	string uid = 3;
-	bytes content = 4;
-	string contentType = 5;
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated Manifest manifests = 5;
 }
 
 //
@@ -772,6 +772,14 @@ message ContainerStatus {
 	int32 restartCount = 4;
 	string state = 5;
 	string message = 6;
+}
+
+message Manifest {
+	string orchestrator = 1;
+	string type = 2;
+	string uid = 3;
+	bytes content = 4;
+	string contentType = 5;
 }
 
 // https://github.com/kubernetes/kubernetes/blob/4112d8db20c5550cc27d30d3cee2723db0f8e1c4/staging/src/k8s.io/api/core/v1/types.go#L2097
