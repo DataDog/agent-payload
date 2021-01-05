@@ -43,3 +43,16 @@ func IterateDNS(buf []byte, ip string, cb func(i, total int, entry string) bool)
 		iterateDNSV1(buf, ip, cb)
 	}
 }
+
+// UnsafeIterateDNS invokes the callback function for each DNS entry for the given IP in the given buffer.
+// Each entry is a the slice from the overall buffer.  It should be copied before use
+func UnsafeIterateDNS(buf []byte, ip string, cb func(i, total int, entry []byte) bool) {
+	if len(buf) == 0 || ip == "" {
+		return
+	}
+
+	switch buf[0] {
+	case dnsVersion1:
+		unsafeIterateDNSV1(buf, ip, cb)
+	}
+}
