@@ -87,6 +87,8 @@ message CollectorConnections {
 
 	// All queried DNS domains for which we have collected stats
 	repeated string domains = 30;
+
+        repeated Route routes = 31;
 }
 
 message CollectorRealTime {
@@ -482,7 +484,6 @@ message Connection {
 	map<int32, DNSStats> dnsStatsByDomain = 34;
 
         uint32 routeIdx = 35;
-        repeated Route routes = 36;
 }
 
 message Connections {
