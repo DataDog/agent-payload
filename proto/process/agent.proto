@@ -491,7 +491,7 @@ message Connection {
 	// dns stats based on domain queried, the key corresponds to an index into the `domains` field
 	map<int32, DNSStats> dnsStatsByDomain = 34;
 
-        uint32 routeIdx = 35;
+        int32 routeIdx = 35;
 }
 
 message Connections {
@@ -499,6 +499,7 @@ message Connections {
   map<string, DNSEntry> dns  = 2;
   ConnectionsTelemetry telemetry = 3;
   repeated string domains = 4;
+  repeated Route routes = 5;
 }
 
 message Addr {
