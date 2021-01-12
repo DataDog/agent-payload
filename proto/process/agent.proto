@@ -489,8 +489,8 @@ message Connection {
 	// dns stats based on domain queried, the key corresponds to an index into the `domains` field
 	map<int32, DNSStats> dnsStatsByDomain = 34;
 
-	// http stats based on the path queried & the response received
-	map<string, HTTPStats> httpStatsByPath = 35;
+	// httpKey corresponds to an index into the 'httpKeys' field
+	int32 httpKey = 35;
 }
 
 message Connections {
@@ -498,6 +498,8 @@ message Connections {
   map<string, DNSEntry> dns  = 2;
   ConnectionsTelemetry telemetry = 3;
   repeated string domains = 4;
+  repeated HTTPKey httpKeys = 5; // keys for the http map below
+  map<int32, HTTPStatsByPath> http = 6;
 }
 
 message Addr {
@@ -845,12 +847,14 @@ message DNSStats {
 	map<uint32, uint32> dnsCountByRcode = 4;
 }
 
-enum HTTPResponseStatus {
-    Info = 0;		// 1XX response
-    Success = 1;	// 2XX
-    Redirect = 2;	// 3XX
-    ClientErr = 3;	// 4XX
-    ServerErr = 4;	// 5XX
+message HTTPKey {
+	Addr source = 1;
+	Addr dest = 2;
+	uint32 destPort = 3;
+}
+
+message HTTPStatsByPath {
+	map<string, HTTPStats> stats = 1;
 }
 
 message HTTPStats {
@@ -861,6 +865,15 @@ message HTTPStats {
 		DDSketch latencies = 2;
 	}
 }
+
+enum HTTPResponseStatus {
+    Info = 0;		// 1XX response
+    Success = 1;	// 2XX
+    Redirect = 2;	// 3XX
+    ClientErr = 3;	// 4XX
+    ServerErr = 4;	// 5XX
+}
+
 
 // A DDSketch is essentially a histogram that partitions the range of positive values into an infinite number of
 // indexed bins whose size grows exponentially. It keeps track of the number of values (or possibly floating-point
