@@ -850,7 +850,6 @@ message DNSStats {
 message HTTPKey {
 	Addr source = 1;
 	Addr dest = 2;
-	uint32 destPort = 3;
 }
 
 message HTTPStatsByPath {
