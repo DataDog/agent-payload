@@ -208,6 +208,12 @@ func assertDNSEqual(t *testing.T, expected []string, buf []byte, key string) {
 		return true
 	})
 
+	var unsafeIterValues []string
+	UnsafeIterateDNS(buf, key, func(i, total int, entry []byte) bool {
+		unsafeIterValues = append(unsafeIterValues, string(entry))
+		return true
+	})
+
 	var truncatedValues []string
 	IterateDNS(buf, key, func(i, total int, entry string) bool {
 		if i == total-1 {
@@ -225,10 +231,14 @@ func assertDNSEqual(t *testing.T, expected []string, buf []byte, key string) {
 		assert.Empty(t, truncatedValues)
 	case 1:
 		assert.Equal(t, name, iterValues[0])
+		assert.Equal(t, name, unsafeIterValues[0])
 		assert.Empty(t, truncatedValues)
 	default:
 		assert.Equal(t, name, iterValues[0])
 		assert.Equal(t, names, iterValues[1:])
+
+		assert.Equal(t, name, unsafeIterValues[0])
+		assert.Equal(t, names, unsafeIterValues[1:])
 
 		assert.Equal(t, iterValues[0:len(iterValues)-1], truncatedValues)
 	}

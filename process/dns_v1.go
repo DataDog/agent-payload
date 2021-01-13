@@ -252,7 +252,14 @@ func getDNSNamesV1(buf []byte) []string {
 	}
 	return names
 }
+
 func iterateDNSV1(buf []byte, ip string, cb func(i, total int, entry string) bool) {
+	unsafeIterateDNSV1(buf, ip, func(i, total int, entry []byte) bool {
+		return cb(i, total, string(entry))
+	})
+}
+
+func unsafeIterateDNSV1(buf []byte, ip string, cb func(i, total int, entry []byte) bool) {
 	// Read overview:
 	//	Compute the target bucket for the given ip
 	//	Iterate over all the buckets to find position of the given bucket
@@ -343,8 +350,7 @@ func iterateDNSV1(buf []byte, ip string, cb func(i, total int, entry string) boo
 
 			start := int(namePosition) + bytesReadForName
 
-			name := string(nameBuffer[start : start+int(nameLength)])
-			if !cb(j, int(nameCount), name) {
+			if !cb(j, int(nameCount), nameBuffer[start:start+int(nameLength)]) {
 				return
 			}
 		}
