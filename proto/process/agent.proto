@@ -763,6 +763,7 @@ message Pod {
 	repeated string tags = 11;
 	Host host = 12; // Used post-resolution
 	repeated ResourceRequirements resourceRequirements = 13;
+	string QOSClass = 15;
 }
 
 message ContainerStatus {
