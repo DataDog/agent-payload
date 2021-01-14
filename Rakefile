@@ -5,6 +5,7 @@
 protoc_binary="protoc"
 protoc_version="3.5.1"
 gogo_dir="/tmp/gogo"
+sketches_go_dir="/tmp/github.com/DataDog/sketches-go"
 
 namespace :codegen do
 
@@ -35,6 +36,7 @@ BASH
       set -euo pipefail
 
       rm -rf #{gogo_dir}
+      rm -rf #{sketches_go_dir}
       rm -rf /tmp/gogo-bin-*
 
       mkdir -p #{gogo_dir}/src/github.com/gogo
@@ -63,8 +65,15 @@ BASH
 
       popd
 
+      # Install sketches-go dependency and checkout necessary version
+      mkdir -p #{sketches_go_dir}
+      git clone https://github.com/DataDog/sketches-go.git #{sketches_go_dir}
+      pushd #{sketches_go_dir}
+      git checkout v1.0.0
+      popd
+
       echo "Generating process proto"
-      PATH=/tmp/gogo-bin-d76fbc1373015ced59b43ac267f28d546b955683 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofaster_out=$GOPATH/src proto/process/agent.proto
+      PATH=/tmp/gogo-bin-d76fbc1373015ced59b43ac267f28d546b955683 #{protoc_binary} --proto_path=#{sketches_go_dir}:$GOPATH/src:#{gogo_dir}/src:. --gogofaster_out=$GOPATH/src proto/process/agent.proto
 BASH
     EOF
   end
