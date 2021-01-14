@@ -1,3 +1,5 @@
+// Source: https://github.com/DataDog/sketches-go/blob/master/ddsketch/pb/ddsketch.proto
+
 syntax = "proto3";
 
 option go_package = "github.com/DataDog/agent-payload/ddsketch";
