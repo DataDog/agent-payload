@@ -5,7 +5,7 @@ option go_package = "github.com/DataDog/agent-payload/process";
 package datadog.process_agent;
 
 import "github.com/DataDog/agent-payload/proto/metrics/agent_payload.proto";
-import "ddsketch/pb/ddsketch.proto";
+import "github.com/DataDog/agent-payload/proto/ddsketch/ddsketch.proto";
 
 //
 // Message Types
