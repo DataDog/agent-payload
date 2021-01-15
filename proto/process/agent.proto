@@ -490,8 +490,8 @@ message Connection {
 	// dns stats based on domain queried, the key corresponds to an index into the `domains` field
 	map<int32, DNSStats> dnsStatsByDomain = 34;
 
-	// httpKey corresponds to an index into the 'httpKeys' field
-	int32 httpKey = 35;
+	// httpConnectionIdx corresponds to an index into the 'http' field
+	int32 httpConnectionIdx = 35;
 }
 
 message Connections {
@@ -499,8 +499,7 @@ message Connections {
   map<string, DNSEntry> dns  = 2;
   ConnectionsTelemetry telemetry = 3;
   repeated string domains = 4;
-  repeated HTTPKey httpKeys = 5; // keys for the http map below
-  map<int32, HTTPStatsByPath> http = 6;
+  repeated HTTPConnection http = 5;
 }
 
 message Addr {
@@ -848,13 +847,10 @@ message DNSStats {
 	map<uint32, uint32> dnsCountByRcode = 4;
 }
 
-message HTTPKey {
+message HTTPConnection {
 	Addr source = 1;
 	Addr dest = 2;
-}
-
-message HTTPStatsByPath {
-	map<string, HTTPStats> stats = 1;
+	map<string, HTTPStats> statsByPath = 3;
 }
 
 message HTTPStats {
