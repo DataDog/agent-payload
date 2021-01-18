@@ -582,6 +582,7 @@ message Metadata {
 	repeated string labels = 6;
 	repeated string annotations = 7;
 	repeated OwnerReference ownerReferences = 8;
+	string resourceVersion = 9;
 }
 
 message OwnerReference {
