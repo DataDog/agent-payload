@@ -782,6 +782,7 @@ message Manifest {
 	string uid = 3;
 	bytes content = 4;
 	string contentType = 5;
+	string version = 6;
 }
 
 // https://github.com/kubernetes/kubernetes/blob/4112d8db20c5550cc27d30d3cee2723db0f8e1c4/staging/src/k8s.io/api/core/v1/types.go#L2097
