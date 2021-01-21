@@ -55,9 +55,6 @@ BASH
 
       echo "Generating metrics proto (python)"
       #{protoc_binary} --proto_path=#{gogo_dir}/src:$GOPATH/src:./proto/metrics --python_out=python agent_payload.proto
-      
-      echo "Generating ddsketch proto (go)"
-      PATH=/tmp/gogo-bin-v1.0.0 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src proto/ddsketch/ddsketch.proto
 
       # Install the specific tag that the process-agent needs
       pushd #{gogo_dir}/src/github.com/gogo/protobuf

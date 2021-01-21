@@ -5,7 +5,6 @@ option go_package = "github.com/DataDog/agent-payload/process";
 package datadog.process_agent;
 
 import "github.com/DataDog/agent-payload/proto/metrics/agent_payload.proto";
-import "github.com/DataDog/agent-payload/proto/ddsketch/ddsketch.proto";
 
 //
 // Message Types
@@ -853,7 +852,7 @@ message HTTPStats {
 
 	message Data {
 		uint32 count = 1;
-		DDSketch latencies = 2;
+		bytes latencies = 2;
 	}
 }
 
