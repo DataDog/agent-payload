@@ -488,6 +488,9 @@ message Connection {
 
 	// dns stats based on domain queried, the key corresponds to an index into the `domains` field
 	map<int32, DNSStats> dnsStatsByDomain = 34;
+
+	// http stats summarizing all http transactions recorded, organized by request path
+	map<string, HTTPStats> httpStatsByPath = 35;
 }
 
 message Connections {
@@ -842,4 +845,21 @@ message DNSStats {
 	uint64 dnsSuccessLatencySum = 2;
 	uint64 dnsFailureLatencySum = 3;
 	map<uint32, uint32> dnsCountByRcode = 4;
+}
+
+message HTTPStats {
+	repeated Data statsByResponseStatus = 1;
+
+	message Data {
+		uint32 count = 1;
+		bytes latencies = 2;
+	}
+}
+
+enum HTTPResponseStatus {
+    Info = 0;		// 1XX response
+    Success = 1;	// 2XX
+    Redirect = 2;	// 3XX
+    ClientErr = 3;	// 4XX
+    ServerErr = 4;	// 5XX
 }
