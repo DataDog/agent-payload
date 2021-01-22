@@ -852,7 +852,7 @@ message HTTPStats {
 
 	message Data {
 		uint32 count = 1;
-		repeated bytes latencies = 2;
+		bytes latencies = 2;
 	}
 }
 
