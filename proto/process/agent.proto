@@ -230,6 +230,8 @@ message Process {
 	uint64 involuntaryCtxSwitches = 17;
 	bytes byteKey = 18;
 	bytes containerByteKey = 19;
+	int64 tcpConnections = 21;
+	int64 udpConnections = 22;
 }
 
 message Command {
@@ -361,6 +363,8 @@ message ProcessStat {
 	uint64 involuntaryCtxSwitches = 25;
 	bytes byteKey = 26;
 	bytes containerByteKey = 27;
+	int64 tcpConnections = 28;
+	int64 udpConnections = 29;
 }
 
 // ContainerStat is used for real-time container messages. It should only contain
