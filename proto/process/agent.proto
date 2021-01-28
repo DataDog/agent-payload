@@ -491,7 +491,10 @@ message Connection {
 	// dns stats based on domain queried, the key corresponds to an index into the `domains` field
 	map<int32, DNSStats> dnsStatsByDomain = 34;
 
-        int32 routeIdx = 35;
+	// http stats summarizing all http transactions recorded, organized by request path
+	map<string, HTTPStats> httpStatsByPath = 35;
+
+        int32 routeIdx = 36;
 }
 
 message Connections {
@@ -595,6 +598,7 @@ message Metadata {
 	repeated string labels = 6;
 	repeated string annotations = 7;
 	repeated OwnerReference ownerReferences = 8;
+	string resourceVersion = 9;
 }
 
 message OwnerReference {
@@ -776,6 +780,7 @@ message Pod {
 	repeated string tags = 11;
 	Host host = 12; // Used post-resolution
 	repeated ResourceRequirements resourceRequirements = 13;
+	string QOSClass = 15;
 }
 
 message ContainerStatus {
@@ -793,6 +798,7 @@ message Manifest {
 	string uid = 3;
 	bytes content = 4;
 	string contentType = 5;
+	string version = 6;
 }
 
 // https://github.com/kubernetes/kubernetes/blob/4112d8db20c5550cc27d30d3cee2723db0f8e1c4/staging/src/k8s.io/api/core/v1/types.go#L2097
@@ -852,4 +858,21 @@ message DNSStats {
 	uint64 dnsSuccessLatencySum = 2;
 	uint64 dnsFailureLatencySum = 3;
 	map<uint32, uint32> dnsCountByRcode = 4;
+}
+
+message HTTPStats {
+	repeated Data statsByResponseStatus = 1;
+
+	message Data {
+		uint32 count = 1;
+		bytes latencies = 2;
+	}
+}
+
+enum HTTPResponseStatus {
+    Info = 0;		// 1XX response
+    Success = 1;	// 2XX
+    Redirect = 2;	// 3XX
+    ClientErr = 3;	// 4XX
+    ServerErr = 4;	// 5XX
 }
