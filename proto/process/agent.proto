@@ -32,7 +32,7 @@ message ResCollector {
 }
 
 message CollectorProc {
-	string  hostName = 2;
+	string	hostName = 2;
 	string networkId = 11;
 	repeated Process processes = 3;
 	Host host = 4;
@@ -88,7 +88,7 @@ message CollectorConnections {
 	// All queried DNS domains for which we have collected stats
 	repeated string domains = 30;
 
-        repeated Route routes = 31;
+	repeated Route routes = 31;
 }
 
 message CollectorRealTime {
@@ -464,8 +464,8 @@ message Connection {
 
 	// Network namespace
 	uint32 netNS = 20;
-        // NetworkID of the remote address (post-resolution field)
-        string remoteNetworkId = 32;
+	// NetworkID of the remote address (post-resolution field)
+	string remoteNetworkId = 32;
 
 	// the conntrack entry associated with the connection. May be null on systems which don't support querying conntrack.
 	IPTranslation ipTranslation = 21;
@@ -494,7 +494,7 @@ message Connection {
 	// http stats summarizing all http transactions recorded, organized by request path
 	map<string, HTTPStats> httpStatsByPath = 35;
 
-        int32 routeIdx = 36;
+	int32 routeIdx = 36;
 }
 
 message Connections {
@@ -511,7 +511,7 @@ message Addr {
 	string ip = 2;
 	int32  port = 3;
 	string containerId = 5; // post-resolution field
-	int64  hostId = 6;      // post-resolution field
+	int64  hostId = 6;	// post-resolution field
 }
 
 message Route {
