@@ -363,6 +363,21 @@ message ProcessStat {
 	bytes containerByteKey = 27;
 }
 
+// ProcStatsWithPerm is holding attributes for processes that requires extra permission to collect.
+// It is used to pass data between system-probe and process-agent
+message ProcStatsWithPerm {
+	int32 openFDCount = 1;
+	uint64 readCount = 2;
+	uint64 writeCount = 3;
+	uint64 readBytes = 4;
+	uint64 writeBytes = 5;
+}
+
+// ProcStatsWithPermByPID stores ProcStatsWithPerm in a map with key as PIDs
+message ProcStatsWithPermByPID {
+	map<int32, ProcStatsWithPerm> statsByPID = 1;
+}
+
 // ContainerStat is used for real-time container messages. It should only contain
 // data that can change for a running container (and relevant information to
 // generate a key). We will send a lot of these in the real-time messages so
