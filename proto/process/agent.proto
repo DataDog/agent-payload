@@ -367,10 +367,10 @@ message ProcessStat {
 // It is used to pass data between system-probe and process-agent
 message ProcStatsWithPerm {
 	int32 openFDCount = 1;
-	uint64 ReadCount = 2;
-	uint64 WriteCount = 3;
-	uint64 ReadBytes = 4;
-	uint64 WriteBytes = 5;
+	uint64 readCount = 2;
+	uint64 writeCount = 3;
+	uint64 readBytes = 4;
+	uint64 writeBytes = 5;
 }
 
 // ProcStatsWithPermByPID stores ProcStatsWithPerm in a map with key as PIDs
