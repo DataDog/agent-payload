@@ -613,12 +613,17 @@ message DNSEntry {
 }
 
 message Cluster {
-	string name = 1; // could be excluded because its already above
-	int32 nodeCount = 3;
-	map<string, int32> kubeletVersions = 4;
-	map<string, int32>  apiServerVersion = 5;
-	uint64 capacity = 6; // sum of all nodes capacities
-	uint64 allocatable = 7; // sum of all nodes allocatables
+  string name = 1; // could be excluded because its already above
+  int32 nodeCount = 3;
+  map<string, int32> kubeletVersions = 4;
+  map<string, int32>  apiServerVersion = 5;
+  // sum of all nodes capacities and allocatables
+  uint32 podCapacity = 6;
+  uint32 podAllocatable = 7;
+  uint64 memoryAllocatable = 8;
+  uint64 memoryCapacity = 10;
+  uint64 cpuAllocatable = 9;
+  uint64 cpuCapacity = 11;
 }
 
 
