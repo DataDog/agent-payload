@@ -193,6 +193,15 @@ message CollectorNode {
 	repeated string tags = 6;
 }
 
+message CollectorCluster {
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	Cluster cluster = 5;
+	repeated string tags = 6;
+}
+
 message CollectorManifest {
 	string clusterName = 1;
 	string clusterId = 2;
@@ -602,6 +611,16 @@ message Host {
 message DNSEntry {
   repeated string names = 1;
 }
+
+message Cluster {
+	string name = 1; // could be excluded because its already above
+	int32 nodeCount = 3;
+	map<string, int32> kubeletVersions = 4;
+	map<string, int32>  apiServerVersion = 5;
+	uint64 capacity = 6; // sum of all nodes capacities
+	uint64 allocatable = 7; // sum of all nodes allocatables
+}
+
 
 // reference https://github.com/kubernetes/apimachinery/blob/2373d029717c4d169463414a6127cd1d0d12680e/pkg/apis/meta/v1/generated.proto#L521
 message Metadata {
