@@ -613,7 +613,6 @@ message DNSEntry {
 }
 
 message Cluster {
-  string name = 1; // could be excluded because its already above
   int32 nodeCount = 3;
   map<string, int32> kubeletVersions = 4;
   map<string, int32>  apiServerVersion = 5;
