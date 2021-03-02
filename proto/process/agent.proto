@@ -612,18 +612,18 @@ message DNSEntry {
 }
 
 message Cluster {
-  int32 nodeCount = 1;
-  map<string, int32> kubeletVersions = 2;
-  map<string, int32> apiServerVersion = 3;
+	int32 nodeCount = 1;
+	map<string, int32> kubeletVersions = 2;
+	map<string, int32> apiServerVersion = 3;
 	// sum of all nodes capacities and allocatables.
 	// Using smallest possible quantity levels.
 	// For memory it is bytes, for CPU it is millicore.
-  uint32 podCapacity = 4;
-  uint32 podAllocatable = 5;
-  uint64 memoryAllocatable = 6;
-  uint64 memoryCapacity = 7;
-  uint64 cpuAllocatable = 8;
-  uint64 cpuCapacity = 9;
+	uint32 podCapacity = 4;
+	uint32 podAllocatable = 5;
+	uint64 memoryAllocatable = 6;
+	uint64 memoryCapacity = 7;
+	uint64 cpuAllocatable = 8;
+	uint64 cpuCapacity = 9;
 }
 
 // reference https://github.com/kubernetes/apimachinery/blob/2373d029717c4d169463414a6127cd1d0d12680e/pkg/apis/meta/v1/generated.proto#L521
