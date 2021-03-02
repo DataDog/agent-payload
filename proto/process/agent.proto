@@ -614,7 +614,7 @@ message DNSEntry {
 message Cluster {
 	int32 nodeCount = 1;
 	map<string, int32> kubeletVersions = 2;
-	map<string, int32> apiServerVersion = 3;
+	map<string, int32> apiServerVersions = 3;
 	// sum of all nodes capacities and allocatables.
 	// Using smallest possible quantity levels.
 	// For memory it is bytes, for CPU it is millicore.
