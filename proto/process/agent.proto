@@ -197,9 +197,8 @@ message CollectorCluster {
 	string clusterName = 1;
 	string clusterId = 2;
 	int32 groupId = 3;
-	int32 groupSize = 4;
-	Cluster cluster = 5;
-	repeated string tags = 6;
+	Cluster cluster = 4;
+	repeated string tags = 5;
 }
 
 message CollectorManifest {
@@ -615,7 +614,7 @@ message DNSEntry {
 message Cluster {
   int32 nodeCount = 3;
   map<string, int32> kubeletVersions = 4;
-  map<string, int32>  apiServerVersion = 5;
+  map<string, int32> apiServerVersion = 5;
   // sum of all nodes capacities and allocatables
   uint32 podCapacity = 6;
   uint32 podAllocatable = 7;
