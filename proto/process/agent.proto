@@ -197,8 +197,9 @@ message CollectorCluster {
 	string clusterName = 1;
 	string clusterId = 2;
 	int32 groupId = 3;
-	Cluster cluster = 4;
-	repeated string tags = 5;
+	int32 groupSize = 4;
+	Cluster cluster = 5;
+	repeated string tags = 6;
 }
 
 message CollectorManifest {
