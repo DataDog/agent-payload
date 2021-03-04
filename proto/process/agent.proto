@@ -921,14 +921,14 @@ enum HTTPResponseStatus {
 
 enum RuntimeCompilationResult {
 	NotAttempted = 0;
-	KernelVersionErr = 1;
-	VerificationError = 2;
-	OutputDirErr = 3;
-	OutputFileErr = 4;
-	NewCompilerErr = 5;
-	CompilationErr = 6;
-	ResultReadErr = 7;
-	CompilationSuccess = 8;
+	CompilationSuccess = 1;
+	KernelVersionErr = 2;
+	VerificationError = 3;
+	OutputDirErr = 4;
+	OutputFileErr = 5;
+	NewCompilerErr = 6;
+	CompilationErr = 7;
+	ResultReadErr = 8;
 }
 
 message RuntimeCompilationTelemetry {
