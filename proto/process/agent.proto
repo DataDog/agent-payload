@@ -920,7 +920,7 @@ enum HTTPResponseStatus {
 }
 
 enum RuntimeCompilationResult {
-	CompilationSuccess = 0;
+	NotAttempted = 0;
 	KernelVersionErr = 1;
 	VerificationError = 2;
 	OutputDirErr = 3;
@@ -928,6 +928,7 @@ enum RuntimeCompilationResult {
 	NewCompilerErr = 5;
 	CompilationErr = 6;
 	ResultReadErr = 7;
+	CompilationSuccess = 8;
 }
 
 message RuntimeCompilationTelemetry {
