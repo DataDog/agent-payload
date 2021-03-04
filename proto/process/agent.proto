@@ -77,13 +77,15 @@ message CollectorConnections {
 
 	ContainerHostType containerHostType = 15;
 
-	CollectorConnectionsTelemetry telemetry = 16;
+	CollectorConnectionsTelemetry connTelemetry = 16;
 
 	// OS Telemetry
 	string architecture = 17;
 	string kernelVersion = 18;
 	string platform = 19;
 	string platformVersion = 20;
+
+	map<string, RuntimeCompilationTelemetry> compilationTelemetryByAsset = 21;
 
 	// All queried DNS domains for which we have collected stats
 	repeated string domains = 30;
@@ -524,9 +526,10 @@ message Connection {
 message Connections {
   repeated Connection conns = 1;
   map<string, DNSEntry> dns  = 2;
-  ConnectionsTelemetry telemetry = 3;
+  ConnectionsTelemetry connTelemetry = 3;
   repeated string domains = 4;
   repeated Route routes = 5;
+  map<string, RuntimeCompilationTelemetry> compilationTelemetryByAsset = 6;
 }
 
 message Addr {
@@ -914,4 +917,22 @@ enum HTTPResponseStatus {
     Redirect = 2;	// 3XX
     ClientErr = 3;	// 4XX
     ServerErr = 4;	// 5XX
+}
+
+enum RuntimeCompilationResult {
+	NotAttempted = 0;
+	CompilationSuccess = 1;
+	KernelVersionErr = 2;
+	VerificationError = 3;
+	OutputDirErr = 4;
+	OutputFileErr = 5;
+	NewCompilerErr = 6;
+	CompilationErr = 7;
+	ResultReadErr = 8;
+}
+
+message RuntimeCompilationTelemetry {
+	bool runtimeCompilationEnabled = 1;
+	RuntimeCompilationResult runtimeCompilationResult = 2;
+	int64 runtimeCompilationDuration = 3;
 }
