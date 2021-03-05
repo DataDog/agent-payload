@@ -85,6 +85,7 @@ const (
 	TypeCollectorDeployment        = 43
 	TypeCollectorService           = 44
 	TypeCollectorNode              = 45
+	TypeCollectorCluster           = 46
 	TypeCollectorManifest          = 80
 )
 
@@ -110,6 +111,8 @@ func (m MessageType) String() string {
 		return "service"
 	case TypeCollectorNode:
 		return "node"
+	case TypeCollectorCluster:
+		return "cluster"
 	case TypeCollectorManifest:
 		return "manifest"
 	default:
@@ -164,6 +167,8 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorService{}
 	case TypeCollectorNode:
 		m = &CollectorNode{}
+	case TypeCollectorCluster:
+		m = &CollectorCluster{}
 	case TypeCollectorManifest:
 		m = &CollectorManifest{}
 	default:
@@ -203,6 +208,8 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorNode
 	case *CollectorManifest:
 		t = TypeCollectorManifest
+	case *CollectorCluster:
+		t = TypeCollectorCluster
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}
