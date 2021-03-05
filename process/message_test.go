@@ -42,6 +42,7 @@ func TestMessageTypeString(t *testing.T) {
 		TypeCollectorDeployment:        "deployment",
 		TypeCollectorService:           "service",
 		TypeCollectorNode:              "node",
+		TypeCollectorCluster:           "cluster",
 		TypeCollectorManifest:          "manifest",
 		TypeResCollector:               "23",
 	}
