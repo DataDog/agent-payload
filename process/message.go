@@ -11,7 +11,7 @@ import (
 	"reflect"
 	"strconv"
 
-	"github.com/DataDog/zstd"
+	zstd_0 "github.com/DataDog/zstd_0"
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/proto"
 )
@@ -58,7 +58,7 @@ func unmarshal(enc MessageEncoding, body []byte, m proto.Message) error {
 	case MessageEncodingJSON:
 		return jsonpb.Unmarshal(bytes.NewReader(body), m)
 	case MessageEncodingZstdPB:
-		d, err := zstd.Decompress(nil, body)
+		d, err := zstd_0.Decompress(nil, body)
 		if err != nil {
 			return err
 		}
@@ -248,7 +248,7 @@ func EncodeMessage(m Message) ([]byte, error) {
 		if err != nil {
 			return nil, err
 		}
-		p, err = zstd.Compress(nil, pb)
+		p, err = zstd_0.Compress(nil, pb)
 		if err != nil {
 			return nil, err
 		}

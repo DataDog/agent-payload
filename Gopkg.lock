@@ -11,7 +11,7 @@
 
 [[projects]]
   digest = "1:f3662169bf21f0406cdad064a592c5a052e8ba32f64a360d755544cd5a98dba8"
-  name = "github.com/DataDog/zstd"
+  name = "github.com/DataDog/zstd_0"
   packages = ["."]
   pruneopts = ""
   revision = "2b373cbe6ac0c8e6960bbd18026ceb269eef89f5"
@@ -64,7 +64,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/DataDog/mmh3",
-    "github.com/DataDog/zstd",
+    "github.com/DataDog/zstd_0",
     "github.com/gogo/protobuf/gogoproto",
     "github.com/gogo/protobuf/jsonpb",
     "github.com/gogo/protobuf/proto",
