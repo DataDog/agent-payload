@@ -10,11 +10,11 @@
   version = "1.0.0"
 
 [[projects]]
-  digest = "1:f3662169bf21f0406cdad064a592c5a052e8ba32f64a360d755544cd5a98dba8"
+  digest = "1:9bd83b487e688ad3403375726c51548876c35fc1c217fc6f653bcf5670134f27"
   name = "github.com/DataDog/zstd_0"
   packages = ["."]
   pruneopts = ""
-  revision = "2b373cbe6ac0c8e6960bbd18026ceb269eef89f5"
+  revision = "586c1286621ffa183e6b66eb1df0aa52596b5ca2"
 
 [[projects]]
   digest = "1:0deddd908b6b4b768cfc272c16ee61e7088a60f7fe2f06c547bd3d8e1f8b8e77"
