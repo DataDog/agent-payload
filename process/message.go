@@ -11,7 +11,7 @@ import (
 	"reflect"
 	"strconv"
 
-	"github.com/DataDog/zstd"
+	zstd_0 "github.com/DataDog/zstd_0"
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/proto"
 )
@@ -58,7 +58,7 @@ func unmarshal(enc MessageEncoding, body []byte, m proto.Message) error {
 	case MessageEncodingJSON:
 		return jsonpb.Unmarshal(bytes.NewReader(body), m)
 	case MessageEncodingZstdPB:
-		d, err := zstd.Decompress(nil, body)
+		d, err := zstd_0.Decompress(nil, body)
 		if err != nil {
 			return err
 		}
@@ -85,6 +85,7 @@ const (
 	TypeCollectorDeployment        = 43
 	TypeCollectorService           = 44
 	TypeCollectorNode              = 45
+	TypeCollectorCluster           = 46
 	TypeCollectorManifest          = 80
 )
 
@@ -110,6 +111,8 @@ func (m MessageType) String() string {
 		return "service"
 	case TypeCollectorNode:
 		return "node"
+	case TypeCollectorCluster:
+		return "cluster"
 	case TypeCollectorManifest:
 		return "manifest"
 	default:
@@ -164,6 +167,8 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorService{}
 	case TypeCollectorNode:
 		m = &CollectorNode{}
+	case TypeCollectorCluster:
+		m = &CollectorCluster{}
 	case TypeCollectorManifest:
 		m = &CollectorManifest{}
 	default:
@@ -203,6 +208,8 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorNode
 	case *CollectorManifest:
 		t = TypeCollectorManifest
+	case *CollectorCluster:
+		t = TypeCollectorCluster
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}
@@ -241,7 +248,7 @@ func EncodeMessage(m Message) ([]byte, error) {
 		if err != nil {
 			return nil, err
 		}
-		p, err = zstd.Compress(nil, pb)
+		p, err = zstd_0.Compress(nil, pb)
 		if err != nil {
 			return nil, err
 		}

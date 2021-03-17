@@ -269,7 +269,7 @@ message ProcessUser {
 // ProcessNetworks is a structure that holds network related metrics for a process
 message ProcessNetworks {
 	float connectionRate = 1; // rate for connection count calculated over the collection interval
-	uint64 totalBytes = 2; // monotonically increasing counter for process total network traffic
+	uint64 totalBytes = 2; // total traffic collected
 }
 
 // status section in https://docs.docker.com/engine/api/v1.29/#tag/Container
@@ -636,6 +636,7 @@ message Cluster {
 	uint64 memoryCapacity = 7;
 	uint64 cpuAllocatable = 8;
 	uint64 cpuCapacity = 9;
+	string resourceVersion = 10;
 }
 
 // reference https://github.com/kubernetes/apimachinery/blob/2373d029717c4d169463414a6127cd1d0d12680e/pkg/apis/meta/v1/generated.proto#L521
