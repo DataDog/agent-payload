@@ -2,7 +2,7 @@
 
 Payload format description for communication between the Agent and the Datadog backend.
 
-This repository includes the protocol-buffer IDL used by the agent6 to communicate with the Datadog backend.
+This repository includes the protocol-buffer IDL used by the agent6 and agent7 to communicate with the Datadog backend.
 Those payloads are only supported by the V2 API endpoints.
 
 # Generated code
