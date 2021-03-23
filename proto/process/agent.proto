@@ -266,10 +266,10 @@ message ProcessUser {
 	int32 sgid = 7;
 }
 
-// ProcessNetworks is a structure that holds network related metrics for a process
+// ProcessNetworks is a structure that holds network related metrics for processes
 message ProcessNetworks {
-	float connectionRate = 1; // rate for connection count calculated over the collection interval
-	uint64 totalBytes = 2; // total traffic collected
+	float connectionRate = 1;
+	uint64 bytesRate = 2;
 }
 
 // status section in https://docs.docker.com/engine/api/v1.29/#tag/Container
