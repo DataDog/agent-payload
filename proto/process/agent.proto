@@ -269,7 +269,7 @@ message ProcessUser {
 // ProcessNetworks is a structure that holds network related metrics for processes
 message ProcessNetworks {
 	float connectionRate = 1;
-	uint64 bytesRate = 2;
+	float bytesRate = 2;
 }
 
 // status section in https://docs.docker.com/engine/api/v1.29/#tag/Container
