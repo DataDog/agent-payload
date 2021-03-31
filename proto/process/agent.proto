@@ -910,6 +910,7 @@ message HTTPStats {
 	message Data {
 		uint32 count = 1;
 		bytes latencies = 2;
+		uint64 firstLatencySample = 3;
 	}
 }
 
