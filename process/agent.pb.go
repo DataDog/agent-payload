@@ -1273,7 +1273,7 @@ type Connection struct {
 	// dns stats based on domain queried, the key corresponds to an index into the `domains` field
 	DnsStatsByDomain map[int32]*DNSStats `protobuf:"bytes,34,rep,name=dnsStatsByDomain" json:"dnsStatsByDomain,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value"`
 	RouteIdx         int32               `protobuf:"varint,36,opt,name=routeIdx,proto3" json:"routeIdx,omitempty"`
-	// http stats summarizing all http transactions recorded, organized by request path
+	// serialized HTTPAggregations object summarizing all http transactions recorded for this connection, organized by request path
 	HttpAggregations []byte `protobuf:"bytes,37,opt,name=httpAggregations,proto3" json:"httpAggregations,omitempty"`
 }
 

@@ -519,7 +519,7 @@ message Connection {
 
 	int32 routeIdx = 36;
 
-    // http stats summarizing all http transactions recorded, organized by request path
+    // serialized HTTPAggregations object summarizing all http transactions recorded for this connection, organized by request path
 	bytes httpAggregations = 37;
 }
 
