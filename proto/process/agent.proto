@@ -473,7 +473,7 @@ enum ConnectionDirection {
 }
 
 message Connection {
-	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15;
+	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 35;
 
 	int32 pid = 1;
 	Addr laddr = 5; // Local address
@@ -517,10 +517,10 @@ message Connection {
 	// dns stats based on domain queried, the key corresponds to an index into the `domains` field
 	map<int32, DNSStats> dnsStatsByDomain = 34;
 
-	// http stats summarizing all http transactions recorded, organized by request path
-	map<string, HTTPStats> httpStatsByPath = 35;
-
 	int32 routeIdx = 36;
+
+    // serialized HTTPAggregations object summarizing all http transactions recorded for this connection, organized by request path
+	bytes httpAggregations = 37;
 }
 
 message Connections {
@@ -902,6 +902,10 @@ message DNSStats {
 	uint64 dnsSuccessLatencySum = 2;
 	uint64 dnsFailureLatencySum = 3;
 	map<uint32, uint32> dnsCountByRcode = 4;
+}
+
+message HTTPAggregations {
+	map<string, HTTPStats> byPath = 1;
 }
 
 message HTTPStats {
