@@ -3,8 +3,8 @@
   version = "=v1.0.0"
 
 [[constraint]]
-  name = "github.com/DataDog/zstd"
-  revision = "2b373cbe6ac0c8e6960bbd18026ceb269eef89f5"
+  name = "github.com/DataDog/zstd_0"
+  revision = "586c1286621ffa183e6b66eb1df0aa52596b5ca2"
 
 [[constraint]]
   name = "github.com/DataDog/mmh3"

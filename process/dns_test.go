@@ -15,16 +15,16 @@ import (
 func TestV1EncodeDNS(t *testing.T) {
 	dns := make(map[string]*DNSEntry)
 
-	dns["10.128.98.75"] = &DNSEntry{Names: []string{"k8s-parent1.us1.staging.dog", "k8s-parent0.us1.staging.dog"}}
-	dns["10.128.99.240"] = &DNSEntry{Names: []string{"k8s-parent1.us1.staging.dog"}}
-	dns["34.231.44.115"] = &DNSEntry{Names: []string{"app.datad0g.com"}}
+	dns["10.128.98.75"] = &DNSEntry{Names: []string{"service.example.com", "service2.example.com"}}
+	dns["10.128.99.240"] = &DNSEntry{Names: []string{"service.example.com"}}
+	dns["34.231.44.115"] = &DNSEntry{Names: []string{"app.example.com"}}
 
 	encoder := NewV1DNSEncoder()
 	buf := encoder.Encode(dns)
 
-	assertDNSEqual(t, []string{"k8s-parent1.us1.staging.dog", "k8s-parent0.us1.staging.dog"}, buf, "10.128.98.75")
-	assertDNSEqual(t, []string{"k8s-parent1.us1.staging.dog"}, buf, "10.128.99.240")
-	assertDNSEqual(t, []string{"app.datad0g.com"}, buf, "34.231.44.115")
+	assertDNSEqual(t, []string{"service.example.com", "service2.example.com"}, buf, "10.128.98.75")
+	assertDNSEqual(t, []string{"service.example.com"}, buf, "10.128.99.240")
+	assertDNSEqual(t, []string{"app.example.com"}, buf, "34.231.44.115")
 	assertDNSEqual(t, nil, buf, "134.231.44.115")
 	assertDNSEqual(t, nil, buf, "1.1.1.1")
 	assert.Equal(t, 3, len(getDNSNames(buf)))
