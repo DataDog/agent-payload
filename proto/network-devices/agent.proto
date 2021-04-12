@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package network_devices;
 
-option go_package = "github.com/DataDog/agent-payload/pb";
+option go_package = "github.com/DataDog/agent-payload/network-devices";
 
 message Device {
     string uid = 1;
