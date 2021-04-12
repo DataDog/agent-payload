@@ -91,6 +91,9 @@ message CollectorConnections {
 	repeated string domains = 30;
 
 	repeated Route routes = 31;
+
+        repeated ResolvedRoute resolvedRoutes = 32;
+        repeated RouteMetadata routeMetadata = 33;
 }
 
 message CollectorRealTime {
@@ -942,4 +945,13 @@ message RuntimeCompilationTelemetry {
 	bool runtimeCompilationEnabled = 1;
 	RuntimeCompilationResult runtimeCompilationResult = 2;
 	int64 runtimeCompilationDuration = 3;
+}
+
+message ResolvedRoute {
+    map<string, int32> targets = 1;
+}
+
+message RouteMetadata {
+	int32 tagIndex = 3;
+	int64 tagsModified = 4;
 }
