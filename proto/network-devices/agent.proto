@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package network_devices;
+
+option go_package = "github.com/DataDog/agent-payload/pb";
+
+message Device {
+    string uid = 1;
+    string name = 2;
+    string sysObjectId = 3;
+    string model = 4;
+    string vendor = 5;
+}
