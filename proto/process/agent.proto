@@ -92,7 +92,7 @@ message CollectorConnections {
 
 	repeated Route routes = 31;
 
-        repeated ResolvedRoute resolvedRoutes = 32;
+        map<string, int32> resolvedRoutes = 32;
         repeated RouteMetadata routeMetadata = 33;
 }
 
@@ -947,11 +947,8 @@ message RuntimeCompilationTelemetry {
 	int64 runtimeCompilationDuration = 3;
 }
 
-message ResolvedRoute {
-    map<string, int32> targets = 1;
-}
-
 message RouteMetadata {
-	int32 tagIndex = 3;
-	int64 tagsModified = 4;
+    string alias = 1;
+    int32 tagIndex = 2;
+    int64 tagsModified = 3;
 }
