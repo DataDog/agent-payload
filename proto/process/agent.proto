@@ -246,6 +246,7 @@ message Process {
 	uint64 involuntaryCtxSwitches = 17;
 	bytes byteKey = 18;
 	bytes containerByteKey = 19;
+	ProcessNetworks networks = 21;
 }
 
 message Command {
@@ -266,6 +267,12 @@ message ProcessUser {
 	int32 egid = 5;
 	int32 suid = 6;
 	int32 sgid = 7;
+}
+
+// ProcessNetworks is a structure that holds network related metrics for processes
+message ProcessNetworks {
+	float connectionRate = 1;
+	float bytesRate = 2;
 }
 
 // status section in https://docs.docker.com/engine/api/v1.29/#tag/Container
@@ -359,6 +366,7 @@ message ProcessStat {
 	ContainerState containerState = 11; // DEPRECATED
 	ProcessState processState = 12;
 	IOStat ioStat = 19;
+	ProcessNetworks networks  = 28;
 
 	// DEPRECATED: All container-level stats (except ID) have moved into ContainerStat.
 	// These will be removed in the future.

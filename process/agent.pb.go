@@ -27,6 +27,7 @@
 		Process
 		Command
 		ProcessUser
+		ProcessNetworks
 		ContainerAddr
 		Container
 		ProcessStat
@@ -79,12 +80,17 @@
 */
 package process
 
-import proto "github.com/gogo/protobuf/proto"
-import fmt "fmt"
-import math "math"
-import datadog_agentpayload "github.com/DataDog/agent-payload/gogen"
+import (
+	fmt "fmt"
 
-import io "io"
+	proto "github.com/gogo/protobuf/proto"
+
+	math "math"
+
+	datadog_agentpayload "github.com/DataDog/agent-payload/gogen"
+
+	io "io"
+)
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -892,25 +898,26 @@ func (*CollectorStatus) ProtoMessage()               {}
 func (*CollectorStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{14} }
 
 type Process struct {
-	Key                    uint32       `protobuf:"varint,1,opt,name=key,proto3" json:"key,omitempty"`
-	Pid                    int32        `protobuf:"varint,2,opt,name=pid,proto3" json:"pid,omitempty"`
-	NsPid                  int32        `protobuf:"varint,20,opt,name=nsPid,proto3" json:"nsPid,omitempty"`
-	Host                   *Host        `protobuf:"bytes,3,opt,name=host" json:"host,omitempty"`
-	Command                *Command     `protobuf:"bytes,4,opt,name=command" json:"command,omitempty"`
-	User                   *ProcessUser `protobuf:"bytes,5,opt,name=user" json:"user,omitempty"`
-	Memory                 *MemoryStat  `protobuf:"bytes,7,opt,name=memory" json:"memory,omitempty"`
-	Cpu                    *CPUStat     `protobuf:"bytes,8,opt,name=cpu" json:"cpu,omitempty"`
-	CreateTime             int64        `protobuf:"varint,9,opt,name=createTime,proto3" json:"createTime,omitempty"`
-	Container              *Container   `protobuf:"bytes,10,opt,name=container" json:"container,omitempty"`
-	OpenFdCount            int32        `protobuf:"varint,11,opt,name=openFdCount,proto3" json:"openFdCount,omitempty"`
-	State                  ProcessState `protobuf:"varint,12,opt,name=state,proto3,enum=datadog.process_agent.ProcessState" json:"state,omitempty"`
-	IoStat                 *IOStat      `protobuf:"bytes,13,opt,name=ioStat" json:"ioStat,omitempty"`
-	ContainerId            string       `protobuf:"bytes,14,opt,name=containerId,proto3" json:"containerId,omitempty"`
-	ContainerKey           uint32       `protobuf:"varint,15,opt,name=containerKey,proto3" json:"containerKey,omitempty"`
-	VoluntaryCtxSwitches   uint64       `protobuf:"varint,16,opt,name=voluntaryCtxSwitches,proto3" json:"voluntaryCtxSwitches,omitempty"`
-	InvoluntaryCtxSwitches uint64       `protobuf:"varint,17,opt,name=involuntaryCtxSwitches,proto3" json:"involuntaryCtxSwitches,omitempty"`
-	ByteKey                []byte       `protobuf:"bytes,18,opt,name=byteKey,proto3" json:"byteKey,omitempty"`
-	ContainerByteKey       []byte       `protobuf:"bytes,19,opt,name=containerByteKey,proto3" json:"containerByteKey,omitempty"`
+	Key                    uint32           `protobuf:"varint,1,opt,name=key,proto3" json:"key,omitempty"`
+	Pid                    int32            `protobuf:"varint,2,opt,name=pid,proto3" json:"pid,omitempty"`
+	NsPid                  int32            `protobuf:"varint,20,opt,name=nsPid,proto3" json:"nsPid,omitempty"`
+	Host                   *Host            `protobuf:"bytes,3,opt,name=host" json:"host,omitempty"`
+	Command                *Command         `protobuf:"bytes,4,opt,name=command" json:"command,omitempty"`
+	User                   *ProcessUser     `protobuf:"bytes,5,opt,name=user" json:"user,omitempty"`
+	Memory                 *MemoryStat      `protobuf:"bytes,7,opt,name=memory" json:"memory,omitempty"`
+	Cpu                    *CPUStat         `protobuf:"bytes,8,opt,name=cpu" json:"cpu,omitempty"`
+	CreateTime             int64            `protobuf:"varint,9,opt,name=createTime,proto3" json:"createTime,omitempty"`
+	Container              *Container       `protobuf:"bytes,10,opt,name=container" json:"container,omitempty"`
+	OpenFdCount            int32            `protobuf:"varint,11,opt,name=openFdCount,proto3" json:"openFdCount,omitempty"`
+	State                  ProcessState     `protobuf:"varint,12,opt,name=state,proto3,enum=datadog.process_agent.ProcessState" json:"state,omitempty"`
+	IoStat                 *IOStat          `protobuf:"bytes,13,opt,name=ioStat" json:"ioStat,omitempty"`
+	ContainerId            string           `protobuf:"bytes,14,opt,name=containerId,proto3" json:"containerId,omitempty"`
+	ContainerKey           uint32           `protobuf:"varint,15,opt,name=containerKey,proto3" json:"containerKey,omitempty"`
+	VoluntaryCtxSwitches   uint64           `protobuf:"varint,16,opt,name=voluntaryCtxSwitches,proto3" json:"voluntaryCtxSwitches,omitempty"`
+	InvoluntaryCtxSwitches uint64           `protobuf:"varint,17,opt,name=involuntaryCtxSwitches,proto3" json:"involuntaryCtxSwitches,omitempty"`
+	ByteKey                []byte           `protobuf:"bytes,18,opt,name=byteKey,proto3" json:"byteKey,omitempty"`
+	ContainerByteKey       []byte           `protobuf:"bytes,19,opt,name=containerByteKey,proto3" json:"containerByteKey,omitempty"`
+	Networks               *ProcessNetworks `protobuf:"bytes,21,opt,name=networks" json:"networks,omitempty"`
 }
 
 func (m *Process) Reset()                    { *m = Process{} }
@@ -967,6 +974,13 @@ func (m *Process) GetIoStat() *IOStat {
 	return nil
 }
 
+func (m *Process) GetNetworks() *ProcessNetworks {
+	if m != nil {
+		return m.Networks
+	}
+	return nil
+}
+
 type Command struct {
 	Args   []string `protobuf:"bytes,1,rep,name=args" json:"args,omitempty"`
 	Cwd    string   `protobuf:"bytes,3,opt,name=cwd,proto3" json:"cwd,omitempty"`
@@ -997,6 +1011,17 @@ func (m *ProcessUser) String() string            { return proto.CompactTextStrin
 func (*ProcessUser) ProtoMessage()               {}
 func (*ProcessUser) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{17} }
 
+// ProcessNetworks is a structure that holds network related metrics for processes
+type ProcessNetworks struct {
+	ConnectionRate float32 `protobuf:"fixed32,1,opt,name=connectionRate,proto3" json:"connectionRate,omitempty"`
+	BytesRate      float32 `protobuf:"fixed32,2,opt,name=bytesRate,proto3" json:"bytesRate,omitempty"`
+}
+
+func (m *ProcessNetworks) Reset()                    { *m = ProcessNetworks{} }
+func (m *ProcessNetworks) String() string            { return proto.CompactTextString(m) }
+func (*ProcessNetworks) ProtoMessage()               {}
+func (*ProcessNetworks) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{18} }
+
 // ContainerAddr records the IPs, Ports and Protocols for each container
 type ContainerAddr struct {
 	Ip       string         `protobuf:"bytes,1,opt,name=ip,proto3" json:"ip,omitempty"`
@@ -1007,7 +1032,7 @@ type ContainerAddr struct {
 func (m *ContainerAddr) Reset()                    { *m = ContainerAddr{} }
 func (m *ContainerAddr) String() string            { return proto.CompactTextString(m) }
 func (*ContainerAddr) ProtoMessage()               {}
-func (*ContainerAddr) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{18} }
+func (*ContainerAddr) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{19} }
 
 type Container struct {
 	Type        string           `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
@@ -1043,7 +1068,7 @@ type Container struct {
 func (m *Container) Reset()                    { *m = Container{} }
 func (m *Container) String() string            { return proto.CompactTextString(m) }
 func (*Container) ProtoMessage()               {}
-func (*Container) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{19} }
+func (*Container) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{20} }
 
 func (m *Container) GetHost() *Host {
 	if m != nil {
@@ -1074,10 +1099,11 @@ type ProcessStat struct {
 	OpenFdCount int32       `protobuf:"varint,8,opt,name=openFdCount,proto3" json:"openFdCount,omitempty"`
 	Key         uint32      `protobuf:"varint,9,opt,name=key,proto3" json:"key,omitempty"`
 	// we need container id because we need to do the scoring by container
-	ContainerId    string         `protobuf:"bytes,10,opt,name=containerId,proto3" json:"containerId,omitempty"`
-	ContainerState ContainerState `protobuf:"varint,11,opt,name=containerState,proto3,enum=datadog.process_agent.ContainerState" json:"containerState,omitempty"`
-	ProcessState   ProcessState   `protobuf:"varint,12,opt,name=processState,proto3,enum=datadog.process_agent.ProcessState" json:"processState,omitempty"`
-	IoStat         *IOStat        `protobuf:"bytes,19,opt,name=ioStat" json:"ioStat,omitempty"`
+	ContainerId    string           `protobuf:"bytes,10,opt,name=containerId,proto3" json:"containerId,omitempty"`
+	ContainerState ContainerState   `protobuf:"varint,11,opt,name=containerState,proto3,enum=datadog.process_agent.ContainerState" json:"containerState,omitempty"`
+	ProcessState   ProcessState     `protobuf:"varint,12,opt,name=processState,proto3,enum=datadog.process_agent.ProcessState" json:"processState,omitempty"`
+	IoStat         *IOStat          `protobuf:"bytes,19,opt,name=ioStat" json:"ioStat,omitempty"`
+	Networks       *ProcessNetworks `protobuf:"bytes,28,opt,name=networks" json:"networks,omitempty"`
 	// DEPRECATED: All container-level stats (except ID) have moved into ContainerStat.
 	// These will be removed in the future.
 	// These stats are from the container level but are stored per-process
@@ -1099,7 +1125,7 @@ type ProcessStat struct {
 func (m *ProcessStat) Reset()                    { *m = ProcessStat{} }
 func (m *ProcessStat) String() string            { return proto.CompactTextString(m) }
 func (*ProcessStat) ProtoMessage()               {}
-func (*ProcessStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{20} }
+func (*ProcessStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{21} }
 
 func (m *ProcessStat) GetMemory() *MemoryStat {
 	if m != nil {
@@ -1122,6 +1148,13 @@ func (m *ProcessStat) GetIoStat() *IOStat {
 	return nil
 }
 
+func (m *ProcessStat) GetNetworks() *ProcessNetworks {
+	if m != nil {
+		return m.Networks
+	}
+	return nil
+}
+
 // ProcStatsWithPerm is holding attributes for processes that requires extra permission to collect.
 // It is used to pass data between system-probe and process-agent
 type ProcStatsWithPerm struct {
@@ -1135,7 +1168,7 @@ type ProcStatsWithPerm struct {
 func (m *ProcStatsWithPerm) Reset()                    { *m = ProcStatsWithPerm{} }
 func (m *ProcStatsWithPerm) String() string            { return proto.CompactTextString(m) }
 func (*ProcStatsWithPerm) ProtoMessage()               {}
-func (*ProcStatsWithPerm) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{21} }
+func (*ProcStatsWithPerm) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{22} }
 
 // ProcStatsWithPermByPID stores ProcStatsWithPerm in a map with key as PIDs
 type ProcStatsWithPermByPID struct {
@@ -1145,7 +1178,7 @@ type ProcStatsWithPermByPID struct {
 func (m *ProcStatsWithPermByPID) Reset()                    { *m = ProcStatsWithPermByPID{} }
 func (m *ProcStatsWithPermByPID) String() string            { return proto.CompactTextString(m) }
 func (*ProcStatsWithPermByPID) ProtoMessage()               {}
-func (*ProcStatsWithPermByPID) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{22} }
+func (*ProcStatsWithPermByPID) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{23} }
 
 func (m *ProcStatsWithPermByPID) GetStatsByPID() map[int32]*ProcStatsWithPerm {
 	if m != nil {
@@ -1186,7 +1219,7 @@ type ContainerStat struct {
 func (m *ContainerStat) Reset()                    { *m = ContainerStat{} }
 func (m *ContainerStat) String() string            { return proto.CompactTextString(m) }
 func (*ContainerStat) ProtoMessage()               {}
-func (*ContainerStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{23} }
+func (*ContainerStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{24} }
 
 // ContainerMetadata only holds enough information to identify a container in connection data
 type ContainerMetadata struct {
@@ -1201,7 +1234,7 @@ type ContainerMetadata struct {
 func (m *ContainerMetadata) Reset()                    { *m = ContainerMetadata{} }
 func (m *ContainerMetadata) String() string            { return proto.CompactTextString(m) }
 func (*ContainerMetadata) ProtoMessage()               {}
-func (*ContainerMetadata) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{24} }
+func (*ContainerMetadata) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{25} }
 
 type SystemInfo struct {
 	Uuid        string     `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
@@ -1213,7 +1246,7 @@ type SystemInfo struct {
 func (m *SystemInfo) Reset()                    { *m = SystemInfo{} }
 func (m *SystemInfo) String() string            { return proto.CompactTextString(m) }
 func (*SystemInfo) ProtoMessage()               {}
-func (*SystemInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{25} }
+func (*SystemInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{26} }
 
 func (m *SystemInfo) GetOs() *OSInfo {
 	if m != nil {
@@ -1240,7 +1273,7 @@ type OSInfo struct {
 func (m *OSInfo) Reset()                    { *m = OSInfo{} }
 func (m *OSInfo) String() string            { return proto.CompactTextString(m) }
 func (*OSInfo) ProtoMessage()               {}
-func (*OSInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{26} }
+func (*OSInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{27} }
 
 type IOStat struct {
 	ReadRate       float32 `protobuf:"fixed32,1,opt,name=readRate,proto3" json:"readRate,omitempty"`
@@ -1252,7 +1285,7 @@ type IOStat struct {
 func (m *IOStat) Reset()                    { *m = IOStat{} }
 func (m *IOStat) String() string            { return proto.CompactTextString(m) }
 func (*IOStat) ProtoMessage()               {}
-func (*IOStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{27} }
+func (*IOStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{28} }
 
 type Connection struct {
 	Pid           int32            `protobuf:"varint,1,opt,name=pid,proto3" json:"pid,omitempty"`
@@ -1297,7 +1330,7 @@ type Connection struct {
 func (m *Connection) Reset()                    { *m = Connection{} }
 func (m *Connection) String() string            { return proto.CompactTextString(m) }
 func (*Connection) ProtoMessage()               {}
-func (*Connection) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{28} }
+func (*Connection) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{29} }
 
 func (m *Connection) GetLaddr() *Addr {
 	if m != nil {
@@ -1346,7 +1379,7 @@ type Connections struct {
 func (m *Connections) Reset()                    { *m = Connections{} }
 func (m *Connections) String() string            { return proto.CompactTextString(m) }
 func (*Connections) ProtoMessage()               {}
-func (*Connections) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{29} }
+func (*Connections) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{30} }
 
 func (m *Connections) GetConns() []*Connection {
 	if m != nil {
@@ -1393,7 +1426,7 @@ type Addr struct {
 func (m *Addr) Reset()                    { *m = Addr{} }
 func (m *Addr) String() string            { return proto.CompactTextString(m) }
 func (*Addr) ProtoMessage()               {}
-func (*Addr) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{30} }
+func (*Addr) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{31} }
 
 type Route struct {
 	Subnet *Subnet `protobuf:"bytes,1,opt,name=subnet" json:"subnet,omitempty"`
@@ -1402,7 +1435,7 @@ type Route struct {
 func (m *Route) Reset()                    { *m = Route{} }
 func (m *Route) String() string            { return proto.CompactTextString(m) }
 func (*Route) ProtoMessage()               {}
-func (*Route) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{31} }
+func (*Route) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{32} }
 
 func (m *Route) GetSubnet() *Subnet {
 	if m != nil {
@@ -1418,7 +1451,7 @@ type Subnet struct {
 func (m *Subnet) Reset()                    { *m = Subnet{} }
 func (m *Subnet) String() string            { return proto.CompactTextString(m) }
 func (*Subnet) ProtoMessage()               {}
-func (*Subnet) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{32} }
+func (*Subnet) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{33} }
 
 type IPTranslation struct {
 	ReplSrcIP   string `protobuf:"bytes,1,opt,name=replSrcIP,proto3" json:"replSrcIP,omitempty"`
@@ -1430,7 +1463,7 @@ type IPTranslation struct {
 func (m *IPTranslation) Reset()                    { *m = IPTranslation{} }
 func (m *IPTranslation) String() string            { return proto.CompactTextString(m) }
 func (*IPTranslation) ProtoMessage()               {}
-func (*IPTranslation) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{33} }
+func (*IPTranslation) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{34} }
 
 type MemoryStat struct {
 	Rss    uint64 `protobuf:"varint,1,opt,name=rss,proto3" json:"rss,omitempty"`
@@ -1446,7 +1479,7 @@ type MemoryStat struct {
 func (m *MemoryStat) Reset()                    { *m = MemoryStat{} }
 func (m *MemoryStat) String() string            { return proto.CompactTextString(m) }
 func (*MemoryStat) ProtoMessage()               {}
-func (*MemoryStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{34} }
+func (*MemoryStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{35} }
 
 type CPUStat struct {
 	LastCpu    string           `protobuf:"bytes,1,opt,name=lastCpu,proto3" json:"lastCpu,omitempty"`
@@ -1463,7 +1496,7 @@ type CPUStat struct {
 func (m *CPUStat) Reset()                    { *m = CPUStat{} }
 func (m *CPUStat) String() string            { return proto.CompactTextString(m) }
 func (*CPUStat) ProtoMessage()               {}
-func (*CPUStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{35} }
+func (*CPUStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{36} }
 
 func (m *CPUStat) GetCpus() []*SingleCPUStat {
 	if m != nil {
@@ -1480,7 +1513,7 @@ type SingleCPUStat struct {
 func (m *SingleCPUStat) Reset()                    { *m = SingleCPUStat{} }
 func (m *SingleCPUStat) String() string            { return proto.CompactTextString(m) }
 func (*SingleCPUStat) ProtoMessage()               {}
-func (*SingleCPUStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{36} }
+func (*SingleCPUStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{37} }
 
 type CPUInfo struct {
 	Number     int32  `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
@@ -1497,7 +1530,7 @@ type CPUInfo struct {
 func (m *CPUInfo) Reset()                    { *m = CPUInfo{} }
 func (m *CPUInfo) String() string            { return proto.CompactTextString(m) }
 func (*CPUInfo) ProtoMessage()               {}
-func (*CPUInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{37} }
+func (*CPUInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{38} }
 
 type Host struct {
 	Id           int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -1513,7 +1546,7 @@ type Host struct {
 func (m *Host) Reset()                    { *m = Host{} }
 func (m *Host) String() string            { return proto.CompactTextString(m) }
 func (*Host) ProtoMessage()               {}
-func (*Host) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{38} }
+func (*Host) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{39} }
 
 type DNSEntry struct {
 	Names []string `protobuf:"bytes,1,rep,name=names" json:"names,omitempty"`
@@ -1522,7 +1555,7 @@ type DNSEntry struct {
 func (m *DNSEntry) Reset()                    { *m = DNSEntry{} }
 func (m *DNSEntry) String() string            { return proto.CompactTextString(m) }
 func (*DNSEntry) ProtoMessage()               {}
-func (*DNSEntry) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{39} }
+func (*DNSEntry) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{40} }
 
 type Cluster struct {
 	NodeCount         int32            `protobuf:"varint,1,opt,name=nodeCount,proto3" json:"nodeCount,omitempty"`
@@ -1544,7 +1577,7 @@ type Cluster struct {
 func (m *Cluster) Reset()                    { *m = Cluster{} }
 func (m *Cluster) String() string            { return proto.CompactTextString(m) }
 func (*Cluster) ProtoMessage()               {}
-func (*Cluster) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{40} }
+func (*Cluster) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{41} }
 
 func (m *Cluster) GetKubeletVersions() map[string]int32 {
 	if m != nil {
@@ -1576,7 +1609,7 @@ type Metadata struct {
 func (m *Metadata) Reset()                    { *m = Metadata{} }
 func (m *Metadata) String() string            { return proto.CompactTextString(m) }
 func (*Metadata) ProtoMessage()               {}
-func (*Metadata) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{41} }
+func (*Metadata) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{42} }
 
 func (m *Metadata) GetOwnerReferences() []*OwnerReference {
 	if m != nil {
@@ -1594,7 +1627,7 @@ type OwnerReference struct {
 func (m *OwnerReference) Reset()                    { *m = OwnerReference{} }
 func (m *OwnerReference) String() string            { return proto.CompactTextString(m) }
 func (*OwnerReference) ProtoMessage()               {}
-func (*OwnerReference) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{42} }
+func (*OwnerReference) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{43} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4571
 type ServicePort struct {
@@ -1608,7 +1641,7 @@ type ServicePort struct {
 func (m *ServicePort) Reset()                    { *m = ServicePort{} }
 func (m *ServicePort) String() string            { return proto.CompactTextString(m) }
 func (*ServicePort) ProtoMessage()               {}
-func (*ServicePort) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{43} }
+func (*ServicePort) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{44} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4756
 type ServiceSessionAffinityConfig struct {
@@ -1619,7 +1652,7 @@ func (m *ServiceSessionAffinityConfig) Reset()         { *m = ServiceSessionAffi
 func (m *ServiceSessionAffinityConfig) String() string { return proto.CompactTextString(m) }
 func (*ServiceSessionAffinityConfig) ProtoMessage()    {}
 func (*ServiceSessionAffinityConfig) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgent, []int{44}
+	return fileDescriptorAgent, []int{45}
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2107
@@ -1642,7 +1675,7 @@ type Node struct {
 func (m *Node) Reset()                    { *m = Node{} }
 func (m *Node) String() string            { return proto.CompactTextString(m) }
 func (*Node) ProtoMessage()               {}
-func (*Node) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{45} }
+func (*Node) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{46} }
 
 func (m *Node) GetMetadata() *Metadata {
 	if m != nil {
@@ -1700,7 +1733,7 @@ type NodeStatus struct {
 func (m *NodeStatus) Reset()                    { *m = NodeStatus{} }
 func (m *NodeStatus) String() string            { return proto.CompactTextString(m) }
 func (*NodeStatus) ProtoMessage()               {}
-func (*NodeStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{46} }
+func (*NodeStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{47} }
 
 func (m *NodeStatus) GetCapacity() map[string]int64 {
 	if m != nil {
@@ -1749,7 +1782,7 @@ type NodeCondition struct {
 func (m *NodeCondition) Reset()                    { *m = NodeCondition{} }
 func (m *NodeCondition) String() string            { return proto.CompactTextString(m) }
 func (*NodeCondition) ProtoMessage()               {}
-func (*NodeCondition) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{47} }
+func (*NodeCondition) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{48} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L777
 type ContainerImage struct {
@@ -1760,7 +1793,7 @@ type ContainerImage struct {
 func (m *ContainerImage) Reset()                    { *m = ContainerImage{} }
 func (m *ContainerImage) String() string            { return proto.CompactTextString(m) }
 func (*ContainerImage) ProtoMessage()               {}
-func (*ContainerImage) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{48} }
+func (*ContainerImage) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{49} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4849
 type Taint struct {
@@ -1773,7 +1806,7 @@ type Taint struct {
 func (m *Taint) Reset()                    { *m = Taint{} }
 func (m *Taint) String() string            { return proto.CompactTextString(m) }
 func (*Taint) ProtoMessage()               {}
-func (*Taint) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{49} }
+func (*Taint) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{50} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4620
 type ServiceSpec struct {
@@ -1796,7 +1829,7 @@ type ServiceSpec struct {
 func (m *ServiceSpec) Reset()                    { *m = ServiceSpec{} }
 func (m *ServiceSpec) String() string            { return proto.CompactTextString(m) }
 func (*ServiceSpec) ProtoMessage()               {}
-func (*ServiceSpec) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{50} }
+func (*ServiceSpec) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{51} }
 
 func (m *ServiceSpec) GetPorts() []*ServicePort {
 	if m != nil {
@@ -1827,7 +1860,7 @@ type ServiceStatus struct {
 func (m *ServiceStatus) Reset()                    { *m = ServiceStatus{} }
 func (m *ServiceStatus) String() string            { return proto.CompactTextString(m) }
 func (*ServiceStatus) ProtoMessage()               {}
-func (*ServiceStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{51} }
+func (*ServiceStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{52} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/release-1.19/staging/src/k8s.io/api/core/v1/generated.proto
 type Service struct {
@@ -1841,7 +1874,7 @@ type Service struct {
 func (m *Service) Reset()                    { *m = Service{} }
 func (m *Service) String() string            { return proto.CompactTextString(m) }
 func (*Service) ProtoMessage()               {}
-func (*Service) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{52} }
+func (*Service) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{53} }
 
 func (m *Service) GetMetadata() *Metadata {
 	if m != nil {
@@ -1888,7 +1921,7 @@ type Deployment struct {
 func (m *Deployment) Reset()                    { *m = Deployment{} }
 func (m *Deployment) String() string            { return proto.CompactTextString(m) }
 func (*Deployment) ProtoMessage()               {}
-func (*Deployment) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{53} }
+func (*Deployment) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{54} }
 
 func (m *Deployment) GetMetadata() *Metadata {
 	if m != nil {
@@ -1922,7 +1955,7 @@ type ReplicaSet struct {
 func (m *ReplicaSet) Reset()                    { *m = ReplicaSet{} }
 func (m *ReplicaSet) String() string            { return proto.CompactTextString(m) }
 func (*ReplicaSet) ProtoMessage()               {}
-func (*ReplicaSet) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{54} }
+func (*ReplicaSet) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{55} }
 
 func (m *ReplicaSet) GetMetadata() *Metadata {
 	if m != nil {
@@ -1948,7 +1981,7 @@ type LabelSelectorRequirement struct {
 func (m *LabelSelectorRequirement) Reset()                    { *m = LabelSelectorRequirement{} }
 func (m *LabelSelectorRequirement) String() string            { return proto.CompactTextString(m) }
 func (*LabelSelectorRequirement) ProtoMessage()               {}
-func (*LabelSelectorRequirement) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{55} }
+func (*LabelSelectorRequirement) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{56} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto
 type Pod struct {
@@ -1973,7 +2006,7 @@ type Pod struct {
 func (m *Pod) Reset()                    { *m = Pod{} }
 func (m *Pod) String() string            { return proto.CompactTextString(m) }
 func (*Pod) ProtoMessage()               {}
-func (*Pod) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{56} }
+func (*Pod) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{57} }
 
 func (m *Pod) GetMetadata() *Metadata {
 	if m != nil {
@@ -2022,7 +2055,7 @@ type ContainerStatus struct {
 func (m *ContainerStatus) Reset()                    { *m = ContainerStatus{} }
 func (m *ContainerStatus) String() string            { return proto.CompactTextString(m) }
 func (*ContainerStatus) ProtoMessage()               {}
-func (*ContainerStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{57} }
+func (*ContainerStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{58} }
 
 type Manifest struct {
 	Orchestrator string `protobuf:"bytes,1,opt,name=orchestrator,proto3" json:"orchestrator,omitempty"`
@@ -2036,7 +2069,7 @@ type Manifest struct {
 func (m *Manifest) Reset()                    { *m = Manifest{} }
 func (m *Manifest) String() string            { return proto.CompactTextString(m) }
 func (*Manifest) ProtoMessage()               {}
-func (*Manifest) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{58} }
+func (*Manifest) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{59} }
 
 // https://github.com/kubernetes/kubernetes/blob/4112d8db20c5550cc27d30d3cee2723db0f8e1c4/staging/src/k8s.io/api/core/v1/types.go#L2097
 // Using smallest possible quantity levels.
@@ -2057,7 +2090,7 @@ type ResourceRequirements struct {
 func (m *ResourceRequirements) Reset()                    { *m = ResourceRequirements{} }
 func (m *ResourceRequirements) String() string            { return proto.CompactTextString(m) }
 func (*ResourceRequirements) ProtoMessage()               {}
-func (*ResourceRequirements) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{59} }
+func (*ResourceRequirements) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{60} }
 
 func (m *ResourceRequirements) GetLimits() map[string]int64 {
 	if m != nil {
@@ -2089,7 +2122,7 @@ type ConnectionsTelemetry struct {
 func (m *ConnectionsTelemetry) Reset()                    { *m = ConnectionsTelemetry{} }
 func (m *ConnectionsTelemetry) String() string            { return proto.CompactTextString(m) }
 func (*ConnectionsTelemetry) ProtoMessage()               {}
-func (*ConnectionsTelemetry) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{60} }
+func (*ConnectionsTelemetry) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{61} }
 
 type CollectorConnectionsTelemetry struct {
 	KprobesTriggered          int64 `protobuf:"varint,1,opt,name=kprobesTriggered,proto3" json:"kprobesTriggered,omitempty"`
@@ -2108,7 +2141,7 @@ func (m *CollectorConnectionsTelemetry) Reset()         { *m = CollectorConnecti
 func (m *CollectorConnectionsTelemetry) String() string { return proto.CompactTextString(m) }
 func (*CollectorConnectionsTelemetry) ProtoMessage()    {}
 func (*CollectorConnectionsTelemetry) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgent, []int{61}
+	return fileDescriptorAgent, []int{62}
 }
 
 type DNSStats struct {
@@ -2121,7 +2154,7 @@ type DNSStats struct {
 func (m *DNSStats) Reset()                    { *m = DNSStats{} }
 func (m *DNSStats) String() string            { return proto.CompactTextString(m) }
 func (*DNSStats) ProtoMessage()               {}
-func (*DNSStats) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{62} }
+func (*DNSStats) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{63} }
 
 func (m *DNSStats) GetDnsCountByRcode() map[uint32]uint32 {
 	if m != nil {
@@ -2137,7 +2170,7 @@ type HTTPAggregations struct {
 func (m *HTTPAggregations) Reset()                    { *m = HTTPAggregations{} }
 func (m *HTTPAggregations) String() string            { return proto.CompactTextString(m) }
 func (*HTTPAggregations) ProtoMessage()               {}
-func (*HTTPAggregations) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{63} }
+func (*HTTPAggregations) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{64} }
 
 func (m *HTTPAggregations) GetByPath() map[string]*HTTPStats {
 	if m != nil {
@@ -2153,7 +2186,7 @@ type HTTPStats struct {
 func (m *HTTPStats) Reset()                    { *m = HTTPStats{} }
 func (m *HTTPStats) String() string            { return proto.CompactTextString(m) }
 func (*HTTPStats) ProtoMessage()               {}
-func (*HTTPStats) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{64} }
+func (*HTTPStats) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{65} }
 
 func (m *HTTPStats) GetStatsByResponseStatus() []*HTTPStats_Data {
 	if m != nil {
@@ -2171,7 +2204,7 @@ type HTTPStats_Data struct {
 func (m *HTTPStats_Data) Reset()                    { *m = HTTPStats_Data{} }
 func (m *HTTPStats_Data) String() string            { return proto.CompactTextString(m) }
 func (*HTTPStats_Data) ProtoMessage()               {}
-func (*HTTPStats_Data) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{64, 0} }
+func (*HTTPStats_Data) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{65, 0} }
 
 type RuntimeCompilationTelemetry struct {
 	RuntimeCompilationEnabled  bool                     `protobuf:"varint,1,opt,name=runtimeCompilationEnabled,proto3" json:"runtimeCompilationEnabled,omitempty"`
@@ -2183,7 +2216,7 @@ func (m *RuntimeCompilationTelemetry) Reset()         { *m = RuntimeCompilationT
 func (m *RuntimeCompilationTelemetry) String() string { return proto.CompactTextString(m) }
 func (*RuntimeCompilationTelemetry) ProtoMessage()    {}
 func (*RuntimeCompilationTelemetry) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgent, []int{65}
+	return fileDescriptorAgent, []int{66}
 }
 
 type RouteMetadata struct {
@@ -2217,6 +2250,7 @@ func init() {
 	proto.RegisterType((*Process)(nil), "datadog.process_agent.Process")
 	proto.RegisterType((*Command)(nil), "datadog.process_agent.Command")
 	proto.RegisterType((*ProcessUser)(nil), "datadog.process_agent.ProcessUser")
+	proto.RegisterType((*ProcessNetworks)(nil), "datadog.process_agent.ProcessNetworks")
 	proto.RegisterType((*ContainerAddr)(nil), "datadog.process_agent.ContainerAddr")
 	proto.RegisterType((*Container)(nil), "datadog.process_agent.Container")
 	proto.RegisterType((*ProcessStat)(nil), "datadog.process_agent.ProcessStat")
@@ -3660,6 +3694,18 @@ func (m *Process) MarshalTo(data []byte) (int, error) {
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.NsPid))
 	}
+	if m.Networks != nil {
+		data[i] = 0xaa
+		i++
+		data[i] = 0x1
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Networks.Size()))
+		n24, err := m.Networks.MarshalTo(data[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n24
+	}
 	return i, nil
 }
 
@@ -3784,6 +3830,34 @@ func (m *ProcessUser) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x38
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Sgid))
+	}
+	return i, nil
+}
+
+func (m *ProcessNetworks) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *ProcessNetworks) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.ConnectionRate != 0 {
+		data[i] = 0xd
+		i++
+		i = encodeFixed32Agent(data, i, uint32(math.Float32bits(float32(m.ConnectionRate))))
+	}
+	if m.BytesRate != 0 {
+		data[i] = 0x15
+		i++
+		i = encodeFixed32Agent(data, i, uint32(math.Float32bits(float32(m.BytesRate))))
 	}
 	return i, nil
 }
@@ -3966,11 +4040,11 @@ func (m *Container) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x1
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Host.Size()))
-		n24, err := m.Host.MarshalTo(data[i:])
+		n25, err := m.Host.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n24
+		i += n25
 	}
 	if m.Started != 0 {
 		data[i] = 0xc0
@@ -4064,21 +4138,21 @@ func (m *ProcessStat) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x1a
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Memory.Size()))
-		n25, err := m.Memory.MarshalTo(data[i:])
+		n26, err := m.Memory.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n25
+		i += n26
 	}
 	if m.Cpu != nil {
 		data[i] = 0x22
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Cpu.Size()))
-		n26, err := m.Cpu.MarshalTo(data[i:])
+		n27, err := m.Cpu.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n26
+		i += n27
 	}
 	if m.Nice != 0 {
 		data[i] = 0x28
@@ -4148,11 +4222,11 @@ func (m *ProcessStat) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x1
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.IoStat.Size()))
-		n27, err := m.IoStat.MarshalTo(data[i:])
+		n28, err := m.IoStat.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n27
+		i += n28
 	}
 	if m.ContainerNetRcvdPs != 0 {
 		data[i] = 0xa5
@@ -4211,6 +4285,18 @@ func (m *ProcessStat) MarshalTo(data []byte) (int, error) {
 		i++
 		i = encodeVarintAgent(data, i, uint64(len(m.ContainerByteKey)))
 		i += copy(data[i:], m.ContainerByteKey)
+	}
+	if m.Networks != nil {
+		data[i] = 0xe2
+		i++
+		data[i] = 0x1
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Networks.Size()))
+		n29, err := m.Networks.MarshalTo(data[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n29
 	}
 	return i, nil
 }
@@ -4292,11 +4378,11 @@ func (m *ProcStatsWithPermByPID) MarshalTo(data []byte) (int, error) {
 				data[i] = 0x12
 				i++
 				i = encodeVarintAgent(data, i, uint64(v.Size()))
-				n28, err := v.MarshalTo(data[i:])
+				n30, err := v.MarshalTo(data[i:])
 				if err != nil {
 					return 0, err
 				}
-				i += n28
+				i += n30
 			}
 		}
 	}
@@ -4525,11 +4611,11 @@ func (m *SystemInfo) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x12
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Os.Size()))
-		n29, err := m.Os.MarshalTo(data[i:])
+		n31, err := m.Os.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n29
+		i += n31
 	}
 	if len(m.Cpus) > 0 {
 		for _, msg := range m.Cpus {
@@ -4661,21 +4747,21 @@ func (m *Connection) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x2a
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Laddr.Size()))
-		n30, err := m.Laddr.MarshalTo(data[i:])
+		n32, err := m.Laddr.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n30
+		i += n32
 	}
 	if m.Raddr != nil {
 		data[i] = 0x32
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Raddr.Size()))
-		n31, err := m.Raddr.MarshalTo(data[i:])
+		n33, err := m.Raddr.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n31
+		i += n33
 	}
 	if m.Family != 0 {
 		data[i] = 0x50
@@ -4733,11 +4819,11 @@ func (m *Connection) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x1
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.IpTranslation.Size()))
-		n32, err := m.IpTranslation.MarshalTo(data[i:])
+		n34, err := m.IpTranslation.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n32
+		i += n34
 	}
 	if m.Rtt != 0 {
 		data[i] = 0xb0
@@ -4860,11 +4946,11 @@ func (m *Connection) MarshalTo(data []byte) (int, error) {
 				data[i] = 0x12
 				i++
 				i = encodeVarintAgent(data, i, uint64(v.Size()))
-				n33, err := v.MarshalTo(data[i:])
+				n35, err := v.MarshalTo(data[i:])
 				if err != nil {
 					return 0, err
 				}
-				i += n33
+				i += n35
 			}
 		}
 	}
@@ -4933,11 +5019,11 @@ func (m *Connections) MarshalTo(data []byte) (int, error) {
 				data[i] = 0x12
 				i++
 				i = encodeVarintAgent(data, i, uint64(v.Size()))
-				n34, err := v.MarshalTo(data[i:])
+				n36, err := v.MarshalTo(data[i:])
 				if err != nil {
 					return 0, err
 				}
-				i += n34
+				i += n36
 			}
 		}
 	}
@@ -4945,11 +5031,11 @@ func (m *Connections) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x1a
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.ConnTelemetry.Size()))
-		n35, err := m.ConnTelemetry.MarshalTo(data[i:])
+		n37, err := m.ConnTelemetry.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n35
+		i += n37
 	}
 	if len(m.Domains) > 0 {
 		for _, s := range m.Domains {
@@ -4998,11 +5084,11 @@ func (m *Connections) MarshalTo(data []byte) (int, error) {
 				data[i] = 0x12
 				i++
 				i = encodeVarintAgent(data, i, uint64(v.Size()))
-				n36, err := v.MarshalTo(data[i:])
+				n38, err := v.MarshalTo(data[i:])
 				if err != nil {
 					return 0, err
 				}
-				i += n36
+				i += n38
 			}
 		}
 	}
@@ -5068,11 +5154,11 @@ func (m *Route) MarshalTo(data []byte) (int, error) {
 		data[i] = 0xa
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Subnet.Size()))
-		n37, err := m.Subnet.MarshalTo(data[i:])
+		n39, err := m.Subnet.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n37
+		i += n39
 	}
 	return i, nil
 }
@@ -5783,11 +5869,11 @@ func (m *Node) MarshalTo(data []byte) (int, error) {
 		data[i] = 0xa
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
-		n38, err := m.Metadata.MarshalTo(data[i:])
+		n40, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n38
+		i += n40
 	}
 	if len(m.PodCIDR) > 0 {
 		data[i] = 0x12
@@ -5836,11 +5922,11 @@ func (m *Node) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x32
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Status.Size()))
-		n39, err := m.Status.MarshalTo(data[i:])
+		n41, err := m.Status.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n39
+		i += n41
 	}
 	if len(m.Yaml) > 0 {
 		data[i] = 0x3a
@@ -5888,11 +5974,11 @@ func (m *Node) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x5a
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Host.Size()))
-		n40, err := m.Host.MarshalTo(data[i:])
+		n42, err := m.Host.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n40
+		i += n42
 	}
 	return i, nil
 }
@@ -6286,11 +6372,11 @@ func (m *ServiceSpec) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x6a
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.SessionAffinityConfig.Size()))
-		n41, err := m.SessionAffinityConfig.MarshalTo(data[i:])
+		n43, err := m.SessionAffinityConfig.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n41
+		i += n43
 	}
 	if len(m.IpFamily) > 0 {
 		data[i] = 0x72
@@ -6355,31 +6441,31 @@ func (m *Service) MarshalTo(data []byte) (int, error) {
 		data[i] = 0xa
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
-		n42, err := m.Metadata.MarshalTo(data[i:])
+		n44, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n42
+		i += n44
 	}
 	if m.Spec != nil {
 		data[i] = 0x12
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Spec.Size()))
-		n43, err := m.Spec.MarshalTo(data[i:])
+		n45, err := m.Spec.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n43
+		i += n45
 	}
 	if m.Status != nil {
 		data[i] = 0x1a
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Status.Size()))
-		n44, err := m.Status.MarshalTo(data[i:])
+		n46, err := m.Status.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n44
+		i += n46
 	}
 	if len(m.Yaml) > 0 {
 		data[i] = 0x22
@@ -6424,11 +6510,11 @@ func (m *Deployment) MarshalTo(data []byte) (int, error) {
 		data[i] = 0xa
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
-		n45, err := m.Metadata.MarshalTo(data[i:])
+		n47, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n45
+		i += n47
 	}
 	if m.ReplicasDesired != 0 {
 		data[i] = 0x10
@@ -6549,11 +6635,11 @@ func (m *ReplicaSet) MarshalTo(data []byte) (int, error) {
 		data[i] = 0xa
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
-		n46, err := m.Metadata.MarshalTo(data[i:])
+		n48, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n46
+		i += n48
 	}
 	if m.ReplicasDesired != 0 {
 		data[i] = 0x10
@@ -6680,11 +6766,11 @@ func (m *Pod) MarshalTo(data []byte) (int, error) {
 		data[i] = 0xa
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
-		n47, err := m.Metadata.MarshalTo(data[i:])
+		n49, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n47
+		i += n49
 	}
 	if len(m.IP) > 0 {
 		data[i] = 0x12
@@ -6764,11 +6850,11 @@ func (m *Pod) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x62
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Host.Size()))
-		n48, err := m.Host.MarshalTo(data[i:])
+		n50, err := m.Host.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n48
+		i += n50
 	}
 	if len(m.ResourceRequirements) > 0 {
 		for _, msg := range m.ResourceRequirements {
@@ -7194,11 +7280,11 @@ func (m *HTTPAggregations) MarshalTo(data []byte) (int, error) {
 				data[i] = 0x12
 				i++
 				i = encodeVarintAgent(data, i, uint64(v.Size()))
-				n49, err := v.MarshalTo(data[i:])
+				n51, err := v.MarshalTo(data[i:])
 				if err != nil {
 					return 0, err
 				}
-				i += n49
+				i += n51
 			}
 		}
 	}
@@ -8017,6 +8103,10 @@ func (m *Process) Size() (n int) {
 	if m.NsPid != 0 {
 		n += 2 + sovAgent(uint64(m.NsPid))
 	}
+	if m.Networks != nil {
+		l = m.Networks.Size()
+		n += 2 + l + sovAgent(uint64(l))
+	}
 	return n
 }
 
@@ -8077,6 +8167,18 @@ func (m *ProcessUser) Size() (n int) {
 	}
 	if m.Sgid != 0 {
 		n += 1 + sovAgent(uint64(m.Sgid))
+	}
+	return n
+}
+
+func (m *ProcessNetworks) Size() (n int) {
+	var l int
+	_ = l
+	if m.ConnectionRate != 0 {
+		n += 5
+	}
+	if m.BytesRate != 0 {
+		n += 5
 	}
 	return n
 }
@@ -8278,6 +8380,10 @@ func (m *ProcessStat) Size() (n int) {
 	}
 	l = len(m.ContainerByteKey)
 	if l > 0 {
+		n += 2 + l + sovAgent(uint64(l))
+	}
+	if m.Networks != nil {
+		l = m.Networks.Size()
 		n += 2 + l + sovAgent(uint64(l))
 	}
 	return n
@@ -14439,6 +14545,39 @@ func (m *Process) Unmarshal(data []byte) error {
 					break
 				}
 			}
+		case 21:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Networks", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Networks == nil {
+				m.Networks = &ProcessNetworks{}
+			}
+			if err := m.Networks.Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAgent(data[iNdEx:])
@@ -14856,6 +14995,84 @@ func (m *ProcessUser) Unmarshal(data []byte) error {
 					break
 				}
 			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *ProcessNetworks) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ProcessNetworks: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ProcessNetworks: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ConnectionRate", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += 4
+			v = uint32(data[iNdEx-4])
+			v |= uint32(data[iNdEx-3]) << 8
+			v |= uint32(data[iNdEx-2]) << 16
+			v |= uint32(data[iNdEx-1]) << 24
+			m.ConnectionRate = float32(math.Float32frombits(v))
+		case 2:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BytesRate", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += 4
+			v = uint32(data[iNdEx-4])
+			v |= uint32(data[iNdEx-3]) << 8
+			v |= uint32(data[iNdEx-2]) << 16
+			v |= uint32(data[iNdEx-1]) << 24
+			m.BytesRate = float32(math.Float32frombits(v))
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAgent(data[iNdEx:])
@@ -16143,6 +16360,39 @@ func (m *ProcessStat) Unmarshal(data []byte) error {
 			m.ContainerByteKey = append(m.ContainerByteKey[:0], data[iNdEx:postIndex]...)
 			if m.ContainerByteKey == nil {
 				m.ContainerByteKey = []byte{}
+			}
+			iNdEx = postIndex
+		case 28:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Networks", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Networks == nil {
+				m.Networks = &ProcessNetworks{}
+			}
+			if err := m.Networks.Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			iNdEx = postIndex
 		default:
