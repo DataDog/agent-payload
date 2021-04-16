@@ -23,6 +23,8 @@
 		CollectorNode
 		CollectorCluster
 		CollectorManifest
+		CollectorJob
+		CollectorCronJob
 		CollectorStatus
 		Process
 		Command
@@ -53,6 +55,7 @@
 		Cluster
 		Metadata
 		OwnerReference
+		ObjectReference
 		ServicePort
 		ServiceSessionAffinityConfig
 		Node
@@ -70,6 +73,12 @@
 		ContainerStatus
 		Manifest
 		ResourceRequirements
+		JobSpec
+		JobStatus
+		Job
+		CronJobSpec
+		CronJobStatus
+		CronJob
 		ConnectionsTelemetry
 		CollectorConnectionsTelemetry
 		DNSStats
@@ -525,10 +534,13 @@ type CollectorConnections struct {
 	ContainerHostType ContainerHostType              `protobuf:"varint,15,opt,name=containerHostType,proto3,enum=datadog.process_agent.ContainerHostType" json:"containerHostType,omitempty"`
 	ConnTelemetry     *CollectorConnectionsTelemetry `protobuf:"bytes,16,opt,name=connTelemetry" json:"connTelemetry,omitempty"`
 	// OS Telemetry
-	Architecture                string                                  `protobuf:"bytes,17,opt,name=architecture,proto3" json:"architecture,omitempty"`
-	KernelVersion               string                                  `protobuf:"bytes,18,opt,name=kernelVersion,proto3" json:"kernelVersion,omitempty"`
-	Platform                    string                                  `protobuf:"bytes,19,opt,name=platform,proto3" json:"platform,omitempty"`
-	PlatformVersion             string                                  `protobuf:"bytes,20,opt,name=platformVersion,proto3" json:"platformVersion,omitempty"`
+	Architecture    string `protobuf:"bytes,17,opt,name=architecture,proto3" json:"architecture,omitempty"`
+	KernelVersion   string `protobuf:"bytes,18,opt,name=kernelVersion,proto3" json:"kernelVersion,omitempty"`
+	Platform        string `protobuf:"bytes,19,opt,name=platform,proto3" json:"platform,omitempty"`
+	PlatformVersion string `protobuf:"bytes,20,opt,name=platformVersion,proto3" json:"platformVersion,omitempty"`
+	// host configuration, ephemeral port range
+	EphemeralPortRangeStart     int32                                   `protobuf:"varint,32,opt,name=ephemeralPortRangeStart,proto3" json:"ephemeralPortRangeStart,omitempty"`
+	EphemeralPortRangeEnd       int32                                   `protobuf:"varint,33,opt,name=ephemeralPortRangeEnd,proto3" json:"ephemeralPortRangeEnd,omitempty"`
 	CompilationTelemetryByAsset map[string]*RuntimeCompilationTelemetry `protobuf:"bytes,21,rep,name=compilationTelemetryByAsset" json:"compilationTelemetryByAsset,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value"`
 	// All queried DNS domains for which we have collected stats
 	Domains        []string         `protobuf:"bytes,30,rep,name=domains" json:"domains,omitempty"`
@@ -882,6 +894,48 @@ func (m *CollectorManifest) GetManifests() []*Manifest {
 	return nil
 }
 
+type CollectorJob struct {
+	ClusterName string   `protobuf:"bytes,1,opt,name=clusterName,proto3" json:"clusterName,omitempty"`
+	ClusterId   string   `protobuf:"bytes,2,opt,name=clusterId,proto3" json:"clusterId,omitempty"`
+	GroupId     int32    `protobuf:"varint,3,opt,name=groupId,proto3" json:"groupId,omitempty"`
+	GroupSize   int32    `protobuf:"varint,4,opt,name=groupSize,proto3" json:"groupSize,omitempty"`
+	Jobs        []*Job   `protobuf:"bytes,5,rep,name=jobs" json:"jobs,omitempty"`
+	Tags        []string `protobuf:"bytes,6,rep,name=tags" json:"tags,omitempty"`
+}
+
+func (m *CollectorJob) Reset()                    { *m = CollectorJob{} }
+func (m *CollectorJob) String() string            { return proto.CompactTextString(m) }
+func (*CollectorJob) ProtoMessage()               {}
+func (*CollectorJob) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{14} }
+
+func (m *CollectorJob) GetJobs() []*Job {
+	if m != nil {
+		return m.Jobs
+	}
+	return nil
+}
+
+type CollectorCronJob struct {
+	ClusterName string     `protobuf:"bytes,1,opt,name=clusterName,proto3" json:"clusterName,omitempty"`
+	ClusterId   string     `protobuf:"bytes,2,opt,name=clusterId,proto3" json:"clusterId,omitempty"`
+	GroupId     int32      `protobuf:"varint,3,opt,name=groupId,proto3" json:"groupId,omitempty"`
+	GroupSize   int32      `protobuf:"varint,4,opt,name=groupSize,proto3" json:"groupSize,omitempty"`
+	CronJobs    []*CronJob `protobuf:"bytes,5,rep,name=cronJobs" json:"cronJobs,omitempty"`
+	Tags        []string   `protobuf:"bytes,6,rep,name=tags" json:"tags,omitempty"`
+}
+
+func (m *CollectorCronJob) Reset()                    { *m = CollectorCronJob{} }
+func (m *CollectorCronJob) String() string            { return proto.CompactTextString(m) }
+func (*CollectorCronJob) ProtoMessage()               {}
+func (*CollectorCronJob) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{15} }
+
+func (m *CollectorCronJob) GetCronJobs() []*CronJob {
+	if m != nil {
+		return m.CronJobs
+	}
+	return nil
+}
+
 type CollectorStatus struct {
 	ActiveClients int32 `protobuf:"varint,1,opt,name=activeClients,proto3" json:"activeClients,omitempty"`
 	Interval      int32 `protobuf:"varint,2,opt,name=interval,proto3" json:"interval,omitempty"`
@@ -890,7 +944,7 @@ type CollectorStatus struct {
 func (m *CollectorStatus) Reset()                    { *m = CollectorStatus{} }
 func (m *CollectorStatus) String() string            { return proto.CompactTextString(m) }
 func (*CollectorStatus) ProtoMessage()               {}
-func (*CollectorStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{14} }
+func (*CollectorStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{16} }
 
 type Process struct {
 	Key                    uint32           `protobuf:"varint,1,opt,name=key,proto3" json:"key,omitempty"`
@@ -918,7 +972,7 @@ type Process struct {
 func (m *Process) Reset()                    { *m = Process{} }
 func (m *Process) String() string            { return proto.CompactTextString(m) }
 func (*Process) ProtoMessage()               {}
-func (*Process) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{15} }
+func (*Process) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{17} }
 
 func (m *Process) GetHost() *Host {
 	if m != nil {
@@ -989,7 +1043,7 @@ type Command struct {
 func (m *Command) Reset()                    { *m = Command{} }
 func (m *Command) String() string            { return proto.CompactTextString(m) }
 func (*Command) ProtoMessage()               {}
-func (*Command) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{16} }
+func (*Command) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{18} }
 
 type ProcessUser struct {
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
@@ -1004,7 +1058,7 @@ type ProcessUser struct {
 func (m *ProcessUser) Reset()                    { *m = ProcessUser{} }
 func (m *ProcessUser) String() string            { return proto.CompactTextString(m) }
 func (*ProcessUser) ProtoMessage()               {}
-func (*ProcessUser) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{17} }
+func (*ProcessUser) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{19} }
 
 // ProcessNetworks is a structure that holds network related metrics for processes
 type ProcessNetworks struct {
@@ -1015,7 +1069,7 @@ type ProcessNetworks struct {
 func (m *ProcessNetworks) Reset()                    { *m = ProcessNetworks{} }
 func (m *ProcessNetworks) String() string            { return proto.CompactTextString(m) }
 func (*ProcessNetworks) ProtoMessage()               {}
-func (*ProcessNetworks) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{18} }
+func (*ProcessNetworks) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{20} }
 
 // ContainerAddr records the IPs, Ports and Protocols for each container
 type ContainerAddr struct {
@@ -1027,7 +1081,7 @@ type ContainerAddr struct {
 func (m *ContainerAddr) Reset()                    { *m = ContainerAddr{} }
 func (m *ContainerAddr) String() string            { return proto.CompactTextString(m) }
 func (*ContainerAddr) ProtoMessage()               {}
-func (*ContainerAddr) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{19} }
+func (*ContainerAddr) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{21} }
 
 type Container struct {
 	Type        string           `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
@@ -1063,7 +1117,7 @@ type Container struct {
 func (m *Container) Reset()                    { *m = Container{} }
 func (m *Container) String() string            { return proto.CompactTextString(m) }
 func (*Container) ProtoMessage()               {}
-func (*Container) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{20} }
+func (*Container) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{22} }
 
 func (m *Container) GetHost() *Host {
 	if m != nil {
@@ -1120,7 +1174,7 @@ type ProcessStat struct {
 func (m *ProcessStat) Reset()                    { *m = ProcessStat{} }
 func (m *ProcessStat) String() string            { return proto.CompactTextString(m) }
 func (*ProcessStat) ProtoMessage()               {}
-func (*ProcessStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{21} }
+func (*ProcessStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{23} }
 
 func (m *ProcessStat) GetMemory() *MemoryStat {
 	if m != nil {
@@ -1163,7 +1217,7 @@ type ProcStatsWithPerm struct {
 func (m *ProcStatsWithPerm) Reset()                    { *m = ProcStatsWithPerm{} }
 func (m *ProcStatsWithPerm) String() string            { return proto.CompactTextString(m) }
 func (*ProcStatsWithPerm) ProtoMessage()               {}
-func (*ProcStatsWithPerm) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{22} }
+func (*ProcStatsWithPerm) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{24} }
 
 // ProcStatsWithPermByPID stores ProcStatsWithPerm in a map with key as PIDs
 type ProcStatsWithPermByPID struct {
@@ -1173,7 +1227,7 @@ type ProcStatsWithPermByPID struct {
 func (m *ProcStatsWithPermByPID) Reset()                    { *m = ProcStatsWithPermByPID{} }
 func (m *ProcStatsWithPermByPID) String() string            { return proto.CompactTextString(m) }
 func (*ProcStatsWithPermByPID) ProtoMessage()               {}
-func (*ProcStatsWithPermByPID) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{23} }
+func (*ProcStatsWithPermByPID) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{25} }
 
 func (m *ProcStatsWithPermByPID) GetStatsByPID() map[int32]*ProcStatsWithPerm {
 	if m != nil {
@@ -1214,7 +1268,7 @@ type ContainerStat struct {
 func (m *ContainerStat) Reset()                    { *m = ContainerStat{} }
 func (m *ContainerStat) String() string            { return proto.CompactTextString(m) }
 func (*ContainerStat) ProtoMessage()               {}
-func (*ContainerStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{24} }
+func (*ContainerStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{26} }
 
 // ContainerMetadata only holds enough information to identify a container in connection data
 type ContainerMetadata struct {
@@ -1229,7 +1283,7 @@ type ContainerMetadata struct {
 func (m *ContainerMetadata) Reset()                    { *m = ContainerMetadata{} }
 func (m *ContainerMetadata) String() string            { return proto.CompactTextString(m) }
 func (*ContainerMetadata) ProtoMessage()               {}
-func (*ContainerMetadata) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{25} }
+func (*ContainerMetadata) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{27} }
 
 type SystemInfo struct {
 	Uuid        string     `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
@@ -1241,7 +1295,7 @@ type SystemInfo struct {
 func (m *SystemInfo) Reset()                    { *m = SystemInfo{} }
 func (m *SystemInfo) String() string            { return proto.CompactTextString(m) }
 func (*SystemInfo) ProtoMessage()               {}
-func (*SystemInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{26} }
+func (*SystemInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{28} }
 
 func (m *SystemInfo) GetOs() *OSInfo {
 	if m != nil {
@@ -1268,7 +1322,7 @@ type OSInfo struct {
 func (m *OSInfo) Reset()                    { *m = OSInfo{} }
 func (m *OSInfo) String() string            { return proto.CompactTextString(m) }
 func (*OSInfo) ProtoMessage()               {}
-func (*OSInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{27} }
+func (*OSInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{29} }
 
 type IOStat struct {
 	ReadRate       float32 `protobuf:"fixed32,1,opt,name=readRate,proto3" json:"readRate,omitempty"`
@@ -1280,7 +1334,7 @@ type IOStat struct {
 func (m *IOStat) Reset()                    { *m = IOStat{} }
 func (m *IOStat) String() string            { return proto.CompactTextString(m) }
 func (*IOStat) ProtoMessage()               {}
-func (*IOStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{28} }
+func (*IOStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{30} }
 
 type Connection struct {
 	Pid           int32            `protobuf:"varint,1,opt,name=pid,proto3" json:"pid,omitempty"`
@@ -1290,10 +1344,12 @@ type Connection struct {
 	Type          ConnectionType   `protobuf:"varint,11,opt,name=type,proto3,enum=datadog.process_agent.ConnectionType" json:"type,omitempty"`
 	PidCreateTime int64            `protobuf:"varint,12,opt,name=pidCreateTime,proto3" json:"pidCreateTime,omitempty"`
 	// Relative counters since last check
-	LastBytesSent     uint64              `protobuf:"varint,16,opt,name=lastBytesSent,proto3" json:"lastBytesSent,omitempty"`
-	LastBytesReceived uint64              `protobuf:"varint,17,opt,name=lastBytesReceived,proto3" json:"lastBytesReceived,omitempty"`
-	LastRetransmits   uint32              `protobuf:"varint,18,opt,name=lastRetransmits,proto3" json:"lastRetransmits,omitempty"`
-	Direction         ConnectionDirection `protobuf:"varint,19,opt,name=direction,proto3,enum=datadog.process_agent.ConnectionDirection" json:"direction,omitempty"`
+	LastBytesSent       uint64              `protobuf:"varint,16,opt,name=lastBytesSent,proto3" json:"lastBytesSent,omitempty"`
+	LastBytesReceived   uint64              `protobuf:"varint,17,opt,name=lastBytesReceived,proto3" json:"lastBytesReceived,omitempty"`
+	LastRetransmits     uint32              `protobuf:"varint,18,opt,name=lastRetransmits,proto3" json:"lastRetransmits,omitempty"`
+	Direction           ConnectionDirection `protobuf:"varint,19,opt,name=direction,proto3,enum=datadog.process_agent.ConnectionDirection" json:"direction,omitempty"`
+	LastPacketsSent     uint64              `protobuf:"varint,38,opt,name=lastPacketsSent,proto3" json:"lastPacketsSent,omitempty"`
+	LastPacketsReceived uint64              `protobuf:"varint,39,opt,name=lastPacketsReceived,proto3" json:"lastPacketsReceived,omitempty"`
 	// Network namespace
 	NetNS uint32 `protobuf:"varint,20,opt,name=netNS,proto3" json:"netNS,omitempty"`
 	// NetworkID of the remote address (post-resolution field)
@@ -1325,7 +1381,7 @@ type Connection struct {
 func (m *Connection) Reset()                    { *m = Connection{} }
 func (m *Connection) String() string            { return proto.CompactTextString(m) }
 func (*Connection) ProtoMessage()               {}
-func (*Connection) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{29} }
+func (*Connection) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{31} }
 
 func (m *Connection) GetLaddr() *Addr {
 	if m != nil {
@@ -1374,7 +1430,7 @@ type Connections struct {
 func (m *Connections) Reset()                    { *m = Connections{} }
 func (m *Connections) String() string            { return proto.CompactTextString(m) }
 func (*Connections) ProtoMessage()               {}
-func (*Connections) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{30} }
+func (*Connections) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{32} }
 
 func (m *Connections) GetConns() []*Connection {
 	if m != nil {
@@ -1421,7 +1477,7 @@ type Addr struct {
 func (m *Addr) Reset()                    { *m = Addr{} }
 func (m *Addr) String() string            { return proto.CompactTextString(m) }
 func (*Addr) ProtoMessage()               {}
-func (*Addr) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{31} }
+func (*Addr) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{33} }
 
 type Route struct {
 	Subnet *Subnet `protobuf:"bytes,1,opt,name=subnet" json:"subnet,omitempty"`
@@ -1430,7 +1486,7 @@ type Route struct {
 func (m *Route) Reset()                    { *m = Route{} }
 func (m *Route) String() string            { return proto.CompactTextString(m) }
 func (*Route) ProtoMessage()               {}
-func (*Route) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{32} }
+func (*Route) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{34} }
 
 func (m *Route) GetSubnet() *Subnet {
 	if m != nil {
@@ -1446,7 +1502,7 @@ type Subnet struct {
 func (m *Subnet) Reset()                    { *m = Subnet{} }
 func (m *Subnet) String() string            { return proto.CompactTextString(m) }
 func (*Subnet) ProtoMessage()               {}
-func (*Subnet) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{33} }
+func (*Subnet) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{35} }
 
 type IPTranslation struct {
 	ReplSrcIP   string `protobuf:"bytes,1,opt,name=replSrcIP,proto3" json:"replSrcIP,omitempty"`
@@ -1458,7 +1514,7 @@ type IPTranslation struct {
 func (m *IPTranslation) Reset()                    { *m = IPTranslation{} }
 func (m *IPTranslation) String() string            { return proto.CompactTextString(m) }
 func (*IPTranslation) ProtoMessage()               {}
-func (*IPTranslation) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{34} }
+func (*IPTranslation) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{36} }
 
 type MemoryStat struct {
 	Rss    uint64 `protobuf:"varint,1,opt,name=rss,proto3" json:"rss,omitempty"`
@@ -1474,7 +1530,7 @@ type MemoryStat struct {
 func (m *MemoryStat) Reset()                    { *m = MemoryStat{} }
 func (m *MemoryStat) String() string            { return proto.CompactTextString(m) }
 func (*MemoryStat) ProtoMessage()               {}
-func (*MemoryStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{35} }
+func (*MemoryStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{37} }
 
 type CPUStat struct {
 	LastCpu    string           `protobuf:"bytes,1,opt,name=lastCpu,proto3" json:"lastCpu,omitempty"`
@@ -1491,7 +1547,7 @@ type CPUStat struct {
 func (m *CPUStat) Reset()                    { *m = CPUStat{} }
 func (m *CPUStat) String() string            { return proto.CompactTextString(m) }
 func (*CPUStat) ProtoMessage()               {}
-func (*CPUStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{36} }
+func (*CPUStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{38} }
 
 func (m *CPUStat) GetCpus() []*SingleCPUStat {
 	if m != nil {
@@ -1508,7 +1564,7 @@ type SingleCPUStat struct {
 func (m *SingleCPUStat) Reset()                    { *m = SingleCPUStat{} }
 func (m *SingleCPUStat) String() string            { return proto.CompactTextString(m) }
 func (*SingleCPUStat) ProtoMessage()               {}
-func (*SingleCPUStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{37} }
+func (*SingleCPUStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{39} }
 
 type CPUInfo struct {
 	Number     int32  `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
@@ -1525,7 +1581,7 @@ type CPUInfo struct {
 func (m *CPUInfo) Reset()                    { *m = CPUInfo{} }
 func (m *CPUInfo) String() string            { return proto.CompactTextString(m) }
 func (*CPUInfo) ProtoMessage()               {}
-func (*CPUInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{38} }
+func (*CPUInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{40} }
 
 type Host struct {
 	Id           int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -1541,7 +1597,7 @@ type Host struct {
 func (m *Host) Reset()                    { *m = Host{} }
 func (m *Host) String() string            { return proto.CompactTextString(m) }
 func (*Host) ProtoMessage()               {}
-func (*Host) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{39} }
+func (*Host) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{41} }
 
 type DNSEntry struct {
 	Names []string `protobuf:"bytes,1,rep,name=names" json:"names,omitempty"`
@@ -1550,7 +1606,7 @@ type DNSEntry struct {
 func (m *DNSEntry) Reset()                    { *m = DNSEntry{} }
 func (m *DNSEntry) String() string            { return proto.CompactTextString(m) }
 func (*DNSEntry) ProtoMessage()               {}
-func (*DNSEntry) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{40} }
+func (*DNSEntry) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{42} }
 
 type Cluster struct {
 	NodeCount         int32            `protobuf:"varint,1,opt,name=nodeCount,proto3" json:"nodeCount,omitempty"`
@@ -1572,7 +1628,7 @@ type Cluster struct {
 func (m *Cluster) Reset()                    { *m = Cluster{} }
 func (m *Cluster) String() string            { return proto.CompactTextString(m) }
 func (*Cluster) ProtoMessage()               {}
-func (*Cluster) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{41} }
+func (*Cluster) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{43} }
 
 func (m *Cluster) GetKubeletVersions() map[string]int32 {
 	if m != nil {
@@ -1604,7 +1660,7 @@ type Metadata struct {
 func (m *Metadata) Reset()                    { *m = Metadata{} }
 func (m *Metadata) String() string            { return proto.CompactTextString(m) }
 func (*Metadata) ProtoMessage()               {}
-func (*Metadata) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{42} }
+func (*Metadata) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{44} }
 
 func (m *Metadata) GetOwnerReferences() []*OwnerReference {
 	if m != nil {
@@ -1622,7 +1678,23 @@ type OwnerReference struct {
 func (m *OwnerReference) Reset()                    { *m = OwnerReference{} }
 func (m *OwnerReference) String() string            { return proto.CompactTextString(m) }
 func (*OwnerReference) ProtoMessage()               {}
-func (*OwnerReference) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{43} }
+func (*OwnerReference) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{45} }
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/pkg/apis/core/types.go#L4317
+type ObjectReference struct {
+	Kind            string `protobuf:"bytes,1,opt,name=kind,proto3" json:"kind,omitempty"`
+	Namespace       string `protobuf:"bytes,2,opt,name=namespace,proto3" json:"namespace,omitempty"`
+	Name            string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Uid             string `protobuf:"bytes,4,opt,name=uid,proto3" json:"uid,omitempty"`
+	ApiVersion      string `protobuf:"bytes,5,opt,name=apiVersion,proto3" json:"apiVersion,omitempty"`
+	ResourceVersion string `protobuf:"bytes,6,opt,name=resourceVersion,proto3" json:"resourceVersion,omitempty"`
+	FieldPath       string `protobuf:"bytes,7,opt,name=fieldPath,proto3" json:"fieldPath,omitempty"`
+}
+
+func (m *ObjectReference) Reset()                    { *m = ObjectReference{} }
+func (m *ObjectReference) String() string            { return proto.CompactTextString(m) }
+func (*ObjectReference) ProtoMessage()               {}
+func (*ObjectReference) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{46} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4571
 type ServicePort struct {
@@ -1636,7 +1708,7 @@ type ServicePort struct {
 func (m *ServicePort) Reset()                    { *m = ServicePort{} }
 func (m *ServicePort) String() string            { return proto.CompactTextString(m) }
 func (*ServicePort) ProtoMessage()               {}
-func (*ServicePort) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{44} }
+func (*ServicePort) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{47} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4756
 type ServiceSessionAffinityConfig struct {
@@ -1647,7 +1719,7 @@ func (m *ServiceSessionAffinityConfig) Reset()         { *m = ServiceSessionAffi
 func (m *ServiceSessionAffinityConfig) String() string { return proto.CompactTextString(m) }
 func (*ServiceSessionAffinityConfig) ProtoMessage()    {}
 func (*ServiceSessionAffinityConfig) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgent, []int{45}
+	return fileDescriptorAgent, []int{48}
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2107
@@ -1670,7 +1742,7 @@ type Node struct {
 func (m *Node) Reset()                    { *m = Node{} }
 func (m *Node) String() string            { return proto.CompactTextString(m) }
 func (*Node) ProtoMessage()               {}
-func (*Node) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{46} }
+func (*Node) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{49} }
 
 func (m *Node) GetMetadata() *Metadata {
 	if m != nil {
@@ -1728,7 +1800,7 @@ type NodeStatus struct {
 func (m *NodeStatus) Reset()                    { *m = NodeStatus{} }
 func (m *NodeStatus) String() string            { return proto.CompactTextString(m) }
 func (*NodeStatus) ProtoMessage()               {}
-func (*NodeStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{47} }
+func (*NodeStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{50} }
 
 func (m *NodeStatus) GetCapacity() map[string]int64 {
 	if m != nil {
@@ -1777,7 +1849,7 @@ type NodeCondition struct {
 func (m *NodeCondition) Reset()                    { *m = NodeCondition{} }
 func (m *NodeCondition) String() string            { return proto.CompactTextString(m) }
 func (*NodeCondition) ProtoMessage()               {}
-func (*NodeCondition) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{48} }
+func (*NodeCondition) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{51} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L777
 type ContainerImage struct {
@@ -1788,7 +1860,7 @@ type ContainerImage struct {
 func (m *ContainerImage) Reset()                    { *m = ContainerImage{} }
 func (m *ContainerImage) String() string            { return proto.CompactTextString(m) }
 func (*ContainerImage) ProtoMessage()               {}
-func (*ContainerImage) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{49} }
+func (*ContainerImage) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{52} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4849
 type Taint struct {
@@ -1801,7 +1873,7 @@ type Taint struct {
 func (m *Taint) Reset()                    { *m = Taint{} }
 func (m *Taint) String() string            { return proto.CompactTextString(m) }
 func (*Taint) ProtoMessage()               {}
-func (*Taint) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{50} }
+func (*Taint) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{53} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4620
 type ServiceSpec struct {
@@ -1824,7 +1896,7 @@ type ServiceSpec struct {
 func (m *ServiceSpec) Reset()                    { *m = ServiceSpec{} }
 func (m *ServiceSpec) String() string            { return proto.CompactTextString(m) }
 func (*ServiceSpec) ProtoMessage()               {}
-func (*ServiceSpec) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{51} }
+func (*ServiceSpec) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{54} }
 
 func (m *ServiceSpec) GetPorts() []*ServicePort {
 	if m != nil {
@@ -1855,7 +1927,7 @@ type ServiceStatus struct {
 func (m *ServiceStatus) Reset()                    { *m = ServiceStatus{} }
 func (m *ServiceStatus) String() string            { return proto.CompactTextString(m) }
 func (*ServiceStatus) ProtoMessage()               {}
-func (*ServiceStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{52} }
+func (*ServiceStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{55} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/release-1.19/staging/src/k8s.io/api/core/v1/generated.proto
 type Service struct {
@@ -1869,7 +1941,7 @@ type Service struct {
 func (m *Service) Reset()                    { *m = Service{} }
 func (m *Service) String() string            { return proto.CompactTextString(m) }
 func (*Service) ProtoMessage()               {}
-func (*Service) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{53} }
+func (*Service) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{56} }
 
 func (m *Service) GetMetadata() *Metadata {
 	if m != nil {
@@ -1916,7 +1988,7 @@ type Deployment struct {
 func (m *Deployment) Reset()                    { *m = Deployment{} }
 func (m *Deployment) String() string            { return proto.CompactTextString(m) }
 func (*Deployment) ProtoMessage()               {}
-func (*Deployment) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{54} }
+func (*Deployment) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{57} }
 
 func (m *Deployment) GetMetadata() *Metadata {
 	if m != nil {
@@ -1950,7 +2022,7 @@ type ReplicaSet struct {
 func (m *ReplicaSet) Reset()                    { *m = ReplicaSet{} }
 func (m *ReplicaSet) String() string            { return proto.CompactTextString(m) }
 func (*ReplicaSet) ProtoMessage()               {}
-func (*ReplicaSet) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{55} }
+func (*ReplicaSet) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{58} }
 
 func (m *ReplicaSet) GetMetadata() *Metadata {
 	if m != nil {
@@ -1976,7 +2048,7 @@ type LabelSelectorRequirement struct {
 func (m *LabelSelectorRequirement) Reset()                    { *m = LabelSelectorRequirement{} }
 func (m *LabelSelectorRequirement) String() string            { return proto.CompactTextString(m) }
 func (*LabelSelectorRequirement) ProtoMessage()               {}
-func (*LabelSelectorRequirement) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{56} }
+func (*LabelSelectorRequirement) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{59} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto
 type Pod struct {
@@ -2001,7 +2073,7 @@ type Pod struct {
 func (m *Pod) Reset()                    { *m = Pod{} }
 func (m *Pod) String() string            { return proto.CompactTextString(m) }
 func (*Pod) ProtoMessage()               {}
-func (*Pod) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{57} }
+func (*Pod) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{60} }
 
 func (m *Pod) GetMetadata() *Metadata {
 	if m != nil {
@@ -2050,7 +2122,7 @@ type ContainerStatus struct {
 func (m *ContainerStatus) Reset()                    { *m = ContainerStatus{} }
 func (m *ContainerStatus) String() string            { return proto.CompactTextString(m) }
 func (*ContainerStatus) ProtoMessage()               {}
-func (*ContainerStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{58} }
+func (*ContainerStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{61} }
 
 type Manifest struct {
 	Orchestrator string `protobuf:"bytes,1,opt,name=orchestrator,proto3" json:"orchestrator,omitempty"`
@@ -2064,7 +2136,7 @@ type Manifest struct {
 func (m *Manifest) Reset()                    { *m = Manifest{} }
 func (m *Manifest) String() string            { return proto.CompactTextString(m) }
 func (*Manifest) ProtoMessage()               {}
-func (*Manifest) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{59} }
+func (*Manifest) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{62} }
 
 // https://github.com/kubernetes/kubernetes/blob/4112d8db20c5550cc27d30d3cee2723db0f8e1c4/staging/src/k8s.io/api/core/v1/types.go#L2097
 // Using smallest possible quantity levels.
@@ -2085,7 +2157,7 @@ type ResourceRequirements struct {
 func (m *ResourceRequirements) Reset()                    { *m = ResourceRequirements{} }
 func (m *ResourceRequirements) String() string            { return proto.CompactTextString(m) }
 func (*ResourceRequirements) ProtoMessage()               {}
-func (*ResourceRequirements) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{60} }
+func (*ResourceRequirements) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{63} }
 
 func (m *ResourceRequirements) GetLimits() map[string]int64 {
 	if m != nil {
@@ -2097,6 +2169,146 @@ func (m *ResourceRequirements) GetLimits() map[string]int64 {
 func (m *ResourceRequirements) GetRequests() map[string]int64 {
 	if m != nil {
 		return m.Requests
+	}
+	return nil
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L61
+type JobSpec struct {
+	Parallelism           int32                       `protobuf:"varint,1,opt,name=parallelism,proto3" json:"parallelism,omitempty"`
+	Completions           int32                       `protobuf:"varint,2,opt,name=completions,proto3" json:"completions,omitempty"`
+	ActiveDeadlineSeconds int64                       `protobuf:"varint,3,opt,name=activeDeadlineSeconds,proto3" json:"activeDeadlineSeconds,omitempty"`
+	BackoffLimit          int32                       `protobuf:"varint,4,opt,name=backoffLimit,proto3" json:"backoffLimit,omitempty"`
+	Selectors             []*LabelSelectorRequirement `protobuf:"bytes,5,rep,name=selectors" json:"selectors,omitempty"`
+	ManualSelector        bool                        `protobuf:"varint,6,opt,name=manualSelector,proto3" json:"manualSelector,omitempty"`
+}
+
+func (m *JobSpec) Reset()                    { *m = JobSpec{} }
+func (m *JobSpec) String() string            { return proto.CompactTextString(m) }
+func (*JobSpec) ProtoMessage()               {}
+func (*JobSpec) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{64} }
+
+func (m *JobSpec) GetSelectors() []*LabelSelectorRequirement {
+	if m != nil {
+		return m.Selectors
+	}
+	return nil
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L132
+type JobStatus struct {
+	ConditionMessage string `protobuf:"bytes,1,opt,name=conditionMessage,proto3" json:"conditionMessage,omitempty"`
+	StartTime        int64  `protobuf:"varint,2,opt,name=startTime,proto3" json:"startTime,omitempty"`
+	CompletionTime   int64  `protobuf:"varint,3,opt,name=completionTime,proto3" json:"completionTime,omitempty"`
+	Active           int32  `protobuf:"varint,4,opt,name=active,proto3" json:"active,omitempty"`
+	Succeeded        int32  `protobuf:"varint,5,opt,name=succeeded,proto3" json:"succeeded,omitempty"`
+	Failed           int32  `protobuf:"varint,6,opt,name=failed,proto3" json:"failed,omitempty"`
+}
+
+func (m *JobStatus) Reset()                    { *m = JobStatus{} }
+func (m *JobStatus) String() string            { return proto.CompactTextString(m) }
+func (*JobStatus) ProtoMessage()               {}
+func (*JobStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{65} }
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L28
+type Job struct {
+	Metadata *Metadata  `protobuf:"bytes,1,opt,name=metadata" json:"metadata,omitempty"`
+	Spec     *JobSpec   `protobuf:"bytes,2,opt,name=spec" json:"spec,omitempty"`
+	Status   *JobStatus `protobuf:"bytes,3,opt,name=status" json:"status,omitempty"`
+	Yaml     []byte     `protobuf:"bytes,4,opt,name=yaml,proto3" json:"yaml,omitempty"`
+	Tags     []string   `protobuf:"bytes,5,rep,name=tags" json:"tags,omitempty"`
+}
+
+func (m *Job) Reset()                    { *m = Job{} }
+func (m *Job) String() string            { return proto.CompactTextString(m) }
+func (*Job) ProtoMessage()               {}
+func (*Job) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{66} }
+
+func (m *Job) GetMetadata() *Metadata {
+	if m != nil {
+		return m.Metadata
+	}
+	return nil
+}
+
+func (m *Job) GetSpec() *JobSpec {
+	if m != nil {
+		return m.Spec
+	}
+	return nil
+}
+
+func (m *Job) GetStatus() *JobStatus {
+	if m != nil {
+		return m.Status
+	}
+	return nil
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1beta1/types.go#L92
+type CronJobSpec struct {
+	Schedule                   string `protobuf:"bytes,1,opt,name=schedule,proto3" json:"schedule,omitempty"`
+	StartingDeadlineSeconds    int64  `protobuf:"varint,2,opt,name=startingDeadlineSeconds,proto3" json:"startingDeadlineSeconds,omitempty"`
+	ConcurrencyPolicy          string `protobuf:"bytes,3,opt,name=concurrencyPolicy,proto3" json:"concurrencyPolicy,omitempty"`
+	Suspend                    bool   `protobuf:"varint,4,opt,name=suspend,proto3" json:"suspend,omitempty"`
+	SuccessfulJobsHistoryLimit int32  `protobuf:"varint,5,opt,name=successfulJobsHistoryLimit,proto3" json:"successfulJobsHistoryLimit,omitempty"`
+	FailedJobsHistoryLimit     int32  `protobuf:"varint,6,opt,name=failedJobsHistoryLimit,proto3" json:"failedJobsHistoryLimit,omitempty"`
+}
+
+func (m *CronJobSpec) Reset()                    { *m = CronJobSpec{} }
+func (m *CronJobSpec) String() string            { return proto.CompactTextString(m) }
+func (*CronJobSpec) ProtoMessage()               {}
+func (*CronJobSpec) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{67} }
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1beta1/types.go#L150
+type CronJobStatus struct {
+	Active           []*ObjectReference `protobuf:"bytes,1,rep,name=active" json:"active,omitempty"`
+	LastScheduleTime int64              `protobuf:"varint,2,opt,name=lastScheduleTime,proto3" json:"lastScheduleTime,omitempty"`
+}
+
+func (m *CronJobStatus) Reset()                    { *m = CronJobStatus{} }
+func (m *CronJobStatus) String() string            { return proto.CompactTextString(m) }
+func (*CronJobStatus) ProtoMessage()               {}
+func (*CronJobStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{68} }
+
+func (m *CronJobStatus) GetActive() []*ObjectReference {
+	if m != nil {
+		return m.Active
+	}
+	return nil
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1beta1/types.go#L58
+type CronJob struct {
+	Metadata *Metadata      `protobuf:"bytes,1,opt,name=metadata" json:"metadata,omitempty"`
+	Spec     *CronJobSpec   `protobuf:"bytes,2,opt,name=spec" json:"spec,omitempty"`
+	Status   *CronJobStatus `protobuf:"bytes,3,opt,name=status" json:"status,omitempty"`
+	Yaml     []byte         `protobuf:"bytes,4,opt,name=yaml,proto3" json:"yaml,omitempty"`
+	Tags     []string       `protobuf:"bytes,5,rep,name=tags" json:"tags,omitempty"`
+}
+
+func (m *CronJob) Reset()                    { *m = CronJob{} }
+func (m *CronJob) String() string            { return proto.CompactTextString(m) }
+func (*CronJob) ProtoMessage()               {}
+func (*CronJob) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{69} }
+
+func (m *CronJob) GetMetadata() *Metadata {
+	if m != nil {
+		return m.Metadata
+	}
+	return nil
+}
+
+func (m *CronJob) GetSpec() *CronJobSpec {
+	if m != nil {
+		return m.Spec
+	}
+	return nil
+}
+
+func (m *CronJob) GetStatus() *CronJobStatus {
+	if m != nil {
+		return m.Status
 	}
 	return nil
 }
@@ -2117,7 +2329,7 @@ type ConnectionsTelemetry struct {
 func (m *ConnectionsTelemetry) Reset()                    { *m = ConnectionsTelemetry{} }
 func (m *ConnectionsTelemetry) String() string            { return proto.CompactTextString(m) }
 func (*ConnectionsTelemetry) ProtoMessage()               {}
-func (*ConnectionsTelemetry) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{61} }
+func (*ConnectionsTelemetry) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{70} }
 
 type CollectorConnectionsTelemetry struct {
 	KprobesTriggered          int64 `protobuf:"varint,1,opt,name=kprobesTriggered,proto3" json:"kprobesTriggered,omitempty"`
@@ -2136,7 +2348,7 @@ func (m *CollectorConnectionsTelemetry) Reset()         { *m = CollectorConnecti
 func (m *CollectorConnectionsTelemetry) String() string { return proto.CompactTextString(m) }
 func (*CollectorConnectionsTelemetry) ProtoMessage()    {}
 func (*CollectorConnectionsTelemetry) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgent, []int{62}
+	return fileDescriptorAgent, []int{71}
 }
 
 type DNSStats struct {
@@ -2149,7 +2361,7 @@ type DNSStats struct {
 func (m *DNSStats) Reset()                    { *m = DNSStats{} }
 func (m *DNSStats) String() string            { return proto.CompactTextString(m) }
 func (*DNSStats) ProtoMessage()               {}
-func (*DNSStats) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{63} }
+func (*DNSStats) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{72} }
 
 func (m *DNSStats) GetDnsCountByRcode() map[uint32]uint32 {
 	if m != nil {
@@ -2165,7 +2377,7 @@ type HTTPAggregations struct {
 func (m *HTTPAggregations) Reset()                    { *m = HTTPAggregations{} }
 func (m *HTTPAggregations) String() string            { return proto.CompactTextString(m) }
 func (*HTTPAggregations) ProtoMessage()               {}
-func (*HTTPAggregations) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{64} }
+func (*HTTPAggregations) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{73} }
 
 func (m *HTTPAggregations) GetByPath() map[string]*HTTPStats {
 	if m != nil {
@@ -2181,7 +2393,7 @@ type HTTPStats struct {
 func (m *HTTPStats) Reset()                    { *m = HTTPStats{} }
 func (m *HTTPStats) String() string            { return proto.CompactTextString(m) }
 func (*HTTPStats) ProtoMessage()               {}
-func (*HTTPStats) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{65} }
+func (*HTTPStats) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{74} }
 
 func (m *HTTPStats) GetStatsByResponseStatus() []*HTTPStats_Data {
 	if m != nil {
@@ -2199,7 +2411,7 @@ type HTTPStats_Data struct {
 func (m *HTTPStats_Data) Reset()                    { *m = HTTPStats_Data{} }
 func (m *HTTPStats_Data) String() string            { return proto.CompactTextString(m) }
 func (*HTTPStats_Data) ProtoMessage()               {}
-func (*HTTPStats_Data) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{65, 0} }
+func (*HTTPStats_Data) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{74, 0} }
 
 type RuntimeCompilationTelemetry struct {
 	RuntimeCompilationEnabled  bool                     `protobuf:"varint,1,opt,name=runtimeCompilationEnabled,proto3" json:"runtimeCompilationEnabled,omitempty"`
@@ -2211,7 +2423,7 @@ func (m *RuntimeCompilationTelemetry) Reset()         { *m = RuntimeCompilationT
 func (m *RuntimeCompilationTelemetry) String() string { return proto.CompactTextString(m) }
 func (*RuntimeCompilationTelemetry) ProtoMessage()    {}
 func (*RuntimeCompilationTelemetry) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgent, []int{66}
+	return fileDescriptorAgent, []int{75}
 }
 
 type RouteMetadata struct {
@@ -2241,6 +2453,8 @@ func init() {
 	proto.RegisterType((*CollectorNode)(nil), "datadog.process_agent.CollectorNode")
 	proto.RegisterType((*CollectorCluster)(nil), "datadog.process_agent.CollectorCluster")
 	proto.RegisterType((*CollectorManifest)(nil), "datadog.process_agent.CollectorManifest")
+	proto.RegisterType((*CollectorJob)(nil), "datadog.process_agent.CollectorJob")
+	proto.RegisterType((*CollectorCronJob)(nil), "datadog.process_agent.CollectorCronJob")
 	proto.RegisterType((*CollectorStatus)(nil), "datadog.process_agent.CollectorStatus")
 	proto.RegisterType((*Process)(nil), "datadog.process_agent.Process")
 	proto.RegisterType((*Command)(nil), "datadog.process_agent.Command")
@@ -2271,6 +2485,7 @@ func init() {
 	proto.RegisterType((*Cluster)(nil), "datadog.process_agent.Cluster")
 	proto.RegisterType((*Metadata)(nil), "datadog.process_agent.Metadata")
 	proto.RegisterType((*OwnerReference)(nil), "datadog.process_agent.OwnerReference")
+	proto.RegisterType((*ObjectReference)(nil), "datadog.process_agent.ObjectReference")
 	proto.RegisterType((*ServicePort)(nil), "datadog.process_agent.ServicePort")
 	proto.RegisterType((*ServiceSessionAffinityConfig)(nil), "datadog.process_agent.ServiceSessionAffinityConfig")
 	proto.RegisterType((*Node)(nil), "datadog.process_agent.Node")
@@ -2288,6 +2503,12 @@ func init() {
 	proto.RegisterType((*ContainerStatus)(nil), "datadog.process_agent.ContainerStatus")
 	proto.RegisterType((*Manifest)(nil), "datadog.process_agent.Manifest")
 	proto.RegisterType((*ResourceRequirements)(nil), "datadog.process_agent.ResourceRequirements")
+	proto.RegisterType((*JobSpec)(nil), "datadog.process_agent.JobSpec")
+	proto.RegisterType((*JobStatus)(nil), "datadog.process_agent.JobStatus")
+	proto.RegisterType((*Job)(nil), "datadog.process_agent.Job")
+	proto.RegisterType((*CronJobSpec)(nil), "datadog.process_agent.CronJobSpec")
+	proto.RegisterType((*CronJobStatus)(nil), "datadog.process_agent.CronJobStatus")
+	proto.RegisterType((*CronJob)(nil), "datadog.process_agent.CronJob")
 	proto.RegisterType((*ConnectionsTelemetry)(nil), "datadog.process_agent.ConnectionsTelemetry")
 	proto.RegisterType((*CollectorConnectionsTelemetry)(nil), "datadog.process_agent.CollectorConnectionsTelemetry")
 	proto.RegisterType((*DNSStats)(nil), "datadog.process_agent.DNSStats")
@@ -3498,6 +3719,140 @@ func (m *CollectorManifest) MarshalTo(data []byte) (int, error) {
 				return 0, err
 			}
 			i += n
+		}
+	}
+	return i, nil
+}
+
+func (m *CollectorJob) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *CollectorJob) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.ClusterName) > 0 {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.ClusterName)))
+		i += copy(data[i:], m.ClusterName)
+	}
+	if len(m.ClusterId) > 0 {
+		data[i] = 0x12
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.ClusterId)))
+		i += copy(data[i:], m.ClusterId)
+	}
+	if m.GroupId != 0 {
+		data[i] = 0x18
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.GroupId))
+	}
+	if m.GroupSize != 0 {
+		data[i] = 0x20
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.GroupSize))
+	}
+	if len(m.Jobs) > 0 {
+		for _, msg := range m.Jobs {
+			data[i] = 0x2a
+			i++
+			i = encodeVarintAgent(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			data[i] = 0x32
+			i++
+			l = len(s)
+			for l >= 1<<7 {
+				data[i] = uint8(uint64(l)&0x7f | 0x80)
+				l >>= 7
+				i++
+			}
+			data[i] = uint8(l)
+			i++
+			i += copy(data[i:], s)
+		}
+	}
+	return i, nil
+}
+
+func (m *CollectorCronJob) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *CollectorCronJob) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.ClusterName) > 0 {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.ClusterName)))
+		i += copy(data[i:], m.ClusterName)
+	}
+	if len(m.ClusterId) > 0 {
+		data[i] = 0x12
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.ClusterId)))
+		i += copy(data[i:], m.ClusterId)
+	}
+	if m.GroupId != 0 {
+		data[i] = 0x18
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.GroupId))
+	}
+	if m.GroupSize != 0 {
+		data[i] = 0x20
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.GroupSize))
+	}
+	if len(m.CronJobs) > 0 {
+		for _, msg := range m.CronJobs {
+			data[i] = 0x2a
+			i++
+			i = encodeVarintAgent(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			data[i] = 0x32
+			i++
+			l = len(s)
+			for l >= 1<<7 {
+				data[i] = uint8(uint64(l)&0x7f | 0x80)
+				l >>= 7
+				i++
+			}
+			data[i] = uint8(l)
+			i++
+			i += copy(data[i:], s)
 		}
 	}
 	return i, nil
@@ -4964,6 +5319,20 @@ func (m *Connection) MarshalTo(data []byte) (int, error) {
 		i = encodeVarintAgent(data, i, uint64(len(m.HttpAggregations)))
 		i += copy(data[i:], m.HttpAggregations)
 	}
+	if m.LastPacketsSent != 0 {
+		data[i] = 0xb0
+		i++
+		data[i] = 0x2
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.LastPacketsSent))
+	}
+	if m.LastPacketsReceived != 0 {
+		data[i] = 0xb8
+		i++
+		data[i] = 0x2
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.LastPacketsReceived))
+	}
 	return i, nil
 }
 
@@ -5772,6 +6141,66 @@ func (m *OwnerReference) MarshalTo(data []byte) (int, error) {
 		i++
 		i = encodeVarintAgent(data, i, uint64(len(m.Kind)))
 		i += copy(data[i:], m.Kind)
+	}
+	return i, nil
+}
+
+func (m *ObjectReference) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *ObjectReference) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Kind) > 0 {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.Kind)))
+		i += copy(data[i:], m.Kind)
+	}
+	if len(m.Namespace) > 0 {
+		data[i] = 0x12
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.Namespace)))
+		i += copy(data[i:], m.Namespace)
+	}
+	if len(m.Name) > 0 {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.Name)))
+		i += copy(data[i:], m.Name)
+	}
+	if len(m.Uid) > 0 {
+		data[i] = 0x22
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.Uid)))
+		i += copy(data[i:], m.Uid)
+	}
+	if len(m.ApiVersion) > 0 {
+		data[i] = 0x2a
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.ApiVersion)))
+		i += copy(data[i:], m.ApiVersion)
+	}
+	if len(m.ResourceVersion) > 0 {
+		data[i] = 0x32
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.ResourceVersion)))
+		i += copy(data[i:], m.ResourceVersion)
+	}
+	if len(m.FieldPath) > 0 {
+		data[i] = 0x3a
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.FieldPath)))
+		i += copy(data[i:], m.FieldPath)
 	}
 	return i, nil
 }
@@ -7056,6 +7485,343 @@ func (m *ResourceRequirements) MarshalTo(data []byte) (int, error) {
 	return i, nil
 }
 
+func (m *JobSpec) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *JobSpec) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Parallelism != 0 {
+		data[i] = 0x8
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Parallelism))
+	}
+	if m.Completions != 0 {
+		data[i] = 0x10
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Completions))
+	}
+	if m.ActiveDeadlineSeconds != 0 {
+		data[i] = 0x18
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.ActiveDeadlineSeconds))
+	}
+	if m.BackoffLimit != 0 {
+		data[i] = 0x20
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.BackoffLimit))
+	}
+	if len(m.Selectors) > 0 {
+		for _, msg := range m.Selectors {
+			data[i] = 0x2a
+			i++
+			i = encodeVarintAgent(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if m.ManualSelector {
+		data[i] = 0x30
+		i++
+		if m.ManualSelector {
+			data[i] = 1
+		} else {
+			data[i] = 0
+		}
+		i++
+	}
+	return i, nil
+}
+
+func (m *JobStatus) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *JobStatus) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.ConditionMessage) > 0 {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.ConditionMessage)))
+		i += copy(data[i:], m.ConditionMessage)
+	}
+	if m.StartTime != 0 {
+		data[i] = 0x10
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.StartTime))
+	}
+	if m.CompletionTime != 0 {
+		data[i] = 0x18
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.CompletionTime))
+	}
+	if m.Active != 0 {
+		data[i] = 0x20
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Active))
+	}
+	if m.Succeeded != 0 {
+		data[i] = 0x28
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Succeeded))
+	}
+	if m.Failed != 0 {
+		data[i] = 0x30
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Failed))
+	}
+	return i, nil
+}
+
+func (m *Job) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *Job) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Metadata != nil {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
+		n51, err := m.Metadata.MarshalTo(data[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n51
+	}
+	if m.Spec != nil {
+		data[i] = 0x12
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Spec.Size()))
+		n52, err := m.Spec.MarshalTo(data[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n52
+	}
+	if m.Status != nil {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Status.Size()))
+		n53, err := m.Status.MarshalTo(data[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n53
+	}
+	if len(m.Yaml) > 0 {
+		data[i] = 0x22
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.Yaml)))
+		i += copy(data[i:], m.Yaml)
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			data[i] = 0x2a
+			i++
+			l = len(s)
+			for l >= 1<<7 {
+				data[i] = uint8(uint64(l)&0x7f | 0x80)
+				l >>= 7
+				i++
+			}
+			data[i] = uint8(l)
+			i++
+			i += copy(data[i:], s)
+		}
+	}
+	return i, nil
+}
+
+func (m *CronJobSpec) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *CronJobSpec) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Schedule) > 0 {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.Schedule)))
+		i += copy(data[i:], m.Schedule)
+	}
+	if m.StartingDeadlineSeconds != 0 {
+		data[i] = 0x10
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.StartingDeadlineSeconds))
+	}
+	if len(m.ConcurrencyPolicy) > 0 {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.ConcurrencyPolicy)))
+		i += copy(data[i:], m.ConcurrencyPolicy)
+	}
+	if m.Suspend {
+		data[i] = 0x20
+		i++
+		if m.Suspend {
+			data[i] = 1
+		} else {
+			data[i] = 0
+		}
+		i++
+	}
+	if m.SuccessfulJobsHistoryLimit != 0 {
+		data[i] = 0x28
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.SuccessfulJobsHistoryLimit))
+	}
+	if m.FailedJobsHistoryLimit != 0 {
+		data[i] = 0x30
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.FailedJobsHistoryLimit))
+	}
+	return i, nil
+}
+
+func (m *CronJobStatus) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *CronJobStatus) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Active) > 0 {
+		for _, msg := range m.Active {
+			data[i] = 0xa
+			i++
+			i = encodeVarintAgent(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if m.LastScheduleTime != 0 {
+		data[i] = 0x10
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.LastScheduleTime))
+	}
+	return i, nil
+}
+
+func (m *CronJob) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *CronJob) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Metadata != nil {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
+		n54, err := m.Metadata.MarshalTo(data[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n54
+	}
+	if m.Spec != nil {
+		data[i] = 0x12
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Spec.Size()))
+		n55, err := m.Spec.MarshalTo(data[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n55
+	}
+	if m.Status != nil {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Status.Size()))
+		n56, err := m.Status.MarshalTo(data[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n56
+	}
+	if len(m.Yaml) > 0 {
+		data[i] = 0x22
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.Yaml)))
+		i += copy(data[i:], m.Yaml)
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			data[i] = 0x2a
+			i++
+			l = len(s)
+			for l >= 1<<7 {
+				data[i] = uint8(uint64(l)&0x7f | 0x80)
+				l >>= 7
+				i++
+			}
+			data[i] = uint8(l)
+			i++
+			i += copy(data[i:], s)
+		}
+	}
+	return i, nil
+}
+
 func (m *ConnectionsTelemetry) Marshal() (data []byte, err error) {
 	size := m.Size()
 	data = make([]byte, size)
@@ -7086,10 +7852,66 @@ func (m *ConnectionsTelemetry) MarshalTo(data []byte) (int, error) {
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.MonotonicConntrackRegisters))
 	}
-	if m.MonotonicConntrackRegistersDropped != 0 {
-		data[i] = 0x20
+	return i, nil
+}
+
+func (m *RouteMetadata) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *RouteMetadata) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Alias) > 0 {
+		data[i] = 0xa
 		i++
-		i = encodeVarintAgent(data, i, uint64(m.MonotonicConntrackRegistersDropped))
+		i = encodeVarintAgent(data, i, uint64(len(m.Alias)))
+		i += copy(data[i:], m.Alias)
+	}
+	if m.TagIndex != 0 {
+		data[i] = 0x10
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.TagIndex))
+	}
+	if m.TagsModified != 0 {
+		data[i] = 0x18
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.TagsModified))
+	}
+	return i, nil
+}
+
+func encodeFixed64Agent(data []byte, offset int, v uint64) int {
+	data[offset] = uint8(v)
+	data[offset+1] = uint8(v >> 8)
+	data[offset+2] = uint8(v >> 16)
+	data[offset+3] = uint8(v >> 24)
+	data[offset+4] = uint8(v >> 32)
+	data[offset+5] = uint8(v >> 40)
+	data[offset+6] = uint8(v >> 48)
+	data[offset+7] = uint8(v >> 56)
+	return offset + 8
+}
+func encodeFixed32Agent(data []byte, offset int, v uint32) int {
+	data[offset] = uint8(v)
+	data[offset+1] = uint8(v >> 8)
+	data[offset+2] = uint8(v >> 16)
+	data[offset+3] = uint8(v >> 24)
+	return offset + 4
+}
+func encodeVarintAgent(data []byte, offset int, v uint64) int {
+	for v >= 1<<7 {
+		data[offset] = uint8(v&0x7f | 0x80)
+		v >>= 7
+		offset++
 	}
 	if m.MonotonicDnsPacketsProcessed != 0 {
 		data[i] = 0x28
@@ -7275,11 +8097,11 @@ func (m *HTTPAggregations) MarshalTo(data []byte) (int, error) {
 				data[i] = 0x12
 				i++
 				i = encodeVarintAgent(data, i, uint64(v.Size()))
-				n51, err := v.MarshalTo(data[i:])
+				n57, err := v.MarshalTo(data[i:])
 				if err != nil {
 					return 0, err
 				}
-				i += n51
+				i += n57
 			}
 		}
 	}
@@ -7293,7 +8115,21 @@ func (m *HTTPStats) Marshal() (data []byte, err error) {
 	if err != nil {
 		return nil, err
 	}
-	return data[:n], nil
+	if len(m.ResolvedRoutes) > 0 {
+		for k, v := range m.ResolvedRoutes {
+			_ = k
+			_ = v
+			mapEntrySize := 1 + len(k) + sovAgent(uint64(len(k))) + 1 + sovAgent(uint64(v))
+			n += mapEntrySize + 2 + sovAgent(uint64(mapEntrySize))
+		}
+	}
+	if len(m.RouteMetadata) > 0 {
+		for _, e := range m.RouteMetadata {
+			l = e.Size()
+			n += 2 + l + sovAgent(uint64(l))
+		}
+	}
+	return n
 }
 
 func (m *HTTPStats) MarshalTo(data []byte) (int, error) {
@@ -7384,40 +8220,6 @@ func (m *RuntimeCompilationTelemetry) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x18
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.RuntimeCompilationDuration))
-	}
-	return i, nil
-}
-
-func (m *RouteMetadata) Marshal() (data []byte, err error) {
-	size := m.Size()
-	data = make([]byte, size)
-	n, err := m.MarshalTo(data)
-	if err != nil {
-		return nil, err
-	}
-	return data[:n], nil
-}
-
-func (m *RouteMetadata) MarshalTo(data []byte) (int, error) {
-	var i int
-	_ = i
-	var l int
-	_ = l
-	if len(m.Alias) > 0 {
-		data[i] = 0xa
-		i++
-		i = encodeVarintAgent(data, i, uint64(len(m.Alias)))
-		i += copy(data[i:], m.Alias)
-	}
-	if m.TagIndex != 0 {
-		data[i] = 0x10
-		i++
-		i = encodeVarintAgent(data, i, uint64(m.TagIndex))
-	}
-	if m.TagsModified != 0 {
-		data[i] = 0x18
-		i++
-		i = encodeVarintAgent(data, i, uint64(m.TagsModified))
 	}
 	return i, nil
 }
@@ -7643,19 +8445,11 @@ func (m *CollectorConnections) Size() (n int) {
 			n += 2 + l + sovAgent(uint64(l))
 		}
 	}
-	if len(m.ResolvedRoutes) > 0 {
-		for k, v := range m.ResolvedRoutes {
-			_ = k
-			_ = v
-			mapEntrySize := 1 + len(k) + sovAgent(uint64(len(k))) + 1 + sovAgent(uint64(v))
-			n += mapEntrySize + 2 + sovAgent(uint64(mapEntrySize))
-		}
+	if m.EphemeralPortRangeStart != 0 {
+		n += 2 + sovAgent(uint64(m.EphemeralPortRangeStart))
 	}
-	if len(m.RouteMetadata) > 0 {
-		for _, e := range m.RouteMetadata {
-			l = e.Size()
-			n += 2 + l + sovAgent(uint64(l))
-		}
+	if m.EphemeralPortRangeEnd != 0 {
+		n += 2 + sovAgent(uint64(m.EphemeralPortRangeEnd))
 	}
 	return n
 }
@@ -8010,6 +8804,70 @@ func (m *CollectorManifest) Size() (n int) {
 	if len(m.Manifests) > 0 {
 		for _, e := range m.Manifests {
 			l = e.Size()
+			n += 1 + l + sovAgent(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *CollectorJob) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.ClusterName)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.ClusterId)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if m.GroupId != 0 {
+		n += 1 + sovAgent(uint64(m.GroupId))
+	}
+	if m.GroupSize != 0 {
+		n += 1 + sovAgent(uint64(m.GroupSize))
+	}
+	if len(m.Jobs) > 0 {
+		for _, e := range m.Jobs {
+			l = e.Size()
+			n += 1 + l + sovAgent(uint64(l))
+		}
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			l = len(s)
+			n += 1 + l + sovAgent(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *CollectorCronJob) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.ClusterName)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.ClusterId)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if m.GroupId != 0 {
+		n += 1 + sovAgent(uint64(m.GroupId))
+	}
+	if m.GroupSize != 0 {
+		n += 1 + sovAgent(uint64(m.GroupSize))
+	}
+	if len(m.CronJobs) > 0 {
+		for _, e := range m.CronJobs {
+			l = e.Size()
+			n += 1 + l + sovAgent(uint64(l))
+		}
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			l = len(s)
 			n += 1 + l + sovAgent(uint64(l))
 		}
 	}
@@ -8695,6 +9553,12 @@ func (m *Connection) Size() (n int) {
 	if l > 0 {
 		n += 2 + l + sovAgent(uint64(l))
 	}
+	if m.LastPacketsSent != 0 {
+		n += 2 + sovAgent(uint64(m.LastPacketsSent))
+	}
+	if m.LastPacketsReceived != 0 {
+		n += 2 + sovAgent(uint64(m.LastPacketsReceived))
+	}
 	return n
 }
 
@@ -9084,6 +9948,40 @@ func (m *OwnerReference) Size() (n int) {
 		n += 1 + l + sovAgent(uint64(l))
 	}
 	l = len(m.Kind)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	return n
+}
+
+func (m *ObjectReference) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Kind)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.Namespace)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.Uid)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.ApiVersion)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.ResourceVersion)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.FieldPath)
 	if l > 0 {
 		n += 1 + l + sovAgent(uint64(l))
 	}
@@ -9707,6 +10605,155 @@ func (m *ResourceRequirements) Size() (n int) {
 	return n
 }
 
+func (m *JobSpec) Size() (n int) {
+	var l int
+	_ = l
+	if m.Parallelism != 0 {
+		n += 1 + sovAgent(uint64(m.Parallelism))
+	}
+	if m.Completions != 0 {
+		n += 1 + sovAgent(uint64(m.Completions))
+	}
+	if m.ActiveDeadlineSeconds != 0 {
+		n += 1 + sovAgent(uint64(m.ActiveDeadlineSeconds))
+	}
+	if m.BackoffLimit != 0 {
+		n += 1 + sovAgent(uint64(m.BackoffLimit))
+	}
+	if len(m.Selectors) > 0 {
+		for _, e := range m.Selectors {
+			l = e.Size()
+			n += 1 + l + sovAgent(uint64(l))
+		}
+	}
+	if m.ManualSelector {
+		n += 2
+	}
+	return n
+}
+
+func (m *JobStatus) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.ConditionMessage)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if m.StartTime != 0 {
+		n += 1 + sovAgent(uint64(m.StartTime))
+	}
+	if m.CompletionTime != 0 {
+		n += 1 + sovAgent(uint64(m.CompletionTime))
+	}
+	if m.Active != 0 {
+		n += 1 + sovAgent(uint64(m.Active))
+	}
+	if m.Succeeded != 0 {
+		n += 1 + sovAgent(uint64(m.Succeeded))
+	}
+	if m.Failed != 0 {
+		n += 1 + sovAgent(uint64(m.Failed))
+	}
+	return n
+}
+
+func (m *Job) Size() (n int) {
+	var l int
+	_ = l
+	if m.Metadata != nil {
+		l = m.Metadata.Size()
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if m.Spec != nil {
+		l = m.Spec.Size()
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if m.Status != nil {
+		l = m.Status.Size()
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.Yaml)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			l = len(s)
+			n += 1 + l + sovAgent(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *CronJobSpec) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Schedule)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if m.StartingDeadlineSeconds != 0 {
+		n += 1 + sovAgent(uint64(m.StartingDeadlineSeconds))
+	}
+	l = len(m.ConcurrencyPolicy)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if m.Suspend {
+		n += 2
+	}
+	if m.SuccessfulJobsHistoryLimit != 0 {
+		n += 1 + sovAgent(uint64(m.SuccessfulJobsHistoryLimit))
+	}
+	if m.FailedJobsHistoryLimit != 0 {
+		n += 1 + sovAgent(uint64(m.FailedJobsHistoryLimit))
+	}
+	return n
+}
+
+func (m *CronJobStatus) Size() (n int) {
+	var l int
+	_ = l
+	if len(m.Active) > 0 {
+		for _, e := range m.Active {
+			l = e.Size()
+			n += 1 + l + sovAgent(uint64(l))
+		}
+	}
+	if m.LastScheduleTime != 0 {
+		n += 1 + sovAgent(uint64(m.LastScheduleTime))
+	}
+	return n
+}
+
+func (m *CronJob) Size() (n int) {
+	var l int
+	_ = l
+	if m.Metadata != nil {
+		l = m.Metadata.Size()
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if m.Spec != nil {
+		l = m.Spec.Size()
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if m.Status != nil {
+		l = m.Status.Size()
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.Yaml)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			l = len(s)
+			n += 1 + l + sovAgent(uint64(l))
+		}
+	}
+	return n
+}
+
 func (m *ConnectionsTelemetry) Size() (n int) {
 	var l int
 	_ = l
@@ -9902,1248 +10949,6 @@ func (m *ResCollector) Unmarshal(data []byte) error {
 		for shift := uint(0); ; shift += 7 {
 			if shift >= 64 {
 				return ErrIntOverflowAgent
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := data[iNdEx]
-			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: ResCollector: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: ResCollector: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Header", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.Header == nil {
-				m.Header = &ResCollector_Header{}
-			}
-			if err := m.Header.Unmarshal(data[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Message", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Message = string(data[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.Status == nil {
-				m.Status = &CollectorStatus{}
-			}
-			if err := m.Status.Unmarshal(data[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipAgent(data[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if skippy < 0 {
-				return ErrInvalidLengthAgent
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *ResCollector_Header) Unmarshal(data []byte) error {
-	l := len(data)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowAgent
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := data[iNdEx]
-			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: Header: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: Header: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 4:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
-			}
-			m.Type = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				m.Type |= (int32(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		default:
-			iNdEx = preIndex
-			skippy, err := skipAgent(data[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if skippy < 0 {
-				return ErrInvalidLengthAgent
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *CollectorProc) Unmarshal(data []byte) error {
-	l := len(data)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowAgent
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := data[iNdEx]
-			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: CollectorProc: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: CollectorProc: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field HostName", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.HostName = string(data[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Processes", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Processes = append(m.Processes, &Process{})
-			if err := m.Processes[len(m.Processes)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 4:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Host", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.Host == nil {
-				m.Host = &Host{}
-			}
-			if err := m.Host.Unmarshal(data[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 5:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Info", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.Info == nil {
-				m.Info = &SystemInfo{}
-			}
-			if err := m.Info.Unmarshal(data[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 6:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field GroupId", wireType)
-			}
-			m.GroupId = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				m.GroupId |= (int32(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 7:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field GroupSize", wireType)
-			}
-			m.GroupSize = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				m.GroupSize |= (int32(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 8:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Kubernetes", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.Kubernetes == nil {
-				m.Kubernetes = &datadog_agentpayload.KubeMetadataPayload{}
-			}
-			if err := m.Kubernetes.Unmarshal(data[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 9:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Ecs", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.Ecs == nil {
-				m.Ecs = &datadog_agentpayload.ECSMetadataPayload{}
-			}
-			if err := m.Ecs.Unmarshal(data[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 10:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Containers", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Containers = append(m.Containers, &Container{})
-			if err := m.Containers[len(m.Containers)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 11:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field NetworkId", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.NetworkId = string(data[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 12:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ContainerHostType", wireType)
-			}
-			m.ContainerHostType = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				m.ContainerHostType |= (ContainerHostType(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		default:
-			iNdEx = preIndex
-			skippy, err := skipAgent(data[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if skippy < 0 {
-				return ErrInvalidLengthAgent
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *CollectorConnections) Unmarshal(data []byte) error {
-	l := len(data)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowAgent
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := data[iNdEx]
-			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: CollectorConnections: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: CollectorConnections: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field HostName", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.HostName = string(data[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Connections", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Connections = append(m.Connections, &Connection{})
-			if err := m.Connections[len(m.Connections)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 5:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field GroupId", wireType)
-			}
-			m.GroupId = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				m.GroupId |= (int32(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 6:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field GroupSize", wireType)
-			}
-			m.GroupSize = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				m.GroupSize |= (int32(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 7:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ResolvedHosts", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			var keykey uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				keykey |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			var mapkey int64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				mapkey |= (int64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if m.ResolvedHosts == nil {
-				m.ResolvedHosts = make(map[int64]*Host)
-			}
-			if iNdEx < postIndex {
-				var valuekey uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowAgent
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := data[iNdEx]
-					iNdEx++
-					valuekey |= (uint64(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				var mapmsglen int
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowAgent
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := data[iNdEx]
-					iNdEx++
-					mapmsglen |= (int(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				if mapmsglen < 0 {
-					return ErrInvalidLengthAgent
-				}
-				postmsgIndex := iNdEx + mapmsglen
-				if mapmsglen < 0 {
-					return ErrInvalidLengthAgent
-				}
-				if postmsgIndex > l {
-					return io.ErrUnexpectedEOF
-				}
-				mapvalue := &Host{}
-				if err := mapvalue.Unmarshal(data[iNdEx:postmsgIndex]); err != nil {
-					return err
-				}
-				iNdEx = postmsgIndex
-				m.ResolvedHosts[mapkey] = mapvalue
-			} else {
-				var mapvalue *Host
-				m.ResolvedHosts[mapkey] = mapvalue
-			}
-			iNdEx = postIndex
-		case 8:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ResolvedContainers", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			var keykey uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				keykey |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			var stringLenmapkey uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				stringLenmapkey |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLenmapkey := int(stringLenmapkey)
-			if intStringLenmapkey < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postStringIndexmapkey := iNdEx + intStringLenmapkey
-			if postStringIndexmapkey > l {
-				return io.ErrUnexpectedEOF
-			}
-			mapkey := string(data[iNdEx:postStringIndexmapkey])
-			iNdEx = postStringIndexmapkey
-			if m.ResolvedContainers == nil {
-				m.ResolvedContainers = make(map[string]*ContainerMetadata)
-			}
-			if iNdEx < postIndex {
-				var valuekey uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowAgent
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := data[iNdEx]
-					iNdEx++
-					valuekey |= (uint64(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				var mapmsglen int
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowAgent
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := data[iNdEx]
-					iNdEx++
-					mapmsglen |= (int(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				if mapmsglen < 0 {
-					return ErrInvalidLengthAgent
-				}
-				postmsgIndex := iNdEx + mapmsglen
-				if mapmsglen < 0 {
-					return ErrInvalidLengthAgent
-				}
-				if postmsgIndex > l {
-					return io.ErrUnexpectedEOF
-				}
-				mapvalue := &ContainerMetadata{}
-				if err := mapvalue.Unmarshal(data[iNdEx:postmsgIndex]); err != nil {
-					return err
-				}
-				iNdEx = postmsgIndex
-				m.ResolvedContainers[mapkey] = mapvalue
-			} else {
-				var mapvalue *ContainerMetadata
-				m.ResolvedContainers[mapkey] = mapvalue
-			}
-			iNdEx = postIndex
-		case 9:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field HostId", wireType)
-			}
-			m.HostId = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				m.HostId |= (int64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 10:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ContainerForPid", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			var keykey uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				keykey |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			var mapkey int32
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				mapkey |= (int32(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if m.ContainerForPid == nil {
-				m.ContainerForPid = make(map[int32]string)
-			}
-			if iNdEx < postIndex {
-				var valuekey uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowAgent
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := data[iNdEx]
-					iNdEx++
-					valuekey |= (uint64(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				var stringLenmapvalue uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowAgent
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := data[iNdEx]
-					iNdEx++
-					stringLenmapvalue |= (uint64(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				intStringLenmapvalue := int(stringLenmapvalue)
-				if intStringLenmapvalue < 0 {
-					return ErrInvalidLengthAgent
-				}
-				postStringIndexmapvalue := iNdEx + intStringLenmapvalue
-				if postStringIndexmapvalue > l {
-					return io.ErrUnexpectedEOF
-				}
-				mapvalue := string(data[iNdEx:postStringIndexmapvalue])
-				iNdEx = postStringIndexmapvalue
-				m.ContainerForPid[mapkey] = mapvalue
-			} else {
-				var mapvalue string
-				m.ContainerForPid[mapkey] = mapvalue
-			}
-			iNdEx = postIndex
-		case 11:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field EncodedTags", wireType)
-			}
-			var byteLen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				byteLen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if byteLen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + byteLen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.EncodedTags = append(m.EncodedTags[:0], data[iNdEx:postIndex]...)
-			if m.EncodedTags == nil {
-				m.EncodedTags = []byte{}
-			}
-			iNdEx = postIndex
-		case 12:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field NetworkId", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.NetworkId = string(data[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 14:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field EncodedDNS", wireType)
-			}
-			var byteLen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				byteLen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if byteLen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + byteLen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.EncodedDNS = append(m.EncodedDNS[:0], data[iNdEx:postIndex]...)
-			if m.EncodedDNS == nil {
-				m.EncodedDNS = []byte{}
-			}
-			iNdEx = postIndex
-		case 15:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ContainerHostType", wireType)
-			}
-			m.ContainerHostType = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				m.ContainerHostType |= (ContainerHostType(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 16:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ConnTelemetry", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.ConnTelemetry == nil {
-				m.ConnTelemetry = &CollectorConnectionsTelemetry{}
-			}
-			if err := m.ConnTelemetry.Unmarshal(data[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 17:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Architecture", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Architecture = string(data[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 18:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field KernelVersion", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthAgent
 			}
 			postIndex := iNdEx + intStringLen
 			if postIndex > l {
@@ -11391,10 +11196,10 @@ func (m *CollectorConnections) Unmarshal(data []byte) error {
 			}
 			iNdEx = postIndex
 		case 32:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ResolvedRoutes", wireType)
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EphemeralPortRangeStart", wireType)
 			}
-			var msglen int
+			m.EphemeralPortRangeStart = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAgent
@@ -11404,103 +11209,16 @@ func (m *CollectorConnections) Unmarshal(data []byte) error {
 				}
 				b := data[iNdEx]
 				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
+				m.EphemeralPortRangeStart |= (int32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			if msglen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			var keykey uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				keykey |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			var stringLenmapkey uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				stringLenmapkey |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLenmapkey := int(stringLenmapkey)
-			if intStringLenmapkey < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postStringIndexmapkey := iNdEx + intStringLenmapkey
-			if postStringIndexmapkey > l {
-				return io.ErrUnexpectedEOF
-			}
-			mapkey := string(data[iNdEx:postStringIndexmapkey])
-			iNdEx = postStringIndexmapkey
-			if m.ResolvedRoutes == nil {
-				m.ResolvedRoutes = make(map[string]int32)
-			}
-			if iNdEx < postIndex {
-				var valuekey uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowAgent
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := data[iNdEx]
-					iNdEx++
-					valuekey |= (uint64(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				var mapvalue int32
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowAgent
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := data[iNdEx]
-					iNdEx++
-					mapvalue |= (int32(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				m.ResolvedRoutes[mapkey] = mapvalue
-			} else {
-				var mapvalue int32
-				m.ResolvedRoutes[mapkey] = mapvalue
-			}
-			iNdEx = postIndex
 		case 33:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field RouteMetadata", wireType)
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EphemeralPortRangeEnd", wireType)
 			}
-			var msglen int
+			m.EphemeralPortRangeEnd = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAgent
@@ -11510,23 +11228,11 @@ func (m *CollectorConnections) Unmarshal(data []byte) error {
 				}
 				b := data[iNdEx]
 				iNdEx++
-				msglen |= (int(b) & 0x7F) << shift
+				m.EphemeralPortRangeEnd |= (int32(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			if msglen < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postIndex := iNdEx + msglen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.RouteMetadata = append(m.RouteMetadata, &RouteMetadata{})
-			if err := m.RouteMetadata[len(m.RouteMetadata)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAgent(data[iNdEx:])
@@ -12877,11 +12583,11 @@ func (m *CollectorReplicaSet) Unmarshal(data []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 6:
+		case 32:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Tags", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ResolvedRoutes", wireType)
 			}
-			var stringLen uint64
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAgent
@@ -12891,20 +12597,128 @@ func (m *CollectorReplicaSet) Unmarshal(data []byte) error {
 				}
 				b := data[iNdEx]
 				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
+				msglen |= (int(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if msglen < 0 {
 				return ErrInvalidLengthAgent
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + msglen
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Tags = append(m.Tags, string(data[iNdEx:postIndex]))
+			var keykey uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				keykey |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			var stringLenmapkey uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLenmapkey |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLenmapkey := int(stringLenmapkey)
+			if intStringLenmapkey < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postStringIndexmapkey := iNdEx + intStringLenmapkey
+			if postStringIndexmapkey > l {
+				return io.ErrUnexpectedEOF
+			}
+			mapkey := string(data[iNdEx:postStringIndexmapkey])
+			iNdEx = postStringIndexmapkey
+			if m.ResolvedRoutes == nil {
+				m.ResolvedRoutes = make(map[string]int32)
+			}
+			if iNdEx < postIndex {
+				var valuekey uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowAgent
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := data[iNdEx]
+					iNdEx++
+					valuekey |= (uint64(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				var mapvalue int32
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowAgent
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := data[iNdEx]
+					iNdEx++
+					mapvalue |= (int32(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				m.ResolvedRoutes[mapkey] = mapvalue
+			} else {
+				var mapvalue int32
+				m.ResolvedRoutes[mapkey] = mapvalue
+			}
+			iNdEx = postIndex
+		case 33:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RouteMetadata", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.RouteMetadata = append(m.RouteMetadata, &RouteMetadata{})
+			if err := m.RouteMetadata[len(m.RouteMetadata)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -13908,6 +13722,418 @@ func (m *CollectorManifest) Unmarshal(data []byte) error {
 			if err := m.Manifests[len(m.Manifests)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
 				return err
 			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CollectorJob) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CollectorJob: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CollectorJob: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ClusterName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ClusterName = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ClusterId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ClusterId = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GroupId", wireType)
+			}
+			m.GroupId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.GroupId |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GroupSize", wireType)
+			}
+			m.GroupSize = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.GroupSize |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Jobs", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Jobs = append(m.Jobs, &Job{})
+			if err := m.Jobs[len(m.Jobs)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tags", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Tags = append(m.Tags, string(data[iNdEx:postIndex]))
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CollectorCronJob) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CollectorCronJob: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CollectorCronJob: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ClusterName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ClusterName = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ClusterId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ClusterId = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GroupId", wireType)
+			}
+			m.GroupId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.GroupId |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GroupSize", wireType)
+			}
+			m.GroupSize = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.GroupSize |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CronJobs", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CronJobs = append(m.CronJobs, &CronJob{})
+			if err := m.CronJobs[len(m.CronJobs)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tags", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Tags = append(m.Tags, string(data[iNdEx:postIndex]))
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -18573,6 +18799,44 @@ func (m *Connection) Unmarshal(data []byte) error {
 				m.HttpAggregations = []byte{}
 			}
 			iNdEx = postIndex
+		case 38:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastPacketsSent", wireType)
+			}
+			m.LastPacketsSent = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.LastPacketsSent |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 39:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastPacketsReceived", wireType)
+			}
+			m.LastPacketsReceived = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.LastPacketsReceived |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAgent(data[iNdEx:])
@@ -21410,6 +21674,259 @@ func (m *OwnerReference) Unmarshal(data []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Kind = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *ObjectReference) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ObjectReference: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ObjectReference: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Kind", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Kind = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Namespace", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Namespace = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Uid", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Uid = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ApiVersion", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ApiVersion = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ResourceVersion", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ResourceVersion = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FieldPath", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.FieldPath = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -25937,6 +26454,1060 @@ func (m *ResourceRequirements) Unmarshal(data []byte) error {
 					break
 				}
 			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *JobSpec) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: JobSpec: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: JobSpec: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Parallelism", wireType)
+			}
+			m.Parallelism = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.Parallelism |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Completions", wireType)
+			}
+			m.Completions = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.Completions |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ActiveDeadlineSeconds", wireType)
+			}
+			m.ActiveDeadlineSeconds = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.ActiveDeadlineSeconds |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BackoffLimit", wireType)
+			}
+			m.BackoffLimit = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.BackoffLimit |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Selectors", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Selectors = append(m.Selectors, &LabelSelectorRequirement{})
+			if err := m.Selectors[len(m.Selectors)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ManualSelector", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				v |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.ManualSelector = bool(v != 0)
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *JobStatus) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: JobStatus: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: JobStatus: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ConditionMessage", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ConditionMessage = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field StartTime", wireType)
+			}
+			m.StartTime = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.StartTime |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CompletionTime", wireType)
+			}
+			m.CompletionTime = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.CompletionTime |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Active", wireType)
+			}
+			m.Active = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.Active |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Succeeded", wireType)
+			}
+			m.Succeeded = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.Succeeded |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Failed", wireType)
+			}
+			m.Failed = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.Failed |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *Job) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Job: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Job: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Metadata", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Metadata == nil {
+				m.Metadata = &Metadata{}
+			}
+			if err := m.Metadata.Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Spec", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Spec == nil {
+				m.Spec = &JobSpec{}
+			}
+			if err := m.Spec.Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Status == nil {
+				m.Status = &JobStatus{}
+			}
+			if err := m.Status.Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Yaml", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				byteLen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Yaml = append(m.Yaml[:0], data[iNdEx:postIndex]...)
+			if m.Yaml == nil {
+				m.Yaml = []byte{}
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tags", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Tags = append(m.Tags, string(data[iNdEx:postIndex]))
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CronJobSpec) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CronJobSpec: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CronJobSpec: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Schedule", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Schedule = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field StartingDeadlineSeconds", wireType)
+			}
+			m.StartingDeadlineSeconds = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.StartingDeadlineSeconds |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ConcurrencyPolicy", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ConcurrencyPolicy = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Suspend", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				v |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.Suspend = bool(v != 0)
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SuccessfulJobsHistoryLimit", wireType)
+			}
+			m.SuccessfulJobsHistoryLimit = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.SuccessfulJobsHistoryLimit |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FailedJobsHistoryLimit", wireType)
+			}
+			m.FailedJobsHistoryLimit = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.FailedJobsHistoryLimit |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CronJobStatus) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CronJobStatus: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CronJobStatus: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Active", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Active = append(m.Active, &ObjectReference{})
+			if err := m.Active[len(m.Active)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastScheduleTime", wireType)
+			}
+			m.LastScheduleTime = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.LastScheduleTime |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CronJob) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CronJob: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CronJob: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Metadata", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Metadata == nil {
+				m.Metadata = &Metadata{}
+			}
+			if err := m.Metadata.Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Spec", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Spec == nil {
+				m.Spec = &CronJobSpec{}
+			}
+			if err := m.Spec.Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Status == nil {
+				m.Status = &CronJobStatus{}
+			}
+			if err := m.Status.Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Yaml", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				byteLen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Yaml = append(m.Yaml[:0], data[iNdEx:postIndex]...)
+			if m.Yaml == nil {
+				m.Yaml = []byte{}
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tags", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Tags = append(m.Tags, string(data[iNdEx:postIndex]))
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAgent(data[iNdEx:])

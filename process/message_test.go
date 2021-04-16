@@ -44,6 +44,8 @@ func TestMessageTypeString(t *testing.T) {
 		TypeCollectorNode:              "node",
 		TypeCollectorCluster:           "cluster",
 		TypeCollectorManifest:          "manifest",
+		TypeCollectorJob:               "job",
+		TypeCollectorCronJob:           "cron-job",
 		TypeResCollector:               "23",
 	}
 	for input, expected := range cases {
