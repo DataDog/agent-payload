@@ -2,6 +2,9 @@ syntax = "proto3";
 
 package network_devices;
 
+// Network Devices Agent payload have similar content the ones defined in
+// https://github.com/DataDog/dd-go/blob/prod/network-devices/common/document/document.go
+
 option go_package = "github.com/DataDog/agent-payload/network-devices";
 
 message Device {
