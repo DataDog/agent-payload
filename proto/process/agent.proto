@@ -98,8 +98,8 @@ message CollectorConnections {
 
 	repeated Route routes = 31;
 
-        map<string, int32> resolvedRoutes = 34;
-        repeated RouteMetadata routeMetadata = 35;
+	map<string, int32> resolvedRoutes = 34;
+	repeated RouteMetadata routeMetadata = 35;
 }
 
 message CollectorRealTime {
