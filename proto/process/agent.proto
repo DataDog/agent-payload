@@ -51,6 +51,8 @@ message CollectorProc {
 
 message CollectorConnections {
 	reserved 1, 4, 13;
+	// Please update when adding fields
+	// next identifier:  34
 
 	string hostName = 2;
 	string networkId = 12;
@@ -84,6 +86,10 @@ message CollectorConnections {
 	string kernelVersion = 18;
 	string platform = 19;
 	string platformVersion = 20;
+
+	// host configuration, ephemeral port range
+	int32 ephemeralPortRangeStart = 32;
+	int32 ephemeralPortRangeEnd = 33;
 
 	map<string, RuntimeCompilationTelemetry> compilationTelemetryByAsset = 21;
 
@@ -482,6 +488,9 @@ enum ConnectionDirection {
 
 message Connection {
 	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 35;
+    // Please update when adding fields
+	// next identifier:  40
+
 
 	int32 pid = 1;
 	Addr laddr = 5; // Local address
@@ -495,6 +504,8 @@ message Connection {
 	uint64 lastBytesReceived = 17;
 	uint32 lastRetransmits = 18;
 	ConnectionDirection direction = 19;
+	uint64 lastPacketsSent = 38;
+	uint64 lastPacketsReceived = 39;
 
 	// Network namespace
 	uint32 netNS = 20;
