@@ -52,7 +52,7 @@ message CollectorProc {
 message CollectorConnections {
 	reserved 1, 4, 13;
 	// Please update when adding fields
-	// next identifier:  34
+	// next identifier:  36
 
 	string hostName = 2;
 	string networkId = 12;
@@ -98,8 +98,8 @@ message CollectorConnections {
 
 	repeated Route routes = 31;
 
-        map<string, int32> resolvedRoutes = 32;
-        repeated RouteMetadata routeMetadata = 33;
+        map<string, int32> resolvedRoutes = 34;
+        repeated RouteMetadata routeMetadata = 35;
 }
 
 message CollectorRealTime {
