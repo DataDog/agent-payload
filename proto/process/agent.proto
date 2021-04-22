@@ -984,7 +984,7 @@ message ConnectionsTelemetry {
 	int64 monotonicUdpSendsProcessed = 8;
 	int64 monotonicUdpSendsMissed = 9;
 	int64 conntrackSamplingPercent = 10;
-	int64 monotonicDnsStatsDropped = 11;
+	int64 dnsStatsDropped = 11;
 }
 
 message CollectorConnectionsTelemetry {
