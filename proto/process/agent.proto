@@ -52,7 +52,7 @@ message CollectorProc {
 message CollectorConnections {
 	reserved 1, 4, 13;
 	// Please update when adding fields
-	// next identifier:  34
+	// next identifier:  35
 
 	string hostName = 2;
 	string networkId = 12;
@@ -97,6 +97,8 @@ message CollectorConnections {
 	repeated string domains = 30;
 
 	repeated Route routes = 31;
+
+	repeated RouteMetadata routeMetadata = 34;
 }
 
 message CollectorRealTime {
@@ -506,8 +508,8 @@ enum ConnectionDirection {
 
 message Connection {
 	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 35;
-    // Please update when adding fields
-	// next identifier:  40
+    	// Please update when adding fields
+	// next identifier:  41
 
 
 	int32 pid = 1;
@@ -555,8 +557,10 @@ message Connection {
 	map<int32, DNSStats> dnsStatsByDomain = 34;
 
 	int32 routeIdx = 36;
+    	// the index of the resolved target of the route (post-resolution field)
+    	int32 routeTargetIdx = 40;
 
-    // serialized HTTPAggregations object summarizing all http transactions recorded for this connection, organized by request path
+    	// serialized HTTPAggregations object summarizing all http transactions recorded for this connection, organized by request path
 	bytes httpAggregations = 37;
 }
 
@@ -1046,4 +1050,10 @@ message RuntimeCompilationTelemetry {
 	bool runtimeCompilationEnabled = 1;
 	RuntimeCompilationResult runtimeCompilationResult = 2;
 	int64 runtimeCompilationDuration = 3;
+}
+
+message RouteMetadata {
+    string alias = 1;
+    int32 tagIndex = 2;
+    int64 tagsModified = 3;
 }
