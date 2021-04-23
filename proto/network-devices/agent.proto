@@ -11,9 +11,9 @@ message Device {
   string id = 1;
   string name = 2;
   string description = 3;
-  string ip_address = 4;
-  string autodiscovery_subnet = 5;
-  string sysobjectid = 6;
+  string ipAddress = 4;
+  string autodiscoverySubnet = 5;
+  string sysObjectId = 6;
   string profile = 7;
   string vendor = 8;
   repeated string tags = 9;
@@ -25,5 +25,5 @@ message Interface {
   string name = 2;
   string alias = 3;
   string description = 4;
-  string mac_address = 5;
+  string macAddress = 5;
 }
