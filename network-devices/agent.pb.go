@@ -9,6 +9,7 @@
 
 	It has these top-level messages:
 		Device
+		Interface
 */
 package network_devices
 
@@ -30,11 +31,16 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
 
 type Device struct {
-	Uid         string `protobuf:"bytes,1,opt,name=uid,proto3" json:"uid,omitempty"`
-	Name        string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	SysObjectId string `protobuf:"bytes,3,opt,name=sysObjectId,proto3" json:"sysObjectId,omitempty"`
-	Model       string `protobuf:"bytes,4,opt,name=model,proto3" json:"model,omitempty"`
-	Vendor      string `protobuf:"bytes,5,opt,name=vendor,proto3" json:"vendor,omitempty"`
+	Id                  string       `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                string       `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Description         string       `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	IpAddress           string       `protobuf:"bytes,4,opt,name=ip_address,json=ipAddress,proto3" json:"ip_address,omitempty"`
+	AutodiscoverySubnet string       `protobuf:"bytes,5,opt,name=autodiscovery_subnet,json=autodiscoverySubnet,proto3" json:"autodiscovery_subnet,omitempty"`
+	Sysobjectid         string       `protobuf:"bytes,6,opt,name=sysobjectid,proto3" json:"sysobjectid,omitempty"`
+	Profile             string       `protobuf:"bytes,7,opt,name=profile,proto3" json:"profile,omitempty"`
+	Vendor              string       `protobuf:"bytes,8,opt,name=vendor,proto3" json:"vendor,omitempty"`
+	Tags                []string     `protobuf:"bytes,9,rep,name=tags" json:"tags,omitempty"`
+	Interfaces          []*Interface `protobuf:"bytes,10,rep,name=interfaces" json:"interfaces,omitempty"`
 }
 
 func (m *Device) Reset()                    { *m = Device{} }
@@ -42,9 +48,9 @@ func (m *Device) String() string            { return proto.CompactTextString(m) 
 func (*Device) ProtoMessage()               {}
 func (*Device) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{0} }
 
-func (m *Device) GetUid() string {
+func (m *Device) GetId() string {
 	if m != nil {
-		return m.Uid
+		return m.Id
 	}
 	return ""
 }
@@ -56,16 +62,37 @@ func (m *Device) GetName() string {
 	return ""
 }
 
-func (m *Device) GetSysObjectId() string {
+func (m *Device) GetDescription() string {
 	if m != nil {
-		return m.SysObjectId
+		return m.Description
 	}
 	return ""
 }
 
-func (m *Device) GetModel() string {
+func (m *Device) GetIpAddress() string {
 	if m != nil {
-		return m.Model
+		return m.IpAddress
+	}
+	return ""
+}
+
+func (m *Device) GetAutodiscoverySubnet() string {
+	if m != nil {
+		return m.AutodiscoverySubnet
+	}
+	return ""
+}
+
+func (m *Device) GetSysobjectid() string {
+	if m != nil {
+		return m.Sysobjectid
+	}
+	return ""
+}
+
+func (m *Device) GetProfile() string {
+	if m != nil {
+		return m.Profile
 	}
 	return ""
 }
@@ -77,8 +104,71 @@ func (m *Device) GetVendor() string {
 	return ""
 }
 
+func (m *Device) GetTags() []string {
+	if m != nil {
+		return m.Tags
+	}
+	return nil
+}
+
+func (m *Device) GetInterfaces() []*Interface {
+	if m != nil {
+		return m.Interfaces
+	}
+	return nil
+}
+
+type Interface struct {
+	Index       int32  `protobuf:"varint,1,opt,name=index,proto3" json:"index,omitempty"`
+	Name        string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Alias       string `protobuf:"bytes,3,opt,name=alias,proto3" json:"alias,omitempty"`
+	Description string `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	MacAddress  string `protobuf:"bytes,5,opt,name=mac_address,json=macAddress,proto3" json:"mac_address,omitempty"`
+}
+
+func (m *Interface) Reset()                    { *m = Interface{} }
+func (m *Interface) String() string            { return proto.CompactTextString(m) }
+func (*Interface) ProtoMessage()               {}
+func (*Interface) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{1} }
+
+func (m *Interface) GetIndex() int32 {
+	if m != nil {
+		return m.Index
+	}
+	return 0
+}
+
+func (m *Interface) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Interface) GetAlias() string {
+	if m != nil {
+		return m.Alias
+	}
+	return ""
+}
+
+func (m *Interface) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *Interface) GetMacAddress() string {
+	if m != nil {
+		return m.MacAddress
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*Device)(nil), "network_devices.Device")
+	proto.RegisterType((*Interface)(nil), "network_devices.Interface")
 }
 func (m *Device) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
@@ -95,11 +185,11 @@ func (m *Device) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.Uid) > 0 {
+	if len(m.Id) > 0 {
 		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAgent(dAtA, i, uint64(len(m.Uid)))
-		i += copy(dAtA[i:], m.Uid)
+		i = encodeVarintAgent(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
 	}
 	if len(m.Name) > 0 {
 		dAtA[i] = 0x12
@@ -107,23 +197,115 @@ func (m *Device) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintAgent(dAtA, i, uint64(len(m.Name)))
 		i += copy(dAtA[i:], m.Name)
 	}
-	if len(m.SysObjectId) > 0 {
+	if len(m.Description) > 0 {
 		dAtA[i] = 0x1a
 		i++
-		i = encodeVarintAgent(dAtA, i, uint64(len(m.SysObjectId)))
-		i += copy(dAtA[i:], m.SysObjectId)
+		i = encodeVarintAgent(dAtA, i, uint64(len(m.Description)))
+		i += copy(dAtA[i:], m.Description)
 	}
-	if len(m.Model) > 0 {
+	if len(m.IpAddress) > 0 {
 		dAtA[i] = 0x22
 		i++
-		i = encodeVarintAgent(dAtA, i, uint64(len(m.Model)))
-		i += copy(dAtA[i:], m.Model)
+		i = encodeVarintAgent(dAtA, i, uint64(len(m.IpAddress)))
+		i += copy(dAtA[i:], m.IpAddress)
+	}
+	if len(m.AutodiscoverySubnet) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintAgent(dAtA, i, uint64(len(m.AutodiscoverySubnet)))
+		i += copy(dAtA[i:], m.AutodiscoverySubnet)
+	}
+	if len(m.Sysobjectid) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintAgent(dAtA, i, uint64(len(m.Sysobjectid)))
+		i += copy(dAtA[i:], m.Sysobjectid)
+	}
+	if len(m.Profile) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintAgent(dAtA, i, uint64(len(m.Profile)))
+		i += copy(dAtA[i:], m.Profile)
 	}
 	if len(m.Vendor) > 0 {
-		dAtA[i] = 0x2a
+		dAtA[i] = 0x42
 		i++
 		i = encodeVarintAgent(dAtA, i, uint64(len(m.Vendor)))
 		i += copy(dAtA[i:], m.Vendor)
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			dAtA[i] = 0x4a
+			i++
+			l = len(s)
+			for l >= 1<<7 {
+				dAtA[i] = uint8(uint64(l)&0x7f | 0x80)
+				l >>= 7
+				i++
+			}
+			dAtA[i] = uint8(l)
+			i++
+			i += copy(dAtA[i:], s)
+		}
+	}
+	if len(m.Interfaces) > 0 {
+		for _, msg := range m.Interfaces {
+			dAtA[i] = 0x52
+			i++
+			i = encodeVarintAgent(dAtA, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(dAtA[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	return i, nil
+}
+
+func (m *Interface) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *Interface) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Index != 0 {
+		dAtA[i] = 0x8
+		i++
+		i = encodeVarintAgent(dAtA, i, uint64(m.Index))
+	}
+	if len(m.Name) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintAgent(dAtA, i, uint64(len(m.Name)))
+		i += copy(dAtA[i:], m.Name)
+	}
+	if len(m.Alias) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintAgent(dAtA, i, uint64(len(m.Alias)))
+		i += copy(dAtA[i:], m.Alias)
+	}
+	if len(m.Description) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintAgent(dAtA, i, uint64(len(m.Description)))
+		i += copy(dAtA[i:], m.Description)
+	}
+	if len(m.MacAddress) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintAgent(dAtA, i, uint64(len(m.MacAddress)))
+		i += copy(dAtA[i:], m.MacAddress)
 	}
 	return i, nil
 }
@@ -140,7 +322,7 @@ func encodeVarintAgent(dAtA []byte, offset int, v uint64) int {
 func (m *Device) Size() (n int) {
 	var l int
 	_ = l
-	l = len(m.Uid)
+	l = len(m.Id)
 	if l > 0 {
 		n += 1 + l + sovAgent(uint64(l))
 	}
@@ -148,15 +330,64 @@ func (m *Device) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovAgent(uint64(l))
 	}
-	l = len(m.SysObjectId)
+	l = len(m.Description)
 	if l > 0 {
 		n += 1 + l + sovAgent(uint64(l))
 	}
-	l = len(m.Model)
+	l = len(m.IpAddress)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.AutodiscoverySubnet)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.Sysobjectid)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.Profile)
 	if l > 0 {
 		n += 1 + l + sovAgent(uint64(l))
 	}
 	l = len(m.Vendor)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			l = len(s)
+			n += 1 + l + sovAgent(uint64(l))
+		}
+	}
+	if len(m.Interfaces) > 0 {
+		for _, e := range m.Interfaces {
+			l = e.Size()
+			n += 1 + l + sovAgent(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *Interface) Size() (n int) {
+	var l int
+	_ = l
+	if m.Index != 0 {
+		n += 1 + sovAgent(uint64(m.Index))
+	}
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.Alias)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.MacAddress)
 	if l > 0 {
 		n += 1 + l + sovAgent(uint64(l))
 	}
@@ -207,7 +438,7 @@ func (m *Device) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Uid", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -232,7 +463,7 @@ func (m *Device) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Uid = string(dAtA[iNdEx:postIndex])
+			m.Id = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
@@ -265,7 +496,7 @@ func (m *Device) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field SysObjectId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -290,11 +521,11 @@ func (m *Device) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.SysObjectId = string(dAtA[iNdEx:postIndex])
+			m.Description = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Model", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field IpAddress", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -319,9 +550,96 @@ func (m *Device) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Model = string(dAtA[iNdEx:postIndex])
+			m.IpAddress = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AutodiscoverySubnet", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.AutodiscoverySubnet = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Sysobjectid", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Sysobjectid = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Profile", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Profile = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Vendor", wireType)
 			}
@@ -349,6 +667,251 @@ func (m *Device) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Vendor = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tags", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Tags = append(m.Tags, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Interfaces", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Interfaces = append(m.Interfaces, &Interface{})
+			if err := m.Interfaces[len(m.Interfaces)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *Interface) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Interface: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Interface: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Index", wireType)
+			}
+			m.Index = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Index |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Alias", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Alias = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MacAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MacAddress = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -479,18 +1042,28 @@ var (
 func init() { proto.RegisterFile("proto/network-devices/agent.proto", fileDescriptorAgent) }
 
 var fileDescriptorAgent = []byte{
-	// 203 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x2c, 0x28, 0xca, 0x2f,
-	0xc9, 0xd7, 0xcf, 0x4b, 0x2d, 0x29, 0xcf, 0x2f, 0xca, 0xd6, 0x4d, 0x49, 0x2d, 0xcb, 0x4c, 0x4e,
-	0x2d, 0xd6, 0x4f, 0x4c, 0x4f, 0xcd, 0x2b, 0xd1, 0x03, 0xcb, 0x09, 0xf1, 0x43, 0x25, 0xe3, 0xa1,
-	0x92, 0x4a, 0x75, 0x5c, 0x6c, 0x2e, 0x60, 0xa6, 0x90, 0x00, 0x17, 0x73, 0x69, 0x66, 0x8a, 0x04,
-	0xa3, 0x02, 0xa3, 0x06, 0x67, 0x10, 0x88, 0x29, 0x24, 0xc4, 0xc5, 0x92, 0x97, 0x98, 0x9b, 0x2a,
-	0xc1, 0x04, 0x16, 0x02, 0xb3, 0x85, 0x14, 0xb8, 0xb8, 0x8b, 0x2b, 0x8b, 0xfd, 0x93, 0xb2, 0x52,
-	0x93, 0x4b, 0x3c, 0x53, 0x24, 0x98, 0xc1, 0x52, 0xc8, 0x42, 0x42, 0x22, 0x5c, 0xac, 0xb9, 0xf9,
-	0x29, 0xa9, 0x39, 0x12, 0x2c, 0x60, 0x39, 0x08, 0x47, 0x48, 0x8c, 0x8b, 0xad, 0x2c, 0x35, 0x2f,
-	0x25, 0xbf, 0x48, 0x82, 0x15, 0x2c, 0x0c, 0xe5, 0x39, 0xd9, 0x9d, 0x78, 0x24, 0xc7, 0x78, 0xe1,
-	0x91, 0x1c, 0xe3, 0x83, 0x47, 0x72, 0x8c, 0x51, 0x06, 0xe9, 0x99, 0x25, 0x19, 0xa5, 0x49, 0x7a,
-	0xc9, 0xf9, 0xb9, 0xfa, 0x2e, 0x89, 0x25, 0x89, 0x2e, 0xf9, 0xe9, 0x10, 0xe7, 0xeb, 0x16, 0x24,
-	0x56, 0xe6, 0xe4, 0x27, 0xa6, 0xa0, 0x7b, 0x2e, 0x89, 0x0d, 0xec, 0x2f, 0x63, 0x40, 0x00, 0x00,
-	0x00, 0xff, 0xff, 0x17, 0xe7, 0x74, 0x70, 0xfc, 0x00, 0x00, 0x00,
+	// 361 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x6c, 0x92, 0xbd, 0x4e, 0xc3, 0x30,
+	0x14, 0x85, 0x95, 0xb4, 0x49, 0xc9, 0xad, 0x04, 0x92, 0xa9, 0x90, 0x85, 0x44, 0x09, 0x9d, 0xba,
+	0x34, 0xe5, 0x67, 0x63, 0x40, 0x02, 0x75, 0x61, 0x2d, 0x1b, 0x4b, 0xe5, 0xd8, 0x6e, 0x30, 0x34,
+	0x76, 0x64, 0xbb, 0x85, 0xbe, 0x04, 0x4f, 0xc5, 0xc0, 0xc8, 0x23, 0xa0, 0x3e, 0x09, 0x8a, 0x93,
+	0x56, 0xa5, 0xb0, 0xdd, 0x7b, 0xbe, 0x23, 0x59, 0xfe, 0x74, 0xe1, 0xac, 0xd0, 0xca, 0xaa, 0xa1,
+	0xe4, 0xf6, 0x55, 0xe9, 0x97, 0x01, 0xe3, 0x0b, 0x41, 0xb9, 0x19, 0x92, 0x8c, 0x4b, 0x9b, 0x38,
+	0x86, 0x0e, 0x6a, 0x38, 0xa9, 0x61, 0xef, 0xc3, 0x87, 0x70, 0xe4, 0x66, 0xb4, 0x0f, 0xbe, 0x60,
+	0xd8, 0x8b, 0xbd, 0x7e, 0x34, 0xf6, 0x05, 0x43, 0x08, 0x9a, 0x92, 0xe4, 0x1c, 0xfb, 0x2e, 0x71,
+	0x33, 0x8a, 0xa1, 0xcd, 0xb8, 0xa1, 0x5a, 0x14, 0x56, 0x28, 0x89, 0x1b, 0x0e, 0x6d, 0x47, 0xe8,
+	0x04, 0x40, 0x14, 0x13, 0xc2, 0x98, 0xe6, 0xc6, 0xe0, 0xa6, 0x2b, 0x44, 0xa2, 0xb8, 0xad, 0x02,
+	0x74, 0x01, 0x1d, 0x32, 0xb7, 0x8a, 0x09, 0x43, 0xd5, 0x82, 0xeb, 0xe5, 0xc4, 0xcc, 0x53, 0xc9,
+	0x2d, 0x0e, 0x5c, 0xf1, 0xf0, 0x17, 0x7b, 0x70, 0xa8, 0x7c, 0xd3, 0x2c, 0x8d, 0x4a, 0x9f, 0x39,
+	0xb5, 0x82, 0xe1, 0xb0, 0x7a, 0x73, 0x2b, 0x42, 0x18, 0x5a, 0x85, 0x56, 0x53, 0x31, 0xe3, 0xb8,
+	0xe5, 0xe8, 0x7a, 0x45, 0x47, 0x10, 0x2e, 0xb8, 0x64, 0x4a, 0xe3, 0x3d, 0x07, 0xea, 0xad, 0xfc,
+	0x9b, 0x25, 0x99, 0xc1, 0x51, 0xdc, 0x28, 0xff, 0x56, 0xce, 0xe8, 0x1a, 0x40, 0x48, 0xcb, 0xf5,
+	0x94, 0x50, 0x6e, 0x30, 0xc4, 0x8d, 0x7e, 0xfb, 0xf2, 0x38, 0xd9, 0x11, 0x96, 0xdc, 0xaf, 0x2b,
+	0xe3, 0xad, 0x76, 0xef, 0xdd, 0x83, 0x68, 0x43, 0x50, 0x07, 0x02, 0x21, 0x19, 0x7f, 0x73, 0x32,
+	0x83, 0x71, 0xb5, 0xfc, 0xeb, 0xb3, 0x03, 0x01, 0x99, 0x09, 0x62, 0x6a, 0x93, 0xd5, 0xb2, 0x6b,
+	0xb9, 0xf9, 0xd7, 0xf2, 0x29, 0xb4, 0x73, 0x42, 0x37, 0x9a, 0x2b, 0x7b, 0x90, 0x13, 0x5a, 0x7b,
+	0xbe, 0xbb, 0xf9, 0x5c, 0x75, 0xbd, 0xaf, 0x55, 0xd7, 0xfb, 0x5e, 0x75, 0xbd, 0xc7, 0xf3, 0x4c,
+	0xd8, 0xa7, 0x79, 0x9a, 0x50, 0x95, 0x0f, 0x47, 0xc4, 0x92, 0x91, 0xca, 0xaa, 0xb3, 0x18, 0x14,
+	0x64, 0x39, 0x53, 0x84, 0xed, 0x1e, 0x4d, 0x1a, 0xba, 0x7b, 0xb9, 0xfa, 0x09, 0x00, 0x00, 0xff,
+	0xff, 0x27, 0xe9, 0x04, 0x80, 0x54, 0x02, 0x00, 0x00,
 }
