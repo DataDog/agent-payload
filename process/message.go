@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
+	ndmodel "github.com/DataDog/agent-payload/network-devices"
 	"reflect"
 	"strconv"
 
@@ -88,6 +89,7 @@ const (
 	TypeCollectorCluster           = 46
 	TypeCollectorJob               = 47
 	TypeCollectorCronJob           = 48
+	TypeNetworkDevice              = 49
 	TypeCollectorManifest          = 80
 )
 
@@ -121,6 +123,8 @@ func (m MessageType) String() string {
 		return "cron-job"
 	case TypeCollectorManifest:
 		return "manifest"
+	case TypeNetworkDevice:
+		return "network-device"
 	default:
 		// otherwise convert the type identifier
 		return strconv.Itoa(int(m))
@@ -181,6 +185,8 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorJob{}
 	case TypeCollectorCronJob:
 		m = &CollectorCronJob{}
+	case TypeNetworkDevice:
+		m = &ndmodel.Device{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -224,6 +230,8 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorJob
 	case *CollectorCronJob:
 		t = TypeCollectorCronJob
+	case *ndmodel.Device:
+		t = TypeNetworkDevice
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}
