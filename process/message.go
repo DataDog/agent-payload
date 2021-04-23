@@ -86,6 +86,8 @@ const (
 	TypeCollectorService           = 44
 	TypeCollectorNode              = 45
 	TypeCollectorCluster           = 46
+	TypeCollectorJob               = 47
+	TypeCollectorCronJob           = 48
 	TypeCollectorManifest          = 80
 )
 
@@ -113,6 +115,10 @@ func (m MessageType) String() string {
 		return "node"
 	case TypeCollectorCluster:
 		return "cluster"
+	case TypeCollectorJob:
+		return "job"
+	case TypeCollectorCronJob:
+		return "cron-job"
 	case TypeCollectorManifest:
 		return "manifest"
 	default:
@@ -171,6 +177,10 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorCluster{}
 	case TypeCollectorManifest:
 		m = &CollectorManifest{}
+	case TypeCollectorJob:
+		m = &CollectorJob{}
+	case TypeCollectorCronJob:
+		m = &CollectorCronJob{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -210,6 +220,10 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorManifest
 	case *CollectorCluster:
 		t = TypeCollectorCluster
+	case *CollectorJob:
+		t = TypeCollectorJob
+	case *CollectorCronJob:
+		t = TypeCollectorCronJob
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}

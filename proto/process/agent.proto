@@ -51,6 +51,8 @@ message CollectorProc {
 
 message CollectorConnections {
 	reserved 1, 4, 13;
+	// Please update when adding fields
+	// next identifier:  35
 
 	string hostName = 2;
 	string networkId = 12;
@@ -85,12 +87,18 @@ message CollectorConnections {
 	string platform = 19;
 	string platformVersion = 20;
 
+	// host configuration, ephemeral port range
+	int32 ephemeralPortRangeStart = 32;
+	int32 ephemeralPortRangeEnd = 33;
+
 	map<string, RuntimeCompilationTelemetry> compilationTelemetryByAsset = 21;
 
 	// All queried DNS domains for which we have collected stats
 	repeated string domains = 30;
 
 	repeated Route routes = 31;
+
+	repeated RouteMetadata routeMetadata = 34;
 }
 
 message CollectorRealTime {
@@ -212,6 +220,24 @@ message CollectorManifest {
 	repeated Manifest manifests = 5;
 }
 
+message CollectorJob {
+    string clusterName = 1;
+    string clusterId = 2;
+    int32 groupId = 3;
+    int32 groupSize = 4;
+    repeated Job jobs = 5;
+    repeated string tags = 6;
+}
+
+message CollectorCronJob {
+    string clusterName = 1;
+    string clusterId = 2;
+    int32 groupId = 3;
+    int32 groupSize = 4;
+    repeated CronJob cronJobs = 5;
+    repeated string tags = 6;
+}
+
 //
 // Models
 //
@@ -243,6 +269,7 @@ message Process {
 	uint64 involuntaryCtxSwitches = 17;
 	bytes byteKey = 18;
 	bytes containerByteKey = 19;
+	ProcessNetworks networks = 21;
 }
 
 message Command {
@@ -263,6 +290,12 @@ message ProcessUser {
 	int32 egid = 5;
 	int32 suid = 6;
 	int32 sgid = 7;
+}
+
+// ProcessNetworks is a structure that holds network related metrics for processes
+message ProcessNetworks {
+	float connectionRate = 1;
+	float bytesRate = 2;
 }
 
 // status section in https://docs.docker.com/engine/api/v1.29/#tag/Container
@@ -356,6 +389,7 @@ message ProcessStat {
 	ContainerState containerState = 11; // DEPRECATED
 	ProcessState processState = 12;
 	IOStat ioStat = 19;
+	ProcessNetworks networks  = 28;
 
 	// DEPRECATED: All container-level stats (except ID) have moved into ContainerStat.
 	// These will be removed in the future.
@@ -474,6 +508,9 @@ enum ConnectionDirection {
 
 message Connection {
 	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 35;
+    	// Please update when adding fields
+	// next identifier:  41
+
 
 	int32 pid = 1;
 	Addr laddr = 5; // Local address
@@ -487,6 +524,8 @@ message Connection {
 	uint64 lastBytesReceived = 17;
 	uint32 lastRetransmits = 18;
 	ConnectionDirection direction = 19;
+	uint64 lastPacketsSent = 38;
+	uint64 lastPacketsReceived = 39;
 
 	// Network namespace
 	uint32 netNS = 20;
@@ -518,8 +557,10 @@ message Connection {
 	map<int32, DNSStats> dnsStatsByDomain = 34;
 
 	int32 routeIdx = 36;
+    	// the index of the resolved target of the route (post-resolution field)
+    	int32 routeTargetIdx = 40;
 
-    // serialized HTTPAggregations object summarizing all http transactions recorded for this connection, organized by request path
+    	// serialized HTTPAggregations object summarizing all http transactions recorded for this connection, organized by request path
 	bytes httpAggregations = 37;
 }
 
@@ -649,6 +690,17 @@ message OwnerReference {
 	string name = 1;
 	string uid = 2;
 	string kind = 3;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/pkg/apis/core/types.go#L4317
+message ObjectReference {
+    string kind = 1;
+    string namespace = 2;
+    string name = 3;
+    string uid = 4;
+    string apiVersion = 5;
+    string resourceVersion = 6;
+    string fieldPath = 7;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4571
@@ -871,6 +923,60 @@ enum ResourceRequirementsType {
 	ephemeralContainer = 3;
 }
 
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L61
+message JobSpec {
+    int32 parallelism = 1;
+    int32 completions = 2;
+    int64 activeDeadlineSeconds = 3;
+    int32 backoffLimit = 4;
+    repeated LabelSelectorRequirement selectors = 5;
+    bool manualSelector = 6;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L132
+message JobStatus {
+    string conditionMessage = 1;
+    int64 startTime = 2;
+    int64 completionTime = 3;
+    int32 active = 4;
+    int32 succeeded = 5;
+    int32 failed = 6;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L28
+message Job {
+    Metadata metadata = 1;
+    JobSpec spec = 2;
+    JobStatus status = 3;
+    bytes yaml = 4;
+    repeated string tags = 5;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1beta1/types.go#L92
+message CronJobSpec {
+    string schedule = 1;
+    int64 startingDeadlineSeconds = 2;
+    string concurrencyPolicy = 3;
+    bool suspend = 4;
+    int32 successfulJobsHistoryLimit = 5;
+    int32 failedJobsHistoryLimit = 6;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1beta1/types.go#L150
+message CronJobStatus {
+    repeated ObjectReference active = 1;
+    int64 lastScheduleTime = 2;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1beta1/types.go#L58
+message CronJob {
+    Metadata metadata = 1;
+    CronJobSpec spec = 2;
+    CronJobStatus status = 3;
+    bytes yaml = 4;
+    repeated string tags = 5;
+}
+
 message ConnectionsTelemetry {
 	int64 monotonicKprobesTriggered = 1;
 	int64 monotonicKprobesMissed = 2;
@@ -942,4 +1048,10 @@ message RuntimeCompilationTelemetry {
 	bool runtimeCompilationEnabled = 1;
 	RuntimeCompilationResult runtimeCompilationResult = 2;
 	int64 runtimeCompilationDuration = 3;
+}
+
+message RouteMetadata {
+    string alias = 1;
+    int32 tagIndex = 2;
+    int64 tagsModified = 3;
 }
