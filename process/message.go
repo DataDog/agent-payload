@@ -189,8 +189,10 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorJob{}
 	case TypeCollectorCronJob:
 		m = &CollectorCronJob{}
-	case TypeNetworkDevice:
-		m = &ndmodel.Device{}
+	case TypeCollectorNetworkDevice:
+		m = &ndmodel.NetworkDevice{}
+	case TypeCollectorNetworkInterface:
+		m = &ndmodel.NetworkInterface{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}

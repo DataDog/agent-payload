@@ -47,7 +47,8 @@ func TestMessageTypeString(t *testing.T) {
 		TypeCollectorJob:               "job",
 		TypeCollectorCronJob:           "cron-job",
 		TypeResCollector:               "23",
-		TypeNetworkDevice:              "network-device",
+		TypeCollectorNetworkDevice:     "network-device",
+		TypeCollectorNetworkInterface:  "network-interface",
 	}
 	for input, expected := range cases {
 		assert.Equal(t, input.String(), expected)
