@@ -7,23 +7,42 @@ package network_devices;
 
 option go_package = "github.com/DataDog/agent-payload/network-devices";
 
-message Device {
+//
+// Message Types
+//
+
+message CollectorNetworkDevice {
+  string autodiscoverySubnet = 1;
+  repeated NetworkDevice devices = 2;
+  repeated string tags = 3;
+}
+
+message CollectorNetworkInterface {
+  string deviceId = 1;
+  repeated NetworkInterface interfaces = 2;
+}
+
+//
+// Models
+//
+
+message NetworkDevice {
   string id = 1;
   string name = 2;
   string description = 3;
   string ipAddress = 4;
-  string autodiscoverySubnet = 5;
-  string sysObjectId = 6;
-  string profile = 7;
-  string vendor = 8;
-  repeated string tags = 9;
-  repeated Interface interfaces = 10;
+  string sysObjectId = 5;
+  string profile = 6;
+  string vendor = 7;
+  repeated string tags = 8;
 }
 
-message Interface {
+message NetworkInterface {
   int32 index = 1;
   string name = 2;
   string alias = 3;
   string description = 4;
   string macAddress = 5;
+  int32 adminStatus = 6;
+  int32 operStatus = 7;
 }
