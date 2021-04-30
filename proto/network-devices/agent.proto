@@ -38,11 +38,11 @@ message NetworkDevice {
 }
 
 message NetworkInterface {
-  int32 index = 1;
+  int32 index = 1;       // IF-MIB ifIndex type is InterfaceIndex (Integer32 (1..2147483647))
   string name = 2;
   string alias = 3;
   string description = 4;
   string macAddress = 5;
-  int32 adminStatus = 6;
-  int32 operStatus = 7;
+  int32 adminStatus = 6;  // IF-MIB ifAdminStatus type is INTEGER
+  int32 operStatus = 7;   // IF-MIB ifOperStatus type is INTEGER
 }
