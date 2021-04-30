@@ -89,7 +89,8 @@ const (
 	TypeCollectorCluster           = 46
 	TypeCollectorJob               = 47
 	TypeCollectorCronJob           = 48
-	TypeNetworkDevice              = 49
+	TypeCollectorNetworkDevice     = 49
+	TypeCollectorNetworkInterface  = 50
 	TypeCollectorManifest          = 80
 )
 
@@ -123,8 +124,10 @@ func (m MessageType) String() string {
 		return "cron-job"
 	case TypeCollectorManifest:
 		return "manifest"
-	case TypeNetworkDevice:
+	case TypeCollectorNetworkDevice:
 		return "network-device"
+	case TypeCollectorNetworkInterface:
+		return "network-interface"
 	default:
 		// otherwise convert the type identifier
 		return strconv.Itoa(int(m))
@@ -230,8 +233,10 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorJob
 	case *CollectorCronJob:
 		t = TypeCollectorCronJob
-	case *ndmodel.Device:
-		t = TypeNetworkDevice
+	case *ndmodel.NetworkDevice:
+		t = TypeCollectorNetworkDevice
+	case *ndmodel.NetworkInterface:
+		t = TypeCollectorNetworkInterface
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}
