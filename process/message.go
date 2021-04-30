@@ -8,13 +8,14 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	ndmodel "github.com/DataDog/agent-payload/network-devices"
 	"reflect"
 	"strconv"
 
 	zstd_0 "github.com/DataDog/zstd_0"
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/proto"
+
+	ndmodel "github.com/DataDog/agent-payload/network-devices"
 )
 
 // MessageEncoding represents how messages will be encoded or decoded for
