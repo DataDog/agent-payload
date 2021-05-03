@@ -671,6 +671,7 @@ message Cluster {
 	uint64 cpuCapacity = 9;
 	string resourceVersion = 10;
 	int64 creationTimestamp = 11;
+	repeated string tags = 12;
 }
 
 // reference https://github.com/kubernetes/apimachinery/blob/2373d029717c4d169463414a6127cd1d0d12680e/pkg/apis/meta/v1/generated.proto#L521
