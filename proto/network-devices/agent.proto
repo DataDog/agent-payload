@@ -12,9 +12,7 @@ option go_package = "github.com/DataDog/agent-payload/network-devices";
 //
 
 message CollectorNetworkDevice {
-  string autodiscoverySubnet = 1;
-  repeated NetworkDevice devices = 2;
-  repeated string tags = 3;
+  NetworkDevice device = 1;
 }
 
 message CollectorNetworkInterface {
@@ -28,13 +26,15 @@ message CollectorNetworkInterface {
 
 message NetworkDevice {
   string id = 1;
-  string name = 2;
-  string description = 3;
-  string ipAddress = 4;
-  string sysObjectId = 5;
-  string profile = 6;
-  string vendor = 7;
-  repeated string tags = 8;
+  repeated string id_tags = 2;
+  string name = 3;
+  string description = 4;
+  string ipAddress = 5;
+  string sysObjectId = 6;
+  string profile = 7;
+  string vendor = 8;
+  string autodiscoverySubnet = 9;
+  repeated string tags = 10;
 }
 
 message NetworkInterface {
