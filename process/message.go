@@ -236,9 +236,9 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorJob
 	case *CollectorCronJob:
 		t = TypeCollectorCronJob
-	case *ndmodel.NetworkDevice:
+	case *ndmodel.CollectorNetworkDevice:
 		t = TypeCollectorNetworkDevice
-	case *ndmodel.NetworkInterface:
+	case *ndmodel.CollectorNetworkInterface:
 		t = TypeCollectorNetworkInterface
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
