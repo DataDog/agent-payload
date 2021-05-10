@@ -238,6 +238,15 @@ message CollectorCronJob {
     repeated string tags = 6;
 }
 
+message CollectorDaemonset {
+    string clusterName = 1;
+    string clusterId = 2;
+    int32 groupId = 3;
+    int32 groupSize = 4;
+    repeated DaemonSet daemonSets = 5;
+    repeated string tags = 6;
+}
+
 //
 // Models
 //
@@ -976,6 +985,31 @@ message CronJob {
     CronJobStatus status = 3;
     bytes yaml = 4;
     repeated string tags = 5;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L119
+message DaemonSetSpec {
+		int32 currentNumberScheduled = 1;
+		int32 numberMisscheduled = 2;
+		int32 desiredNumberScheduled = 3;
+		int32 numberReady = 4;
+		int32 updatedNumberScheduled = 6;
+		int32 numberAvailable = 7;
+		int32 numberUnavailable = 8;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L152
+message DaemonSetStatus {
+
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L119
+message DaemonSet {
+		Metadata metadata = 1;
+		DaemonSetSpec spec = 2;
+		DaemonSetStatus status = 3;
+		bytes yaml = 4;
+		repeated string tags = 5;
 }
 
 message ConnectionsTelemetry {
