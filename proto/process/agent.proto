@@ -992,9 +992,8 @@ message DaemonSetSpec {
     repeated LabelSelectorRequirement selectors = 1;
     string deploymentStrategy = 2;
     string maxUnavailable = 3; // int or str
-    string maxSurge = 4; // int or str
-    int32 minReadySeconds = 5;
-    int32 revisionHistoryLimit = 6;
+    int32 minReadySeconds = 4;
+    int32 revisionHistoryLimit = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L152
