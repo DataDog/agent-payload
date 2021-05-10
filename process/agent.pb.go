@@ -2371,7 +2371,7 @@ func (m *DaemonSetStatus) String() string            { return proto.CompactTextS
 func (*DaemonSetStatus) ProtoMessage()               {}
 func (*DaemonSetStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{72} }
 
-// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L119
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L66
 type DaemonSet struct {
 	Metadata *Metadata        `protobuf:"bytes,1,opt,name=metadata" json:"metadata,omitempty"`
 	Spec     *DaemonSetSpec   `protobuf:"bytes,2,opt,name=spec" json:"spec,omitempty"`
