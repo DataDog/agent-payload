@@ -238,7 +238,7 @@ message CollectorCronJob {
     repeated string tags = 6;
 }
 
-message CollectorDaemonset {
+message CollectorDaemonSet {
     string clusterName = 1;
     string clusterId = 2;
     int32 groupId = 3;

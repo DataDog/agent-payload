@@ -185,7 +185,7 @@ func DecodeMessage(data []byte) (Message, error) {
 	case TypeCollectorCronJob:
 		m = &CollectorCronJob{}
 	case TypeCollectorDaemonSet:
-		m = &CollectorDaemonset{}
+		m = &CollectorDaemonSet{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -229,7 +229,7 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorJob
 	case *CollectorCronJob:
 		t = TypeCollectorCronJob
-	case *CollectorDaemonset:
+	case *CollectorDaemonSet:
 		t = TypeCollectorDaemonSet
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
