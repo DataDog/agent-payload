@@ -1096,3 +1096,8 @@ message RouteMetadata {
     int32 tagIndex = 2;
     int64 tagsModified = 3;
 }
+
+// ProcessRequest is the request to get process information.
+message ProcessRequest {
+	repeated int32 pids = 1;
+}
