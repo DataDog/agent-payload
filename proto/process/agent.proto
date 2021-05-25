@@ -1052,10 +1052,14 @@ message DNSStats {
 }
 
 message HTTPAggregations {
-	map<string, HTTPStats> byPath = 1;
+	reserved 1;
+	repeated HTTPStats endpointAggregations = 2;
 }
 
 message HTTPStats {
+	string path = 4;
+	HTTPMethod method = 5;
+
 	repeated Data statsByResponseStatus = 1;
 
 	message Data {
@@ -1071,6 +1075,17 @@ enum HTTPResponseStatus {
     Redirect = 2;	// 3XX
     ClientErr = 3;	// 4XX
     ServerErr = 4;	// 5XX
+}
+
+enum HTTPMethod {
+	Unknown = 0;
+	Get = 1;
+	Post = 2;
+	Put = 3;
+	Delete = 4;
+	Head = 5;
+	Options = 6;
+	Patch = 7;
 }
 
 enum RuntimeCompilationResult {
