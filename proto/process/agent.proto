@@ -50,7 +50,6 @@ message CollectorProc {
 }
 
 message CollectorConnections {
-	// 32,33 are deprecated ephemeralPortRangeStart/End
 	reserved 1, 4, 13, 32, 33;
 	// Please update when adding fields
 	// next identifier:  35
@@ -516,7 +515,6 @@ enum EphemeralPortState {
 	ephemeralUnspecified = 0;
 	ephemeralTrue = 1;
 	ephemeralFalse = 2;
-
 }
 
 message Connection {
