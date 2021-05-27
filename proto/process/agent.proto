@@ -50,7 +50,8 @@ message CollectorProc {
 }
 
 message CollectorConnections {
-	reserved 1, 4, 13;
+	// 32,33 are deprecated ephemeralPortRangeStart/End
+	reserved 1, 4, 13, 32, 33;
 	// Please update when adding fields
 	// next identifier:  35
 
@@ -515,10 +516,17 @@ enum ConnectionDirection {
 	none = 4;
 }
 
+enum EphemeralPortState {
+	ephemeralUnspecified = 0;
+	ephemeralTrue = 1;
+	ephemeralFalse = 2;
+
+}
+
 message Connection {
 	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 35;
     	// Please update when adding fields
-	// next identifier:  41
+	// next identifier:  42
 
 
 	int32 pid = 1;
@@ -527,7 +535,8 @@ message Connection {
 	ConnectionFamily family = 10;
 	ConnectionType type = 11;
 	int64 pidCreateTime = 12;
-
+	EphemeralPortState isEphemeralPort = 41;
+	
 	// Relative counters since last check
 	uint64 lastBytesSent = 16;
 	uint64 lastBytesReceived = 17;
