@@ -25,6 +25,7 @@
 		CollectorManifest
 		CollectorJob
 		CollectorCronJob
+		CollectorDaemonSet
 		CollectorStatus
 		Process
 		Command
@@ -79,6 +80,9 @@
 		CronJobSpec
 		CronJobStatus
 		CronJob
+		DaemonSetSpec
+		DaemonSetStatus
+		DaemonSet
 		ConnectionsTelemetry
 		CollectorConnectionsTelemetry
 		DNSStats
@@ -89,12 +93,17 @@
 */
 package process
 
-import proto "github.com/gogo/protobuf/proto"
-import fmt "fmt"
-import math "math"
-import datadog_agentpayload "github.com/DataDog/agent-payload/gogen"
+import (
+	fmt "fmt"
 
-import io "io"
+	proto "github.com/gogo/protobuf/proto"
+
+	math "math"
+
+	datadog_agentpayload "github.com/DataDog/agent-payload/gogen"
+
+	io "io"
+)
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -371,6 +380,45 @@ func (x HTTPResponseStatus) String() string {
 }
 func (HTTPResponseStatus) EnumDescriptor() ([]byte, []int) { return fileDescriptorAgent, []int{8} }
 
+type HTTPMethod int32
+
+const (
+	HTTPMethod_Unknown HTTPMethod = 0
+	HTTPMethod_Get     HTTPMethod = 1
+	HTTPMethod_Post    HTTPMethod = 2
+	HTTPMethod_Put     HTTPMethod = 3
+	HTTPMethod_Delete  HTTPMethod = 4
+	HTTPMethod_Head    HTTPMethod = 5
+	HTTPMethod_Options HTTPMethod = 6
+	HTTPMethod_Patch   HTTPMethod = 7
+)
+
+var HTTPMethod_name = map[int32]string{
+	0: "Unknown",
+	1: "Get",
+	2: "Post",
+	3: "Put",
+	4: "Delete",
+	5: "Head",
+	6: "Options",
+	7: "Patch",
+}
+var HTTPMethod_value = map[string]int32{
+	"Unknown": 0,
+	"Get":     1,
+	"Post":    2,
+	"Put":     3,
+	"Delete":  4,
+	"Head":    5,
+	"Options": 6,
+	"Patch":   7,
+}
+
+func (x HTTPMethod) String() string {
+	return proto.EnumName(HTTPMethod_name, int32(x))
+}
+func (HTTPMethod) EnumDescriptor() ([]byte, []int) { return fileDescriptorAgent, []int{9} }
+
 type RuntimeCompilationResult int32
 
 const (
@@ -412,7 +460,7 @@ func (x RuntimeCompilationResult) String() string {
 	return proto.EnumName(RuntimeCompilationResult_name, int32(x))
 }
 func (RuntimeCompilationResult) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptorAgent, []int{9}
+	return fileDescriptorAgent, []int{10}
 }
 
 type ResCollector struct {
@@ -928,6 +976,27 @@ func (m *CollectorCronJob) GetCronJobs() []*CronJob {
 	return nil
 }
 
+type CollectorDaemonSet struct {
+	ClusterName string       `protobuf:"bytes,1,opt,name=clusterName,proto3" json:"clusterName,omitempty"`
+	ClusterId   string       `protobuf:"bytes,2,opt,name=clusterId,proto3" json:"clusterId,omitempty"`
+	GroupId     int32        `protobuf:"varint,3,opt,name=groupId,proto3" json:"groupId,omitempty"`
+	GroupSize   int32        `protobuf:"varint,4,opt,name=groupSize,proto3" json:"groupSize,omitempty"`
+	DaemonSets  []*DaemonSet `protobuf:"bytes,5,rep,name=daemonSets" json:"daemonSets,omitempty"`
+	Tags        []string     `protobuf:"bytes,6,rep,name=tags" json:"tags,omitempty"`
+}
+
+func (m *CollectorDaemonSet) Reset()                    { *m = CollectorDaemonSet{} }
+func (m *CollectorDaemonSet) String() string            { return proto.CompactTextString(m) }
+func (*CollectorDaemonSet) ProtoMessage()               {}
+func (*CollectorDaemonSet) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{16} }
+
+func (m *CollectorDaemonSet) GetDaemonSets() []*DaemonSet {
+	if m != nil {
+		return m.DaemonSets
+	}
+	return nil
+}
+
 type CollectorStatus struct {
 	ActiveClients int32 `protobuf:"varint,1,opt,name=activeClients,proto3" json:"activeClients,omitempty"`
 	Interval      int32 `protobuf:"varint,2,opt,name=interval,proto3" json:"interval,omitempty"`
@@ -936,7 +1005,7 @@ type CollectorStatus struct {
 func (m *CollectorStatus) Reset()                    { *m = CollectorStatus{} }
 func (m *CollectorStatus) String() string            { return proto.CompactTextString(m) }
 func (*CollectorStatus) ProtoMessage()               {}
-func (*CollectorStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{16} }
+func (*CollectorStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{17} }
 
 type Process struct {
 	Key                    uint32           `protobuf:"varint,1,opt,name=key,proto3" json:"key,omitempty"`
@@ -964,7 +1033,7 @@ type Process struct {
 func (m *Process) Reset()                    { *m = Process{} }
 func (m *Process) String() string            { return proto.CompactTextString(m) }
 func (*Process) ProtoMessage()               {}
-func (*Process) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{17} }
+func (*Process) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{18} }
 
 func (m *Process) GetHost() *Host {
 	if m != nil {
@@ -1035,7 +1104,7 @@ type Command struct {
 func (m *Command) Reset()                    { *m = Command{} }
 func (m *Command) String() string            { return proto.CompactTextString(m) }
 func (*Command) ProtoMessage()               {}
-func (*Command) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{18} }
+func (*Command) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{19} }
 
 type ProcessUser struct {
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
@@ -1050,7 +1119,7 @@ type ProcessUser struct {
 func (m *ProcessUser) Reset()                    { *m = ProcessUser{} }
 func (m *ProcessUser) String() string            { return proto.CompactTextString(m) }
 func (*ProcessUser) ProtoMessage()               {}
-func (*ProcessUser) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{19} }
+func (*ProcessUser) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{20} }
 
 // ProcessNetworks is a structure that holds network related metrics for processes
 type ProcessNetworks struct {
@@ -1061,7 +1130,7 @@ type ProcessNetworks struct {
 func (m *ProcessNetworks) Reset()                    { *m = ProcessNetworks{} }
 func (m *ProcessNetworks) String() string            { return proto.CompactTextString(m) }
 func (*ProcessNetworks) ProtoMessage()               {}
-func (*ProcessNetworks) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{20} }
+func (*ProcessNetworks) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{21} }
 
 // ContainerAddr records the IPs, Ports and Protocols for each container
 type ContainerAddr struct {
@@ -1073,7 +1142,7 @@ type ContainerAddr struct {
 func (m *ContainerAddr) Reset()                    { *m = ContainerAddr{} }
 func (m *ContainerAddr) String() string            { return proto.CompactTextString(m) }
 func (*ContainerAddr) ProtoMessage()               {}
-func (*ContainerAddr) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{21} }
+func (*ContainerAddr) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{22} }
 
 type Container struct {
 	Type        string           `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
@@ -1109,7 +1178,7 @@ type Container struct {
 func (m *Container) Reset()                    { *m = Container{} }
 func (m *Container) String() string            { return proto.CompactTextString(m) }
 func (*Container) ProtoMessage()               {}
-func (*Container) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{22} }
+func (*Container) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{23} }
 
 func (m *Container) GetHost() *Host {
 	if m != nil {
@@ -1166,7 +1235,7 @@ type ProcessStat struct {
 func (m *ProcessStat) Reset()                    { *m = ProcessStat{} }
 func (m *ProcessStat) String() string            { return proto.CompactTextString(m) }
 func (*ProcessStat) ProtoMessage()               {}
-func (*ProcessStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{23} }
+func (*ProcessStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{24} }
 
 func (m *ProcessStat) GetMemory() *MemoryStat {
 	if m != nil {
@@ -1209,7 +1278,7 @@ type ProcStatsWithPerm struct {
 func (m *ProcStatsWithPerm) Reset()                    { *m = ProcStatsWithPerm{} }
 func (m *ProcStatsWithPerm) String() string            { return proto.CompactTextString(m) }
 func (*ProcStatsWithPerm) ProtoMessage()               {}
-func (*ProcStatsWithPerm) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{24} }
+func (*ProcStatsWithPerm) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{25} }
 
 // ProcStatsWithPermByPID stores ProcStatsWithPerm in a map with key as PIDs
 type ProcStatsWithPermByPID struct {
@@ -1219,7 +1288,7 @@ type ProcStatsWithPermByPID struct {
 func (m *ProcStatsWithPermByPID) Reset()                    { *m = ProcStatsWithPermByPID{} }
 func (m *ProcStatsWithPermByPID) String() string            { return proto.CompactTextString(m) }
 func (*ProcStatsWithPermByPID) ProtoMessage()               {}
-func (*ProcStatsWithPermByPID) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{25} }
+func (*ProcStatsWithPermByPID) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{26} }
 
 func (m *ProcStatsWithPermByPID) GetStatsByPID() map[int32]*ProcStatsWithPerm {
 	if m != nil {
@@ -1260,7 +1329,7 @@ type ContainerStat struct {
 func (m *ContainerStat) Reset()                    { *m = ContainerStat{} }
 func (m *ContainerStat) String() string            { return proto.CompactTextString(m) }
 func (*ContainerStat) ProtoMessage()               {}
-func (*ContainerStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{26} }
+func (*ContainerStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{27} }
 
 // ContainerMetadata only holds enough information to identify a container in connection data
 type ContainerMetadata struct {
@@ -1275,7 +1344,7 @@ type ContainerMetadata struct {
 func (m *ContainerMetadata) Reset()                    { *m = ContainerMetadata{} }
 func (m *ContainerMetadata) String() string            { return proto.CompactTextString(m) }
 func (*ContainerMetadata) ProtoMessage()               {}
-func (*ContainerMetadata) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{27} }
+func (*ContainerMetadata) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{28} }
 
 type SystemInfo struct {
 	Uuid        string     `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
@@ -1287,7 +1356,7 @@ type SystemInfo struct {
 func (m *SystemInfo) Reset()                    { *m = SystemInfo{} }
 func (m *SystemInfo) String() string            { return proto.CompactTextString(m) }
 func (*SystemInfo) ProtoMessage()               {}
-func (*SystemInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{28} }
+func (*SystemInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{29} }
 
 func (m *SystemInfo) GetOs() *OSInfo {
 	if m != nil {
@@ -1314,7 +1383,7 @@ type OSInfo struct {
 func (m *OSInfo) Reset()                    { *m = OSInfo{} }
 func (m *OSInfo) String() string            { return proto.CompactTextString(m) }
 func (*OSInfo) ProtoMessage()               {}
-func (*OSInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{29} }
+func (*OSInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{30} }
 
 type IOStat struct {
 	ReadRate       float32 `protobuf:"fixed32,1,opt,name=readRate,proto3" json:"readRate,omitempty"`
@@ -1326,7 +1395,7 @@ type IOStat struct {
 func (m *IOStat) Reset()                    { *m = IOStat{} }
 func (m *IOStat) String() string            { return proto.CompactTextString(m) }
 func (*IOStat) ProtoMessage()               {}
-func (*IOStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{30} }
+func (*IOStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{31} }
 
 type Connection struct {
 	Pid           int32            `protobuf:"varint,1,opt,name=pid,proto3" json:"pid,omitempty"`
@@ -1375,7 +1444,7 @@ type Connection struct {
 func (m *Connection) Reset()                    { *m = Connection{} }
 func (m *Connection) String() string            { return proto.CompactTextString(m) }
 func (*Connection) ProtoMessage()               {}
-func (*Connection) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{31} }
+func (*Connection) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{32} }
 
 func (m *Connection) GetLaddr() *Addr {
 	if m != nil {
@@ -1424,7 +1493,7 @@ type Connections struct {
 func (m *Connections) Reset()                    { *m = Connections{} }
 func (m *Connections) String() string            { return proto.CompactTextString(m) }
 func (*Connections) ProtoMessage()               {}
-func (*Connections) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{32} }
+func (*Connections) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{33} }
 
 func (m *Connections) GetConns() []*Connection {
 	if m != nil {
@@ -1471,7 +1540,7 @@ type Addr struct {
 func (m *Addr) Reset()                    { *m = Addr{} }
 func (m *Addr) String() string            { return proto.CompactTextString(m) }
 func (*Addr) ProtoMessage()               {}
-func (*Addr) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{33} }
+func (*Addr) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{34} }
 
 type Route struct {
 	Subnet *Subnet `protobuf:"bytes,1,opt,name=subnet" json:"subnet,omitempty"`
@@ -1480,7 +1549,7 @@ type Route struct {
 func (m *Route) Reset()                    { *m = Route{} }
 func (m *Route) String() string            { return proto.CompactTextString(m) }
 func (*Route) ProtoMessage()               {}
-func (*Route) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{34} }
+func (*Route) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{35} }
 
 func (m *Route) GetSubnet() *Subnet {
 	if m != nil {
@@ -1496,7 +1565,7 @@ type Subnet struct {
 func (m *Subnet) Reset()                    { *m = Subnet{} }
 func (m *Subnet) String() string            { return proto.CompactTextString(m) }
 func (*Subnet) ProtoMessage()               {}
-func (*Subnet) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{35} }
+func (*Subnet) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{36} }
 
 type IPTranslation struct {
 	ReplSrcIP   string `protobuf:"bytes,1,opt,name=replSrcIP,proto3" json:"replSrcIP,omitempty"`
@@ -1508,7 +1577,7 @@ type IPTranslation struct {
 func (m *IPTranslation) Reset()                    { *m = IPTranslation{} }
 func (m *IPTranslation) String() string            { return proto.CompactTextString(m) }
 func (*IPTranslation) ProtoMessage()               {}
-func (*IPTranslation) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{36} }
+func (*IPTranslation) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{37} }
 
 type MemoryStat struct {
 	Rss    uint64 `protobuf:"varint,1,opt,name=rss,proto3" json:"rss,omitempty"`
@@ -1524,7 +1593,7 @@ type MemoryStat struct {
 func (m *MemoryStat) Reset()                    { *m = MemoryStat{} }
 func (m *MemoryStat) String() string            { return proto.CompactTextString(m) }
 func (*MemoryStat) ProtoMessage()               {}
-func (*MemoryStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{37} }
+func (*MemoryStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{38} }
 
 type CPUStat struct {
 	LastCpu    string           `protobuf:"bytes,1,opt,name=lastCpu,proto3" json:"lastCpu,omitempty"`
@@ -1541,7 +1610,7 @@ type CPUStat struct {
 func (m *CPUStat) Reset()                    { *m = CPUStat{} }
 func (m *CPUStat) String() string            { return proto.CompactTextString(m) }
 func (*CPUStat) ProtoMessage()               {}
-func (*CPUStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{38} }
+func (*CPUStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{39} }
 
 func (m *CPUStat) GetCpus() []*SingleCPUStat {
 	if m != nil {
@@ -1558,7 +1627,7 @@ type SingleCPUStat struct {
 func (m *SingleCPUStat) Reset()                    { *m = SingleCPUStat{} }
 func (m *SingleCPUStat) String() string            { return proto.CompactTextString(m) }
 func (*SingleCPUStat) ProtoMessage()               {}
-func (*SingleCPUStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{39} }
+func (*SingleCPUStat) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{40} }
 
 type CPUInfo struct {
 	Number     int32  `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
@@ -1575,7 +1644,7 @@ type CPUInfo struct {
 func (m *CPUInfo) Reset()                    { *m = CPUInfo{} }
 func (m *CPUInfo) String() string            { return proto.CompactTextString(m) }
 func (*CPUInfo) ProtoMessage()               {}
-func (*CPUInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{40} }
+func (*CPUInfo) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{41} }
 
 type Host struct {
 	Id           int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -1591,7 +1660,7 @@ type Host struct {
 func (m *Host) Reset()                    { *m = Host{} }
 func (m *Host) String() string            { return proto.CompactTextString(m) }
 func (*Host) ProtoMessage()               {}
-func (*Host) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{41} }
+func (*Host) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{42} }
 
 type DNSEntry struct {
 	Names []string `protobuf:"bytes,1,rep,name=names" json:"names,omitempty"`
@@ -1600,7 +1669,7 @@ type DNSEntry struct {
 func (m *DNSEntry) Reset()                    { *m = DNSEntry{} }
 func (m *DNSEntry) String() string            { return proto.CompactTextString(m) }
 func (*DNSEntry) ProtoMessage()               {}
-func (*DNSEntry) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{42} }
+func (*DNSEntry) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{43} }
 
 type Cluster struct {
 	NodeCount         int32            `protobuf:"varint,1,opt,name=nodeCount,proto3" json:"nodeCount,omitempty"`
@@ -1609,20 +1678,21 @@ type Cluster struct {
 	// sum of all nodes capacities and allocatables.
 	// Using smallest possible quantity levels.
 	// For memory it is bytes, for CPU it is millicore.
-	PodCapacity       uint32 `protobuf:"varint,4,opt,name=podCapacity,proto3" json:"podCapacity,omitempty"`
-	PodAllocatable    uint32 `protobuf:"varint,5,opt,name=podAllocatable,proto3" json:"podAllocatable,omitempty"`
-	MemoryAllocatable uint64 `protobuf:"varint,6,opt,name=memoryAllocatable,proto3" json:"memoryAllocatable,omitempty"`
-	MemoryCapacity    uint64 `protobuf:"varint,7,opt,name=memoryCapacity,proto3" json:"memoryCapacity,omitempty"`
-	CpuAllocatable    uint64 `protobuf:"varint,8,opt,name=cpuAllocatable,proto3" json:"cpuAllocatable,omitempty"`
-	CpuCapacity       uint64 `protobuf:"varint,9,opt,name=cpuCapacity,proto3" json:"cpuCapacity,omitempty"`
-	ResourceVersion   string `protobuf:"bytes,10,opt,name=resourceVersion,proto3" json:"resourceVersion,omitempty"`
-	CreationTimestamp int64  `protobuf:"varint,11,opt,name=creationTimestamp,proto3" json:"creationTimestamp,omitempty"`
+	PodCapacity       uint32   `protobuf:"varint,4,opt,name=podCapacity,proto3" json:"podCapacity,omitempty"`
+	PodAllocatable    uint32   `protobuf:"varint,5,opt,name=podAllocatable,proto3" json:"podAllocatable,omitempty"`
+	MemoryAllocatable uint64   `protobuf:"varint,6,opt,name=memoryAllocatable,proto3" json:"memoryAllocatable,omitempty"`
+	MemoryCapacity    uint64   `protobuf:"varint,7,opt,name=memoryCapacity,proto3" json:"memoryCapacity,omitempty"`
+	CpuAllocatable    uint64   `protobuf:"varint,8,opt,name=cpuAllocatable,proto3" json:"cpuAllocatable,omitempty"`
+	CpuCapacity       uint64   `protobuf:"varint,9,opt,name=cpuCapacity,proto3" json:"cpuCapacity,omitempty"`
+	ResourceVersion   string   `protobuf:"bytes,10,opt,name=resourceVersion,proto3" json:"resourceVersion,omitempty"`
+	CreationTimestamp int64    `protobuf:"varint,11,opt,name=creationTimestamp,proto3" json:"creationTimestamp,omitempty"`
+	Tags              []string `protobuf:"bytes,12,rep,name=tags" json:"tags,omitempty"`
 }
 
 func (m *Cluster) Reset()                    { *m = Cluster{} }
 func (m *Cluster) String() string            { return proto.CompactTextString(m) }
 func (*Cluster) ProtoMessage()               {}
-func (*Cluster) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{43} }
+func (*Cluster) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{44} }
 
 func (m *Cluster) GetKubeletVersions() map[string]int32 {
 	if m != nil {
@@ -1654,7 +1724,7 @@ type Metadata struct {
 func (m *Metadata) Reset()                    { *m = Metadata{} }
 func (m *Metadata) String() string            { return proto.CompactTextString(m) }
 func (*Metadata) ProtoMessage()               {}
-func (*Metadata) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{44} }
+func (*Metadata) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{45} }
 
 func (m *Metadata) GetOwnerReferences() []*OwnerReference {
 	if m != nil {
@@ -1672,7 +1742,7 @@ type OwnerReference struct {
 func (m *OwnerReference) Reset()                    { *m = OwnerReference{} }
 func (m *OwnerReference) String() string            { return proto.CompactTextString(m) }
 func (*OwnerReference) ProtoMessage()               {}
-func (*OwnerReference) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{45} }
+func (*OwnerReference) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{46} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/pkg/apis/core/types.go#L4317
 type ObjectReference struct {
@@ -1688,7 +1758,7 @@ type ObjectReference struct {
 func (m *ObjectReference) Reset()                    { *m = ObjectReference{} }
 func (m *ObjectReference) String() string            { return proto.CompactTextString(m) }
 func (*ObjectReference) ProtoMessage()               {}
-func (*ObjectReference) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{46} }
+func (*ObjectReference) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{47} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4571
 type ServicePort struct {
@@ -1702,7 +1772,7 @@ type ServicePort struct {
 func (m *ServicePort) Reset()                    { *m = ServicePort{} }
 func (m *ServicePort) String() string            { return proto.CompactTextString(m) }
 func (*ServicePort) ProtoMessage()               {}
-func (*ServicePort) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{47} }
+func (*ServicePort) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{48} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4756
 type ServiceSessionAffinityConfig struct {
@@ -1713,7 +1783,7 @@ func (m *ServiceSessionAffinityConfig) Reset()         { *m = ServiceSessionAffi
 func (m *ServiceSessionAffinityConfig) String() string { return proto.CompactTextString(m) }
 func (*ServiceSessionAffinityConfig) ProtoMessage()    {}
 func (*ServiceSessionAffinityConfig) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgent, []int{48}
+	return fileDescriptorAgent, []int{49}
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2107
@@ -1736,7 +1806,7 @@ type Node struct {
 func (m *Node) Reset()                    { *m = Node{} }
 func (m *Node) String() string            { return proto.CompactTextString(m) }
 func (*Node) ProtoMessage()               {}
-func (*Node) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{49} }
+func (*Node) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{50} }
 
 func (m *Node) GetMetadata() *Metadata {
 	if m != nil {
@@ -1794,7 +1864,7 @@ type NodeStatus struct {
 func (m *NodeStatus) Reset()                    { *m = NodeStatus{} }
 func (m *NodeStatus) String() string            { return proto.CompactTextString(m) }
 func (*NodeStatus) ProtoMessage()               {}
-func (*NodeStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{50} }
+func (*NodeStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{51} }
 
 func (m *NodeStatus) GetCapacity() map[string]int64 {
 	if m != nil {
@@ -1843,7 +1913,7 @@ type NodeCondition struct {
 func (m *NodeCondition) Reset()                    { *m = NodeCondition{} }
 func (m *NodeCondition) String() string            { return proto.CompactTextString(m) }
 func (*NodeCondition) ProtoMessage()               {}
-func (*NodeCondition) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{51} }
+func (*NodeCondition) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{52} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L777
 type ContainerImage struct {
@@ -1854,7 +1924,7 @@ type ContainerImage struct {
 func (m *ContainerImage) Reset()                    { *m = ContainerImage{} }
 func (m *ContainerImage) String() string            { return proto.CompactTextString(m) }
 func (*ContainerImage) ProtoMessage()               {}
-func (*ContainerImage) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{52} }
+func (*ContainerImage) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{53} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4849
 type Taint struct {
@@ -1867,7 +1937,7 @@ type Taint struct {
 func (m *Taint) Reset()                    { *m = Taint{} }
 func (m *Taint) String() string            { return proto.CompactTextString(m) }
 func (*Taint) ProtoMessage()               {}
-func (*Taint) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{53} }
+func (*Taint) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{54} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4620
 type ServiceSpec struct {
@@ -1890,7 +1960,7 @@ type ServiceSpec struct {
 func (m *ServiceSpec) Reset()                    { *m = ServiceSpec{} }
 func (m *ServiceSpec) String() string            { return proto.CompactTextString(m) }
 func (*ServiceSpec) ProtoMessage()               {}
-func (*ServiceSpec) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{54} }
+func (*ServiceSpec) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{55} }
 
 func (m *ServiceSpec) GetPorts() []*ServicePort {
 	if m != nil {
@@ -1921,7 +1991,7 @@ type ServiceStatus struct {
 func (m *ServiceStatus) Reset()                    { *m = ServiceStatus{} }
 func (m *ServiceStatus) String() string            { return proto.CompactTextString(m) }
 func (*ServiceStatus) ProtoMessage()               {}
-func (*ServiceStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{55} }
+func (*ServiceStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{56} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/release-1.19/staging/src/k8s.io/api/core/v1/generated.proto
 type Service struct {
@@ -1935,7 +2005,7 @@ type Service struct {
 func (m *Service) Reset()                    { *m = Service{} }
 func (m *Service) String() string            { return proto.CompactTextString(m) }
 func (*Service) ProtoMessage()               {}
-func (*Service) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{56} }
+func (*Service) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{57} }
 
 func (m *Service) GetMetadata() *Metadata {
 	if m != nil {
@@ -1982,7 +2052,7 @@ type Deployment struct {
 func (m *Deployment) Reset()                    { *m = Deployment{} }
 func (m *Deployment) String() string            { return proto.CompactTextString(m) }
 func (*Deployment) ProtoMessage()               {}
-func (*Deployment) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{57} }
+func (*Deployment) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{58} }
 
 func (m *Deployment) GetMetadata() *Metadata {
 	if m != nil {
@@ -2016,7 +2086,7 @@ type ReplicaSet struct {
 func (m *ReplicaSet) Reset()                    { *m = ReplicaSet{} }
 func (m *ReplicaSet) String() string            { return proto.CompactTextString(m) }
 func (*ReplicaSet) ProtoMessage()               {}
-func (*ReplicaSet) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{58} }
+func (*ReplicaSet) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{59} }
 
 func (m *ReplicaSet) GetMetadata() *Metadata {
 	if m != nil {
@@ -2042,7 +2112,7 @@ type LabelSelectorRequirement struct {
 func (m *LabelSelectorRequirement) Reset()                    { *m = LabelSelectorRequirement{} }
 func (m *LabelSelectorRequirement) String() string            { return proto.CompactTextString(m) }
 func (*LabelSelectorRequirement) ProtoMessage()               {}
-func (*LabelSelectorRequirement) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{59} }
+func (*LabelSelectorRequirement) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{60} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto
 type Pod struct {
@@ -2067,7 +2137,7 @@ type Pod struct {
 func (m *Pod) Reset()                    { *m = Pod{} }
 func (m *Pod) String() string            { return proto.CompactTextString(m) }
 func (*Pod) ProtoMessage()               {}
-func (*Pod) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{60} }
+func (*Pod) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{61} }
 
 func (m *Pod) GetMetadata() *Metadata {
 	if m != nil {
@@ -2116,7 +2186,7 @@ type ContainerStatus struct {
 func (m *ContainerStatus) Reset()                    { *m = ContainerStatus{} }
 func (m *ContainerStatus) String() string            { return proto.CompactTextString(m) }
 func (*ContainerStatus) ProtoMessage()               {}
-func (*ContainerStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{61} }
+func (*ContainerStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{62} }
 
 type Manifest struct {
 	Orchestrator string `protobuf:"bytes,1,opt,name=orchestrator,proto3" json:"orchestrator,omitempty"`
@@ -2130,7 +2200,7 @@ type Manifest struct {
 func (m *Manifest) Reset()                    { *m = Manifest{} }
 func (m *Manifest) String() string            { return proto.CompactTextString(m) }
 func (*Manifest) ProtoMessage()               {}
-func (*Manifest) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{62} }
+func (*Manifest) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{63} }
 
 // https://github.com/kubernetes/kubernetes/blob/4112d8db20c5550cc27d30d3cee2723db0f8e1c4/staging/src/k8s.io/api/core/v1/types.go#L2097
 // Using smallest possible quantity levels.
@@ -2151,7 +2221,7 @@ type ResourceRequirements struct {
 func (m *ResourceRequirements) Reset()                    { *m = ResourceRequirements{} }
 func (m *ResourceRequirements) String() string            { return proto.CompactTextString(m) }
 func (*ResourceRequirements) ProtoMessage()               {}
-func (*ResourceRequirements) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{63} }
+func (*ResourceRequirements) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{64} }
 
 func (m *ResourceRequirements) GetLimits() map[string]int64 {
 	if m != nil {
@@ -2180,7 +2250,7 @@ type JobSpec struct {
 func (m *JobSpec) Reset()                    { *m = JobSpec{} }
 func (m *JobSpec) String() string            { return proto.CompactTextString(m) }
 func (*JobSpec) ProtoMessage()               {}
-func (*JobSpec) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{64} }
+func (*JobSpec) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{65} }
 
 func (m *JobSpec) GetSelectors() []*LabelSelectorRequirement {
 	if m != nil {
@@ -2202,7 +2272,7 @@ type JobStatus struct {
 func (m *JobStatus) Reset()                    { *m = JobStatus{} }
 func (m *JobStatus) String() string            { return proto.CompactTextString(m) }
 func (*JobStatus) ProtoMessage()               {}
-func (*JobStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{65} }
+func (*JobStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{66} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L28
 type Job struct {
@@ -2216,7 +2286,7 @@ type Job struct {
 func (m *Job) Reset()                    { *m = Job{} }
 func (m *Job) String() string            { return proto.CompactTextString(m) }
 func (*Job) ProtoMessage()               {}
-func (*Job) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{66} }
+func (*Job) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{67} }
 
 func (m *Job) GetMetadata() *Metadata {
 	if m != nil {
@@ -2252,7 +2322,7 @@ type CronJobSpec struct {
 func (m *CronJobSpec) Reset()                    { *m = CronJobSpec{} }
 func (m *CronJobSpec) String() string            { return proto.CompactTextString(m) }
 func (*CronJobSpec) ProtoMessage()               {}
-func (*CronJobSpec) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{67} }
+func (*CronJobSpec) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{68} }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1beta1/types.go#L150
 type CronJobStatus struct {
@@ -2263,7 +2333,7 @@ type CronJobStatus struct {
 func (m *CronJobStatus) Reset()                    { *m = CronJobStatus{} }
 func (m *CronJobStatus) String() string            { return proto.CompactTextString(m) }
 func (*CronJobStatus) ProtoMessage()               {}
-func (*CronJobStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{68} }
+func (*CronJobStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{69} }
 
 func (m *CronJobStatus) GetActive() []*ObjectReference {
 	if m != nil {
@@ -2284,7 +2354,7 @@ type CronJob struct {
 func (m *CronJob) Reset()                    { *m = CronJob{} }
 func (m *CronJob) String() string            { return proto.CompactTextString(m) }
 func (*CronJob) ProtoMessage()               {}
-func (*CronJob) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{69} }
+func (*CronJob) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{70} }
 
 func (m *CronJob) GetMetadata() *Metadata {
 	if m != nil {
@@ -2307,6 +2377,78 @@ func (m *CronJob) GetStatus() *CronJobStatus {
 	return nil
 }
 
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L119
+type DaemonSetSpec struct {
+	Selectors            []*LabelSelectorRequirement `protobuf:"bytes,1,rep,name=selectors" json:"selectors,omitempty"`
+	DeploymentStrategy   string                      `protobuf:"bytes,2,opt,name=deploymentStrategy,proto3" json:"deploymentStrategy,omitempty"`
+	MaxUnavailable       string                      `protobuf:"bytes,3,opt,name=maxUnavailable,proto3" json:"maxUnavailable,omitempty"`
+	MinReadySeconds      int32                       `protobuf:"varint,4,opt,name=minReadySeconds,proto3" json:"minReadySeconds,omitempty"`
+	RevisionHistoryLimit int32                       `protobuf:"varint,5,opt,name=revisionHistoryLimit,proto3" json:"revisionHistoryLimit,omitempty"`
+}
+
+func (m *DaemonSetSpec) Reset()                    { *m = DaemonSetSpec{} }
+func (m *DaemonSetSpec) String() string            { return proto.CompactTextString(m) }
+func (*DaemonSetSpec) ProtoMessage()               {}
+func (*DaemonSetSpec) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{71} }
+
+func (m *DaemonSetSpec) GetSelectors() []*LabelSelectorRequirement {
+	if m != nil {
+		return m.Selectors
+	}
+	return nil
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L152
+type DaemonSetStatus struct {
+	CurrentNumberScheduled int32 `protobuf:"varint,1,opt,name=currentNumberScheduled,proto3" json:"currentNumberScheduled,omitempty"`
+	NumberMisscheduled     int32 `protobuf:"varint,2,opt,name=numberMisscheduled,proto3" json:"numberMisscheduled,omitempty"`
+	DesiredNumberScheduled int32 `protobuf:"varint,3,opt,name=desiredNumberScheduled,proto3" json:"desiredNumberScheduled,omitempty"`
+	NumberReady            int32 `protobuf:"varint,4,opt,name=numberReady,proto3" json:"numberReady,omitempty"`
+	UpdatedNumberScheduled int32 `protobuf:"varint,6,opt,name=updatedNumberScheduled,proto3" json:"updatedNumberScheduled,omitempty"`
+	NumberAvailable        int32 `protobuf:"varint,7,opt,name=numberAvailable,proto3" json:"numberAvailable,omitempty"`
+	NumberUnavailable      int32 `protobuf:"varint,8,opt,name=numberUnavailable,proto3" json:"numberUnavailable,omitempty"`
+}
+
+func (m *DaemonSetStatus) Reset()                    { *m = DaemonSetStatus{} }
+func (m *DaemonSetStatus) String() string            { return proto.CompactTextString(m) }
+func (*DaemonSetStatus) ProtoMessage()               {}
+func (*DaemonSetStatus) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{72} }
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L66
+type DaemonSet struct {
+	Metadata *Metadata        `protobuf:"bytes,1,opt,name=metadata" json:"metadata,omitempty"`
+	Spec     *DaemonSetSpec   `protobuf:"bytes,2,opt,name=spec" json:"spec,omitempty"`
+	Status   *DaemonSetStatus `protobuf:"bytes,3,opt,name=status" json:"status,omitempty"`
+	Yaml     []byte           `protobuf:"bytes,4,opt,name=yaml,proto3" json:"yaml,omitempty"`
+	Tags     []string         `protobuf:"bytes,5,rep,name=tags" json:"tags,omitempty"`
+}
+
+func (m *DaemonSet) Reset()                    { *m = DaemonSet{} }
+func (m *DaemonSet) String() string            { return proto.CompactTextString(m) }
+func (*DaemonSet) ProtoMessage()               {}
+func (*DaemonSet) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{73} }
+
+func (m *DaemonSet) GetMetadata() *Metadata {
+	if m != nil {
+		return m.Metadata
+	}
+	return nil
+}
+
+func (m *DaemonSet) GetSpec() *DaemonSetSpec {
+	if m != nil {
+		return m.Spec
+	}
+	return nil
+}
+
+func (m *DaemonSet) GetStatus() *DaemonSetStatus {
+	if m != nil {
+		return m.Status
+	}
+	return nil
+}
+
 type ConnectionsTelemetry struct {
 	MonotonicKprobesTriggered          int64 `protobuf:"varint,1,opt,name=monotonicKprobesTriggered,proto3" json:"monotonicKprobesTriggered,omitempty"`
 	MonotonicKprobesMissed             int64 `protobuf:"varint,2,opt,name=monotonicKprobesMissed,proto3" json:"monotonicKprobesMissed,omitempty"`
@@ -2318,12 +2460,13 @@ type ConnectionsTelemetry struct {
 	MonotonicUdpSendsProcessed         int64 `protobuf:"varint,8,opt,name=monotonicUdpSendsProcessed,proto3" json:"monotonicUdpSendsProcessed,omitempty"`
 	MonotonicUdpSendsMissed            int64 `protobuf:"varint,9,opt,name=monotonicUdpSendsMissed,proto3" json:"monotonicUdpSendsMissed,omitempty"`
 	ConntrackSamplingPercent           int64 `protobuf:"varint,10,opt,name=conntrackSamplingPercent,proto3" json:"conntrackSamplingPercent,omitempty"`
+	DnsStatsDropped                    int64 `protobuf:"varint,11,opt,name=dnsStatsDropped,proto3" json:"dnsStatsDropped,omitempty"`
 }
 
 func (m *ConnectionsTelemetry) Reset()                    { *m = ConnectionsTelemetry{} }
 func (m *ConnectionsTelemetry) String() string            { return proto.CompactTextString(m) }
 func (*ConnectionsTelemetry) ProtoMessage()               {}
-func (*ConnectionsTelemetry) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{70} }
+func (*ConnectionsTelemetry) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{74} }
 
 type CollectorConnectionsTelemetry struct {
 	KprobesTriggered          int64 `protobuf:"varint,1,opt,name=kprobesTriggered,proto3" json:"kprobesTriggered,omitempty"`
@@ -2336,13 +2479,14 @@ type CollectorConnectionsTelemetry struct {
 	UdpSendsProcessed         int64 `protobuf:"varint,8,opt,name=udpSendsProcessed,proto3" json:"udpSendsProcessed,omitempty"`
 	UdpSendsMissed            int64 `protobuf:"varint,9,opt,name=udpSendsMissed,proto3" json:"udpSendsMissed,omitempty"`
 	ConntrackSamplingPercent  int64 `protobuf:"varint,10,opt,name=conntrackSamplingPercent,proto3" json:"conntrackSamplingPercent,omitempty"`
+	DnsStatsDropped           int64 `protobuf:"varint,11,opt,name=dnsStatsDropped,proto3" json:"dnsStatsDropped,omitempty"`
 }
 
 func (m *CollectorConnectionsTelemetry) Reset()         { *m = CollectorConnectionsTelemetry{} }
 func (m *CollectorConnectionsTelemetry) String() string { return proto.CompactTextString(m) }
 func (*CollectorConnectionsTelemetry) ProtoMessage()    {}
 func (*CollectorConnectionsTelemetry) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgent, []int{71}
+	return fileDescriptorAgent, []int{75}
 }
 
 type DNSStats struct {
@@ -2355,7 +2499,7 @@ type DNSStats struct {
 func (m *DNSStats) Reset()                    { *m = DNSStats{} }
 func (m *DNSStats) String() string            { return proto.CompactTextString(m) }
 func (*DNSStats) ProtoMessage()               {}
-func (*DNSStats) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{72} }
+func (*DNSStats) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{76} }
 
 func (m *DNSStats) GetDnsCountByRcode() map[uint32]uint32 {
 	if m != nil {
@@ -2365,29 +2509,31 @@ func (m *DNSStats) GetDnsCountByRcode() map[uint32]uint32 {
 }
 
 type HTTPAggregations struct {
-	ByPath map[string]*HTTPStats `protobuf:"bytes,1,rep,name=byPath" json:"byPath,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value"`
+	EndpointAggregations []*HTTPStats `protobuf:"bytes,2,rep,name=endpointAggregations" json:"endpointAggregations,omitempty"`
 }
 
 func (m *HTTPAggregations) Reset()                    { *m = HTTPAggregations{} }
 func (m *HTTPAggregations) String() string            { return proto.CompactTextString(m) }
 func (*HTTPAggregations) ProtoMessage()               {}
-func (*HTTPAggregations) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{73} }
+func (*HTTPAggregations) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{77} }
 
-func (m *HTTPAggregations) GetByPath() map[string]*HTTPStats {
+func (m *HTTPAggregations) GetEndpointAggregations() []*HTTPStats {
 	if m != nil {
-		return m.ByPath
+		return m.EndpointAggregations
 	}
 	return nil
 }
 
 type HTTPStats struct {
+	Path                  string            `protobuf:"bytes,4,opt,name=path,proto3" json:"path,omitempty"`
+	Method                HTTPMethod        `protobuf:"varint,5,opt,name=method,proto3,enum=datadog.process_agent.HTTPMethod" json:"method,omitempty"`
 	StatsByResponseStatus []*HTTPStats_Data `protobuf:"bytes,1,rep,name=statsByResponseStatus" json:"statsByResponseStatus,omitempty"`
 }
 
 func (m *HTTPStats) Reset()                    { *m = HTTPStats{} }
 func (m *HTTPStats) String() string            { return proto.CompactTextString(m) }
 func (*HTTPStats) ProtoMessage()               {}
-func (*HTTPStats) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{74} }
+func (*HTTPStats) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{78} }
 
 func (m *HTTPStats) GetStatsByResponseStatus() []*HTTPStats_Data {
 	if m != nil {
@@ -2405,7 +2551,7 @@ type HTTPStats_Data struct {
 func (m *HTTPStats_Data) Reset()                    { *m = HTTPStats_Data{} }
 func (m *HTTPStats_Data) String() string            { return proto.CompactTextString(m) }
 func (*HTTPStats_Data) ProtoMessage()               {}
-func (*HTTPStats_Data) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{74, 0} }
+func (*HTTPStats_Data) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{78, 0} }
 
 type RuntimeCompilationTelemetry struct {
 	RuntimeCompilationEnabled  bool                     `protobuf:"varint,1,opt,name=runtimeCompilationEnabled,proto3" json:"runtimeCompilationEnabled,omitempty"`
@@ -2417,7 +2563,13 @@ func (m *RuntimeCompilationTelemetry) Reset()         { *m = RuntimeCompilationT
 func (m *RuntimeCompilationTelemetry) String() string { return proto.CompactTextString(m) }
 func (*RuntimeCompilationTelemetry) ProtoMessage()    {}
 func (*RuntimeCompilationTelemetry) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgent, []int{75}
+	return fileDescriptorAgent, []int{79}
+}
+
+type RouteMetadata struct {
+	Alias        string `protobuf:"bytes,1,opt,name=alias,proto3" json:"alias,omitempty"`
+	TagIndex     int32  `protobuf:"varint,2,opt,name=tagIndex,proto3" json:"tagIndex,omitempty"`
+	TagsModified int64  `protobuf:"varint,3,opt,name=tagsModified,proto3" json:"tagsModified,omitempty"`
 }
 
 type RouteMetadata struct {
@@ -2449,6 +2601,7 @@ func init() {
 	proto.RegisterType((*CollectorManifest)(nil), "datadog.process_agent.CollectorManifest")
 	proto.RegisterType((*CollectorJob)(nil), "datadog.process_agent.CollectorJob")
 	proto.RegisterType((*CollectorCronJob)(nil), "datadog.process_agent.CollectorCronJob")
+	proto.RegisterType((*CollectorDaemonSet)(nil), "datadog.process_agent.CollectorDaemonSet")
 	proto.RegisterType((*CollectorStatus)(nil), "datadog.process_agent.CollectorStatus")
 	proto.RegisterType((*Process)(nil), "datadog.process_agent.Process")
 	proto.RegisterType((*Command)(nil), "datadog.process_agent.Command")
@@ -2503,6 +2656,9 @@ func init() {
 	proto.RegisterType((*CronJobSpec)(nil), "datadog.process_agent.CronJobSpec")
 	proto.RegisterType((*CronJobStatus)(nil), "datadog.process_agent.CronJobStatus")
 	proto.RegisterType((*CronJob)(nil), "datadog.process_agent.CronJob")
+	proto.RegisterType((*DaemonSetSpec)(nil), "datadog.process_agent.DaemonSetSpec")
+	proto.RegisterType((*DaemonSetStatus)(nil), "datadog.process_agent.DaemonSetStatus")
+	proto.RegisterType((*DaemonSet)(nil), "datadog.process_agent.DaemonSet")
 	proto.RegisterType((*ConnectionsTelemetry)(nil), "datadog.process_agent.ConnectionsTelemetry")
 	proto.RegisterType((*CollectorConnectionsTelemetry)(nil), "datadog.process_agent.CollectorConnectionsTelemetry")
 	proto.RegisterType((*DNSStats)(nil), "datadog.process_agent.DNSStats")
@@ -2520,6 +2676,7 @@ func init() {
 	proto.RegisterEnum("datadog.process_agent.ConnectionDirection", ConnectionDirection_name, ConnectionDirection_value)
 	proto.RegisterEnum("datadog.process_agent.ResourceRequirementsType", ResourceRequirementsType_name, ResourceRequirementsType_value)
 	proto.RegisterEnum("datadog.process_agent.HTTPResponseStatus", HTTPResponseStatus_name, HTTPResponseStatus_value)
+	proto.RegisterEnum("datadog.process_agent.HTTPMethod", HTTPMethod_name, HTTPMethod_value)
 	proto.RegisterEnum("datadog.process_agent.RuntimeCompilationResult", RuntimeCompilationResult_name, RuntimeCompilationResult_value)
 }
 func (m *ResCollector) Marshal() (data []byte, err error) {
@@ -3820,6 +3977,73 @@ func (m *CollectorCronJob) MarshalTo(data []byte) (int, error) {
 	}
 	if len(m.CronJobs) > 0 {
 		for _, msg := range m.CronJobs {
+			data[i] = 0x2a
+			i++
+			i = encodeVarintAgent(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			data[i] = 0x32
+			i++
+			l = len(s)
+			for l >= 1<<7 {
+				data[i] = uint8(uint64(l)&0x7f | 0x80)
+				l >>= 7
+				i++
+			}
+			data[i] = uint8(l)
+			i++
+			i += copy(data[i:], s)
+		}
+	}
+	return i, nil
+}
+
+func (m *CollectorDaemonSet) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *CollectorDaemonSet) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.ClusterName) > 0 {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.ClusterName)))
+		i += copy(data[i:], m.ClusterName)
+	}
+	if len(m.ClusterId) > 0 {
+		data[i] = 0x12
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.ClusterId)))
+		i += copy(data[i:], m.ClusterId)
+	}
+	if m.GroupId != 0 {
+		data[i] = 0x18
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.GroupId))
+	}
+	if m.GroupSize != 0 {
+		data[i] = 0x20
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.GroupSize))
+	}
+	if len(m.DaemonSets) > 0 {
+		for _, msg := range m.DaemonSets {
 			data[i] = 0x2a
 			i++
 			i = encodeVarintAgent(data, i, uint64(msg.Size()))
@@ -6009,6 +6233,21 @@ func (m *Cluster) MarshalTo(data []byte) (int, error) {
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.CreationTimestamp))
 	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			data[i] = 0x62
+			i++
+			l = len(s)
+			for l >= 1<<7 {
+				data[i] = uint8(uint64(l)&0x7f | 0x80)
+				l >>= 7
+				i++
+			}
+			data[i] = uint8(l)
+			i++
+			i += copy(data[i:], s)
+		}
+	}
 	return i, nil
 }
 
@@ -7819,6 +8058,180 @@ func (m *CronJob) MarshalTo(data []byte) (int, error) {
 	return i, nil
 }
 
+func (m *DaemonSetSpec) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *DaemonSetSpec) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Selectors) > 0 {
+		for _, msg := range m.Selectors {
+			data[i] = 0xa
+			i++
+			i = encodeVarintAgent(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if len(m.DeploymentStrategy) > 0 {
+		data[i] = 0x12
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.DeploymentStrategy)))
+		i += copy(data[i:], m.DeploymentStrategy)
+	}
+	if len(m.MaxUnavailable) > 0 {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.MaxUnavailable)))
+		i += copy(data[i:], m.MaxUnavailable)
+	}
+	if m.MinReadySeconds != 0 {
+		data[i] = 0x20
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.MinReadySeconds))
+	}
+	if m.RevisionHistoryLimit != 0 {
+		data[i] = 0x28
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.RevisionHistoryLimit))
+	}
+	return i, nil
+}
+
+func (m *DaemonSetStatus) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *DaemonSetStatus) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.CurrentNumberScheduled != 0 {
+		data[i] = 0x8
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.CurrentNumberScheduled))
+	}
+	if m.NumberMisscheduled != 0 {
+		data[i] = 0x10
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.NumberMisscheduled))
+	}
+	if m.DesiredNumberScheduled != 0 {
+		data[i] = 0x18
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.DesiredNumberScheduled))
+	}
+	if m.NumberReady != 0 {
+		data[i] = 0x20
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.NumberReady))
+	}
+	if m.UpdatedNumberScheduled != 0 {
+		data[i] = 0x30
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.UpdatedNumberScheduled))
+	}
+	if m.NumberAvailable != 0 {
+		data[i] = 0x38
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.NumberAvailable))
+	}
+	if m.NumberUnavailable != 0 {
+		data[i] = 0x40
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.NumberUnavailable))
+	}
+	return i, nil
+}
+
+func (m *DaemonSet) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *DaemonSet) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Metadata != nil {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
+		n57, err := m.Metadata.MarshalTo(data[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n57
+	}
+	if m.Spec != nil {
+		data[i] = 0x12
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Spec.Size()))
+		n58, err := m.Spec.MarshalTo(data[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n58
+	}
+	if m.Status != nil {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Status.Size()))
+		n59, err := m.Status.MarshalTo(data[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n59
+	}
+	if len(m.Yaml) > 0 {
+		data[i] = 0x22
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.Yaml)))
+		i += copy(data[i:], m.Yaml)
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			data[i] = 0x2a
+			i++
+			l = len(s)
+			for l >= 1<<7 {
+				data[i] = uint8(uint64(l)&0x7f | 0x80)
+				l >>= 7
+				i++
+			}
+			data[i] = uint8(l)
+			i++
+			i += copy(data[i:], s)
+		}
+	}
+	return i, nil
+}
+
 func (m *ConnectionsTelemetry) Marshal() (data []byte, err error) {
 	size := m.Size()
 	data = make([]byte, size)
@@ -7883,6 +8296,11 @@ func (m *ConnectionsTelemetry) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x50
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.ConntrackSamplingPercent))
+	}
+	if m.DnsStatsDropped != 0 {
+		data[i] = 0x58
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.DnsStatsDropped))
 	}
 	return i, nil
 }
@@ -7952,6 +8370,11 @@ func (m *CollectorConnectionsTelemetry) MarshalTo(data []byte) (int, error) {
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.ConntrackSamplingPercent))
 	}
+	if m.DnsStatsDropped != 0 {
+		data[i] = 0x58
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.DnsStatsDropped))
+	}
 	return i, nil
 }
 
@@ -8018,32 +8441,16 @@ func (m *HTTPAggregations) MarshalTo(data []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.ByPath) > 0 {
-		for k, _ := range m.ByPath {
-			data[i] = 0xa
+	if len(m.EndpointAggregations) > 0 {
+		for _, msg := range m.EndpointAggregations {
+			data[i] = 0x12
 			i++
-			v := m.ByPath[k]
-			msgSize := 0
-			if v != nil {
-				msgSize = v.Size()
-				msgSize += 1 + sovAgent(uint64(msgSize))
+			i = encodeVarintAgent(data, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(data[i:])
+			if err != nil {
+				return 0, err
 			}
-			mapSize := 1 + len(k) + sovAgent(uint64(len(k))) + msgSize
-			i = encodeVarintAgent(data, i, uint64(mapSize))
-			data[i] = 0xa
-			i++
-			i = encodeVarintAgent(data, i, uint64(len(k)))
-			i += copy(data[i:], k)
-			if v != nil {
-				data[i] = 0x12
-				i++
-				i = encodeVarintAgent(data, i, uint64(v.Size()))
-				n57, err := v.MarshalTo(data[i:])
-				if err != nil {
-					return 0, err
-				}
-				i += n57
-			}
+			i += n
 		}
 	}
 	return i, nil
@@ -8075,6 +8482,17 @@ func (m *HTTPStats) MarshalTo(data []byte) (int, error) {
 			}
 			i += n
 		}
+	}
+	if len(m.Path) > 0 {
+		data[i] = 0x22
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.Path)))
+		i += copy(data[i:], m.Path)
+	}
+	if m.Method != 0 {
+		data[i] = 0x28
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Method))
 	}
 	return i, nil
 }
@@ -8159,6 +8577,42 @@ func (m *RouteMetadata) Marshal() (data []byte, err error) {
 		return nil, err
 	}
 	return data[:n], nil
+}
+
+func (m *RouteMetadata) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Alias) > 0 {
+		data[i] = 0xa
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.Alias)))
+		i += copy(data[i:], m.Alias)
+	}
+	if m.TagIndex != 0 {
+		data[i] = 0x10
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.TagIndex))
+	}
+	if m.TagsModified != 0 {
+		data[i] = 0x18
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.TagsModified))
+	}
+	return i, nil
+}
+
+func encodeFixed64Agent(data []byte, offset int, v uint64) int {
+	data[offset] = uint8(v)
+	data[offset+1] = uint8(v >> 8)
+	data[offset+2] = uint8(v >> 16)
+	data[offset+3] = uint8(v >> 24)
+	data[offset+4] = uint8(v >> 32)
+	data[offset+5] = uint8(v >> 40)
+	data[offset+6] = uint8(v >> 48)
+	data[offset+7] = uint8(v >> 56)
+	return offset + 8
 }
 
 func (m *RouteMetadata) MarshalTo(data []byte) (int, error) {
@@ -8828,6 +9282,38 @@ func (m *CollectorCronJob) Size() (n int) {
 	}
 	if len(m.CronJobs) > 0 {
 		for _, e := range m.CronJobs {
+			l = e.Size()
+			n += 1 + l + sovAgent(uint64(l))
+		}
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			l = len(s)
+			n += 1 + l + sovAgent(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *CollectorDaemonSet) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.ClusterName)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.ClusterId)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if m.GroupId != 0 {
+		n += 1 + sovAgent(uint64(m.GroupId))
+	}
+	if m.GroupSize != 0 {
+		n += 1 + sovAgent(uint64(m.GroupSize))
+	}
+	if len(m.DaemonSets) > 0 {
+		for _, e := range m.DaemonSets {
 			l = e.Size()
 			n += 1 + l + sovAgent(uint64(l))
 		}
@@ -9857,6 +10343,12 @@ func (m *Cluster) Size() (n int) {
 	if m.CreationTimestamp != 0 {
 		n += 1 + sovAgent(uint64(m.CreationTimestamp))
 	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			l = len(s)
+			n += 1 + l + sovAgent(uint64(l))
+		}
+	}
 	return n
 }
 
@@ -10724,6 +11216,87 @@ func (m *CronJob) Size() (n int) {
 	return n
 }
 
+func (m *DaemonSetSpec) Size() (n int) {
+	var l int
+	_ = l
+	if len(m.Selectors) > 0 {
+		for _, e := range m.Selectors {
+			l = e.Size()
+			n += 1 + l + sovAgent(uint64(l))
+		}
+	}
+	l = len(m.DeploymentStrategy)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.MaxUnavailable)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if m.MinReadySeconds != 0 {
+		n += 1 + sovAgent(uint64(m.MinReadySeconds))
+	}
+	if m.RevisionHistoryLimit != 0 {
+		n += 1 + sovAgent(uint64(m.RevisionHistoryLimit))
+	}
+	return n
+}
+
+func (m *DaemonSetStatus) Size() (n int) {
+	var l int
+	_ = l
+	if m.CurrentNumberScheduled != 0 {
+		n += 1 + sovAgent(uint64(m.CurrentNumberScheduled))
+	}
+	if m.NumberMisscheduled != 0 {
+		n += 1 + sovAgent(uint64(m.NumberMisscheduled))
+	}
+	if m.DesiredNumberScheduled != 0 {
+		n += 1 + sovAgent(uint64(m.DesiredNumberScheduled))
+	}
+	if m.NumberReady != 0 {
+		n += 1 + sovAgent(uint64(m.NumberReady))
+	}
+	if m.UpdatedNumberScheduled != 0 {
+		n += 1 + sovAgent(uint64(m.UpdatedNumberScheduled))
+	}
+	if m.NumberAvailable != 0 {
+		n += 1 + sovAgent(uint64(m.NumberAvailable))
+	}
+	if m.NumberUnavailable != 0 {
+		n += 1 + sovAgent(uint64(m.NumberUnavailable))
+	}
+	return n
+}
+
+func (m *DaemonSet) Size() (n int) {
+	var l int
+	_ = l
+	if m.Metadata != nil {
+		l = m.Metadata.Size()
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if m.Spec != nil {
+		l = m.Spec.Size()
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if m.Status != nil {
+		l = m.Status.Size()
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.Yaml)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			l = len(s)
+			n += 1 + l + sovAgent(uint64(l))
+		}
+	}
+	return n
+}
+
 func (m *ConnectionsTelemetry) Size() (n int) {
 	var l int
 	_ = l
@@ -10756,6 +11329,9 @@ func (m *ConnectionsTelemetry) Size() (n int) {
 	}
 	if m.ConntrackSamplingPercent != 0 {
 		n += 1 + sovAgent(uint64(m.ConntrackSamplingPercent))
+	}
+	if m.DnsStatsDropped != 0 {
+		n += 1 + sovAgent(uint64(m.DnsStatsDropped))
 	}
 	return n
 }
@@ -10793,6 +11369,9 @@ func (m *CollectorConnectionsTelemetry) Size() (n int) {
 	if m.ConntrackSamplingPercent != 0 {
 		n += 1 + sovAgent(uint64(m.ConntrackSamplingPercent))
 	}
+	if m.DnsStatsDropped != 0 {
+		n += 1 + sovAgent(uint64(m.DnsStatsDropped))
+	}
 	return n
 }
 
@@ -10822,17 +11401,10 @@ func (m *DNSStats) Size() (n int) {
 func (m *HTTPAggregations) Size() (n int) {
 	var l int
 	_ = l
-	if len(m.ByPath) > 0 {
-		for k, v := range m.ByPath {
-			_ = k
-			_ = v
-			l = 0
-			if v != nil {
-				l = v.Size()
-				l += 1 + sovAgent(uint64(l))
-			}
-			mapEntrySize := 1 + len(k) + sovAgent(uint64(len(k))) + l
-			n += mapEntrySize + 1 + sovAgent(uint64(mapEntrySize))
+	if len(m.EndpointAggregations) > 0 {
+		for _, e := range m.EndpointAggregations {
+			l = e.Size()
+			n += 1 + l + sovAgent(uint64(l))
 		}
 	}
 	return n
@@ -10846,6 +11418,13 @@ func (m *HTTPStats) Size() (n int) {
 			l = e.Size()
 			n += 1 + l + sovAgent(uint64(l))
 		}
+	}
+	l = len(m.Path)
+	if l > 0 {
+		n += 1 + l + sovAgent(uint64(l))
+	}
+	if m.Method != 0 {
+		n += 1 + sovAgent(uint64(m.Method))
 	}
 	return n
 }
@@ -15238,6 +15817,212 @@ func (m *CollectorCronJob) Unmarshal(data []byte) error {
 			}
 			m.CronJobs = append(m.CronJobs, &CronJob{})
 			if err := m.CronJobs[len(m.CronJobs)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tags", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Tags = append(m.Tags, string(data[iNdEx:postIndex]))
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CollectorDaemonSet) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CollectorDaemonSet: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CollectorDaemonSet: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ClusterName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ClusterName = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ClusterId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ClusterId = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GroupId", wireType)
+			}
+			m.GroupId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.GroupId |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GroupSize", wireType)
+			}
+			m.GroupSize = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.GroupSize |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DaemonSets", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DaemonSets = append(m.DaemonSets, &DaemonSet{})
+			if err := m.DaemonSets[len(m.DaemonSets)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -22399,6 +23184,35 @@ func (m *Cluster) Unmarshal(data []byte) error {
 					break
 				}
 			}
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tags", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Tags = append(m.Tags, string(data[iNdEx:postIndex]))
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAgent(data[iNdEx:])
@@ -28683,6 +29497,575 @@ func (m *CronJob) Unmarshal(data []byte) error {
 	}
 	return nil
 }
+func (m *DaemonSetSpec) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: DaemonSetSpec: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: DaemonSetSpec: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Selectors", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Selectors = append(m.Selectors, &LabelSelectorRequirement{})
+			if err := m.Selectors[len(m.Selectors)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DeploymentStrategy", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DeploymentStrategy = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MaxUnavailable", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MaxUnavailable = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MinReadySeconds", wireType)
+			}
+			m.MinReadySeconds = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.MinReadySeconds |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RevisionHistoryLimit", wireType)
+			}
+			m.RevisionHistoryLimit = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.RevisionHistoryLimit |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *DaemonSetStatus) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: DaemonSetStatus: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: DaemonSetStatus: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CurrentNumberScheduled", wireType)
+			}
+			m.CurrentNumberScheduled = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.CurrentNumberScheduled |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NumberMisscheduled", wireType)
+			}
+			m.NumberMisscheduled = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.NumberMisscheduled |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DesiredNumberScheduled", wireType)
+			}
+			m.DesiredNumberScheduled = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.DesiredNumberScheduled |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NumberReady", wireType)
+			}
+			m.NumberReady = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.NumberReady |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UpdatedNumberScheduled", wireType)
+			}
+			m.UpdatedNumberScheduled = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.UpdatedNumberScheduled |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 7:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NumberAvailable", wireType)
+			}
+			m.NumberAvailable = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.NumberAvailable |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 8:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NumberUnavailable", wireType)
+			}
+			m.NumberUnavailable = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.NumberUnavailable |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *DaemonSet) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: DaemonSet: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: DaemonSet: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Metadata", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Metadata == nil {
+				m.Metadata = &Metadata{}
+			}
+			if err := m.Metadata.Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Spec", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Spec == nil {
+				m.Spec = &DaemonSetSpec{}
+			}
+			if err := m.Spec.Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Status == nil {
+				m.Status = &DaemonSetStatus{}
+			}
+			if err := m.Status.Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Yaml", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				byteLen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Yaml = append(m.Yaml[:0], data[iNdEx:postIndex]...)
+			if m.Yaml == nil {
+				m.Yaml = []byte{}
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tags", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Tags = append(m.Tags, string(data[iNdEx:postIndex]))
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func (m *ConnectionsTelemetry) Unmarshal(data []byte) error {
 	l := len(data)
 	iNdEx := 0
@@ -28898,6 +30281,25 @@ func (m *ConnectionsTelemetry) Unmarshal(data []byte) error {
 				b := data[iNdEx]
 				iNdEx++
 				m.ConntrackSamplingPercent |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 11:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DnsStatsDropped", wireType)
+			}
+			m.DnsStatsDropped = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.DnsStatsDropped |= (int64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -29138,6 +30540,25 @@ func (m *CollectorConnectionsTelemetry) Unmarshal(data []byte) error {
 				b := data[iNdEx]
 				iNdEx++
 				m.ConntrackSamplingPercent |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 11:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DnsStatsDropped", wireType)
+			}
+			m.DnsStatsDropped = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.DnsStatsDropped |= (int64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
@@ -29395,9 +30816,9 @@ func (m *HTTPAggregations) Unmarshal(data []byte) error {
 			return fmt.Errorf("proto: HTTPAggregations: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
-		case 1:
+		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ByPath", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field EndpointAggregations", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -29421,99 +30842,9 @@ func (m *HTTPAggregations) Unmarshal(data []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			var keykey uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				keykey |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			var stringLenmapkey uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				stringLenmapkey |= (uint64(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLenmapkey := int(stringLenmapkey)
-			if intStringLenmapkey < 0 {
-				return ErrInvalidLengthAgent
-			}
-			postStringIndexmapkey := iNdEx + intStringLenmapkey
-			if postStringIndexmapkey > l {
-				return io.ErrUnexpectedEOF
-			}
-			mapkey := string(data[iNdEx:postStringIndexmapkey])
-			iNdEx = postStringIndexmapkey
-			if m.ByPath == nil {
-				m.ByPath = make(map[string]*HTTPStats)
-			}
-			if iNdEx < postIndex {
-				var valuekey uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowAgent
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := data[iNdEx]
-					iNdEx++
-					valuekey |= (uint64(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				var mapmsglen int
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowAgent
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := data[iNdEx]
-					iNdEx++
-					mapmsglen |= (int(b) & 0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				if mapmsglen < 0 {
-					return ErrInvalidLengthAgent
-				}
-				postmsgIndex := iNdEx + mapmsglen
-				if mapmsglen < 0 {
-					return ErrInvalidLengthAgent
-				}
-				if postmsgIndex > l {
-					return io.ErrUnexpectedEOF
-				}
-				mapvalue := &HTTPStats{}
-				if err := mapvalue.Unmarshal(data[iNdEx:postmsgIndex]); err != nil {
-					return err
-				}
-				iNdEx = postmsgIndex
-				m.ByPath[mapkey] = mapvalue
-			} else {
-				var mapvalue *HTTPStats
-				m.ByPath[mapkey] = mapvalue
+			m.EndpointAggregations = append(m.EndpointAggregations, &HTTPStats{})
+			if err := m.EndpointAggregations[len(m.EndpointAggregations)-1].Unmarshal(data[iNdEx:postIndex]); err != nil {
+				return err
 			}
 			iNdEx = postIndex
 		default:
@@ -29597,6 +30928,54 @@ func (m *HTTPStats) Unmarshal(data []byte) error {
 				return err
 			}
 			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Path", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Path = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Method", wireType)
+			}
+			m.Method = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				m.Method |= (HTTPMethod(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAgent(data[iNdEx:])

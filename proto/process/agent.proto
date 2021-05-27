@@ -238,6 +238,15 @@ message CollectorCronJob {
     repeated string tags = 6;
 }
 
+message CollectorDaemonSet {
+    string clusterName = 1;
+    string clusterId = 2;
+    int32 groupId = 3;
+    int32 groupSize = 4;
+    repeated DaemonSet daemonSets = 5;
+    repeated string tags = 6;
+}
+
 //
 // Models
 //
@@ -671,6 +680,7 @@ message Cluster {
 	uint64 cpuCapacity = 9;
 	string resourceVersion = 10;
 	int64 creationTimestamp = 11;
+	repeated string tags = 12;
 }
 
 // reference https://github.com/kubernetes/apimachinery/blob/2373d029717c4d169463414a6127cd1d0d12680e/pkg/apis/meta/v1/generated.proto#L521
@@ -977,6 +987,35 @@ message CronJob {
     repeated string tags = 5;
 }
 
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L119
+message DaemonSetSpec {
+    repeated LabelSelectorRequirement selectors = 1;
+    string deploymentStrategy = 2;
+    string maxUnavailable = 3; // int or str
+    int32 minReadySeconds = 4;
+    int32 revisionHistoryLimit = 5;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L152
+message DaemonSetStatus {
+    int32 currentNumberScheduled = 1;
+    int32 numberMisscheduled = 2;
+    int32 desiredNumberScheduled = 3;
+    int32 numberReady = 4;
+    int32 updatedNumberScheduled = 6;
+    int32 numberAvailable = 7;
+    int32 numberUnavailable = 8;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L66
+message DaemonSet {
+    Metadata metadata = 1;
+    DaemonSetSpec spec = 2;
+    DaemonSetStatus status = 3;
+    bytes yaml = 4;
+    repeated string tags = 5;
+}
+
 message ConnectionsTelemetry {
 	int64 monotonicKprobesTriggered = 1;
 	int64 monotonicKprobesMissed = 2;
@@ -988,6 +1027,7 @@ message ConnectionsTelemetry {
 	int64 monotonicUdpSendsProcessed = 8;
 	int64 monotonicUdpSendsMissed = 9;
 	int64 conntrackSamplingPercent = 10;
+	int64 dnsStatsDropped = 11;
 }
 
 message CollectorConnectionsTelemetry {
@@ -1001,6 +1041,7 @@ message CollectorConnectionsTelemetry {
 	int64 udpSendsProcessed = 8;
 	int64 udpSendsMissed = 9;
 	int64 conntrackSamplingPercent = 10;
+	int64 dnsStatsDropped = 11;
 }
 
 message DNSStats {
@@ -1011,10 +1052,14 @@ message DNSStats {
 }
 
 message HTTPAggregations {
-	map<string, HTTPStats> byPath = 1;
+	reserved 1;
+	repeated HTTPStats endpointAggregations = 2;
 }
 
 message HTTPStats {
+	string path = 4;
+	HTTPMethod method = 5;
+
 	repeated Data statsByResponseStatus = 1;
 
 	message Data {
@@ -1030,6 +1075,17 @@ enum HTTPResponseStatus {
     Redirect = 2;	// 3XX
     ClientErr = 3;	// 4XX
     ServerErr = 4;	// 5XX
+}
+
+enum HTTPMethod {
+	Unknown = 0;
+	Get = 1;
+	Post = 2;
+	Put = 3;
+	Delete = 4;
+	Head = 5;
+	Options = 6;
+	Patch = 7;
 }
 
 enum RuntimeCompilationResult {
