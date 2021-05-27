@@ -1106,8 +1106,14 @@ message RuntimeCompilationTelemetry {
 	int64 runtimeCompilationDuration = 3;
 }
 
+enum RouteState {
+    Blackhole = 0;
+    Active = 1;
+}
+
 message RouteMetadata {
     string alias = 1;
     int32 tagIndex = 2;
     int64 tagsModified = 3;
+    RouteState state = 4;
 }
