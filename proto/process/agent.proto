@@ -88,10 +88,6 @@ message CollectorConnections {
 	string platform = 19;
 	string platformVersion = 20;
 
-	// host configuration, ephemeral port range
-	int32 ephemeralPortRangeStart = 32;
-	int32 ephemeralPortRangeEnd = 33;
-
 	map<string, RuntimeCompilationTelemetry> compilationTelemetryByAsset = 21;
 
 	// All queried DNS domains for which we have collected stats
@@ -525,7 +521,7 @@ enum EphemeralPortState {
 
 message Connection {
 	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 35;
-    	// Please update when adding fields
+    // Please update when adding fields
 	// next identifier:  42
 
 
@@ -535,7 +531,7 @@ message Connection {
 	ConnectionFamily family = 10;
 	ConnectionType type = 11;
 	int64 pidCreateTime = 12;
-	EphemeralPortState isEphemeralPort = 41;
+	EphemeralPortState isLocalPortEphemeral = 41;
 	
 	// Relative counters since last check
 	uint64 lastBytesSent = 16;
