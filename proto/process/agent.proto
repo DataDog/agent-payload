@@ -217,30 +217,39 @@ message CollectorManifest {
 }
 
 message CollectorJob {
-    string clusterName = 1;
-    string clusterId = 2;
-    int32 groupId = 3;
-    int32 groupSize = 4;
-    repeated Job jobs = 5;
-    repeated string tags = 6;
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated Job jobs = 5;
+	repeated string tags = 6;
 }
 
 message CollectorCronJob {
-    string clusterName = 1;
-    string clusterId = 2;
-    int32 groupId = 3;
-    int32 groupSize = 4;
-    repeated CronJob cronJobs = 5;
-    repeated string tags = 6;
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated CronJob cronJobs = 5;
+	repeated string tags = 6;
 }
 
 message CollectorDaemonSet {
-    string clusterName = 1;
-    string clusterId = 2;
-    int32 groupId = 3;
-    int32 groupSize = 4;
-    repeated DaemonSet daemonSets = 5;
-    repeated string tags = 6;
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated DaemonSet daemonSets = 5;
+	repeated string tags = 6;
+}
+
+message CollectorStatefulSet {
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated StatefulSet statefulSets = 5;
+	repeated string tags = 6;
 }
 
 //
@@ -519,7 +528,7 @@ enum EphemeralPortState {
 
 message Connection {
 	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 35;
-    // Please update when adding fields
+	// Please update when adding fields
 	// next identifier:  43
 
 
@@ -530,7 +539,7 @@ message Connection {
 	ConnectionType type = 11;
 	int64 pidCreateTime = 12;
 	EphemeralPortState isLocalPortEphemeral = 41;
-	
+
 	// Relative counters since last check
 	uint64 lastBytesSent = 16;
 	uint64 lastBytesReceived = 17;
@@ -572,20 +581,20 @@ message Connection {
 	map<int32, DNSStatsByQueryType> dnsStatsByDomainByQueryType = 42;
 
 	int32 routeIdx = 36;
-    	// the index of the resolved target of the route (post-resolution field)
-    	int32 routeTargetIdx = 40;
+			// the index of the resolved target of the route (post-resolution field)
+			int32 routeTargetIdx = 40;
 
-    	// serialized HTTPAggregations object summarizing all http transactions recorded for this connection, organized by request path
+			// serialized HTTPAggregations object summarizing all http transactions recorded for this connection, organized by request path
 	bytes httpAggregations = 37;
 }
 
 message Connections {
-  repeated Connection conns = 1;
-  map<string, DNSEntry> dns  = 2;
-  ConnectionsTelemetry connTelemetry = 3;
-  repeated string domains = 4;
-  repeated Route routes = 5;
-  map<string, RuntimeCompilationTelemetry> compilationTelemetryByAsset = 6;
+	repeated Connection conns = 1;
+	map<string, DNSEntry> dns  = 2;
+	ConnectionsTelemetry connTelemetry = 3;
+	repeated string domains = 4;
+	repeated Route routes = 5;
+	map<string, RuntimeCompilationTelemetry> compilationTelemetryByAsset = 6;
 }
 
 message Addr {
@@ -598,11 +607,11 @@ message Addr {
 }
 
 message Route {
-    Subnet subnet = 1;
+		Subnet subnet = 1;
 }
 
 message Subnet {
-    string alias = 1;
+		string alias = 1;
 }
 
 message IPTranslation {
@@ -668,7 +677,7 @@ message Host {
 }
 
 message DNSEntry {
-  repeated string names = 1;
+	repeated string names = 1;
 }
 
 message Cluster {
@@ -710,27 +719,27 @@ message OwnerReference {
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/pkg/apis/core/types.go#L4317
 message ObjectReference {
-    string kind = 1;
-    string namespace = 2;
-    string name = 3;
-    string uid = 4;
-    string apiVersion = 5;
-    string resourceVersion = 6;
-    string fieldPath = 7;
+		string kind = 1;
+		string namespace = 2;
+		string name = 3;
+		string uid = 4;
+		string apiVersion = 5;
+		string resourceVersion = 6;
+		string fieldPath = 7;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4571
 message ServicePort {
-    string name = 1;
-    string protocol = 2;
-    int32 port = 3;
-    string targetPort = 4; // int or str
-    int32 nodePort = 5;
+		string name = 1;
+		string protocol = 2;
+		int32 port = 3;
+		string targetPort = 4; // int or str
+		int32 nodePort = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4756
 message ServiceSessionAffinityConfig {
-    int32 clientIPTimeoutSeconds = 1;
+		int32 clientIPTimeoutSeconds = 1;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2107
@@ -869,10 +878,10 @@ message ReplicaSet {
 }
 
 message LabelSelectorRequirement {
-  string key = 1;
-  // Valid operators are In, NotIn, Exists and DoesNotExist.
-  string operator = 2;
-  repeated string values = 3;
+	string key = 1;
+	// Valid operators are In, NotIn, Exists and DoesNotExist.
+	string operator = 2;
+	repeated string values = 3;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto
@@ -941,85 +950,113 @@ enum ResourceRequirementsType {
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L61
 message JobSpec {
-    int32 parallelism = 1;
-    int32 completions = 2;
-    int64 activeDeadlineSeconds = 3;
-    int32 backoffLimit = 4;
-    repeated LabelSelectorRequirement selectors = 5;
-    bool manualSelector = 6;
+	int32 parallelism = 1;
+	int32 completions = 2;
+	int64 activeDeadlineSeconds = 3;
+	int32 backoffLimit = 4;
+	repeated LabelSelectorRequirement selectors = 5;
+	bool manualSelector = 6;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L132
 message JobStatus {
-    string conditionMessage = 1;
-    int64 startTime = 2;
-    int64 completionTime = 3;
-    int32 active = 4;
-    int32 succeeded = 5;
-    int32 failed = 6;
+	string conditionMessage = 1;
+	int64 startTime = 2;
+	int64 completionTime = 3;
+	int32 active = 4;
+	int32 succeeded = 5;
+	int32 failed = 6;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L28
 message Job {
-    Metadata metadata = 1;
-    JobSpec spec = 2;
-    JobStatus status = 3;
-    bytes yaml = 4;
-    repeated string tags = 5;
+	Metadata metadata = 1;
+	JobSpec spec = 2;
+	JobStatus status = 3;
+	bytes yaml = 4;
+	repeated string tags = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1beta1/types.go#L92
 message CronJobSpec {
-    string schedule = 1;
-    int64 startingDeadlineSeconds = 2;
-    string concurrencyPolicy = 3;
-    bool suspend = 4;
-    int32 successfulJobsHistoryLimit = 5;
-    int32 failedJobsHistoryLimit = 6;
+	string schedule = 1;
+	int64 startingDeadlineSeconds = 2;
+	string concurrencyPolicy = 3;
+	bool suspend = 4;
+	int32 successfulJobsHistoryLimit = 5;
+	int32 failedJobsHistoryLimit = 6;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1beta1/types.go#L150
 message CronJobStatus {
-    repeated ObjectReference active = 1;
-    int64 lastScheduleTime = 2;
+	repeated ObjectReference active = 1;
+	int64 lastScheduleTime = 2;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1beta1/types.go#L58
 message CronJob {
-    Metadata metadata = 1;
-    CronJobSpec spec = 2;
-    CronJobStatus status = 3;
-    bytes yaml = 4;
-    repeated string tags = 5;
+	Metadata metadata = 1;
+	CronJobSpec spec = 2;
+	CronJobStatus status = 3;
+	bytes yaml = 4;
+	repeated string tags = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L119
 message DaemonSetSpec {
-    repeated LabelSelectorRequirement selectors = 1;
-    string deploymentStrategy = 2;
-    string maxUnavailable = 3; // int or str
-    int32 minReadySeconds = 4;
-    int32 revisionHistoryLimit = 5;
+	repeated LabelSelectorRequirement selectors = 1;
+	string deploymentStrategy = 2;
+	string maxUnavailable = 3; // int or str
+	int32 minReadySeconds = 4;
+	int32 revisionHistoryLimit = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L152
 message DaemonSetStatus {
-    int32 currentNumberScheduled = 1;
-    int32 numberMisscheduled = 2;
-    int32 desiredNumberScheduled = 3;
-    int32 numberReady = 4;
-    int32 updatedNumberScheduled = 6;
-    int32 numberAvailable = 7;
-    int32 numberUnavailable = 8;
+	int32 currentNumberScheduled = 1;
+	int32 numberMisscheduled = 2;
+	int32 desiredNumberScheduled = 3;
+	int32 numberReady = 4;
+	int32 updatedNumberScheduled = 6;
+	int32 numberAvailable = 7;
+	int32 numberUnavailable = 8;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L66
 message DaemonSet {
-    Metadata metadata = 1;
-    DaemonSetSpec spec = 2;
-    DaemonSetStatus status = 3;
-    bytes yaml = 4;
-    repeated string tags = 5;
+	Metadata metadata = 1;
+	DaemonSetSpec spec = 2;
+	DaemonSetStatus status = 3;
+	bytes yaml = 4;
+	repeated string tags = 5;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L586
+message StatefulSetSpec {
+	int32 replicas = 1;
+	repeated LabelSelectorRequirement selectors = 2;
+	string serviceName = 3;
+	string podManagementPolicy = 4;
+	string updateStrategy = 5;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L647
+message StatefulSetStatus {
+	int32 replicas = 1;
+	int32 readyReplicas = 2;
+	int32 currentReplicas = 3;
+	int32 updatedReplicas = 4;
+	int32 collisionCount = 5;
+	string conditionMessage = 6;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L542
+message StatefulSet {
+	Metadata metadata = 1;
+	StatefulSetSpec spec = 2;
+	StatefulSetStatus status = 3;
+	bytes yaml = 4;
+	repeated string tags = 5;
 }
 
 message ConnectionsTelemetry {
@@ -1079,11 +1116,11 @@ message HTTPStats {
 }
 
 enum HTTPResponseStatus {
-    Info = 0;		// 1XX response
-    Success = 1;	// 2XX
-    Redirect = 2;	// 3XX
-    ClientErr = 3;	// 4XX
-    ServerErr = 4;	// 5XX
+	Info = 0;		// 1XX response
+	Success = 1;	// 2XX
+	Redirect = 2;	// 3XX
+	ClientErr = 3;	// 4XX
+	ServerErr = 4;	// 5XX
 }
 
 enum HTTPMethod {
@@ -1116,7 +1153,7 @@ message RuntimeCompilationTelemetry {
 }
 
 message RouteMetadata {
-    string alias = 1;
-    int32 tagIndex = 2;
-    int64 tagsModified = 3;
+	string alias = 1;
+	int32 tagIndex = 2;
+	int64 tagsModified = 3;
 }
