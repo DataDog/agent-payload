@@ -1038,6 +1038,7 @@ message StatefulSetSpec {
 	string serviceName = 3;
 	string podManagementPolicy = 4;
 	string updateStrategy = 5;
+	int32 partition = 6;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L647
@@ -1046,7 +1047,8 @@ message StatefulSetStatus {
 	int32 readyReplicas = 2;
 	int32 currentReplicas = 3;
 	int32 updatedReplicas = 4;
-	int32 collisionCount = 5;
+	// statefulset conditions are not yet set by the STS controller so we don't collect them
+	// see https://github.com/kubernetes/kubernetes/issues/79606#issuecomment-591504626
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L542
