@@ -518,7 +518,8 @@ enum EphemeralPortState {
 }
 
 message Connection {
-	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 34, 35;
+	// todo; deprecate 34 when back-end can handle new dns by domain/by type message
+	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 35;
     // Please update when adding fields
 	// next identifier:  43
 
@@ -1055,7 +1056,7 @@ message DNSStats {
 }
 
 message DNSStatsByQueryType {
-	map<int32, DNSStats> dnsStatsByDomain = 1;
+	map<int32, DNSStats> dnsStatsByQueryType = 1;
 }
 message HTTPAggregations {
 	reserved 1;
