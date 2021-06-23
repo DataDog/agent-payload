@@ -518,7 +518,6 @@ enum EphemeralPortState {
 }
 
 message Connection {
-	// todo; deprecate 34 when back-end can handle new dns by domain/by type message
 	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 35;
     // Please update when adding fields
 	// next identifier:  43
@@ -567,7 +566,10 @@ message Connection {
 	uint32 lastTcpClosed = 31;
 
 	// dns stats based on domain queried, the key corresponds to an index into the `domains` field
-	map<int32, DNSStatsByQueryType> dnsStatsByDomain = 42;
+	// dnsStatsByDomain is deprecated field, left in for handling old agent versions
+	map<int32, DNSStats> dnsStatsByDomain = 34;
+	// dnsStatsByDomainByQueryType is new field
+	map<int32, DNSStatsByQueryType> dnsStatsByDomainByQueryType = 42;
 
 	int32 routeIdx = 36;
     	// the index of the resolved target of the route (post-resolution field)
