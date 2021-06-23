@@ -520,7 +520,7 @@ enum EphemeralPortState {
 message Connection {
 	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 35;
     // Please update when adding fields
-	// next identifier:  42
+	// next identifier:  43
 
 
 	int32 pid = 1;
@@ -566,7 +566,10 @@ message Connection {
 	uint32 lastTcpClosed = 31;
 
 	// dns stats based on domain queried, the key corresponds to an index into the `domains` field
+	// dnsStatsByDomain is deprecated field, left in for handling old agent versions
 	map<int32, DNSStats> dnsStatsByDomain = 34;
+	// dnsStatsByDomainByQueryType is new field
+	map<int32, DNSStatsByQueryType> dnsStatsByDomainByQueryType = 42;
 
 	int32 routeIdx = 36;
     	// the index of the resolved target of the route (post-resolution field)
@@ -1054,6 +1057,9 @@ message DNSStats {
 	map<uint32, uint32> dnsCountByRcode = 4;
 }
 
+message DNSStatsByQueryType {
+	map<int32, DNSStats> dnsStatsByQueryType = 1;
+}
 message HTTPAggregations {
 	reserved 1;
 	repeated HTTPStats endpointAggregations = 2;
