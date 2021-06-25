@@ -86,6 +86,7 @@
 		ConnectionsTelemetry
 		CollectorConnectionsTelemetry
 		DNSStats
+		DNSStatsByQueryType
 		HTTPAggregations
 		HTTPStats
 		RuntimeCompilationTelemetry
@@ -93,12 +94,17 @@
 */
 package process
 
-import proto "github.com/gogo/protobuf/proto"
-import fmt "fmt"
-import math "math"
-import datadog_agentpayload "github.com/DataDog/agent-payload/gogen"
+import (
+	fmt "fmt"
 
-import io "io"
+	proto "github.com/gogo/protobuf/proto"
+
+	math "math"
+
+	datadog_agentpayload "github.com/DataDog/agent-payload/gogen"
+
+	io "io"
+)
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -1450,8 +1456,11 @@ type Connection struct {
 	LastTcpEstablished uint32 `protobuf:"varint,30,opt,name=lastTcpEstablished,proto3" json:"lastTcpEstablished,omitempty"`
 	LastTcpClosed      uint32 `protobuf:"varint,31,opt,name=lastTcpClosed,proto3" json:"lastTcpClosed,omitempty"`
 	// dns stats based on domain queried, the key corresponds to an index into the `domains` field
+	// dnsStatsByDomain is deprecated field, left in for handling old agent versions
 	DnsStatsByDomain map[int32]*DNSStats `protobuf:"bytes,34,rep,name=dnsStatsByDomain" json:"dnsStatsByDomain,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value"`
-	RouteIdx         int32               `protobuf:"varint,36,opt,name=routeIdx,proto3" json:"routeIdx,omitempty"`
+	// dnsStatsByDomainByQueryType is new field
+	DnsStatsByDomainByQueryType map[int32]*DNSStatsByQueryType `protobuf:"bytes,42,rep,name=dnsStatsByDomainByQueryType" json:"dnsStatsByDomainByQueryType,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value"`
+	RouteIdx                    int32                          `protobuf:"varint,36,opt,name=routeIdx,proto3" json:"routeIdx,omitempty"`
 	// the index of the resolved target of the route (post-resolution field)
 	RouteTargetIdx int32 `protobuf:"varint,40,opt,name=routeTargetIdx,proto3" json:"routeTargetIdx,omitempty"`
 	// serialized HTTPAggregations object summarizing all http transactions recorded for this connection, organized by request path
@@ -1494,6 +1503,13 @@ func (m *Connection) GetDnsCountByRcode() map[uint32]uint32 {
 func (m *Connection) GetDnsStatsByDomain() map[int32]*DNSStats {
 	if m != nil {
 		return m.DnsStatsByDomain
+	}
+	return nil
+}
+
+func (m *Connection) GetDnsStatsByDomainByQueryType() map[int32]*DNSStatsByQueryType {
+	if m != nil {
+		return m.DnsStatsByDomainByQueryType
 	}
 	return nil
 }
@@ -2525,6 +2541,22 @@ func (m *DNSStats) GetDnsCountByRcode() map[uint32]uint32 {
 	return nil
 }
 
+type DNSStatsByQueryType struct {
+	DnsStatsByQueryType map[int32]*DNSStats `protobuf:"bytes,1,rep,name=dnsStatsByQueryType" json:"dnsStatsByQueryType,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value"`
+}
+
+func (m *DNSStatsByQueryType) Reset()                    { *m = DNSStatsByQueryType{} }
+func (m *DNSStatsByQueryType) String() string            { return proto.CompactTextString(m) }
+func (*DNSStatsByQueryType) ProtoMessage()               {}
+func (*DNSStatsByQueryType) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{77} }
+
+func (m *DNSStatsByQueryType) GetDnsStatsByQueryType() map[int32]*DNSStats {
+	if m != nil {
+		return m.DnsStatsByQueryType
+	}
+	return nil
+}
+
 type HTTPAggregations struct {
 	EndpointAggregations []*HTTPStats `protobuf:"bytes,2,rep,name=endpointAggregations" json:"endpointAggregations,omitempty"`
 }
@@ -2532,7 +2564,7 @@ type HTTPAggregations struct {
 func (m *HTTPAggregations) Reset()                    { *m = HTTPAggregations{} }
 func (m *HTTPAggregations) String() string            { return proto.CompactTextString(m) }
 func (*HTTPAggregations) ProtoMessage()               {}
-func (*HTTPAggregations) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{77} }
+func (*HTTPAggregations) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{78} }
 
 func (m *HTTPAggregations) GetEndpointAggregations() []*HTTPStats {
 	if m != nil {
@@ -2550,7 +2582,7 @@ type HTTPStats struct {
 func (m *HTTPStats) Reset()                    { *m = HTTPStats{} }
 func (m *HTTPStats) String() string            { return proto.CompactTextString(m) }
 func (*HTTPStats) ProtoMessage()               {}
-func (*HTTPStats) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{78} }
+func (*HTTPStats) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{79} }
 
 func (m *HTTPStats) GetStatsByResponseStatus() []*HTTPStats_Data {
 	if m != nil {
@@ -2568,7 +2600,7 @@ type HTTPStats_Data struct {
 func (m *HTTPStats_Data) Reset()                    { *m = HTTPStats_Data{} }
 func (m *HTTPStats_Data) String() string            { return proto.CompactTextString(m) }
 func (*HTTPStats_Data) ProtoMessage()               {}
-func (*HTTPStats_Data) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{78, 0} }
+func (*HTTPStats_Data) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{79, 0} }
 
 type RuntimeCompilationTelemetry struct {
 	RuntimeCompilationEnabled  bool                     `protobuf:"varint,1,opt,name=runtimeCompilationEnabled,proto3" json:"runtimeCompilationEnabled,omitempty"`
@@ -2580,7 +2612,7 @@ func (m *RuntimeCompilationTelemetry) Reset()         { *m = RuntimeCompilationT
 func (m *RuntimeCompilationTelemetry) String() string { return proto.CompactTextString(m) }
 func (*RuntimeCompilationTelemetry) ProtoMessage()    {}
 func (*RuntimeCompilationTelemetry) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgent, []int{79}
+	return fileDescriptorAgent, []int{80}
 }
 
 type RouteMetadata struct {
@@ -2592,7 +2624,7 @@ type RouteMetadata struct {
 func (m *RouteMetadata) Reset()                    { *m = RouteMetadata{} }
 func (m *RouteMetadata) String() string            { return proto.CompactTextString(m) }
 func (*RouteMetadata) ProtoMessage()               {}
-func (*RouteMetadata) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{80} }
+func (*RouteMetadata) Descriptor() ([]byte, []int) { return fileDescriptorAgent, []int{81} }
 
 func init() {
 	proto.RegisterType((*ResCollector)(nil), "datadog.process_agent.ResCollector")
@@ -2673,6 +2705,7 @@ func init() {
 	proto.RegisterType((*ConnectionsTelemetry)(nil), "datadog.process_agent.ConnectionsTelemetry")
 	proto.RegisterType((*CollectorConnectionsTelemetry)(nil), "datadog.process_agent.CollectorConnectionsTelemetry")
 	proto.RegisterType((*DNSStats)(nil), "datadog.process_agent.DNSStats")
+	proto.RegisterType((*DNSStatsByQueryType)(nil), "datadog.process_agent.DNSStatsByQueryType")
 	proto.RegisterType((*HTTPAggregations)(nil), "datadog.process_agent.HTTPAggregations")
 	proto.RegisterType((*HTTPStats)(nil), "datadog.process_agent.HTTPStats")
 	proto.RegisterType((*HTTPStats_Data)(nil), "datadog.process_agent.HTTPStats.Data")
@@ -5559,6 +5592,35 @@ func (m *Connection) MarshalTo(data []byte) (int, error) {
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.IsLocalPortEphemeral))
 	}
+	if len(m.DnsStatsByDomainByQueryType) > 0 {
+		for k, _ := range m.DnsStatsByDomainByQueryType {
+			data[i] = 0xd2
+			i++
+			data[i] = 0x2
+			i++
+			v := m.DnsStatsByDomainByQueryType[k]
+			msgSize := 0
+			if v != nil {
+				msgSize = v.Size()
+				msgSize += 1 + sovAgent(uint64(msgSize))
+			}
+			mapSize := 1 + sovAgent(uint64(k)) + msgSize
+			i = encodeVarintAgent(data, i, uint64(mapSize))
+			data[i] = 0x8
+			i++
+			i = encodeVarintAgent(data, i, uint64(k))
+			if v != nil {
+				data[i] = 0x12
+				i++
+				i = encodeVarintAgent(data, i, uint64(v.Size()))
+				n36, err := v.MarshalTo(data[i:])
+				if err != nil {
+					return 0, err
+				}
+				i += n36
+			}
+		}
+	}
 	return i, nil
 }
 
@@ -5609,11 +5671,11 @@ func (m *Connections) MarshalTo(data []byte) (int, error) {
 				data[i] = 0x12
 				i++
 				i = encodeVarintAgent(data, i, uint64(v.Size()))
-				n36, err := v.MarshalTo(data[i:])
+				n37, err := v.MarshalTo(data[i:])
 				if err != nil {
 					return 0, err
 				}
-				i += n36
+				i += n37
 			}
 		}
 	}
@@ -5621,11 +5683,11 @@ func (m *Connections) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x1a
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.ConnTelemetry.Size()))
-		n37, err := m.ConnTelemetry.MarshalTo(data[i:])
+		n38, err := m.ConnTelemetry.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n37
+		i += n38
 	}
 	if len(m.Domains) > 0 {
 		for _, s := range m.Domains {
@@ -5674,11 +5736,11 @@ func (m *Connections) MarshalTo(data []byte) (int, error) {
 				data[i] = 0x12
 				i++
 				i = encodeVarintAgent(data, i, uint64(v.Size()))
-				n38, err := v.MarshalTo(data[i:])
+				n39, err := v.MarshalTo(data[i:])
 				if err != nil {
 					return 0, err
 				}
-				i += n38
+				i += n39
 			}
 		}
 	}
@@ -5744,11 +5806,11 @@ func (m *Route) MarshalTo(data []byte) (int, error) {
 		data[i] = 0xa
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Subnet.Size()))
-		n39, err := m.Subnet.MarshalTo(data[i:])
+		n40, err := m.Subnet.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n39
+		i += n40
 	}
 	return i, nil
 }
@@ -6534,11 +6596,11 @@ func (m *Node) MarshalTo(data []byte) (int, error) {
 		data[i] = 0xa
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
-		n40, err := m.Metadata.MarshalTo(data[i:])
+		n41, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n40
+		i += n41
 	}
 	if len(m.PodCIDR) > 0 {
 		data[i] = 0x12
@@ -6587,11 +6649,11 @@ func (m *Node) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x32
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Status.Size()))
-		n41, err := m.Status.MarshalTo(data[i:])
+		n42, err := m.Status.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n41
+		i += n42
 	}
 	if len(m.Yaml) > 0 {
 		data[i] = 0x3a
@@ -6639,11 +6701,11 @@ func (m *Node) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x5a
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Host.Size()))
-		n42, err := m.Host.MarshalTo(data[i:])
+		n43, err := m.Host.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n42
+		i += n43
 	}
 	return i, nil
 }
@@ -7037,11 +7099,11 @@ func (m *ServiceSpec) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x6a
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.SessionAffinityConfig.Size()))
-		n43, err := m.SessionAffinityConfig.MarshalTo(data[i:])
+		n44, err := m.SessionAffinityConfig.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n43
+		i += n44
 	}
 	if len(m.IpFamily) > 0 {
 		data[i] = 0x72
@@ -7106,31 +7168,31 @@ func (m *Service) MarshalTo(data []byte) (int, error) {
 		data[i] = 0xa
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
-		n44, err := m.Metadata.MarshalTo(data[i:])
-		if err != nil {
-			return 0, err
-		}
-		i += n44
-	}
-	if m.Spec != nil {
-		data[i] = 0x12
-		i++
-		i = encodeVarintAgent(data, i, uint64(m.Spec.Size()))
-		n45, err := m.Spec.MarshalTo(data[i:])
+		n45, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
 		i += n45
 	}
-	if m.Status != nil {
-		data[i] = 0x1a
+	if m.Spec != nil {
+		data[i] = 0x12
 		i++
-		i = encodeVarintAgent(data, i, uint64(m.Status.Size()))
-		n46, err := m.Status.MarshalTo(data[i:])
+		i = encodeVarintAgent(data, i, uint64(m.Spec.Size()))
+		n46, err := m.Spec.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
 		i += n46
+	}
+	if m.Status != nil {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Status.Size()))
+		n47, err := m.Status.MarshalTo(data[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n47
 	}
 	if len(m.Yaml) > 0 {
 		data[i] = 0x22
@@ -7175,11 +7237,11 @@ func (m *Deployment) MarshalTo(data []byte) (int, error) {
 		data[i] = 0xa
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
-		n47, err := m.Metadata.MarshalTo(data[i:])
+		n48, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n47
+		i += n48
 	}
 	if m.ReplicasDesired != 0 {
 		data[i] = 0x10
@@ -7300,11 +7362,11 @@ func (m *ReplicaSet) MarshalTo(data []byte) (int, error) {
 		data[i] = 0xa
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
-		n48, err := m.Metadata.MarshalTo(data[i:])
+		n49, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n48
+		i += n49
 	}
 	if m.ReplicasDesired != 0 {
 		data[i] = 0x10
@@ -7431,11 +7493,11 @@ func (m *Pod) MarshalTo(data []byte) (int, error) {
 		data[i] = 0xa
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
-		n49, err := m.Metadata.MarshalTo(data[i:])
+		n50, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n49
+		i += n50
 	}
 	if len(m.IP) > 0 {
 		data[i] = 0x12
@@ -7515,11 +7577,11 @@ func (m *Pod) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x62
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Host.Size()))
-		n50, err := m.Host.MarshalTo(data[i:])
+		n51, err := m.Host.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n50
+		i += n51
 	}
 	if len(m.ResourceRequirements) > 0 {
 		for _, msg := range m.ResourceRequirements {
@@ -7854,31 +7916,31 @@ func (m *Job) MarshalTo(data []byte) (int, error) {
 		data[i] = 0xa
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
-		n51, err := m.Metadata.MarshalTo(data[i:])
-		if err != nil {
-			return 0, err
-		}
-		i += n51
-	}
-	if m.Spec != nil {
-		data[i] = 0x12
-		i++
-		i = encodeVarintAgent(data, i, uint64(m.Spec.Size()))
-		n52, err := m.Spec.MarshalTo(data[i:])
+		n52, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
 		i += n52
 	}
-	if m.Status != nil {
-		data[i] = 0x1a
+	if m.Spec != nil {
+		data[i] = 0x12
 		i++
-		i = encodeVarintAgent(data, i, uint64(m.Status.Size()))
-		n53, err := m.Status.MarshalTo(data[i:])
+		i = encodeVarintAgent(data, i, uint64(m.Spec.Size()))
+		n53, err := m.Spec.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
 		i += n53
+	}
+	if m.Status != nil {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Status.Size()))
+		n54, err := m.Status.MarshalTo(data[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n54
 	}
 	if len(m.Yaml) > 0 {
 		data[i] = 0x22
@@ -8013,31 +8075,31 @@ func (m *CronJob) MarshalTo(data []byte) (int, error) {
 		data[i] = 0xa
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
-		n54, err := m.Metadata.MarshalTo(data[i:])
-		if err != nil {
-			return 0, err
-		}
-		i += n54
-	}
-	if m.Spec != nil {
-		data[i] = 0x12
-		i++
-		i = encodeVarintAgent(data, i, uint64(m.Spec.Size()))
-		n55, err := m.Spec.MarshalTo(data[i:])
+		n55, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
 		i += n55
 	}
-	if m.Status != nil {
-		data[i] = 0x1a
+	if m.Spec != nil {
+		data[i] = 0x12
 		i++
-		i = encodeVarintAgent(data, i, uint64(m.Status.Size()))
-		n56, err := m.Status.MarshalTo(data[i:])
+		i = encodeVarintAgent(data, i, uint64(m.Spec.Size()))
+		n56, err := m.Spec.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
 		i += n56
+	}
+	if m.Status != nil {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Status.Size()))
+		n57, err := m.Status.MarshalTo(data[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n57
 	}
 	if len(m.Yaml) > 0 {
 		data[i] = 0x22
@@ -8187,31 +8249,31 @@ func (m *DaemonSet) MarshalTo(data []byte) (int, error) {
 		data[i] = 0xa
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Metadata.Size()))
-		n57, err := m.Metadata.MarshalTo(data[i:])
-		if err != nil {
-			return 0, err
-		}
-		i += n57
-	}
-	if m.Spec != nil {
-		data[i] = 0x12
-		i++
-		i = encodeVarintAgent(data, i, uint64(m.Spec.Size()))
-		n58, err := m.Spec.MarshalTo(data[i:])
+		n58, err := m.Metadata.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
 		i += n58
 	}
-	if m.Status != nil {
-		data[i] = 0x1a
+	if m.Spec != nil {
+		data[i] = 0x12
 		i++
-		i = encodeVarintAgent(data, i, uint64(m.Status.Size()))
-		n59, err := m.Status.MarshalTo(data[i:])
+		i = encodeVarintAgent(data, i, uint64(m.Spec.Size()))
+		n59, err := m.Spec.MarshalTo(data[i:])
 		if err != nil {
 			return 0, err
 		}
 		i += n59
+	}
+	if m.Status != nil {
+		data[i] = 0x1a
+		i++
+		i = encodeVarintAgent(data, i, uint64(m.Status.Size()))
+		n60, err := m.Status.MarshalTo(data[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n60
 	}
 	if len(m.Yaml) > 0 {
 		data[i] = 0x22
@@ -8426,6 +8488,51 @@ func (m *DNSStats) MarshalTo(data []byte) (int, error) {
 			data[i] = 0x10
 			i++
 			i = encodeVarintAgent(data, i, uint64(v))
+		}
+	}
+	return i, nil
+}
+
+func (m *DNSStatsByQueryType) Marshal() (data []byte, err error) {
+	size := m.Size()
+	data = make([]byte, size)
+	n, err := m.MarshalTo(data)
+	if err != nil {
+		return nil, err
+	}
+	return data[:n], nil
+}
+
+func (m *DNSStatsByQueryType) MarshalTo(data []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.DnsStatsByQueryType) > 0 {
+		for k, _ := range m.DnsStatsByQueryType {
+			data[i] = 0xa
+			i++
+			v := m.DnsStatsByQueryType[k]
+			msgSize := 0
+			if v != nil {
+				msgSize = v.Size()
+				msgSize += 1 + sovAgent(uint64(msgSize))
+			}
+			mapSize := 1 + sovAgent(uint64(k)) + msgSize
+			i = encodeVarintAgent(data, i, uint64(mapSize))
+			data[i] = 0x8
+			i++
+			i = encodeVarintAgent(data, i, uint64(k))
+			if v != nil {
+				data[i] = 0x12
+				i++
+				i = encodeVarintAgent(data, i, uint64(v.Size()))
+				n61, err := v.MarshalTo(data[i:])
+				if err != nil {
+					return 0, err
+				}
+				i += n61
+			}
 		}
 	}
 	return i, nil
@@ -9981,6 +10088,19 @@ func (m *Connection) Size() (n int) {
 	if m.IsLocalPortEphemeral != 0 {
 		n += 2 + sovAgent(uint64(m.IsLocalPortEphemeral))
 	}
+	if len(m.DnsStatsByDomainByQueryType) > 0 {
+		for k, v := range m.DnsStatsByDomainByQueryType {
+			_ = k
+			_ = v
+			l = 0
+			if v != nil {
+				l = v.Size()
+				l += 1 + sovAgent(uint64(l))
+			}
+			mapEntrySize := 1 + sovAgent(uint64(k)) + l
+			n += mapEntrySize + 2 + sovAgent(uint64(mapEntrySize))
+		}
+	}
 	return n
 }
 
@@ -11358,6 +11478,25 @@ func (m *DNSStats) Size() (n int) {
 			_ = k
 			_ = v
 			mapEntrySize := 1 + sovAgent(uint64(k)) + 1 + sovAgent(uint64(v))
+			n += mapEntrySize + 1 + sovAgent(uint64(mapEntrySize))
+		}
+	}
+	return n
+}
+
+func (m *DNSStatsByQueryType) Size() (n int) {
+	var l int
+	_ = l
+	if len(m.DnsStatsByQueryType) > 0 {
+		for k, v := range m.DnsStatsByQueryType {
+			_ = k
+			_ = v
+			l = 0
+			if v != nil {
+				l = v.Size()
+				l += 1 + sovAgent(uint64(l))
+			}
+			mapEntrySize := 1 + sovAgent(uint64(k)) + l
 			n += mapEntrySize + 1 + sovAgent(uint64(mapEntrySize))
 		}
 	}
@@ -20723,6 +20862,117 @@ func (m *Connection) Unmarshal(data []byte) error {
 					break
 				}
 			}
+		case 42:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DnsStatsByDomainByQueryType", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			var keykey uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				keykey |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			var mapkey int32
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				mapkey |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if m.DnsStatsByDomainByQueryType == nil {
+				m.DnsStatsByDomainByQueryType = make(map[int32]*DNSStatsByQueryType)
+			}
+			if iNdEx < postIndex {
+				var valuekey uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowAgent
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := data[iNdEx]
+					iNdEx++
+					valuekey |= (uint64(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				var mapmsglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowAgent
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := data[iNdEx]
+					iNdEx++
+					mapmsglen |= (int(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if mapmsglen < 0 {
+					return ErrInvalidLengthAgent
+				}
+				postmsgIndex := iNdEx + mapmsglen
+				if mapmsglen < 0 {
+					return ErrInvalidLengthAgent
+				}
+				if postmsgIndex > l {
+					return io.ErrUnexpectedEOF
+				}
+				mapvalue := &DNSStatsByQueryType{}
+				if err := mapvalue.Unmarshal(data[iNdEx:postmsgIndex]); err != nil {
+					return err
+				}
+				iNdEx = postmsgIndex
+				m.DnsStatsByDomainByQueryType[mapkey] = mapvalue
+			} else {
+				var mapvalue *DNSStatsByQueryType
+				m.DnsStatsByDomainByQueryType[mapkey] = mapvalue
+			}
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAgent(data[iNdEx:])
@@ -30711,6 +30961,167 @@ func (m *DNSStats) Unmarshal(data []byte) error {
 			} else {
 				var mapvalue uint32
 				m.DnsCountByRcode[mapkey] = mapvalue
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgent(data[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgent
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *DNSStatsByQueryType) Unmarshal(data []byte) error {
+	l := len(data)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgent
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := data[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: DNSStatsByQueryType: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: DNSStatsByQueryType: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DnsStatsByQueryType", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			var keykey uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				keykey |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			var mapkey int32
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				mapkey |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if m.DnsStatsByQueryType == nil {
+				m.DnsStatsByQueryType = make(map[int32]*DNSStats)
+			}
+			if iNdEx < postIndex {
+				var valuekey uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowAgent
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := data[iNdEx]
+					iNdEx++
+					valuekey |= (uint64(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				var mapmsglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowAgent
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := data[iNdEx]
+					iNdEx++
+					mapmsglen |= (int(b) & 0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if mapmsglen < 0 {
+					return ErrInvalidLengthAgent
+				}
+				postmsgIndex := iNdEx + mapmsglen
+				if mapmsglen < 0 {
+					return ErrInvalidLengthAgent
+				}
+				if postmsgIndex > l {
+					return io.ErrUnexpectedEOF
+				}
+				mapvalue := &DNSStats{}
+				if err := mapvalue.Unmarshal(data[iNdEx:postmsgIndex]); err != nil {
+					return err
+				}
+				iNdEx = postmsgIndex
+				m.DnsStatsByQueryType[mapkey] = mapvalue
+			} else {
+				var mapvalue *DNSStats
+				m.DnsStatsByQueryType[mapkey] = mapvalue
 			}
 			iNdEx = postIndex
 		default:
