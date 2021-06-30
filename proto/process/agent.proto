@@ -1033,7 +1033,7 @@ message DaemonSet {
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L586
 message StatefulSetSpec {
-	int32 replicas = 1;
+	int32 desiredReplicas = 1;
 	repeated LabelSelectorRequirement selectors = 2;
 	string serviceName = 3;
 	string podManagementPolicy = 4;
