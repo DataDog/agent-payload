@@ -66,8 +66,11 @@ func NewV1DNSEncoder() DNSEncoder {
 		BucketFactor: defaultBucketFactor,
 	}
 }
-
 func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) []byte {
+	return nil
+}
+
+func (e *V1DNSEncoder) EncodeMapped(dns map[string]*DNSDatabaseEntry) []byte {
 	if len(dns) == 0 {
 		return nil
 	}
@@ -75,17 +78,14 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) []byte {
 	bucketCount := getBucketCount(dns, e.BucketFactor)
 	buckets := make([]bucketEntry, bucketCount)
 
-	nameBufferLength := 0
-	namePositions := make(map[string]int)
 	allBucketsEmpty := true
 
 	// We do three things here:
-	//	Build up the keys for each bucket
 	//	Calculate the size in bytes for each bucket
-	//	Calculate the size of the names buffer
 	//		The final value of `nameBufferLength` is the size of the name buffer
+	//      the size of the name buffer is the number of entries * sizeof(uint32)
 	for ip, entry := range dns {
-		if len(entry.Names) == 0 {
+		if len(entry.NameIndexes) == 0 {
 			continue
 		}
 
@@ -97,19 +97,9 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) []byte {
 
 		buckets[bucket].size += e.varIntSize(len(ip))
 		buckets[bucket].size += len(ip)
-		buckets[bucket].size += e.varIntSize(len(entry.Names))
-
-		for _, name := range entry.Names {
-			position, ok := namePositions[name]
-			if !ok {
-				position = nameBufferLength // Position is at the current end of the name buffer
-				namePositions[name] = position
-
-				nameBufferLength += e.varIntSize(len(name))
-				nameBufferLength += len(name)
-			}
-
-			buckets[bucket].size += e.varIntSize(position)
+		buckets[bucket].size += e.varIntSize(len(entry.NameIndexes))
+		for _, nameindex := range entry.NameIndexes {
+			buckets[bucket].size += e.varIntSize(int(nameindex))
 		}
 	}
 
@@ -145,22 +135,19 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) []byte {
 	binary.LittleEndian.PutUint16(bucketCountBuf[:], uint16(bucketCount))
 
 	sizeOfPositionBufferLength := e.varIntSize(positionBufferLength)
-	sizeOfNameBufferLength := e.varIntSize(nameBufferLength)
 	sizeOfMiddleBucketPosition := e.varIntSize(middleBucketPosition)
-	metaLength := dns1Version1PreambleLength + sizeOfPositionBufferLength + sizeOfNameBufferLength + sizeOfMiddleBucketPosition
+	metaLength := dns1Version1PreambleLength + sizeOfPositionBufferLength + sizeOfMiddleBucketPosition
 
-	bufferSize := metaLength + positionBufferLength + bucketBufferLength + nameBufferLength
+	bufferSize := metaLength + positionBufferLength + bucketBufferLength
 	buffer := make([]byte, bufferSize)
 
 	metaBuffer := buffer[:0]
 	positionBuffer := buffer[metaLength:][:0]
 	bucketBuffer := buffer[metaLength+positionBufferLength:][:0]
-	nameBuffer := buffer[metaLength+positionBufferLength+bucketBufferLength:]
 
 	metaBuffer = append(metaBuffer, dnsVersion1)
 	metaBuffer = append(metaBuffer, bucketCountBuf[:]...)
 	metaBuffer = e.appendVarInt(metaBuffer, positionBufferLength)
-	metaBuffer = e.appendVarInt(metaBuffer, nameBufferLength)
 	metaBuffer = e.appendVarInt(metaBuffer, middleBucketPosition)
 
 	for i := range buckets {
@@ -171,12 +158,10 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) []byte {
 
 			bucketBuffer = e.appendVarInt(bucketBuffer, len(ip))
 			bucketBuffer = append(bucketBuffer, ip...)
-			bucketBuffer = e.appendVarInt(bucketBuffer, len(entry.Names))
+			bucketBuffer = e.appendVarInt(bucketBuffer, len(entry.NameIndexes))
 
-			for _, name := range entry.Names {
-				position := namePositions[name]
-
-				bucketBuffer = e.appendVarInt(bucketBuffer, position)
+			for _, idx := range entry.NameIndexes {
+				bucketBuffer = e.appendVarInt(bucketBuffer, int(idx))
 			}
 		}
 	}
@@ -194,11 +179,27 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) []byte {
 		positionBuffer = e.appendVarInt(positionBuffer, positionCounter)
 	}
 
-	for name, position := range namePositions {
-		bytesWritten := binary.PutUvarint(nameBuffer[position:], uint64(len(name)))
-		copy(nameBuffer[position+bytesWritten:], name)
-	}
+	return buffer
+}
 
+func (e *V1DNSEncoder) EncodeDomainDatabase(names []string) []byte {
+	if len(names) == 0 {
+		return nil
+	}
+	// walk the list of strings, figure out how much size we need
+	bufferSize := e.varIntSize(len(names))
+	for _, val := range names {
+		bufferSize += e.varIntSize(len(val))
+		bufferSize += len(val)
+	}
+	buffer := make([]byte, bufferSize)
+	metaBuffer := buffer[:0]
+	// write the number of names
+	metaBuffer = e.appendVarInt(metaBuffer, len(names))
+	for _, val := range names {
+		metaBuffer = e.appendVarInt(metaBuffer, len(val))
+		metaBuffer = append(metaBuffer, val...)
+	}
 	return buffer
 }
 
@@ -249,6 +250,20 @@ func getDNSNamesV1(buf []byte) []string {
 		name := string(nameBuffer[namePosition : namePosition+int(nameLength)])
 		names = append(names, name)
 		namePosition += int(nameLength)
+	}
+	return names
+}
+
+func getDNSNameListV1(buf []byte) []string {
+	var names []string
+
+	num, bytesRead := binary.Uvarint(buf[0:])
+	for count := uint64(0); count < num && bytesRead < len(buf); count++ {
+		namelen, bytesReadForNameLen := binary.Uvarint(buf[bytesRead:])
+		bytesRead += bytesReadForNameLen
+		name := string(buf[bytesRead : bytesRead+int(namelen)])
+		names = append(names, name)
+		bytesRead += int(namelen)
 	}
 	return names
 }
@@ -361,7 +376,7 @@ func unsafeIterateDNSV1(buf []byte, ip string, cb func(i, total int, entry []byt
 	}
 }
 
-func getBucketCount(dns map[string]*DNSEntry, bucketFactor float64) int {
+func getBucketCount(dns map[string]*DNSDatabaseEntry, bucketFactor float64) int {
 	bucketCount := int(float64(len(dns)) * bucketFactor)
 	if bucketCount == 0 {
 		return 1
@@ -373,3 +388,6 @@ func getBucketCount(dns map[string]*DNSEntry, bucketFactor float64) int {
 
 	return bucketCount
 }
+
+// Encode
+//func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) []byte {
