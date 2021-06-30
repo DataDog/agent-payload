@@ -581,10 +581,10 @@ message Connection {
 	map<int32, DNSStatsByQueryType> dnsStatsByDomainByQueryType = 42;
 
 	int32 routeIdx = 36;
-			// the index of the resolved target of the route (post-resolution field)
-			int32 routeTargetIdx = 40;
+	// the index of the resolved target of the route (post-resolution field)
+	int32 routeTargetIdx = 40;
 
-			// serialized HTTPAggregations object summarizing all http transactions recorded for this connection, organized by request path
+	// serialized HTTPAggregations object summarizing all http transactions recorded for this connection, organized by request path
 	bytes httpAggregations = 37;
 }
 
@@ -607,11 +607,11 @@ message Addr {
 }
 
 message Route {
-		Subnet subnet = 1;
+	Subnet subnet = 1;
 }
 
 message Subnet {
-		string alias = 1;
+	string alias = 1;
 }
 
 message IPTranslation {
@@ -719,27 +719,27 @@ message OwnerReference {
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/pkg/apis/core/types.go#L4317
 message ObjectReference {
-		string kind = 1;
-		string namespace = 2;
-		string name = 3;
-		string uid = 4;
-		string apiVersion = 5;
-		string resourceVersion = 6;
-		string fieldPath = 7;
+	string kind = 1;
+	string namespace = 2;
+	string name = 3;
+	string uid = 4;
+	string apiVersion = 5;
+	string resourceVersion = 6;
+	string fieldPath = 7;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4571
 message ServicePort {
-		string name = 1;
-		string protocol = 2;
-		int32 port = 3;
-		string targetPort = 4; // int or str
-		int32 nodePort = 5;
+	string name = 1;
+	string protocol = 2;
+	int32 port = 3;
+	string targetPort = 4; // int or str
+	int32 nodePort = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4756
 message ServiceSessionAffinityConfig {
-		int32 clientIPTimeoutSeconds = 1;
+	int32 clientIPTimeoutSeconds = 1;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2107
