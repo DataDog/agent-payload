@@ -75,7 +75,8 @@ message CollectorConnections {
 
 	bytes encodedTags = 11;
 
-	bytes encodedDNS = 14;
+	// encoded dns is map of (string) ip --> list of domains (DNSEntry)
+	// bytes encodedDNS = 14;
 
 	ContainerHostType containerHostType = 15;
 
@@ -89,12 +90,26 @@ message CollectorConnections {
 
 	map<string, RuntimeCompilationTelemetry> compilationTelemetryByAsset = 21;
 
-	// All queried DNS domains for which we have collected stats
-	repeated string domains = 30;
-
+	
 	repeated Route routes = 31;
 
 	repeated RouteMetadata routeMetadata = 34;
+
+	// deprecated fields
+	bytes encodedDNS = 14;
+	repeated string domains = 30;
+
+	// hostname query information
+	DomainDatabase domainDb = 36;
+
+	// new representation of encoded DNS.  This is a map of the string representation
+	// of the IP --> DNSDatabaseEntry message. (was encodedDNS)
+	bytes encodedDnsLookups = 37;
+
+	// All queried DNS domains for which we have collected stats, integers are indexes
+	// into the DomainDatabase (was domains)
+	repeated int32 indexedDomains = 38;
+
 }
 
 message CollectorRealTime {
@@ -577,7 +592,7 @@ message Connection {
 	// TCP-specific metrics
 	uint32 rtt = 22;
 	uint32 rttVar = 23;
-	// Indicates that this connection begins and ends on the same host
+	// Indicates that this connection begins and  on the same host
 	bool intraHost = 24;
 
 	// DNS-specific metrics
@@ -1275,4 +1290,11 @@ message RouteMetadata {
 	string alias = 1;
 	int32 tagIndex = 2;
 	int64 tagsModified = 3;
+}
+message DomainDatabase {
+	bytes encodedDomains = 1;
+}
+// replaces DNSEntry.  Is a list of DNS names that a given IP resolved to.
+message DNSDatabaseEntry {
+	repeated int32 nameIndexes = 1;
 }

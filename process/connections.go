@@ -37,3 +37,8 @@ func (m *CollectorConnections) IterateDNS(addr *Addr, cb func(i, total int, entr
 func (m *CollectorConnections) GetDNSNames() []string {
 	return getDNSNames(m.EncodedDNS)
 }
+
+// GetDomainDb returns a slice with each unique domain string.
+func (m *CollectorConnections) GetDNSDatabase() []string {
+	return getDNSNameList(m.DomainDb.EncodedDomains)
+}

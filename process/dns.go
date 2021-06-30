@@ -2,6 +2,8 @@ package process
 
 type DNSEncoder interface {
 	Encode(dns map[string]*DNSEntry) []byte
+	EncodeMapped(dns map[string]*DNSDatabaseEntry) []byte
+	EncodeDomainDatabase(names []string) []byte
 }
 
 const dnsVersion1 byte = 1
@@ -30,6 +32,13 @@ func getDNSNames(buf []byte) []string {
 		return getDNSNamesV1(buf)
 	}
 	return nil
+}
+
+func getDNSNameList(buf []byte) []string {
+	if len(buf) == 0 {
+		return nil
+	}
+	return getDNSNameListV1(buf)
 }
 
 // IterateDNS invokes the callback function for each DNS entry for the given IP in the given buffer
