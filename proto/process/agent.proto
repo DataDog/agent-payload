@@ -67,8 +67,8 @@ message CollectorConnections {
 	// This should also include an entry for the host on which these connections were gathered.
 	map<int64, Host> resolvedHosts = 7; // Post-resolution field
 
-	// Mapping of containerId to container data. Each `connection` has a containerId field which can be mapped here.
-	map<string, ContainerMetadata> resolvedContainers = 8; // Post-resolution field
+	// Mapping of resourceID to metadata. For containers, each `connection` has a containerId field which can be mapped here.
+	map<string, ResourceMetadata> resolvedResources = 8; // Post-resolution field
 
 	// Mapping of processes running in each container
 	map<int32, string> containerForPid = 10;
@@ -468,8 +468,8 @@ message ContainerStat {
 	uint64 threadLimit = 21;
 }
 
-// ContainerMetadata only holds enough information to identify a container in connection data
-message ContainerMetadata {
+// ResourceMetadata only holds enough information to identify a resource in connection data
+message ResourceMetadata {
 	string id = 1;
 	uint32 key = 2;
 	bytes byteKey = 3;

@@ -8,12 +8,12 @@ func (m *CollectorConnections) IterateHostTags(host *Host, cb func(i, total int,
 	iterateTags(m.EncodedTags, int(host.TagIndex), cb)
 }
 
-func (m *CollectorConnections) GetContainerTags(container *ContainerMetadata) []string {
-	return m.GetTags(int(container.TagIndex))
+func (m *CollectorConnections) GetResourceTags(resource *ResourceMetadata) []string {
+	return m.GetTags(int(resource.TagIndex))
 }
 
-func (m *CollectorConnections) IterateContainerTags(container *ContainerMetadata, cb func(i, total int, tag string) bool) {
-	iterateTags(m.EncodedTags, int(container.TagIndex), cb)
+func (m *CollectorConnections) IterateResourceTags(resource *ResourceMetadata, cb func(i, total int, tag string) bool) {
+	iterateTags(m.EncodedTags, int(resource.TagIndex), cb)
 }
 
 func (m *CollectorConnections) GetTags(tagIndex int) []string {
