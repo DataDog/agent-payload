@@ -1110,9 +1110,10 @@ message HTTPStats {
 	repeated Data statsByResponseStatus = 1;
 
 	message Data {
+		reserved 3;
 		uint32 count = 1;
 		bytes latencies = 2;
-		uint64 firstLatencySample = 3;
+		double firstLatencySample = 4;
 	}
 }
 
