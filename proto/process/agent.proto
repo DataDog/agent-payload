@@ -1148,10 +1148,22 @@ enum RuntimeCompilationResult {
 	ResultReadErr = 8;
 }
 
+enum KernelHeaderFetchResult {
+	FetchNotAttempted = 0;
+	CustomHeadersFound = 1;
+	DefaultHeadersFound = 2;
+	SysfsHeadersFound = 3;
+	DownloadedHeadersFound = 4;
+	DownloadSuccess = 5;
+	HostVersionErr = 6;
+	DownloadFailure = 7;
+}
+
 message RuntimeCompilationTelemetry {
 	bool runtimeCompilationEnabled = 1;
 	RuntimeCompilationResult runtimeCompilationResult = 2;
 	int64 runtimeCompilationDuration = 3;
+	KernelHeaderFetchResult kernelHeaderFetchResult = 4;
 }
 
 message RouteMetadata {
