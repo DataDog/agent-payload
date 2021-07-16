@@ -252,6 +252,24 @@ message CollectorStatefulSet {
 	repeated string tags = 6;
 }
 
+message CollectorPersistentVolume {
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated PersistentVolume persistentVolume = 5;
+	repeated string tags = 6;
+}
+
+message CollectorPersistentVolumeClaim {
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated PersistentVolumeClaim persistentVolumeClaim = 5;
+	repeated string tags = 6;
+}
+
 //
 // Models
 //
@@ -1059,6 +1077,91 @@ message StatefulSet {
 	bytes yaml = 4;
 	repeated string tags = 5;
 }
+
+// reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2576
+message PersistentVolume {
+	Metadata metadata = 1;
+  PersistentVolumeSpec spec = 2;
+  PersistentVolumeStatus status = 3;
+	bytes yaml = 4;
+	repeated string tags = 5;
+}
+
+// reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2889
+message PersistentVolumeSpec {
+  // Key/Value of a resource type and a corresponding quantity as an int64.
+  map<string, int64> capacity = 1;
+  // in kubernetes these are actually fields in a struct where only one can be set.
+  // For now we only set it to a string with the name.
+  string persistentVolumeSource = 2;
+  repeated string accessModes = 3;
+  ObjectReference claimRef = 4;
+  string persistentVolumeReclaimPolicy = 5;
+  string storageClassName = 6;
+  string mountOptions = 7;
+  string volumeMode = 8;
+  repeated NodeSelectorTerm nodeSelectorTerms = 9;
+}
+
+// reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2940
+message PersistentVolumeStatus {
+	string phase = 1;
+	string message = 2;
+	string reason = 3;
+}
+
+message NodeSelectorTerm{
+  repeated LabelSelectorRequirement matchExpressions = 1;
+  repeated LabelSelectorRequirement matchFields = 2;
+}
+
+// reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2597
+message PersistentVolumeClaim {
+  Metadata metadata = 1;
+  PersistentVolumeClaimSpec spec = 2;
+  PersistentVolumeClaimStatus status = 3;
+  bytes yaml = 4;
+  repeated string tags = 5;
+}
+
+
+// reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2715
+message PersistentVolumeClaimStatus {
+  string phase = 1;
+  string accessModes = 2;
+  map<string, int64> capacity = 3;
+  repeated PersistentVolumeClaimCondition conditions = 4;
+}
+
+// reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2654
+message PersistentVolumeClaimSpec {
+  repeated string accessModes = 1;
+  LabelSelectorRequirement selector = 4;
+  ResourceRequirements resources = 2;
+  string volumeName = 3;
+  string storageClassName = 5;
+  string volumeMode = 6;
+  TypedLocalObjectReference dataSource = 7;
+  TypedLocalObjectReference dataSourceRef = 8;
+}
+
+// reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L5327
+message TypedLocalObjectReference {
+  string apiGroup = 1;
+  string kind = 2;
+  string name = 3;
+}
+
+// reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2616
+message PersistentVolumeClaimCondition {
+  string type = 1;
+  string status = 2;
+  int64 lastProbeTime = 3;
+  int64 lastTransitionTime = 4;
+  string reason = 5;
+  string message = 6;
+}
+
 
 message ConnectionsTelemetry {
 	int64 monotonicKprobesTriggered = 1;

@@ -74,23 +74,25 @@ type MessageType uint8
 // Note: Ordering my seem unusual, this is just to match the backend where there
 // are additional types that aren't covered here.
 const (
-	TypeCollectorProc              = 12
-	TypeCollectorConnections       = 22
-	TypeResCollector               = 23
-	TypeCollectorRealTime          = 27
-	TypeCollectorContainer         = 39
-	TypeCollectorContainerRealTime = 40
-	TypeCollectorPod               = 41
-	TypeCollectorReplicaSet        = 42
-	TypeCollectorDeployment        = 43
-	TypeCollectorService           = 44
-	TypeCollectorNode              = 45
-	TypeCollectorCluster           = 46
-	TypeCollectorJob               = 47
-	TypeCollectorCronJob           = 48
-	TypeCollectorDaemonSet         = 49
-	TypeCollectorStatefulSet       = 50
-	TypeCollectorManifest          = 80
+	TypeCollectorProc                  = 12
+	TypeCollectorConnections           = 22
+	TypeResCollector                   = 23
+	TypeCollectorRealTime              = 27
+	TypeCollectorContainer             = 39
+	TypeCollectorContainerRealTime     = 40
+	TypeCollectorPod                   = 41
+	TypeCollectorReplicaSet            = 42
+	TypeCollectorDeployment            = 43
+	TypeCollectorService               = 44
+	TypeCollectorNode                  = 45
+	TypeCollectorCluster               = 46
+	TypeCollectorJob                   = 47
+	TypeCollectorCronJob               = 48
+	TypeCollectorDaemonSet             = 49
+	TypeCollectorStatefulSet           = 50
+	TypeCollectorPersistentVolume      = 51
+	TypeCollectorPersistentVolumeClaim = 52
+	TypeCollectorManifest              = 80
 )
 
 func (m MessageType) String() string {
@@ -125,6 +127,10 @@ func (m MessageType) String() string {
 		return "daemon-set"
 	case TypeCollectorStatefulSet:
 		return "stateful-set"
+	case TypeCollectorPersistentVolume:
+		return "persistent-volume"
+	case TypeCollectorPersistentVolumeClaim:
+		return "persistent-volume-claim"
 	case TypeCollectorManifest:
 		return "manifest"
 	default:
@@ -191,6 +197,10 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorDaemonSet{}
 	case TypeCollectorStatefulSet:
 		m = &CollectorStatefulSet{}
+	case TypeCollectorPersistentVolume:
+		m = &CollectorPersistentVolume{}
+	case TypeCollectorPersistentVolumeClaim:
+		m = &CollectorPersistentVolumeClaim{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -238,6 +248,10 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorDaemonSet
 	case *CollectorStatefulSet:
 		t = TypeCollectorStatefulSet
+	case *CollectorPersistentVolume:
+		t = TypeCollectorPersistentVolume
+	case *CollectorPersistentVolumeClaim:
+		t = TypeCollectorPersistentVolumeClaim
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}
