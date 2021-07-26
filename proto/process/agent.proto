@@ -1128,7 +1128,7 @@ message PersistentVolumeClaim {
 // reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2715
 message PersistentVolumeClaimStatus {
   string phase = 1;
-  string accessModes = 2;
+	repeated string accessModes = 2;
   map<string, int64> capacity = 3;
   repeated PersistentVolumeClaimCondition conditions = 4;
 }
@@ -1142,6 +1142,7 @@ message PersistentVolumeClaimSpec {
   string storageClassName = 5;
   string volumeMode = 6;
   TypedLocalObjectReference dataSource = 7;
+	// (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
   TypedLocalObjectReference dataSourceRef = 8;
 }
 
