@@ -1136,7 +1136,7 @@ message PersistentVolumeClaimStatus {
 // reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2654
 message PersistentVolumeClaimSpec {
   repeated string accessModes = 1;
-  LabelSelectorRequirement selector = 4;
+  repeated LabelSelectorRequirement selector = 4;
   ResourceRequirements resources = 2;
   string volumeName = 3;
   string storageClassName = 5;
