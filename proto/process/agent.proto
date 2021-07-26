@@ -1098,7 +1098,7 @@ message PersistentVolumeSpec {
   ObjectReference claimRef = 4;
   string persistentVolumeReclaimPolicy = 5;
   string storageClassName = 6;
-  string mountOptions = 7;
+	repeated string mountOptions = 7;
   string volumeMode = 8;
   repeated NodeSelectorTerm nodeSelectorTerms = 9;
 }
