@@ -1171,3 +1171,19 @@ message RouteMetadata {
 	int32 tagIndex = 2;
 	int64 tagsModified = 3;
 }
+
+message CollectorProcDiscovery {
+	string hostName = 1;
+	int32  groupId = 2;
+	int32 groupSize = 3;
+	repeated ProcessDiscovery processDiscoveries = 4;
+	Host host = 5;
+}
+
+message ProcessDiscovery {
+	int32 pid = 1;
+	int32 nsPid = 2;
+	Host host = 3;
+	Command command = 4;
+	ProcessUser user = 5;
+}
