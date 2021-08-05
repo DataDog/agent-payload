@@ -1101,7 +1101,7 @@ message PersistentVolumeSpec {
 	string storageClassName = 6;
 	repeated string mountOptions = 7;
 	string volumeMode = 8;
-	repeated VolumeNodeAffinity nodeSelectorTerms = 9;
+	repeated NodeSelectorTerm nodeAffinity = 9;
 }
 
 // reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2940
@@ -1111,7 +1111,7 @@ message PersistentVolumeStatus {
 	string reason = 3;
 }
 
-message VolumeNodeAffinity{
+message NodeSelectorTerm{
 	repeated LabelSelectorRequirement matchExpressions = 1;
 	repeated LabelSelectorRequirement matchFields = 2;
 }
