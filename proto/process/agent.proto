@@ -257,7 +257,7 @@ message CollectorPersistentVolume {
 	string clusterId = 2;
 	int32 groupId = 3;
 	int32 groupSize = 4;
-	repeated PersistentVolume persistentVolume = 5;
+	repeated PersistentVolume persistentVolumes = 5;
 	repeated string tags = 6;
 }
 
@@ -266,7 +266,7 @@ message CollectorPersistentVolumeClaim {
 	string clusterId = 2;
 	int32 groupId = 3;
 	int32 groupSize = 4;
-	repeated PersistentVolumeClaim persistentVolumeClaim = 5;
+	repeated PersistentVolumeClaim persistentVolumeClaims = 5;
 	repeated string tags = 6;
 }
 
@@ -1094,14 +1094,14 @@ message PersistentVolumeSpec {
 	map<string, int64> capacity = 1;
 	// in kubernetes these are actually fields in a struct where only one can be set.
 	// For now we only set it to a string with the name.
-	string persistentVolumeSource = 2;
+	string persistentVolumeType = 2;
 	repeated string accessModes = 3;
 	ObjectReference claimRef = 4;
 	string persistentVolumeReclaimPolicy = 5;
 	string storageClassName = 6;
 	repeated string mountOptions = 7;
 	string volumeMode = 8;
-	repeated NodeSelectorTerm nodeSelectorTerms = 9;
+	repeated VolumeNodeAffinity nodeSelectorTerms = 9;
 }
 
 // reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2940
@@ -1111,7 +1111,7 @@ message PersistentVolumeStatus {
 	string reason = 3;
 }
 
-message NodeSelectorTerm{
+message VolumeNodeAffinity{
 	repeated LabelSelectorRequirement matchExpressions = 1;
 	repeated LabelSelectorRequirement matchFields = 2;
 }
@@ -1137,14 +1137,12 @@ message PersistentVolumeClaimStatus {
 // reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2654
 message PersistentVolumeClaimSpec {
 	repeated string accessModes = 1;
-	repeated LabelSelectorRequirement selector = 4;
 	ResourceRequirements resources = 2;
 	string volumeName = 3;
+	repeated LabelSelectorRequirement selector = 4;
 	string storageClassName = 5;
 	string volumeMode = 6;
 	TypedLocalObjectReference dataSource = 7;
-	// (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
-	TypedLocalObjectReference dataSourceRef = 8;
 }
 
 // reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L5327
