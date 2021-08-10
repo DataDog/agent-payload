@@ -1250,6 +1250,7 @@ enum RuntimeCompilationResult {
 	CompilationErr = 7;
 	ResultReadErr = 8;
 	HeaderFetchErr = 9;
+	CompiledOutputFound = 10;
 }
 
 enum KernelHeaderFetchResult {
