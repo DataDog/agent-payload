@@ -1249,6 +1249,7 @@ enum RuntimeCompilationResult {
 	NewCompilerErr = 6;
 	CompilationErr = 7;
 	ResultReadErr = 8;
+	HeaderFetchErr = 9;
 }
 
 enum KernelHeaderFetchResult {
