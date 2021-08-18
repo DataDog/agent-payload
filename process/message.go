@@ -90,6 +90,7 @@ const (
 	TypeCollectorCronJob           = 48
 	TypeCollectorDaemonSet         = 49
 	TypeCollectorStatefulSet       = 50
+	TypeCollectorProcDiscovery     = 51
 	TypeCollectorManifest          = 80
 )
 
@@ -125,6 +126,8 @@ func (m MessageType) String() string {
 		return "daemon-set"
 	case TypeCollectorStatefulSet:
 		return "stateful-set"
+	case TypeCollectorProcDiscovery:
+		return "process-discovery"
 	case TypeCollectorManifest:
 		return "manifest"
 	default:
@@ -191,6 +194,8 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorDaemonSet{}
 	case TypeCollectorStatefulSet:
 		m = &CollectorStatefulSet{}
+	case TypeCollectorProcDiscovery:
+		m = &CollectorProcDiscovery{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -238,6 +243,8 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorDaemonSet
 	case *CollectorStatefulSet:
 		t = TypeCollectorStatefulSet
+	case *CollectorProcDiscovery:
+		t = TypeCollectorProcDiscovery
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}
