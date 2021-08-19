@@ -49,6 +49,14 @@ message CollectorProc {
 	ContainerHostType containerHostType = 12;
 }
 
+message CollectorProcDiscovery {
+	string hostName = 1;
+	int32  groupId = 2;
+	int32 groupSize = 3;
+	repeated ProcessDiscovery processDiscoveries = 4;
+	Host host = 5;
+}
+
 message CollectorConnections {
 	reserved 1, 4, 13, 32, 33;
 	// Please update when adding fields
@@ -302,6 +310,14 @@ message Process {
 	bytes byteKey = 18;
 	bytes containerByteKey = 19;
 	ProcessNetworks networks = 21;
+}
+
+message ProcessDiscovery {
+	int32 pid = 1;
+	int32 nsPid = 2;
+	Host host = 3;
+	Command command = 4;
+	ProcessUser user = 5;
 }
 
 message Command {

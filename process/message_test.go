@@ -50,6 +50,7 @@ func TestMessageTypeString(t *testing.T) {
 		TypeCollectorStatefulSet:           "stateful-set",
 		TypeCollectorPersistentVolume:      "persistent-volume",
 		TypeCollectorPersistentVolumeClaim: "persistent-volume-claim",
+		TypeCollectorProcDiscovery:         "process-discovery",
 		TypeResCollector:                   "23",
 	}
 	for input, expected := range cases {
