@@ -15,23 +15,6 @@ message CommonMetadata {
 	string api_key = 6;
 }
 
-message MetricsPayload {
-	message Sample {
-		message Point {
-			int64 ts = 1;
-			double value = 2;
-		}
-		string metric = 1;
-		string type = 2;
-		string host = 3;
-		repeated Point points = 4;
-		repeated string tags = 5;
-		string source_type_name = 6;
-	}
-	repeated Sample samples = 1;
-	CommonMetadata metadata = 2;
-}
-
 message ServiceChecksPayload {
 	message ServiceCheck {
 		string name = 1;
