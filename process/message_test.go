@@ -48,9 +48,9 @@ func TestMessageTypeString(t *testing.T) {
 		TypeCollectorCronJob:               "cron-job",
 		TypeCollectorDaemonSet:             "daemon-set",
 		TypeCollectorStatefulSet:           "stateful-set",
-		TypeCollectorProcDiscovery:         "process-discovery",
 		TypeCollectorPersistentVolume:      "persistent-volume",
 		TypeCollectorPersistentVolumeClaim: "persistent-volume-claim",
+		TypeCollectorProcDiscovery:         "process-discovery",
 		TypeResCollector:                   "23",
 	}
 	for input, expected := range cases {
