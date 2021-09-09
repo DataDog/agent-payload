@@ -1,0 +1,4 @@
+#
+# set default line endings to always be unix, even on windows systems, for test data
+#
+*.txt eol=lf
