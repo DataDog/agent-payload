@@ -60,7 +60,7 @@ message CollectorProcDiscovery {
 message CollectorConnections {
 	reserved 1, 4, 13, 32, 33;
 	// Please update when adding fields
-	// next identifier:  35
+	// next identifier:  38
 
 	string hostName = 2;
 	string networkId = 12;
@@ -83,7 +83,6 @@ message CollectorConnections {
 
 	bytes encodedTags = 11;
 
-	bytes encodedDNS = 14;
 
 	ContainerHostType containerHostType = 15;
 
@@ -97,14 +96,32 @@ message CollectorConnections {
 
 	map<string, RuntimeCompilationTelemetry> compilationTelemetryByAsset = 21;
 
-	// All queried DNS domains for which we have collected stats
-	repeated string domains = 30;
-
 	repeated Route routes = 31;
 
 	repeated RouteMetadata routeMetadata = 34;
 
 	AgentConfiguration agentConfiguration = 35;
+	/////////////////
+	// V1 encodings
+
+	// encoded dns is a map of (string) ip-> list of domains (DNSEntry)
+	bytes encodedDNS = 14;
+
+	// All queried DNS domains for which we have collected stats
+	repeated string domains = 30;
+
+	//////////////////
+	// V2 encodings
+	// all domain strings are now indexes into a single array of strings
+	// hostname query information.  Encoded via V2DNSEncoder.EncodeDomainDatabase
+	// is a single buffer; varint number of strings, followed by each string.
+	bytes encodedDomainDatabase = 36;
+
+	// new representation of encoded DNS.  This is a map of the string representation
+	// of the IP --> DNSDatabaseEntry message. (was encodedDNS).  Encoded
+	// via V2DNSEncoder.EncodeMapped.  Full buffer description provided there.
+	bytes encodedDnsLookups = 37;
+
 }
 
 message CollectorRealTime {
@@ -657,7 +674,7 @@ message Connection {
 	uint32 lastTcpEstablished = 30;
 	uint32 lastTcpClosed = 31;
 
-	// dns stats based on domain queried, the key corresponds to an index into the `domains` field
+	// dns stats based on domain queried, the key corresponds to an offset into the `domains` field
 	// dnsStatsByDomain is deprecated field, left in for handling old agent versions
 	map<int32, DNSStats> dnsStatsByDomain = 34;
 	// dnsStatsByDomainByQueryType is new field
@@ -1408,4 +1425,9 @@ message RouteMetadata {
 message AgentConfiguration {
 	bool npmEnabled = 1;
 	bool tsmEnabled = 2;
+}
+// replaces DNSEntry.  Is a list of DNS names that a given IP resolved to.
+// List of offsets into the EncodedDomainDatabase.
+message DNSDatabaseEntry {
+	repeated int32 nameOffsets = 1;
 }
