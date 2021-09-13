@@ -112,11 +112,13 @@ message CollectorConnections {
 	//////////////////
 	// V2 encodings
 	// all domain strings are now indexes into a single array of strings
-	// hostname query information
+	// hostname query information.  Encoded via V2DNSEncoder.EncodeDomainDatabase
+	// is a single buffer; varint number of strings, followed by each string.
 	bytes encodedDomainDatabase = 35;
 
 	// new representation of encoded DNS.  This is a map of the string representation
-	// of the IP --> DNSDatabaseEntry message. (was encodedDNS)
+	// of the IP --> DNSDatabaseEntry message. (was encodedDNS).  Encoded
+	// via V2DNSEncoder.EncodeMapped.  Full buffer description provided there.
 	bytes encodedDnsLookups = 36;
 
 	// All queried DNS domains for which we have collected stats, integers are indexes
@@ -1314,6 +1316,7 @@ message RouteMetadata {
 }
 
 // replaces DNSEntry.  Is a list of DNS names that a given IP resolved to.
+// List of indices into the EncodedDomainDatabase.
 message DNSDatabaseEntry {
 	repeated int32 nameIndexes = 1;
 }

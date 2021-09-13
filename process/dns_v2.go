@@ -235,29 +235,6 @@ func getV2(buf []byte, ip string) (int32, []int32) {
 	return first, names
 }
 
-/*
-func getDNSNamesV2(buf []byte) []string {
-	var names []string
-	// skip the preamble
-	index := dns1Version2PreambleLength
-
-	_, bytesRead := binary.Uvarint(buf[index:])
-	index += bytesRead
-	nameBufferLen, _ := binary.Uvarint(buf[index:])
-
-	start := len(buf) - int(nameBufferLen)
-	nameBuffer := buf[start:]
-
-	for namePosition := 0; namePosition < len(nameBuffer); {
-		nameLength, bytesReadForName := binary.Uvarint(nameBuffer[namePosition:])
-		namePosition += bytesReadForName
-		name := string(nameBuffer[namePosition : namePosition+int(nameLength)])
-		names = append(names, name)
-		namePosition += int(nameLength)
-	}
-	return names
-}
-*/
 func getDNSNameListV2(buf []byte) []string {
 	var names []string
 
