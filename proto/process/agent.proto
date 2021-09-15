@@ -121,10 +121,6 @@ message CollectorConnections {
 	// via V2DNSEncoder.EncodeMapped.  Full buffer description provided there.
 	bytes encodedDnsLookups = 36;
 
-	// All queried DNS domains for which we have collected stats, integers are indexes
-	// into the encodedDomainDatabase (was domains)
-	repeated int32 indexedDomains = 37;
-
 }
 
 message CollectorRealTime {
