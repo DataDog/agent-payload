@@ -937,6 +937,7 @@ message Pod {
 	Host host = 12; // Used post-resolution
 	repeated ResourceRequirements resourceRequirements = 13;
 	string QOSClass = 15;
+	string PriorityClass = 16;
 }
 
 message ContainerStatus {
