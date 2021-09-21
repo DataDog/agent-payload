@@ -11,6 +11,32 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestV2DomainDatabaseEncoding(t *testing.T) {
+	dnsdb := []string{
+		"foo.com",
+		"service.example.com",
+		"service2.example.com",
+		"app.example.com",
+		"bar.com",
+	}
+	encoder := NewV2DNSEncoder()
+	buf, err := encoder.EncodeDomainDatabase(dnsdb)
+	assert.Nil(t, err)
+
+	decoded := getDNSNameListV2(buf)
+	for idx, s := range dnsdb {
+		assert.Equal(t, s, decoded[idx])
+
+		byIndex, err := getDNSNameFromList(buf, idx)
+		assert.Nil(t, err)
+		assert.Equal(t, s, byIndex)
+	}
+
+	// test out of bounds
+	_, err = getDNSNameFromList(buf, 7)
+	assert.Error(t, err)
+
+}
 func indexOf(val string, db []string) int32 {
 	for p, v := range db {
 		if v == val {
@@ -104,6 +130,35 @@ func TestV2EncodeDNS_SampleData(t *testing.T) {
 				}
 			}
 		})
+
+	}
+}
+
+func TestV2DncodeDNS_SampleData(t *testing.T) {
+	sampleFiles := []string{
+		"testdata/dns/samples.txt",
+		"testdata/dns/big_ips.txt",
+		"testdata/dns/big_entries.txt",
+	}
+
+	for _, sampleFile := range sampleFiles {
+		t.Run(path.Base(sampleFile), func(t *testing.T) {
+			_, sampledb := readTestDnsV2(t, sampleFile)
+
+			encoder := NewV2DNSEncoder()
+			buf, err := encoder.EncodeDomainDatabase(sampledb)
+			assert.Nil(t, err)
+
+			decodedDb := getDNSNameListV2(buf)
+			assert.Equal(t, sampledb, decodedDb)
+
+			for idx, name := range sampledb {
+				decoded, err := getDNSNameFromList(buf, idx)
+				assert.Nil(t, err)
+				assert.Equal(t, name, decoded)
+			}
+		})
+
 	}
 }
 
@@ -144,8 +199,6 @@ func BenchmarkDNSV2Decode(b *testing.B) {
 	}
 }
 
-
-
 func BenchmarkDNSV2Encode(b *testing.B) {
 	sampleFiles := []string{
 		"testdata/dns/samples.txt",
@@ -177,7 +230,6 @@ func BenchmarkDNSV2Encode(b *testing.B) {
 		})
 	}
 }
-
 
 func appendToDatabase(name string, present *map[string]int32, db *[]string) int32 {
 	if idx, ok := (*present)[name]; ok {

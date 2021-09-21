@@ -191,14 +191,27 @@ func (e *V2DNSEncoder) EncodeDomainDatabase(names []string) ([]byte, error) {
 	}
 	// walk the list of strings, figure out how much size we need
 	bufferSize := e.varIntSize(len(names))
-	for _, val := range names {
+	// compute the index of the middle buffer
+	indexOfMiddle := len(names) / 2
+	offsetOfMiddle := 0
+
+	for idx, val := range names {
+		if idx == indexOfMiddle {
+			offsetOfMiddle = bufferSize
+			bufferSize += e.varIntSize(offsetOfMiddle)
+			offsetOfMiddle = bufferSize
+		}
 		bufferSize += e.varIntSize(len(val))
 		bufferSize += len(val)
+
 	}
 	buffer := make([]byte, bufferSize)
 	metaBuffer := buffer[:0]
 	// write the number of names
 	metaBuffer = e.appendVarInt(metaBuffer, len(names))
+	// write the offset of the middle string
+	metaBuffer = e.appendVarInt(metaBuffer, offsetOfMiddle)
+
 	for _, val := range names {
 		metaBuffer = e.appendVarInt(metaBuffer, len(val))
 		metaBuffer = append(metaBuffer, val...)
@@ -239,6 +252,13 @@ func getDNSNameListV2(buf []byte) []string {
 	var names []string
 
 	num, bytesRead := binary.Uvarint(buf[0:])
+
+	// read the offset of the middle index; however, since we're reading
+	// the whole list we don't need it.
+	_, bytesReadForMiddle := binary.Uvarint(buf[bytesRead:])
+
+	bytesRead += int(bytesReadForMiddle)
+
 	for count := uint64(0); count < num && bytesRead < len(buf); count++ {
 		namelen, bytesReadForNameLen := binary.Uvarint(buf[bytesRead:])
 		bytesRead += bytesReadForNameLen
@@ -247,6 +267,35 @@ func getDNSNameListV2(buf []byte) []string {
 		bytesRead += int(namelen)
 	}
 	return names
+}
+
+func getDNSNameFromList(buf []byte, index int) (string, error) {
+	num, bytesRead := binary.Uvarint(buf[0:])
+	offsetOfMiddle, bytesReadForMiddleOffset := binary.Uvarint(buf[bytesRead:])
+
+	bytesRead += bytesReadForMiddleOffset
+
+	if index > int(num-1) {
+		return "", fmt.Errorf("Index out of range %d > %d", index, num)
+	}
+	indexOfMiddle := int(num / 2)
+	currIndex := 0
+	if index > indexOfMiddle {
+		bytesRead = int(offsetOfMiddle)
+		currIndex = int(indexOfMiddle)
+	}
+	for currIndex < int(num) {
+		namelen, bytesReadForNameLen := binary.Uvarint(buf[bytesRead:])
+		bytesRead += bytesReadForNameLen
+		if currIndex == index {
+			name := string(buf[bytesRead : bytesRead+int(namelen)])
+			return name, nil
+		}
+		bytesRead += int(namelen)
+		currIndex++
+	}
+	// we should never get here
+	return "", fmt.Errorf("Index not found? %d %d", index, num)
 }
 
 func iterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32) bool) {
