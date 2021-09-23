@@ -68,11 +68,11 @@ func NewV1DNSEncoder() DNSEncoder {
 	}
 }
 
-func (e *V1DNSEncoder) EncodeMapped(dns map[string]*DNSDatabaseEntry) ([]byte, error) {
+func (e *V1DNSEncoder) EncodeMapped(dns map[string]*DNSDatabaseEntry, indexToOFfset []int32) ([]byte, error) {
 	return nil, fmt.Errorf("EncodeMapped not valid in V1")
 }
-func (e *V1DNSEncoder) EncodeDomainDatabase(names []string) ([]byte, error) {
-	return nil, fmt.Errorf("EncodeDomainDatabase not valid in V1")
+func (e *V1DNSEncoder) EncodeDomainDatabase(names []string) ([]byte, []int32, error) {
+	return nil, nil, fmt.Errorf("EncodeDomainDatabase not valid in V1")
 }
 func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) ([]byte, error) {
 	if len(dns) == 0 {

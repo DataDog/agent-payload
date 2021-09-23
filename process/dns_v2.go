@@ -20,7 +20,7 @@ import (
 //			varint for length of ip
 //			ip bytes
 //			varint for number of names associated with the ip
-//			Each associated name is encoded as a varint which is the position of the actual name string in the name block
+//			Each associated name is encoded as a varint which is the position of the actual name string in the encodedDnsDatabase
 //
 //	The "position" block is a list of varints, one for each bucket, where each varint is a pointer to the start
 //	of the bucket in the bucket block
@@ -73,7 +73,7 @@ func (e *V2DNSEncoder) Encode(dns map[string]*DNSEntry) ([]byte, error) {
 	return nil, fmt.Errorf("Encode not valid in V2")
 }
 
-func (e *V2DNSEncoder) EncodeMapped(dns map[string]*DNSDatabaseEntry) ([]byte, error) {
+func (e *V2DNSEncoder) EncodeMapped(dns map[string]*DNSDatabaseEntry, indexToOffset []int32) ([]byte, error) {
 	if len(dns) == 0 {
 		return nil, nil
 	}
@@ -88,10 +88,12 @@ func (e *V2DNSEncoder) EncodeMapped(dns map[string]*DNSDatabaseEntry) ([]byte, e
 	//		The final value of `nameBufferLength` is the size of the name buffer
 	//      the size of the name buffer is the number of entries * sizeof(uint32)
 	for ip, entry := range dns {
-		if len(entry.NameIndexes) == 0 {
+		if len(entry.NameOffsets) == 0 {
 			continue
 		}
-
+		if len(entry.NameOffsets) != 0 && indexToOffset == nil {
+			return nil, fmt.Errorf("missing index to offset")
+		}
 		allBucketsEmpty = false
 
 		bucket := int(mmh3.Hash32([]byte(ip))) % bucketCount
@@ -100,9 +102,14 @@ func (e *V2DNSEncoder) EncodeMapped(dns map[string]*DNSDatabaseEntry) ([]byte, e
 
 		buckets[bucket].size += e.varIntSize(len(ip))
 		buckets[bucket].size += len(ip)
-		buckets[bucket].size += e.varIntSize(len(entry.NameIndexes))
-		for _, nameindex := range entry.NameIndexes {
-			buckets[bucket].size += e.varIntSize(int(nameindex))
+		buckets[bucket].size += e.varIntSize(len(entry.NameOffsets))
+		for _, nameindex := range entry.NameOffsets {
+			if nameindex > int32(len(indexToOffset)) {
+				return nil, fmt.Errorf("index out of range")
+			}
+			// we're converting the index to the offset on the fly here, because
+			// the offset wasn't known when the structure was first created.
+			buckets[bucket].size += e.varIntSize(int(indexToOffset[nameindex]))
 		}
 	}
 
@@ -161,10 +168,12 @@ func (e *V2DNSEncoder) EncodeMapped(dns map[string]*DNSDatabaseEntry) ([]byte, e
 
 			bucketBuffer = e.appendVarInt(bucketBuffer, len(ip))
 			bucketBuffer = append(bucketBuffer, ip...)
-			bucketBuffer = e.appendVarInt(bucketBuffer, len(entry.NameIndexes))
+			bucketBuffer = e.appendVarInt(bucketBuffer, len(entry.NameOffsets))
 
-			for _, idx := range entry.NameIndexes {
-				bucketBuffer = e.appendVarInt(bucketBuffer, int(idx))
+			for _, idx := range entry.NameOffsets {
+				// we're converting the index to the offset on the fly here, because
+				// the offset wasn't known when the structure was first created.
+				bucketBuffer = e.appendVarInt(bucketBuffer, int(indexToOffset[idx]))
 			}
 		}
 	}
@@ -185,10 +194,12 @@ func (e *V2DNSEncoder) EncodeMapped(dns map[string]*DNSDatabaseEntry) ([]byte, e
 	return buffer, nil
 }
 
-func (e *V2DNSEncoder) EncodeDomainDatabase(names []string) ([]byte, error) {
+func (e *V2DNSEncoder) EncodeDomainDatabase(names []string) ([]byte, []int32, error) {
 	if len(names) == 0 {
-		return nil, nil
+		return nil, nil, nil
 	}
+	offsets := make([]int32, len(names))
+
 	// walk the list of strings, figure out how much size we need
 	bufferSize := e.varIntSize(len(names))
 	// compute the index of the middle buffer
@@ -201,6 +212,7 @@ func (e *V2DNSEncoder) EncodeDomainDatabase(names []string) ([]byte, error) {
 			bufferSize += e.varIntSize(offsetOfMiddle)
 			offsetOfMiddle = bufferSize
 		}
+
 		bufferSize += e.varIntSize(len(val))
 		bufferSize += len(val)
 
@@ -212,11 +224,15 @@ func (e *V2DNSEncoder) EncodeDomainDatabase(names []string) ([]byte, error) {
 	// write the offset of the middle string
 	metaBuffer = e.appendVarInt(metaBuffer, offsetOfMiddle)
 
-	for _, val := range names {
+	for idx, val := range names {
+		// need to store the offset of the beginning of each string, by index.
+		// when finally encoded, the consumers will get offsets into this
+		// buffer (for fast searching).
+		offsets[idx] = int32(len(metaBuffer))
 		metaBuffer = e.appendVarInt(metaBuffer, len(val))
 		metaBuffer = append(metaBuffer, val...)
 	}
-	return buffer, nil
+	return buffer, offsets, nil
 }
 
 func (e *V2DNSEncoder) varIntSize(value int) int {
@@ -229,6 +245,9 @@ func (e *V2DNSEncoder) appendVarInt(buf []byte, value int) []byte {
 	return append(buf, e.scratch[0:bytesWritten]...)
 }
 
+// getV2 returns a single offset into the name buffer for the first
+// domain string, followed by a slice of the offsets into the buffer
+// for the remaining strings.
 func getV2(buf []byte, ip string) (int32, []int32) {
 	var first int32 = -1
 	var names []int32
@@ -248,6 +267,7 @@ func getV2(buf []byte, ip string) (int32, []int32) {
 	return first, names
 }
 
+// returns a slice of all of the strings in the encodedDnsDomains list.
 func getDNSNameListV2(buf []byte) []string {
 	var names []string
 
@@ -269,7 +289,7 @@ func getDNSNameListV2(buf []byte) []string {
 	return names
 }
 
-func getDNSNameFromList(buf []byte, index int) (string, error) {
+func getDNSNameFromListByIndex(buf []byte, index int) (string, error) {
 	num, bytesRead := binary.Uvarint(buf[0:])
 	offsetOfMiddle, bytesReadForMiddleOffset := binary.Uvarint(buf[bytesRead:])
 
@@ -296,6 +316,18 @@ func getDNSNameFromList(buf []byte, index int) (string, error) {
 	}
 	// we should never get here
 	return "", fmt.Errorf("Index not found? %d %d", index, num)
+}
+
+func getDNSNameFromListByOffset(buf []byte, offset int) (string, error) {
+
+	if offset > len(buf) {
+		return "", fmt.Errorf("offset out of range %d > %d", offset, len(buf))
+	}
+	namelen, bytesReadForNameLen := binary.Uvarint(buf[offset:])
+	offset += bytesReadForNameLen
+	name := string(buf[offset : offset+int(namelen)])
+	return name, nil
+
 }
 
 func iterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32) bool) {
@@ -411,10 +443,9 @@ func getV2BucketCount(dns map[string]*DNSDatabaseEntry, bucketFactor float64) in
 	return bucketCount
 }
 
-// Encode
-//func (e *V2DNSEncoder) Encode(dns map[string]*DNSEntry) []byte {
-
-// GetDNSV2 gets the DNS indexes for the given IP from the given buffer
+// GetDNSV2 gets the DNS offsets for the given IP from the given buffer
+// the buffer is expected the be the encoded bucket hashtable described above
+// the results are offsets into the raw buffer of domain strings (encodedDomainDatabase)
 func GetDNSV2(buf []byte, ip string) (int32, []int32, error) {
 	if len(buf) == 0 || ip == "" {
 		return -1, nil, nil
@@ -430,6 +461,8 @@ func GetDNSV2(buf []byte, ip string) (int32, []int32, error) {
 }
 
 // IterateDNS invokes the callback function for each DNS entry for the given IP in the given buffer
+// the callback parameter `entry` is an offset into the raw buffer of domain strings
+// (encodedDomainDatabase)
 func IterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32) bool) error {
 	if len(buf) == 0 || ip == "" {
 		return nil

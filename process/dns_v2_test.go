@@ -20,20 +20,28 @@ func TestV2DomainDatabaseEncoding(t *testing.T) {
 		"bar.com",
 	}
 	encoder := NewV2DNSEncoder()
-	buf, err := encoder.EncodeDomainDatabase(dnsdb)
+	buf, offsets, err := encoder.EncodeDomainDatabase(dnsdb)
 	assert.Nil(t, err)
 
 	decoded := getDNSNameListV2(buf)
 	for idx, s := range dnsdb {
 		assert.Equal(t, s, decoded[idx])
 
-		byIndex, err := getDNSNameFromList(buf, idx)
+		byIndex, err := getDNSNameFromListByIndex(buf, idx)
 		assert.Nil(t, err)
 		assert.Equal(t, s, byIndex)
+
+		byOffset, err := getDNSNameFromListByOffset(buf, int(offsets[idx]))
+		assert.Nil(t, err)
+		assert.Equal(t, s, byOffset)
 	}
 
 	// test out of bounds
-	_, err = getDNSNameFromList(buf, 7)
+	_, err = getDNSNameFromListByIndex(buf, 7)
+	assert.Error(t, err)
+
+	// test off of the end
+	_, err = getDNSNameFromListByOffset(buf, len(buf)+2)
 	assert.Error(t, err)
 
 }
@@ -45,6 +53,7 @@ func indexOf(val string, db []string) int32 {
 	}
 	return -1
 }
+
 func TestV2EncodeDNS(t *testing.T) {
 	dns := make(map[string]*DNSDatabaseEntry)
 
@@ -56,35 +65,36 @@ func TestV2EncodeDNS(t *testing.T) {
 		"bar.com",
 	}
 
-	dns["10.128.98.75"] = &DNSDatabaseEntry{NameIndexes: []int32{indexOf("service.example.com", dnsdb), indexOf("service2.example.com", dnsdb)}}
-	dns["10.128.99.240"] = &DNSDatabaseEntry{NameIndexes: []int32{indexOf("service.example.com", dnsdb)}}
-	dns["34.231.44.115"] = &DNSDatabaseEntry{NameIndexes: []int32{indexOf("app.example.com", dnsdb)}}
+	dns["10.128.98.75"] = &DNSDatabaseEntry{NameOffsets: []int32{indexOf("service.example.com", dnsdb), indexOf("service2.example.com", dnsdb)}}
+	dns["10.128.99.240"] = &DNSDatabaseEntry{NameOffsets: []int32{indexOf("service.example.com", dnsdb)}}
+	dns["34.231.44.115"] = &DNSDatabaseEntry{NameOffsets: []int32{indexOf("app.example.com", dnsdb)}}
 
 	encoder := NewV2DNSEncoder()
-	buf, err := encoder.EncodeMapped(dns)
+	encodedDatabase, offsets, err := encoder.EncodeDomainDatabase(dnsdb)
+	buf, err := encoder.EncodeMapped(dns, offsets)
 	assert.Nil(t, err)
 
-	encodedDatabase, err := encoder.EncodeDomainDatabase(dnsdb)
 	decodedDatabase := getDNSNameListV2(encodedDatabase)
 
 	assert.Equal(t, len(dnsdb), len(decodedDatabase))
 
-	assertDNSV2Equal(t, []int32{indexOf("service.example.com", decodedDatabase), indexOf("service2.example.com", decodedDatabase)}, buf, "10.128.98.75")
-	assertDNSV2Equal(t, []int32{indexOf("service.example.com", decodedDatabase)}, buf, "10.128.99.240")
-	assertDNSV2Equal(t, []int32{indexOf("app.example.com", decodedDatabase)}, buf, "34.231.44.115")
-	assertDNSV2Equal(t, nil, buf, "134.231.44.115")
-	assertDNSV2Equal(t, nil, buf, "1.1.1.1")
+	assertDNSV2Equal(t, []string{"service.example.com", "service2.example.com"}, buf, encodedDatabase, "10.128.98.75")
+	assertDNSV2Equal(t, []string{"service.example.com"}, buf, encodedDatabase, "10.128.99.240")
+	assertDNSV2Equal(t, []string{"app.example.com"}, buf, encodedDatabase, "34.231.44.115")
+	assertDNSV2Equal(t, nil, buf, encodedDatabase, "134.231.44.115")
+	assertDNSV2Equal(t, nil, buf, encodedDatabase, "1.1.1.1")
+
 }
 
 func TestV2EncodeDNS_Empty(t *testing.T) {
 	dns := make(map[string]*DNSDatabaseEntry)
 
 	encoder := NewV2DNSEncoder()
-	buf, err := encoder.EncodeMapped(dns)
+	buf, err := encoder.EncodeMapped(dns, nil)
 
 	assert.Nil(t, err)
 	assert.Empty(t, buf)
-	assertDNSV2Equal(t, nil, buf, "1.1.1.1")
+	assertDNSV2Equal(t, nil, buf, nil, "1.1.1.1")
 
 	emptydb := make([]byte, 0)
 	names, err := getDNSNames(emptydb)
@@ -95,17 +105,17 @@ func TestV2EncodeDNS_Empty(t *testing.T) {
 func TestV2EncodeDNS_NoNames(t *testing.T) {
 	dns := make(map[string]*DNSDatabaseEntry)
 
-	dns["10.128.98.75"] = &DNSDatabaseEntry{NameIndexes: []int32{}}
+	dns["10.128.98.75"] = &DNSDatabaseEntry{NameOffsets: []int32{}}
 	dns["10.128.99.240"] = &DNSDatabaseEntry{}
 
 	encoder := NewV2DNSEncoder()
-	buf, err := encoder.EncodeMapped(dns)
+	buf, err := encoder.EncodeMapped(dns, nil)
 
 	assert.Nil(t, err)
 
 	assert.Empty(t, buf)
-	assertDNSEqual(t, nil, buf, "10.128.98.75")
-	assertDNSEqual(t, nil, buf, "10.128.99.240")
+	assertDNSV2Equal(t, nil, buf, nil, "10.128.98.75")
+	assertDNSV2Equal(t, nil, buf, nil, "10.128.99.240")
 
 }
 
@@ -118,15 +128,26 @@ func TestV2EncodeDNS_SampleData(t *testing.T) {
 
 	for _, sampleFile := range sampleFiles {
 		t.Run(path.Base(sampleFile), func(t *testing.T) {
-			samples, _ := readTestDnsV2(t, sampleFile)
+			samples, stringdb := readTestDnsV2(t, sampleFile)
 
 			encoder := NewV2DNSEncoder()
 
+			encodedDb, indexToOffset, err := encoder.EncodeDomainDatabase(stringdb)
+
+			assert.Nil(t, err)
+
 			for _, sample := range samples {
-				buf, _ := encoder.EncodeMapped(sample)
+				buf, _ := encoder.EncodeMapped(sample, indexToOffset)
 
 				for ip, entry := range sample {
-					assertDNSV2Equal(t, entry.NameIndexes, buf, ip)
+					// the entry we read from file is stored by index.  Get the names
+					// by index, and use that to compare
+					var expected []string
+					for _, idx := range entry.NameOffsets {
+						expected = append(expected, stringdb[idx])
+					}
+
+					assertDNSV2Equal(t, expected, buf, encodedDb, ip)
 				}
 			}
 		})
@@ -146,14 +167,17 @@ func TestV2DncodeDNS_SampleData(t *testing.T) {
 			_, sampledb := readTestDnsV2(t, sampleFile)
 
 			encoder := NewV2DNSEncoder()
-			buf, err := encoder.EncodeDomainDatabase(sampledb)
+			buf, indexToOffset, err := encoder.EncodeDomainDatabase(sampledb)
 			assert.Nil(t, err)
 
 			decodedDb := getDNSNameListV2(buf)
 			assert.Equal(t, sampledb, decodedDb)
 
 			for idx, name := range sampledb {
-				decoded, err := getDNSNameFromList(buf, idx)
+				decoded, err := getDNSNameFromListByIndex(buf, idx)
+				assert.Nil(t, err)
+				assert.Equal(t, name, decoded)
+				decoded, err = getDNSNameFromListByOffset(buf, int(indexToOffset[idx]))
 				assert.Nil(t, err)
 				assert.Equal(t, name, decoded)
 			}
@@ -172,13 +196,14 @@ func BenchmarkDNSV2Decode(b *testing.B) {
 	encoder := NewV2DNSEncoder()
 
 	for _, sampleFile := range sampleFiles {
-		samples, _ := readTestDnsV2(b, sampleFile)
+		samples, dnsdb := readTestDnsV2(b, sampleFile)
+		_, indexToOffset, _ := encoder.EncodeDomainDatabase(dnsdb)
 
 		b.Run(path.Base(sampleFile), func(b *testing.B) {
 			bufs := make([][]byte, len(samples))
 
 			for i, dns := range samples {
-				bufs[i], _ = encoder.EncodeMapped(dns)
+				bufs[i], _ = encoder.EncodeMapped(dns, indexToOffset)
 			}
 
 			b.ReportAllocs()
@@ -209,7 +234,8 @@ func BenchmarkDNSV2Encode(b *testing.B) {
 	encoder := NewV2DNSEncoder()
 
 	for _, sampleFile := range sampleFiles {
-		samples, _ := readTestDnsV2(b, sampleFile)
+		samples, dnsdb := readTestDnsV2(b, sampleFile)
+		_, indexToOffset, _ := encoder.EncodeDomainDatabase(dnsdb)
 
 		b.Run(path.Base(sampleFile), func(b *testing.B) {
 			b.ReportAllocs()
@@ -220,7 +246,7 @@ func BenchmarkDNSV2Encode(b *testing.B) {
 
 			for i := 0; i < b.N; i++ {
 				for _, dns := range samples {
-					buf, _ = encoder.EncodeMapped(dns)
+					buf, _ = encoder.EncodeMapped(dns, indexToOffset)
 					count += int64(len(buf))
 				}
 			}
@@ -274,7 +300,7 @@ func readTestDnsV2(t require.TestingT, filename string) ([]map[string]*DNSDataba
 				}
 			}
 
-			data[ip] = &DNSDatabaseEntry{NameIndexes: filtered}
+			data[ip] = &DNSDatabaseEntry{NameOffsets: filtered}
 		}
 
 		maps = append(maps, data)
@@ -283,7 +309,7 @@ func readTestDnsV2(t require.TestingT, filename string) ([]map[string]*DNSDataba
 	return maps, namedb
 }
 
-func assertDNSV2Equal(t *testing.T, expected []int32, buf []byte, key string) {
+func assertDNSV2Equal(t *testing.T, expected []string, buf []byte, dnsdb []byte, key string) {
 	name, names, err := GetDNSV2(buf, key)
 
 	assert.Nil(t, err)
@@ -291,12 +317,17 @@ func assertDNSV2Equal(t *testing.T, expected []int32, buf []byte, key string) {
 	case 0:
 		assert.Equal(t, int32(-1), name)
 		assert.Empty(t, names)
-	case 1:
-		assert.Equal(t, expected[0], name)
-		assert.Empty(t, names)
 	default:
-		assert.Equal(t, expected[0], name)
-		assert.Equal(t, expected[1:], names)
+		namestr, err := getDNSNameFromListByOffset(dnsdb, int(name))
+		assert.Nil(t, err)
+		assert.Equal(t, expected[0], namestr)
+
+		for arrayindex, offset := range names {
+			namestr, err := getDNSNameFromListByOffset(dnsdb, int(offset))
+			assert.Nil(t, err)
+			assert.Equal(t, expected[arrayindex+1], namestr)
+
+		}
 	}
 
 	var iterValues []int32
