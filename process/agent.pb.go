@@ -2353,6 +2353,7 @@ type Pod struct {
 	Host                  *Host                   `protobuf:"bytes,12,opt,name=host" json:"host,omitempty"`
 	ResourceRequirements  []*ResourceRequirements `protobuf:"bytes,13,rep,name=resourceRequirements" json:"resourceRequirements,omitempty"`
 	QOSClass              string                  `protobuf:"bytes,15,opt,name=QOSClass,proto3" json:"QOSClass,omitempty"`
+	PriorityClass         string                  `protobuf:"bytes,16,opt,name=priorityClass,proto3" json:"priorityClass,omitempty"`
 }
 
 func (m *Pod) Reset()                    { *m = Pod{} }
@@ -8474,6 +8475,14 @@ func (m *Pod) MarshalTo(data []byte) (int, error) {
 		i = encodeVarintAgent(data, i, uint64(len(m.QOSClass)))
 		i += copy(data[i:], m.QOSClass)
 	}
+	if len(m.PriorityClass) > 0 {
+		data[i] = 0x82
+		i++
+		data[i] = 0x1
+		i++
+		i = encodeVarintAgent(data, i, uint64(len(m.PriorityClass)))
+		i += copy(data[i:], m.PriorityClass)
+	}
 	return i, nil
 }
 
@@ -12816,6 +12825,10 @@ func (m *Pod) Size() (n int) {
 	l = len(m.QOSClass)
 	if l > 0 {
 		n += 1 + l + sovAgent(uint64(l))
+	}
+	l = len(m.PriorityClass)
+	if l > 0 {
+		n += 2 + l + sovAgent(uint64(l))
 	}
 	return n
 }
@@ -31033,6 +31046,35 @@ func (m *Pod) Unmarshal(data []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.QOSClass = string(data[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 16:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PriorityClass", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := data[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgent
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PriorityClass = string(data[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
