@@ -318,6 +318,8 @@ message ProcessDiscovery {
 	Host host = 3;
 	Command command = 4;
 	ProcessUser user = 5;
+	int64 createTime = 6;
+	bytes byteKey = 7;
 }
 
 message Command {
