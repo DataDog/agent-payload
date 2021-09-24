@@ -103,6 +103,8 @@ message CollectorConnections {
 	repeated Route routes = 31;
 
 	repeated RouteMetadata routeMetadata = 34;
+
+	AgentConfiguration agentConfiguration = 35;
 }
 
 message CollectorRealTime {
@@ -676,6 +678,7 @@ message Connections {
 	repeated string domains = 4;
 	repeated Route routes = 5;
 	map<string, RuntimeCompilationTelemetry> compilationTelemetryByAsset = 6;
+	AgentConfiguration agentConfiguration = 7;
 }
 
 message Addr {
@@ -1400,4 +1403,9 @@ message RouteMetadata {
 	string alias = 1;
 	int32 tagIndex = 2;
 	int64 tagsModified = 3;
+}
+
+message AgentConfiguration {
+	bool npmEnabled = 1;
+	bool tsmEnabled = 2;
 }
