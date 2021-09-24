@@ -93,6 +93,11 @@ const (
 	TypeCollectorPersistentVolume      = 51
 	TypeCollectorPersistentVolumeClaim = 52
 	TypeCollectorProcDiscovery         = 53
+	TypeCollectorRole                  = 54
+	TypeCollectorRoleBinding           = 55
+	TypeCollectorClusterRole           = 56
+	TypeCollectorClusterRoleBinding    = 57
+	TypeCollectorServiceAccount        = 58
 	TypeCollectorManifest              = 80
 )
 
@@ -134,6 +139,16 @@ func (m MessageType) String() string {
 		return "persistent-volume-claim"
 	case TypeCollectorProcDiscovery:
 		return "process-discovery"
+	case TypeCollectorRole:
+		return "role"
+	case TypeCollectorRoleBinding:
+		return "role-binding"
+	case TypeCollectorClusterRole:
+		return "cluster-role"
+	case TypeCollectorClusterRoleBinding:
+		return "cluster-role-binding"
+	case TypeCollectorServiceAccount:
+		return "service-account"
 	case TypeCollectorManifest:
 		return "manifest"
 	default:
@@ -206,6 +221,16 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorPersistentVolumeClaim{}
 	case TypeCollectorProcDiscovery:
 		m = &CollectorProcDiscovery{}
+	case TypeCollectorRole:
+		m = &CollectorRole{}
+	case TypeCollectorRoleBinding:
+		m = &CollectorRoleBinding{}
+	case TypeCollectorClusterRole:
+		m = &CollectorClusterRole{}
+	case TypeCollectorClusterRoleBinding:
+		m = &CollectorClusterRoleBinding{}
+	case TypeCollectorServiceAccount:
+		m = &CollectorServiceAccount{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -259,6 +284,16 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorPersistentVolumeClaim
 	case *CollectorProcDiscovery:
 		t = TypeCollectorProcDiscovery
+	case *CollectorRole:
+		t = TypeCollectorRole
+	case *CollectorRoleBinding:
+		t = TypeCollectorRoleBinding
+	case *CollectorClusterRole:
+		t = TypeCollectorClusterRole
+	case *CollectorClusterRoleBinding:
+		t = TypeCollectorClusterRoleBinding
+	case *CollectorServiceAccount:
+		t = TypeCollectorServiceAccount
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}
