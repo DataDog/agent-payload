@@ -1,5 +1,9 @@
 package process
 
+import (
+	"fmt"
+)
+
 func (m *CollectorConnections) GetHostTags(host *Host) []string {
 	return m.GetTags(int(host.TagIndex))
 }
@@ -25,17 +29,60 @@ func (m *CollectorConnections) GetTags(tagIndex int) []string {
 // have a single resolution so this dual format allows us to avoid allocations for the common case.  If there are
 // multiple name resolutions, there is no implied priority between the dual values
 func (m *CollectorConnections) GetDNS(addr *Addr) (string, []string, error) {
-	return GetDNS(m.EncodedDNS, addr.Ip)
+	if m.EncodedDNS != nil {
+		return GetDNS(m.EncodedDNS, addr.Ip)
+	} else if m.EncodedDnsLookups != nil {
+		first, offsets, err := GetDNSV2(m.EncodedDnsLookups, addr.Ip)
+		if err != nil {
+			return "", nil, err
+		}
+		firststring, err := getDNSNameFromListByOffset(m.EncodedDomainDatabase, int(first))
+		if err != nil {
+			return "", nil, err
+		}
+		var strings []string
+		if offsets != nil && (len(offsets) > 0) {
+			strings = make([]string, len(offsets))
+			for _, off := range offsets {
+				s, err := getDNSNameFromListByOffset(m.EncodedDomainDatabase, int(off))
+				if err != nil {
+					return "", nil, err
+				}
+				strings = append(strings, s)
+
+			}
+		}
+		return firststring, strings, nil
+	}
+	return "", nil, fmt.Errorf("No DNS encoded information")
 }
 
 // IterateDNS iterates over all of the DNS entries for the given addr, invoking the provided callback for each one
 func (m *CollectorConnections) IterateDNS(addr *Addr, cb func(i, total int, entry string) bool) error {
-	return IterateDNS(m.EncodedDNS, addr.Ip, cb)
+	if m.EncodedDNS != nil {
+		return IterateDNS(m.EncodedDNS, addr.Ip, cb)
+	} else if m.EncodedDnsLookups != nil {
+		if m.EncodedDomainDatabase != nil {
+			return IterateDNSV2(m.EncodedDnsLookups, addr.Ip, func(i, total int, offset int32) bool {
+				s, err := getDNSNameFromListByOffset(m.EncodedDomainDatabase, int(offset))
+				if err == nil {
+					return cb(i, total, s)
+				}
+				return false
+			})
+		}
+	}
+	return nil
 }
 
 // GetDNSNames returns all the DNS entries
 func (m *CollectorConnections) GetDNSNames() ([]string, error) {
-	return getDNSNames(m.EncodedDNS)
+	if m.EncodedDNS != nil {
+		return getDNSNames(m.EncodedDNS)
+	} else if m.EncodedDomainDatabase != nil {
+		return getDNSNameListV2(m.EncodedDomainDatabase), nil
+	}
+	return nil, fmt.Errorf("unknown dns names database")
 }
 
 // GetDNSV2 returns the DNS entries for the given addr.
