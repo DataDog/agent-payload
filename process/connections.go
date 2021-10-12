@@ -104,3 +104,11 @@ func (m *CollectorConnections) IterateDNSV2(addr *Addr, cb func(i, total int, en
 func (m *CollectorConnections) GetDNSNamesV2() []string {
 	return getDNSNameListV2(m.EncodedDomainDatabase)
 }
+
+// GetDNSNameByOffset gets the dns name at a given offset
+func (m *CollectorConnections) GetDNSNameByOffset(off int32) (string, error) {
+	if m.EncodedDomainDatabase == nil {
+		return "", fmt.Errorf("no domain database")
+	}
+	return getDNSNameFromListByOffset(m.EncodedDomainDatabase, int(off))
+}
