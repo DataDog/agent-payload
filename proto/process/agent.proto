@@ -629,7 +629,7 @@ enum EphemeralPortState {
 message Connection {
 	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 35;
 	// Please update when adding fields
-	// next identifier:  43
+	// next identifier:  44
 
 
 	int32 pid = 1;
@@ -679,6 +679,11 @@ message Connection {
 	map<int32, DNSStats> dnsStatsByDomain = 34;
 	// dnsStatsByDomainByQueryType is new field
 	map<int32, DNSStatsByQueryType> dnsStatsByDomainByQueryType = 42;
+
+	// int32 index into map is the offset into the CollectorConnections.encodedDomainDatabase
+	map<int32, DNSStats> dnsStatsByDomainOffset = 34;
+	map<int32, DNSStatsByQueryType> dnsStatsByDomainOffsetByQueryType = 43;
+
 
 	int32 routeIdx = 36;
 	// the index of the resolved target of the route (post-resolution field)
