@@ -29,8 +29,8 @@ func (m *CollectorConnections) GetDNS(addr *Addr) (string, []string) {
 }
 
 // IterateDNS iterates over all of the DNS entries for the given addr, invoking the provided callback for each one
-func (m *CollectorConnections) IterateDNS(addr *Addr, cb func(i, total int, entry string) bool) {
-	IterateDNS(m.EncodedDNS, addr.Ip, cb)
+func (m *CollectorConnections) IterateDNS(addr *Addr, cb func(i, total int, entry string) bool) error {
+	return IterateDNS(m.EncodedDNS, addr.Ip, cb)
 }
 
 // GetDNSNames returns all the DNS entries
