@@ -3,6 +3,7 @@ package process
 import (
 	"bytes"
 	"encoding/binary"
+	"fmt"
 	"math"
 
 	"github.com/DataDog/mmh3"
@@ -27,8 +28,10 @@ import (
 // The overall buffer is encoded as:
 //	1 byte indicating version
 // 	2 bytes indicating the number of buckets
-//	varint indicating the length of the name buffer.
+
 //	varint indicating the length of the position buffer
+//	varint indicating the length of the name buffer.
+
 // 	varint indicating the position of the "middle" (bucketCount / 2) bucket in the position block
 //		We will use this to skip the half of the buckets when searching for the target bucket index
 //	position block
@@ -372,4 +375,84 @@ func getBucketCount(dns map[string]*DNSEntry, bucketFactor float64) int {
 	}
 
 	return bucketCount
+}
+
+///
+
+func Decode(buf []byte) (dns map[string]*DNSEntry, err error) {
+	dns = make(map[string]*DNSEntry)
+
+	ver := buf[0]
+	if ver != dnsVersion1 {
+		return nil, fmt.Errorf("Incorrect version %v\n", ver)
+	}
+	bucketCount := int(binary.LittleEndian.Uint16(buf[1:]))
+	fmt.Printf("There are %d buckets\n", bucketCount)
+
+	// skip the preamble
+	index := dns1Version1PreambleLength
+
+	positionBufferLen, bytesRead := binary.Uvarint(buf[index:])
+	index += bytesRead
+
+	nameBufferLen, bytesRead := binary.Uvarint(buf[index:])
+	nameBuffer := buf[len(buf)-int(nameBufferLen):]
+	index += bytesRead
+
+	// read off middle bucket position even though we're not using it.
+	_, bytesRead = binary.Uvarint(buf[index:])
+	index += bytesRead
+
+	positionBlock := buf[index : index+int(positionBufferLen)]
+	index += int(positionBufferLen)
+
+	// a bit out of order, but read the names first, and create
+	// a map of positions to name strings
+	nameRead := 0
+	namesByPos := make(map[int32]string)
+	for nameRead < int(nameBufferLen) {
+		startpos := nameRead
+		nameLen, bytesRead := binary.Uvarint(nameBuffer[nameRead:])
+		nameRead += bytesRead
+		name := string(nameBuffer[nameRead : nameRead+int(nameLen)])
+		nameRead += int(nameLen)
+		namesByPos[int32(startpos)] = name
+	}
+
+	// read the position blocks
+	var posBlock []int
+	for posRead := 0; posRead < int(positionBufferLen); {
+		pos, bytesRead := binary.Uvarint(positionBlock[posRead:])
+		posRead += bytesRead
+		posBlock = append(posBlock, int(pos))
+	}
+	bucketStart := index
+	for i := 0; i < bucketCount; i++ {
+		fmt.Printf("Bucket %d index %d\n", i, index)
+		if posBlock[i] != index-bucketStart {
+			fmt.Printf("Mismatch on bucket %d %d %d\n", i, posBlock[i], index-bucketStart)
+		}
+		numEntries, bytesRead := binary.Uvarint(buf[index:])
+		index += bytesRead
+
+		for e := 0; e < int(numEntries); e++ {
+			iplen, bytesRead := binary.Uvarint(buf[index:])
+			index += bytesRead
+
+			ipstr := string(buf[index : index+int(iplen)])
+			index += int(iplen)
+
+			numNames, bytesRead := binary.Uvarint(buf[index:])
+			index += bytesRead
+			for n := 0; n < int(numNames); n++ {
+				npos, bytesRead := binary.Uvarint(buf[index:])
+				index += bytesRead
+				if _, ok := dns[ipstr]; !ok {
+					dns[ipstr] = &DNSEntry{}
+				}
+				dns[ipstr].Names = append(dns[ipstr].Names, namesByPos[int32(npos)])
+			}
+		}
+	}
+	return dns, nil
 }
