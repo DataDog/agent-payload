@@ -177,7 +177,10 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) []byte {
 			bucketBuffer = e.appendVarInt(bucketBuffer, len(entry.Names))
 
 			for _, name := range entry.Names {
-				position := namePositions[name]
+				position, found := namePositions[name]
+				if !found {
+					panic("didn't find it\n")
+				}
 
 				bucketBuffer = e.appendVarInt(bucketBuffer, position)
 			}
