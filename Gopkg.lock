@@ -2,12 +2,12 @@
 
 
 [[projects]]
-  digest = "1:eb704e209bd926f5f44c97c0646cd20906c1cd714ba7a5ad4dc70f37ca98c7c0"
+  digest = "1:c4b3e2b49c4f3a6714b55523fcbf762d5c88967b8efa69fff1ea47f424f3c75a"
   name = "github.com/DataDog/mmh3"
   packages = ["."]
   pruneopts = ""
-  revision = "6574a4241c5250712174e75a1042b4595124889e"
-  version = "1.0.0"
+  revision = "30884ca2197a84c5a6d858be1a4853abc6b89002"
+  version = "1.2.0"
 
 [[projects]]
   digest = "1:9bd83b487e688ad3403375726c51548876c35fc1c217fc6f653bcf5670134f27"
