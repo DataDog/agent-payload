@@ -460,8 +460,7 @@ func IterateDNS(buf []byte, ip string, cb func(i, total int, entry string) bool)
 
 	switch buf[0] {
 	case dnsVersion1:
-		iterateDNSV1(buf, ip, cb)
-		return nil
+		return iterateDNSV1(buf, ip, cb)
 	}
 	return fmt.Errorf("Unexpected version %v", buf[0])
 }

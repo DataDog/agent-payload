@@ -338,13 +338,18 @@ func getDNSNameFromListByOffset(buf []byte, offset int) (string, error) {
 	return name, nil
 }
 
-func iterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32) bool) {
-	unsafeIterateDNSV2(buf, ip, func(i, total int, entry int32) bool {
+func iterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32) bool) error {
+	return unsafeIterateDNSV2(buf, ip, func(i, total int, entry int32) bool {
 		return cb(i, total, entry)
 	})
 }
 
-func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32) bool) {
+func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32) bool) error {
+	bufLen := len(buf)
+
+	if bufLen < 2 {
+		return fmt.Errorf("dns buffer is too short")
+	}
 	// Read overview:
 	//	Compute the target bucket for the given ip
 	//	Iterate over all the buckets to find position of the given bucket
@@ -360,8 +365,16 @@ func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32
 	// skip the preamble
 	index := dns1Version2PreambleLength
 
+	if index > bufLen {
+		return fmt.Errorf("dns buffer is too short, invalid preamble")
+	}
+
 	positionBufferLen, bytesRead := binary.Uvarint(buf[index:])
 	index += bytesRead
+
+	if index > bufLen {
+		return fmt.Errorf("dns buffer is too short, invalid position buffer length")
+	}
 
 	middleBucketPosition, bytesRead := binary.Uvarint(buf[index:])
 	index += bytesRead
@@ -389,6 +402,9 @@ func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32
 	var bucketPosition int
 
 	for i := startBucket; i < endBucket; i++ {
+		if index > bufLen {
+			return fmt.Errorf("dns buffer is too short, invalid bucket position")
+		}
 		value, bytesRead := binary.Uvarint(buf[index:])
 
 		index += bytesRead
@@ -402,24 +418,41 @@ func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32
 	// Move read index to the start of the bucket data.  Skip the metadata and the position buffer
 	index = metaLength + int(positionBufferLen) + bucketPosition
 
+	if index > bufLen {
+		return fmt.Errorf("dns buffer is too short, invalid bucket length")
+	}
+
 	bucketLength, bytesRead := binary.Uvarint(buf[index:])
 	index += bytesRead
 
 	for i := 0; i < int(bucketLength); i++ {
+		if index > bufLen {
+			return fmt.Errorf("dns buffer is too short, invalid key length")
+		}
 		keyLength, bytesRead := binary.Uvarint(buf[index:])
 		index += bytesRead
+
+		if index > bufLen || (index+int(keyLength)) > bufLen {
+			return fmt.Errorf("dns buffer is too short, invalid key data`")
+		}
 
 		key := buf[index : index+int(keyLength)]
 		index += int(keyLength)
 
 		matched := bytes.Equal(key, []byte(ip))
 
+		if index > bufLen {
+			return fmt.Errorf("dns buffer is too short, invalid value data`")
+		}
 		nameCount, bytesRead := binary.Uvarint(buf[index:])
 		index += bytesRead
 
 		// Advance through all name positions
 		// We still need to do this even if the current entry didn't match in order to get to the next bucket entry
 		for j := 0; j < int(nameCount); j++ {
+			if index > bufLen {
+				return fmt.Errorf("dns buffer is too short, invalid name data`")
+			}
 			nameIndex, bytesRead := binary.Uvarint(buf[index:])
 			index += bytesRead
 
@@ -428,14 +461,15 @@ func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32
 			}
 
 			if !cb(j, int(nameCount), int32(nameIndex)) {
-				return
+				return nil
 			}
 		}
 
 		if matched {
-			return
+			return nil
 		}
 	}
+	return nil
 }
 
 func getV2BucketCount(dns map[string]*DNSDatabaseEntry, bucketFactor float64) int {
