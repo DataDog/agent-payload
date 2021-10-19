@@ -4,12 +4,31 @@ Payload format description for communication between the Agent and the Datadog b
 
 This repository includes the protocol-buffer IDL used by the agent6 and agent7 to communicate with the Datadog backend.
 Those payloads are only supported by the V2 API endpoints.
+The generated Go, Python and Java implementations are checked into this repository and can be used directly.
 
-# Generated code
+# Payloads
 
-The Go, Python and Java code are already generated along the `.proto` file.
+## Logs
 
-# Updates
+The logs payload is defined in [`proto/logs/agent_logs_payload.proto`](./proto/logs/agent_logs_payload.proto).
+The following implementations are available:
+ * Go (gogofast): [github.com/DataDog/agent-payload/pb](https://pkg.go.dev/github.com/DataDog/agent-payload/pb)
+ * Java: [`java/com/dd/agent/pb/Log.java`](./java/com/dd/agent/pb/Log.java)
+
+## Metrics
+
+The metrics payload is defined in [`proto/metrics/agent_payload.proto`](./proto/metrics/agent_payload.proto).
+The following implementations are available:
+ * Go (gogofast): [github.com/DataDog/agent-payload/gogen](https://pkg.go.dev/github.com/DataDog/agent-payload/gogen)
+ * Python: [`python/agent_payload_pb2.py`](./python/agent_payload_pb2.py)
+
+## Process
+
+The process payload is defined in [`proto/process/agent.proto`](./proto/process/agent.proto).
+The following implementations are available:
+ * Go (gogofast): [github.com/DataDog/agent-payload/process](https://pkg.go.dev/github.com/DataDog/agent-payload/process) (note that this go package contains additional functionality beyond the generated PB implementation).
+
+# Updating Proto Definitions
 
 After updating the IDL you must:
 
