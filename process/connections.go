@@ -61,16 +61,14 @@ func (m *CollectorConnections) GetDNS(addr *Addr) (string, []string, error) {
 func (m *CollectorConnections) IterateDNS(addr *Addr, cb func(i, total int, entry string) bool) error {
 	if m.EncodedDNS != nil {
 		return IterateDNS(m.EncodedDNS, addr.Ip, cb)
-	} else if m.EncodedDnsLookups != nil {
-		if m.EncodedDomainDatabase != nil {
-			return IterateDNSV2(m.EncodedDnsLookups, addr.Ip, func(i, total int, offset int32) bool {
-				s, err := getDNSNameFromListByOffset(m.EncodedDomainDatabase, int(offset))
-				if err == nil {
-					return cb(i, total, s)
-				}
-				return false
-			})
-		}
+	} else if m.EncodedDnsLookups != nil && m.EncodedDomainDatabase != nil {
+		return IterateDNSV2(m.EncodedDnsLookups, addr.Ip, func(i, total int, offset int32) bool {
+			s, err := getDNSNameFromListByOffset(m.EncodedDomainDatabase, int(offset))
+			if err == nil {
+				return cb(i, total, s)
+			}
+			return false
+		})
 	}
 	return nil
 }

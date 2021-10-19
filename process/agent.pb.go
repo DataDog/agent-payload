@@ -1782,7 +1782,7 @@ type Connection struct {
 	// TCP state transition counters relative to last check
 	LastTcpEstablished uint32 `protobuf:"varint,30,opt,name=lastTcpEstablished,proto3" json:"lastTcpEstablished,omitempty"`
 	LastTcpClosed      uint32 `protobuf:"varint,31,opt,name=lastTcpClosed,proto3" json:"lastTcpClosed,omitempty"`
-	// dns stats based on domain queried, the key corresponds to an offset into the `domains` field
+	// dns stats based on domain queried, the key corresponds to an index into the `domains` field
 	// dnsStatsByDomain is deprecated field, left in for handling old agent versions
 	DnsStatsByDomain map[int32]*DNSStats `protobuf:"bytes,34,rep,name=dnsStatsByDomain" json:"dnsStatsByDomain,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value"`
 	// dnsStatsByDomainByQueryType is new field

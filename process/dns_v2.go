@@ -9,10 +9,8 @@ import (
 	"github.com/DataDog/mmh3"
 )
 
-// DNS data is encoded as a very basic bucketed hash table.  There are three blocks, or buffers, of data:
+// DNS data is encoded as a very basic bucketed hash table.  There are two blocks, or buffers, of data:
 //
-//	The "name" block is all of the unique DNS names.  The length of the name is stored as a varint
-//	followed by the name itself
 //
 //	The "bucket" block contains all of the hash buckets.  The format of each bucket is:
 //		varint for number of entries in bucket
@@ -34,7 +32,6 @@ import (
 //		We will use this to skip the half of the buckets when searching for the target bucket index
 //	position block
 //	bucket block
-//	name block
 //
 // Notes:
 //	Using varints saves space at the cost of not having random access to certain sections of data, particularly the

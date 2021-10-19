@@ -674,14 +674,13 @@ message Connection {
 	uint32 lastTcpEstablished = 30;
 	uint32 lastTcpClosed = 31;
 
-	// dns stats based on domain queried, the key corresponds to an offset into the `domains` field
+	// dns stats based on domain queried, the key corresponds to an index into the `domains` field
 	// dnsStatsByDomain is deprecated field, left in for handling old agent versions
 	map<int32, DNSStats> dnsStatsByDomain = 34;
 	// dnsStatsByDomainByQueryType is new field
 	map<int32, DNSStatsByQueryType> dnsStatsByDomainByQueryType = 42;
 
 	// int32 index into map is the offset into the CollectorConnections.encodedDomainDatabase
-	map<int32, DNSStats> dnsStatsByDomainOffset = 34;
 	map<int32, DNSStatsByQueryType> dnsStatsByDomainOffsetByQueryType = 43;
 
 
