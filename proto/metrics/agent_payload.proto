@@ -80,20 +80,6 @@ message SketchPayload {
 	CommonMetadata metadata = 2 [(gogoproto.nullable) = false];
 }
 
-message HostMetadataPayload {
-	message TagSet {
-		string type = 1;
-		repeated string tags = 2;
-	}
-	message HostMetadata {
-		string hostname = 1;
-		repeated TagSet tags = 2;
-		repeated string aliases = 3;
-	}
-	repeated HostMetadata hosts_metadata = 1;
-	CommonMetadata metadata = 2;
-}
-
 message KubeMetadataPayload {
 	message Deployment {
 		string uid = 1;
