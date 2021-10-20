@@ -80,6 +80,64 @@ message SketchPayload {
 	CommonMetadata metadata = 2 [(gogoproto.nullable) = false];
 }
 
+message KubeMetadataPayload {
+	message Deployment {
+		string uid = 1;
+		string name = 2;
+		string namespace = 3;
+	}
+	message ReplicaSet {
+		string uid = 1;
+		string name = 2;
+		string namespace = 3;
+		string deployment = 4;
+	}
+	message DaemonSet {
+		string uid = 1;
+		string name = 2;
+		string namespace = 3;
+	}
+	message Service {
+		string uid = 1;
+		string name = 2;
+		string namespace = 3;
+		map<string,string> selector = 4;
+		string type = 5;
+	}
+	message Job {
+		string uid = 1;
+		string name = 2;
+		string namespace = 3;
+	}
+	message Pod {
+		string uid = 1;
+		string name = 2;
+		string namespace = 3;
+		string host_ip = 4;
+		string pod_ip = 5;
+		map<string, string> labels = 6;
+		repeated string service_uids = 7;
+		repeated string container_ids = 8;
+		string daemon_set = 9;
+		string replica_set = 10;
+		string replication_controller = 11;
+		string job = 12;
+	}
+	message Container {
+		string id = 1;
+		string name = 2;
+		string image = 3;
+		string image_id = 4;
+	}
+	repeated Deployment deployments = 1;
+	repeated ReplicaSet replica_sets = 2;
+	repeated DaemonSet daemon_sets = 3;
+	repeated Service services = 4;
+	repeated Job jobs = 5;
+	repeated Pod pods = 6;
+	repeated Container containers = 7;
+}
+
 message ECSMetadataPayload {
 	message Task {
 		string arn = 1;
