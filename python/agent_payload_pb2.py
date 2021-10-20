@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='agent_payload.proto',
   package='datadog.agentpayload',
   syntax='proto3',
-  serialized_pb=_b('\n\x13\x61gent_payload.proto\x12\x14\x64\x61tadog.agentpayload\x1a-github.com/gogo/protobuf/gogoproto/gogo.proto\"\x89\x01\n\x0e\x43ommonMetadata\x12\x15\n\ragent_version\x18\x01 \x01(\t\x12\x10\n\x08timezone\x18\x02 \x01(\t\x12\x15\n\rcurrent_epoch\x18\x03 \x01(\x01\x12\x13\n\x0binternal_ip\x18\x04 \x01(\t\x12\x11\n\tpublic_ip\x18\x05 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x06 \x01(\t\"\x86\x02\n\x14ServiceChecksPayload\x12O\n\x0eservice_checks\x18\x01 \x03(\x0b\x32\x37.datadog.agentpayload.ServiceChecksPayload.ServiceCheck\x12\x36\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadata\x1a\x65\n\x0cServiceCheck\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x0e\n\x06status\x18\x04 \x01(\x05\x12\x0f\n\x07message\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\"\xaa\x02\n\rEventsPayload\x12\x39\n\x06\x65vents\x18\x01 \x03(\x0b\x32).datadog.agentpayload.EventsPayload.Event\x12\x36\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadata\x1a\xa5\x01\n\x05\x45vent\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x10\n\x08priority\x18\x04 \x01(\t\x12\x0c\n\x04host\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x12\n\nalert_type\x18\x07 \x01(\t\x12\x17\n\x0f\x61ggregation_key\x18\x08 \x01(\t\x12\x18\n\x10source_type_name\x18\t \x01(\t\"\x9b\x05\n\rSketchPayload\x12\x42\n\x08sketches\x18\x01 \x03(\x0b\x32*.datadog.agentpayload.SketchPayload.SketchB\x04\xc8\xde\x1f\x00\x12<\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadataB\x04\xc8\xde\x1f\x00\x1a\x87\x04\n\x06Sketch\x12\x0e\n\x06metric\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12T\n\rdistributions\x18\x03 \x03(\x0b\x32\x37.datadog.agentpayload.SketchPayload.Sketch.DistributionB\x04\xc8\xde\x1f\x00\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12O\n\x0b\x64ogsketches\x18\x07 \x03(\x0b\x32\x34.datadog.agentpayload.SketchPayload.Sketch.DogsketchB\x04\xc8\xde\x1f\x00\x1a\x8d\x01\n\x0c\x44istribution\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01v\x18\x07 \x03(\x01\x12\t\n\x01g\x18\x08 \x03(\r\x12\r\n\x05\x64\x65lta\x18\t \x03(\r\x12\x0b\n\x03\x62uf\x18\n \x03(\x01\x1an\n\tDogsketch\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01k\x18\x07 \x03(\x11\x12\t\n\x01n\x18\x08 \x03(\rJ\x04\x08\x05\x10\x06J\x04\x08\x06\x10\x07R\x0e\x64istributionsKR\x0e\x64istributionsC\"\xc2\x02\n\x12\x45\x43SMetadataPayload\x12<\n\x05tasks\x18\x01 \x03(\x0b\x32-.datadog.agentpayload.ECSMetadataPayload.Task\x1a\xaa\x01\n\x04Task\x12\x0b\n\x03\x61rn\x18\x01 \x01(\t\x12\x16\n\x0e\x64\x65sired_status\x18\x02 \x01(\t\x12\x14\n\x0cknown_status\x18\x03 \x01(\t\x12\x0e\n\x06\x66\x61mily\x18\x04 \x01(\t\x12\x0f\n\x07version\x18\x05 \x01(\t\x12\x46\n\ncontainers\x18\x06 \x03(\x0b\x32\x32.datadog.agentpayload.ECSMetadataPayload.Container\x1a\x41\n\tContainer\x12\x11\n\tdocker_id\x18\x01 \x01(\t\x12\x13\n\x0b\x64ocker_name\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\tB(Z&github.com/DataDog/agent-payload/gogenb\x06proto3')
+  serialized_pb=_b('\n\x13\x61gent_payload.proto\x12\x14\x64\x61tadog.agentpayload\x1a-github.com/gogo/protobuf/gogoproto/gogo.proto\"\x89\x01\n\x0e\x43ommonMetadata\x12\x15\n\ragent_version\x18\x01 \x01(\t\x12\x10\n\x08timezone\x18\x02 \x01(\t\x12\x15\n\rcurrent_epoch\x18\x03 \x01(\x01\x12\x13\n\x0binternal_ip\x18\x04 \x01(\t\x12\x11\n\tpublic_ip\x18\x05 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x06 \x01(\t\"\xaa\x02\n\rEventsPayload\x12\x39\n\x06\x65vents\x18\x01 \x03(\x0b\x32).datadog.agentpayload.EventsPayload.Event\x12\x36\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadata\x1a\xa5\x01\n\x05\x45vent\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x10\n\x08priority\x18\x04 \x01(\t\x12\x0c\n\x04host\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x12\n\nalert_type\x18\x07 \x01(\t\x12\x17\n\x0f\x61ggregation_key\x18\x08 \x01(\t\x12\x18\n\x10source_type_name\x18\t \x01(\t\"\x9b\x05\n\rSketchPayload\x12\x42\n\x08sketches\x18\x01 \x03(\x0b\x32*.datadog.agentpayload.SketchPayload.SketchB\x04\xc8\xde\x1f\x00\x12<\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadataB\x04\xc8\xde\x1f\x00\x1a\x87\x04\n\x06Sketch\x12\x0e\n\x06metric\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12T\n\rdistributions\x18\x03 \x03(\x0b\x32\x37.datadog.agentpayload.SketchPayload.Sketch.DistributionB\x04\xc8\xde\x1f\x00\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12O\n\x0b\x64ogsketches\x18\x07 \x03(\x0b\x32\x34.datadog.agentpayload.SketchPayload.Sketch.DogsketchB\x04\xc8\xde\x1f\x00\x1a\x8d\x01\n\x0c\x44istribution\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01v\x18\x07 \x03(\x01\x12\t\n\x01g\x18\x08 \x03(\r\x12\r\n\x05\x64\x65lta\x18\t \x03(\r\x12\x0b\n\x03\x62uf\x18\n \x03(\x01\x1an\n\tDogsketch\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01k\x18\x07 \x03(\x11\x12\t\n\x01n\x18\x08 \x03(\rJ\x04\x08\x05\x10\x06J\x04\x08\x06\x10\x07R\x0e\x64istributionsKR\x0e\x64istributionsC\"\xc2\x02\n\x12\x45\x43SMetadataPayload\x12<\n\x05tasks\x18\x01 \x03(\x0b\x32-.datadog.agentpayload.ECSMetadataPayload.Task\x1a\xaa\x01\n\x04Task\x12\x0b\n\x03\x61rn\x18\x01 \x01(\t\x12\x16\n\x0e\x64\x65sired_status\x18\x02 \x01(\t\x12\x14\n\x0cknown_status\x18\x03 \x01(\t\x12\x0e\n\x06\x66\x61mily\x18\x04 \x01(\t\x12\x0f\n\x07version\x18\x05 \x01(\t\x12\x46\n\ncontainers\x18\x06 \x03(\x0b\x32\x32.datadog.agentpayload.ECSMetadataPayload.Container\x1a\x41\n\tContainer\x12\x11\n\tdocker_id\x18\x01 \x01(\t\x12\x13\n\x0b\x64ocker_name\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\tB(Z&github.com/DataDog/agent-payload/gogenb\x06proto3')
   ,
   dependencies=[github_dot_com_dot_gogo_dot_protobuf_dot_gogoproto_dot_gogo__pb2.DESCRIPTOR,])
 
@@ -90,109 +90,6 @@ _COMMONMETADATA = _descriptor.Descriptor(
   ],
   serialized_start=93,
   serialized_end=230,
-)
-
-
-_SERVICECHECKSPAYLOAD_SERVICECHECK = _descriptor.Descriptor(
-  name='ServiceCheck',
-  full_name='datadog.agentpayload.ServiceChecksPayload.ServiceCheck',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='name', full_name='datadog.agentpayload.ServiceChecksPayload.ServiceCheck.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='host', full_name='datadog.agentpayload.ServiceChecksPayload.ServiceCheck.host', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='ts', full_name='datadog.agentpayload.ServiceChecksPayload.ServiceCheck.ts', index=2,
-      number=3, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='status', full_name='datadog.agentpayload.ServiceChecksPayload.ServiceCheck.status', index=3,
-      number=4, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='message', full_name='datadog.agentpayload.ServiceChecksPayload.ServiceCheck.message', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='tags', full_name='datadog.agentpayload.ServiceChecksPayload.ServiceCheck.tags', index=5,
-      number=6, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=394,
-  serialized_end=495,
-)
-
-_SERVICECHECKSPAYLOAD = _descriptor.Descriptor(
-  name='ServiceChecksPayload',
-  full_name='datadog.agentpayload.ServiceChecksPayload',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='service_checks', full_name='datadog.agentpayload.ServiceChecksPayload.service_checks', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='metadata', full_name='datadog.agentpayload.ServiceChecksPayload.metadata', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_SERVICECHECKSPAYLOAD_SERVICECHECK, ],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=233,
-  serialized_end=495,
 )
 
 
@@ -278,8 +175,8 @@ _EVENTSPAYLOAD_EVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=631,
-  serialized_end=796,
+  serialized_start=366,
+  serialized_end=531,
 )
 
 _EVENTSPAYLOAD = _descriptor.Descriptor(
@@ -315,8 +212,8 @@ _EVENTSPAYLOAD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=498,
-  serialized_end=796,
+  serialized_start=233,
+  serialized_end=531,
 )
 
 
@@ -409,8 +306,8 @@ _SKETCHPAYLOAD_SKETCH_DISTRIBUTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1169,
-  serialized_end=1310,
+  serialized_start=904,
+  serialized_end=1045,
 )
 
 _SKETCHPAYLOAD_SKETCH_DOGSKETCH = _descriptor.Descriptor(
@@ -488,8 +385,8 @@ _SKETCHPAYLOAD_SKETCH_DOGSKETCH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1312,
-  serialized_end=1422,
+  serialized_start=1047,
+  serialized_end=1157,
 )
 
 _SKETCHPAYLOAD_SKETCH = _descriptor.Descriptor(
@@ -546,8 +443,8 @@ _SKETCHPAYLOAD_SKETCH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=947,
-  serialized_end=1466,
+  serialized_start=682,
+  serialized_end=1201,
 )
 
 _SKETCHPAYLOAD = _descriptor.Descriptor(
@@ -583,8 +480,8 @@ _SKETCHPAYLOAD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=799,
-  serialized_end=1466,
+  serialized_start=534,
+  serialized_end=1201,
 )
 
 
@@ -649,8 +546,8 @@ _ECSMETADATAPAYLOAD_TASK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1554,
-  serialized_end=1724,
+  serialized_start=1289,
+  serialized_end=1459,
 )
 
 _ECSMETADATAPAYLOAD_CONTAINER = _descriptor.Descriptor(
@@ -693,8 +590,8 @@ _ECSMETADATAPAYLOAD_CONTAINER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1726,
-  serialized_end=1791,
+  serialized_start=1461,
+  serialized_end=1526,
 )
 
 _ECSMETADATAPAYLOAD = _descriptor.Descriptor(
@@ -723,13 +620,10 @@ _ECSMETADATAPAYLOAD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1469,
-  serialized_end=1791,
+  serialized_start=1204,
+  serialized_end=1526,
 )
 
-_SERVICECHECKSPAYLOAD_SERVICECHECK.containing_type = _SERVICECHECKSPAYLOAD
-_SERVICECHECKSPAYLOAD.fields_by_name['service_checks'].message_type = _SERVICECHECKSPAYLOAD_SERVICECHECK
-_SERVICECHECKSPAYLOAD.fields_by_name['metadata'].message_type = _COMMONMETADATA
 _EVENTSPAYLOAD_EVENT.containing_type = _EVENTSPAYLOAD
 _EVENTSPAYLOAD.fields_by_name['events'].message_type = _EVENTSPAYLOAD_EVENT
 _EVENTSPAYLOAD.fields_by_name['metadata'].message_type = _COMMONMETADATA
@@ -745,7 +639,6 @@ _ECSMETADATAPAYLOAD_TASK.containing_type = _ECSMETADATAPAYLOAD
 _ECSMETADATAPAYLOAD_CONTAINER.containing_type = _ECSMETADATAPAYLOAD
 _ECSMETADATAPAYLOAD.fields_by_name['tasks'].message_type = _ECSMETADATAPAYLOAD_TASK
 DESCRIPTOR.message_types_by_name['CommonMetadata'] = _COMMONMETADATA
-DESCRIPTOR.message_types_by_name['ServiceChecksPayload'] = _SERVICECHECKSPAYLOAD
 DESCRIPTOR.message_types_by_name['EventsPayload'] = _EVENTSPAYLOAD
 DESCRIPTOR.message_types_by_name['SketchPayload'] = _SKETCHPAYLOAD
 DESCRIPTOR.message_types_by_name['ECSMetadataPayload'] = _ECSMETADATAPAYLOAD
@@ -757,21 +650,6 @@ CommonMetadata = _reflection.GeneratedProtocolMessageType('CommonMetadata', (_me
   # @@protoc_insertion_point(class_scope:datadog.agentpayload.CommonMetadata)
   ))
 _sym_db.RegisterMessage(CommonMetadata)
-
-ServiceChecksPayload = _reflection.GeneratedProtocolMessageType('ServiceChecksPayload', (_message.Message,), dict(
-
-  ServiceCheck = _reflection.GeneratedProtocolMessageType('ServiceCheck', (_message.Message,), dict(
-    DESCRIPTOR = _SERVICECHECKSPAYLOAD_SERVICECHECK,
-    __module__ = 'agent_payload_pb2'
-    # @@protoc_insertion_point(class_scope:datadog.agentpayload.ServiceChecksPayload.ServiceCheck)
-    ))
-  ,
-  DESCRIPTOR = _SERVICECHECKSPAYLOAD,
-  __module__ = 'agent_payload_pb2'
-  # @@protoc_insertion_point(class_scope:datadog.agentpayload.ServiceChecksPayload)
-  ))
-_sym_db.RegisterMessage(ServiceChecksPayload)
-_sym_db.RegisterMessage(ServiceChecksPayload.ServiceCheck)
 
 EventsPayload = _reflection.GeneratedProtocolMessageType('EventsPayload', (_message.Message,), dict(
 
