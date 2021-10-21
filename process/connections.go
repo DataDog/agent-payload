@@ -36,7 +36,7 @@ func (m *CollectorConnections) GetDNS(addr *Addr) (string, []string, error) {
 		if err != nil {
 			return "", nil, err
 		}
-		firststring, err := getDNSNameFromListByOffset(m.EncodedDomainDatabase, int(first))
+		firstString, err := getDNSNameFromListByOffset(m.EncodedDomainDatabase, int(first))
 		if err != nil {
 			return "", nil, err
 		}
@@ -52,7 +52,7 @@ func (m *CollectorConnections) GetDNS(addr *Addr) (string, []string, error) {
 
 			}
 		}
-		return firststring, strings, nil
+		return firstString, strings, nil
 	}
 	return "", nil, fmt.Errorf("No DNS encoded information")
 }

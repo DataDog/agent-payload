@@ -325,7 +325,6 @@ func getDNSNameAsByteSliceByOffset(buf []byte, offset int) (stringasbyteslice []
 }
 
 func getDNSNameFromListByOffset(buf []byte, offset int) (string, error) {
-
 	byteslice, err := getDNSNameAsByteSliceByOffset(buf, offset)
 	if err != nil {
 		return "", err
@@ -388,7 +387,6 @@ func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32
 
 	if bucket >= middleBucket {
 		startBucket = middleBucket
-		endBucket = bucketCount
 
 		index += int(middleBucketPosition)
 	}
