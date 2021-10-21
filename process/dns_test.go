@@ -20,25 +20,34 @@ func TestV1EncodeDNS(t *testing.T) {
 	dns["34.231.44.115"] = &DNSEntry{Names: []string{"app.example.com"}}
 
 	encoder := NewV1DNSEncoder()
-	buf := encoder.Encode(dns)
+	buf, err := encoder.Encode(dns)
+
+	assert.Nil(t, err)
 
 	assertDNSEqual(t, []string{"service.example.com", "service2.example.com"}, buf, "10.128.98.75")
 	assertDNSEqual(t, []string{"service.example.com"}, buf, "10.128.99.240")
 	assertDNSEqual(t, []string{"app.example.com"}, buf, "34.231.44.115")
 	assertDNSEqual(t, nil, buf, "134.231.44.115")
 	assertDNSEqual(t, nil, buf, "1.1.1.1")
-	assert.Equal(t, 3, len(getDNSNames(buf)))
+
+	names, err := getDNSNames(buf)
+	assert.Nil(t, err)
+	assert.Equal(t, 3, len(names))
 }
 
 func TestV1EncodeDNS_Empty(t *testing.T) {
 	dns := make(map[string]*DNSEntry)
 
 	encoder := NewV1DNSEncoder()
-	buf := encoder.Encode(dns)
+	buf, err := encoder.Encode(dns)
 
+	assert.Nil(t, err)
 	assert.Empty(t, buf)
 	assertDNSEqual(t, nil, buf, "1.1.1.1")
-	assert.Equal(t, 0, len(getDNSNames(buf)))
+
+	names, err := getDNSNames(buf)
+	assert.Nil(t, err)
+	assert.Equal(t, 0, len(names))
 }
 
 func TestV1EncodeDNS_NoNames(t *testing.T) {
@@ -48,12 +57,17 @@ func TestV1EncodeDNS_NoNames(t *testing.T) {
 	dns["10.128.99.240"] = &DNSEntry{}
 
 	encoder := NewV1DNSEncoder()
-	buf := encoder.Encode(dns)
+	buf, err := encoder.Encode(dns)
+
+	assert.Nil(t, err)
 
 	assert.Empty(t, buf)
 	assertDNSEqual(t, nil, buf, "10.128.98.75")
 	assertDNSEqual(t, nil, buf, "10.128.99.240")
-	assert.Equal(t, 0, len(getDNSNames(buf)))
+
+	names, err := getDNSNames(buf)
+	assert.Nil(t, err)
+	assert.Equal(t, 0, len(names))
 }
 
 func TestV1EncodeDNS_SampleData(t *testing.T) {
@@ -70,7 +84,7 @@ func TestV1EncodeDNS_SampleData(t *testing.T) {
 			encoder := NewV1DNSEncoder()
 
 			for _, sample := range samples {
-				buf := encoder.Encode(sample)
+				buf, _ := encoder.Encode(sample)
 
 				for ip, entry := range sample {
 					assertDNSEqual(t, entry.Names, buf, ip)
@@ -96,7 +110,7 @@ func BenchmarkDNSDecode(b *testing.B) {
 			bufs := make([][]byte, len(samples))
 
 			for i, dns := range samples {
-				bufs[i] = encoder.Encode(dns)
+				bufs[i], _ = encoder.Encode(dns)
 			}
 
 			b.ReportAllocs()
@@ -107,7 +121,7 @@ func BenchmarkDNSDecode(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				for i, dns := range samples {
 					for ip := range dns {
-						_, s = GetDNS(bufs[i], ip)
+						_, s, _ = GetDNS(bufs[i], ip)
 					}
 				}
 			}
@@ -138,7 +152,7 @@ func BenchmarkDNSEncode(b *testing.B) {
 
 			for i := 0; i < b.N; i++ {
 				for _, dns := range samples {
-					buf = encoder.Encode(dns)
+					buf, _ = encoder.Encode(dns)
 					count += int64(len(buf))
 				}
 			}
@@ -188,8 +202,9 @@ func readTestDns(t require.TestingT, filename string) []map[string]*DNSEntry {
 }
 
 func assertDNSEqual(t *testing.T, expected []string, buf []byte, key string) {
-	name, names := GetDNS(buf, key)
+	name, names, err := GetDNS(buf, key)
 
+	assert.Nil(t, err)
 	switch len(expected) {
 	case 0:
 		assert.Empty(t, name)
