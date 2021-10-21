@@ -1368,7 +1368,7 @@ message HTTPStats {
 		// a protobuf encoded sketch of all the requests in this HTTPStats. In microseconds.
 		// this will be nil if count == 1
 		// To decode:
-		//	  use a protobuf library to decode this into a github.com/DataDog/sketches-go/ddsketch/pb/sketchpb.DDSketch
+		//    use a protobuf library to decode this into a github.com/DataDog/sketches-go/ddsketch/pb/sketchpb.DDSketch
 		// then call github.com/DataDog/sketches-go/ddsketch.FromProto
 		// To encode:
 		//    create a github.com/DataDog/sketches-go/ddsketch.DDSketch
