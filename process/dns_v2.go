@@ -9,10 +9,8 @@ import (
 	"github.com/DataDog/mmh3"
 )
 
-// DNS data is encoded as a very basic bucketed hash table.  There are three blocks, or buffers, of data:
+// DNS data is encoded as a very basic bucketed hash table.  There are two blocks, or buffers, of data:
 //
-//	The "name" block is all of the unique DNS names.  The length of the name is stored as a varint
-//	followed by the name itself
 //
 //	The "bucket" block contains all of the hash buckets.  The format of each bucket is:
 //		varint for number of entries in bucket
@@ -20,7 +18,7 @@ import (
 //			varint for length of ip
 //			ip bytes
 //			varint for number of names associated with the ip
-//			Each associated name is encoded as a varint which is the position of the actual name string in the name block
+//			Each associated name is encoded as a varint which is the position of the actual name string in the encodedDnsDatabase
 //
 //	The "position" block is a list of varints, one for each bucket, where each varint is a pointer to the start
 //	of the bucket in the bucket block
@@ -34,7 +32,6 @@ import (
 //		We will use this to skip the half of the buckets when searching for the target bucket index
 //	position block
 //	bucket block
-//	name block
 //
 // Notes:
 //	Using varints saves space at the cost of not having random access to certain sections of data, particularly the
@@ -45,57 +42,55 @@ import (
 // 	pre-sizing the output buffers
 //
 // This type is not thread safe
-type V1DNSEncoder struct {
+
+type V2DNSEncoder struct {
 	BucketFactor float64
 	scratch      [binary.MaxVarintLen64]byte // Used for varint encoding
 }
 
+/*
 type bucketEntry struct {
 	keys []string
 	size int
 }
-
+*/
 // 1 byte for version, 2 byte for bucket count
-const dns1Version1PreambleLength = 3
+const dns1Version2PreambleLength = 3
 
 // Used for calculating the number of buckets for a given input map.
 // Currently the bucket count is calculated as `len(input) * bucketFactor`
-const defaultBucketFactor = 0.75
+//const defaultBucketFactor = 0.75
 
-func NewV1DNSEncoder() DNSEncoder {
-	return &V1DNSEncoder{
+func NewV2DNSEncoder() DNSEncoder {
+	return &V2DNSEncoder{
 		BucketFactor: defaultBucketFactor,
 	}
 }
+func (e *V2DNSEncoder) Encode(dns map[string]*DNSEntry) ([]byte, error) {
+	return nil, fmt.Errorf("Encode not valid in V2")
+}
 
-func (e *V1DNSEncoder) EncodeMapped(dns map[string]*DNSDatabaseEntry, indexToOFfset []int32) ([]byte, error) {
-	return nil, fmt.Errorf("EncodeMapped not valid in V1")
-}
-func (e *V1DNSEncoder) EncodeDomainDatabase(names []string) ([]byte, []int32, error) {
-	return nil, nil, fmt.Errorf("EncodeDomainDatabase not valid in V1")
-}
-func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) ([]byte, error) {
+func (e *V2DNSEncoder) EncodeMapped(dns map[string]*DNSDatabaseEntry, indexToOffset []int32) ([]byte, error) {
 	if len(dns) == 0 {
 		return nil, nil
 	}
 
-	bucketCount := getBucketCount(dns, e.BucketFactor)
+	bucketCount := getV2BucketCount(dns, e.BucketFactor)
 	buckets := make([]bucketEntry, bucketCount)
 
-	nameBufferLength := 0
-	namePositions := make(map[string]int)
 	allBucketsEmpty := true
 
 	// We do three things here:
-	//	Build up the keys for each bucket
 	//	Calculate the size in bytes for each bucket
-	//	Calculate the size of the names buffer
 	//		The final value of `nameBufferLength` is the size of the name buffer
+	//      the size of the name buffer is the number of entries * sizeof(uint32)
 	for ip, entry := range dns {
-		if len(entry.Names) == 0 {
+		if len(entry.NameOffsets) == 0 {
 			continue
 		}
-
+		if len(entry.NameOffsets) != 0 && indexToOffset == nil {
+			return nil, fmt.Errorf("missing index to offset")
+		}
 		allBucketsEmpty = false
 
 		bucket := int(mmh3.Hash32([]byte(ip))) % bucketCount
@@ -104,19 +99,14 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) ([]byte, error) {
 
 		buckets[bucket].size += e.varIntSize(len(ip))
 		buckets[bucket].size += len(ip)
-		buckets[bucket].size += e.varIntSize(len(entry.Names))
-
-		for _, name := range entry.Names {
-			position, ok := namePositions[name]
-			if !ok {
-				position = nameBufferLength // Position is at the current end of the name buffer
-				namePositions[name] = position
-
-				nameBufferLength += e.varIntSize(len(name))
-				nameBufferLength += len(name)
+		buckets[bucket].size += e.varIntSize(len(entry.NameOffsets))
+		for _, nameindex := range entry.NameOffsets {
+			if nameindex > int32(len(indexToOffset)) {
+				return nil, fmt.Errorf("index out of range")
 			}
-
-			buckets[bucket].size += e.varIntSize(position)
+			// we're converting the index to the offset on the fly here, because
+			// the offset wasn't known when the structure was first created.
+			buckets[bucket].size += e.varIntSize(int(indexToOffset[nameindex]))
 		}
 	}
 
@@ -152,22 +142,19 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) ([]byte, error) {
 	binary.LittleEndian.PutUint16(bucketCountBuf[:], uint16(bucketCount))
 
 	sizeOfPositionBufferLength := e.varIntSize(positionBufferLength)
-	sizeOfNameBufferLength := e.varIntSize(nameBufferLength)
 	sizeOfMiddleBucketPosition := e.varIntSize(middleBucketPosition)
-	metaLength := dns1Version1PreambleLength + sizeOfPositionBufferLength + sizeOfNameBufferLength + sizeOfMiddleBucketPosition
+	metaLength := dns1Version2PreambleLength + sizeOfPositionBufferLength + sizeOfMiddleBucketPosition
 
-	bufferSize := metaLength + positionBufferLength + bucketBufferLength + nameBufferLength
+	bufferSize := metaLength + positionBufferLength + bucketBufferLength
 	buffer := make([]byte, bufferSize)
 
 	metaBuffer := buffer[:0]
 	positionBuffer := buffer[metaLength:][:0]
 	bucketBuffer := buffer[metaLength+positionBufferLength:][:0]
-	nameBuffer := buffer[metaLength+positionBufferLength+bucketBufferLength:]
 
-	metaBuffer = append(metaBuffer, dnsVersion1)
+	metaBuffer = append(metaBuffer, dnsVersion2)
 	metaBuffer = append(metaBuffer, bucketCountBuf[:]...)
 	metaBuffer = e.appendVarInt(metaBuffer, positionBufferLength)
-	metaBuffer = e.appendVarInt(metaBuffer, nameBufferLength)
 	metaBuffer = e.appendVarInt(metaBuffer, middleBucketPosition)
 
 	for i := range buckets {
@@ -178,12 +165,12 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) ([]byte, error) {
 
 			bucketBuffer = e.appendVarInt(bucketBuffer, len(ip))
 			bucketBuffer = append(bucketBuffer, ip...)
-			bucketBuffer = e.appendVarInt(bucketBuffer, len(entry.Names))
+			bucketBuffer = e.appendVarInt(bucketBuffer, len(entry.NameOffsets))
 
-			for _, name := range entry.Names {
-				position := namePositions[name]
-
-				bucketBuffer = e.appendVarInt(bucketBuffer, position)
+			for _, idx := range entry.NameOffsets {
+				// we're converting the index to the offset on the fly here, because
+				// the offset wasn't known when the structure was first created.
+				bucketBuffer = e.appendVarInt(bucketBuffer, int(indexToOffset[idx]))
 			}
 		}
 	}
@@ -201,33 +188,72 @@ func (e *V1DNSEncoder) Encode(dns map[string]*DNSEntry) ([]byte, error) {
 		positionBuffer = e.appendVarInt(positionBuffer, positionCounter)
 	}
 
-	for name, position := range namePositions {
-		bytesWritten := binary.PutUvarint(nameBuffer[position:], uint64(len(name)))
-		copy(nameBuffer[position+bytesWritten:], name)
-	}
-
 	return buffer, nil
 }
 
-func (e *V1DNSEncoder) varIntSize(value int) int {
+func (e *V2DNSEncoder) EncodeDomainDatabase(names []string) ([]byte, []int32, error) {
+	if len(names) == 0 {
+		return nil, nil, nil
+	}
+	offsets := make([]int32, len(names))
+
+	// walk the list of strings, figure out how much size we need
+	bufferSize := e.varIntSize(len(names))
+	// compute the index of the middle buffer
+	indexOfMiddle := len(names) / 2
+	offsetOfMiddle := 0
+
+	for idx, val := range names {
+		if idx == indexOfMiddle {
+			offsetOfMiddle = bufferSize
+			bufferSize += e.varIntSize(offsetOfMiddle)
+			offsetOfMiddle = bufferSize
+		}
+
+		bufferSize += e.varIntSize(len(val))
+		bufferSize += len(val)
+
+	}
+	buffer := make([]byte, bufferSize)
+	metaBuffer := buffer[:0]
+	// write the number of names
+	metaBuffer = e.appendVarInt(metaBuffer, len(names))
+	// write the offset of the middle string
+	metaBuffer = e.appendVarInt(metaBuffer, offsetOfMiddle)
+
+	for idx, val := range names {
+		// need to store the offset of the beginning of each string, by index.
+		// when finally encoded, the consumers will get offsets into this
+		// buffer (for fast searching).
+		offsets[idx] = int32(len(metaBuffer))
+		metaBuffer = e.appendVarInt(metaBuffer, len(val))
+		metaBuffer = append(metaBuffer, val...)
+	}
+	return buffer, offsets, nil
+}
+
+func (e *V2DNSEncoder) varIntSize(value int) int {
 	return binary.PutUvarint(e.scratch[0:], uint64(value))
 }
 
-func (e *V1DNSEncoder) appendVarInt(buf []byte, value int) []byte {
+func (e *V2DNSEncoder) appendVarInt(buf []byte, value int) []byte {
 	bytesWritten := binary.PutUvarint(e.scratch[0:], uint64(value))
 
 	return append(buf, e.scratch[0:bytesWritten]...)
 }
 
-func getV1(buf []byte, ip string) (string, []string) {
-	var first string
-	var names []string
+// getV2 returns a single offset into the name buffer for the first
+// domain string, followed by a slice of the offsets into the buffer
+// for the remaining strings.
+func getV2(buf []byte, ip string) (int32, []int32) {
+	var first int32 = -1
+	var names []int32
 
-	iterateDNSV1(buf, ip, func(i, total int, entry string) bool {
+	iterateDNSV2(buf, ip, func(i, total int, entry int32) bool {
 		if i == 0 {
 			first = entry
 			if total > 1 {
-				names = make([]string, 0, total-1)
+				names = make([]int32, 0, total-1)
 			}
 		} else {
 			names = append(names, entry)
@@ -238,35 +264,83 @@ func getV1(buf []byte, ip string) (string, []string) {
 	return first, names
 }
 
-func getDNSNamesV1(buf []byte) []string {
+// returns a slice of all of the strings in the encodedDnsDomains list.
+func getDNSNameListV2(buf []byte) []string {
 	var names []string
-	// skip the preamble
-	index := dns1Version1PreambleLength
 
-	_, bytesRead := binary.Uvarint(buf[index:])
-	index += bytesRead
-	nameBufferLen, bytesRead := binary.Uvarint(buf[index:])
+	num, bytesRead := binary.Uvarint(buf[0:])
 
-	start := len(buf) - int(nameBufferLen)
-	nameBuffer := buf[start:]
+	// read the offset of the middle index; however, since we're reading
+	// the whole list we don't need it.
+	_, bytesReadForMiddle := binary.Uvarint(buf[bytesRead:])
 
-	for namePosition := 0; namePosition < len(nameBuffer); {
-		nameLength, bytesReadForName := binary.Uvarint(nameBuffer[namePosition:])
-		namePosition += bytesReadForName
-		name := string(nameBuffer[namePosition : namePosition+int(nameLength)])
+	bytesRead += int(bytesReadForMiddle)
+
+	for count := uint64(0); count < num && bytesRead < len(buf); count++ {
+		namelen, bytesReadForNameLen := binary.Uvarint(buf[bytesRead:])
+		bytesRead += bytesReadForNameLen
+		name := string(buf[bytesRead : bytesRead+int(namelen)])
 		names = append(names, name)
-		namePosition += int(nameLength)
+		bytesRead += int(namelen)
 	}
 	return names
 }
 
-func iterateDNSV1(buf []byte, ip string, cb func(i, total int, entry string) bool) error {
-	return unsafeIterateDNSV1(buf, ip, func(i, total int, entry []byte) bool {
-		return cb(i, total, string(entry))
+func getDNSNameFromListByIndex(buf []byte, index int) (string, error) {
+	num, bytesRead := binary.Uvarint(buf[0:])
+	offsetOfMiddle, bytesReadForMiddleOffset := binary.Uvarint(buf[bytesRead:])
+
+	bytesRead += bytesReadForMiddleOffset
+
+	if index > int(num-1) {
+		return "", fmt.Errorf("Index out of range %d > %d", index, num)
+	}
+	indexOfMiddle := int(num / 2)
+	currIndex := 0
+	if index > indexOfMiddle {
+		bytesRead = int(offsetOfMiddle)
+		currIndex = int(indexOfMiddle)
+	}
+	for currIndex < int(num) {
+		namelen, bytesReadForNameLen := binary.Uvarint(buf[bytesRead:])
+		bytesRead += bytesReadForNameLen
+		if currIndex == index {
+			name := string(buf[bytesRead : bytesRead+int(namelen)])
+			return name, nil
+		}
+		bytesRead += int(namelen)
+		currIndex++
+	}
+	// we should never get here
+	return "", fmt.Errorf("Index not found? %d %d", index, num)
+}
+
+func getDNSNameAsByteSliceByOffset(buf []byte, offset int) (stringasbyteslice []byte, err error) {
+	if offset > len(buf) {
+		return nil, fmt.Errorf("offset out of range %d > %d", offset, len(buf))
+	}
+	namelen, bytesReadForNameLen := binary.Uvarint(buf[offset:])
+	offset += bytesReadForNameLen
+	return buf[offset : offset+int(namelen)], nil
+}
+
+func getDNSNameFromListByOffset(buf []byte, offset int) (string, error) {
+	byteslice, err := getDNSNameAsByteSliceByOffset(buf, offset)
+	if err != nil {
+		return "", err
+	}
+
+	name := string(byteslice)
+	return name, nil
+}
+
+func iterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32) bool) error {
+	return unsafeIterateDNSV2(buf, ip, func(i, total int, entry int32) bool {
+		return cb(i, total, entry)
 	})
 }
 
-func unsafeIterateDNSV1(buf []byte, ip string, cb func(i, total int, entry []byte) bool) error {
+func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32) bool) error {
 	bufLen := len(buf)
 
 	if bufLen < 2 {
@@ -285,24 +359,19 @@ func unsafeIterateDNSV1(buf []byte, ip string, cb func(i, total int, entry []byt
 	bucketCount := int(binary.LittleEndian.Uint16(buf[1:]))
 
 	// skip the preamble
-	index := dns1Version1PreambleLength
+	index := dns1Version2PreambleLength
 
 	if index > bufLen {
 		return fmt.Errorf("dns buffer is too short, invalid preamble")
 	}
+
 	positionBufferLen, bytesRead := binary.Uvarint(buf[index:])
 	index += bytesRead
 
 	if index > bufLen {
 		return fmt.Errorf("dns buffer is too short, invalid position buffer length")
 	}
-	nameBufferLen, bytesRead := binary.Uvarint(buf[index:])
-	nameBuffer := buf[len(buf)-int(nameBufferLen):]
-	index += bytesRead
 
-	if index > bufLen {
-		return fmt.Errorf("dns buffer is too short, invalid middle bucket position")
-	}
 	middleBucketPosition, bytesRead := binary.Uvarint(buf[index:])
 	index += bytesRead
 
@@ -318,7 +387,6 @@ func unsafeIterateDNSV1(buf []byte, ip string, cb func(i, total int, entry []byt
 
 	if bucket >= middleBucket {
 		startBucket = middleBucket
-		endBucket = bucketCount
 
 		index += int(middleBucketPosition)
 	}
@@ -348,6 +416,7 @@ func unsafeIterateDNSV1(buf []byte, ip string, cb func(i, total int, entry []byt
 	if index > bufLen {
 		return fmt.Errorf("dns buffer is too short, invalid bucket length")
 	}
+
 	bucketLength, bytesRead := binary.Uvarint(buf[index:])
 	index += bytesRead
 
@@ -379,26 +448,14 @@ func unsafeIterateDNSV1(buf []byte, ip string, cb func(i, total int, entry []byt
 			if index > bufLen {
 				return fmt.Errorf("dns buffer is too short, invalid name data`")
 			}
-
-			namePosition, bytesRead := binary.Uvarint(buf[index:])
+			nameIndex, bytesRead := binary.Uvarint(buf[index:])
 			index += bytesRead
 
 			if !matched {
 				continue
 			}
 
-			if int(namePosition) > len(nameBuffer) {
-				return fmt.Errorf("name buffer is too short, invalid name position`")
-			}
-			nameLength, bytesReadForName := binary.Uvarint(nameBuffer[int(namePosition):])
-
-			start := int(namePosition) + bytesReadForName
-
-			if start > len(nameBuffer) || start+int(nameLength) > len(nameBuffer) {
-				return fmt.Errorf("name buffer is too short, invalid name`")
-			}
-
-			if !cb(j, int(nameCount), nameBuffer[start:start+int(nameLength)]) {
+			if !cb(j, int(nameCount), int32(nameIndex)) {
 				return nil
 			}
 		}
@@ -407,11 +464,10 @@ func unsafeIterateDNSV1(buf []byte, ip string, cb func(i, total int, entry []byt
 			return nil
 		}
 	}
-
 	return nil
 }
 
-func getBucketCount(dns map[string]*DNSEntry, bucketFactor float64) int {
+func getV2BucketCount(dns map[string]*DNSDatabaseEntry, bucketFactor float64) int {
 	bucketCount := int(float64(len(dns)) * bucketFactor)
 	if bucketCount == 0 {
 		return 1
@@ -424,57 +480,49 @@ func getBucketCount(dns map[string]*DNSEntry, bucketFactor float64) int {
 	return bucketCount
 }
 
-// GetDNS gets the DNS entries for the given IP from the given buffer
-func GetDNS(buf []byte, ip string) (string, []string, error) {
+// GetDNSV2 gets the DNS offsets for the given IP from the given buffer
+// the buffer is expected the be the encoded bucket hashtable described above
+// the results are offsets into the raw buffer of domain strings (encodedDomainDatabase)
+func GetDNSV2(buf []byte, ip string) (int32, []int32, error) {
 	if len(buf) == 0 || ip == "" {
-		return "", nil, nil
+		return -1, nil, nil
 	}
 
 	switch buf[0] {
-	case dnsVersion1:
-		first, strings := getV1(buf, ip)
+	case dnsVersion2:
+		first, strings := getV2(buf, ip)
 		return first, strings, nil
 	}
 
-	return "", nil, fmt.Errorf("Unexpected version %v", buf[0])
-}
-
-func getDNSNames(buf []byte) ([]string, error) {
-	if len(buf) == 0 {
-		return nil, nil
-	}
-
-	switch buf[0] {
-	case dnsVersion1:
-		names := getDNSNamesV1(buf)
-		return names, nil
-	}
-	return nil, fmt.Errorf("Unexpected version %v", buf[0])
+	return -1, nil, fmt.Errorf("Unexpected version %v", buf[0])
 }
 
 // IterateDNS invokes the callback function for each DNS entry for the given IP in the given buffer
-func IterateDNS(buf []byte, ip string, cb func(i, total int, entry string) bool) error {
+// the callback parameter `entry` is an offset into the raw buffer of domain strings
+// (encodedDomainDatabase)
+func IterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32) bool) error {
 	if len(buf) == 0 || ip == "" {
 		return nil
 	}
 
 	switch buf[0] {
-	case dnsVersion1:
-		return iterateDNSV1(buf, ip, cb)
+	case dnsVersion2:
+		iterateDNSV2(buf, ip, cb)
+		return nil
 	}
 	return fmt.Errorf("Unexpected version %v", buf[0])
 }
 
 // UnsafeIterateDNS invokes the callback function for each DNS entry for the given IP in the given buffer.
 // Each entry is a the slice from the overall buffer.  It should be copied before use
-func UnsafeIterateDNS(buf []byte, ip string, cb func(i, total int, entry []byte) bool) error {
+func UnsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32) bool) error {
 	if len(buf) == 0 || ip == "" {
 		return nil
 	}
 
 	switch buf[0] {
-	case dnsVersion1:
-		unsafeIterateDNSV1(buf, ip, cb)
+	case dnsVersion2:
+		unsafeIterateDNSV2(buf, ip, cb)
 		return nil
 	}
 	return fmt.Errorf("Unexpected version %v", buf[0])
