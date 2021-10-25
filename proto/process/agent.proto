@@ -1364,7 +1364,19 @@ message HTTPStats {
 	message Data {
 		reserved 3;
 		uint32 count = 1;
+
+		// a protobuf encoded sketch of all the requests in this HTTPStats. In nanoseconds.
+		// this will be nil if count == 1
+		// To decode:
+		//    use a protobuf library to decode this into a github.com/DataDog/sketches-go/ddsketch/pb/sketchpb.DDSketch
+		// then call github.com/DataDog/sketches-go/ddsketch.FromProto
+		// To encode:
+		//    create a github.com/DataDog/sketches-go/ddsketch.DDSketch
+		//    call ToProto() and then run through a protobuf encoder
 		bytes latencies = 2;
+
+		// if the HTTPStats has a single sample, this field will be the latency (in nanoseconds) of the only sample.
+		// this is purely to avoid the overhead of having single entry sketches.
 		double firstLatencySample = 4;
 	}
 }
@@ -1430,6 +1442,7 @@ message AgentConfiguration {
 	bool npmEnabled = 1;
 	bool tsmEnabled = 2;
 }
+
 // replaces DNSEntry.  Is a list of DNS names that a given IP resolved to.
 // List of offsets into the EncodedDomainDatabase.
 message DNSDatabaseEntry {
