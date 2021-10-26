@@ -4,8 +4,6 @@ option go_package = "github.com/DataDog/agent-payload/process";
 
 package datadog.process_agent;
 
-import "github.com/DataDog/agent-payload/proto/metrics/agent_payload.proto";
-
 //
 // Message Types
 //
@@ -40,9 +38,7 @@ message CollectorProc {
 	int32 groupId = 6;
 	int32 groupSize = 7;
 
-	// Optional metadata fields
-	datadog.agentpayload.KubeMetadataPayload kubernetes = 8; // DEPRECATED - left in place to support previous versions
-	datadog.agentpayload.ECSMetadataPayload ecs = 9; // DEPRECATED - left in place to support previous versions
+	reserved 8, 9; // Old, optional metadata fields
 
 	repeated Container containers = 10;
 
@@ -148,9 +144,7 @@ message CollectorContainer {
 	int32 groupId = 4;
 	int32 groupSize = 5;
 
-	// Optional metadata fields
-	datadog.agentpayload.KubeMetadataPayload kubernetes = 6; // DEPRECATED - left in place to support previous versions
-	datadog.agentpayload.ECSMetadataPayload ecs = 7; // DEPRECATED - left in place to support previous versions
+	reserved 6, 7; // Old, optional metadata fields
 
 	// Post-resolved fields
 	Host host = 8;
