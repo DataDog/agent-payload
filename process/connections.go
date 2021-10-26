@@ -83,26 +83,6 @@ func (m *CollectorConnections) GetDNSNames() ([]string, error) {
 	return nil, fmt.Errorf("unknown dns names database")
 }
 
-// GetDNSV2 returns the DNS entries for the given addr.
-// The first argument returned is the first DNS entry followed by any additional name resolutions.  Most IPs will
-// have a single resolution so this dual format allows us to avoid allocations for the common case.  If there are
-// multiple name resolutions, there is no implied priority between the dual values
-// the return values are indexes into the dns database (GetDNSDatabase)
-
-func (m *CollectorConnections) GetDNSV2(addr *Addr) (int32, []int32, error) {
-	return GetDNSV2(m.EncodedDnsLookups, addr.Ip)
-}
-
-// IterateDNSV2 iterates over all of the DNS entries for the given addr, invoking the provided callback for each one
-func (m *CollectorConnections) IterateDNSV2(addr *Addr, cb func(i, total int, entry int32) bool) {
-	IterateDNSV2(m.EncodedDnsLookups, addr.Ip, cb)
-}
-
-// GetDNSNamesV2 returns all the DNS entries
-func (m *CollectorConnections) GetDNSNamesV2() []string {
-	return getDNSNameListV2(m.EncodedDomainDatabase)
-}
-
 // GetDNSNameByOffset gets the dns name at a given offset
 func (m *CollectorConnections) GetDNSNameByOffset(off int32) (string, error) {
 	if m.EncodedDomainDatabase == nil {
