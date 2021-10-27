@@ -15,19 +15,6 @@ message CommonMetadata {
 	string api_key = 6;
 }
 
-message ServiceChecksPayload {
-	message ServiceCheck {
-		string name = 1;
-		string host = 2;
-		int64 ts = 3;
-		int32 status = 4;
-		string message = 5;
-		repeated string tags = 6;
-	}
-	repeated ServiceCheck service_checks = 1;
-	CommonMetadata metadata = 2;
-}
-
 message EventsPayload {
 	message Event {
 		string title = 1;
