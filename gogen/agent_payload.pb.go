@@ -9,6 +9,7 @@
 
 	It has these top-level messages:
 		CommonMetadata
+		MetricPayload
 		EventsPayload
 		SketchPayload
 		ECSMetadataPayload
@@ -34,6 +35,32 @@ var _ = math.Inf
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
+
+type MetricPayload_MetricType int32
+
+const (
+	MetricPayload_GAUGE MetricPayload_MetricType = 0
+	MetricPayload_COUNT MetricPayload_MetricType = 1
+	MetricPayload_RATE  MetricPayload_MetricType = 2
+)
+
+var MetricPayload_MetricType_name = map[int32]string{
+	0: "GAUGE",
+	1: "COUNT",
+	2: "RATE",
+}
+var MetricPayload_MetricType_value = map[string]int32{
+	"GAUGE": 0,
+	"COUNT": 1,
+	"RATE":  2,
+}
+
+func (x MetricPayload_MetricType) String() string {
+	return proto.EnumName(MetricPayload_MetricType_name, int32(x))
+}
+func (MetricPayload_MetricType) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptorAgentPayload, []int{1, 0}
+}
 
 type CommonMetadata struct {
 	AgentVersion string  `protobuf:"bytes,1,opt,name=agent_version,json=agentVersion,proto3" json:"agent_version,omitempty"`
@@ -91,6 +118,159 @@ func (m *CommonMetadata) GetApiKey() string {
 	return ""
 }
 
+type MetricPayload struct {
+	Series []*MetricPayload_MetricSeries `protobuf:"bytes,1,rep,name=series" json:"series,omitempty"`
+}
+
+func (m *MetricPayload) Reset()                    { *m = MetricPayload{} }
+func (m *MetricPayload) String() string            { return proto.CompactTextString(m) }
+func (*MetricPayload) ProtoMessage()               {}
+func (*MetricPayload) Descriptor() ([]byte, []int) { return fileDescriptorAgentPayload, []int{1} }
+
+func (m *MetricPayload) GetSeries() []*MetricPayload_MetricSeries {
+	if m != nil {
+		return m.Series
+	}
+	return nil
+}
+
+type MetricPayload_MetricPoint struct {
+	// metric value
+	Value float64 `protobuf:"fixed64,1,opt,name=value,proto3" json:"value,omitempty"`
+	// timestamp for this value in seconds since the UNIX epoch
+	Timestamp int64 `protobuf:"varint,2,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+}
+
+func (m *MetricPayload_MetricPoint) Reset()         { *m = MetricPayload_MetricPoint{} }
+func (m *MetricPayload_MetricPoint) String() string { return proto.CompactTextString(m) }
+func (*MetricPayload_MetricPoint) ProtoMessage()    {}
+func (*MetricPayload_MetricPoint) Descriptor() ([]byte, []int) {
+	return fileDescriptorAgentPayload, []int{1, 0}
+}
+
+func (m *MetricPayload_MetricPoint) GetValue() float64 {
+	if m != nil {
+		return m.Value
+	}
+	return 0
+}
+
+func (m *MetricPayload_MetricPoint) GetTimestamp() int64 {
+	if m != nil {
+		return m.Timestamp
+	}
+	return 0
+}
+
+type MetricPayload_Resource struct {
+	Type string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+}
+
+func (m *MetricPayload_Resource) Reset()         { *m = MetricPayload_Resource{} }
+func (m *MetricPayload_Resource) String() string { return proto.CompactTextString(m) }
+func (*MetricPayload_Resource) ProtoMessage()    {}
+func (*MetricPayload_Resource) Descriptor() ([]byte, []int) {
+	return fileDescriptorAgentPayload, []int{1, 1}
+}
+
+func (m *MetricPayload_Resource) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *MetricPayload_Resource) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+type MetricPayload_MetricSeries struct {
+	// Resources this series applies to; include at least
+	// { type="host", name=<hostname> }
+	Resources []*MetricPayload_Resource `protobuf:"bytes,1,rep,name=resources" json:"resources,omitempty"`
+	// metric name
+	Metric string `protobuf:"bytes,2,opt,name=metric,proto3" json:"metric,omitempty"`
+	// tags for this metric
+	Tags []string `protobuf:"bytes,3,rep,name=tags" json:"tags,omitempty"`
+	// data points for this metric
+	Points []*MetricPayload_MetricPoint `protobuf:"bytes,4,rep,name=points" json:"points,omitempty"`
+	// type of metric
+	Type MetricPayload_MetricType `protobuf:"varint,5,opt,name=type,proto3,enum=datadog.agentpayload.MetricPayload_MetricType" json:"type,omitempty"`
+	// metric unit name
+	Unit string `protobuf:"bytes,6,opt,name=unit,proto3" json:"unit,omitempty"`
+	// source of this metric (check name, etc.)
+	SourceTypeName string `protobuf:"bytes,7,opt,name=source_type_name,json=sourceTypeName,proto3" json:"source_type_name,omitempty"`
+	// interval, in seconds, between samples of this metric
+	Interval int64 `protobuf:"varint,8,opt,name=interval,proto3" json:"interval,omitempty"`
+}
+
+func (m *MetricPayload_MetricSeries) Reset()         { *m = MetricPayload_MetricSeries{} }
+func (m *MetricPayload_MetricSeries) String() string { return proto.CompactTextString(m) }
+func (*MetricPayload_MetricSeries) ProtoMessage()    {}
+func (*MetricPayload_MetricSeries) Descriptor() ([]byte, []int) {
+	return fileDescriptorAgentPayload, []int{1, 2}
+}
+
+func (m *MetricPayload_MetricSeries) GetResources() []*MetricPayload_Resource {
+	if m != nil {
+		return m.Resources
+	}
+	return nil
+}
+
+func (m *MetricPayload_MetricSeries) GetMetric() string {
+	if m != nil {
+		return m.Metric
+	}
+	return ""
+}
+
+func (m *MetricPayload_MetricSeries) GetTags() []string {
+	if m != nil {
+		return m.Tags
+	}
+	return nil
+}
+
+func (m *MetricPayload_MetricSeries) GetPoints() []*MetricPayload_MetricPoint {
+	if m != nil {
+		return m.Points
+	}
+	return nil
+}
+
+func (m *MetricPayload_MetricSeries) GetType() MetricPayload_MetricType {
+	if m != nil {
+		return m.Type
+	}
+	return MetricPayload_GAUGE
+}
+
+func (m *MetricPayload_MetricSeries) GetUnit() string {
+	if m != nil {
+		return m.Unit
+	}
+	return ""
+}
+
+func (m *MetricPayload_MetricSeries) GetSourceTypeName() string {
+	if m != nil {
+		return m.SourceTypeName
+	}
+	return ""
+}
+
+func (m *MetricPayload_MetricSeries) GetInterval() int64 {
+	if m != nil {
+		return m.Interval
+	}
+	return 0
+}
+
 type EventsPayload struct {
 	Events   []*EventsPayload_Event `protobuf:"bytes,1,rep,name=events" json:"events,omitempty"`
 	Metadata *CommonMetadata        `protobuf:"bytes,2,opt,name=metadata" json:"metadata,omitempty"`
@@ -99,7 +279,7 @@ type EventsPayload struct {
 func (m *EventsPayload) Reset()                    { *m = EventsPayload{} }
 func (m *EventsPayload) String() string            { return proto.CompactTextString(m) }
 func (*EventsPayload) ProtoMessage()               {}
-func (*EventsPayload) Descriptor() ([]byte, []int) { return fileDescriptorAgentPayload, []int{1} }
+func (*EventsPayload) Descriptor() ([]byte, []int) { return fileDescriptorAgentPayload, []int{2} }
 
 func (m *EventsPayload) GetEvents() []*EventsPayload_Event {
 	if m != nil {
@@ -131,7 +311,7 @@ func (m *EventsPayload_Event) Reset()         { *m = EventsPayload_Event{} }
 func (m *EventsPayload_Event) String() string { return proto.CompactTextString(m) }
 func (*EventsPayload_Event) ProtoMessage()    {}
 func (*EventsPayload_Event) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgentPayload, []int{1, 0}
+	return fileDescriptorAgentPayload, []int{2, 0}
 }
 
 func (m *EventsPayload_Event) GetTitle() string {
@@ -205,7 +385,7 @@ type SketchPayload struct {
 func (m *SketchPayload) Reset()                    { *m = SketchPayload{} }
 func (m *SketchPayload) String() string            { return proto.CompactTextString(m) }
 func (*SketchPayload) ProtoMessage()               {}
-func (*SketchPayload) Descriptor() ([]byte, []int) { return fileDescriptorAgentPayload, []int{2} }
+func (*SketchPayload) Descriptor() ([]byte, []int) { return fileDescriptorAgentPayload, []int{3} }
 
 func (m *SketchPayload) GetSketches() []SketchPayload_Sketch {
 	if m != nil {
@@ -233,7 +413,7 @@ func (m *SketchPayload_Sketch) Reset()         { *m = SketchPayload_Sketch{} }
 func (m *SketchPayload_Sketch) String() string { return proto.CompactTextString(m) }
 func (*SketchPayload_Sketch) ProtoMessage()    {}
 func (*SketchPayload_Sketch) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgentPayload, []int{2, 0}
+	return fileDescriptorAgentPayload, []int{3, 0}
 }
 
 func (m *SketchPayload_Sketch) GetMetric() string {
@@ -288,7 +468,7 @@ func (m *SketchPayload_Sketch_Distribution) Reset()         { *m = SketchPayload
 func (m *SketchPayload_Sketch_Distribution) String() string { return proto.CompactTextString(m) }
 func (*SketchPayload_Sketch_Distribution) ProtoMessage()    {}
 func (*SketchPayload_Sketch_Distribution) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgentPayload, []int{2, 0, 0}
+	return fileDescriptorAgentPayload, []int{3, 0, 0}
 }
 
 func (m *SketchPayload_Sketch_Distribution) GetTs() int64 {
@@ -376,7 +556,7 @@ func (m *SketchPayload_Sketch_Dogsketch) Reset()         { *m = SketchPayload_Sk
 func (m *SketchPayload_Sketch_Dogsketch) String() string { return proto.CompactTextString(m) }
 func (*SketchPayload_Sketch_Dogsketch) ProtoMessage()    {}
 func (*SketchPayload_Sketch_Dogsketch) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgentPayload, []int{2, 0, 1}
+	return fileDescriptorAgentPayload, []int{3, 0, 1}
 }
 
 func (m *SketchPayload_Sketch_Dogsketch) GetTs() int64 {
@@ -442,7 +622,7 @@ type ECSMetadataPayload struct {
 func (m *ECSMetadataPayload) Reset()                    { *m = ECSMetadataPayload{} }
 func (m *ECSMetadataPayload) String() string            { return proto.CompactTextString(m) }
 func (*ECSMetadataPayload) ProtoMessage()               {}
-func (*ECSMetadataPayload) Descriptor() ([]byte, []int) { return fileDescriptorAgentPayload, []int{3} }
+func (*ECSMetadataPayload) Descriptor() ([]byte, []int) { return fileDescriptorAgentPayload, []int{4} }
 
 func (m *ECSMetadataPayload) GetTasks() []*ECSMetadataPayload_Task {
 	if m != nil {
@@ -464,7 +644,7 @@ func (m *ECSMetadataPayload_Task) Reset()         { *m = ECSMetadataPayload_Task
 func (m *ECSMetadataPayload_Task) String() string { return proto.CompactTextString(m) }
 func (*ECSMetadataPayload_Task) ProtoMessage()    {}
 func (*ECSMetadataPayload_Task) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgentPayload, []int{3, 0}
+	return fileDescriptorAgentPayload, []int{4, 0}
 }
 
 func (m *ECSMetadataPayload_Task) GetArn() string {
@@ -519,7 +699,7 @@ func (m *ECSMetadataPayload_Container) Reset()         { *m = ECSMetadataPayload
 func (m *ECSMetadataPayload_Container) String() string { return proto.CompactTextString(m) }
 func (*ECSMetadataPayload_Container) ProtoMessage()    {}
 func (*ECSMetadataPayload_Container) Descriptor() ([]byte, []int) {
-	return fileDescriptorAgentPayload, []int{3, 1}
+	return fileDescriptorAgentPayload, []int{4, 1}
 }
 
 func (m *ECSMetadataPayload_Container) GetDockerId() string {
@@ -545,6 +725,10 @@ func (m *ECSMetadataPayload_Container) GetName() string {
 
 func init() {
 	proto.RegisterType((*CommonMetadata)(nil), "datadog.agentpayload.CommonMetadata")
+	proto.RegisterType((*MetricPayload)(nil), "datadog.agentpayload.MetricPayload")
+	proto.RegisterType((*MetricPayload_MetricPoint)(nil), "datadog.agentpayload.MetricPayload.MetricPoint")
+	proto.RegisterType((*MetricPayload_Resource)(nil), "datadog.agentpayload.MetricPayload.Resource")
+	proto.RegisterType((*MetricPayload_MetricSeries)(nil), "datadog.agentpayload.MetricPayload.MetricSeries")
 	proto.RegisterType((*EventsPayload)(nil), "datadog.agentpayload.EventsPayload")
 	proto.RegisterType((*EventsPayload_Event)(nil), "datadog.agentpayload.EventsPayload.Event")
 	proto.RegisterType((*SketchPayload)(nil), "datadog.agentpayload.SketchPayload")
@@ -554,6 +738,7 @@ func init() {
 	proto.RegisterType((*ECSMetadataPayload)(nil), "datadog.agentpayload.ECSMetadataPayload")
 	proto.RegisterType((*ECSMetadataPayload_Task)(nil), "datadog.agentpayload.ECSMetadataPayload.Task")
 	proto.RegisterType((*ECSMetadataPayload_Container)(nil), "datadog.agentpayload.ECSMetadataPayload.Container")
+	proto.RegisterEnum("datadog.agentpayload.MetricPayload_MetricType", MetricPayload_MetricType_name, MetricPayload_MetricType_value)
 }
 func (m *CommonMetadata) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
@@ -605,6 +790,180 @@ func (m *CommonMetadata) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.ApiKey)))
 		i += copy(dAtA[i:], m.ApiKey)
+	}
+	return i, nil
+}
+
+func (m *MetricPayload) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MetricPayload) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Series) > 0 {
+		for _, msg := range m.Series {
+			dAtA[i] = 0xa
+			i++
+			i = encodeVarintAgentPayload(dAtA, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(dAtA[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	return i, nil
+}
+
+func (m *MetricPayload_MetricPoint) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MetricPayload_MetricPoint) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Value != 0 {
+		dAtA[i] = 0x9
+		i++
+		binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.Value))))
+		i += 8
+	}
+	if m.Timestamp != 0 {
+		dAtA[i] = 0x10
+		i++
+		i = encodeVarintAgentPayload(dAtA, i, uint64(m.Timestamp))
+	}
+	return i, nil
+}
+
+func (m *MetricPayload_Resource) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MetricPayload_Resource) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Name) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Name)))
+		i += copy(dAtA[i:], m.Name)
+	}
+	return i, nil
+}
+
+func (m *MetricPayload_MetricSeries) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MetricPayload_MetricSeries) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Resources) > 0 {
+		for _, msg := range m.Resources {
+			dAtA[i] = 0xa
+			i++
+			i = encodeVarintAgentPayload(dAtA, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(dAtA[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if len(m.Metric) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Metric)))
+		i += copy(dAtA[i:], m.Metric)
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			dAtA[i] = 0x1a
+			i++
+			l = len(s)
+			for l >= 1<<7 {
+				dAtA[i] = uint8(uint64(l)&0x7f | 0x80)
+				l >>= 7
+				i++
+			}
+			dAtA[i] = uint8(l)
+			i++
+			i += copy(dAtA[i:], s)
+		}
+	}
+	if len(m.Points) > 0 {
+		for _, msg := range m.Points {
+			dAtA[i] = 0x22
+			i++
+			i = encodeVarintAgentPayload(dAtA, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(dAtA[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if m.Type != 0 {
+		dAtA[i] = 0x28
+		i++
+		i = encodeVarintAgentPayload(dAtA, i, uint64(m.Type))
+	}
+	if len(m.Unit) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Unit)))
+		i += copy(dAtA[i:], m.Unit)
+	}
+	if len(m.SourceTypeName) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.SourceTypeName)))
+		i += copy(dAtA[i:], m.SourceTypeName)
+	}
+	if m.Interval != 0 {
+		dAtA[i] = 0x40
+		i++
+		i = encodeVarintAgentPayload(dAtA, i, uint64(m.Interval))
 	}
 	return i, nil
 }
@@ -1193,6 +1552,86 @@ func (m *CommonMetadata) Size() (n int) {
 	return n
 }
 
+func (m *MetricPayload) Size() (n int) {
+	var l int
+	_ = l
+	if len(m.Series) > 0 {
+		for _, e := range m.Series {
+			l = e.Size()
+			n += 1 + l + sovAgentPayload(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *MetricPayload_MetricPoint) Size() (n int) {
+	var l int
+	_ = l
+	if m.Value != 0 {
+		n += 9
+	}
+	if m.Timestamp != 0 {
+		n += 1 + sovAgentPayload(uint64(m.Timestamp))
+	}
+	return n
+}
+
+func (m *MetricPayload_Resource) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	return n
+}
+
+func (m *MetricPayload_MetricSeries) Size() (n int) {
+	var l int
+	_ = l
+	if len(m.Resources) > 0 {
+		for _, e := range m.Resources {
+			l = e.Size()
+			n += 1 + l + sovAgentPayload(uint64(l))
+		}
+	}
+	l = len(m.Metric)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	if len(m.Tags) > 0 {
+		for _, s := range m.Tags {
+			l = len(s)
+			n += 1 + l + sovAgentPayload(uint64(l))
+		}
+	}
+	if len(m.Points) > 0 {
+		for _, e := range m.Points {
+			l = e.Size()
+			n += 1 + l + sovAgentPayload(uint64(l))
+		}
+	}
+	if m.Type != 0 {
+		n += 1 + sovAgentPayload(uint64(m.Type))
+	}
+	l = len(m.Unit)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	l = len(m.SourceTypeName)
+	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	if m.Interval != 0 {
+		n += 1 + sovAgentPayload(uint64(m.Interval))
+	}
+	return n
+}
+
 func (m *EventsPayload) Size() (n int) {
 	var l int
 	_ = l
@@ -1640,6 +2079,541 @@ func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
 			}
 			m.ApiKey = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MetricPayload) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgentPayload
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MetricPayload: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MetricPayload: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Series", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Series = append(m.Series, &MetricPayload_MetricSeries{})
+			if err := m.Series[len(m.Series)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MetricPayload_MetricPoint) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgentPayload
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MetricPoint: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MetricPoint: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 1 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Value", wireType)
+			}
+			var v uint64
+			if (iNdEx + 8) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint64(binary.LittleEndian.Uint64(dAtA[iNdEx:]))
+			iNdEx += 8
+			m.Value = float64(math.Float64frombits(v))
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Timestamp", wireType)
+			}
+			m.Timestamp = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Timestamp |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MetricPayload_Resource) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgentPayload
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Resource: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Resource: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MetricPayload_MetricSeries) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgentPayload
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MetricSeries: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MetricSeries: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Resources", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Resources = append(m.Resources, &MetricPayload_Resource{})
+			if err := m.Resources[len(m.Resources)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Metric", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Metric = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tags", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Tags = append(m.Tags, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Points", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Points = append(m.Points, &MetricPayload_MetricPoint{})
+			if err := m.Points[len(m.Points)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			m.Type = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Type |= (MetricPayload_MetricType(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Unit", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Unit = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SourceTypeName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SourceTypeName = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Interval", wireType)
+			}
+			m.Interval = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Interval |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAgentPayload(dAtA[iNdEx:])
@@ -3544,62 +4518,75 @@ var (
 func init() { proto.RegisterFile("proto/metrics/agent_payload.proto", fileDescriptorAgentPayload) }
 
 var fileDescriptorAgentPayload = []byte{
-	// 899 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x55, 0xcd, 0x8e, 0x23, 0x35,
-	0x10, 0xc6, 0xd3, 0x49, 0x27, 0xa9, 0xfc, 0x30, 0x58, 0xab, 0xa5, 0x15, 0xc4, 0x6c, 0x76, 0xf8,
-	0x0b, 0x48, 0x93, 0x91, 0x86, 0x95, 0xb8, 0xc2, 0x66, 0x06, 0x69, 0x76, 0x00, 0xa1, 0x9e, 0x15,
-	0x07, 0x04, 0x8a, 0x9c, 0x6e, 0x4f, 0x8f, 0x95, 0xb4, 0xdd, 0x6a, 0x3b, 0x61, 0xc2, 0x23, 0x70,
-	0x40, 0xe2, 0x19, 0x78, 0x03, 0xce, 0x3c, 0xc0, 0x5e, 0x90, 0x78, 0x02, 0x84, 0xe6, 0xc4, 0x1b,
-	0x70, 0x45, 0x2e, 0xbb, 0x5b, 0x09, 0x0c, 0xd2, 0xc2, 0x61, 0x6f, 0x55, 0x5f, 0xb9, 0x3e, 0xbb,
-	0xbe, 0xb2, 0x5d, 0xf0, 0xb0, 0x28, 0x95, 0x51, 0xc7, 0x39, 0x37, 0xa5, 0x48, 0xf4, 0x31, 0xcb,
-	0xb8, 0x34, 0xb3, 0x82, 0x6d, 0x96, 0x8a, 0xa5, 0x13, 0x8c, 0xd1, 0x7b, 0x29, 0x33, 0x2c, 0x55,
-	0xd9, 0x04, 0x83, 0x3e, 0x36, 0x3c, 0xca, 0x84, 0xb9, 0x5e, 0xcd, 0x27, 0x89, 0xca, 0x8f, 0x33,
-	0x95, 0xa9, 0x63, 0x5c, 0x3c, 0x5f, 0x5d, 0xa1, 0xe7, 0x58, 0xad, 0xe5, 0x48, 0x0e, 0x7f, 0x21,
-	0x30, 0x98, 0xaa, 0x3c, 0x57, 0xf2, 0x53, 0x6e, 0x98, 0x65, 0xa4, 0x6f, 0x40, 0xdf, 0x6d, 0xb7,
-	0xe6, 0xa5, 0x16, 0x4a, 0x46, 0x64, 0x44, 0xc6, 0x9d, 0xb8, 0x87, 0xe0, 0x17, 0x0e, 0xa3, 0x43,
-	0x68, 0x1b, 0x91, 0xf3, 0x6f, 0x95, 0xe4, 0xd1, 0x1e, 0xc6, 0x6b, 0xdf, 0x12, 0x24, 0xab, 0xb2,
-	0xb4, 0x14, 0xbc, 0x50, 0xc9, 0x75, 0x14, 0x8c, 0xc8, 0x98, 0xc4, 0x3d, 0x0f, 0x9e, 0x59, 0x8c,
-	0x3e, 0x80, 0xae, 0x90, 0x86, 0x97, 0x92, 0x2d, 0x67, 0xa2, 0x88, 0x1a, 0xc8, 0x01, 0x15, 0x74,
-	0x5e, 0xd0, 0xd7, 0xa0, 0x53, 0xac, 0xe6, 0x4b, 0x91, 0xd8, 0x70, 0xd3, 0x6d, 0xe1, 0x80, 0xf3,
-	0x82, 0xbe, 0x0a, 0x2d, 0x56, 0x88, 0xd9, 0x82, 0x6f, 0xa2, 0x10, 0x43, 0x21, 0x2b, 0xc4, 0x05,
-	0xdf, 0x1c, 0x7e, 0x1f, 0x40, 0xff, 0x6c, 0xcd, 0xa5, 0xd1, 0x9f, 0x3b, 0x41, 0xe8, 0x47, 0x10,
-	0x72, 0x04, 0x22, 0x32, 0x0a, 0xc6, 0xdd, 0x93, 0x77, 0x27, 0x77, 0xe9, 0x36, 0xd9, 0x49, 0x72,
-	0x5e, 0xec, 0x13, 0xe9, 0x87, 0xd0, 0xce, 0xbd, 0x3a, 0x58, 0x6c, 0xf7, 0xe4, 0xcd, 0xbb, 0x49,
-	0x76, 0x95, 0x8c, 0xeb, 0xac, 0xe1, 0x9f, 0x04, 0x9a, 0xc8, 0x49, 0xef, 0x41, 0xd3, 0x08, 0xb3,
-	0xe4, 0x5e, 0x55, 0xe7, 0x50, 0x0a, 0x0d, 0xc3, 0x6f, 0x8c, 0x97, 0x12, 0x6d, 0x3a, 0x80, 0x3d,
-	0xa3, 0x51, 0xbb, 0x20, 0xde, 0x33, 0xda, 0x4a, 0x5e, 0x94, 0x42, 0x95, 0xc2, 0x6c, 0xbc, 0x5c,
-	0xb5, 0x6f, 0xf3, 0xaf, 0x95, 0x36, 0x5e, 0x27, 0xb4, 0x91, 0x93, 0x65, 0x3a, 0x0a, 0x47, 0x01,
-	0x72, 0xb2, 0x4c, 0xd3, 0xd7, 0x01, 0xd8, 0x92, 0x97, 0x66, 0x66, 0x36, 0x05, 0x8f, 0x5a, 0xb8,
-	0xba, 0x83, 0xc8, 0xd3, 0x4d, 0xc1, 0xe9, 0x3b, 0xf0, 0x32, 0xcb, 0xb2, 0x92, 0x67, 0xcc, 0x08,
-	0x25, 0x51, 0xde, 0x36, 0xae, 0x19, 0x6c, 0xc1, 0x17, 0x7c, 0x43, 0xc7, 0xb0, 0xaf, 0xd5, 0xaa,
-	0x4c, 0x38, 0x12, 0xcd, 0x24, 0xcb, 0x79, 0xd4, 0x71, 0x2b, 0x1d, 0x6e, 0xe9, 0x3e, 0x63, 0x39,
-	0x3f, 0xfc, 0x29, 0x84, 0xfe, 0xe5, 0x82, 0x9b, 0xe4, 0xba, 0x6a, 0xc8, 0x27, 0xd0, 0xd6, 0x08,
-	0xf0, 0xaa, 0x25, 0xef, 0xdd, 0xad, 0xe6, 0x4e, 0x9a, 0xf7, 0x1e, 0x37, 0x9e, 0xfd, 0xf6, 0xe0,
-	0xa5, 0xb8, 0x66, 0xa0, 0x1f, 0xff, 0xbf, 0xde, 0x54, 0x3c, 0x75, 0x87, 0xbe, 0x6b, 0x42, 0xe8,
-	0xb6, 0xa0, 0xf7, 0x21, 0x74, 0xef, 0xce, 0xf7, 0xc8, 0x7b, 0xb5, 0xc8, 0x7b, 0x5b, 0x22, 0x27,
-	0xd0, 0x4f, 0x85, 0x36, 0xa5, 0x98, 0xaf, 0xac, 0x36, 0xb6, 0x5f, 0xb6, 0xa2, 0x0f, 0x9e, 0xbf,
-	0xa2, 0xc9, 0xe9, 0x56, 0xbe, 0x3f, 0xd6, 0x2e, 0x67, 0xdd, 0xc9, 0xc6, 0x56, 0x27, 0xbf, 0x82,
-	0x6e, 0xaa, 0xb2, 0x5a, 0xc8, 0x16, 0x6e, 0xfb, 0xe8, 0xbf, 0x6c, 0x5b, 0x65, 0xfb, 0x3d, 0xb7,
-	0xe9, 0x86, 0x3f, 0x13, 0xe8, 0x6d, 0x9f, 0xcb, 0x5f, 0x46, 0x52, 0x5f, 0xc6, 0x7d, 0x08, 0x12,
-	0xe9, 0xa4, 0x08, 0x62, 0x6b, 0x5a, 0x24, 0x17, 0xd2, 0xbf, 0x75, 0x6b, 0x22, 0xc2, 0x6e, 0xf0,
-	0xae, 0x5a, 0x84, 0xdd, 0x58, 0x84, 0xad, 0x33, 0xbc, 0xa5, 0x24, 0xb6, 0xa6, 0x45, 0xf4, 0x2a,
-	0xc7, 0x47, 0x4c, 0x62, 0x6b, 0xd2, 0x1e, 0x90, 0x35, 0x96, 0x43, 0x62, 0xb2, 0xb6, 0x5e, 0x16,
-	0xb5, 0x47, 0xc1, 0xb8, 0x1f, 0x93, 0xcc, 0x3e, 0x9e, 0x94, 0x2f, 0x0d, 0x8b, 0x3a, 0x88, 0x38,
-	0xc7, 0x72, 0xcc, 0x57, 0x57, 0x11, 0x60, 0x8e, 0x35, 0x87, 0x3f, 0x10, 0xe8, 0xd4, 0xf5, 0xbd,
-	0xd8, 0xb3, 0x2f, 0xf0, 0xec, 0xaf, 0xc4, 0x64, 0x61, 0x3d, 0x59, 0x9d, 0x5d, 0x3e, 0x69, 0xb4,
-	0x9b, 0xfb, 0xe1, 0x93, 0x46, 0x3b, 0xdc, 0x6f, 0xc5, 0x83, 0x9d, 0xfe, 0x5e, 0xfc, 0xcd, 0x9f,
-	0x1e, 0xfe, 0x18, 0x00, 0x3d, 0x9b, 0x5e, 0x56, 0x97, 0xb5, 0x7a, 0x39, 0x53, 0x68, 0x1a, 0xa6,
-	0x17, 0xd5, 0xb3, 0x39, 0xfa, 0x97, 0x9f, 0xec, 0x1f, 0x89, 0x93, 0xa7, 0x4c, 0x2f, 0x62, 0x97,
-	0x3b, 0xfc, 0x83, 0x40, 0xc3, 0xfa, 0x58, 0x50, 0x59, 0xfd, 0xee, 0xd6, 0xa4, 0x6f, 0xc1, 0x20,
-	0xe5, 0x5a, 0x94, 0x3c, 0x9d, 0x69, 0xc3, 0xcc, 0x4a, 0xfb, 0xab, 0xde, 0xf7, 0xe8, 0x25, 0x82,
-	0xf4, 0x21, 0xf4, 0x16, 0x52, 0x7d, 0x23, 0xab, 0x45, 0x01, 0x2e, 0xea, 0x22, 0xe6, 0x97, 0xdc,
-	0x87, 0xf0, 0x8a, 0xe5, 0x62, 0x59, 0xfd, 0x54, 0xde, 0xa3, 0x11, 0xb4, 0xaa, 0xa9, 0xe2, 0xbe,
-	0xaa, 0xca, 0xa5, 0x31, 0x40, 0xa2, 0xa4, 0x61, 0x42, 0xf2, 0xd2, 0xfd, 0x59, 0xdd, 0x93, 0x93,
-	0xe7, 0x2e, 0x70, 0x5a, 0xa5, 0xc6, 0x5b, 0x2c, 0xc3, 0xaf, 0xa1, 0x53, 0x07, 0xec, 0x3c, 0x49,
-	0x55, 0xb2, 0xe0, 0xe5, 0x4c, 0xa4, 0xbe, 0xe8, 0xb6, 0x03, 0xce, 0x53, 0x3b, 0x8d, 0x7c, 0x10,
-	0xbf, 0x32, 0x57, 0x36, 0x38, 0xc8, 0x7e, 0x63, 0xf6, 0x09, 0x62, 0xc4, 0xd5, 0x8a, 0xf6, 0xe3,
-	0x47, 0xcf, 0x6e, 0x0f, 0xc8, 0xaf, 0xb7, 0x07, 0xe4, 0xf7, 0xdb, 0x03, 0xf2, 0xe5, 0xdb, 0x5b,
-	0x83, 0xf7, 0x94, 0x19, 0x76, 0xaa, 0x32, 0x37, 0xb6, 0x8f, 0xfc, 0xb9, 0xed, 0xd8, 0xe5, 0x72,
-	0x1e, 0xe2, 0xe0, 0x7d, 0xff, 0xaf, 0x00, 0x00, 0x00, 0xff, 0xff, 0x29, 0xeb, 0x41, 0x1e, 0xe2,
-	0x07, 0x00, 0x00,
+	// 1108 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x56, 0xcd, 0x6e, 0x23, 0x45,
+	0x10, 0xde, 0xf6, 0xd8, 0x93, 0x71, 0xf9, 0x07, 0xd3, 0x5a, 0x2d, 0x23, 0x03, 0xd9, 0xac, 0xf9,
+	0x0b, 0x68, 0xe3, 0x20, 0xb3, 0x12, 0x57, 0x12, 0x27, 0x84, 0x24, 0xec, 0x82, 0x26, 0x59, 0x0e,
+	0x08, 0x64, 0xb5, 0xed, 0xce, 0xa4, 0x65, 0xcf, 0x8f, 0x66, 0x7a, 0x4c, 0xcc, 0x23, 0x70, 0x40,
+	0xe2, 0x19, 0x78, 0x03, 0xce, 0x3c, 0xc0, 0x5e, 0x90, 0x78, 0x02, 0x84, 0x72, 0xe2, 0x0e, 0x12,
+	0x57, 0xd4, 0xd5, 0x3d, 0x93, 0xf1, 0x62, 0xa4, 0xc0, 0x81, 0x5b, 0xd5, 0xd7, 0x53, 0x55, 0x5d,
+	0x5f, 0x55, 0xf5, 0x14, 0x3c, 0x88, 0x93, 0x48, 0x46, 0xbb, 0x01, 0x97, 0x89, 0x98, 0xa4, 0xbb,
+	0xcc, 0xe7, 0xa1, 0x1c, 0xc5, 0x6c, 0x39, 0x8f, 0xd8, 0xb4, 0x8f, 0x67, 0xf4, 0xee, 0x94, 0x49,
+	0x36, 0x8d, 0xfc, 0x3e, 0x1e, 0x9a, 0xb3, 0xee, 0x8e, 0x2f, 0xe4, 0x65, 0x36, 0xee, 0x4f, 0xa2,
+	0x60, 0xd7, 0x8f, 0xfc, 0x68, 0x17, 0x3f, 0x1e, 0x67, 0x17, 0xa8, 0x69, 0xaf, 0x4a, 0xd2, 0x4e,
+	0x7a, 0x3f, 0x11, 0x68, 0x0f, 0xa3, 0x20, 0x88, 0xc2, 0xc7, 0x5c, 0x32, 0xe5, 0x91, 0xbe, 0x06,
+	0x2d, 0x1d, 0x6e, 0xc1, 0x93, 0x54, 0x44, 0xa1, 0x4b, 0xb6, 0xc8, 0x76, 0xdd, 0x6b, 0x22, 0xf8,
+	0x99, 0xc6, 0x68, 0x17, 0x1c, 0x29, 0x02, 0xfe, 0x75, 0x14, 0x72, 0xb7, 0x82, 0xe7, 0x85, 0xae,
+	0x1c, 0x4c, 0xb2, 0x24, 0x51, 0x2e, 0x78, 0x1c, 0x4d, 0x2e, 0x5d, 0x6b, 0x8b, 0x6c, 0x13, 0xaf,
+	0x69, 0xc0, 0x43, 0x85, 0xd1, 0xfb, 0xd0, 0x10, 0xa1, 0xe4, 0x49, 0xc8, 0xe6, 0x23, 0x11, 0xbb,
+	0x55, 0xf4, 0x01, 0x39, 0x74, 0x1c, 0xd3, 0x97, 0xa1, 0x1e, 0x67, 0xe3, 0xb9, 0x98, 0xa8, 0xe3,
+	0x9a, 0x0e, 0xa1, 0x81, 0xe3, 0x98, 0xbe, 0x04, 0x1b, 0x2c, 0x16, 0xa3, 0x19, 0x5f, 0xba, 0x36,
+	0x1e, 0xd9, 0x2c, 0x16, 0xa7, 0x7c, 0xd9, 0xfb, 0xa3, 0x0a, 0xad, 0xc7, 0x48, 0xda, 0xa7, 0x9a,
+	0x10, 0xfa, 0x11, 0xd8, 0x29, 0x4f, 0x04, 0x4f, 0x5d, 0xb2, 0x65, 0x6d, 0x37, 0x06, 0xef, 0xf6,
+	0xd7, 0xf1, 0xd6, 0x5f, 0x31, 0x32, 0xda, 0x19, 0xda, 0x79, 0xc6, 0xbe, 0xbb, 0x07, 0x0d, 0xf3,
+	0x55, 0x24, 0x42, 0x49, 0xef, 0x42, 0x6d, 0xc1, 0xe6, 0x19, 0x47, 0x7e, 0x88, 0xa7, 0x15, 0xfa,
+	0x0a, 0xd4, 0x15, 0x11, 0xa9, 0x64, 0x41, 0x8c, 0xcc, 0x58, 0xde, 0x0d, 0xd0, 0x1d, 0x80, 0xe3,
+	0xf1, 0x34, 0xca, 0x92, 0x09, 0xa7, 0x14, 0xaa, 0x72, 0x19, 0x73, 0x43, 0x2f, 0xca, 0x0a, 0x0b,
+	0x59, 0x90, 0x53, 0x8a, 0x72, 0xf7, 0xf7, 0x0a, 0x34, 0xcb, 0xf7, 0xa1, 0x27, 0x50, 0x4f, 0x8c,
+	0x93, 0x3c, 0xa9, 0x87, 0xb7, 0x49, 0x2a, 0x8f, 0xec, 0xdd, 0x98, 0xd3, 0x7b, 0x60, 0xeb, 0x1e,
+	0x33, 0x21, 0x8d, 0x86, 0x97, 0x63, 0x7e, 0xea, 0x5a, 0x5b, 0x16, 0x5e, 0x8e, 0xf9, 0x29, 0x3d,
+	0x02, 0x3b, 0x56, 0x99, 0xa7, 0x6e, 0x15, 0x83, 0xee, 0xde, 0x9e, 0x49, 0x64, 0xcc, 0x33, 0xe6,
+	0x74, 0xdf, 0x64, 0xae, 0xaa, 0xda, 0x1e, 0xf4, 0x6f, 0xef, 0xe6, 0x7c, 0x19, 0xf3, 0x1b, 0xa6,
+	0xb2, 0x50, 0x48, 0x53, 0x7e, 0x94, 0xe9, 0x36, 0x74, 0x74, 0x5e, 0x23, 0xf5, 0xc9, 0x08, 0x99,
+	0xdc, 0xc0, 0xf3, 0xb6, 0xc6, 0x95, 0xfd, 0x13, 0x16, 0x70, 0xd5, 0xbe, 0xd8, 0x6a, 0x0b, 0x36,
+	0x77, 0x1d, 0x2c, 0x52, 0xa1, 0x9f, 0x54, 0x9d, 0x7a, 0x07, 0x7a, 0x0f, 0x01, 0x6e, 0x62, 0xd2,
+	0x3a, 0xd4, 0x8e, 0xf6, 0x9e, 0x1e, 0x1d, 0x76, 0xee, 0x28, 0x71, 0xf8, 0xc9, 0xd3, 0x27, 0xe7,
+	0x1d, 0x42, 0x1d, 0xa8, 0x7a, 0x7b, 0xe7, 0x87, 0x9d, 0x4a, 0xef, 0x5b, 0x0b, 0x5a, 0x87, 0x0b,
+	0x1e, 0xca, 0x34, 0x6f, 0xbb, 0x3d, 0xb0, 0x39, 0x02, 0xa6, 0x42, 0x6f, 0xaf, 0xcf, 0x72, 0xc5,
+	0x48, 0x6b, 0x9e, 0x31, 0xa4, 0x1f, 0x80, 0x13, 0x98, 0xa1, 0xc4, 0xea, 0x34, 0x06, 0xaf, 0xaf,
+	0x77, 0xb2, 0x3a, 0xc0, 0x5e, 0x61, 0xd5, 0xfd, 0x93, 0x40, 0x0d, 0x7d, 0xaa, 0x66, 0x95, 0x42,
+	0xce, 0xf3, 0x6e, 0xd3, 0x0a, 0x56, 0x99, 0x5f, 0xc9, 0xbc, 0xdd, 0x94, 0x4c, 0xdb, 0x50, 0x91,
+	0x29, 0x8e, 0xac, 0xe5, 0x55, 0x64, 0xaa, 0xa8, 0x8a, 0x13, 0x11, 0x25, 0x42, 0x2e, 0xcd, 0x94,
+	0x16, 0xba, 0xb2, 0xbf, 0x8c, 0x52, 0x69, 0xc6, 0x13, 0xe5, 0xa2, 0x73, 0xec, 0x52, 0xe7, 0xbc,
+	0x0a, 0xc0, 0xe6, 0x3c, 0x91, 0x58, 0x17, 0x53, 0x92, 0x3a, 0x22, 0xc8, 0xee, 0x5b, 0xf0, 0x02,
+	0xf3, 0xfd, 0x84, 0xfb, 0x4c, 0x8a, 0x28, 0xc4, 0xa9, 0x76, 0x74, 0xd9, 0x4a, 0xf0, 0x29, 0x5f,
+	0xae, 0x2d, 0x70, 0x7d, 0x5d, 0x81, 0x7b, 0x3f, 0xd8, 0xd0, 0x3a, 0x9b, 0x71, 0x39, 0xb9, 0xcc,
+	0x0b, 0xf2, 0x31, 0x38, 0x29, 0x02, 0xc5, 0xd0, 0xbc, 0xb3, 0x9e, 0xcd, 0x15, 0x33, 0xa3, 0xed,
+	0x57, 0x9f, 0xfd, 0x72, 0xff, 0x8e, 0x57, 0x78, 0xa0, 0x1f, 0xfe, 0xb7, 0xda, 0xe4, 0x7e, 0x8a,
+	0x0a, 0x7d, 0x53, 0x03, 0x5b, 0x87, 0x28, 0x8d, 0x22, 0x79, 0x7e, 0x14, 0x91, 0xe4, 0x4a, 0x89,
+	0xe4, 0x09, 0xb4, 0xa6, 0x22, 0x95, 0x89, 0x18, 0x67, 0x8a, 0x1b, 0x3d, 0xa7, 0x8d, 0xc1, 0xfb,
+	0xb7, 0xcf, 0xa8, 0x7f, 0x50, 0xb2, 0x37, 0xd7, 0x5a, 0xf5, 0x59, 0x54, 0xb2, 0x5a, 0xaa, 0xe4,
+	0x17, 0xd0, 0x98, 0x46, 0x7e, 0x41, 0xe4, 0x06, 0x86, 0x7d, 0xf4, 0x6f, 0xc2, 0xe6, 0xd6, 0x26,
+	0x66, 0xd9, 0x5d, 0xf7, 0x47, 0x02, 0xcd, 0xf2, 0xbd, 0x4c, 0x33, 0x92, 0xa2, 0x19, 0x3b, 0x60,
+	0x4d, 0x42, 0x69, 0xde, 0x55, 0x25, 0x2a, 0x24, 0x10, 0xa1, 0xf9, 0xc5, 0x28, 0x11, 0x11, 0x76,
+	0x85, 0xbd, 0xaa, 0x10, 0x76, 0xa5, 0x10, 0xb6, 0xf0, 0xb1, 0x4b, 0x89, 0xa7, 0x44, 0x85, 0xa4,
+	0x59, 0x80, 0x8f, 0x07, 0xf1, 0x94, 0x48, 0x9b, 0x40, 0x16, 0x98, 0x0e, 0xf1, 0xc8, 0x42, 0x69,
+	0xbe, 0xeb, 0x6c, 0x59, 0xdb, 0x2d, 0x8f, 0xf8, 0x6a, 0x78, 0xa6, 0x7c, 0x2e, 0x99, 0x5b, 0x47,
+	0x44, 0x2b, 0xca, 0xc7, 0x38, 0xbb, 0x70, 0x01, 0x6d, 0x94, 0xd8, 0xfd, 0x8e, 0x40, 0xbd, 0xc8,
+	0xef, 0xff, 0xbd, 0xfb, 0x0c, 0xef, 0xfe, 0xa2, 0x47, 0x66, 0x4a, 0x0b, 0xf3, 0xbb, 0x87, 0x27,
+	0x55, 0xa7, 0xd6, 0xb1, 0x4f, 0xaa, 0x8e, 0xdd, 0xd9, 0xf0, 0xda, 0x2b, 0xf5, 0x3d, 0x7d, 0x4e,
+	0x1f, 0xf6, 0xbe, 0xb7, 0x80, 0x1e, 0x0e, 0xcf, 0xf2, 0x66, 0xcd, 0x27, 0x67, 0x08, 0x35, 0xc9,
+	0xd2, 0x59, 0x3e, 0x36, 0x3b, 0xff, 0xf0, 0x92, 0xfd, 0xcd, 0xb0, 0x7f, 0xce, 0xd2, 0x99, 0xa7,
+	0x6d, 0xbb, 0xbf, 0x11, 0xa8, 0x2a, 0x1d, 0x13, 0x4a, 0xf2, 0xa5, 0x42, 0x89, 0xf4, 0x0d, 0x68,
+	0x4f, 0x79, 0x2a, 0x12, 0x3e, 0x1d, 0xa5, 0x92, 0xc9, 0x2c, 0x35, 0xad, 0xde, 0x32, 0xe8, 0x19,
+	0x82, 0xf4, 0x01, 0x34, 0x67, 0x61, 0xf4, 0x55, 0x98, 0x7f, 0x64, 0xe1, 0x47, 0x0d, 0xc4, 0xcc,
+	0x27, 0xf7, 0xc0, 0xbe, 0x60, 0x81, 0x98, 0xe7, 0x2f, 0x95, 0xd1, 0xa8, 0x0b, 0x1b, 0xf9, 0x32,
+	0xa3, 0x9f, 0xaa, 0x5c, 0xa5, 0x1e, 0xc0, 0x24, 0x0a, 0x25, 0x13, 0x21, 0x4f, 0xf4, 0x9b, 0xd5,
+	0x18, 0x0c, 0x6e, 0x9d, 0xe0, 0x30, 0x37, 0xf5, 0x4a, 0x5e, 0xba, 0x5f, 0x42, 0xbd, 0x38, 0x50,
+	0x6b, 0xcc, 0x34, 0x9a, 0xcc, 0x78, 0x32, 0x12, 0x53, 0x93, 0xb4, 0xa3, 0x81, 0xe3, 0xa9, 0x5a,
+	0x82, 0xcc, 0x61, 0xe9, 0xaf, 0x0f, 0x1a, 0xc2, 0xff, 0x54, 0xbe, 0x0f, 0x58, 0x37, 0xfb, 0xc0,
+	0xfe, 0xa3, 0x67, 0xd7, 0x9b, 0xe4, 0xe7, 0xeb, 0x4d, 0xf2, 0xeb, 0xf5, 0x26, 0xf9, 0xfc, 0xcd,
+	0xd2, 0xbe, 0x77, 0xc0, 0x24, 0x3b, 0x88, 0x7c, 0xbd, 0x2d, 0xee, 0x98, 0x7b, 0xab, 0x6d, 0x8f,
+	0x87, 0x63, 0x1b, 0xf7, 0xbd, 0xf7, 0xfe, 0x0a, 0x00, 0x00, 0xff, 0xff, 0x42, 0x1e, 0x0d, 0x49,
+	0x59, 0x0a, 0x00, 0x00,
 }
