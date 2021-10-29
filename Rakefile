@@ -34,6 +34,8 @@ BASH
       /bin/bash <<BASH
       set -euo pipefail
 
+      export GO111MODULE=auto
+
       rm -rf #{gogo_dir}
       rm -rf /tmp/gogo-bin-*
 
@@ -76,7 +78,7 @@ end
 
 desc "Setup dependencies"
 task :deps do
-  system("dep ensure -v")
+  system("go mod tidy")
 end
 
 desc "Run tests"
