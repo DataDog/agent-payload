@@ -32,9 +32,9 @@ public final class AgentPayload {
       "b\"z\n\003Log\022\017\n\007message\030\001 \001(\t\022\016\n\006status\030\002 \001(" +
       "\t\022\021\n\ttimestamp\030\003 \001(\003\022\020\n\010hostname\030\004 \001(\t\022\017" +
       "\n\007service\030\005 \001(\t\022\016\n\006source\030\006 \001(\t\022\014\n\004tags\030" +
-      "\007 \003(\tBF\n\017com.dd.agent.pbB\014AgentPayloadP\001" +
-      "Z#github.com/DataDog/agent-payload/pbb\006p" +
-      "roto3"
+      "\007 \003(\tBI\n\017com.dd.agent.pbB\014AgentPayloadP\001" +
+      "Z&github.com/DataDog/agent-payload/v5/pb" +
+      "b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
