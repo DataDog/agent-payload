@@ -11,7 +11,9 @@ import (
 	"reflect"
 	"strconv"
 
-	zstd_0 "github.com/DataDog/zstd_0"
+	"github.com/DataDog/zstd"
+	"github.com/DataDog/zstd_0"
+
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/proto"
 )
@@ -26,6 +28,8 @@ const (
 	MessageEncodingProtobuf MessageEncoding = 0
 	MessageEncodingJSON     MessageEncoding = 1
 	MessageEncodingZstdPB   MessageEncoding = 2
+	_                       MessageEncoding = 3 // This is unused
+	MessageEncodingZstd1xPB MessageEncoding = 4
 )
 
 // MessageVersion is the version of the message. It should always be the first
@@ -57,8 +61,14 @@ func unmarshal(enc MessageEncoding, body []byte, m proto.Message) error {
 		return proto.Unmarshal(body, m)
 	case MessageEncodingJSON:
 		return jsonpb.Unmarshal(bytes.NewReader(body), m)
-	case MessageEncodingZstdPB:
-		d, err := zstd_0.Decompress(nil, body)
+	case MessageEncodingZstdPB, MessageEncodingZstd1xPB:
+		var d []byte
+		var err error
+		if enc == MessageEncodingZstd1xPB {
+			d, err = zstd.Decompress(nil, body)
+		} else {
+			d, err = zstd_0.Decompress(nil, body)
+		}
 		if err != nil {
 			return err
 		}
@@ -327,14 +337,16 @@ func EncodeMessage(m Message) ([]byte, error) {
 			return nil, err
 		}
 		p = []byte(s)
-	case MessageEncodingZstdPB:
+	case MessageEncodingZstdPB, MessageEncodingZstd1xPB:
 		pb, err := proto.Marshal(m.Body)
 		if err != nil {
 			return nil, err
 		}
-		p, err = zstd_0.Compress(nil, pb)
-		if err != nil {
-			return nil, err
+
+		if m.Header.Encoding == MessageEncodingZstd1xPB {
+			p, err = zstd.Compress(nil, pb)
+		} else {
+			p, err = zstd_0.Compress(nil, pb)
 		}
 	default:
 		return nil, fmt.Errorf("unknown message encoding: %d", m.Header.Encoding)
