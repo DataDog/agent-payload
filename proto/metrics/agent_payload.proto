@@ -4,7 +4,7 @@ package datadog.agentpayload;
 
 import "github.com/gogo/protobuf/gogoproto/gogo.proto";
 
-option go_package = "github.com/DataDog/agent-payload/gogen";
+option go_package = "github.com/DataDog/agent-payload/v5/gogen";
 
 message CommonMetadata {
 	string agent_version = 1;

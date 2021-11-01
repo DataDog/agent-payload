@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/DataDog/agent-payload/process";
+option go_package = "github.com/DataDog/agent-payload/v5/process";
 
 package datadog.process_agent;
 

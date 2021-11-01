@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package pb;
 
-option go_package = "github.com/DataDog/agent-payload/pb";
+option go_package = "github.com/DataDog/agent-payload/v5/pb";
 
 option java_multiple_files = true;
 option java_package = "com.dd.agent.pb";
