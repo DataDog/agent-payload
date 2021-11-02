@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='agent_payload.proto',
   package='datadog.agentpayload',
   syntax='proto3',
-  serialized_pb=_b('\n\x13\x61gent_payload.proto\x12\x14\x64\x61tadog.agentpayload\x1a-github.com/gogo/protobuf/gogoproto/gogo.proto\"\x89\x01\n\x0e\x43ommonMetadata\x12\x15\n\ragent_version\x18\x01 \x01(\t\x12\x10\n\x08timezone\x18\x02 \x01(\t\x12\x15\n\rcurrent_epoch\x18\x03 \x01(\x01\x12\x13\n\x0binternal_ip\x18\x04 \x01(\t\x12\x11\n\tpublic_ip\x18\x05 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x06 \x01(\t\"\x87\x04\n\rMetricPayload\x12@\n\x06series\x18\x01 \x03(\x0b\x32\x30.datadog.agentpayload.MetricPayload.MetricSeries\x1a/\n\x0bMetricPoint\x12\r\n\x05value\x18\x01 \x01(\x01\x12\x11\n\ttimestamp\x18\x02 \x01(\x03\x1a&\n\x08Resource\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x1a\xac\x02\n\x0cMetricSeries\x12?\n\tresources\x18\x01 \x03(\x0b\x32,.datadog.agentpayload.MetricPayload.Resource\x12\x0e\n\x06metric\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12?\n\x06points\x18\x04 \x03(\x0b\x32/.datadog.agentpayload.MetricPayload.MetricPoint\x12<\n\x04type\x18\x05 \x01(\x0e\x32..datadog.agentpayload.MetricPayload.MetricType\x12\x0c\n\x04unit\x18\x06 \x01(\t\x12\x18\n\x10source_type_name\x18\x07 \x01(\t\x12\x10\n\x08interval\x18\x08 \x01(\x03J\x04\x08\t\x10\n\",\n\nMetricType\x12\t\n\x05GAUGE\x10\x00\x12\t\n\x05\x43OUNT\x10\x01\x12\x08\n\x04RATE\x10\x02\"\xaa\x02\n\rEventsPayload\x12\x39\n\x06\x65vents\x18\x01 \x03(\x0b\x32).datadog.agentpayload.EventsPayload.Event\x12\x36\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadata\x1a\xa5\x01\n\x05\x45vent\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x10\n\x08priority\x18\x04 \x01(\t\x12\x0c\n\x04host\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x12\n\nalert_type\x18\x07 \x01(\t\x12\x17\n\x0f\x61ggregation_key\x18\x08 \x01(\t\x12\x18\n\x10source_type_name\x18\t \x01(\t\"\x9b\x05\n\rSketchPayload\x12\x42\n\x08sketches\x18\x01 \x03(\x0b\x32*.datadog.agentpayload.SketchPayload.SketchB\x04\xc8\xde\x1f\x00\x12<\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadataB\x04\xc8\xde\x1f\x00\x1a\x87\x04\n\x06Sketch\x12\x0e\n\x06metric\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12T\n\rdistributions\x18\x03 \x03(\x0b\x32\x37.datadog.agentpayload.SketchPayload.Sketch.DistributionB\x04\xc8\xde\x1f\x00\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12O\n\x0b\x64ogsketches\x18\x07 \x03(\x0b\x32\x34.datadog.agentpayload.SketchPayload.Sketch.DogsketchB\x04\xc8\xde\x1f\x00\x1a\x8d\x01\n\x0c\x44istribution\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01v\x18\x07 \x03(\x01\x12\t\n\x01g\x18\x08 \x03(\r\x12\r\n\x05\x64\x65lta\x18\t \x03(\r\x12\x0b\n\x03\x62uf\x18\n \x03(\x01\x1an\n\tDogsketch\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01k\x18\x07 \x03(\x11\x12\t\n\x01n\x18\x08 \x03(\rJ\x04\x08\x05\x10\x06J\x04\x08\x06\x10\x07R\x0e\x64istributionsKR\x0e\x64istributionsC\"\xc2\x02\n\x12\x45\x43SMetadataPayload\x12<\n\x05tasks\x18\x01 \x03(\x0b\x32-.datadog.agentpayload.ECSMetadataPayload.Task\x1a\xaa\x01\n\x04Task\x12\x0b\n\x03\x61rn\x18\x01 \x01(\t\x12\x16\n\x0e\x64\x65sired_status\x18\x02 \x01(\t\x12\x14\n\x0cknown_status\x18\x03 \x01(\t\x12\x0e\n\x06\x66\x61mily\x18\x04 \x01(\t\x12\x0f\n\x07version\x18\x05 \x01(\t\x12\x46\n\ncontainers\x18\x06 \x03(\x0b\x32\x32.datadog.agentpayload.ECSMetadataPayload.Container\x1a\x41\n\tContainer\x12\x11\n\tdocker_id\x18\x01 \x01(\t\x12\x13\n\x0b\x64ocker_name\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\tB+Z)github.com/DataDog/agent-payload/v5/gogenb\x06proto3')
+  serialized_pb=_b('\n\x13\x61gent_payload.proto\x12\x14\x64\x61tadog.agentpayload\x1a-github.com/gogo/protobuf/gogoproto/gogo.proto\"\x89\x01\n\x0e\x43ommonMetadata\x12\x15\n\ragent_version\x18\x01 \x01(\t\x12\x10\n\x08timezone\x18\x02 \x01(\t\x12\x15\n\rcurrent_epoch\x18\x03 \x01(\x01\x12\x13\n\x0binternal_ip\x18\x04 \x01(\t\x12\x11\n\tpublic_ip\x18\x05 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x06 \x01(\t\"\x87\x04\n\rMetricPayload\x12@\n\x06series\x18\x01 \x03(\x0b\x32\x30.datadog.agentpayload.MetricPayload.MetricSeries\x1a/\n\x0bMetricPoint\x12\r\n\x05value\x18\x01 \x01(\x01\x12\x11\n\ttimestamp\x18\x02 \x01(\x03\x1a&\n\x08Resource\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x1a\xac\x02\n\x0cMetricSeries\x12?\n\tresources\x18\x01 \x03(\x0b\x32,.datadog.agentpayload.MetricPayload.Resource\x12\x0e\n\x06metric\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12?\n\x06points\x18\x04 \x03(\x0b\x32/.datadog.agentpayload.MetricPayload.MetricPoint\x12<\n\x04type\x18\x05 \x01(\x0e\x32..datadog.agentpayload.MetricPayload.MetricType\x12\x0c\n\x04unit\x18\x06 \x01(\t\x12\x18\n\x10source_type_name\x18\x07 \x01(\t\x12\x10\n\x08interval\x18\x08 \x01(\x03J\x04\x08\t\x10\n\",\n\nMetricType\x12\t\n\x05GAUGE\x10\x00\x12\t\n\x05\x43OUNT\x10\x01\x12\x08\n\x04RATE\x10\x02\"\xaa\x02\n\rEventsPayload\x12\x39\n\x06\x65vents\x18\x01 \x03(\x0b\x32).datadog.agentpayload.EventsPayload.Event\x12\x36\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadata\x1a\xa5\x01\n\x05\x45vent\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x10\n\x08priority\x18\x04 \x01(\t\x12\x0c\n\x04host\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x12\n\nalert_type\x18\x07 \x01(\t\x12\x17\n\x0f\x61ggregation_key\x18\x08 \x01(\t\x12\x18\n\x10source_type_name\x18\t \x01(\t\"\x9b\x05\n\rSketchPayload\x12\x42\n\x08sketches\x18\x01 \x03(\x0b\x32*.datadog.agentpayload.SketchPayload.SketchB\x04\xc8\xde\x1f\x00\x12<\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadataB\x04\xc8\xde\x1f\x00\x1a\x87\x04\n\x06Sketch\x12\x0e\n\x06metric\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12T\n\rdistributions\x18\x03 \x03(\x0b\x32\x37.datadog.agentpayload.SketchPayload.Sketch.DistributionB\x04\xc8\xde\x1f\x00\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12O\n\x0b\x64ogsketches\x18\x07 \x03(\x0b\x32\x34.datadog.agentpayload.SketchPayload.Sketch.DogsketchB\x04\xc8\xde\x1f\x00\x1a\x8d\x01\n\x0c\x44istribution\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01v\x18\x07 \x03(\x01\x12\t\n\x01g\x18\x08 \x03(\r\x12\r\n\x05\x64\x65lta\x18\t \x03(\r\x12\x0b\n\x03\x62uf\x18\n \x03(\x01\x1an\n\tDogsketch\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01k\x18\x07 \x03(\x11\x12\t\n\x01n\x18\x08 \x03(\rJ\x04\x08\x05\x10\x06J\x04\x08\x06\x10\x07R\x0e\x64istributionsKR\x0e\x64istributionsCB+Z)github.com/DataDog/agent-payload/v5/gogenb\x06proto3')
   ,
   dependencies=[github_dot_com_dot_gogo_dot_protobuf_dot_gogoproto_dot_gogo__pb2.DESCRIPTOR,])
 
@@ -695,146 +695,6 @@ _SKETCHPAYLOAD = _descriptor.Descriptor(
   serialized_end=1723,
 )
 
-
-_ECSMETADATAPAYLOAD_TASK = _descriptor.Descriptor(
-  name='Task',
-  full_name='datadog.agentpayload.ECSMetadataPayload.Task',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='arn', full_name='datadog.agentpayload.ECSMetadataPayload.Task.arn', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='desired_status', full_name='datadog.agentpayload.ECSMetadataPayload.Task.desired_status', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='known_status', full_name='datadog.agentpayload.ECSMetadataPayload.Task.known_status', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='family', full_name='datadog.agentpayload.ECSMetadataPayload.Task.family', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='version', full_name='datadog.agentpayload.ECSMetadataPayload.Task.version', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='containers', full_name='datadog.agentpayload.ECSMetadataPayload.Task.containers', index=5,
-      number=6, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1811,
-  serialized_end=1981,
-)
-
-_ECSMETADATAPAYLOAD_CONTAINER = _descriptor.Descriptor(
-  name='Container',
-  full_name='datadog.agentpayload.ECSMetadataPayload.Container',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='docker_id', full_name='datadog.agentpayload.ECSMetadataPayload.Container.docker_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='docker_name', full_name='datadog.agentpayload.ECSMetadataPayload.Container.docker_name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='name', full_name='datadog.agentpayload.ECSMetadataPayload.Container.name', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1983,
-  serialized_end=2048,
-)
-
-_ECSMETADATAPAYLOAD = _descriptor.Descriptor(
-  name='ECSMetadataPayload',
-  full_name='datadog.agentpayload.ECSMetadataPayload',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='tasks', full_name='datadog.agentpayload.ECSMetadataPayload.tasks', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_ECSMETADATAPAYLOAD_TASK, _ECSMETADATAPAYLOAD_CONTAINER, ],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1726,
-  serialized_end=2048,
-)
-
 _METRICPAYLOAD_METRICPOINT.containing_type = _METRICPAYLOAD
 _METRICPAYLOAD_RESOURCE.containing_type = _METRICPAYLOAD
 _METRICPAYLOAD_METRICSERIES.fields_by_name['resources'].message_type = _METRICPAYLOAD_RESOURCE
@@ -853,15 +713,10 @@ _SKETCHPAYLOAD_SKETCH.fields_by_name['dogsketches'].message_type = _SKETCHPAYLOA
 _SKETCHPAYLOAD_SKETCH.containing_type = _SKETCHPAYLOAD
 _SKETCHPAYLOAD.fields_by_name['sketches'].message_type = _SKETCHPAYLOAD_SKETCH
 _SKETCHPAYLOAD.fields_by_name['metadata'].message_type = _COMMONMETADATA
-_ECSMETADATAPAYLOAD_TASK.fields_by_name['containers'].message_type = _ECSMETADATAPAYLOAD_CONTAINER
-_ECSMETADATAPAYLOAD_TASK.containing_type = _ECSMETADATAPAYLOAD
-_ECSMETADATAPAYLOAD_CONTAINER.containing_type = _ECSMETADATAPAYLOAD
-_ECSMETADATAPAYLOAD.fields_by_name['tasks'].message_type = _ECSMETADATAPAYLOAD_TASK
 DESCRIPTOR.message_types_by_name['CommonMetadata'] = _COMMONMETADATA
 DESCRIPTOR.message_types_by_name['MetricPayload'] = _METRICPAYLOAD
 DESCRIPTOR.message_types_by_name['EventsPayload'] = _EVENTSPAYLOAD
 DESCRIPTOR.message_types_by_name['SketchPayload'] = _SKETCHPAYLOAD
-DESCRIPTOR.message_types_by_name['ECSMetadataPayload'] = _ECSMETADATAPAYLOAD
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 CommonMetadata = _reflection.GeneratedProtocolMessageType('CommonMetadata', (_message.Message,), dict(
@@ -947,29 +802,6 @@ _sym_db.RegisterMessage(SketchPayload)
 _sym_db.RegisterMessage(SketchPayload.Sketch)
 _sym_db.RegisterMessage(SketchPayload.Sketch.Distribution)
 _sym_db.RegisterMessage(SketchPayload.Sketch.Dogsketch)
-
-ECSMetadataPayload = _reflection.GeneratedProtocolMessageType('ECSMetadataPayload', (_message.Message,), dict(
-
-  Task = _reflection.GeneratedProtocolMessageType('Task', (_message.Message,), dict(
-    DESCRIPTOR = _ECSMETADATAPAYLOAD_TASK,
-    __module__ = 'agent_payload_pb2'
-    # @@protoc_insertion_point(class_scope:datadog.agentpayload.ECSMetadataPayload.Task)
-    ))
-  ,
-
-  Container = _reflection.GeneratedProtocolMessageType('Container', (_message.Message,), dict(
-    DESCRIPTOR = _ECSMETADATAPAYLOAD_CONTAINER,
-    __module__ = 'agent_payload_pb2'
-    # @@protoc_insertion_point(class_scope:datadog.agentpayload.ECSMetadataPayload.Container)
-    ))
-  ,
-  DESCRIPTOR = _ECSMETADATAPAYLOAD,
-  __module__ = 'agent_payload_pb2'
-  # @@protoc_insertion_point(class_scope:datadog.agentpayload.ECSMetadataPayload)
-  ))
-_sym_db.RegisterMessage(ECSMetadataPayload)
-_sym_db.RegisterMessage(ECSMetadataPayload.Task)
-_sym_db.RegisterMessage(ECSMetadataPayload.Container)
 
 
 DESCRIPTOR.has_options = True
