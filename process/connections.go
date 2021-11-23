@@ -31,7 +31,8 @@ func (m *CollectorConnections) GetTags(tagIndex int) []string {
 func (m *CollectorConnections) GetDNS(addr *Addr) (string, []string, error) {
 	if m.EncodedDNS != nil {
 		return GetDNS(m.EncodedDNS, addr.Ip)
-	} else if m.EncodedDnsLookups != nil {
+	}
+	if m.EncodedDnsLookups != nil && m.EncodedDomainDatabase != nil {
 		first, offsets, err := GetDNSV2(m.EncodedDnsLookups, addr.Ip)
 		if err != nil {
 			return "", nil, err
@@ -61,14 +62,23 @@ func (m *CollectorConnections) GetDNS(addr *Addr) (string, []string, error) {
 func (m *CollectorConnections) IterateDNS(addr *Addr, cb func(i, total int, entry string) bool) error {
 	if m.EncodedDNS != nil {
 		return IterateDNS(m.EncodedDNS, addr.Ip, cb)
-	} else if m.EncodedDnsLookups != nil && m.EncodedDomainDatabase != nil {
-		return IterateDNSV2(m.EncodedDnsLookups, addr.Ip, func(i, total int, offset int32) bool {
+	}
+	if m.EncodedDnsLookups != nil && m.EncodedDomainDatabase != nil {
+		var iterError error
+		err := IterateDNSV2(m.EncodedDnsLookups, addr.Ip, func(i, total int, offset int32) bool {
 			s, err := getDNSNameFromListByOffset(m.EncodedDomainDatabase, int(offset))
 			if err == nil {
 				return cb(i, total, s)
 			}
+			iterError = err
 			return false
 		})
+		if err != nil {
+			return err
+		}
+		if iterError != nil {
+			return iterError
+		}
 	}
 	return nil
 }
