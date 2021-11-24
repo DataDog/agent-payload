@@ -199,16 +199,34 @@ func (e *V2DNSEncoder) EncodeDomainDatabase(names []string) ([]byte, []int32, er
 
 	// walk the list of strings, figure out how much size we need
 	bufferSize := e.varIntSize(len(names))
-	// compute the index of the middle buffer
-	indexOfMiddle := len(names) / 2
-	offsetOfMiddle := 0
 
-	for idx, val := range names {
-		if idx == indexOfMiddle {
-			offsetOfMiddle = bufferSize
-			bufferSize += e.varIntSize(offsetOfMiddle)
-			offsetOfMiddle = bufferSize
-		}
+	// see large comment below.  Hard-coding offsetofmiddle
+	offsetOfMiddle := 0
+	bufferSize += e.varIntSize(offsetOfMiddle)
+
+	for _, val := range names {
+		/* we're going to hard-code the `offsetofmiddle` to zero, and not use it.
+			       Keep the field, so we don't have to rev the layout of the buffer.
+				   but don't use it as there's a very awful bug here.
+
+				   Previous code:
+
+				if idx == indexOfMiddle {
+
+		  			offsetOfMiddle = bufferSize
+					bufferSize += e.varIntSize(offsetOfMiddle)
+					offsetOfMiddle = bufferSize
+				}
+					In the above, if offsetOfMiddle happens to be 127 (or any other subsequent size
+					that causes the size of a varint to go up), we have an off-by-one bug.  The offset
+					is 127, so we compute the size (which is 1), and then increment the buffer size to
+					match. However, since the offsetOfMiddle is now 128, the size of the varint is now
+					2, and the whole buffer's whacked.  Only when the middle happens to be on the boundary
+					of when the varint size changes.
+
+					In this buffer, we weren't actually using the indexOfMiddle, it was left for
+					future optimization.  Now, _never_ use it.
+		*/
 
 		bufferSize += e.varIntSize(len(val))
 		bufferSize += len(val)
@@ -226,7 +244,8 @@ func (e *V2DNSEncoder) EncodeDomainDatabase(names []string) ([]byte, []int32, er
 		// when finally encoded, the consumers will get offsets into this
 		// buffer (for fast searching).
 		offsets[idx] = int32(len(metaBuffer))
-		metaBuffer = e.appendVarInt(metaBuffer, len(val))
+		valLen := len(val)
+		metaBuffer = e.appendVarInt(metaBuffer, valLen)
 		metaBuffer = append(metaBuffer, val...)
 	}
 	return buffer, offsets, nil
@@ -272,6 +291,8 @@ func getDNSNameListV2(buf []byte) []string {
 
 	// read the offset of the middle index; however, since we're reading
 	// the whole list we don't need it.
+
+	// important.  _never_ use the middle index; it's not expected to be valid.
 	_, bytesReadForMiddle := binary.Uvarint(buf[bytesRead:])
 
 	bytesRead += int(bytesReadForMiddle)
