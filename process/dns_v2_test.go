@@ -2,7 +2,6 @@ package process
 
 import (
 	"encoding/binary"
-	"encoding/hex"
 	"fmt"
 	"io/ioutil"
 	"path"
@@ -13,37 +12,6 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
-
-func TestBadDNSStaging(t *testing.T) {
-	lookup, err := hex.DecodeString("0203000301003445030d31302e3133342e33362e3231300203430b31302e3133342e342e3436020381010d31302e3133342e34322e3132370203c101010c31302e3133342e33302e393502030300")
-	require.NoError(t, err)
-
-	database, err := hex.DecodeString("0480013f657463642d322e657463642e6f64646973682d612d6b38732d657463642d64656661756c742e7376632e706172656e74312e636c75737465722e6c6f63616c3d657463642d342e657463642e7374726970652d6b38732d657463642d64656661756c742e7376632e706172656e74312e636c75737465722e6c6f63616c3f657463642d332e657463642e6f64646973682d612d6b38732d657463642d64656661756c742e7376632e706172656e74312e636c75737465722e6c6f63616c3f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000")
-	require.NoError(t, err)
-
-	strings := getDNSNameListV2(database)
-	fmt.Printf("%v\n", strings)
-	addr := &Addr{
-		Ip: "10.134.42.127",
-	}
-
-	encodedDNSLookups := make([]byte, len(lookup))
-	copy(encodedDNSLookups, lookup)
-
-	encodedDomainDatabase := make([]byte, len(database))
-	copy(encodedDomainDatabase, database)
-
-	cc := &CollectorConnections{
-		EncodedDnsLookups:     encodedDNSLookups,
-		EncodedDomainDatabase: encodedDomainDatabase,
-	}
-
-	err = cc.IterateDNS(addr, func(i, total int, entry string) bool {
-		fmt.Printf("%d/%d -- %s\n", i, total, entry)
-		return true
-	})
-	require.NoError(t, err)
-}
 
 func getDNSNameFromListByIndex(buf []byte, index int) (string, error) {
 	num, bytesRead := binary.Uvarint(buf[0:])
@@ -109,10 +77,11 @@ func TestV2DomainDatabaseEncoding(t *testing.T) {
 		"bar.com",
 	}
 	knownBoundaryProblemDB := []string{
-		"etcd-2.etcd.oddish-a-k8s-etcd-default.svc.parent1.cluster.local",
-		"etcd-4.etcd.stripe-k8s-etcd-default.svc.parent1.cluster.local",
-		"etcd-3.etcd.oddish-a-k8s-etcd-default.svc.parent1.cluster.local",
-		"etcd-1.etcd.oddish-a-k8s-etcd-default.svc.parent1.cluster.local",
+		"avery-specific-host-1-with.sixtythreechar.hostname.testname.com",
+		"avery-specific-host-1-with.sixtyonechar.hostname.testname.com",
+
+		"avery-specific-host-2-with.sixtythreechar.hostname.testname.com",
+		"avery-specific-host-3-with.sixtythreechar.hostname.testname.com",
 	}
 	doTestForDNSDB(t, dnsdb)
 	doTestForDNSDB(t, knownBoundaryProblemDB)
