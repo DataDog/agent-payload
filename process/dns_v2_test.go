@@ -22,11 +22,11 @@ func getDNSNameFromListByIndex(buf []byte, index int) (string, error) {
 	if index > int(num-1) {
 		return "", fmt.Errorf("Index out of range %d > %d", index, num)
 	}
-	indexOfMiddle := int(num / 2)
 	currIndex := 0
-	if index > indexOfMiddle {
-		bytesRead = int(offsetOfMiddle)
-		currIndex = int(indexOfMiddle)
+
+	// test and make sure we're not encoding the middle any more
+	if offsetOfMiddle != 0 {
+		return "", fmt.Errorf("Incorrectly encoded buffer")
 	}
 	for currIndex < int(num) {
 		namelen, bytesReadForNameLen := binary.Uvarint(buf[bytesRead:])
@@ -42,14 +42,7 @@ func getDNSNameFromListByIndex(buf []byte, index int) (string, error) {
 	return "", fmt.Errorf("Index not found? %d %d", index, num)
 }
 
-func TestV2DomainDatabaseEncoding(t *testing.T) {
-	dnsdb := []string{
-		"foo.com",
-		"service.example.com",
-		"service2.example.com",
-		"app.example.com",
-		"bar.com",
-	}
+func doTestForDNSDB(t *testing.T, dnsdb []string) {
 	encoder := NewV2DNSEncoder()
 	buf, offsets, err := encoder.EncodeDomainDatabase(dnsdb)
 	assert.Nil(t, err)
@@ -74,8 +67,26 @@ func TestV2DomainDatabaseEncoding(t *testing.T) {
 	// test off of the end
 	_, err = getDNSNameFromListByOffset(buf, len(buf)+2)
 	assert.Error(t, err)
-
 }
+func TestV2DomainDatabaseEncoding(t *testing.T) {
+	dnsdb := []string{
+		"foo.com",
+		"service.example.com",
+		"service2.example.com",
+		"app.example.com",
+		"bar.com",
+	}
+	knownBoundaryProblemDB := []string{
+		"avery-specific-host-1-with.sixtythreechar.hostname.testname.com",
+		"avery-specific-host-1-with.sixtyonechar.hostname.testname.com",
+
+		"avery-specific-host-2-with.sixtythreechar.hostname.testname.com",
+		"avery-specific-host-3-with.sixtythreechar.hostname.testname.com",
+	}
+	doTestForDNSDB(t, dnsdb)
+	doTestForDNSDB(t, knownBoundaryProblemDB)
+}
+
 func indexOf(val string, db []string) int32 {
 	for p, v := range db {
 		if v == val {
