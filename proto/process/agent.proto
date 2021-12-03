@@ -1057,6 +1057,7 @@ message JobSpec {
 	int32 backoffLimit = 4;
 	repeated LabelSelectorRequirement selectors = 5;
 	bool manualSelector = 6;
+	bool setActiveDeadlineSeconds = 7;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L132
