@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option go_package = "github.com/DataDog/agent-payload/v5/contlcycle";
+
+package datadog.contlcycle;
+
+message EventsPaylaod {
+    string version = 1;
+    string eventType = 2;
+    string objectKind = 3;
+    string host = 4;
+    repeated Event events = 5;
+}
+
+message Event {
+    string objectID = 1;    
+    string source = 2;
+    int32 exitCode = 3;
+    int64 exitTimestamp = 4;
+}
