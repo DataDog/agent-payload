@@ -30,26 +30,6 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
 
-type EventsPaylaod_EventType int32
-
-const (
-	EventsPaylaod_Delete EventsPaylaod_EventType = 0
-)
-
-var EventsPaylaod_EventType_name = map[int32]string{
-	0: "Delete",
-}
-var EventsPaylaod_EventType_value = map[string]int32{
-	"Delete": 0,
-}
-
-func (x EventsPaylaod_EventType) String() string {
-	return proto.EnumName(EventsPaylaod_EventType_name, int32(x))
-}
-func (EventsPaylaod_EventType) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptorContlcycle, []int{0, 0}
-}
-
 type EventsPaylaod_ObjectKind int32
 
 const (
@@ -70,16 +50,33 @@ func (x EventsPaylaod_ObjectKind) String() string {
 	return proto.EnumName(EventsPaylaod_ObjectKind_name, int32(x))
 }
 func (EventsPaylaod_ObjectKind) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptorContlcycle, []int{0, 1}
+	return fileDescriptorContlcycle, []int{0, 0}
 }
+
+type Event_EventType int32
+
+const (
+	Event_Delete Event_EventType = 0
+)
+
+var Event_EventType_name = map[int32]string{
+	0: "Delete",
+}
+var Event_EventType_value = map[string]int32{
+	"Delete": 0,
+}
+
+func (x Event_EventType) String() string {
+	return proto.EnumName(Event_EventType_name, int32(x))
+}
+func (Event_EventType) EnumDescriptor() ([]byte, []int) { return fileDescriptorContlcycle, []int{1, 0} }
 
 // EventsPaylaod represents the main container lifecycle event payload
 type EventsPaylaod struct {
 	Version    string                   `protobuf:"bytes,1,opt,name=version,proto3" json:"version,omitempty"`
-	EventType  EventsPaylaod_EventType  `protobuf:"varint,2,opt,name=eventType,proto3,enum=datadog.contlcycle.EventsPaylaod_EventType" json:"eventType,omitempty"`
-	ObjectKind EventsPaylaod_ObjectKind `protobuf:"varint,3,opt,name=objectKind,proto3,enum=datadog.contlcycle.EventsPaylaod_ObjectKind" json:"objectKind,omitempty"`
-	Host       string                   `protobuf:"bytes,4,opt,name=host,proto3" json:"host,omitempty"`
-	Events     []*Event                 `protobuf:"bytes,5,rep,name=events" json:"events,omitempty"`
+	ObjectKind EventsPaylaod_ObjectKind `protobuf:"varint,2,opt,name=objectKind,proto3,enum=datadog.contlcycle.EventsPaylaod_ObjectKind" json:"objectKind,omitempty"`
+	Host       string                   `protobuf:"bytes,3,opt,name=host,proto3" json:"host,omitempty"`
+	Events     []*Event                 `protobuf:"bytes,4,rep,name=events" json:"events,omitempty"`
 }
 
 func (m *EventsPaylaod) Reset()                    { *m = EventsPaylaod{} }
@@ -92,13 +89,6 @@ func (m *EventsPaylaod) GetVersion() string {
 		return m.Version
 	}
 	return ""
-}
-
-func (m *EventsPaylaod) GetEventType() EventsPaylaod_EventType {
-	if m != nil {
-		return m.EventType
-	}
-	return EventsPaylaod_Delete
 }
 
 func (m *EventsPaylaod) GetObjectKind() EventsPaylaod_ObjectKind {
@@ -124,16 +114,24 @@ func (m *EventsPaylaod) GetEvents() []*Event {
 
 // Event contains the details about a container lifecycle event
 type Event struct {
-	ObjectID      string `protobuf:"bytes,1,opt,name=objectID,proto3" json:"objectID,omitempty"`
-	Source        string `protobuf:"bytes,2,opt,name=source,proto3" json:"source,omitempty"`
-	ExitCode      int32  `protobuf:"varint,3,opt,name=exitCode,proto3" json:"exitCode,omitempty"`
-	ExitTimestamp int64  `protobuf:"varint,4,opt,name=exitTimestamp,proto3" json:"exitTimestamp,omitempty"`
+	EventType     Event_EventType `protobuf:"varint,1,opt,name=eventType,proto3,enum=datadog.contlcycle.Event_EventType" json:"eventType,omitempty"`
+	ObjectID      string          `protobuf:"bytes,2,opt,name=objectID,proto3" json:"objectID,omitempty"`
+	Source        string          `protobuf:"bytes,3,opt,name=source,proto3" json:"source,omitempty"`
+	ExitCode      int32           `protobuf:"varint,4,opt,name=exitCode,proto3" json:"exitCode,omitempty"`
+	ExitTimestamp int64           `protobuf:"varint,5,opt,name=exitTimestamp,proto3" json:"exitTimestamp,omitempty"`
 }
 
 func (m *Event) Reset()                    { *m = Event{} }
 func (m *Event) String() string            { return proto.CompactTextString(m) }
 func (*Event) ProtoMessage()               {}
 func (*Event) Descriptor() ([]byte, []int) { return fileDescriptorContlcycle, []int{1} }
+
+func (m *Event) GetEventType() Event_EventType {
+	if m != nil {
+		return m.EventType
+	}
+	return Event_Delete
+}
 
 func (m *Event) GetObjectID() string {
 	if m != nil {
@@ -166,8 +164,8 @@ func (m *Event) GetExitTimestamp() int64 {
 func init() {
 	proto.RegisterType((*EventsPaylaod)(nil), "datadog.contlcycle.EventsPaylaod")
 	proto.RegisterType((*Event)(nil), "datadog.contlcycle.Event")
-	proto.RegisterEnum("datadog.contlcycle.EventsPaylaod_EventType", EventsPaylaod_EventType_name, EventsPaylaod_EventType_value)
 	proto.RegisterEnum("datadog.contlcycle.EventsPaylaod_ObjectKind", EventsPaylaod_ObjectKind_name, EventsPaylaod_ObjectKind_value)
+	proto.RegisterEnum("datadog.contlcycle.Event_EventType", Event_EventType_name, Event_EventType_value)
 }
 func (m *EventsPaylaod) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
@@ -190,25 +188,20 @@ func (m *EventsPaylaod) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintContlcycle(dAtA, i, uint64(len(m.Version)))
 		i += copy(dAtA[i:], m.Version)
 	}
-	if m.EventType != 0 {
-		dAtA[i] = 0x10
-		i++
-		i = encodeVarintContlcycle(dAtA, i, uint64(m.EventType))
-	}
 	if m.ObjectKind != 0 {
-		dAtA[i] = 0x18
+		dAtA[i] = 0x10
 		i++
 		i = encodeVarintContlcycle(dAtA, i, uint64(m.ObjectKind))
 	}
 	if len(m.Host) > 0 {
-		dAtA[i] = 0x22
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintContlcycle(dAtA, i, uint64(len(m.Host)))
 		i += copy(dAtA[i:], m.Host)
 	}
 	if len(m.Events) > 0 {
 		for _, msg := range m.Events {
-			dAtA[i] = 0x2a
+			dAtA[i] = 0x22
 			i++
 			i = encodeVarintContlcycle(dAtA, i, uint64(msg.Size()))
 			n, err := msg.MarshalTo(dAtA[i:])
@@ -236,25 +229,30 @@ func (m *Event) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.EventType != 0 {
+		dAtA[i] = 0x8
+		i++
+		i = encodeVarintContlcycle(dAtA, i, uint64(m.EventType))
+	}
 	if len(m.ObjectID) > 0 {
-		dAtA[i] = 0xa
+		dAtA[i] = 0x12
 		i++
 		i = encodeVarintContlcycle(dAtA, i, uint64(len(m.ObjectID)))
 		i += copy(dAtA[i:], m.ObjectID)
 	}
 	if len(m.Source) > 0 {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintContlcycle(dAtA, i, uint64(len(m.Source)))
 		i += copy(dAtA[i:], m.Source)
 	}
 	if m.ExitCode != 0 {
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
 		i++
 		i = encodeVarintContlcycle(dAtA, i, uint64(m.ExitCode))
 	}
 	if m.ExitTimestamp != 0 {
-		dAtA[i] = 0x20
+		dAtA[i] = 0x28
 		i++
 		i = encodeVarintContlcycle(dAtA, i, uint64(m.ExitTimestamp))
 	}
@@ -277,9 +275,6 @@ func (m *EventsPaylaod) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovContlcycle(uint64(l))
 	}
-	if m.EventType != 0 {
-		n += 1 + sovContlcycle(uint64(m.EventType))
-	}
 	if m.ObjectKind != 0 {
 		n += 1 + sovContlcycle(uint64(m.ObjectKind))
 	}
@@ -299,6 +294,9 @@ func (m *EventsPaylaod) Size() (n int) {
 func (m *Event) Size() (n int) {
 	var l int
 	_ = l
+	if m.EventType != 0 {
+		n += 1 + sovContlcycle(uint64(m.EventType))
+	}
 	l = len(m.ObjectID)
 	if l > 0 {
 		n += 1 + l + sovContlcycle(uint64(l))
@@ -389,25 +387,6 @@ func (m *EventsPaylaod) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field EventType", wireType)
-			}
-			m.EventType = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowContlcycle
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.EventType |= (EventsPaylaod_EventType(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 3:
-			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ObjectKind", wireType)
 			}
 			m.ObjectKind = 0
@@ -425,7 +404,7 @@ func (m *EventsPaylaod) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Host", wireType)
 			}
@@ -454,7 +433,7 @@ func (m *EventsPaylaod) Unmarshal(dAtA []byte) error {
 			}
 			m.Host = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 5:
+		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Events", wireType)
 			}
@@ -536,6 +515,25 @@ func (m *Event) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EventType", wireType)
+			}
+			m.EventType = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowContlcycle
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EventType |= (Event_EventType(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ObjectID", wireType)
 			}
@@ -564,7 +562,7 @@ func (m *Event) Unmarshal(dAtA []byte) error {
 			}
 			m.ObjectID = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 2:
+		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Source", wireType)
 			}
@@ -593,7 +591,7 @@ func (m *Event) Unmarshal(dAtA []byte) error {
 			}
 			m.Source = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ExitCode", wireType)
 			}
@@ -612,7 +610,7 @@ func (m *Event) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 5:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ExitTimestamp", wireType)
 			}
@@ -760,28 +758,28 @@ var (
 func init() { proto.RegisterFile("proto/contlcycle/contlcycle.proto", fileDescriptorContlcycle) }
 
 var fileDescriptorContlcycle = []byte{
-	// 353 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x92, 0x41, 0x4f, 0xea, 0x40,
-	0x10, 0xc7, 0x29, 0x85, 0x42, 0xe7, 0x85, 0x17, 0x32, 0x87, 0xf7, 0xaa, 0x07, 0xc4, 0xc6, 0x03,
-	0x89, 0xda, 0x46, 0x8c, 0x37, 0x4f, 0x52, 0x0f, 0x44, 0x13, 0x49, 0xc3, 0xc9, 0xdb, 0xd2, 0xdd,
-	0x94, 0x9a, 0xd2, 0x69, 0xe8, 0x42, 0xec, 0xc1, 0x4f, 0xe7, 0xc5, 0xa3, 0x1f, 0xc1, 0xf0, 0x49,
-	0x4c, 0x17, 0x2c, 0x10, 0x63, 0xbc, 0xcd, 0x7f, 0x67, 0x7e, 0xff, 0x99, 0x9d, 0x0c, 0x1c, 0xa7,
-	0x73, 0x92, 0xe4, 0x06, 0x94, 0xc8, 0x38, 0xc8, 0x83, 0x58, 0xec, 0x84, 0x8e, 0xca, 0x21, 0x72,
-	0x26, 0x19, 0xa7, 0xd0, 0xd9, 0x66, 0xec, 0xd7, 0x2a, 0xb4, 0x6e, 0x97, 0x22, 0x91, 0xd9, 0x88,
-	0xe5, 0x31, 0x23, 0x8e, 0x16, 0x34, 0x96, 0x62, 0x9e, 0x45, 0x94, 0x58, 0x5a, 0x57, 0xeb, 0x99,
-	0xfe, 0x97, 0xc4, 0x21, 0x98, 0xa2, 0x28, 0x1d, 0xe7, 0xa9, 0xb0, 0xaa, 0x5d, 0xad, 0xf7, 0xb7,
-	0x7f, 0xea, 0x7c, 0xf7, 0x74, 0xf6, 0xfc, 0xd6, 0xaa, 0x40, 0xfc, 0x2d, 0x8d, 0xf7, 0x00, 0x34,
-	0x79, 0x12, 0x81, 0xbc, 0x8b, 0x12, 0x6e, 0xe9, 0xca, 0xeb, 0xec, 0x77, 0xaf, 0x87, 0x92, 0xf1,
-	0x77, 0x78, 0x44, 0xa8, 0x4d, 0x29, 0x93, 0x56, 0x4d, 0xcd, 0xab, 0x62, 0xbc, 0x00, 0x43, 0xb5,
-	0xcb, 0xac, 0x7a, 0x57, 0xef, 0xfd, 0xe9, 0x1f, 0xfc, 0xe8, 0xee, 0x6f, 0x0a, 0xed, 0xff, 0x60,
-	0x96, 0xc3, 0x22, 0x80, 0xe1, 0x89, 0x58, 0x48, 0xd1, 0xae, 0xd8, 0x47, 0x00, 0xdb, 0xce, 0xd8,
-	0x84, 0xda, 0x80, 0x12, 0xd9, 0xae, 0x60, 0x03, 0xf4, 0x11, 0xf1, 0xb6, 0x66, 0xbf, 0x40, 0x5d,
-	0x91, 0x78, 0x08, 0xcd, 0xf5, 0x5c, 0x43, 0x6f, 0xb3, 0xbd, 0x52, 0xe3, 0x3f, 0x30, 0x32, 0x5a,
-	0xcc, 0x83, 0xf5, 0xee, 0x4c, 0x7f, 0xa3, 0x0a, 0x46, 0x3c, 0x47, 0x72, 0x40, 0x5c, 0xa8, 0x4d,
-	0xd4, 0xfd, 0x52, 0xe3, 0x09, 0xb4, 0x8a, 0x78, 0x1c, 0xcd, 0x44, 0x26, 0xd9, 0x2c, 0x55, 0x5f,
-	0xd4, 0xfd, 0xfd, 0xc7, 0x9b, 0xeb, 0xb7, 0x55, 0x47, 0x7b, 0x5f, 0x75, 0xb4, 0x8f, 0x55, 0x47,
-	0x7b, 0x74, 0xc2, 0x48, 0x4e, 0x17, 0x13, 0x27, 0xa0, 0x99, 0xeb, 0x31, 0xc9, 0x3c, 0x0a, 0x5d,
-	0x16, 0x8a, 0x44, 0x9e, 0xa7, 0x2c, 0x8f, 0x89, 0x71, 0x77, 0x79, 0xb5, 0x73, 0x1c, 0x13, 0x43,
-	0x5d, 0xc7, 0xe5, 0x67, 0x00, 0x00, 0x00, 0xff, 0xff, 0x6e, 0xd3, 0xfc, 0xd2, 0x42, 0x02, 0x00,
-	0x00,
+	// 356 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x92, 0x41, 0x4f, 0xea, 0x40,
+	0x10, 0xc7, 0xd9, 0xd7, 0x52, 0xe8, 0xbc, 0x40, 0xc8, 0x1e, 0xde, 0xab, 0x1e, 0xb0, 0x56, 0x0f,
+	0x3d, 0x68, 0x1b, 0x31, 0xde, 0xbc, 0x28, 0xf5, 0x60, 0x34, 0x91, 0x34, 0x9c, 0xbc, 0x2d, 0xdd,
+	0x4d, 0xa9, 0x29, 0x9d, 0x86, 0x2e, 0xc4, 0x7e, 0x43, 0x8f, 0x5e, 0x3d, 0x69, 0xf8, 0x24, 0x86,
+	0x05, 0x0b, 0xc4, 0x70, 0xd9, 0xcc, 0x7f, 0x67, 0x7e, 0x33, 0xfb, 0xdf, 0x0c, 0x1c, 0xe7, 0x53,
+	0x94, 0xe8, 0x47, 0x98, 0xc9, 0x34, 0x2a, 0xa3, 0x54, 0x6c, 0x85, 0x9e, 0xca, 0x51, 0xca, 0x99,
+	0x64, 0x1c, 0x63, 0x6f, 0x93, 0x71, 0x3e, 0x09, 0xb4, 0xee, 0xe6, 0x22, 0x93, 0xc5, 0x80, 0x95,
+	0x29, 0x43, 0x4e, 0x2d, 0x68, 0xcc, 0xc5, 0xb4, 0x48, 0x30, 0xb3, 0x88, 0x4d, 0x5c, 0x33, 0xfc,
+	0x91, 0xf4, 0x11, 0x00, 0x47, 0x2f, 0x22, 0x92, 0x0f, 0x49, 0xc6, 0xad, 0x3f, 0x36, 0x71, 0xdb,
+	0xbd, 0x33, 0xef, 0x77, 0x53, 0x6f, 0xa7, 0xa1, 0xf7, 0x54, 0x31, 0xe1, 0x16, 0x4f, 0x29, 0xe8,
+	0x63, 0x2c, 0xa4, 0xa5, 0xa9, 0x21, 0x2a, 0xa6, 0x17, 0x60, 0x08, 0xc5, 0x5a, 0xba, 0xad, 0xb9,
+	0x7f, 0x7b, 0x07, 0x7b, 0xbb, 0x87, 0xeb, 0x42, 0xe7, 0x08, 0x60, 0x33, 0x80, 0x36, 0x41, 0xef,
+	0x63, 0x26, 0x3b, 0x35, 0xda, 0x00, 0x6d, 0x80, 0xbc, 0x43, 0x9c, 0x0f, 0x02, 0x75, 0x85, 0xd0,
+	0x1b, 0x30, 0x15, 0x34, 0x2c, 0x73, 0xa1, 0xbc, 0xb5, 0x7b, 0x27, 0x7b, 0x07, 0xac, 0xce, 0x65,
+	0x69, 0xb8, 0xa1, 0xe8, 0x21, 0x34, 0x57, 0x16, 0xee, 0x03, 0xf5, 0x01, 0x66, 0x58, 0x69, 0xfa,
+	0x0f, 0x8c, 0x02, 0x67, 0xd3, 0x48, 0xac, 0x2d, 0xad, 0xd5, 0x92, 0x11, 0xaf, 0x89, 0xec, 0x23,
+	0x17, 0x96, 0x6e, 0x13, 0xb7, 0x1e, 0x56, 0x9a, 0x9e, 0x42, 0x6b, 0x19, 0x0f, 0x93, 0x89, 0x28,
+	0x24, 0x9b, 0xe4, 0x56, 0xdd, 0x26, 0xae, 0x16, 0xee, 0x5e, 0x3a, 0xff, 0xc1, 0xac, 0x5e, 0x43,
+	0x01, 0x8c, 0x40, 0xa4, 0x42, 0x8a, 0x4e, 0xed, 0xf6, 0xfa, 0x6d, 0xd1, 0x25, 0xef, 0x8b, 0x2e,
+	0xf9, 0x5a, 0x74, 0xc9, 0xb3, 0x17, 0x27, 0x72, 0x3c, 0x1b, 0x79, 0x11, 0x4e, 0xfc, 0x80, 0x49,
+	0x16, 0x60, 0xec, 0xb3, 0x58, 0x64, 0xf2, 0x3c, 0x67, 0x65, 0x8a, 0x8c, 0xfb, 0xf3, 0xab, 0xad,
+	0xad, 0x18, 0x19, 0x6a, 0x2d, 0x2e, 0xbf, 0x03, 0x00, 0x00, 0xff, 0xff, 0xd3, 0xa5, 0xc4, 0xed,
+	0x3b, 0x02, 0x00, 0x00,
 }

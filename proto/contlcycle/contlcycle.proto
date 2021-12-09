@@ -6,24 +6,24 @@ package datadog.contlcycle;
 
 // EventsPaylaod represents the main container lifecycle event payload
 message EventsPaylaod {
-    enum EventType {
-        Delete = 0;
-    }
     enum ObjectKind {
         Cont = 0;
         Pod = 1;
     }
     string version = 1;
-    EventType eventType = 2;
-    ObjectKind objectKind = 3;
-    string host = 4;
-    repeated Event events = 5;
+    ObjectKind objectKind = 2;
+    string host = 3;
+    repeated Event events = 4;
 }
 
 // Event contains the details about a container lifecycle event
 message Event {
-    string objectID = 1;    
-    string source = 2;
-    int32 exitCode = 3;
-    int64 exitTimestamp = 4;
+    enum EventType {
+        Delete = 0;
+    }
+    EventType eventType = 1;
+    string objectID = 2;
+    string source = 3;
+    int32 exitCode = 4;
+    int64 exitTimestamp = 5;
 }
