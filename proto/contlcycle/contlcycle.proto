@@ -4,16 +4,16 @@ option go_package = "github.com/DataDog/agent-payload/v5/contlcycle";
 
 package datadog.contlcycle;
 
-// EventsPaylaod represents the main container lifecycle event payload
-message EventsPaylaod {
+// EventsPayload represents the main container lifecycle event payload
+message EventsPayload {
     enum ObjectKind {
         Cont = 0;
         Pod = 1;
     }
-    string version = 1;
-    ObjectKind objectKind = 2;
-    string host = 3;
-    repeated Event events = 4;
+    string version = 1; // version represents the EventsPayload message version
+    ObjectKind objectKind = 2; // objectKind represents the object kind (container, pod)
+    string host = 3; // host contains the hostname
+    repeated Event events = 4; // events contains all the event details
 }
 
 // Event contains the details about a container lifecycle event
@@ -21,9 +21,9 @@ message Event {
     enum EventType {
         Delete = 0;
     }
-    EventType eventType = 1;
-    string objectID = 2;
-    string source = 3;
-    int32 exitCode = 4;
-    int64 exitTimestamp = 5;
+    EventType eventType = 1; // eventType represents the event's type (deletion)
+    string objectID = 2; // objectID contains the container/pod ID
+    string source = 3; // source source contains the container/pod source (docker, kubelet..)
+    int32 exitCode = 4; // exitCode contains the exit code of the container
+    int64 exitTimestamp = 5;  // exitTimestamp contains the exit timestamp of the container
 }
