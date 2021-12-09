@@ -4,14 +4,23 @@ option go_package = "github.com/DataDog/agent-payload/v5/contlcycle";
 
 package datadog.contlcycle;
 
+// EventsPaylaod represents the main container lifecycle event payload
 message EventsPaylaod {
+    enum EventType {
+        Delete = 0;
+    }
+    enum ObjectKind {
+        Cont = 0;
+        Pod = 1;
+    }
     string version = 1;
-    string eventType = 2;
-    string objectKind = 3;
+    EventType eventType = 2;
+    ObjectKind objectKind = 3;
     string host = 4;
     repeated Event events = 5;
 }
 
+// Event contains the details about a container lifecycle event
 message Event {
     string objectID = 1;    
     string source = 2;
