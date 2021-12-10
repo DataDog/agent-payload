@@ -24,6 +24,10 @@ func (m *CollectorConnections) GetTags(tagIndex int) []string {
 	return getTags(m.EncodedTags, tagIndex)
 }
 
+func (m *CollectorConnections) UnsafeIterateTags(tagIndex int, cb func(i, total int, tag []byte) bool) {
+	unsafeIterateTags(m.EncodedTags, tagIndex, cb)
+}
+
 // GetDNS returns the DNS entries for the given addr.
 // The first argument returned is the first DNS entry followed by any additional name resolutions.  Most IPs will
 // have a single resolution so this dual format allows us to avoid allocations for the common case.  If there are
