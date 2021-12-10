@@ -4,6 +4,8 @@ option go_package = "github.com/DataDog/agent-payload/v5/process";
 
 package datadog.process_agent;
 
+import "google/protobuf/any.proto";
+
 //
 // Message Types
 //
@@ -218,6 +220,9 @@ message CollectorNode {
 	int32 groupSize = 4;
 	repeated Node nodes = 5;
 	repeated string tags = 6;
+	message HostAliasMapping {
+		map<string, google.protobuf.Any> hostAliasMapping = 1;
+	}
 }
 
 message CollectorCluster {
