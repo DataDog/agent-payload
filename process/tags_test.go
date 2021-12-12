@@ -71,6 +71,13 @@ func (suite *TagSerdeTestSuite) TestTagSerdeRealTags() {
 		})
 		assert.Equal(suite.T(), allTags[i], iterated)
 
+		var unsafeIterated []string
+		unsafeIterateTags(encoder.Buffer(), tagIndex, func(i, total int, tag []byte) bool {
+			unsafeIterated = append(unsafeIterated, string(tag))
+			return true
+		})
+		assert.Equal(suite.T(), allTags[i], unsafeIterated)
+
 		iterated = nil
 		iterateTags(encoder.Buffer(), tagIndex, func(i, total int, tag string) bool {
 			if i == total-1 {

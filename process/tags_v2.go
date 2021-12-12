@@ -157,6 +157,12 @@ func decodeV2(buffer []byte, tagIndex int) []string {
 }
 
 func iterateV2(buffer []byte, tagIndex int, cb func(i, total int, tag string) bool) {
+	unsafeIterateV2(buffer, tagIndex, func(i, total int, tag []byte) bool {
+		return cb(i, total, string(tag))
+	})
+}
+
+func unsafeIterateV2(buffer []byte, tagIndex int, cb func(i, total int, tag []byte) bool) {
 	footerPosition := binary.LittleEndian.Uint32(buffer[1:])
 
 	idx := int(footerPosition) + tagIndex
@@ -175,7 +181,7 @@ func iterateV2(buffer []byte, tagIndex int, cb func(i, total int, tag string) bo
 		start := tagPosition + 2
 		end := start + tagLength
 
-		if !cb(i, numTags, string(buffer[start:end])) {
+		if !cb(i, numTags, buffer[start:end]) {
 			return
 		}
 
