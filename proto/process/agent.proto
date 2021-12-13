@@ -223,7 +223,7 @@ message CollectorNode {
 
 message EPHost {
 	repeated string tags = 1;
-	int32 ID = 2;
+	int64 ID = 2;
 	string name = 3;
 }
 
