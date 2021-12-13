@@ -218,9 +218,7 @@ message CollectorNode {
 	int32 groupSize = 4;
 	repeated Node nodes = 5;
 	repeated string tags = 6;
-	message HostAliasMapping {
-		map<string, EPHost> hostAliasMapping = 7;
-	}
+	map<string, EPHost> hostAliasMapping = 7;
 }
 
 message EPHost {
