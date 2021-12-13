@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-import "google/protobuf/any.proto";
 option go_package = "github.com/DataDog/agent-payload/v5/process";
 
 package datadog.process_agent;
@@ -220,8 +219,14 @@ message CollectorNode {
 	repeated Node nodes = 5;
 	repeated string tags = 6;
 	message HostAliasMapping {
-		map<string, google.protobuf.Any> hostAliasMapping = 7;
+		map<string, EPHost> hostAliasMapping = 7;
 	}
+}
+
+message EPHost {
+	repeated string tags = 1;
+	int32 ID = 2;
+	string name = 3;
 }
 
 message CollectorCluster {
