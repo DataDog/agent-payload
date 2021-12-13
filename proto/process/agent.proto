@@ -218,13 +218,7 @@ message CollectorNode {
 	int32 groupSize = 4;
 	repeated Node nodes = 5;
 	repeated string tags = 6;
-	map<string, EPHost> hostAliasMapping = 7;
-}
-
-message EPHost {
-	repeated string tags = 1;
-	int64 ID = 2;
-	string name = 3;
+	map<string, Host> hostAliasMapping = 7;
 }
 
 message CollectorCluster {
