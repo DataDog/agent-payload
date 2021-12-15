@@ -111,6 +111,20 @@ func iterateTags(buffer []byte, tagIndex int, cb func(i, total int, tag string) 
 	}
 }
 
+func unsafeIterateTags(buffer []byte, tagIndex int, cb func(i, total int, tag []byte) bool) {
+	if len(buffer) == 0 || tagIndex < 0 {
+		return
+	}
+
+	switch buffer[0] {
+	case version1:
+		unsafeIterateV1(buffer, tagIndex, cb)
+	case version2:
+		unsafeIterateV2(buffer, tagIndex, cb)
+	default:
+	}
+}
+
 func decodeV1(buffer []byte, tagIndex int) []string {
 	var tags []string
 
@@ -127,6 +141,12 @@ func decodeV1(buffer []byte, tagIndex int) []string {
 }
 
 func iterateV1(buffer []byte, tagIndex int, cb func(i, total int, tag string) bool) {
+	unsafeIterateV1(buffer, tagIndex, func(i, total int, tag []byte) bool {
+		return cb(i, total, string(tag))
+	})
+}
+
+func unsafeIterateV1(buffer []byte, tagIndex int, cb func(i, total int, tag []byte) bool) {
 	tagBuffer := buffer[tagIndex:]
 	readIndex := 0
 
@@ -137,7 +157,7 @@ func iterateV1(buffer []byte, tagIndex int, cb func(i, total int, tag string) bo
 		tagLength := int(binary.LittleEndian.Uint16(tagBuffer[readIndex:]))
 		readIndex += 2
 
-		if !cb(i, numTags, string(tagBuffer[readIndex:readIndex+tagLength])) {
+		if !cb(i, numTags, tagBuffer[readIndex:readIndex+tagLength]) {
 			return
 		}
 
