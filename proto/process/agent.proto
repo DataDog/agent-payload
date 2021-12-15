@@ -223,6 +223,7 @@ message CollectorNode {
 	int32 groupSize = 4;
 	repeated Node nodes = 5;
 	repeated string tags = 6;
+	map<string, Host> hostAliasMapping = 7;
 }
 
 message CollectorCluster {
