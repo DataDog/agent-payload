@@ -24,6 +24,10 @@ message Event {
     EventType eventType = 1; // eventType represents the event's type (deletion)
     string objectID = 2; // objectID contains the container/pod ID
     string source = 3; // source source contains the container/pod source (docker, kubelet..)
-    int32 exitCode = 4; // exitCode contains the exit code of the container
-    int64 exitTimestamp = 5;  // exitTimestamp contains the exit timestamp of the container
+    oneof optionalExitCode {
+        int32 exitCode = 4;  // exitCode contains the exit code of the container
+    }
+    oneof optionalExitTimestamp {
+        int64 exitTimestamp = 5; // exitTimestamp contains the exit timestamp of the container
+    }
 }
