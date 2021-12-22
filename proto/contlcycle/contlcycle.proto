@@ -7,12 +7,12 @@ package datadog.contlcycle;
 // EventsPayload represents the main container lifecycle event payload
 message EventsPayload {
     enum ObjectKind {
-        Cont = 0;
+        Container = 0;
         Pod = 1;
     }
     string version = 1; // version represents the EventsPayload message version
-    ObjectKind objectKind = 2; // objectKind represents the object kind (container, pod)
-    string host = 3; // host contains the hostname
+    string host = 2; // host contains the hostname
+    ObjectKind objectKind = 3; // objectKind represents the object kind (container, pod)
     repeated Event events = 4; // events contains all the event details
 }
 
@@ -22,12 +22,26 @@ message Event {
         Delete = 0;
     }
     EventType eventType = 1; // eventType represents the event's type (deletion)
-    string objectID = 2; // objectID contains the container/pod ID
-    string source = 3; // source source contains the container/pod source (docker, kubelet..)
+    oneof typedEvent {
+        ContainerEvent container = 2;
+        PodEvent pod = 3;
+    }
+}
+
+// ContainerEvent contains container event metadata
+message ContainerEvent {
+    string containerID = 1; // containerID contains the container ID
+    string source = 2; // source contains the container source (docker, containerd..)
     oneof optionalExitCode {
-        int32 exitCode = 4;  // exitCode contains the exit code of the container
+        int32 exitCode = 3;  // exitCode contains the exit code of the container
     }
     oneof optionalExitTimestamp {
-        int64 exitTimestamp = 5; // exitTimestamp contains the exit timestamp of the container
+        int64 exitTimestamp = 4; // exitTimestamp contains the exit timestamp of the container
     }
+}
+
+// PodEvent contains pod event metadata
+message PodEvent {
+    string podUID = 1; // podUID contains the pod UID
+    string source = 2; // source contains the pod source (kubelet)
 }
