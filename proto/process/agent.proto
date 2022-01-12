@@ -1066,7 +1066,9 @@ enum ResourceRequirementsType {
 message JobSpec {
 	int32 parallelism = 1;
 	int32 completions = 2;
-	int64 activeDeadlineSeconds = 3;
+	oneof activeDeadlineSeconds{
+		int64 activeDeadlineSecondsValue = 3;
+	}
 	int32 backoffLimit = 4;
 	repeated LabelSelectorRequirement selectors = 5;
 	bool manualSelector = 6;
