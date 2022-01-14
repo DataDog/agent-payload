@@ -1430,6 +1430,8 @@ enum KernelHeaderFetchResult {
 	DownloadSuccess = 5;
 	HostVersionErr = 6;
 	DownloadFailure = 7;
+	ValidationFailure = 8;
+	ReposDirAccessFailure = 9;
 }
 
 message RuntimeCompilationTelemetry {
