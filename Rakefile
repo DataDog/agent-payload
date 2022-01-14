@@ -70,6 +70,9 @@ BASH
 
       echo "Generating contlcycle proto"
       PATH=/tmp/gogo-bin-v1.0.0 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src proto/contlcycle/contlcycle.proto
+
+      cp -r v5/* .
+      rm -rf v5
 BASH
     EOF
   end
