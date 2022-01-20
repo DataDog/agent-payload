@@ -971,6 +971,7 @@ message Deployment {
 	int32 availableReplicas = 11;
 	int32 unavailableReplicas = 12;
 	string conditionMessage = 13;
+	repeated ResourceRequirements resourceRequirements = 16;
 	bytes yaml = 14;
 	repeated string tags = 15;
 }
@@ -986,6 +987,7 @@ message ReplicaSet {
 	int32 fullyLabeledReplicas = 5;
 	int32 readyReplicas = 6;
 	int32 availableReplicas = 7;
+	repeated ResourceRequirements resourceRequirements = 10;
 	bytes yaml = 8;
 	repeated string tags = 9;
 }
@@ -1123,6 +1125,7 @@ message DaemonSetSpec {
 	string maxUnavailable = 3; // int or str
 	int32 minReadySeconds = 4;
 	int32 revisionHistoryLimit = 5;
+	repeated ResourceRequirements resourceRequirements = 6;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L152
@@ -1153,6 +1156,7 @@ message StatefulSetSpec {
 	string podManagementPolicy = 4;
 	string updateStrategy = 5;
 	int32 partition = 6;
+	repeated ResourceRequirements resourceRequirements = 7;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L647
