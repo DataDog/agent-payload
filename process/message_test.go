@@ -50,6 +50,12 @@ func TestMessageTypeString(t *testing.T) {
 		TypeCollectorStatefulSet:           "stateful-set",
 		TypeCollectorPersistentVolume:      "persistent-volume",
 		TypeCollectorPersistentVolumeClaim: "persistent-volume-claim",
+		TypeCollectorRole:                  "role",
+		TypeCollectorRoleBinding:           "role-binding",
+		TypeCollectorClusterRole:           "cluster-role",
+		TypeCollectorClusterRoleBinding:    "cluster-role-binding",
+		TypeCollectorServiceAccount:        "service-account",
+		TypeCollectorIngress:               "ingress",
 		TypeCollectorProcDiscovery:         "process-discovery",
 		TypeResCollector:                   "23",
 	}
