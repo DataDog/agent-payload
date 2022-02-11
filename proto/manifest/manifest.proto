@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package manifest;
+
+option go_package = "github.com/DataDog/agent-payload/v5/manifest";
+
+message ManifestPayload {
+	string version = 1;
+	string clusterName = 2;
+	string clusterId = 3;
+	repeated Manifest manifests = 4;
+}
+
+message Manifest {
+	string type = 1;
+	string uid = 2;
+	bytes content = 3;
+	string contentType = 4;
+}
