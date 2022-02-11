@@ -88,9 +88,9 @@ message CollectorConnections {
 	ContainerHostType containerHostType = 15;
 
 	// For now, we'll keep emitting telemetry from agents < 7.35
-	CollectorConnectionsTelemetry connTelemetryPre735 = 16;
+	CollectorConnectionsTelemetry connTelemetry = 16;
 
-	map<string,int64> connTelemetry = 39;
+	map<string,int64> connTelemetryMap = 39;
 
 	// OS Telemetry
 	string architecture = 17;
