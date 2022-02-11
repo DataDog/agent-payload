@@ -88,9 +88,9 @@ message CollectorConnections {
 	ContainerHostType containerHostType = 15;
 
 	// For now, we'll keep emitting telemetry from agents < 7.35
-	CollectorConnectionsTelemetry connTelemetryPre735 = 16;
+	CollectorConnectionsTelemetry connTelemetry = 16;
 
-	map<string,int64> connTelemetry = 39;
+	map<string,int64> connTelemetryMap = 39;
 
 	// OS Telemetry
 	string architecture = 17;
@@ -714,13 +714,13 @@ message Connections {
 	repeated Connection conns = 1;
 	map<string, DNSEntry> dns  = 2;
 	// For now, we'll keep emitting telemetry from agents < 7.35
-	ConnectionsTelemetry connTelemetryPre735 = 3;
+	ConnectionsTelemetry connTelemetry = 3;
 	repeated string domains = 4;
 	repeated Route routes = 5;
 	map<string, RuntimeCompilationTelemetry> compilationTelemetryByAsset = 6;
 	AgentConfiguration agentConfiguration = 7;
 	repeated string tags = 8;
-	map<string, int64> connTelemetry = 9;
+	map<string, int64> connTelemetryMap = 9;
 }
 
 message Addr {
