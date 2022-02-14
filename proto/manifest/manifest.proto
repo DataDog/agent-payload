@@ -12,8 +12,8 @@ message ManifestPayload {
 }
 
 message Manifest {
-	string type = 1;
+	int64 type = 1;
 	string uid = 2;
 	bytes content = 3;
-	int64 contentType = 4;
+	string contentType = 4;
 }

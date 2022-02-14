@@ -71,10 +71,10 @@ func (m *ManifestPayload) GetManifests() []*Manifest {
 }
 
 type Manifest struct {
-	Type        string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Type        int64  `protobuf:"varint,1,opt,name=type,proto3" json:"type,omitempty"`
 	Uid         string `protobuf:"bytes,2,opt,name=uid,proto3" json:"uid,omitempty"`
 	Content     []byte `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty"`
-	ContentType int64  `protobuf:"varint,4,opt,name=contentType,proto3" json:"contentType,omitempty"`
+	ContentType string `protobuf:"bytes,4,opt,name=contentType,proto3" json:"contentType,omitempty"`
 }
 
 func (m *Manifest) Reset()                    { *m = Manifest{} }
@@ -82,11 +82,11 @@ func (m *Manifest) String() string            { return proto.CompactTextString(m
 func (*Manifest) ProtoMessage()               {}
 func (*Manifest) Descriptor() ([]byte, []int) { return fileDescriptorManifest, []int{1} }
 
-func (m *Manifest) GetType() string {
+func (m *Manifest) GetType() int64 {
 	if m != nil {
 		return m.Type
 	}
-	return ""
+	return 0
 }
 
 func (m *Manifest) GetUid() string {
@@ -103,11 +103,11 @@ func (m *Manifest) GetContent() []byte {
 	return nil
 }
 
-func (m *Manifest) GetContentType() int64 {
+func (m *Manifest) GetContentType() string {
 	if m != nil {
 		return m.ContentType
 	}
-	return 0
+	return ""
 }
 
 func init() {
@@ -177,11 +177,10 @@ func (m *Manifest) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.Type) > 0 {
-		dAtA[i] = 0xa
+	if m.Type != 0 {
+		dAtA[i] = 0x8
 		i++
-		i = encodeVarintManifest(dAtA, i, uint64(len(m.Type)))
-		i += copy(dAtA[i:], m.Type)
+		i = encodeVarintManifest(dAtA, i, uint64(m.Type))
 	}
 	if len(m.Uid) > 0 {
 		dAtA[i] = 0x12
@@ -195,10 +194,11 @@ func (m *Manifest) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintManifest(dAtA, i, uint64(len(m.Content)))
 		i += copy(dAtA[i:], m.Content)
 	}
-	if m.ContentType != 0 {
-		dAtA[i] = 0x20
+	if len(m.ContentType) > 0 {
+		dAtA[i] = 0x22
 		i++
-		i = encodeVarintManifest(dAtA, i, uint64(m.ContentType))
+		i = encodeVarintManifest(dAtA, i, uint64(len(m.ContentType)))
+		i += copy(dAtA[i:], m.ContentType)
 	}
 	return i, nil
 }
@@ -239,9 +239,8 @@ func (m *ManifestPayload) Size() (n int) {
 func (m *Manifest) Size() (n int) {
 	var l int
 	_ = l
-	l = len(m.Type)
-	if l > 0 {
-		n += 1 + l + sovManifest(uint64(l))
+	if m.Type != 0 {
+		n += 1 + sovManifest(uint64(m.Type))
 	}
 	l = len(m.Uid)
 	if l > 0 {
@@ -251,8 +250,9 @@ func (m *Manifest) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovManifest(uint64(l))
 	}
-	if m.ContentType != 0 {
-		n += 1 + sovManifest(uint64(m.ContentType))
+	l = len(m.ContentType)
+	if l > 0 {
+		n += 1 + l + sovManifest(uint64(l))
 	}
 	return n
 }
@@ -468,10 +468,10 @@ func (m *Manifest) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 2 {
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
 			}
-			var stringLen uint64
+			m.Type = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowManifest
@@ -481,21 +481,11 @@ func (m *Manifest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= (uint64(b) & 0x7F) << shift
+				m.Type |= (int64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthManifest
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Type = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Uid", wireType)
@@ -557,10 +547,10 @@ func (m *Manifest) Unmarshal(dAtA []byte) error {
 			}
 			iNdEx = postIndex
 		case 4:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ContentType", wireType)
 			}
-			m.ContentType = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowManifest
@@ -570,11 +560,21 @@ func (m *Manifest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ContentType |= (int64(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthManifest
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContentType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipManifest(dAtA[iNdEx:])
@@ -704,7 +704,7 @@ var (
 func init() { proto.RegisterFile("proto/manifest/manifest.proto", fileDescriptorManifest) }
 
 var fileDescriptorManifest = []byte{
-	// 256 bytes of a gzipped FileDescriptorProto
+	// 255 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x2d, 0x28, 0xca, 0x2f,
 	0xc9, 0xd7, 0xcf, 0x4d, 0xcc, 0xcb, 0x4c, 0x4b, 0x2d, 0x2e, 0x81, 0x33, 0xf4, 0xc0, 0xe2, 0x42,
 	0x1c, 0x30, 0xbe, 0xd2, 0x5c, 0x46, 0x2e, 0x7e, 0x5f, 0x28, 0x27, 0x20, 0xb1, 0x32, 0x27, 0x3f,
@@ -713,12 +713,12 @@ var fileDescriptorManifest = []byte{
 	0xf2, 0x4b, 0xcc, 0x4d, 0x95, 0x60, 0x02, 0xcb, 0x22, 0x0b, 0x09, 0xc9, 0x70, 0x71, 0x42, 0xb9,
 	0x9e, 0x29, 0x12, 0xcc, 0x60, 0x79, 0x84, 0x80, 0x90, 0x01, 0x17, 0x27, 0xcc, 0xe6, 0x62, 0x09,
 	0x16, 0x05, 0x66, 0x0d, 0x6e, 0x23, 0x21, 0x3d, 0xb8, 0xdb, 0x60, 0xee, 0x08, 0x42, 0x28, 0x52,
-	0xca, 0xe1, 0xe2, 0x80, 0x09, 0x0b, 0x09, 0x71, 0xb1, 0x94, 0x54, 0x16, 0xa4, 0x42, 0x1d, 0x05,
-	0x66, 0x0b, 0x09, 0x70, 0x31, 0x97, 0x66, 0xa6, 0x40, 0x5d, 0x02, 0x62, 0x82, 0x5c, 0x9f, 0x9c,
-	0x9f, 0x57, 0x92, 0x9a, 0x57, 0x02, 0xb6, 0x9f, 0x27, 0x08, 0xc6, 0x05, 0xbb, 0x1e, 0xc2, 0x0c,
-	0x01, 0x19, 0xc3, 0xa2, 0xc0, 0xa8, 0xc1, 0x1c, 0x84, 0x2c, 0xe4, 0x64, 0x75, 0xe2, 0x91, 0x1c,
-	0xe3, 0x85, 0x47, 0x72, 0x8c, 0x0f, 0x1e, 0xc9, 0x31, 0x46, 0xe9, 0xa4, 0x67, 0x96, 0x64, 0x94,
-	0x26, 0xe9, 0x25, 0xe7, 0xe7, 0xea, 0xbb, 0x24, 0x96, 0x24, 0xba, 0xe4, 0xa7, 0xeb, 0x27, 0xa6,
-	0xa7, 0xe6, 0x95, 0xe8, 0x16, 0x40, 0x42, 0x4a, 0xbf, 0xcc, 0x14, 0x1e, 0xb2, 0x49, 0x6c, 0xe0,
-	0xa0, 0x35, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0x85, 0x2f, 0xd8, 0x18, 0x7b, 0x01, 0x00, 0x00,
+	0xca, 0xe1, 0xe2, 0x80, 0x09, 0x0b, 0x09, 0x71, 0xb1, 0x94, 0x54, 0x16, 0xa4, 0x82, 0x1d, 0xc5,
+	0x1c, 0x04, 0x66, 0x0b, 0x09, 0x70, 0x31, 0x97, 0x66, 0xa6, 0x40, 0x5d, 0x02, 0x62, 0x82, 0x5c,
+	0x9f, 0x9c, 0x9f, 0x57, 0x92, 0x9a, 0x57, 0x02, 0xb6, 0x9f, 0x27, 0x08, 0xc6, 0x05, 0xbb, 0x1e,
+	0xc2, 0x0c, 0x01, 0x19, 0xc3, 0x02, 0x75, 0x3d, 0x42, 0xc8, 0xc9, 0xea, 0xc4, 0x23, 0x39, 0xc6,
+	0x0b, 0x8f, 0xe4, 0x18, 0x1f, 0x3c, 0x92, 0x63, 0x8c, 0xd2, 0x49, 0xcf, 0x2c, 0xc9, 0x28, 0x4d,
+	0xd2, 0x4b, 0xce, 0xcf, 0xd5, 0x77, 0x49, 0x2c, 0x49, 0x74, 0xc9, 0x4f, 0xd7, 0x4f, 0x4c, 0x4f,
+	0xcd, 0x2b, 0xd1, 0x2d, 0x80, 0x84, 0x94, 0x7e, 0x99, 0x29, 0x3c, 0x64, 0x93, 0xd8, 0xc0, 0x41,
+	0x6b, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0x43, 0x8e, 0xae, 0xe9, 0x7b, 0x01, 0x00, 0x00,
 }
