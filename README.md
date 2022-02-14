@@ -32,5 +32,5 @@ The following implementations are available:
 
 After updating the IDL you must:
 
-- Regenerate the code: `rake codegen`
+- Regenerate the code: `GOPATH=$(go env GOPATH) rake codegen`
 - Create a new tag with the updated version of the payload

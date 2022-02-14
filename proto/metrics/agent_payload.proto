@@ -17,9 +17,10 @@ message CommonMetadata {
 
 message MetricPayload {
     enum MetricType {
-        GAUGE = 0;
+        UNSPECIFIED = 0;
         COUNT = 1;
         RATE = 2;
+        GAUGE = 3;
     }
 
     message MetricPoint {

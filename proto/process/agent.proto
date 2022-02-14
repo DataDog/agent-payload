@@ -56,7 +56,7 @@ message CollectorProcDiscovery {
 message CollectorConnections {
 	reserved 1, 4, 13, 32, 33;
 	// Please update when adding fields
-	// next identifier:  39
+	// next identifier:  40
 
 	string hostName = 2;
 	string networkId = 12;
@@ -87,7 +87,10 @@ message CollectorConnections {
 
 	ContainerHostType containerHostType = 15;
 
+	// For now, we'll keep emitting telemetry from agents < 7.35
 	CollectorConnectionsTelemetry connTelemetry = 16;
+
+	map<string,int64> connTelemetryMap = 39;
 
 	// OS Telemetry
 	string architecture = 17;
@@ -339,6 +342,15 @@ message CollectorServiceAccount {
 	int32 groupId = 3;
 	int32 groupSize = 4;
 	repeated ServiceAccount serviceAccounts = 5;
+	repeated string tags = 6;
+}
+
+message CollectorIngress {
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated Ingress ingresses = 5;
 	repeated string tags = 6;
 }
 
@@ -701,12 +713,14 @@ message Connection {
 message Connections {
 	repeated Connection conns = 1;
 	map<string, DNSEntry> dns  = 2;
+	// For now, we'll keep emitting telemetry from agents < 7.35
 	ConnectionsTelemetry connTelemetry = 3;
 	repeated string domains = 4;
 	repeated Route routes = 5;
 	map<string, RuntimeCompilationTelemetry> compilationTelemetryByAsset = 6;
 	AgentConfiguration agentConfiguration = 7;
 	repeated string tags = 8;
+	map<string, int64> connTelemetryMap = 9;
 }
 
 message Addr {
@@ -971,6 +985,7 @@ message Deployment {
 	int32 availableReplicas = 11;
 	int32 unavailableReplicas = 12;
 	string conditionMessage = 13;
+	repeated ResourceRequirements resourceRequirements = 16;
 	bytes yaml = 14;
 	repeated string tags = 15;
 }
@@ -986,6 +1001,7 @@ message ReplicaSet {
 	int32 fullyLabeledReplicas = 5;
 	int32 readyReplicas = 6;
 	int32 availableReplicas = 7;
+	repeated ResourceRequirements resourceRequirements = 10;
 	bytes yaml = 8;
 	repeated string tags = 9;
 }
@@ -1123,6 +1139,7 @@ message DaemonSetSpec {
 	string maxUnavailable = 3; // int or str
 	int32 minReadySeconds = 4;
 	int32 revisionHistoryLimit = 5;
+	repeated ResourceRequirements resourceRequirements = 6;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L152
@@ -1153,6 +1170,7 @@ message StatefulSetSpec {
 	string podManagementPolicy = 4;
 	string updateStrategy = 5;
 	int32 partition = 6;
+	repeated ResourceRequirements resourceRequirements = 7;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L647
@@ -1266,7 +1284,7 @@ message PolicyRule {
 	repeated string nonResourceURLs = 5;
 }
 
-// refrence https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/rbac/v1/generated.proto#L180
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/rbac/v1/generated.proto#L180
 message Subject {
 	string kind = 1;
 	string apiGroup = 2;
@@ -1317,6 +1335,77 @@ message ServiceAccount {
 	bool automountServiceAccountToken = 4;
 	bytes yaml = 5;
 	repeated string tags = 6;
+}
+
+// reference https://github.com/kubernetes/api/blob/v0.21.5/networking/v1/generated.proto#L259
+// Note: ServiceBackendPort (contains port name and number) is flattened.
+message IngressServiceBackend {
+	string serviceName = 1;
+	string portName = 2;
+	int32 portNumber = 3;
+}
+
+// reference https://github.com/kubernetes/api/blob/v0.21.5/networking/v1/generated.proto#L112
+message IngressBackend {
+	IngressServiceBackend service = 1;
+	TypedLocalObjectReference resource = 2;
+}
+
+// reference https://github.com/kubernetes/api/blob/v0.21.5/networking/v1/generated.proto#L315
+message IngressTLS {
+	repeated string hosts = 1;
+	string secretName = 2;
+}
+
+// reference https://github.com/kubernetes/api/blob/v0.21.5/networking/v1/generated.proto#L35
+message HTTPIngressPath {
+	string path = 1;
+	string pathType = 3;
+	IngressBackend backend = 2;
+}
+
+// reference https://github.com/kubernetes/api/blob/v0.21.5/networking/v1/generated.proto#L214
+// Note: IngressRuleValue and HTTPIngressRuleValue are flattened
+message IngressRule {
+	string host = 1;
+	repeated HTTPIngressPath httpPaths = 2;
+}
+
+// reference https://github.com/kubernetes/api/blob/v0.21.5/networking/v1/generated.proto#L270
+message IngressSpec {
+	IngressBackend defaultBackend = 1;
+	repeated IngressTLS tls = 2;
+	repeated IngressRule rules = 3;
+	string ingressClassName = 4;
+}
+
+// reference https://github.com/kubernetes/api/blob/v0.21.5/core/v1/generated.proto#L3781
+message PortStatus {
+	int32 port = 1;
+	string protocol = 2;
+	string error = 3;
+}
+
+// reference https://github.com/kubernetes/api/blob/v0.21.5/core/v1/generated.proto#L2024
+message LoadBalancerIngress {
+	string ip = 1;
+	string hostname = 2;
+	repeated PortStatus ports = 4;
+}
+
+// reference https://github.com/kubernetes/api/blob/v0.21.5/networking/v1/generated.proto#L308
+// LoadBalancerStatus is flattened
+message IngressStatus {
+	repeated LoadBalancerIngress ingress = 1;
+}
+
+// reference https://github.com/kubernetes/api/blob/v0.21.5/networking/v1/generated.proto#L94
+message Ingress {
+	Metadata metadata = 1;
+	IngressSpec spec = 2;
+	IngressStatus status = 3;
+	bytes yaml = 4;
+	repeated string tags = 5;
 }
 
 message ConnectionsTelemetry {
