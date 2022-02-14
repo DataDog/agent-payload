@@ -15,5 +15,5 @@ message Manifest {
 	string type = 1;
 	string uid = 2;
 	bytes content = 3;
-	string contentType = 4;
+	int64 contentType = 4;
 }
