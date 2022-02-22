@@ -77,13 +77,8 @@ message CollectorConnections {
 	// Mapping of processes running in each container
 	map<int32, string> containerForPid = 10;
 
-	// encoded bytes here are use to store a tags []string
-	// the tags encoder is more space efficient than protobuf
 	bytes encodedTags = 11;
 
-
-	// All tags indexed by Connection.tags
-	bytes encodedConnectionsTags = 38;
 
 	ContainerHostType containerHostType = 15;
 
@@ -641,7 +636,7 @@ enum EphemeralPortState {
 message Connection {
 	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 35;
 	// Please update when adding fields
-	// next identifier:  46
+	// next identifier:  44
 
 
 	int32 pid = 1;
@@ -702,12 +697,6 @@ message Connection {
 
 	// serialized HTTPAggregations object summarizing all http transactions recorded for this connection, organized by request path
 	bytes httpAggregations = 37;
-
-	// The stored values corresponds to an index into the `Connections.tags` field
-	repeated uint32 tags = 44;
-
-	// the tags index of encodedConnectionsTags (from process.tagsV2.Encode())
-	int32 tagsIdx = 45;
 }
 
 message Connections {
@@ -719,7 +708,6 @@ message Connections {
 	repeated Route routes = 5;
 	map<string, RuntimeCompilationTelemetry> compilationTelemetryByAsset = 6;
 	AgentConfiguration agentConfiguration = 7;
-	repeated string tags = 8;
 	map<string, int64> connTelemetryMap = 9;
 }
 
