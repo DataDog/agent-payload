@@ -381,6 +381,7 @@ message Process {
 	bytes byteKey = 18;
 	bytes containerByteKey = 19;
 	ProcessNetworks networks = 21;
+	repeated string tags = 22;
 }
 
 message ProcessDiscovery {
