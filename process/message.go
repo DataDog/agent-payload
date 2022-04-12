@@ -218,8 +218,6 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorNode{}
 	case TypeCollectorCluster:
 		m = &CollectorCluster{}
-	case TypeCollectorManifest:
-		m = &CollectorManifest{}
 	case TypeCollectorJob:
 		m = &CollectorJob{}
 	case TypeCollectorCronJob:
@@ -326,8 +324,10 @@ func EncodeMessage(m Message) ([]byte, error) {
 	}
 
 	b := new(bytes.Buffer)
-	if _, err := b.Write(hb); err != nil {
-		return nil, err
+	if m.Header.Type != TypeCollectorManifest {
+		if _, err := b.Write(hb); err != nil {
+			return nil, err
+		}
 	}
 
 	var p []byte
