@@ -62,7 +62,7 @@ func (m *CollectorConnections) GetDNS(addr *Addr) (string, []string, error) {
 	return "", nil, fmt.Errorf("No DNS encoded information")
 }
 
-// IterateDNS iterates over all of the DNS entries for the given addr, invoking the provided callback for each one
+// IterateDNS iterates over all the DNS entries for the given addr, invoking the provided callback for each one
 func (m *CollectorConnections) IterateDNS(addr *Addr, cb func(i, total int, entry string) bool) error {
 	if m.EncodedDNS != nil {
 		return IterateDNS(m.EncodedDNS, addr.Ip, cb)
@@ -73,6 +73,32 @@ func (m *CollectorConnections) IterateDNS(addr *Addr, cb func(i, total int, entr
 			s, err := getDNSNameFromListByOffset(m.EncodedDomainDatabase, int(offset))
 			if err == nil {
 				return cb(i, total, s)
+			}
+			iterError = err
+			return false
+		})
+		if err != nil {
+			return err
+		}
+		if iterError != nil {
+			return iterError
+		}
+	}
+	return nil
+}
+
+// UnsafeIterateDNS iterates over all the DNS entries for the given addr, invoking the provided callback for each one
+// The entry returned is only valid for the lifetime of the fields in this message
+func (m *CollectorConnections) UnsafeIterateDNS(addr *Addr, cb func(i, total int, entry []byte) bool) error {
+	if m.EncodedDNS != nil {
+		return UnsafeIterateDNS(m.EncodedDNS, addr.Ip, cb)
+	}
+	if m.EncodedDnsLookups != nil && m.EncodedDomainDatabase != nil {
+		var iterError error
+		err := UnsafeIterateDNSV2(m.EncodedDnsLookups, addr.Ip, func(i, total int, offset int32) bool {
+			b, err := getDNSNameAsByteSliceByOffset(m.EncodedDomainDatabase, int(offset))
+			if err == nil {
+				return cb(i, total, b)
 			}
 			iterError = err
 			return false
@@ -103,8 +129,4 @@ func (m *CollectorConnections) GetDNSNameByOffset(off int32) (string, error) {
 		return "", fmt.Errorf("no domain database")
 	}
 	return getDNSNameFromListByOffset(m.EncodedDomainDatabase, int(off))
-}
-
-func (m *CollectorConnections) GetConnectionsTags(tagIndex int32) []string {
-	return getTags(m.EncodedConnectionsTags, int(tagIndex))
 }
