@@ -1524,6 +1524,7 @@ message RouteMetadata {
 	string alias = 1;
 	int32 tagIndex = 2;
 	int64 tagsModified = 3;
+	repeated string tags = 4; // Used only on the backend
 }
 
 message AgentConfiguration {
