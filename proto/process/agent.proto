@@ -1456,6 +1456,7 @@ message HTTPAggregations {
 message HTTPStats {
 	string path = 4;
 	HTTPMethod method = 5;
+	bool fullPath = 6;
 
 	repeated Data statsByResponseStatus = 1;
 
