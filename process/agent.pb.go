@@ -3719,8 +3719,13 @@ func (m *HTTPAggregations) GetEndpointAggregations() []*HTTPStats {
 }
 
 type HTTPStats struct {
-	Path                  string            `protobuf:"bytes,4,opt,name=path,proto3" json:"path,omitempty"`
-	Method                HTTPMethod        `protobuf:"varint,5,opt,name=method,proto3,enum=datadog.process_agent.HTTPMethod" json:"method,omitempty"`
+	Path   string     `protobuf:"bytes,4,opt,name=path,proto3" json:"path,omitempty"`
+	Method HTTPMethod `protobuf:"varint,5,opt,name=method,proto3,enum=datadog.process_agent.HTTPMethod" json:"method,omitempty"`
+	// The agent can only read a limited part of the http header because
+	// of cpu/memory contraints. It is thus possible that the path is not
+	// read entirely.
+	// In case we're sure we've read the http path entirely, fullPath will
+	// be set to true. In any other cases, it would be set to false.
 	FullPath              bool              `protobuf:"varint,6,opt,name=fullPath,proto3" json:"fullPath,omitempty"`
 	StatsByResponseStatus []*HTTPStats_Data `protobuf:"bytes,1,rep,name=statsByResponseStatus" json:"statsByResponseStatus,omitempty"`
 }
