@@ -1457,6 +1457,13 @@ message HTTPStats {
 	string path = 4;
 	HTTPMethod method = 5;
 
+	// The agent can only read a limited part of the http header because
+	// of cpu/memory contraints. It is thus possible that the path is not
+	// read entirely.
+	// In case we're sure we've read the http path entirely, fullPath will
+	// be set to true. In any other cases, it would be set to false.
+	bool fullPath = 6;
+
 	repeated Data statsByResponseStatus = 1;
 
 	message Data {
