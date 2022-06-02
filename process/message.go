@@ -109,6 +109,7 @@ const (
 	TypeCollectorClusterRoleBinding    = 57
 	TypeCollectorServiceAccount        = 58
 	TypeCollectorIngress               = 59
+	TypeCollectorProcEvent             = 60
 	TypeCollectorManifest              = 80
 )
 
@@ -162,6 +163,8 @@ func (m MessageType) String() string {
 		return "service-account"
 	case TypeCollectorIngress:
 		return "ingress"
+	case TypeCollectorProcEvent:
+		return "process-event"
 	case TypeCollectorManifest:
 		return "manifest"
 	default:
@@ -246,6 +249,8 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorServiceAccount{}
 	case TypeCollectorIngress:
 		m = &CollectorIngress{}
+	case TypeCollectorProcEvent:
+		m = &CollectorProcEvent{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -311,6 +316,8 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorServiceAccount
 	case *CollectorIngress:
 		t = TypeCollectorIngress
+	case *CollectorProcEvent:
+		t = TypeCollectorProcEvent
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}

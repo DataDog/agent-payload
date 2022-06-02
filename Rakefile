@@ -66,7 +66,7 @@ BASH
       popd
 
       echo "Generating process proto"
-      PATH=/tmp/gogo-bin-d76fbc1373015ced59b43ac267f28d546b955683 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofaster_out=$GOPATH/src proto/process/agent.proto
+      PATH=/tmp/gogo-bin-d76fbc1373015ced59b43ac267f28d546b955683 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofaster_out=$GOPATH/src proto/process/*.proto
 
       echo "Generating contlcycle proto"
       PATH=/tmp/gogo-bin-v1.0.0 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src proto/contlcycle/contlcycle.proto

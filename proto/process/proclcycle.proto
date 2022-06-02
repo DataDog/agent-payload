@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option go_package = "github.com/DataDog/agent-payload/v5/process";
+
+import "proto/process/agent.proto";
+
+package datadog.process_agent;
+
+// CollectorProcEvent is a payload used to send a batch of process lifecycle events
+message CollectorProcEvent {
+	string hostname = 1;
+	Host host = 2;
+	SystemInfo info = 3;
+	repeated ProcessEvent events = 4;
+	int32 groupId = 5;
+	int32 groupSize = 6;
+}
+
+// ProcEventType is a type of process lifecycle event collected by the process-agent
+enum ProcEventType {
+	exec = 0;
+	exit = 1;
+}
+
+// ProcessEvent holds information about a process lifeycle event
+message ProcessEvent {
+	ProcEventType type = 1;
+	int64 collectionTime = 2;
+	uint32 pid = 3;
+	Command command = 4;
+	ProcessUser user = 5;
+	Host host = 6; // post-resolution
+	string containerId = 7;
+	oneof typedEvent {
+		ProcessExec exec = 8;
+		ProcessExit exit = 9;
+	}
+}
+
+// ProcessExec holds information specific to exec events
+message ProcessExec {
+	int64 forkTime = 1;
+	int64 execTime = 2;
+}
+
+// ProcessExit holds information specific to exit events
+message ProcessExit {
+	int32 exitCode = 1;
+	int64 execTime = 2;
+	int64 exitTime = 3;
+}

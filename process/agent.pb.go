@@ -7,6 +7,7 @@
 
 	It is generated from these files:
 		proto/process/agent.proto
+		proto/process/proclcycle.proto
 
 	It has these top-level messages:
 		ResCollector
@@ -133,6 +134,10 @@
 		RouteMetadata
 		AgentConfiguration
 		DNSDatabaseEntry
+		CollectorProcEvent
+		ProcessEvent
+		ProcessExec
+		ProcessExit
 */
 package process
 
