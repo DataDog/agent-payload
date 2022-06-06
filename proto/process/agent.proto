@@ -446,6 +446,7 @@ enum ContainerHealth {
 
 // ContainerAddr records the IPs, Ports and Protocols for each container
 message ContainerAddr {
+	IPAddress ipAddr = 4;
 	string ip = 1;
 	int32 port = 2;
 	ConnectionType protocol = 3;
