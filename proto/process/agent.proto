@@ -448,7 +448,7 @@ enum ContainerHealth {
 
 // ContainerAddr records the IPs, Ports and Protocols for each container
 message ContainerAddr {
-	IPAddress ipAddr = 4 [(gogoproto.nullable) = false];
+	bytes ipAddr = 4 [(gogoproto.customtype) = "IP", (gogoproto.nullable) = false];
 	string ip = 1;
 	int32 port = 2;
 	ConnectionType protocol = 3;
@@ -729,7 +729,7 @@ message Connections {
 message Addr {
 	reserved 1, 4;
 
-	IPAddress ipAddr = 7 [(gogoproto.nullable) = false];
+	bytes ipAddr = 7 [(gogoproto.customtype) = "IP", (gogoproto.nullable) = false];
 	string ip = 2;
 	int32  port = 3;
 	string containerId = 5; // post-resolution field
@@ -746,9 +746,9 @@ message Subnet {
 
 message IPTranslation {
 	string replSrcIP  = 1;
-	IPAddress replSrcIPAddr = 5 [(gogoproto.nullable) = false];
+	bytes replSrcIPAddr = 5 [(gogoproto.customtype) = "IP", (gogoproto.nullable) = false];
 	string replDstIP  = 2;
-	IPAddress replDstIPAddr = 6 [(gogoproto.nullable) = false];
+	bytes replDstIPAddr = 6 [(gogoproto.customtype) = "IP", (gogoproto.nullable) = false];
 	int32 replSrcPort = 3;
 	int32 replDstPort = 4;
 }
@@ -1561,9 +1561,4 @@ message AgentConfiguration {
 // List of offsets into the EncodedDomainDatabase.
 message DNSDatabaseEntry {
 	repeated int32 nameOffsets = 1;
-}
-
-message IPAddress {
-	uint64 low = 1;
-	uint64 high = 2;
 }
