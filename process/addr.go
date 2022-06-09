@@ -45,7 +45,7 @@ func (t IP) MarshalJSON() ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	return json.Marshal(b)
+	return json.Marshal(string(b))
 }
 
 func (t *IP) UnmarshalJSON(data []byte) error {
