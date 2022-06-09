@@ -1,6 +1,9 @@
 package process
 
-import "inet.af/netaddr"
+import (
+	"encoding/json"
+	"inet.af/netaddr"
+)
 
 type IP struct {
 	netaddr.IP
@@ -38,9 +41,18 @@ func (t *IP) Size() int {
 }
 
 func (t IP) MarshalJSON() ([]byte, error) {
-	return t.IP.MarshalText()
+	b, err := t.IP.MarshalText()
+	if err != nil {
+		return nil, err
+	}
+	return json.Marshal(b)
 }
 
 func (t *IP) UnmarshalJSON(data []byte) error {
-	return t.IP.UnmarshalText(data)
+	var ip string
+	err := json.Unmarshal(data, &ip)
+	if err != nil {
+		return err
+	}
+	return t.IP.UnmarshalText([]byte(ip))
 }
