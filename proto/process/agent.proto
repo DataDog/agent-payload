@@ -4,6 +4,8 @@ option go_package = "github.com/DataDog/agent-payload/v5/process";
 
 package datadog.process_agent;
 
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
 //
 // Message Types
 //
@@ -446,7 +448,7 @@ enum ContainerHealth {
 
 // ContainerAddr records the IPs, Ports and Protocols for each container
 message ContainerAddr {
-	IPAddress ipAddr = 4;
+	IPAddress ipAddr = 4 [(gogoproto.nullable) = false];
 	string ip = 1;
 	int32 port = 2;
 	ConnectionType protocol = 3;
@@ -727,7 +729,7 @@ message Connections {
 message Addr {
 	reserved 1, 4;
 
-	IPAddress ipAddr = 7;
+	IPAddress ipAddr = 7 [(gogoproto.nullable) = false];
 	string ip = 2;
 	int32  port = 3;
 	string containerId = 5; // post-resolution field
@@ -744,9 +746,9 @@ message Subnet {
 
 message IPTranslation {
 	string replSrcIP  = 1;
-	IPAddress replSrcIPAddr = 5;
+	IPAddress replSrcIPAddr = 5 [(gogoproto.nullable) = false];
 	string replDstIP  = 2;
-	IPAddress replDstIPAddr = 6;
+	IPAddress replDstIPAddr = 6 [(gogoproto.nullable) = false];
 	int32 replSrcPort = 3;
 	int32 replDstPort = 4;
 }
