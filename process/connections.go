@@ -130,3 +130,8 @@ func (m *CollectorConnections) GetDNSNameByOffset(off int32) (string, error) {
 	}
 	return getDNSNameFromListByOffset(m.EncodedDomainDatabase, int(off))
 }
+
+// GetConnectionsTags get tags for a connection
+func (m *CollectorConnections) GetConnectionsTags(tagIndex int32) []string {
+	return getTags(m.EncodedConnectionsTags, int(tagIndex))
+}
