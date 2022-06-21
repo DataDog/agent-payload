@@ -7,7 +7,7 @@
 
 	It is generated from these files:
 		proto/process/agent.proto
-		proto/process/proclcycle.proto
+		proto/process/events.proto
 
 	It has these top-level messages:
 		ResCollector

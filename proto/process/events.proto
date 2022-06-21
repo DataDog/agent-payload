@@ -45,7 +45,7 @@ message ProcessExec {
 
 // ProcessExit holds information specific to exit events
 message ProcessExit {
-	int32 exitCode = 1;
-	int64 execTime = 2;
-	int64 exitTime = 3;
+	int64 execTime = 1;
+	int64 exitTime = 2;
+	int32 exitCode = 3;
 }
