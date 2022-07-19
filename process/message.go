@@ -331,10 +331,8 @@ func EncodeMessage(m Message) ([]byte, error) {
 	}
 
 	b := new(bytes.Buffer)
-	if m.Header.Type != TypeCollectorManifest {
-		if _, err := b.Write(hb); err != nil {
-			return nil, err
-		}
+	if _, err := b.Write(hb); err != nil {
+		return nil, err
 	}
 
 	var p []byte
