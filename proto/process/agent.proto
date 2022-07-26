@@ -126,6 +126,8 @@ message CollectorConnections {
 	// via V2DNSEncoder.EncodeMapped.  Full buffer description provided there.
 	bytes encodedDnsLookups = 37;
 
+	map<string, Host> resolvedHostsByName = 40; // Post-resolution field
+
 }
 
 message CollectorRealTime {
@@ -729,7 +731,8 @@ message Addr {
 	string ip = 2;
 	int32  port = 3;
 	string containerId = 5; // post-resolution field
-	int64  hostId = 6;	// post-resolution field
+	int64  hostId = 6;	// post-resolution field (deprecated, will be removed in a future version)
+	string hostName = 7; // post-resolution field
 }
 
 message Route {
