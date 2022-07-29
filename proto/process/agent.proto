@@ -1533,6 +1533,7 @@ enum KernelHeaderFetchResult {
 	DownloadFailure = 7;
 	ValidationFailure = 8;
 	ReposDirAccessFailure = 9;
+	HeadersNotFoundDownloadDisabled = 10;
 }
 
 message RuntimeCompilationTelemetry {
