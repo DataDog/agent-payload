@@ -710,6 +710,9 @@ message Connection {
 
 	// the tags index of encodedConnectionsTags (from process.tagsV2.Encode())
 	int32 tagsIdx = 45;
+
+	// Used for offset state management (backend)
+	uint32 stateIndex = 46;
 }
 
 message Connections {
