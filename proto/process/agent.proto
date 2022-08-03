@@ -1050,8 +1050,8 @@ message ContainerStatus {
 }
 
 message Manifest {
-	string orchestrator = 1;
-	string type = 2;
+	int32 type = 1;
+	string resourceVersion = 2;
 	string uid = 3;
 	bytes content = 4;
 	string contentType = 5;
@@ -1536,6 +1536,7 @@ enum KernelHeaderFetchResult {
 	DownloadFailure = 7;
 	ValidationFailure = 8;
 	ReposDirAccessFailure = 9;
+	HeadersNotFoundDownloadDisabled = 10;
 }
 
 message RuntimeCompilationTelemetry {

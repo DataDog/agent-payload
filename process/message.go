@@ -110,7 +110,7 @@ const (
 	TypeCollectorServiceAccount        = 58
 	TypeCollectorIngress               = 59
 	TypeCollectorProcEvent             = 60
-	TypeCollectorManifest              = 80
+	TypeCollectorManifest              = 80 // DecodeMessage/EncodeMessage doesn't support for TypeCollectorManifest messages as we encode it in a different way in agent. We do need this type as we use it both in agent and backend.
 )
 
 func (m MessageType) String() string {
@@ -221,8 +221,6 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorNode{}
 	case TypeCollectorCluster:
 		m = &CollectorCluster{}
-	case TypeCollectorManifest:
-		m = &CollectorManifest{}
 	case TypeCollectorJob:
 		m = &CollectorJob{}
 	case TypeCollectorCronJob:
