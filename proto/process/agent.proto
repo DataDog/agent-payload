@@ -734,6 +734,21 @@ message Connection {
 	uint32 stateIndex = 46;
 }
 
+message FailedConnection {
+	int32 pid = 1;
+	Addr laddr = 2; // Local address
+	Addr raddr = 3; // Remote address
+
+	ConnectionFamily family = 4;
+	ConnectionType type = 5;
+	ConnectionDirection direction = 6;
+	uint32 netNS = 7; // Network namespace
+	EphemeralPortState isLocalPortEphemeral = 8;
+
+	uint64 failureCount = 9;
+	int32 lastErrno = 10;
+}
+
 message Connections {
 	repeated Connection conns = 1;
 	map<string, DNSEntry> dns  = 2;
@@ -746,6 +761,7 @@ message Connections {
 	repeated string tags = 8;
 	map<string, int64> connTelemetryMap = 9;
 	KernelHeaderFetchResult kernelHeaderFetchResult = 10;
+	repeated FailedConnection failedConns = 11;
 }
 
 message Addr {

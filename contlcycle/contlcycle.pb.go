@@ -2,18 +2,16 @@
 // source: proto/contlcycle/contlcycle.proto
 
 /*
-Package contlcycle is a generated protocol buffer package.
+	Package contlcycle is a generated protocol buffer package.
 
-It is generated from these files:
+	It is generated from these files:
+		proto/contlcycle/contlcycle.proto
 
-	proto/contlcycle/contlcycle.proto
-
-It has these top-level messages:
-
-	EventsPayload
-	Event
-	ContainerEvent
-	PodEvent
+	It has these top-level messages:
+		EventsPayload
+		Event
+		ContainerEvent
+		PodEvent
 */
 package contlcycle
 
