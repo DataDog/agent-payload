@@ -142,12 +142,12 @@ func (t *V2TagEncoder) Encode(tags []string) int {
 	return tagIndex
 }
 
-func decodeV2(buffer []byte, tagIndex int) []string {
-	var tags []string
+func decodeV2(buffer []byte, tagIndex int) [][]byte {
+	var tags [][]byte
 
-	iterateV2(buffer, tagIndex, func(i, total int, tag string) bool {
+	iterateV2(buffer, tagIndex, func(i, total int, tag []byte) bool {
 		if i == 0 {
-			tags = make([]string, 0, total)
+			tags = make([][]byte, 0, total)
 		}
 		tags = append(tags, tag)
 		return true
@@ -156,9 +156,9 @@ func decodeV2(buffer []byte, tagIndex int) []string {
 	return tags
 }
 
-func iterateV2(buffer []byte, tagIndex int, cb func(i, total int, tag string) bool) {
+func iterateV2(buffer []byte, tagIndex int, cb func(i, total int, tag []byte) bool) {
 	unsafeIterateV2(buffer, tagIndex, func(i, total int, tag []byte) bool {
-		return cb(i, total, string(tag))
+		return cb(i, total, tag)
 	})
 }
 
