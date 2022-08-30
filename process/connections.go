@@ -135,3 +135,10 @@ func (m *CollectorConnections) GetDNSNameByOffset(off int32) (string, error) {
 func (m *CollectorConnections) GetConnectionsTags(tagIndex int32) []string {
 	return getTags(m.EncodedConnectionsTags, int(tagIndex))
 }
+
+// UnsafeIterateConnectionTags iterates the connection tags at the given index, invoking the callback function
+// for each one.  The tag slice provided to the callback buffer is unsafe and will not be valid past the end
+// of the callback function
+func (m *CollectorConnections) UnsafeIterateConnectionTags(tagIndex int32, cb func(i, total int, tag []byte) bool) {
+	unsafeIterateTags(m.EncodedConnectionsTags, int(tagIndex), cb)
+}
