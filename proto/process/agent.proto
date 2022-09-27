@@ -1078,6 +1078,7 @@ message Namespace {
 	Metadata metadata = 1;
 	repeated string finalizers = 2;
 	string status = 3; // namespace status displayed by "kubectl get namespace"
+	bytes yaml = 4;
 }
 
 // https://github.com/kubernetes/kubernetes/blob/4112d8db20c5550cc27d30d3cee2723db0f8e1c4/staging/src/k8s.io/api/core/v1/types.go#L2097
