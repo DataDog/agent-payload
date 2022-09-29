@@ -1565,10 +1565,12 @@ enum KernelHeaderFetchResult {
 }
 
 message RuntimeCompilationTelemetry {
-	reserved 4;
 	bool runtimeCompilationEnabled = 1;
 	RuntimeCompilationResult runtimeCompilationResult = 2;
 	int64 runtimeCompilationDuration = 3;
+
+	// Field below was deprecated in agent 7.41
+	KernelHeaderFetchResult kernelHeaderFetchResultDeprecated = 4;
 }
 
 message RouteMetadata {
