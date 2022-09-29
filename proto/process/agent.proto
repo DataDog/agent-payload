@@ -1570,7 +1570,7 @@ message RuntimeCompilationTelemetry {
 	int64 runtimeCompilationDuration = 3;
 
 	// Field below was deprecated in agent 7.41
-	KernelHeaderFetchResult kernelHeaderFetchResult = 4 [deprecated=true];
+	KernelHeaderFetchResult kernelHeaderFetchResult = 4;
 }
 
 message RouteMetadata {
