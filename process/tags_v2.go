@@ -3,7 +3,9 @@ package process
 import (
 	"encoding/binary"
 	"math"
+	"reflect"
 	"sync"
+	"unsafe"
 )
 
 // V2TagEncoder operates on the theory that a good portion of the tags for an overall message across connections
@@ -14,12 +16,12 @@ import (
 // and is appended to the end of the buffer
 //
 // The format of the buffer is:
-// - 1 byte for meta (currently used for specifying version)
-// - 4 bytes for position of footer blob in overall buffer
-// - N bytes for all tags, stored sequentially.
-//		Each tag is 2 bytes for the length of the tag and N bytes for the tag itself
-// - N bytes for the footer blob.  Each entry in the footer is 2 bytes for the number of tags and then N 4 byte
-//		integers, each representing the location of the tag in the tag blob
+//   - 1 byte for meta (currently used for specifying version)
+//   - 4 bytes for position of footer blob in overall buffer
+//   - N bytes for all tags, stored sequentially.
+//     Each tag is 2 bytes for the length of the tag and N bytes for the tag itself
+//   - N bytes for the footer blob.  Each entry in the footer is 2 bytes for the number of tags and then N 4 byte
+//     integers, each representing the location of the tag in the tag blob
 type V2TagEncoder struct {
 	tags        map[string]uint32
 	order       []string
@@ -51,7 +53,7 @@ var tagsPool = sync.Pool{
 	},
 }
 
-func NewV2TagEncoder() TagEncoder {
+func NewV2TagEncoder() IterableTagEncoder {
 	footer := *footerPool.Get().(*[]byte)
 	order := *orderPool.Get().(*[]string)
 	tags := *tagsPool.Get().(*map[string]uint32)
@@ -100,6 +102,42 @@ func (t *V2TagEncoder) Buffer() []byte {
 	tagsPool.Put(&t.tags)
 
 	return buffer
+}
+
+func (t *V2TagEncoder) NewIteration(count int) int {
+	// We only allow 2 bytes for the number of the tags, ensure we don't exceed it
+	if count == 0 || count > math.MaxUint16 {
+		return -1
+	}
+	// The index for these tags is the current end of the footer
+	tagIndex := len(t.footer)
+
+	var shortBuf [2]byte
+	binary.LittleEndian.PutUint16(shortBuf[:], uint16(count))
+	t.footer = append(t.footer, shortBuf[:]...)
+
+	return tagIndex
+}
+
+func (t *V2TagEncoder) UnsafeAdd(tag []byte) {
+	// We only allow 2 bytes for the length of the tag, ensure we don't exceed it
+	if len(tag) > math.MaxUint16 {
+		tag = tag[0:math.MaxUint16]
+	}
+
+	unsafeTag := bytesToString(tag)
+	position, ok := t.tags[unsafeTag]
+	if !ok {
+		safeTag := string(tag)
+		position = t.tagPosition
+		t.tagPosition += uint32(2 + len(tag))
+		t.tags[safeTag] = position
+		t.order = append(t.order, safeTag)
+	}
+
+	var intBuf [4]byte
+	binary.LittleEndian.PutUint32(intBuf[:], position)
+	t.footer = append(t.footer, intBuf[:]...)
 }
 
 func (t *V2TagEncoder) Encode(tags []string) int {
@@ -187,4 +225,14 @@ func unsafeIterateV2(buffer []byte, tagIndex int, cb func(i, total int, tag []by
 
 		footerIndex += 4
 	}
+}
+
+func bytesToString(b []byte) string {
+	bh := (*reflect.SliceHeader)(unsafe.Pointer(&b))
+
+	var s string
+	sh := (*reflect.StringHeader)(unsafe.Pointer(&s))
+	sh.Data = bh.Data
+	sh.Len = bh.Len
+	return s
 }

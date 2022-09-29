@@ -13,6 +13,17 @@ type TagEncoder interface {
 	Encode(tags []string) int
 }
 
+// IterableTagEncoder allows for adding tags to the encoder in an iterative fashion
+type IterableTagEncoder interface {
+	TagEncoder
+
+	// NewIteration indicates that `count` tags will be added
+	NewIteration(count int) int
+
+	// UnsafeAdd adds the given tag bytes to the encoder.  It is assumed that `tag` is an unsafe byte slice
+	UnsafeAdd(tag []byte)
+}
+
 // Version for the encoding format
 const (
 	version1 = 1
