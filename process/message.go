@@ -110,7 +110,7 @@ const (
 	TypeCollectorServiceAccount        = 58
 	TypeCollectorIngress               = 59
 	TypeCollectorProcEvent             = 60
-	TypeCollectorManifest              = 80 // DecodeMessage/EncodeMessage doesn't support for TypeCollectorManifest messages as we encode it in a different way in agent. We do need this type as we use it both in agent and backend.
+	TypeCollectorManifest              = 80
 )
 
 func (m MessageType) String() string {
@@ -249,6 +249,8 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorIngress{}
 	case TypeCollectorProcEvent:
 		m = &CollectorProcEvent{}
+	case TypeCollectorManifest:
+		m = &CollectorManifest{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
