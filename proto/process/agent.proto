@@ -655,6 +655,12 @@ message ProtocolStack {
 	repeated ProtocolType stack = 1;
 }
 
+enum FailedConnectionReason {
+     unknownFailureReason = 0;
+     connectionRefused = 1;
+     timedOut = 2;
+}
+
 message Connection {
 	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 35;
 	// Please update when adding fields
@@ -746,7 +752,9 @@ message FailedConnection {
 	EphemeralPortState isLocalPortEphemeral = 8;
 
 	uint64 failureCount = 9;
-	int32 lastErrno = 10;
+
+    // The last seen error reason for this failed connection
+	FailedConnectionReason lastError = 10;
 }
 
 message Connections {
