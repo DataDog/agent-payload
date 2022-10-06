@@ -307,7 +307,7 @@ func getDNSNameListV2(buf []byte) []string {
 }
 
 func getDNSNameAsByteSliceByOffset(buf []byte, offset int) (stringasbyteslice []byte, err error) {
-	if offset >= len(buf) {
+	if offset >= len(buf) || offset < 0 {
 		return nil, fmt.Errorf("offset out of range %d >= %d", offset, len(buf))
 	}
 	namelen, bytesReadForNameLen := binary.Uvarint(buf[offset:])
