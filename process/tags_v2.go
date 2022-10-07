@@ -29,6 +29,7 @@ type V2TagEncoder struct {
 
 // 1 meta byte + 4 bytes for the index of the footer block
 const v2PreambleLength = 1 + 4
+const LenUint16 = 2 
 
 var footerPool = sync.Pool{
 	New: func() interface{} {
@@ -169,7 +170,11 @@ func unsafeIterateV2(buffer []byte, tagIndex int, cb func(i, total int, tag []by
 
 	footerBuffer := buffer[idx:]
 	footerIndex := 0
-
+	
+	if len(footerBuffer[footerIndex:]) < LenUint16 {
+		return
+	}
+	
 	numTags := int(binary.LittleEndian.Uint16(footerBuffer[footerIndex:]))
 	footerIndex += 2
 
