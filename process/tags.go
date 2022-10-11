@@ -147,15 +147,31 @@ func iterateV1(buffer []byte, tagIndex int, cb func(i, total int, tag string) bo
 }
 
 func unsafeIterateV1(buffer []byte, tagIndex int, cb func(i, total int, tag []byte) bool) {
+
+	if tagIndex < 0 || tagIndex >= len(buffer) {
+		return
+	}
+
 	tagBuffer := buffer[tagIndex:]
 	readIndex := 0
+
+	if len(tagBuffer[readIndex:]) < lenUint16 {
+		return
+	}
 
 	numTags := int(binary.LittleEndian.Uint16(tagBuffer[readIndex:]))
 	readIndex += 2
 
 	for i := 0; i < numTags; i++ {
+		if readIndex >= len(tagBuffer) || len(tagBuffer[readIndex:]) < lenUint16 {
+			continue
+		}
 		tagLength := int(binary.LittleEndian.Uint16(tagBuffer[readIndex:]))
 		readIndex += 2
+
+		if readIndex+tagLength > len(buffer) {
+			continue
+		}
 
 		if !cb(i, numTags, tagBuffer[readIndex:readIndex+tagLength]) {
 			return

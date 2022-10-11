@@ -26,23 +26,25 @@ import (
 //	of the bucket in the bucket block
 //
 // The overall buffer is encoded as:
+//
 //	1 byte indicating version
-// 	2 bytes indicating the number of buckets
+//	2 bytes indicating the number of buckets
 //	varint indicating the length of the name buffer.
 //	varint indicating the length of the position buffer
-// 	varint indicating the position of the "middle" (bucketCount / 2) bucket in the position block
+//	varint indicating the position of the "middle" (bucketCount / 2) bucket in the position block
 //		We will use this to skip the half of the buckets when searching for the target bucket index
 //	position block
 //	bucket block
 //	name block
 //
 // Notes:
+//
 //	Using varints saves space at the cost of not having random access to certain sections of data, particularly the
 //	bucket position mapping.  This was a deliberate trade off to reduce the size of the payload and thus memory usage
 //
 //	Varints are also more finicky to deal with in terms of calculating required space ahead of time.  This increases
 //	the implementation complexity, or at least the line count, but we reduce allocations & memory usage by
-// 	pre-sizing the output buffers
+//	pre-sizing the output buffers
 //
 // This type is not thread safe
 type V1DNSEncoder struct {
@@ -269,7 +271,7 @@ func iterateDNSV1(buf []byte, ip string, cb func(i, total int, entry string) boo
 func unsafeIterateDNSV1(buf []byte, ip string, cb func(i, total int, entry []byte) bool) error {
 	bufLen := len(buf)
 
-	if bufLen < 2 {
+	if bufLen <= 2 {
 		return fmt.Errorf("dns buffer is too short")
 	}
 	// Read overview:
