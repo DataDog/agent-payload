@@ -341,6 +341,7 @@ func iterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32) bool
 func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32) bool) error {
 	bufLen := len(buf)
 
+	// Needs 3 bytes so that buf[1:] can convert to uint16
 	if bufLen <= 2 {
 		return fmt.Errorf("dns buffer is too short")
 	}
