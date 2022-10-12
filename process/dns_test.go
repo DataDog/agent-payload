@@ -1,7 +1,7 @@
 package process
 
 import (
-	fmt "fmt"
+	"fmt"
 	"io/ioutil"
 	"path"
 	"runtime"
@@ -12,6 +12,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 )
+
+const dnsBufLenStr = "dns buffer is too short"
 
 func TestV1EncodeDNS(t *testing.T) {
 	dns := make(map[string]*DNSEntry)
@@ -100,7 +102,7 @@ func TestUnsafeIterationV1_BufLen(t *testing.T) {
 	err := unsafeIterateDNSV1(buf, "ip", func(i, total int, entry []byte) bool {
 		return true
 	})
-	assert.Equal(t, fmt.Errorf("dns buffer is too short"), err)
+	assert.Equal(t, fmt.Errorf(dnsBufLenStr), err)
 }
 
 func BenchmarkDNSDecode(b *testing.B) {
