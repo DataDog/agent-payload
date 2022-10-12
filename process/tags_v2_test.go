@@ -5,11 +5,36 @@ import (
 	"runtime"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
 
 func TestV2TagEncoder(t *testing.T) {
 	suite.Run(t, &TagSerdeTestSuite{encoder: NewV2TagEncoder()})
+}
+
+func TestUnsafeIteration(t *testing.T) {
+	// buff = 2
+	buf := make([]byte, 2)
+	assert.NotPanics(t, func() {
+		unsafeIterateV2(buf, 0, func(i, total int, tag []byte) bool { return true })
+	})
+
+	// buff = 1
+	assert.NotPanics(t, func() {
+		unsafeIterateV2(buf[1:], 0, func(i, total int, tag []byte) bool { return true })
+	})
+
+	// indx > buff
+	buf = make([]byte, 6)
+	assert.NotPanics(t, func() {
+		unsafeIterateV2(buf, 10, func(i, total int, tag []byte) bool { return true })
+	})
+
+	// footerBuffer < 2
+	assert.NotPanics(t, func() {
+		unsafeIterateV2(buf, 5, func(i, total int, tag []byte) bool { return true })
+	})
 }
 
 func BenchmarkTagEncoders(b *testing.B) {
