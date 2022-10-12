@@ -1114,10 +1114,11 @@ enum ResourceRequirementsType {
 }
 
 enum ProtocolType {
-	protocolUnknown = 0;
-	protocolHTTP = 1;
-	protocolHTTP2 = 2;
-	protocolTLS = 3;
+	protocolUnclassified = 0;
+	protocolUnknown = 1;
+	protocolHTTP = 2;
+	protocolHTTP2 = 3;
+	protocolTLS = 4;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L61
