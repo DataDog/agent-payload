@@ -9,6 +9,8 @@ import (
 	"github.com/DataDog/mmh3"
 )
 
+const bufTooShortStr = "dns buffer is too short"
+
 // DNS data is encoded as a very basic bucketed hash table.  There are three blocks, or buffers, of data:
 //
 //	The "name" block is all of the unique DNS names.  The length of the name is stored as a varint
@@ -47,6 +49,7 @@ import (
 //	pre-sizing the output buffers
 //
 // This type is not thread safe
+
 type V1DNSEncoder struct {
 	BucketFactor float64
 	scratch      [binary.MaxVarintLen64]byte // Used for varint encoding
@@ -273,7 +276,7 @@ func unsafeIterateDNSV1(buf []byte, ip string, cb func(i, total int, entry []byt
 
 	// Needs 3 bytes so that buf[1:] can convert to uint16
 	if bufLen <= 2 {
-		return fmt.Errorf("dns buffer is too short")
+		return fmt.Errorf(bufTooShortStr)
 	}
 	// Read overview:
 	//	Compute the target bucket for the given ip

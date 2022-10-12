@@ -13,7 +13,7 @@ func TestV2TagEncoder(t *testing.T) {
 	suite.Run(t, &TagSerdeTestSuite{encoder: NewV2TagEncoder()})
 }
 
-func TestUnsafeIteration(t *testing.T) {
+func TestUnsafeIterationV2(t *testing.T) {
 	// buff = 2
 	buf := make([]byte, 2)
 	assert.NotPanics(t, func() {
