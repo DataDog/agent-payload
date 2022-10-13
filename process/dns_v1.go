@@ -67,7 +67,7 @@ const dns1Version1PreambleLength = 3
 // Currently the bucket count is calculated as `len(input) * bucketFactor`
 const defaultBucketFactor = 0.75
 
-func NewV1DNSEncoder() DNSEncoder {
+func NewV1DNSEncoder() DNSEncoderV1 {
 	return &V1DNSEncoder{
 		BucketFactor: defaultBucketFactor,
 	}

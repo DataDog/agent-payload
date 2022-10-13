@@ -61,7 +61,7 @@ const dns1Version2PreambleLength = 3
 // Currently the bucket count is calculated as `len(input) * bucketFactor`
 //const defaultBucketFactor = 0.75
 
-func NewV2DNSEncoder() DNSEncoder {
+func NewV2DNSEncoder() DNSEncoderV2 {
 	return &V2DNSEncoder{
 		BucketFactor: defaultBucketFactor,
 	}
@@ -287,17 +287,26 @@ func getDNSNameListV2(buf []byte) []string {
 	var names []string
 
 	num, bytesRead := binary.Uvarint(buf[0:])
+	if bytesRead <= 0 {
+		return nil // real error?
+	}
 
 	// read the offset of the middle index; however, since we're reading
 	// the whole list we don't need it.
 
 	// important.  _never_ use the middle index; it's not expected to be valid.
 	_, bytesReadForMiddle := binary.Uvarint(buf[bytesRead:])
+	if bytesRead <= 0 {
+		return nil // real error?
+	}
 
 	bytesRead += int(bytesReadForMiddle)
 
 	for count := uint64(0); count < num && bytesRead < len(buf); count++ {
 		namelen, bytesReadForNameLen := binary.Uvarint(buf[bytesRead:])
+		if bytesRead <= 0 {
+			return nil // real error?
+		}
 		bytesRead += bytesReadForNameLen
 		name := string(buf[bytesRead : bytesRead+int(namelen)])
 		names = append(names, name)
@@ -314,9 +323,16 @@ func getDNSNameAsByteSliceByOffset(buf []byte, offset int) (stringasbyteslice []
 		return nil, fmt.Errorf("offset out of range %d < 0", offset)
 	}
 	namelen, bytesReadForNameLen := binary.Uvarint(buf[offset:])
+	if bytesReadForNameLen <= 0 {
+		return nil, fmt.Errorf("illegal namelen")
+	}
 	offset += bytesReadForNameLen
 	if offset+int(namelen) > len(buf) {
 		return nil, fmt.Errorf("offset out of range [%d:%d] > %d", offset, offset+int(namelen), len(buf))
+	}
+
+	if offset+int(namelen) <= offset {
+		return nil, fmt.Errorf("illegal namelen")
 	}
 
 	return buf[offset : offset+int(namelen)], nil
@@ -356,6 +372,9 @@ func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32
 	//			Otherwise iterate through the name positions to reach the next bucket entry
 
 	bucketCount := int(binary.LittleEndian.Uint16(buf[1:]))
+	if bucketCount == 0 {
+		return fmt.Errorf("illegal bucket count")
+	}
 
 	// skip the preamble
 	index := dns1Version2PreambleLength
@@ -365,6 +384,9 @@ func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32
 	}
 
 	positionBufferLen, bytesRead := binary.Uvarint(buf[index:])
+	if bytesRead <= 0 {
+		return fmt.Errorf("illegal positionBufferLen")
+	}
 	index += bytesRead
 
 	if index > bufLen {
@@ -372,6 +394,10 @@ func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32
 	}
 
 	middleBucketPosition, bytesRead := binary.Uvarint(buf[index:])
+	if bytesRead <= 0 {
+		return fmt.Errorf("illegal middleBucketPosition")
+	}
+
 	index += bytesRead
 
 	bucket := int(mmh3.Hash32([]byte(ip))) % bucketCount
@@ -388,6 +414,10 @@ func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32
 		startBucket = middleBucket
 
 		index += int(middleBucketPosition)
+
+		if index > len(buf) || index < 0 {
+			return fmt.Errorf("illegal middleBucketPosition")
+		}
 	}
 
 	// Search through the bucket map to find the position of the target bucket
@@ -400,6 +430,9 @@ func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32
 			return fmt.Errorf("dns buffer is too short, invalid bucket position")
 		}
 		value, bytesRead := binary.Uvarint(buf[index:])
+		if bytesRead <= 0 {
+			return fmt.Errorf("illegal bucket value")
+		}
 
 		index += bytesRead
 
@@ -410,13 +443,21 @@ func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32
 	}
 
 	// Move read index to the start of the bucket data.  Skip the metadata and the position buffer
-	index = metaLength + int(positionBufferLen) + bucketPosition
+	newIndex := metaLength + int(positionBufferLen) + bucketPosition
+	if newIndex < index {
+		return fmt.Errorf("illegal overflow")
+	}
+	index = newIndex
 
 	if index > bufLen {
 		return fmt.Errorf("dns buffer is too short, invalid bucket length")
 	}
 
 	bucketLength, bytesRead := binary.Uvarint(buf[index:])
+	if bytesRead <= 0 {
+		return fmt.Errorf("illegal bucketLength")
+	}
+
 	index += bytesRead
 
 	for i := 0; i < int(bucketLength); i++ {
@@ -424,10 +465,17 @@ func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32
 			return fmt.Errorf("dns buffer is too short, invalid key length")
 		}
 		keyLength, bytesRead := binary.Uvarint(buf[index:])
+		if bytesRead <= 0 {
+			return fmt.Errorf("illegal keyLength")
+		}
 		index += bytesRead
 
 		if index > bufLen || (index+int(keyLength)) > bufLen {
 			return fmt.Errorf("dns buffer is too short, invalid key data`")
+		}
+
+		if index+int(keyLength) <= index {
+			return fmt.Errorf("illegal keyLength: %d", keyLength)
 		}
 
 		key := buf[index : index+int(keyLength)]
@@ -439,6 +487,9 @@ func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32
 			return fmt.Errorf("dns buffer is too short, invalid value data`")
 		}
 		nameCount, bytesRead := binary.Uvarint(buf[index:])
+		if bytesRead <= 0 {
+			return fmt.Errorf("illegal name count")
+		}
 		index += bytesRead
 
 		// Advance through all name positions
@@ -448,6 +499,9 @@ func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32
 				return fmt.Errorf("dns buffer is too short, invalid name data`")
 			}
 			nameIndex, bytesRead := binary.Uvarint(buf[index:])
+			if bytesRead <= 0 {
+				return fmt.Errorf("illegal name index")
+			}
 			index += bytesRead
 
 			if !matched {

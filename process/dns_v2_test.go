@@ -13,6 +13,94 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestV2DomainDatabaseEncoding(t *testing.T) {
+	dnsdb := []string{
+		"foo.com",
+		"service.example.com",
+		"service2.example.com",
+		"app.example.com",
+		"bar.com",
+	}
+	knownBoundaryProblemDB := []string{
+		"avery-specific-host-1-with.sixtythreechar.hostname.testname.com",
+		"avery-specific-host-1-with.sixtyonechar.hostname.testname.com",
+
+		"avery-specific-host-2-with.sixtythreechar.hostname.testname.com",
+		"avery-specific-host-3-with.sixtythreechar.hostname.testname.com",
+	}
+	doTestForDNSDB(t, dnsdb)
+	doTestForDNSDB(t, knownBoundaryProblemDB)
+}
+
+func TestV2EncodeDNS(t *testing.T) {
+	dns := make(map[string]*DNSDatabaseEntry)
+
+	dnsdb := []string{
+		"foo.com",
+		"service.example.com",
+		"service2.example.com",
+		"app.example.com",
+		"bar.com",
+	}
+
+	dns["10.128.98.75"] = &DNSDatabaseEntry{NameOffsets: []int32{indexOf("service.example.com", dnsdb), indexOf("service2.example.com", dnsdb)}}
+	dns["10.128.99.240"] = &DNSDatabaseEntry{NameOffsets: []int32{indexOf("service.example.com", dnsdb)}}
+	dns["34.231.44.115"] = &DNSDatabaseEntry{NameOffsets: []int32{indexOf("app.example.com", dnsdb)}}
+
+	encoder := NewV2DNSEncoder()
+	encodedDatabase, offsets, err := encoder.EncodeDomainDatabase(dnsdb)
+	buf, err := encoder.EncodeMapped(dns, offsets)
+	assert.Nil(t, err)
+
+	decodedDatabase := getDNSNameListV2(encodedDatabase)
+
+	assert.Equal(t, len(dnsdb), len(decodedDatabase))
+
+	assertDNSV2Equal(t, []string{"service.example.com", "service2.example.com"}, buf, encodedDatabase, "10.128.98.75")
+	assertDNSV2Equal(t, []string{"service.example.com"}, buf, encodedDatabase, "10.128.99.240")
+	assertDNSV2Equal(t, []string{"app.example.com"}, buf, encodedDatabase, "34.231.44.115")
+	assertDNSV2Equal(t, nil, buf, encodedDatabase, "134.231.44.115")
+	assertDNSV2Equal(t, nil, buf, encodedDatabase, "1.1.1.1")
+
+}
+
+func FuzzIterateDNSV2(f *testing.F) {
+	dnsdb := []string{"google.com", "yahoo.com"}
+	encoder := NewV2DNSEncoder()
+
+	domainDatabase, indextooffset, err := encoder.EncodeDomainDatabase(dnsdb)
+	if err != nil {
+		f.Errorf("error: %v", err)
+	}
+
+	domainMapping, err := encoder.EncodeMapped(map[string]*DNSDatabaseEntry{
+		"10.0.0.1": &DNSDatabaseEntry{NameOffsets: []int32{0}},
+	}, indextooffset)
+
+	if err != nil {
+		f.Errorf("error: %v", err)
+	}
+
+	f.Add("10.0.0.1", domainMapping, domainDatabase)
+	f.Fuzz(FuzzingIterateDNSAndGetOffset)
+}
+
+func FuzzingIterateDNSAndGetOffset(t *testing.T, ip string, domainMapping []byte, domainDatabase []byte) {
+	cc := &CollectorConnections{EncodedDomainDatabase: domainDatabase}
+	var results []string
+	err := IterateDNSV2(domainMapping, ip, func(i, total int, entry int32) bool {
+		s, err := cc.GetDNSNameByOffset(entry)
+		if err != nil {
+			return false
+		}
+		results = append(results, s)
+		return true
+	})
+	if err != nil {
+		return
+	}
+}
+
 func getDNSNameFromListByIndex(buf []byte, index int) (string, error) {
 	num, bytesRead := binary.Uvarint(buf[0:])
 	offsetOfMiddle, bytesReadForMiddleOffset := binary.Uvarint(buf[bytesRead:])
@@ -68,24 +156,6 @@ func doTestForDNSDB(t *testing.T, dnsdb []string) {
 	_, err = getDNSNameFromListByOffset(buf, len(buf)+2)
 	assert.Error(t, err)
 }
-func TestV2DomainDatabaseEncoding(t *testing.T) {
-	dnsdb := []string{
-		"foo.com",
-		"service.example.com",
-		"service2.example.com",
-		"app.example.com",
-		"bar.com",
-	}
-	knownBoundaryProblemDB := []string{
-		"avery-specific-host-1-with.sixtythreechar.hostname.testname.com",
-		"avery-specific-host-1-with.sixtyonechar.hostname.testname.com",
-
-		"avery-specific-host-2-with.sixtythreechar.hostname.testname.com",
-		"avery-specific-host-3-with.sixtythreechar.hostname.testname.com",
-	}
-	doTestForDNSDB(t, dnsdb)
-	doTestForDNSDB(t, knownBoundaryProblemDB)
-}
 
 func indexOf(val string, db []string) int32 {
 	for p, v := range db {
@@ -94,38 +164,6 @@ func indexOf(val string, db []string) int32 {
 		}
 	}
 	return -1
-}
-
-func TestV2EncodeDNS(t *testing.T) {
-	dns := make(map[string]*DNSDatabaseEntry)
-
-	dnsdb := []string{
-		"foo.com",
-		"service.example.com",
-		"service2.example.com",
-		"app.example.com",
-		"bar.com",
-	}
-
-	dns["10.128.98.75"] = &DNSDatabaseEntry{NameOffsets: []int32{indexOf("service.example.com", dnsdb), indexOf("service2.example.com", dnsdb)}}
-	dns["10.128.99.240"] = &DNSDatabaseEntry{NameOffsets: []int32{indexOf("service.example.com", dnsdb)}}
-	dns["34.231.44.115"] = &DNSDatabaseEntry{NameOffsets: []int32{indexOf("app.example.com", dnsdb)}}
-
-	encoder := NewV2DNSEncoder()
-	encodedDatabase, offsets, err := encoder.EncodeDomainDatabase(dnsdb)
-	buf, err := encoder.EncodeMapped(dns, offsets)
-	assert.Nil(t, err)
-
-	decodedDatabase := getDNSNameListV2(encodedDatabase)
-
-	assert.Equal(t, len(dnsdb), len(decodedDatabase))
-
-	assertDNSV2Equal(t, []string{"service.example.com", "service2.example.com"}, buf, encodedDatabase, "10.128.98.75")
-	assertDNSV2Equal(t, []string{"service.example.com"}, buf, encodedDatabase, "10.128.99.240")
-	assertDNSV2Equal(t, []string{"app.example.com"}, buf, encodedDatabase, "34.231.44.115")
-	assertDNSV2Equal(t, nil, buf, encodedDatabase, "134.231.44.115")
-	assertDNSV2Equal(t, nil, buf, encodedDatabase, "1.1.1.1")
-
 }
 
 func TestV2EncodeDNS_Empty(t *testing.T) {
