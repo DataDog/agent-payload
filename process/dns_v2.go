@@ -307,7 +307,7 @@ func getDNSNameListV2(buf []byte) []string {
 }
 
 func getDNSNameAsByteSliceByOffset(buf []byte, offset int) (stringasbyteslice []byte, err error) {
-	if offset >= len(buf)  {
+	if offset >= len(buf) {
 		return nil, fmt.Errorf("offset out of range %d >= %d", offset, len(buf))
 	}
 	if offset < 0 {
@@ -341,8 +341,9 @@ func iterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32) bool
 func unsafeIterateDNSV2(buf []byte, ip string, cb func(i, total int, entry int32) bool) error {
 	bufLen := len(buf)
 
-	if bufLen < 2 {
-		return fmt.Errorf("dns buffer is too short")
+	// Needs 3 bytes so that buf[1:] can convert to uint16
+	if bufLen <= 2 {
+		return fmt.Errorf(bufTooShortStr)
 	}
 	// Read overview:
 	//	Compute the target bucket for the given ip

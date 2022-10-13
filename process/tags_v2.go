@@ -14,12 +14,12 @@ import (
 // and is appended to the end of the buffer
 //
 // The format of the buffer is:
-// - 1 byte for meta (currently used for specifying version)
-// - 4 bytes for position of footer blob in overall buffer
-// - N bytes for all tags, stored sequentially.
-//		Each tag is 2 bytes for the length of the tag and N bytes for the tag itself
-// - N bytes for the footer blob.  Each entry in the footer is 2 bytes for the number of tags and then N 4 byte
-//		integers, each representing the location of the tag in the tag blob
+//   - 1 byte for meta (currently used for specifying version)
+//   - 4 bytes for position of footer blob in overall buffer
+//   - N bytes for all tags, stored sequentially.
+//     Each tag is 2 bytes for the length of the tag and N bytes for the tag itself
+//   - N bytes for the footer blob.  Each entry in the footer is 2 bytes for the number of tags and then N 4 byte
+//     integers, each representing the location of the tag in the tag blob
 type V2TagEncoder struct {
 	tags        map[string]uint32
 	order       []string
@@ -28,7 +28,11 @@ type V2TagEncoder struct {
 }
 
 // 1 meta byte + 4 bytes for the index of the footer block
-const v2PreambleLength = 1 + 4
+const (
+	v2PreambleLength = 1 + 4
+	lenUint16        = 2
+	lenUint32        = 4
+)
 
 var footerPool = sync.Pool{
 	New: func() interface{} {
@@ -163,23 +167,42 @@ func iterateV2(buffer []byte, tagIndex int, cb func(i, total int, tag string) bo
 }
 
 func unsafeIterateV2(buffer []byte, tagIndex int, cb func(i, total int, tag []byte) bool) {
+	if len(buffer[1:]) < lenUint32 {
+		return
+	}
 	footerPosition := binary.LittleEndian.Uint32(buffer[1:])
 
 	idx := int(footerPosition) + tagIndex
-
+	if idx >= len(buffer) {
+		return
+	}
 	footerBuffer := buffer[idx:]
 	footerIndex := 0
+
+	if len(footerBuffer[footerIndex:]) < lenUint16 {
+		return
+	}
 
 	numTags := int(binary.LittleEndian.Uint16(footerBuffer[footerIndex:]))
 	footerIndex += 2
 
 	for i := 0; i < numTags; i++ {
+		if footerIndex >= len(footerBuffer) || len(footerBuffer[footerIndex:]) < lenUint32 {
+			continue
+		}
 		tagPosition := int(binary.LittleEndian.Uint32(footerBuffer[footerIndex:]))
 
+		if tagPosition >= len(buffer) || len(buffer[tagPosition:]) < lenUint16 {
+			continue
+		}
 		tagLength := int(binary.LittleEndian.Uint16(buffer[tagPosition:]))
 
 		start := tagPosition + 2
 		end := start + tagLength
+
+		if end > len(buffer) {
+			continue
+		}
 
 		if !cb(i, numTags, buffer[start:end]) {
 			return

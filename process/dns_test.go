@@ -1,6 +1,7 @@
 package process
 
 import (
+	"fmt"
 	"io/ioutil"
 	"path"
 	"runtime"
@@ -92,6 +93,14 @@ func TestV1EncodeDNS_SampleData(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestUnsafeIterationV1_BufLen(t *testing.T) {
+	buf := make([]byte, 2)
+	err := unsafeIterateDNSV1(buf, "ip", func(i, total int, entry []byte) bool {
+		return true
+	})
+	assert.Equal(t, fmt.Errorf(bufTooShortStr), err)
 }
 
 func BenchmarkDNSDecode(b *testing.B) {

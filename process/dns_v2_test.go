@@ -144,6 +144,14 @@ func TestV2EncodeDNS_Empty(t *testing.T) {
 	assert.Equal(t, 0, len(names))
 }
 
+func TestUnsafeIteration_BufLen(t *testing.T) {
+	buf := make([]byte, 2)
+	err := unsafeIterateDNSV2(buf, "ip", func(i, total int, entry int32) bool {
+		return true
+	})
+	assert.Equal(t, fmt.Errorf(bufTooShortStr), err)
+}
+
 func TestV2EncodeDNS_NoNames(t *testing.T) {
 	dns := make(map[string]*DNSDatabaseEntry)
 

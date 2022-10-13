@@ -147,6 +147,30 @@ func TestV1DecodedTags(t *testing.T) {
 	}
 }
 
+func TestUnsafeIterationV1(t *testing.T) {
+	// buff = 2
+	buf := make([]byte, 2)
+	assert.NotPanics(t, func() {
+		unsafeIterateV1(buf, 0, func(i, total int, tag []byte) bool { return true })
+	})
+
+	// buff = 1
+	assert.NotPanics(t, func() {
+		unsafeIterateV1(buf[1:], 0, func(i, total int, tag []byte) bool { return true })
+	})
+
+	// indx > buff
+	buf = make([]byte, 6)
+	assert.NotPanics(t, func() {
+		unsafeIterateV1(buf, 10, func(i, total int, tag []byte) bool { return true })
+	})
+
+	// footerBuffer < 2
+	assert.NotPanics(t, func() {
+		unsafeIterateV1(buf, 5, func(i, total int, tag []byte) bool { return true })
+	})
+}
+
 func BenchmarkTagEncode(b *testing.B) {
 	allTags := readTestTags(b, "testdata/tags.txt")
 
