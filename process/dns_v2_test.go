@@ -149,7 +149,7 @@ func TestUnsafeIteration_BufLen(t *testing.T) {
 	err := unsafeIterateDNSV2(buf, "ip", func(i, total int, entry int32) bool {
 		return true
 	})
-	assert.Equal(t, fmt.Errorf(dnsBufLenStr), err)
+	assert.Equal(t, fmt.Errorf(bufTooShortStr), err)
 }
 
 func TestV2EncodeDNS_NoNames(t *testing.T) {
