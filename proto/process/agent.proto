@@ -651,11 +651,14 @@ enum EphemeralPortState {
 	ephemeralFalse = 2;
 }
 
+message ProtocolStack {
+	repeated ProtocolType stack = 1;
+}
+
 message Connection {
 	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 35;
 	// Please update when adding fields
-	// next identifier: 48
-
+	// next identifier: 49
 
 	int32 pid = 1;
 	Addr laddr = 5; // Local address
@@ -672,6 +675,8 @@ message Connection {
 	ConnectionDirection direction = 19;
 	uint64 lastPacketsSent = 38;
 	uint64 lastPacketsReceived = 39;
+	ProtocolStack protocol = 48;
+
 
 	// Network namespace
 	uint32 netNS = 20;
@@ -1106,6 +1111,14 @@ enum ResourceRequirementsType {
 	container = 1;
 	initContainer = 2;
 	ephemeralContainer = 3;
+}
+
+enum ProtocolType {
+	protocolUnclassified = 0;
+	protocolUnknown = 1;
+	protocolHTTP = 2;
+	protocolHTTP2 = 3;
+	protocolTLS = 4;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L61
