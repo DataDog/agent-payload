@@ -110,6 +110,7 @@ const (
 	TypeCollectorServiceAccount        = 58
 	TypeCollectorIngress               = 59
 	TypeCollectorProcEvent             = 60
+	TypeCollectorNamespace             = 61
 	TypeCollectorManifest              = 80
 )
 
@@ -165,6 +166,8 @@ func (m MessageType) String() string {
 		return "ingress"
 	case TypeCollectorProcEvent:
 		return "process-event"
+	case TypeCollectorNamespace:
+		return "namespace"
 	case TypeCollectorManifest:
 		return "manifest"
 	default:
@@ -249,6 +252,8 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorIngress{}
 	case TypeCollectorProcEvent:
 		m = &CollectorProcEvent{}
+	case TypeCollectorNamespace:
+		m = &CollectorNamespace{}
 	case TypeCollectorManifest:
 		m = &CollectorManifest{}
 	default:
@@ -318,6 +323,8 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorIngress
 	case *CollectorProcEvent:
 		t = TypeCollectorProcEvent
+	case *CollectorNamespace:
+		t = TypeCollectorNamespace
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}
