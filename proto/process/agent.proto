@@ -1088,6 +1088,7 @@ message Namespace {
 	string conditionMessage = 3; // the message of the first 'false' condition
 	bytes yaml = 4;
 	repeated string tags = 5;
+	string name = 6;
 }
 
 // https://github.com/kubernetes/kubernetes/blob/4112d8db20c5550cc27d30d3cee2723db0f8e1c4/staging/src/k8s.io/api/core/v1/types.go#L2097
