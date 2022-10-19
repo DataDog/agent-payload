@@ -257,9 +257,9 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorProcEvent{}
 	case TypeCollectorManifest:
 		m = &CollectorManifest{}
-	case TypeCollectorManifestCR: // manifest types can rely on the same body
+	case TypeCollectorManifestCR:
 		m = &CollectorManifestCR{}
-	case TypeCollectorManifestCRD: // manifest types can rely on the same body
+	case TypeCollectorManifestCRD:
 		m = &CollectorManifestCRD{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
