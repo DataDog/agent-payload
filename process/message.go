@@ -111,6 +111,8 @@ const (
 	TypeCollectorIngress               = 59
 	TypeCollectorProcEvent             = 60
 	TypeCollectorManifest              = 80
+	TypeCollectorManifestCRD           = 81
+	TypeCollectorManifestCR            = 82
 )
 
 func (m MessageType) String() string {
@@ -167,6 +169,10 @@ func (m MessageType) String() string {
 		return "process-event"
 	case TypeCollectorManifest:
 		return "manifest"
+	case TypeCollectorManifestCR:
+		return "manifest-cr"
+	case TypeCollectorManifestCRD:
+		return "manifest-crd"
 	default:
 		// otherwise convert the type identifier
 		return strconv.Itoa(int(m))
@@ -251,6 +257,10 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorProcEvent{}
 	case TypeCollectorManifest:
 		m = &CollectorManifest{}
+	case TypeCollectorManifestCR: // manifest types can rely on the same body
+		m = &CollectorManifestCR{}
+	case TypeCollectorManifestCRD: // manifest types can rely on the same body
+		m = &CollectorManifestCRD{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -288,6 +298,10 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorNode
 	case *CollectorManifest:
 		t = TypeCollectorManifest
+	case *CollectorManifestCRD:
+		t = TypeCollectorManifestCRD
+	case *CollectorManifestCR:
+		t = TypeCollectorManifestCR
 	case *CollectorCluster:
 		t = TypeCollectorCluster
 	case *CollectorJob:
