@@ -37,6 +37,18 @@ func TestUnsafeIterationV2(t *testing.T) {
 	})
 }
 
+func FuzzIterateV2(f *testing.F) {
+	f.Add(make([]byte, 6), 1)
+	f.Fuzz(FuzzingIterateV2)
+}
+
+func FuzzingIterateV2(t *testing.T, buffer []byte, tagIndex int) {
+	assert.NotPanics(t, func() {
+		unsafeIterateV2(buffer, tagIndex, func(i, total int, tag []byte) bool { return true })
+	})
+
+}
+
 func BenchmarkTagEncoders(b *testing.B) {
 	files := []struct {
 		name  string
