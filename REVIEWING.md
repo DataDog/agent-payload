@@ -4,6 +4,10 @@ This repository is shared between many teams, and it is not always clear what a 
 The following guidelines are intended to help.
 This is a _work in progress_ and additions to this list are welcome.
 
+## Practicalities
+
+If any of the `.proto` files are changed, then the corresponding Go code should be regenerated in the same PR (`GOPATH=$(go env GOPATH) rake codegen`).
+
 ## Implications for the Agent
 
 TBD
