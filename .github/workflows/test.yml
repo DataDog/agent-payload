@@ -1,0 +1,48 @@
+name: Test
+on: [push, pull_request]
+jobs:
+  test:
+    name: "rake test"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload"
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        path: go/src/github.com/DataDog/agent-payload
+    - name: "Install ruby"
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: head
+    - name: Install go
+      uses: actions/setup-go@v3
+      with:
+        go-version-file: "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/go.mod"
+    - run: rake test
+      env:
+        GOPATH: "/home/runner/work/agent-payload/agent-payload/go"
+
+  codegen:
+    name: "rake codegen"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload"
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        path: go/src/github.com/DataDog/agent-payload
+    - name: "Install ruby"
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: head
+    - name: Install go
+      uses: actions/setup-go@v3
+      with:
+        go-version-file: "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/go.mod"
+    - run: rake codegen
+      env:
+        GOPATH: "/home/runner/work/agent-payload/agent-payload/go"
+    - name: Check for diffs
+      run: git diff --exit-code
