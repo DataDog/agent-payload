@@ -8,6 +8,8 @@ This is a _work in progress_ and additions to this list are welcome.
 
 If any of the `.proto` files are changed, then the corresponding Go code should be regenerated in the same PR (`GOPATH=$(go env GOPATH) rake codegen`).
 
+Tests should be run locally before making a PR, and should pass in CI before a PR is merged.
+
 ## Implications for Security
 
  * Where complex data parsing logic is implemented, ensure fuzzing tests are place to improve resilience against malformed payloads.
