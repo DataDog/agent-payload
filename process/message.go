@@ -169,10 +169,10 @@ func (m MessageType) String() string {
 		return "process-event"
 	case TypeCollectorManifest:
 		return "manifest"
-	case TypeCollectorManifestCR:
-		return "manifest-cr"
 	case TypeCollectorManifestCRD:
 		return "manifest-crd"
+	case TypeCollectorManifestCR:
+		return "manifest-cr"
 	default:
 		// otherwise convert the type identifier
 		return strconv.Itoa(int(m))
@@ -257,10 +257,10 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorProcEvent{}
 	case TypeCollectorManifest:
 		m = &CollectorManifest{}
-	case TypeCollectorManifestCR:
-		m = &CollectorManifestCR{}
 	case TypeCollectorManifestCRD:
 		m = &CollectorManifestCRD{}
+	case TypeCollectorManifestCR:
+		m = &CollectorManifestCR{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
