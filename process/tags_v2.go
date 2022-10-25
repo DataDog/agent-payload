@@ -167,7 +167,7 @@ func iterateV2(buffer []byte, tagIndex int, cb func(i, total int, tag string) bo
 }
 
 func unsafeIterateV2(buffer []byte, tagIndex int, cb func(i, total int, tag []byte) bool) {
-	if len(buffer) <= 0 || len(buffer[1:]) < lenUint32 || tagIndex < 0 {
+	if len(buffer) < lenUint32+1 || tagIndex < 0 {
 		return
 	}
 	footerPosition := binary.LittleEndian.Uint32(buffer[1:])
