@@ -171,6 +171,26 @@ func TestUnsafeIterationV1(t *testing.T) {
 	})
 }
 
+func FuzzIterateV1(f *testing.F) {
+	allTags := readTestTags(f, "testdata/tags.txt")
+	t := NewTagEncoder()
+
+	for _, tag := range allTags {
+		_ = t.Encode(tag)
+	}
+	buf := t.Buffer()
+
+	f.Add(buf, 1)
+	f.Fuzz(FuzzingIterateV1)
+}
+
+func FuzzingIterateV1(t *testing.T, buffer []byte, tagIndex int) {
+	assert.NotPanics(t, func() {
+		unsafeIterateV1(buffer, tagIndex, func(i, total int, tag []byte) bool { return true })
+	})
+
+}
+
 func BenchmarkTagEncode(b *testing.B) {
 	allTags := readTestTags(b, "testdata/tags.txt")
 

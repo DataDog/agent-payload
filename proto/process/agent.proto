@@ -56,7 +56,7 @@ message CollectorProcDiscovery {
 message CollectorConnections {
 	reserved 1, 4, 13, 32, 33;
 	// Please update when adding fields
-	// next identifier:  42
+	// next identifier:  43
 
 	string hostName = 2;
 	string networkId = 12;
@@ -101,6 +101,9 @@ message CollectorConnections {
 	// Runtime compilation telemetry
 	map<string, RuntimeCompilationTelemetry> compilationTelemetryByAsset = 21;
 	KernelHeaderFetchResult kernelHeaderFetchResult = 41;
+
+	// CO-RE telemetry
+	map<string, COREResult> CORETelemetryByAsset = 42;
 
 	repeated Route routes = 31;
 
@@ -757,6 +760,7 @@ message Connections {
 	repeated string tags = 8;
 	map<string, int64> connTelemetryMap = 9;
 	KernelHeaderFetchResult kernelHeaderFetchResult = 10;
+	map<string, COREResult> CORETelemetryByAsset = 11;
 }
 
 message Addr {
@@ -1130,6 +1134,9 @@ enum ProtocolType {
 	protocolHTTP = 2;
 	protocolHTTP2 = 3;
 	protocolTLS = 4;
+	protocolKafka = 5;
+	protocolMongo = 6;
+	protocolPostgres = 7;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L61
@@ -1615,6 +1622,15 @@ message RuntimeCompilationTelemetry {
 
 	// Field below was deprecated in agent 7.41
 	KernelHeaderFetchResult kernelHeaderFetchResult = 4;
+}
+
+enum COREResult {
+	SuccessCustomBTF = 0;
+	SuccessEmbeddedBTF = 1;
+	SuccessDefaultBTF = 2;
+	BtfNotFound = 3;
+	AssetReadError = 4;
+	VerifierError = 5;
 }
 
 message RouteMetadata {

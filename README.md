@@ -6,6 +6,13 @@ This repository includes the protocol-buffer IDL used by the agent6 and agent7 t
 Those payloads are only supported by the V2 API endpoints.
 The generated Go, Python and Java implementations are checked into this repository and can be used directly.
 
+# Prerequisites
+
+You will need
+ * Ruby (any version will do)
+ * Go (at least the version in `go.mod`)
+ * A checkout of this repository within a GOPATH (so, at `$GOPATH/src/github.com/DataDog/agent-payload`)
+
 # Payloads
 
 ## Logs

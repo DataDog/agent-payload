@@ -93,6 +93,11 @@ task :test do
   sh cmd
 end
 
+task :fuzz do
+  cmd = "go list ./... | grep -v vendor | xargs -n 1 go test -v -fuzztime=20s -fuzz '.*' "
+  sh cmd
+end
+
 desc "Run all code generation."
 task :codegen => ['codegen:all']
 
