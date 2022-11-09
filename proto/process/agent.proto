@@ -854,7 +854,7 @@ message Cluster {
 	uint64 cpuCapacity = 9;
 	string resourceVersion = 10;
 	int64 creationTimestamp = 11;
-	repeated string tags = 12;
+	ResourceTags tags = 12;
 }
 
 // reference https://github.com/kubernetes/apimachinery/blob/2373d029717c4d169463414a6127cd1d0d12680e/pkg/apis/meta/v1/generated.proto#L521
@@ -914,7 +914,7 @@ message Node {
 	bytes yaml = 7;
 	// we parse it from the labels. Similar to upstream https://github.com/kubernetes/kubernetes/blob/1e12d92a5179dbfeb455c79dbf9120c8536e5f9c/pkg/printers/internalversion/printers.go#L1487
 	repeated string roles = 8;
-	repeated string tags = 9;
+	ResourceTags tags = 9;
 	string providerID = 10;
 	Host host = 11; // Used post-resolution
 }
@@ -998,7 +998,7 @@ message Service {
 	ServiceSpec spec = 2;
 	ServiceStatus status = 3;
 	bytes yaml = 4;
-	repeated string tags = 5;
+	ResourceTags tags = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L221
@@ -1020,7 +1020,7 @@ message Deployment {
 	string conditionMessage = 13;
 	repeated ResourceRequirements resourceRequirements = 16;
 	bytes yaml = 14;
-	repeated string tags = 15;
+	ResourceTags tags = 15;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L366
@@ -1036,7 +1036,7 @@ message ReplicaSet {
 	int32 availableReplicas = 7;
 	repeated ResourceRequirements resourceRequirements = 10;
 	bytes yaml = 8;
-	repeated string tags = 9;
+	ResourceTags tags = 9;
 }
 
 message LabelSelectorRequirement {
@@ -1060,7 +1060,7 @@ message Pod {
 	string conditionMessage = 8;
 	string status = 9; // pod status displayed by "kubectl get pod"
 	bytes yaml = 10;
-	repeated string tags = 11;
+	ResourceTags tags = 11;
 	Host host = 12; // Used post-resolution
 	repeated ResourceRequirements resourceRequirements = 13;
 	string QOSClass = 15;
@@ -1091,7 +1091,11 @@ message Namespace {
 	string status = 2; // namespace status displayed by "kubectl get namespace"
 	string conditionMessage = 3; // the message of the first 'false' condition
 	bytes yaml = 4;
-	repeated string tags = 5;
+	ResourceTags tags = 5;
+}
+
+message ResourceTags {
+	repeated string tags = 1;
 }
 
 // https://github.com/kubernetes/kubernetes/blob/4112d8db20c5550cc27d30d3cee2723db0f8e1c4/staging/src/k8s.io/api/core/v1/types.go#L2097
@@ -1158,7 +1162,7 @@ message Job {
 	JobSpec spec = 2;
 	JobStatus status = 3;
 	bytes yaml = 4;
-	repeated string tags = 5;
+	ResourceTags tags = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1beta1/types.go#L92
@@ -1184,7 +1188,7 @@ message CronJob {
 	CronJobSpec spec = 2;
 	CronJobStatus status = 3;
 	bytes yaml = 4;
-	repeated string tags = 5;
+	ResourceTags tags = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L119
@@ -1214,7 +1218,7 @@ message DaemonSet {
 	DaemonSetSpec spec = 2;
 	DaemonSetStatus status = 3;
 	bytes yaml = 4;
-	repeated string tags = 5;
+	ResourceTags tags = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L586
@@ -1244,7 +1248,7 @@ message StatefulSet {
 	StatefulSetSpec spec = 2;
 	StatefulSetStatus status = 3;
 	bytes yaml = 4;
-	repeated string tags = 5;
+	ResourceTags tags = 5;
 }
 
 // reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2576
@@ -1253,7 +1257,7 @@ message PersistentVolume {
 	PersistentVolumeSpec spec = 2;
 	PersistentVolumeStatus status = 3;
 	bytes yaml = 4;
-	repeated string tags = 5;
+	ResourceTags tags = 5;
 }
 
 // reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2889
@@ -1290,7 +1294,7 @@ message PersistentVolumeClaim {
 	PersistentVolumeClaimSpec spec = 2;
 	PersistentVolumeClaimStatus status = 3;
 	bytes yaml = 4;
-	repeated string tags = 5;
+	ResourceTags tags = 5;
 }
 
 
@@ -1352,7 +1356,7 @@ message Role {
 	Metadata metadata = 1;
 	repeated PolicyRule rules = 2;
 	bytes yaml = 3;
-	repeated string tags = 4;
+	ResourceTags tags = 4;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/rbac/v1/generated.proto#L132
@@ -1361,7 +1365,7 @@ message RoleBinding {
 	repeated Subject subjects = 2;
 	TypedLocalObjectReference roleRef = 3;
 	bytes yaml = 4;
-	repeated string tags = 5;
+	ResourceTags tags = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/rbac/v1/generated.proto#L40
@@ -1370,7 +1374,7 @@ message ClusterRole {
 	repeated PolicyRule rules = 2;
 	repeated LabelSelectorRequirement aggregationRules = 3;
 	bytes yaml = 4;
-	repeated string tags = 5;
+	ResourceTags tags = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/rbac/v1/generated.proto#L58
@@ -1379,7 +1383,7 @@ message ClusterRoleBinding {
 	repeated Subject subjects = 2;
 	TypedLocalObjectReference roleRef = 3;
 	bytes yaml = 4;
-	repeated string tags = 5;
+	ResourceTags tags = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L4495
@@ -1389,7 +1393,7 @@ message ServiceAccount {
 	repeated TypedLocalObjectReference imagePullSecrets = 3;
 	bool automountServiceAccountToken = 4;
 	bytes yaml = 5;
-	repeated string tags = 6;
+	ResourceTags tags = 6;
 }
 
 // reference https://github.com/kubernetes/api/blob/v0.21.5/networking/v1/generated.proto#L259
@@ -1460,7 +1464,7 @@ message Ingress {
 	IngressSpec spec = 2;
 	IngressStatus status = 3;
 	bytes yaml = 4;
-	repeated string tags = 5;
+	ResourceTags tags = 5;
 }
 
 message ConnectionsTelemetry {
