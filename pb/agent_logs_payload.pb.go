@@ -2,13 +2,15 @@
 // source: proto/logs/agent_logs_payload.proto
 
 /*
-	Package pb is a generated protocol buffer package.
+Package pb is a generated protocol buffer package.
 
-	It is generated from these files:
-		proto/logs/agent_logs_payload.proto
+It is generated from these files:
 
-	It has these top-level messages:
-		Log
+	proto/logs/agent_logs_payload.proto
+
+It has these top-level messages:
+
+	Log
 */
 package pb
 
