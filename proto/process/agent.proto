@@ -402,6 +402,7 @@ message Process {
 	bytes byteKey = 18;
 	bytes containerByteKey = 19;
 	ProcessNetworks networks = 21;
+	repeated ProcessListeningAddr listeningAddrs = 22; 
 }
 
 message ProcessDiscovery {
@@ -438,6 +439,11 @@ message ProcessUser {
 message ProcessNetworks {
 	float connectionRate = 1;
 	float bytesRate = 2;
+}
+
+message ProcessListeningAddr {
+	int32  port = 1;
+	string ip = 2;
 }
 
 // status section in https://docs.docker.com/engine/api/v1.29/#tag/Container
