@@ -112,6 +112,8 @@ const (
 	TypeCollectorProcEvent             = 60
 	TypeCollectorNamespace             = 61
 	TypeCollectorManifest              = 80
+	TypeCollectorManifestCRD           = 81
+	TypeCollectorManifestCR            = 82
 )
 
 func (m MessageType) String() string {
@@ -170,6 +172,10 @@ func (m MessageType) String() string {
 		return "namespace"
 	case TypeCollectorManifest:
 		return "manifest"
+	case TypeCollectorManifestCRD:
+		return "manifest-crd"
+	case TypeCollectorManifestCR:
+		return "manifest-cr"
 	default:
 		// otherwise convert the type identifier
 		return strconv.Itoa(int(m))
@@ -256,6 +262,10 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorNamespace{}
 	case TypeCollectorManifest:
 		m = &CollectorManifest{}
+	case TypeCollectorManifestCRD:
+		m = &CollectorManifestCRD{}
+	case TypeCollectorManifestCR:
+		m = &CollectorManifestCR{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -293,6 +303,10 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorNode
 	case *CollectorManifest:
 		t = TypeCollectorManifest
+	case *CollectorManifestCRD:
+		t = TypeCollectorManifestCRD
+	case *CollectorManifestCR:
+		t = TypeCollectorManifestCR
 	case *CollectorCluster:
 		t = TypeCollectorCluster
 	case *CollectorJob:

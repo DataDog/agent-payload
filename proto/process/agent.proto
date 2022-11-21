@@ -253,6 +253,14 @@ message CollectorManifest {
 	repeated Manifest manifests = 5;
 }
 
+message CollectorManifestCRD {
+	CollectorManifest manifest = 1;
+}
+
+message CollectorManifestCR {
+	CollectorManifest manifest = 1;
+}
+
 message CollectorNamespace {
 	string clusterName = 1;
 	string clusterId = 2;
