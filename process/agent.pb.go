@@ -1949,7 +1949,6 @@ type Connection struct {
 	Raddr                *Addr              `protobuf:"bytes,6,opt,name=raddr" json:"raddr,omitempty"`
 	Family               ConnectionFamily   `protobuf:"varint,10,opt,name=family,proto3,enum=datadog.process_agent.ConnectionFamily" json:"family,omitempty"`
 	Type                 ConnectionType     `protobuf:"varint,11,opt,name=type,proto3,enum=datadog.process_agent.ConnectionType" json:"type,omitempty"`
-	PidCreateTime        int64              `protobuf:"varint,12,opt,name=pidCreateTime,proto3" json:"pidCreateTime,omitempty"`
 	IsLocalPortEphemeral EphemeralPortState `protobuf:"varint,41,opt,name=isLocalPortEphemeral,proto3,enum=datadog.process_agent.EphemeralPortState" json:"isLocalPortEphemeral,omitempty"`
 	// Relative counters since last check
 	LastBytesSent       uint64              `protobuf:"varint,16,opt,name=lastBytesSent,proto3" json:"lastBytesSent,omitempty"`
@@ -7973,11 +7972,6 @@ func (m *Connection) MarshalTo(data []byte) (int, error) {
 		data[i] = 0x58
 		i++
 		i = encodeVarintAgent(data, i, uint64(m.Type))
-	}
-	if m.PidCreateTime != 0 {
-		data[i] = 0x60
-		i++
-		i = encodeVarintAgent(data, i, uint64(m.PidCreateTime))
 	}
 	if m.LastBytesSent != 0 {
 		data[i] = 0x80
@@ -15361,9 +15355,6 @@ func (m *Connection) Size() (n int) {
 	}
 	if m.Type != 0 {
 		n += 1 + sovAgent(uint64(m.Type))
-	}
-	if m.PidCreateTime != 0 {
-		n += 1 + sovAgent(uint64(m.PidCreateTime))
 	}
 	if m.LastBytesSent != 0 {
 		n += 2 + sovAgent(uint64(m.LastBytesSent))
@@ -29721,25 +29712,6 @@ func (m *Connection) Unmarshal(data []byte) error {
 				b := data[iNdEx]
 				iNdEx++
 				m.Type |= (ConnectionType(b) & 0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 12:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field PidCreateTime", wireType)
-			}
-			m.PidCreateTime = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowAgent
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := data[iNdEx]
-				iNdEx++
-				m.PidCreateTime |= (int64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
