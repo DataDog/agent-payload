@@ -847,6 +847,29 @@ message DNSEntry {
 	repeated string names = 1;
 }
 
+enum K8SResources {
+    UNSET_NODE_TYPE = 0;
+    K8S_POD = 1;
+    K8S_REPLICASET = 2;
+    K8S_SERVICE = 3;
+    K8S_NODE = 4;
+    K8S_CLUSTER = 5;
+    K8S_JOB = 6;
+    K8S_CRONJOB = 7;
+    K8S_DAEMONSET = 8;
+    K8S_STATEFULSET = 9;
+    K8S_PERSISTENTVOLUME = 10;
+    K8S_PERSISTENTVOLUMECLAIM = 11;
+    K8S_ROLE = 12;
+    K8S_ROLEBINDING = 13;
+    K8S_CLUSTERROLE = 14;
+    K8S_CLUSTERROLEBINDING = 15;
+    K8S_SERVICEACCOUNT = 16;
+    K8S_INGRESS = 17;
+    K8S_DEPLOYMENT = 18;
+    K8S_NAMESPACE = 19;
+}
+
 message Cluster {
 	int32 nodeCount = 1;
 	map<string, int32> kubeletVersions = 2;
