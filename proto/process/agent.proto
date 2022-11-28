@@ -1079,8 +1079,8 @@ message Pod {
 	string QOSClass = 15;
 	string priorityClass = 16;
 	ResourceMetrics metrics = 17;
-  int64 startTime = 18;
-  int64 lastTransitionTime = 19;
+  	int64 startTime = 18;
+  	int64 lastTransitionTime = 19;
 }
 
 message ContainerStatus {
