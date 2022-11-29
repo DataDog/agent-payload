@@ -43,6 +43,8 @@ message CollectorProc {
 	repeated Container containers = 10;
 
 	ContainerHostType containerHostType = 12;
+
+  bool filter = 13;
 }
 
 message CollectorProcDiscovery {
@@ -51,6 +53,7 @@ message CollectorProcDiscovery {
 	int32 groupSize = 3;
 	repeated ProcessDiscovery processDiscoveries = 4;
 	Host host = 5;
+  bool filter = 6;
 }
 
 message CollectorConnections {
