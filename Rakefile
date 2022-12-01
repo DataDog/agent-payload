@@ -82,23 +82,22 @@ BASH
 
 end
 
-# no desc, doesn't really work outside of rake tasks, can't say: `rake gimme; go` as the vars aren't exported
 task :gimme do
     go_version = "1.18"
 
     if (`which gimme`; $?.success?)
-      sh "GIMME_DOWNLOAD_BASE=https://binaries.ddbuild.io/golang/ gimme #{go_version}"
+      sh "gimme #{go_version}"
       results = `. ~/.gimme/envs/go#{go_version}.env > /dev/null; echo $GOOS; echo $GOARCH; echo $GOROOT; echo $PATH`.split("\n")
       ENV['GOOS'] = results[0]
       ENV['GOARCH'] = results[1]
       ENV['GOROOT'] = results[2]
       ENV['PATH'] = results[3]
+      puts "The code generated with versions other than the pinned version #{go_version} might cause conflict"
     elsif (`which go`; $?.success?)
       puts "using local go toolchain, install gimme to use pinned go version"
     else
       puts "You need either gimme or go in your path."
       exit 1
-
   end
 end
 
