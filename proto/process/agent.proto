@@ -29,6 +29,13 @@ message ResCollector {
 	CollectorStatus status = 3;
 }
 
+// CollectorProcHint is an enum that gives "hints" to backend services on how to handle
+// the parent message.
+enum CollectorProcHint {
+  hintUnspecified = 0;
+  hintProcessDiscovery = 1;
+}
+
 message CollectorProc {
 	string hostName = 2;
 	string networkId = 11;
@@ -43,6 +50,8 @@ message CollectorProc {
 	repeated Container containers = 10;
 
 	ContainerHostType containerHostType = 12;
+  
+  repeated CollectorProcHint hints = 13;
 }
 
 message CollectorProcDiscovery {
