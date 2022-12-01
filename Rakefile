@@ -118,9 +118,9 @@ task :fuzz do
 end
 
 desc "Run all code generation."
-task :codegen => ['codegen:all']
+task :codegen => [:gimme, 'codegen:all']
 
 desc "Run all protobuf code generation."
-task :protobuf => ['codegen:protoc']
+task :protobuf => [:gimme, 'codegen:protoc']
 
-task :default => [:gimme, :deps, :test, :codegen]
+task :default => [:deps, :test, :codegen]
