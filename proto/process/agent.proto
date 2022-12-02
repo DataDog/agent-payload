@@ -667,7 +667,7 @@ message ProtocolStack {
 }
 
 message Connection {
-	reserved 2, 3, 4, 7, 8, 9, 13, 14, 15, 35;
+	reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
 	// Please update when adding fields
 	// next identifier: 50
 
@@ -676,7 +676,6 @@ message Connection {
 	Addr raddr = 6; // Remote address
 	ConnectionFamily family = 10;
 	ConnectionType type = 11;
-	int64 pidCreateTime = 12;
 	EphemeralPortState isLocalPortEphemeral = 41;
 
 	// Relative counters since last check
@@ -863,6 +862,7 @@ message Cluster {
 	string resourceVersion = 10;
 	int64 creationTimestamp = 11;
 	repeated string tags = 12;
+	ResourceMetrics metrics = 13;
 }
 
 // reference https://github.com/kubernetes/apimachinery/blob/2373d029717c4d169463414a6127cd1d0d12680e/pkg/apis/meta/v1/generated.proto#L521
@@ -925,6 +925,7 @@ message Node {
 	repeated string tags = 9;
 	string providerID = 10;
 	Host host = 11; // Used post-resolution
+	ResourceMetrics metrics = 12;
 }
 
 
@@ -1007,6 +1008,7 @@ message Service {
 	ServiceStatus status = 3;
 	bytes yaml = 4;
 	repeated string tags = 5;
+	ResourceMetrics metrics = 6;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L221
@@ -1029,6 +1031,7 @@ message Deployment {
 	repeated ResourceRequirements resourceRequirements = 16;
 	bytes yaml = 14;
 	repeated string tags = 15;
+	ResourceMetrics metrics = 17;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L366
@@ -1045,6 +1048,7 @@ message ReplicaSet {
 	repeated ResourceRequirements resourceRequirements = 10;
 	bytes yaml = 8;
 	repeated string tags = 9;
+	ResourceMetrics metrics = 11;
 }
 
 message LabelSelectorRequirement {
@@ -1073,6 +1077,9 @@ message Pod {
 	repeated ResourceRequirements resourceRequirements = 13;
 	string QOSClass = 15;
 	string priorityClass = 16;
+	ResourceMetrics metrics = 17;
+	int64 startTime = 18;
+	int64 scheduledTime = 19;
 }
 
 message ContainerStatus {
@@ -1119,6 +1126,11 @@ message ResourceRequirements{
 
 	// ResourceRequirementsType describes the type which uses the ResourceRequirements.
 	ResourceRequirementsType type = 4;
+}
+
+// ResourceMetrics is used in backend enrichment.
+message ResourceMetrics {
+	map<string, double> metricValues = 1;
 }
 
 enum ResourceRequirementsType {
@@ -1223,6 +1235,7 @@ message DaemonSet {
 	DaemonSetStatus status = 3;
 	bytes yaml = 4;
 	repeated string tags = 5;
+	ResourceMetrics metrics = 6;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L586
@@ -1253,6 +1266,7 @@ message StatefulSet {
 	StatefulSetStatus status = 3;
 	bytes yaml = 4;
 	repeated string tags = 5;
+	ResourceMetrics metrics = 6;
 }
 
 // reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2576
@@ -1379,6 +1393,7 @@ message ClusterRole {
 	repeated LabelSelectorRequirement aggregationRules = 3;
 	bytes yaml = 4;
 	repeated string tags = 5;
+	ResourceMetrics metrics = 6;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/rbac/v1/generated.proto#L58
