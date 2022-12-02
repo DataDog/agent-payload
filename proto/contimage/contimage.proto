@@ -16,7 +16,7 @@ message ContainerImagePayload {
 message ContainerImage {
     string          id          = 1;
     string          registry    = 2;
-    string          name        = 3;
+    string          short_name  = 3;
     repeated string tags        = 4;
     string          digest      = 5;
     int64           size        = 6;
@@ -31,10 +31,10 @@ message ContainerImage {
     OperatingSystem os = 8;
 
     message ContainerImageLayer {
-      string urls      = 1;
-      string mediaType = 2;
-      string digest    = 3;
-      int64 size       = 4;
+      repeated string urls      = 1;
+      string          mediaType = 2;
+      string          digest    = 3;
+      int64           size      = 4;
     }
     repeated ContainerImageLayer layers = 9;
 
