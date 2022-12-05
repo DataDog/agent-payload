@@ -39,5 +39,5 @@ The following implementations are available:
 
 After updating the IDL you must:
 
-- Regenerate the code: `GOPATH=$(go env GOPATH) rake codegen`
+- Regenerate the code: `rake codegen`, rake will use gimme to run the rake command with the current defined go version
 - Create a new tag with the updated version of the payload
