@@ -32,8 +32,8 @@ message ResCollector {
 // CollectorProcHint is an enum that gives "hints" to backend services on how to handle
 // the parent message.
 enum CollectorProcHint {
-      hintUnspecified = 0;
-      hintProcessDiscovery = 1;
+        hintUnspecified = 0;
+        hintProcessDiscovery = 1;
 }
 
 message CollectorProc {
@@ -51,7 +51,7 @@ message CollectorProc {
 
 	ContainerHostType containerHostType = 12;
 
-      repeated CollectorProcHint hints = 13;
+        repeated CollectorProcHint hints = 13;
 }
 
 message CollectorProcDiscovery {
