@@ -14,13 +14,13 @@ message ContainerImagePayload {
 
 // ContainerImage contains the details of a container image
 message ContainerImage {
-    string          id          = 1;
-    string          registry    = 2;
-    string          short_name  = 3;
-    repeated string tags        = 4;
-    string          digest      = 5;
-    int64           size        = 6;
-    string          repo_digest = 7;
+    string          id           = 1;
+    string          registry     = 2;
+    string          short_name   = 3;
+    repeated string tags         = 4;
+    string          digest       = 5;
+    int64           size         = 6;
+    repeated string repo_digests = 7;
 
     // platform info
     message OperatingSystem {
