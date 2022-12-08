@@ -1655,6 +1655,7 @@ enum COREResult {
 	BtfNotFound = 3;
 	AssetReadError = 4;
 	VerifierError = 5;
+	LoaderError = 6;
 }
 
 message RouteMetadata {
