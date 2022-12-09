@@ -30,7 +30,7 @@ message ResCollector {
 }
 
 message CollectorProc {
-  reserved 13;
+      reserved 13;
 
 	string hostName = 2;
 	string networkId = 11;
