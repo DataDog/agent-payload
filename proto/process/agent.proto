@@ -1710,7 +1710,6 @@ message ContainerResourcePolicy {
 	ResourceList maxAllowed = 4;
 	repeated string controlledResource = 5;
 	string controlledValues = 6;
-
 }
 
 message VerticalPodAutoscalerStatus {
