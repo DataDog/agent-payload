@@ -30,6 +30,8 @@ message ResCollector {
 }
 
 message CollectorProc {
+	reserved 13; // Unused fields
+	
 	string hostName = 2;
 	string networkId = 11;
 	repeated Process processes = 3;
@@ -1669,6 +1671,7 @@ enum COREResult {
 	BtfNotFound = 3;
 	AssetReadError = 4;
 	VerifierError = 5;
+	LoaderError = 6;
 }
 
 message RouteMetadata {
