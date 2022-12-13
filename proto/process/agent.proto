@@ -45,6 +45,8 @@ message CollectorProc {
 	repeated Container containers = 10;
 
 	ContainerHostType containerHostType = 12;
+
+	oneof hints {int32 hintMask = 14;}
 }
 
 message CollectorProcDiscovery {
