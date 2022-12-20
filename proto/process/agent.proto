@@ -869,6 +869,8 @@ enum K8SResources {
     INGRESS = 17;
     DEPLOYMENT = 18;
     NAMESPACE = 19;
+    CRD = 20;
+    CR = 21;
 }
 
 message Cluster {
