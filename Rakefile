@@ -112,6 +112,11 @@ task :test do
   sh cmd
 end
 
+task :bench do
+  cmd = "go list ./... | grep -v vendor | xargs -n 1 go test -v -bench '.*' "
+  sh cmd
+end
+
 task :fuzz do
   cmd = "go list ./... | grep -v vendor | xargs -n 1 go test -v -fuzztime=20s -fuzz '.*' "
   sh cmd
