@@ -14,8 +14,9 @@ import (
 	"github.com/DataDog/zstd"
 	"github.com/DataDog/zstd_0"
 
-	"github.com/gogo/protobuf/jsonpb"
-	"github.com/gogo/protobuf/proto"
+	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
 // MessageEncoding represents how messages will be encoded or decoded for
@@ -60,7 +61,7 @@ func unmarshal(enc MessageEncoding, body []byte, m proto.Message) error {
 	case MessageEncodingProtobuf:
 		return proto.Unmarshal(body, m)
 	case MessageEncodingJSON:
-		return jsonpb.Unmarshal(bytes.NewReader(body), m)
+		return protojson.Unmarshal(body, m)
 	case MessageEncodingZstdPB, MessageEncodingZstd1xPB:
 		var d []byte
 		var err error
@@ -193,7 +194,7 @@ type MessageBody interface {
 	ProtoMessage()
 	Reset()
 	String() string
-	Size() int
+	ProtoReflect() protoreflect.Message
 }
 
 // DecodeMessage decodes raw message bytes into a specific type that satisfies
@@ -366,12 +367,10 @@ func EncodeMessage(m Message) ([]byte, error) {
 			return nil, err
 		}
 	case MessageEncodingJSON:
-		marshaler := jsonpb.Marshaler{EmitDefaults: true}
-		s, err := marshaler.MarshalToString(m.Body)
+		p, err = protojson.Marshal(m.Body)
 		if err != nil {
 			return nil, err
 		}
-		p = []byte(s)
 	case MessageEncodingZstdPB, MessageEncodingZstd1xPB:
 		pb, err := proto.Marshal(m.Body)
 		if err != nil {
