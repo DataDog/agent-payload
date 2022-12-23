@@ -9,10 +9,12 @@ public interface LogOrBuilder extends
 
   /**
    * <code>string message = 1;</code>
+   * @return The message.
    */
   java.lang.String getMessage();
   /**
    * <code>string message = 1;</code>
+   * @return The bytes for message.
    */
   com.google.protobuf.ByteString
       getMessageBytes();
@@ -23,6 +25,7 @@ public interface LogOrBuilder extends
    * </pre>
    *
    * <code>string status = 2;</code>
+   * @return The status.
    */
   java.lang.String getStatus();
   /**
@@ -31,12 +34,14 @@ public interface LogOrBuilder extends
    * </pre>
    *
    * <code>string status = 2;</code>
+   * @return The bytes for status.
    */
   com.google.protobuf.ByteString
       getStatusBytes();
 
   /**
    * <code>int64 timestamp = 3;</code>
+   * @return The timestamp.
    */
   long getTimestamp();
 
@@ -46,6 +51,7 @@ public interface LogOrBuilder extends
    * </pre>
    *
    * <code>string hostname = 4;</code>
+   * @return The hostname.
    */
   java.lang.String getHostname();
   /**
@@ -54,6 +60,7 @@ public interface LogOrBuilder extends
    * </pre>
    *
    * <code>string hostname = 4;</code>
+   * @return The bytes for hostname.
    */
   com.google.protobuf.ByteString
       getHostnameBytes();
@@ -64,6 +71,7 @@ public interface LogOrBuilder extends
    * </pre>
    *
    * <code>string service = 5;</code>
+   * @return The service.
    */
   java.lang.String getService();
   /**
@@ -72,16 +80,19 @@ public interface LogOrBuilder extends
    * </pre>
    *
    * <code>string service = 5;</code>
+   * @return The bytes for service.
    */
   com.google.protobuf.ByteString
       getServiceBytes();
 
   /**
    * <code>string source = 6;</code>
+   * @return The source.
    */
   java.lang.String getSource();
   /**
    * <code>string source = 6;</code>
+   * @return The bytes for source.
    */
   com.google.protobuf.ByteString
       getSourceBytes();
@@ -92,6 +103,7 @@ public interface LogOrBuilder extends
    * </pre>
    *
    * <code>repeated string tags = 7;</code>
+   * @return A list containing the tags.
    */
   java.util.List<java.lang.String>
       getTagsList();
@@ -101,6 +113,7 @@ public interface LogOrBuilder extends
    * </pre>
    *
    * <code>repeated string tags = 7;</code>
+   * @return The count of tags.
    */
   int getTagsCount();
   /**
@@ -109,6 +122,8 @@ public interface LogOrBuilder extends
    * </pre>
    *
    * <code>repeated string tags = 7;</code>
+   * @param index The index of the element to return.
+   * @return The tags at the given index.
    */
   java.lang.String getTags(int index);
   /**
@@ -117,6 +132,8 @@ public interface LogOrBuilder extends
    * </pre>
    *
    * <code>repeated string tags = 7;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the tags at the given index.
    */
   com.google.protobuf.ByteString
       getTagsBytes(int index);

@@ -31,7 +31,7 @@ message ResCollector {
 
 message CollectorProc {
 	reserved 13; // Unused fields
-	
+
 	string hostName = 2;
 	string networkId = 11;
 	repeated Process processes = 3;
@@ -479,8 +479,8 @@ enum ContainerHealth {
 	unhealthy = 3;
 }
 
-// ContainerAddr records the IPs, Ports and Protocols for each container
-message ContainerAddr {
+// ContainerAddrP records the IPs, Ports and Protocols for each container
+message ContainerAddrP {
 	string ip = 1;
 	int32 port = 2;
 	ConnectionType protocol = 3;
@@ -514,7 +514,7 @@ message Container {
 	int64 started = 24;
 	bytes byteKey = 25;
 	repeated string tags = 26;
-	repeated ContainerAddr addresses = 27;
+	repeated ContainerAddrP addresses = 27;
 	uint64 threadCount = 28;
 	uint64 threadLimit = 29;
 }

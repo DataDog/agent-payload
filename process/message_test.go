@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"google.golang.org/protobuf/proto"
 )
 
 // TestDecodeZstd05Payload ensures backward compatibility with our intake
@@ -27,7 +28,12 @@ func TestDecodeZstd05Payload(t *testing.T) {
 	msg, err := DecodeMessage(raw)
 	assert.NoError(t, err)
 
-	assert.Equal(t, expected, msg)
+	assert.Equal(t, expected.Header, msg.Header)
+	// Use `proto.Equal()` instead of `assert.Equal()` in order to skip the comparison of private fields and internal details of a protoc generated struct.
+	if !proto.Equal(expected.Body.(*CollectorProc), msg.Body.(*CollectorProc)) {
+		// Use `assert.Equal()` in order to fail the test and display a pretty human readable diff.
+		assert.Equal(t, expected, msg)
+	}
 }
 
 func TestMessageTypeString(t *testing.T) {
