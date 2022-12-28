@@ -1560,7 +1560,7 @@ message DataStreamsAggregations {
     message KafkaApiVersionEntry {
         KafkaApiKey type = 1;
         uint64 count = 2;
-		}
+    }
 
     KafkaProduceAggregations kafkaProduceAggregations = 1;
     KafkaFetchAggregations kafkaFetchAggregations = 2;
