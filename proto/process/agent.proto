@@ -1552,19 +1552,19 @@ message DataStreamsAggregations {
         repeated TopicStats stats = 1;
     }
 
-	enum KafkaApiKey {
-		Produce = 0;
-		Fetch = 1;
-	}
+    enum KafkaApiKey {
+        Produce = 0;
+        Fetch = 1;
+    }
 
-	message KafkaApiVersionEntry {
-			KafkaApiKey type = 1;
-			uint64 count = 2;
-	}
+    message KafkaApiVersionEntry {
+        KafkaApiKey type = 1;
+        uint64 count = 2;
+		}
 
-	KafkaProduceAggregations kafkaProduceAggregations = 1;
-	KafkaFetchAggregations kafkaFetchAggregations = 2;
-	repeated KafkaApiVersionEntry kafkaApiVersionHistogram = 3;
+    KafkaProduceAggregations kafkaProduceAggregations = 1;
+    KafkaFetchAggregations kafkaFetchAggregations = 2;
+    repeated KafkaApiVersionEntry kafkaApiVersionHistogram = 3;
 }
 
 message HTTPAggregations {
