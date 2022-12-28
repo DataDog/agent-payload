@@ -1539,32 +1539,34 @@ message DNSStatsByQueryType {
 
 
 message DataStreamsAggregations {
-    message TopicStats {
-        string topic = 1;
-        uint32 count = 2;
-    }
+	message TopicStats {
+		string topic = 1;
+		uint32 count = 2;
+	}
 
-    message KafkaProduceAggregations {
-        repeated TopicStats stats = 1;
-    }
-
-    message KafkaFetchAggregations {
-        repeated TopicStats stats = 1;
-    }
-
-    enum KafkaApiKey {
+	enum KafkaApiKey {
         Produce = 0;
         Fetch = 1;
     }
 
-    message KafkaApiVersionEntry {
-        KafkaApiKey type = 1;
-        uint64 count = 2;
-    }
+	message KafkaProduceAggregations {
+		repeated TopicStats stats = 1;
+		map<KafkaApiKey, uint64> apiVersionHistogram = 2;
+	}
 
-    KafkaProduceAggregations kafkaProduceAggregations = 1;
-    KafkaFetchAggregations kafkaFetchAggregations = 2;
-    repeated KafkaApiVersionEntry kafkaApiVersionHistogram = 3;
+	message KafkaFetchAggregations {
+		repeated TopicStats stats = 1;
+		map<KafkaApiKey, uint64> apiVersionHistogram = 2;
+	}
+
+	message KafkaApiVersionEntry {
+		KafkaApiKey type = 1;
+		uint64 count = 2;
+	}
+
+	KafkaProduceAggregations kafkaProduceAggregations = 1;
+	KafkaFetchAggregations kafkaFetchAggregations = 2;
+	repeated KafkaApiVersionEntry kafkaApiVersionHistogram = 3;
 }
 
 message HTTPAggregations {
