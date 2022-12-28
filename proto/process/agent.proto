@@ -1566,7 +1566,7 @@ message DataStreamsAggregations {
 
 	KafkaProduceAggregations kafkaProduceAggregations = 1;
 	KafkaFetchAggregations kafkaFetchAggregations = 2;
-	repeated KafkaApiVersionEntry kafkaApiVersionHistogram = 3;
+	// repeated KafkaApiVersionEntry kafkaApiVersionHistogram = 3;
 }
 
 message HTTPAggregations {
