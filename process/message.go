@@ -114,6 +114,7 @@ const (
 	TypeCollectorManifest              = 80
 	TypeCollectorManifestCRD           = 81
 	TypeCollectorManifestCR            = 82
+	TypeCollectorVerticalPodAutoscaler = 83
 )
 
 func (m MessageType) String() string {
@@ -176,6 +177,8 @@ func (m MessageType) String() string {
 		return "manifest-crd"
 	case TypeCollectorManifestCR:
 		return "manifest-cr"
+	case TypeCollectorVerticalPodAutoscaler:
+		return "verticalpodautoscaler"
 	default:
 		// otherwise convert the type identifier
 		return strconv.Itoa(int(m))
@@ -266,6 +269,8 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorManifestCRD{}
 	case TypeCollectorManifestCR:
 		m = &CollectorManifestCR{}
+	case TypeCollectorVerticalPodAutoscaler:
+		m = &VerticalPodAutoscaler{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -339,6 +344,8 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorProcEvent
 	case *CollectorNamespace:
 		t = TypeCollectorNamespace
+	case *CollectorVerticalPodAutoscaler:
+		t = TypeCollectorVerticalPodAutoscaler
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}
