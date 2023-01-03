@@ -9,18 +9,18 @@ message ContainerImagePayload {
     string                  version = 1;  // version represents the ContainerImagePayload message version
     string                  host    = 2;  // host contains the hostname
     repeated ContainerImage images  = 3;  // Images metadata
-    // repeated VulneratibilityReport reports = 4; // vulneratibility reports
 }
 
 // ContainerImage contains the details of a container image
 message ContainerImage {
     string          id           = 1;
-    string          registry     = 2;
-    string          short_name   = 3;
-    repeated string tags         = 4;
-    string          digest       = 5;
-    int64           size         = 6;
-    repeated string repo_digests = 7;
+    string          name         = 2;
+    string          registry     = 3;
+    string          short_name   = 4;
+    repeated string tags         = 5;
+    string          digest       = 6;
+    int64           size         = 7;
+    repeated string repo_digests = 8;
 
     // platform info
     message OperatingSystem {
@@ -28,7 +28,7 @@ message ContainerImage {
       string version      = 2;
       string architecture = 3;
     }
-    OperatingSystem os = 8;
+    OperatingSystem os = 9;
 
     message ContainerImageLayer {
       repeated string urls      = 1;
@@ -36,18 +36,5 @@ message ContainerImage {
       string          digest    = 3;
       int64           size      = 4;
     }
-    repeated ContainerImageLayer layers = 9;
-
-    // optional ImageSBOM sbom = 10;
-
-    // optional VulneratibilityReport vulns = 10;
+    repeated ContainerImageLayer layers = 10;
 }
-
-// // VulneratibilityReport container a
-// message VulneratibilityReport {
-//   // TODO
-// }
-
-// message ImageSBOM {
-//  // TODO
-// }
