@@ -178,7 +178,7 @@ func (m MessageType) String() string {
 	case TypeCollectorManifestCR:
 		return "manifest-cr"
 	case TypeCollectorVerticalPodAutoscaler:
-		return "verticalpodautoscaler"
+		return "vertical-pod-autoscaler"
 	default:
 		// otherwise convert the type identifier
 		return strconv.Itoa(int(m))
