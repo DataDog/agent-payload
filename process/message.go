@@ -270,7 +270,7 @@ func DecodeMessage(data []byte) (Message, error) {
 	case TypeCollectorManifestCR:
 		m = &CollectorManifestCR{}
 	case TypeCollectorVerticalPodAutoscaler:
-		m = &VerticalPodAutoscaler{}
+		m = &CollectorVerticalPodAutoscaler{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
