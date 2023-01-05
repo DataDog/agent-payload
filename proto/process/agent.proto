@@ -857,29 +857,29 @@ message DNSEntry {
 	repeated string names = 1;
 }
 
-enum K8sResources {
-    unsetNodeType = 0;
-    pod = 1;
-    replicaSet = 2;
-    service = 3;
-    node = 4;
-    cluster = 5;
-    job = 6;
-    cronJob = 7;
-    daemonSet = 8;
-    statefulSet = 9;
-    persistentVolume = 10;
-    persistentVolumeClaim = 11;
-    role = 12;
-    roleBinding = 13;
-    clusterRole = 14;
-    clusterRoleBinding = 15;
-    serviceAccount = 16;
-    ingress = 17;
-    deployment = 18;
-    namespace = 19;
-    crd = 20;
-    cr = 21;
+enum K8sResource {
+    K8SRESOURCE_UNSPECIFIED = 0;
+    POD = 1;
+    REPLICASET = 2;
+    SERVICE = 3;
+    NODE = 4;
+    CLUSTER = 5;
+    JOB = 6;
+    CRONJOB = 7;
+    DAEMONSET = 8;
+    STATEFULSET = 9;
+    PERSISTENTVOLUME = 10;
+    PERSISTENTVOLUMECLAIM = 11;
+    ROLE = 12;
+    ROLEBINDING = 13;
+    CLUSTERROLE = 14;
+    CLUSTERROLEBINDING = 15;
+    SERVICEACCOUNT = 16;
+    INGRESS = 17;
+    DEPLOYMENT = 18;
+    NAMESPACE = 19;
+    CRD = 20;
+    CR = 21;
 }
 
 message Cluster {
