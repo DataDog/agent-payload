@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option go_package = "github.com/DataDog/agent-payload/v5/contimage";
+
+package datadog.contimage;
+
+// ContainerImagePayload represents the main container image payload
+message ContainerImagePayload {
+    string                  version = 1;  // version represents the ContainerImagePayload message version
+    string                  host    = 2;  // host contains the hostname
+    repeated ContainerImage images  = 3;  // Images metadata
+}
+
+// ContainerImage contains the details of a container image
+message ContainerImage {
+    string          id           = 1;
+    string          name         = 2;
+    string          registry     = 3;
+    string          short_name   = 4;
+    repeated string tags         = 5;
+    string          digest       = 6;
+    int64           size         = 7;
+    repeated string repo_digests = 8;
+
+    // platform info
+    message OperatingSystem {
+      string name         = 1;
+      string version      = 2;
+      string architecture = 3;
+    }
+    OperatingSystem os = 9;
+
+    message ContainerImageLayer {
+      repeated string urls      = 1;
+      string          mediaType = 2;
+      string          digest    = 3;
+      int64           size      = 4;
+    }
+    repeated ContainerImageLayer layers = 10;
+}

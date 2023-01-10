@@ -96,6 +96,9 @@ BASH
       # Install protoc-gen-go
       GOPATH=#{protoc_gen_go_dir} go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 
+      echo "Generating contimage proto"
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/contimage/contimage.proto
+
       echo "Generating sbom proto"
       PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto
       PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/sbom/sbom.proto
