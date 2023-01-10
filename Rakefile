@@ -5,6 +5,10 @@
 protoc_binary="protoc"
 protoc_version="3.5.1"
 gogo_dir="/tmp/gogo"
+protoc_binary_2="protoc"
+protoc_version_2="21.12"
+protoc_gen_go_dir="/tmp/protoc-gen-go"
+
 
 namespace :codegen do
 
@@ -23,6 +27,24 @@ namespace :codegen do
           fi
           unzip protoc-#{protoc_version}*.zip
           mv bin/protoc #{protoc_binary}
+        fi
+BASH
+      EOF
+    end
+    if `bash -c "protoc --version"` != "libprotoc ${protoc_version_2}"
+      protoc_binary_2="/tmp/protoc#{protoc_version_2}"
+      sh <<-EOF
+        /bin/bash <<BASH
+        if [ ! -f #{protoc_binary_2} ] ; then
+          echo "Downloading protoc #{protoc_version_2}"
+          cd /tmp
+          if [ "$(uname -s)" = "Darwin" ] ; then
+            curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v#{protoc_version_2}/protoc-#{protoc_version_2}-osx-x86_64.zip
+          else
+            curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v#{protoc_version_2}/protoc-#{protoc_version_2}-linux-x86_64.zip
+          fi
+          unzip protoc-#{protoc_version_2}*.zip
+          mv bin/protoc #{protoc_binary_2}
         fi
 BASH
       EOF
@@ -71,8 +93,15 @@ BASH
       echo "Generating contlcycle proto"
       PATH=/tmp/gogo-bin-v1.0.0 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src proto/contlcycle/contlcycle.proto
 
+      # Install protoc-gen-go
+      GOPATH=#{protoc_gen_go_dir} go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+
       echo "Generating contimage proto"
-      PATH=/tmp/gogo-bin-v1.0.0 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src proto/contimage/contimage.proto
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/contimage/contimage.proto
+
+      echo "Generating sbom proto"
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/sbom/sbom.proto
 
       cp -r v5/* .
       rm -rf v5

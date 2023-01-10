@@ -30,6 +30,8 @@ message ResCollector {
 }
 
 message CollectorProc {
+	reserved 13; // Unused fields
+	
 	string hostName = 2;
 	string networkId = 11;
 	repeated Process processes = 3;
@@ -375,6 +377,15 @@ message CollectorIngress {
 	int32 groupId = 3;
 	int32 groupSize = 4;
 	repeated Ingress ingresses = 5;
+	repeated string tags = 6;
+}
+
+message CollectorVerticalPodAutoscaler {
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated VerticalPodAutoscaler verticalPodAutoscalers = 5;
 	repeated string tags = 6;
 }
 
@@ -1149,6 +1160,9 @@ enum ProtocolType {
 	protocolKafka = 5;
 	protocolMongo = 6;
 	protocolPostgres = 7;
+	protocolAMQP = 8;
+	protocolRedis = 9;
+	protocolMySQL= 10;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L61
@@ -1646,6 +1660,7 @@ enum COREResult {
 	BtfNotFound = 3;
 	AssetReadError = 4;
 	VerifierError = 5;
+	LoaderError = 6;
 }
 
 message RouteMetadata {
@@ -1664,4 +1679,52 @@ message AgentConfiguration {
 // List of offsets into the EncodedDomainDatabase.
 message DNSDatabaseEntry {
 	repeated int32 nameOffsets = 1;
+}
+
+// ResourceList is a set of (resource name, quantity) pairs
+// https://pkg.go.dev/k8s.io/api/core/v1#ResourceList
+message ResourceList{
+	map<string, double> metricValues = 1;
+}
+
+// https://github.com/kubernetes/autoscaler/blob/master/vertical-pod-autoscaler/pkg/apis/autoscaling.k8s.io/v1/types.go
+message VerticalPodAutoscaler {
+	Metadata metadata = 1;
+	VerticalPodAutoscalerSpec spec = 2;
+	VerticalPodAutoscalerStatus status = 3;
+	bytes yaml = 4;
+	repeated string tags = 5;
+}
+
+message VerticalPodAutoscalerSpec {
+	VerticalPodAutoscalerTarget target = 1;
+	string updateMode = 2; // Extracted from UpdatePolicy
+	repeated ContainerResourcePolicy resourcePolicies = 3;
+}
+
+message VerticalPodAutoscalerTarget{
+	string kind = 1;
+	string name = 2;
+}
+
+message ContainerResourcePolicy {
+	string containerName = 1;
+	string mode = 2;
+	ResourceList minAllowed = 3;
+	ResourceList maxAllowed = 4;
+	repeated string controlledResource = 5;
+	string controlledValues = 6;
+}
+
+message VerticalPodAutoscalerStatus {
+	int64 LastRecommendedDate = 1; // Extracted from Codition=RecommendationProvided AND Status=true
+	repeated ContainerRecommendations recommendations = 2;
+}
+
+message ContainerRecommendations {
+	string containerName = 1;
+	ResourceList target = 2;
+	ResourceList lowerBound = 3;
+	ResourceList upperBound = 4;
+	ResourceList uncappedTarget = 5;
 }
