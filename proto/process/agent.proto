@@ -1603,6 +1603,10 @@ message HTTPStats {
 	bool fullPath = 6;
 
 	repeated Data statsByResponseStatus = 1;
+	// This is a temporary field, that might be removed (and the index to be reserved) in the near future.
+	// This is the new format of saving aggregations. We support any status code rather than just the status code families
+	// as used in statsByResponseStatus.
+	map<int32, Data> statsByStatusCode = 2;
 
 	message Data {
 		reserved 3;
