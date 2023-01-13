@@ -880,7 +880,7 @@ enum K8sResource {
     NAMESPACE = 19;
     CRD = 20;
     CR = 21;
-	VERTICALPODAUTOSCALER = 22;
+    VERTICALPODAUTOSCALER = 22;
 }
 
 message Cluster {
