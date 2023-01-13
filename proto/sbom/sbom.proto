@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option go_package = "github.com/DataDog/agent-payload/v5/sbom";
+
+package datadog.sbom;
+
+import "google/protobuf/timestamp.proto";
+import "proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto";
+
+// SBOMPayload represents the main SBOM payload
+message SBOMPayload {
+  int32               version  = 1;
+  string              host     = 2;
+  optional string     source   = 3; // use to know the source of the message: agent, other
+  repeated SBOMEntity entities = 4;
+}
+
+message SBOMEntity {
+  SBOMSourceType                     type        = 1;
+  string                             id          = 2; // Unique identifier to be able to correlated and "deduplicate" SBOM
+  optional google.protobuf.Timestamp generatedAt = 3; // the datetime of the SBOM generation
+  repeated string                    tags        = 4; // datadog tags that will be added by the agent depending of the SBOMSourceType
+  bool                               inUse       = 5; // Whether the SBOM concerns a running entity (running container) or an inert entity (image not used by any container)
+  oneof sbom {
+    cyclonedx.v1_4.Bom cyclonedx = 10; // only cyclonedx will be supported initially but putting it optional will allow us to move to another format later
+    // spdx.SBOM      spdx      = 11; // SPDX can be added later as any other format.
+  }
+}
+
+enum SBOMSourceType {
+  UNSPECIFIED            = 0;
+  CONTAINER_IMAGE_LAYERS = 1;
+  CONTAINER_FILE_SYSTEM  = 2;
+  HOST_FILE_SYSTEM       = 3;
+}
