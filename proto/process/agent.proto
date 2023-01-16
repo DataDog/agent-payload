@@ -56,22 +56,17 @@ message CollectorProcDiscovery {
 }
 
 message CollectorConnections {
-	reserved 1, 4, 13, 32, 33;
+	reserved 1, 4, 7, 9, 13, 32, 33;
 	// Please update when adding fields
 	// next identifier:  43
 
 	string hostName = 2;
 	string networkId = 12;
-	int64 hostId = 9; // Post-resolution field.
 	repeated Connection connections = 3;
 
 	// Message batching metadata
 	int32 groupId = 5;
 	int32 groupSize = 6;
-
-	// Mapping of hostId to Host. Each `connection` has a hostId field which can be mapped here.
-	// This should also include an entry for the host on which these connections were gathered.
-	map<int64, Host> resolvedHosts = 7; // Post-resolution field
 
 	// Mapping of resourceID to metadata. For containers, each `connection` has a containerId field which can be mapped here.
 	map<string, ResourceMetadata> resolvedResources = 8; // Post-resolution field
@@ -774,12 +769,11 @@ message Connections {
 }
 
 message Addr {
-	reserved 1, 4;
+	reserved 1, 4, 6;
 
 	string ip = 2;
 	int32  port = 3;
 	string containerId = 5; // post-resolution field
-	int64  hostId = 6;	// post-resolution field (deprecated, will be removed in a future version)
 	string hostName = 7; // post-resolution field
 }
 
