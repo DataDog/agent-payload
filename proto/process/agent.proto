@@ -1700,7 +1700,7 @@ message RouteMetadata {
 
 message AgentConfiguration {
 	bool npmEnabled = 1;
-	bool tsmEnabled = 2;
+	bool usmEnabled = 2;
 }
 
 // replaces DNSEntry.  Is a list of DNS names that a given IP resolved to.
