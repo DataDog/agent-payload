@@ -47,6 +47,6 @@ message ContainerImage {
       }
       History         history   = 5;
     }
-    repeated ContainerImageLayer layers = 10;
-    google.protobuf.Timestamp created   = 11;
+    repeated ContainerImageLayer layers  = 10;
+    google.protobuf.Timestamp    builtAt = 11;
 }
