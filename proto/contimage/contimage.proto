@@ -4,6 +4,8 @@ option go_package = "github.com/DataDog/agent-payload/v5/contimage";
 
 package datadog.contimage;
 
+import "google/protobuf/timestamp.proto";
+
 // ContainerImagePayload represents the main container image payload
 message ContainerImagePayload {
     string                  version = 1;  // version represents the ContainerImagePayload message version
@@ -28,13 +30,23 @@ message ContainerImage {
       string version      = 2;
       string architecture = 3;
     }
-    OperatingSystem os = 9;
+    OperatingSystem os           = 9;
 
     message ContainerImageLayer {
       repeated string urls      = 1;
       string          mediaType = 2;
       string          digest    = 3;
       int64           size      = 4;
+
+      message History {
+        google.protobuf.Timestamp created    = 1;
+        string                    createdBy  = 2;
+        string                    author     = 3;
+        string                    comment    = 4;
+        bool                      emptyLayer = 5;
+      }
+      History         history   = 5;
     }
     repeated ContainerImageLayer layers = 10;
+    google.protobuf.Timestamp created   = 11;
 }
