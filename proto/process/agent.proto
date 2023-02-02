@@ -1751,7 +1751,7 @@ message ContainerResourcePolicy {
 message VerticalPodAutoscalerStatus {
 	int64 LastRecommendedDate = 1; // Extracted from Condition=RecommendationProvided AND Status=true
 	repeated ContainerRecommendation recommendations = 2;
-	repeated Condition conditions = 3;
+	repeated VPACondition conditions = 3;
 }
 
 message ContainerRecommendation {
@@ -1762,7 +1762,7 @@ message ContainerRecommendation {
 	ResourceList uncappedTarget = 5;
 }
 
-message Condition {
+message VPACondition {
 	string ConditionType = 1;
 	string ConditionStatus = 2;
 	int64 LastTransitionTime = 3;
