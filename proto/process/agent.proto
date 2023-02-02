@@ -1749,7 +1749,7 @@ message ContainerResourcePolicy {
 }
 
 message VerticalPodAutoscalerStatus {
-	int64 LastRecommendedDate = 1; // Extracted from Codition=RecommendationProvided AND Status=true
+	int64 LastRecommendedDate = 1; // Extracted from Condition=RecommendationProvided AND Status=true
 	repeated ContainerRecommendations recommendations = 2;
 	repeated ContainerConditions conditions = 3;
 }
