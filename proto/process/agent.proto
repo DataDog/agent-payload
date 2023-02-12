@@ -1568,8 +1568,8 @@ message DNSStatsByQueryType {
 }
 
 message KafkaRequestHeader {
-	int16 request_type = 1; // this is Kafka api key value from the protocol
-	int16 request_version = 2;
+	uint32 request_type = 1; // this is Kafka api key value from the protocol
+	uint32 request_version = 2;
 }
 	
 message KafkaAggregation {
