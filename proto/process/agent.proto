@@ -1567,23 +1567,20 @@ message DNSStatsByQueryType {
 	map<int32, DNSStats> dnsStatsByQueryType = 1;
 }
 
-
+message KafkaRequestHeader {
+	uint32 request_type = 1; // this is Kafka api key value from the protocol
+	uint32 request_version = 2;
+}
+	
+message KafkaAggregation {
+	KafkaRequestHeader header = 1;
+	string topic = 2;
+	uint32 count = 3;
+}
+  
 message DataStreamsAggregations {
-    message TopicStats {
-        string topic = 1;
-        uint32 count = 2;
-    }
-
-    message KafkaProduceAggregations {
-        repeated TopicStats stats = 1;
-    }
-
-    message KafkaFetchAggregations {
-        repeated TopicStats stats = 1;
-    }
-
-    KafkaProduceAggregations kafkaProduceAggregations = 1;
-    KafkaFetchAggregations kafkaFetchAggregations = 2;
+	reserved 1, 2; // Avoid parsing the POC fields
+	repeated KafkaAggregation kafkaAggregations = 3;
 }
 
 message HTTPAggregations {
