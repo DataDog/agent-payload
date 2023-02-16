@@ -1591,20 +1591,20 @@ message KafkaAggregation {
 message DataStreamsAggregations {
 	// TopicStats, KafkaProduceAggregations, and KafkaFetchAggregations should be deleted once we change dd-go to support the new DataStreamsAggregations format
 	message TopicStats {
-        string topic = 1;
-        uint32 count = 2;
-    }
+		string topic = 1;
+		uint32 count = 2;
+	}
 
-    message KafkaProduceAggregations {
-        repeated TopicStats stats = 1;
-    }
+	message KafkaProduceAggregations {
+		repeated TopicStats stats = 1;
+	}
 
-    message KafkaFetchAggregations {
-        repeated TopicStats stats = 1;
-    }
+	message KafkaFetchAggregations {
+		repeated TopicStats stats = 1;
+	}
 
-    KafkaProduceAggregations kafkaProduceAggregations = 1;
-    KafkaFetchAggregations kafkaFetchAggregations = 2;
+	KafkaProduceAggregations kafkaProduceAggregations = 1;
+	KafkaFetchAggregations kafkaFetchAggregations = 2;
 	repeated KafkaAggregation kafkaAggregations = 3;
 }
 
