@@ -1616,9 +1616,10 @@ message HTTPAggregations {
 	repeated HTTPStats endpointAggregations = 2;
 }
 
+// The current state of HTTP2Aggregations is identical to that of HTTPAggregations.
+// However, there is a possibility that additional fields might be added to it in the future.
 message HTTP2Aggregations {
-	reserved 1;
-	repeated HTTPStats endpointAggregations = 2;
+	repeated HTTPStats endpointAggregations = 1;
 }
 
 message HTTPStats {
