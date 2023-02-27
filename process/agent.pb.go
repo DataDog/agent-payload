@@ -3,14 +3,13 @@
 // DO NOT EDIT!
 
 /*
-Package process is a generated protocol buffer package.
+	Package process is a generated protocol buffer package.
 
-It is generated from these files:
+	It is generated from these files:
+		proto/process/agent.proto
+		proto/process/events.proto
 
-	proto/process/agent.proto
-	proto/process/events.proto
-
-It has these top-level messages:
+	It has these top-level messages:
 		ResCollector
 		CollectorProc
 		CollectorProcDiscovery
