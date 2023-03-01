@@ -682,7 +682,7 @@ message ProtocolStack {
 message Connection {
 	reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
 	// Please update when adding fields
-	// next identifier: 50
+	// next identifier: 51
 
 	int32 pid = 1;
 	Addr laddr = 5; // Local address
@@ -758,6 +758,9 @@ message Connection {
 
 	// serialized DataStreamsAggregations object summarizing all data streams transactions (Kafka produce & Kafka fetch) recorded for this connection organized by topic
 	bytes dataStreamsAggregations = 49;
+
+	// serialized HTTP2Aggregations object summarizing all http2 transactions recorded for this connection, organized by request path
+	bytes http2Aggregations = 50;
 }
 
 message Connections {
@@ -1611,6 +1614,12 @@ message DataStreamsAggregations {
 message HTTPAggregations {
 	reserved 1;
 	repeated HTTPStats endpointAggregations = 2;
+}
+
+// The current state of HTTP2Aggregations is identical to that of HTTPAggregations.
+// However, there is a possibility that additional fields might be added to it in the future.
+message HTTP2Aggregations {
+	repeated HTTPStats endpointAggregations = 1;
 }
 
 message HTTPStats {
