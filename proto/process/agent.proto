@@ -60,7 +60,7 @@ message CollectorProcDiscovery {
 message CollectorConnections {
 	reserved 1, 4, 13, 32, 33;
 	// Please update when adding fields
-	// next identifier:  43
+	// next identifier:  45
 
 	string hostName = 2;
 	string networkId = 12;
@@ -108,6 +108,9 @@ message CollectorConnections {
 
 	// CO-RE telemetry
 	map<string, COREResult> CORETelemetryByAsset = 42;
+
+	// Prebuilt EBPF assets in use
+	repeated string PrebuiltEBPFAssets = 44;
 
 	repeated Route routes = 31;
 
@@ -776,6 +779,7 @@ message Connections {
 	map<string, int64> connTelemetryMap = 9;
 	KernelHeaderFetchResult kernelHeaderFetchResult = 10;
 	map<string, COREResult> CORETelemetryByAsset = 11;
+	repeated string PrebuiltEBPFAssets = 12;
 }
 
 message Addr {
