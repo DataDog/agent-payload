@@ -14,6 +14,7 @@ message SBOMPayload {
   string              host     = 2;
   optional string     source   = 3; // use to know the source of the message: agent, other
   repeated SBOMEntity entities = 4;
+  optional string     dd_env   = 5;
 }
 
 message SBOMEntity {
