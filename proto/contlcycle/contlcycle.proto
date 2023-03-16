@@ -44,7 +44,5 @@ message ContainerEvent {
 message PodEvent {
     string podUID = 1; // podUID contains the pod UID
     string source = 2; // source contains the pod source (kubelet)
-    oneof optionalExitTimestamp {
-        int64 exitTimestamp = 3; // exitTimestamp contains the exit timestamp of the pod
-    }
+    optional int64 exitTimestamp = 3; // exitTimestamp contains the exit timestamp of the pod
 }
