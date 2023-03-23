@@ -9,6 +9,7 @@ import (
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	io "io"
 	bits "math/bits"
+	sync "sync"
 )
 
 const (
@@ -1359,6 +1360,124 @@ func encodeVarint(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+
+var vtprotoPool_ActivityDump = sync.Pool{
+	New: func() interface{} {
+		return &ActivityDump{}
+	},
+}
+
+func (m *ActivityDump) ResetVT() {
+	f0 := m.Tags[:0]
+	for _, mm := range m.Tree {
+		mm.ResetVT()
+	}
+	m.Reset()
+	m.Tags = f0
+}
+func (m *ActivityDump) ReturnToVTPool() {
+	if m != nil {
+		m.ResetVT()
+		vtprotoPool_ActivityDump.Put(m)
+	}
+}
+func ActivityDumpFromVTPool() *ActivityDump {
+	return vtprotoPool_ActivityDump.Get().(*ActivityDump)
+}
+
+var vtprotoPool_ProcessActivityNode = sync.Pool{
+	New: func() interface{} {
+		return &ProcessActivityNode{}
+	},
+}
+
+func (m *ProcessActivityNode) ResetVT() {
+	m.Process.ReturnToVTPool()
+	for _, mm := range m.Children {
+		mm.ResetVT()
+	}
+	for _, mm := range m.Files {
+		mm.ResetVT()
+	}
+	f0 := m.Syscalls[:0]
+	m.Reset()
+	m.Syscalls = f0
+}
+func (m *ProcessActivityNode) ReturnToVTPool() {
+	if m != nil {
+		m.ResetVT()
+		vtprotoPool_ProcessActivityNode.Put(m)
+	}
+}
+func ProcessActivityNodeFromVTPool() *ProcessActivityNode {
+	return vtprotoPool_ProcessActivityNode.Get().(*ProcessActivityNode)
+}
+
+var vtprotoPool_ProcessInfo = sync.Pool{
+	New: func() interface{} {
+		return &ProcessInfo{}
+	},
+}
+
+func (m *ProcessInfo) ResetVT() {
+	m.File.ReturnToVTPool()
+	f0 := m.Args[:0]
+	f1 := m.Envs[:0]
+	m.Reset()
+	m.Args = f0
+	m.Envs = f1
+}
+func (m *ProcessInfo) ReturnToVTPool() {
+	if m != nil {
+		m.ResetVT()
+		vtprotoPool_ProcessInfo.Put(m)
+	}
+}
+func ProcessInfoFromVTPool() *ProcessInfo {
+	return vtprotoPool_ProcessInfo.Get().(*ProcessInfo)
+}
+
+var vtprotoPool_FileActivityNode = sync.Pool{
+	New: func() interface{} {
+		return &FileActivityNode{}
+	},
+}
+
+func (m *FileActivityNode) ResetVT() {
+	m.File.ReturnToVTPool()
+	for _, mm := range m.Children {
+		mm.ResetVT()
+	}
+	m.Reset()
+}
+func (m *FileActivityNode) ReturnToVTPool() {
+	if m != nil {
+		m.ResetVT()
+		vtprotoPool_FileActivityNode.Put(m)
+	}
+}
+func FileActivityNodeFromVTPool() *FileActivityNode {
+	return vtprotoPool_FileActivityNode.Get().(*FileActivityNode)
+}
+
+var vtprotoPool_FileInfo = sync.Pool{
+	New: func() interface{} {
+		return &FileInfo{}
+	},
+}
+
+func (m *FileInfo) ResetVT() {
+	m.Reset()
+}
+func (m *FileInfo) ReturnToVTPool() {
+	if m != nil {
+		m.ResetVT()
+		vtprotoPool_FileInfo.Put(m)
+	}
+}
+func FileInfoFromVTPool() *FileInfo {
+	return vtprotoPool_FileInfo.Get().(*FileInfo)
+}
 func (m *ActivityDump) SizeVT() (n int) {
 	if m == nil {
 		return 0
@@ -2174,7 +2293,14 @@ func (m *ActivityDump) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Tree = append(m.Tree, &ProcessActivityNode{})
+			if len(m.Tree) == cap(m.Tree) {
+				m.Tree = append(m.Tree, &ProcessActivityNode{})
+			} else {
+				m.Tree = m.Tree[:len(m.Tree)+1]
+				if m.Tree[len(m.Tree)-1] == nil {
+					m.Tree[len(m.Tree)-1] = &ProcessActivityNode{}
+				}
+			}
 			if err := m.Tree[len(m.Tree)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -2988,7 +3114,7 @@ func (m *ProcessActivityNode) UnmarshalVT(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Process == nil {
-				m.Process = &ProcessInfo{}
+				m.Process = ProcessInfoFromVTPool()
 			}
 			if err := m.Process.UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -3023,7 +3149,14 @@ func (m *ProcessActivityNode) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Children = append(m.Children, &ProcessActivityNode{})
+			if len(m.Children) == cap(m.Children) {
+				m.Children = append(m.Children, &ProcessActivityNode{})
+			} else {
+				m.Children = m.Children[:len(m.Children)+1]
+				if m.Children[len(m.Children)-1] == nil {
+					m.Children[len(m.Children)-1] = &ProcessActivityNode{}
+				}
+			}
 			if err := m.Children[len(m.Children)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -3057,7 +3190,14 @@ func (m *ProcessActivityNode) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Files = append(m.Files, &FileActivityNode{})
+			if len(m.Files) == cap(m.Files) {
+				m.Files = append(m.Files, &FileActivityNode{})
+			} else {
+				m.Files = m.Files[:len(m.Files)+1]
+				if m.Files[len(m.Files)-1] == nil {
+					m.Files[len(m.Files)-1] = &FileActivityNode{}
+				}
+			}
 			if err := m.Files[len(m.Files)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -3091,7 +3231,14 @@ func (m *ProcessActivityNode) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.DnsNames = append(m.DnsNames, &DNSNode{})
+			if len(m.DnsNames) == cap(m.DnsNames) {
+				m.DnsNames = append(m.DnsNames, &DNSNode{})
+			} else {
+				m.DnsNames = m.DnsNames[:len(m.DnsNames)+1]
+				if m.DnsNames[len(m.DnsNames)-1] == nil {
+					m.DnsNames[len(m.DnsNames)-1] = &DNSNode{}
+				}
+			}
 			if err := m.DnsNames[len(m.DnsNames)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -3125,7 +3272,14 @@ func (m *ProcessActivityNode) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Sockets = append(m.Sockets, &SocketNode{})
+			if len(m.Sockets) == cap(m.Sockets) {
+				m.Sockets = append(m.Sockets, &SocketNode{})
+			} else {
+				m.Sockets = m.Sockets[:len(m.Sockets)+1]
+				if m.Sockets[len(m.Sockets)-1] == nil {
+					m.Sockets[len(m.Sockets)-1] = &SocketNode{}
+				}
+			}
 			if err := m.Sockets[len(m.Sockets)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -3182,7 +3336,7 @@ func (m *ProcessActivityNode) UnmarshalVT(dAtA []byte) error {
 					}
 				}
 				elementCount = count
-				if elementCount != 0 && len(m.Syscalls) == 0 {
+				if elementCount != 0 && len(m.Syscalls) == 0 && cap(m.Syscalls) < elementCount {
 					m.Syscalls = make([]uint32, 0, elementCount)
 				}
 				for iNdEx < postIndex {
@@ -3254,7 +3408,14 @@ func (m *ProcessActivityNode) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.MatchedRules = append(m.MatchedRules, &MatchedRule{})
+			if len(m.MatchedRules) == cap(m.MatchedRules) {
+				m.MatchedRules = append(m.MatchedRules, &MatchedRule{})
+			} else {
+				m.MatchedRules = m.MatchedRules[:len(m.MatchedRules)+1]
+				if m.MatchedRules[len(m.MatchedRules)-1] == nil {
+					m.MatchedRules[len(m.MatchedRules)-1] = &MatchedRule{}
+				}
+			}
 			if err := m.MatchedRules[len(m.MatchedRules)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -3436,7 +3597,7 @@ func (m *ProcessInfo) UnmarshalVT(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.File == nil {
-				m.File = &FileInfo{}
+				m.File = FileInfoFromVTPool()
 			}
 			if err := m.File.UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -3918,7 +4079,7 @@ func (m *FileActivityNode) UnmarshalVT(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.File == nil {
-				m.File = &FileInfo{}
+				m.File = FileInfoFromVTPool()
 			}
 			if err := m.File.UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -4008,7 +4169,14 @@ func (m *FileActivityNode) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Children = append(m.Children, &FileActivityNode{})
+			if len(m.Children) == cap(m.Children) {
+				m.Children = append(m.Children, &FileActivityNode{})
+			} else {
+				m.Children = m.Children[:len(m.Children)+1]
+				if m.Children[len(m.Children)-1] == nil {
+					m.Children[len(m.Children)-1] = &FileActivityNode{}
+				}
+			}
 			if err := m.Children[len(m.Children)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -4081,7 +4249,14 @@ func (m *FileActivityNode) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.MatchedRules = append(m.MatchedRules, &MatchedRule{})
+			if len(m.MatchedRules) == cap(m.MatchedRules) {
+				m.MatchedRules = append(m.MatchedRules, &MatchedRule{})
+			} else {
+				m.MatchedRules = m.MatchedRules[:len(m.MatchedRules)+1]
+				if m.MatchedRules[len(m.MatchedRules)-1] == nil {
+					m.MatchedRules[len(m.MatchedRules)-1] = &MatchedRule{}
+				}
+			}
 			if err := m.MatchedRules[len(m.MatchedRules)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}

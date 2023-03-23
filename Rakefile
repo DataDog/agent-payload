@@ -107,8 +107,14 @@ BASH
       GOPATH=#{protoc_gen_go_dir} go install github.com/planetscale/vtprotobuf/cmd/protoc-gen-go-vtproto@latest
 
       echo "Generating CWS Activity Dumps v1"
-      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src --go-vtproto_out=$GOPATH/src --go-vtproto_opt=features=pool+marshal+unmarshal+size proto/cws/dumpsv1/activity_dump.proto
-      # --go-vtproto_opt=pool=pkg/security/proto/security_profile/v1.ActivityDump --go-vtproto_opt=pool=pkg/security/proto/security_profile/v1.ProcessActivityNode --go-vtproto_opt=pool=pkg/security/proto/security_profile/v1.FileActivityNode --go-vtproto_opt=pool=pkg/security/proto/security_profile/v1.FileInfo --go-vtproto_opt=pool=pkg/security/proto/security_profile/v1.ProcessInfo
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src --go-vtproto_out=$GOPATH/src\
+        --go-vtproto_opt=features=pool+marshal+unmarshal+size \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ActivityDump \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessActivityNode \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.FileActivityNode \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.FileInfo \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessInfo \
+        proto/cws/dumpsv1/activity_dump.proto
 
       cp -r v5/* .
       rm -rf v5
