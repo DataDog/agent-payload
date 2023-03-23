@@ -2,6 +2,10 @@ syntax = "proto3";
 
 option go_package = "github.com/DataDog/agent-payload/v5/cws/dumpsv1";
 
+option java_multiple_files = false;
+option java_package = "com.dd.cws.adv1.pb";
+option java_outer_classname = "SecDumpProto";
+
 package datadog.cws.dumpsv1;
 
 message ActivityDump {
