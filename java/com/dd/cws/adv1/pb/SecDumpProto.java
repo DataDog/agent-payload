@@ -131,8 +131,8 @@ public final class SecDumpProto {
     // @@protoc_insertion_point(enum_scope:datadog.cws.dumpsv1.GenerationType)
   }
 
-  public interface ActivityDumpOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.ActivityDump)
+  public interface SecDumpOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.SecDump)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -236,18 +236,18 @@ public final class SecDumpProto {
         int index);
   }
   /**
-   * Protobuf type {@code datadog.cws.dumpsv1.ActivityDump}
+   * Protobuf type {@code datadog.cws.dumpsv1.SecDump}
    */
-  public static final class ActivityDump extends
+  public static final class SecDump extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.ActivityDump)
-      ActivityDumpOrBuilder {
+      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.SecDump)
+      SecDumpOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use ActivityDump.newBuilder() to construct.
-    private ActivityDump(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use SecDump.newBuilder() to construct.
+    private SecDump(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private ActivityDump() {
+    private SecDump() {
       host_ = "";
       service_ = "";
       source_ = "";
@@ -259,7 +259,7 @@ public final class SecDumpProto {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new ActivityDump();
+      return new SecDump();
     }
 
     @java.lang.Override
@@ -269,15 +269,15 @@ public final class SecDumpProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ActivityDump_descriptor;
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_SecDump_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ActivityDump_fieldAccessorTable
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_SecDump_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.dd.cws.adv1.pb.SecDumpProto.ActivityDump.class, com.dd.cws.adv1.pb.SecDumpProto.ActivityDump.Builder.class);
+              com.dd.cws.adv1.pb.SecDumpProto.SecDump.class, com.dd.cws.adv1.pb.SecDumpProto.SecDump.Builder.class);
     }
 
     public static final int HOST_FIELD_NUMBER = 1;
@@ -576,10 +576,10 @@ public final class SecDumpProto {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.ActivityDump)) {
+      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.SecDump)) {
         return super.equals(obj);
       }
-      com.dd.cws.adv1.pb.SecDumpProto.ActivityDump other = (com.dd.cws.adv1.pb.SecDumpProto.ActivityDump) obj;
+      com.dd.cws.adv1.pb.SecDumpProto.SecDump other = (com.dd.cws.adv1.pb.SecDumpProto.SecDump) obj;
 
       if (!getHost()
           .equals(other.getHost())) return false;
@@ -630,69 +630,69 @@ public final class SecDumpProto {
       return hash;
     }
 
-    public static com.dd.cws.adv1.pb.SecDumpProto.ActivityDump parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.SecDump parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.ActivityDump parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.SecDump parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.ActivityDump parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.SecDump parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.ActivityDump parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.SecDump parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.ActivityDump parseFrom(byte[] data)
+    public static com.dd.cws.adv1.pb.SecDumpProto.SecDump parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.ActivityDump parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.SecDump parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.ActivityDump parseFrom(java.io.InputStream input)
+    public static com.dd.cws.adv1.pb.SecDumpProto.SecDump parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.ActivityDump parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.SecDump parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.ActivityDump parseDelimitedFrom(java.io.InputStream input)
+    public static com.dd.cws.adv1.pb.SecDumpProto.SecDump parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.ActivityDump parseDelimitedFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.SecDump parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.ActivityDump parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.SecDump parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.ActivityDump parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.SecDump parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -705,7 +705,7 @@ public final class SecDumpProto {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.ActivityDump prototype) {
+    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.SecDump prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -721,26 +721,26 @@ public final class SecDumpProto {
       return builder;
     }
     /**
-     * Protobuf type {@code datadog.cws.dumpsv1.ActivityDump}
+     * Protobuf type {@code datadog.cws.dumpsv1.SecDump}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.ActivityDump)
-        com.dd.cws.adv1.pb.SecDumpProto.ActivityDumpOrBuilder {
+        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.SecDump)
+        com.dd.cws.adv1.pb.SecDumpProto.SecDumpOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ActivityDump_descriptor;
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_SecDump_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ActivityDump_fieldAccessorTable
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_SecDump_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.dd.cws.adv1.pb.SecDumpProto.ActivityDump.class, com.dd.cws.adv1.pb.SecDumpProto.ActivityDump.Builder.class);
+                com.dd.cws.adv1.pb.SecDumpProto.SecDump.class, com.dd.cws.adv1.pb.SecDumpProto.SecDump.Builder.class);
       }
 
-      // Construct using com.dd.cws.adv1.pb.SecDumpProto.ActivityDump.newBuilder()
+      // Construct using com.dd.cws.adv1.pb.SecDumpProto.SecDump.newBuilder()
       private Builder() {
 
       }
@@ -777,17 +777,17 @@ public final class SecDumpProto {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ActivityDump_descriptor;
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_SecDump_descriptor;
       }
 
       @java.lang.Override
-      public com.dd.cws.adv1.pb.SecDumpProto.ActivityDump getDefaultInstanceForType() {
-        return com.dd.cws.adv1.pb.SecDumpProto.ActivityDump.getDefaultInstance();
+      public com.dd.cws.adv1.pb.SecDumpProto.SecDump getDefaultInstanceForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.SecDump.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.dd.cws.adv1.pb.SecDumpProto.ActivityDump build() {
-        com.dd.cws.adv1.pb.SecDumpProto.ActivityDump result = buildPartial();
+      public com.dd.cws.adv1.pb.SecDumpProto.SecDump build() {
+        com.dd.cws.adv1.pb.SecDumpProto.SecDump result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -795,15 +795,15 @@ public final class SecDumpProto {
       }
 
       @java.lang.Override
-      public com.dd.cws.adv1.pb.SecDumpProto.ActivityDump buildPartial() {
-        com.dd.cws.adv1.pb.SecDumpProto.ActivityDump result = new com.dd.cws.adv1.pb.SecDumpProto.ActivityDump(this);
+      public com.dd.cws.adv1.pb.SecDumpProto.SecDump buildPartial() {
+        com.dd.cws.adv1.pb.SecDumpProto.SecDump result = new com.dd.cws.adv1.pb.SecDumpProto.SecDump(this);
         buildPartialRepeatedFields(result);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartialRepeatedFields(com.dd.cws.adv1.pb.SecDumpProto.ActivityDump result) {
+      private void buildPartialRepeatedFields(com.dd.cws.adv1.pb.SecDumpProto.SecDump result) {
         if (((bitField0_ & 0x00000010) != 0)) {
           tags_ = tags_.getUnmodifiableView();
           bitField0_ = (bitField0_ & ~0x00000010);
@@ -820,7 +820,7 @@ public final class SecDumpProto {
         }
       }
 
-      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.ActivityDump result) {
+      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.SecDump result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.host_ = host_;
@@ -872,16 +872,16 @@ public final class SecDumpProto {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.ActivityDump) {
-          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.ActivityDump)other);
+        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.SecDump) {
+          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.SecDump)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.ActivityDump other) {
-        if (other == com.dd.cws.adv1.pb.SecDumpProto.ActivityDump.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.SecDump other) {
+        if (other == com.dd.cws.adv1.pb.SecDumpProto.SecDump.getDefaultInstance()) return this;
         if (!other.getHost().isEmpty()) {
           host_ = other.host_;
           bitField0_ |= 0x00000001;
@@ -1711,23 +1711,23 @@ public final class SecDumpProto {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.ActivityDump)
+      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.SecDump)
     }
 
-    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.ActivityDump)
-    private static final com.dd.cws.adv1.pb.SecDumpProto.ActivityDump DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.SecDump)
+    private static final com.dd.cws.adv1.pb.SecDumpProto.SecDump DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.ActivityDump();
+      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.SecDump();
     }
 
-    public static com.dd.cws.adv1.pb.SecDumpProto.ActivityDump getDefaultInstance() {
+    public static com.dd.cws.adv1.pb.SecDumpProto.SecDump getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<ActivityDump>
-        PARSER = new com.google.protobuf.AbstractParser<ActivityDump>() {
+    private static final com.google.protobuf.Parser<SecDump>
+        PARSER = new com.google.protobuf.AbstractParser<SecDump>() {
       @java.lang.Override
-      public ActivityDump parsePartialFrom(
+      public SecDump parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1746,17 +1746,17 @@ public final class SecDumpProto {
       }
     };
 
-    public static com.google.protobuf.Parser<ActivityDump> parser() {
+    public static com.google.protobuf.Parser<SecDump> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<ActivityDump> getParserForType() {
+    public com.google.protobuf.Parser<SecDump> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.dd.cws.adv1.pb.SecDumpProto.ActivityDump getDefaultInstanceForType() {
+    public com.dd.cws.adv1.pb.SecDumpProto.SecDump getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -22876,10 +22876,10 @@ java.lang.String defaultValue) {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_datadog_cws_dumpsv1_ActivityDump_descriptor;
+    internal_static_datadog_cws_dumpsv1_SecDump_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_datadog_cws_dumpsv1_ActivityDump_fieldAccessorTable;
+      internal_static_datadog_cws_dumpsv1_SecDump_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_datadog_cws_dumpsv1_Metadata_descriptor;
   private static final 
@@ -22960,98 +22960,98 @@ java.lang.String defaultValue) {
   static {
     java.lang.String[] descriptorData = {
       "\n%proto/cws/dumpsv1/activity_dump.proto\022" +
-      "\023datadog.cws.dumpsv1\"\264\001\n\014ActivityDump\022\014\n" +
-      "\004host\030\001 \001(\t\022\017\n\007service\030\002 \001(\t\022\016\n\006source\030\003" +
-      " \001(\t\022/\n\010metadata\030\004 \001(\0132\035.datadog.cws.dum" +
-      "psv1.Metadata\022\014\n\004tags\030\005 \003(\t\0226\n\004tree\030\006 \003(" +
-      "\0132(.datadog.cws.dumpsv1.ProcessActivityN" +
-      "ode\"\242\002\n\010Metadata\022\025\n\ragent_version\030\001 \001(\t\022" +
-      "\024\n\014agent_commit\030\002 \001(\t\022\026\n\016kernel_version\030" +
-      "\003 \001(\t\022\032\n\022linux_distribution\030\004 \001(\t\022\014\n\004arc" +
-      "h\030\r \001(\t\022\014\n\004name\030\005 \001(\t\022\030\n\020protobuf_versio" +
-      "n\030\006 \001(\t\022\032\n\022differentiate_args\030\007 \001(\010\022\014\n\004c" +
-      "omm\030\010 \001(\t\022\024\n\014container_id\030\t \001(\t\022\r\n\005start" +
-      "\030\n \001(\004\022\013\n\003end\030\013 \001(\004\022\014\n\004size\030\014 \001(\004\022\025\n\rser" +
-      "ialization\030\016 \001(\t\"\273\001\n\017SecurityProfile\022\016\n\006" +
-      "status\030\001 \001(\r\022\017\n\007version\030\002 \001(\t\022/\n\010metadat" +
-      "a\030\003 \001(\0132\035.datadog.cws.dumpsv1.Metadata\022\014" +
-      "\n\004tags\030\004 \003(\t\022\020\n\010syscalls\030\005 \003(\r\0226\n\004tree\030\006" +
-      " \003(\0132(.datadog.cws.dumpsv1.ProcessActivi" +
-      "tyNode\"\254\003\n\023ProcessActivityNode\0221\n\007proces" +
-      "s\030\001 \001(\0132 .datadog.cws.dumpsv1.ProcessInf" +
-      "o\022<\n\017generation_type\030\010 \001(\0162#.datadog.cws" +
-      ".dumpsv1.GenerationType\0227\n\rmatched_rules" +
-      "\030\t \003(\0132 .datadog.cws.dumpsv1.MatchedRule" +
-      "\022:\n\010children\030\003 \003(\0132(.datadog.cws.dumpsv1" +
-      ".ProcessActivityNode\0224\n\005files\030\004 \003(\0132%.da" +
-      "tadog.cws.dumpsv1.FileActivityNode\022/\n\tdn" +
-      "s_names\030\005 \003(\0132\034.datadog.cws.dumpsv1.DNSN" +
-      "ode\0220\n\007sockets\030\006 \003(\0132\037.datadog.cws.dumps" +
-      "v1.SocketNode\022\020\n\010syscalls\030\007 \003(\rJ\004\010\002\020\003\"\244\003" +
-      "\n\013ProcessInfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022" +
-      "\014\n\004ppid\030\003 \001(\r\022\016\n\006cookie\030\004 \001(\r\022\021\n\tis_thre" +
-      "ad\030\005 \001(\010\022+\n\004file\030\006 \001(\0132\035.datadog.cws.dum" +
-      "psv1.FileInfo\022\024\n\014container_id\030\007 \001(\t\022\017\n\007s" +
-      "pan_id\030\010 \001(\004\022\020\n\010trace_id\030\t \001(\004\022\013\n\003tty\030\n " +
-      "\001(\t\022\014\n\004comm\030\013 \001(\t\022\021\n\tfork_time\030\014 \001(\004\022\021\n\t" +
-      "exit_time\030\r \001(\004\022\021\n\texec_time\030\016 \001(\004\0225\n\013cr" +
-      "edentials\030\017 \001(\0132 .datadog.cws.dumpsv1.Cr" +
-      "edentials\022\014\n\004args\030\020 \003(\t\022\r\n\005argv0\030\021 \001(\t\022\026" +
-      "\n\016args_truncated\030\022 \001(\010\022\014\n\004envs\030\023 \003(\t\022\026\n\016" +
-      "envs_truncated\030\024 \001(\010\"\330\002\n\020FileActivityNod" +
-      "e\0227\n\rmatched_rules\030\t \003(\0132 .datadog.cws.d" +
-      "umpsv1.MatchedRule\022\014\n\004name\030\001 \001(\t\022\022\n\nis_p" +
-      "attern\030\007 \001(\010\022+\n\004file\030\002 \001(\0132\035.datadog.cws" +
-      ".dumpsv1.FileInfo\022<\n\017generation_type\030\010 \001" +
-      "(\0162#.datadog.cws.dumpsv1.GenerationType\022" +
-      "\022\n\nfirst_seen\030\004 \001(\004\022+\n\004open\030\005 \001(\0132\035.data" +
-      "dog.cws.dumpsv1.OpenNode\0227\n\010children\030\006 \003" +
-      "(\0132%.datadog.cws.dumpsv1.FileActivityNod" +
-      "eJ\004\010\003\020\004\"7\n\010OpenNode\022\016\n\006retval\030\001 \001(\022\022\r\n\005f" +
-      "lags\030\002 \001(\r\022\014\n\004mode\030\003 \001(\r\"r\n\007DNSNode\0227\n\rm" +
-      "atched_rules\030\002 \003(\0132 .datadog.cws.dumpsv1" +
-      ".MatchedRule\022.\n\010requests\030\001 \003(\0132\034.datadog" +
-      ".cws.dumpsv1.DNSInfo\"Q\n\007DNSInfo\022\014\n\004name\030" +
-      "\001 \001(\t\022\014\n\004type\030\002 \001(\r\022\r\n\005class\030\003 \001(\r\022\014\n\004si" +
-      "ze\030\004 \001(\r\022\r\n\005count\030\005 \001(\r\"\245\002\n\010FileInfo\022\013\n\003" +
-      "uid\030\001 \001(\r\022\014\n\004user\030\002 \001(\t\022\013\n\003gid\030\003 \001(\r\022\r\n\005" +
-      "group\030\004 \001(\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005ctime\030\006 \001(\004" +
-      "\022\r\n\005mtime\030\007 \001(\004\022\020\n\010mount_id\030\010 \001(\r\022\r\n\005ino" +
-      "de\030\t \001(\004\022\026\n\016in_upper_layer\030\n \001(\010\022\014\n\004path" +
-      "\030\013 \001(\t\022\020\n\010basename\030\014 \001(\t\022\022\n\nfilesystem\030\r" +
-      " \001(\t\022\024\n\014package_name\030\016 \001(\t\022\027\n\017package_ve" +
-      "rsion\030\017 \001(\t\022\032\n\022package_srcversion\030\020 \001(\t\"" +
-      "\224\002\n\013Credentials\022\013\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(" +
-      "\r\022\014\n\004user\030\003 \001(\t\022\r\n\005group\030\004 \001(\t\022\025\n\reffect" +
-      "ive_uid\030\005 \001(\r\022\025\n\reffective_gid\030\006 \001(\r\022\026\n\016" +
-      "effective_user\030\007 \001(\t\022\027\n\017effective_group\030" +
-      "\010 \001(\t\022\016\n\006fs_uid\030\t \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n" +
-      "\007fs_user\030\013 \001(\t\022\020\n\010fs_group\030\014 \001(\t\022\025\n\rcap_" +
-      "effective\030\r \001(\004\022\025\n\rcap_permitted\030\016 \001(\004\"I" +
-      "\n\nSocketNode\022\016\n\006family\030\001 \001(\t\022+\n\004bind\030\002 \003" +
-      "(\0132\035.datadog.cws.dumpsv1.BindNode\"]\n\010Bin" +
-      "dNode\0227\n\rmatched_rules\030\003 \003(\0132 .datadog.c" +
-      "ws.dumpsv1.MatchedRule\022\014\n\004port\030\001 \001(\r\022\n\n\002" +
-      "ip\030\002 \001(\t\"\325\001\n\013MatchedRule\022\017\n\007rule_id\030\001 \001(" +
-      "\t\022\024\n\014rule_version\030\002 \001(\t\022\023\n\013policy_name\030\003" +
-      " \001(\t\022\026\n\016policy_version\030\004 \001(\t\022A\n\trule_tag" +
-      "s\030\005 \003(\0132..datadog.cws.dumpsv1.MatchedRul" +
-      "e.RuleTagsEntry\032/\n\rRuleTagsEntry\022\013\n\003key\030" +
-      "\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001*8\n\016GenerationTy" +
-      "pe\022\013\n\007UNKNOWN\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPSHOT" +
-      "\020\002BU\n\022com.dd.cws.adv1.pbB\014SecDumpProtoP\000" +
-      "Z/github.com/DataDog/agent-payload/v5/cw" +
-      "s/dumpsv1b\006proto3"
+      "\023datadog.cws.dumpsv1\"\257\001\n\007SecDump\022\014\n\004host" +
+      "\030\001 \001(\t\022\017\n\007service\030\002 \001(\t\022\016\n\006source\030\003 \001(\t\022" +
+      "/\n\010metadata\030\004 \001(\0132\035.datadog.cws.dumpsv1." +
+      "Metadata\022\014\n\004tags\030\005 \003(\t\0226\n\004tree\030\006 \003(\0132(.d" +
+      "atadog.cws.dumpsv1.ProcessActivityNode\"\242" +
+      "\002\n\010Metadata\022\025\n\ragent_version\030\001 \001(\t\022\024\n\014ag" +
+      "ent_commit\030\002 \001(\t\022\026\n\016kernel_version\030\003 \001(\t" +
+      "\022\032\n\022linux_distribution\030\004 \001(\t\022\014\n\004arch\030\r \001" +
+      "(\t\022\014\n\004name\030\005 \001(\t\022\030\n\020protobuf_version\030\006 \001" +
+      "(\t\022\032\n\022differentiate_args\030\007 \001(\010\022\014\n\004comm\030\010" +
+      " \001(\t\022\024\n\014container_id\030\t \001(\t\022\r\n\005start\030\n \001(" +
+      "\004\022\013\n\003end\030\013 \001(\004\022\014\n\004size\030\014 \001(\004\022\025\n\rserializ" +
+      "ation\030\016 \001(\t\"\273\001\n\017SecurityProfile\022\016\n\006statu" +
+      "s\030\001 \001(\r\022\017\n\007version\030\002 \001(\t\022/\n\010metadata\030\003 \001" +
+      "(\0132\035.datadog.cws.dumpsv1.Metadata\022\014\n\004tag" +
+      "s\030\004 \003(\t\022\020\n\010syscalls\030\005 \003(\r\0226\n\004tree\030\006 \003(\0132" +
+      "(.datadog.cws.dumpsv1.ProcessActivityNod" +
+      "e\"\254\003\n\023ProcessActivityNode\0221\n\007process\030\001 \001" +
+      "(\0132 .datadog.cws.dumpsv1.ProcessInfo\022<\n\017" +
+      "generation_type\030\010 \001(\0162#.datadog.cws.dump" +
+      "sv1.GenerationType\0227\n\rmatched_rules\030\t \003(" +
+      "\0132 .datadog.cws.dumpsv1.MatchedRule\022:\n\010c" +
+      "hildren\030\003 \003(\0132(.datadog.cws.dumpsv1.Proc" +
+      "essActivityNode\0224\n\005files\030\004 \003(\0132%.datadog" +
+      ".cws.dumpsv1.FileActivityNode\022/\n\tdns_nam" +
+      "es\030\005 \003(\0132\034.datadog.cws.dumpsv1.DNSNode\0220" +
+      "\n\007sockets\030\006 \003(\0132\037.datadog.cws.dumpsv1.So" +
+      "cketNode\022\020\n\010syscalls\030\007 \003(\rJ\004\010\002\020\003\"\244\003\n\013Pro" +
+      "cessInfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\014\n\004pp" +
+      "id\030\003 \001(\r\022\016\n\006cookie\030\004 \001(\r\022\021\n\tis_thread\030\005 " +
+      "\001(\010\022+\n\004file\030\006 \001(\0132\035.datadog.cws.dumpsv1." +
+      "FileInfo\022\024\n\014container_id\030\007 \001(\t\022\017\n\007span_i" +
+      "d\030\010 \001(\004\022\020\n\010trace_id\030\t \001(\004\022\013\n\003tty\030\n \001(\t\022\014" +
+      "\n\004comm\030\013 \001(\t\022\021\n\tfork_time\030\014 \001(\004\022\021\n\texit_" +
+      "time\030\r \001(\004\022\021\n\texec_time\030\016 \001(\004\0225\n\013credent" +
+      "ials\030\017 \001(\0132 .datadog.cws.dumpsv1.Credent" +
+      "ials\022\014\n\004args\030\020 \003(\t\022\r\n\005argv0\030\021 \001(\t\022\026\n\016arg" +
+      "s_truncated\030\022 \001(\010\022\014\n\004envs\030\023 \003(\t\022\026\n\016envs_" +
+      "truncated\030\024 \001(\010\"\330\002\n\020FileActivityNode\0227\n\r" +
+      "matched_rules\030\t \003(\0132 .datadog.cws.dumpsv" +
+      "1.MatchedRule\022\014\n\004name\030\001 \001(\t\022\022\n\nis_patter" +
+      "n\030\007 \001(\010\022+\n\004file\030\002 \001(\0132\035.datadog.cws.dump" +
+      "sv1.FileInfo\022<\n\017generation_type\030\010 \001(\0162#." +
+      "datadog.cws.dumpsv1.GenerationType\022\022\n\nfi" +
+      "rst_seen\030\004 \001(\004\022+\n\004open\030\005 \001(\0132\035.datadog.c" +
+      "ws.dumpsv1.OpenNode\0227\n\010children\030\006 \003(\0132%." +
+      "datadog.cws.dumpsv1.FileActivityNodeJ\004\010\003" +
+      "\020\004\"7\n\010OpenNode\022\016\n\006retval\030\001 \001(\022\022\r\n\005flags\030" +
+      "\002 \001(\r\022\014\n\004mode\030\003 \001(\r\"r\n\007DNSNode\0227\n\rmatche" +
+      "d_rules\030\002 \003(\0132 .datadog.cws.dumpsv1.Matc" +
+      "hedRule\022.\n\010requests\030\001 \003(\0132\034.datadog.cws." +
+      "dumpsv1.DNSInfo\"Q\n\007DNSInfo\022\014\n\004name\030\001 \001(\t" +
+      "\022\014\n\004type\030\002 \001(\r\022\r\n\005class\030\003 \001(\r\022\014\n\004size\030\004 " +
+      "\001(\r\022\r\n\005count\030\005 \001(\r\"\245\002\n\010FileInfo\022\013\n\003uid\030\001" +
+      " \001(\r\022\014\n\004user\030\002 \001(\t\022\013\n\003gid\030\003 \001(\r\022\r\n\005group" +
+      "\030\004 \001(\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005ctime\030\006 \001(\004\022\r\n\005m" +
+      "time\030\007 \001(\004\022\020\n\010mount_id\030\010 \001(\r\022\r\n\005inode\030\t " +
+      "\001(\004\022\026\n\016in_upper_layer\030\n \001(\010\022\014\n\004path\030\013 \001(" +
+      "\t\022\020\n\010basename\030\014 \001(\t\022\022\n\nfilesystem\030\r \001(\t\022" +
+      "\024\n\014package_name\030\016 \001(\t\022\027\n\017package_version" +
+      "\030\017 \001(\t\022\032\n\022package_srcversion\030\020 \001(\t\"\224\002\n\013C" +
+      "redentials\022\013\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004" +
+      "user\030\003 \001(\t\022\r\n\005group\030\004 \001(\t\022\025\n\reffective_u" +
+      "id\030\005 \001(\r\022\025\n\reffective_gid\030\006 \001(\r\022\026\n\016effec" +
+      "tive_user\030\007 \001(\t\022\027\n\017effective_group\030\010 \001(\t" +
+      "\022\016\n\006fs_uid\030\t \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007fs_u" +
+      "ser\030\013 \001(\t\022\020\n\010fs_group\030\014 \001(\t\022\025\n\rcap_effec" +
+      "tive\030\r \001(\004\022\025\n\rcap_permitted\030\016 \001(\004\"I\n\nSoc" +
+      "ketNode\022\016\n\006family\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035." +
+      "datadog.cws.dumpsv1.BindNode\"]\n\010BindNode" +
+      "\0227\n\rmatched_rules\030\003 \003(\0132 .datadog.cws.du" +
+      "mpsv1.MatchedRule\022\014\n\004port\030\001 \001(\r\022\n\n\002ip\030\002 " +
+      "\001(\t\"\325\001\n\013MatchedRule\022\017\n\007rule_id\030\001 \001(\t\022\024\n\014" +
+      "rule_version\030\002 \001(\t\022\023\n\013policy_name\030\003 \001(\t\022" +
+      "\026\n\016policy_version\030\004 \001(\t\022A\n\trule_tags\030\005 \003" +
+      "(\0132..datadog.cws.dumpsv1.MatchedRule.Rul" +
+      "eTagsEntry\032/\n\rRuleTagsEntry\022\013\n\003key\030\001 \001(\t" +
+      "\022\r\n\005value\030\002 \001(\t:\0028\001*8\n\016GenerationType\022\013\n" +
+      "\007UNKNOWN\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPSHOT\020\002BU\n" +
+      "\022com.dd.cws.adv1.pbB\014SecDumpProtoP\000Z/git" +
+      "hub.com/DataDog/agent-payload/v5/cws/dum" +
+      "psv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_datadog_cws_dumpsv1_ActivityDump_descriptor =
+    internal_static_datadog_cws_dumpsv1_SecDump_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_datadog_cws_dumpsv1_ActivityDump_fieldAccessorTable = new
+    internal_static_datadog_cws_dumpsv1_SecDump_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_datadog_cws_dumpsv1_ActivityDump_descriptor,
+        internal_static_datadog_cws_dumpsv1_SecDump_descriptor,
         new java.lang.String[] { "Host", "Service", "Source", "Metadata", "Tags", "Tree", });
     internal_static_datadog_cws_dumpsv1_Metadata_descriptor =
       getDescriptor().getMessageTypes().get(1);

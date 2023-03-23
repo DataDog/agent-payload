@@ -112,7 +112,7 @@ BASH
         --go_out=$GOPATH/src \
         --go-vtproto_out=$GOPATH/src \
         --go-vtproto_opt=features=pool+marshal+unmarshal+size \
-        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ActivityDump \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.SecDump \
         --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessActivityNode \
         --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.FileActivityNode \
         --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.FileInfo \

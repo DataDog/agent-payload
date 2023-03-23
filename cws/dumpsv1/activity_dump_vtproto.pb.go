@@ -19,7 +19,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-func (m *ActivityDump) MarshalVT() (dAtA []byte, err error) {
+func (m *SecDump) MarshalVT() (dAtA []byte, err error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -32,12 +32,12 @@ func (m *ActivityDump) MarshalVT() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *ActivityDump) MarshalToVT(dAtA []byte) (int, error) {
+func (m *SecDump) MarshalToVT(dAtA []byte) (int, error) {
 	size := m.SizeVT()
 	return m.MarshalToSizedBufferVT(dAtA[:size])
 }
 
-func (m *ActivityDump) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
+func (m *SecDump) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 	if m == nil {
 		return 0, nil
 	}
@@ -1361,13 +1361,13 @@ func encodeVarint(dAtA []byte, offset int, v uint64) int {
 	return base
 }
 
-var vtprotoPool_ActivityDump = sync.Pool{
+var vtprotoPool_SecDump = sync.Pool{
 	New: func() interface{} {
-		return &ActivityDump{}
+		return &SecDump{}
 	},
 }
 
-func (m *ActivityDump) ResetVT() {
+func (m *SecDump) ResetVT() {
 	f0 := m.Tags[:0]
 	for _, mm := range m.Tree {
 		mm.ResetVT()
@@ -1375,14 +1375,14 @@ func (m *ActivityDump) ResetVT() {
 	m.Reset()
 	m.Tags = f0
 }
-func (m *ActivityDump) ReturnToVTPool() {
+func (m *SecDump) ReturnToVTPool() {
 	if m != nil {
 		m.ResetVT()
-		vtprotoPool_ActivityDump.Put(m)
+		vtprotoPool_SecDump.Put(m)
 	}
 }
-func ActivityDumpFromVTPool() *ActivityDump {
-	return vtprotoPool_ActivityDump.Get().(*ActivityDump)
+func SecDumpFromVTPool() *SecDump {
+	return vtprotoPool_SecDump.Get().(*SecDump)
 }
 
 var vtprotoPool_ProcessActivityNode = sync.Pool{
@@ -1478,7 +1478,7 @@ func (m *FileInfo) ReturnToVTPool() {
 func FileInfoFromVTPool() *FileInfo {
 	return vtprotoPool_FileInfo.Get().(*FileInfo)
 }
-func (m *ActivityDump) SizeVT() (n int) {
+func (m *SecDump) SizeVT() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -2071,7 +2071,7 @@ func sov(x uint64) (n int) {
 func soz(x uint64) (n int) {
 	return sov(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-func (m *ActivityDump) UnmarshalVT(dAtA []byte) error {
+func (m *SecDump) UnmarshalVT(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2094,10 +2094,10 @@ func (m *ActivityDump) UnmarshalVT(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: ActivityDump: wiretype end group for non-group")
+			return fmt.Errorf("proto: SecDump: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: ActivityDump: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: SecDump: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:

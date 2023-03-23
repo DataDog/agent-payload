@@ -8,7 +8,7 @@ option java_outer_classname = "SecDumpProto";
 
 package datadog.cws.dumpsv1;
 
-message ActivityDump {
+message SecDump {
     string host = 1;
     string service = 2;
     string source = 3;
