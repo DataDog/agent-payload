@@ -6,10 +6,6 @@ package datadog.contlcycle;
 
 // EventsPayload represents the main container lifecycle event payload
 message EventsPayload {
-    enum ObjectKind {
-        Container = 0;
-        Pod = 1;
-    }
     string version = 1; // version represents the EventsPayload message version
     string host = 2; // host contains the hostname
     ObjectKind objectKind = 3; // objectKind represents the object kind (container, pod)
@@ -38,6 +34,13 @@ message ContainerEvent {
     oneof optionalExitTimestamp {
         int64 exitTimestamp = 4; // exitTimestamp contains the exit timestamp of the container
     }
+
+    // Owner contains information about what a container belongs to
+    message Owner {
+        ObjectKind ownerType = 1; // ownerType represents the owner type (pod, etc)
+        string ownerUID = 2; // ownerUID contains the owner UID
+    }
+    optional Owner owner = 5; // owner contains the information about who this container belongs to
 }
 
 // PodEvent contains pod event metadata
@@ -45,4 +48,9 @@ message PodEvent {
     string podUID = 1; // podUID contains the pod UID
     string source = 2; // source contains the pod source (kubelet)
     optional int64 exitTimestamp = 3; // exitTimestamp contains the exit timestamp of the pod
+}
+
+enum ObjectKind {
+    Container = 0;
+    Pod = 1;
 }
