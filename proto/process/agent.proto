@@ -437,6 +437,8 @@ message Container {
 	repeated ContainerAddr addresses = 27;
 	uint64 threadCount = 28;
 	uint64 threadLimit = 29;
+	uint64 memUsage = 30;
+	float cpuUsageNs = 31;
 }
 
 // Process state codes in http://wiki.preshweb.co.uk/doku.php?id=linux:psflags
@@ -533,6 +535,8 @@ message ContainerStat {
 	bytes byteKey = 19;
 	uint64 threadCount = 20;
 	uint64 threadLimit = 21;
+	uint64 memUsage = 22;
+	float cpuUsageNs = 23;
 }
 
 
