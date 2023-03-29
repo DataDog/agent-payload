@@ -103,6 +103,22 @@ BASH
       PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto
       PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/sbom/sbom.proto
 
+      # Install protoc-gen-go-vtproto
+      GOPATH=#{protoc_gen_go_dir} go install github.com/planetscale/vtprotobuf/cmd/protoc-gen-go-vtproto@latest
+
+      echo "Generating CWS Activity Dumps v1"
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. \
+        --java_out=java \
+        --go_out=$GOPATH/src \
+        --go-vtproto_out=$GOPATH/src \
+        --go-vtproto_opt=features=pool+marshal+unmarshal+size \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.SecDump \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessActivityNode \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.FileActivityNode \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.FileInfo \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessInfo \
+        proto/cws/dumpsv1/activity_dump.proto
+
       cp -r v5/* .
       rm -rf v5
 BASH

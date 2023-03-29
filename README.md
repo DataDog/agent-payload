@@ -35,6 +35,13 @@ The process payload is defined in [`proto/process/agent.proto`](./proto/process/
 The following implementations are available:
  * Go (gogofast): [github.com/DataDog/agent-payload/process](https://pkg.go.dev/github.com/DataDog/agent-payload/process) (note that this go package contains additional functionality beyond the generated PB implementation).
 
+## CWS
+
+The CWS security dumps payload is defined in [`proto/cws/dumpsv1/activity_dump.proto`](./proto/cws/dumpsv1/activity_dump.proto).
+The following implementations are available:
+ * Go (vtproto): [github.com/DataDog/agent-payload/v5/cws/dumpsv1](https://pkg.go.dev/github.com/DataDog/agent-payload/v5/cws/dumpsv1)
+ * Java: [`java/com/dd/cws/adv1/pb/SecDumpProto.java`](./java/com/dd/cws/adv1/pb/SecDumpProto.java)
+
 # Updating Proto Definitions
 
 After updating the IDL you must:

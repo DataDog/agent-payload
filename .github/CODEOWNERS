@@ -14,3 +14,5 @@ contimage/                 @DataDog/agent-shared-components @DataDog/container-i
 sbom/                      @DataDog/agent-shared-components @DataDog/container-integrations
 CycloneDX/                 @DataDog/agent-shared-components @DataDog/container-integrations
 cyclonedx_v1_4/            @DataDog/agent-shared-components @DataDog/container-integrations
+cws/                       @DataDog/agent-shared-components @DataDog/agent-security
+proto/cws/                 @DataDog/agent-shared-components @DataDog/agent-security
