@@ -816,6 +816,16 @@ message Service {
 	ResourceMetrics metrics = 6;
 }
 
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L236
+message DeploymentCondition {
+	string type = 1;
+	string status = 2;
+	int64 lastUpdateTime = 6;
+	int64 lastTransitionTime = 7;
+	string reason = 4;
+	string message = 5;
+}
+
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L221
 message Deployment {
 	Metadata metadata = 1;
@@ -837,6 +847,16 @@ message Deployment {
 	bytes yaml = 14;
 	repeated string tags = 15;
 	ResourceMetrics metrics = 17;
+	repeated DeploymentCondition conditions = 18;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L388
+message ReplicaSetCondition {
+	string type = 1;
+	string status = 2;
+	int64 lastTransitionTime = 3;
+	string reason = 4;
+	string message = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L366
@@ -854,6 +874,7 @@ message ReplicaSet {
 	bytes yaml = 8;
 	repeated string tags = 9;
 	ResourceMetrics metrics = 11;
+	repeated ReplicaSetCondition conditions = 12;
 }
 
 message LabelSelectorRequirement {
@@ -915,6 +936,15 @@ message Manifest {
 	string version = 6;
 }
 
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2054
+message NamespaceCondition {
+	string type = 1;
+	string status = 2;
+	int64 lastTransitionTime = 4;
+	string reason = 5;
+	string message = 6;
+}
+
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2036
 message Namespace {
 	Metadata metadata = 1;
@@ -922,6 +952,7 @@ message Namespace {
 	string conditionMessage = 3; // the message of the first 'false' condition
 	bytes yaml = 4;
 	repeated string tags = 5;
+	repeated NamespaceCondition conditions = 6;
 }
 
 // https://github.com/kubernetes/kubernetes/blob/4112d8db20c5550cc27d30d3cee2723db0f8e1c4/staging/src/k8s.io/api/core/v1/types.go#L2097
@@ -976,6 +1007,16 @@ message JobStatus {
 	int32 failed = 6;
 }
 
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/generated.proto#L51
+message JobCondition {
+	string type = 1;
+	string status = 2;
+	int64 lastProbeTime = 3;
+	int64 lastTransitionTime = 4;
+	string reason = 5;
+	string message = 6;
+}
+
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1/types.go#L28
 message Job {
 	Metadata metadata = 1;
@@ -983,6 +1024,7 @@ message Job {
 	JobStatus status = 3;
 	bytes yaml = 4;
 	repeated string tags = 5;
+	repeated JobCondition conditions = 6;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1beta1/types.go#L92
@@ -1032,6 +1074,15 @@ message DaemonSetStatus {
 	int32 numberUnavailable = 8;
 }
 
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L87
+message DaemonSetCondition {
+  string type = 1;
+  string status = 2;
+  int64 lastTransitionTime = 3;
+  string reason = 4;
+  string message = 5;
+}
+
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L66
 message DaemonSet {
 	Metadata metadata = 1;
@@ -1040,6 +1091,7 @@ message DaemonSet {
 	bytes yaml = 4;
 	repeated string tags = 5;
 	ResourceMetrics metrics = 6;
+	repeated DaemonSetCondition conditions = 7;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L586
@@ -1063,6 +1115,15 @@ message StatefulSetStatus {
 	// see https://github.com/kubernetes/kubernetes/issues/79606#issuecomment-591504626
 }
 
+// reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L557
+message StatefulSetCondition {
+	string type = 1;
+	string status = 2;
+	int64 lastTransitionTime = 3;
+	string reason = 4;
+	string message = 5;
+}
+
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L542
 message StatefulSet {
 	Metadata metadata = 1;
@@ -1071,6 +1132,7 @@ message StatefulSet {
 	bytes yaml = 4;
 	repeated string tags = 5;
 	ResourceMetrics metrics = 6;
+	StatefulSetCondition conditions = 7;
 }
 
 // reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2576
@@ -1409,6 +1471,16 @@ message VerticalPodAutoscaler {
 	VerticalPodAutoscalerStatus status = 3;
 	bytes yaml = 4;
 	repeated string tags = 5;
+	repeated VerticalPodAutoscalerCondition conditions = 6;
+}
+
+// reference https://github.com/kubernetes/autoscaler/blob/master/vertical-pod-autoscaler/pkg/apis/autoscaling.k8s.io/v1/types.go#L295
+message VerticalPodAutoscalerCondition {
+	string type = 1;
+	string status = 2;
+	int64 lastTransitionTime = 3;
+	string reason = 4;
+	string message = 5;
 }
 
 message VerticalPodAutoscalerSpec {
