@@ -1132,7 +1132,7 @@ message StatefulSet {
 	bytes yaml = 4;
 	repeated string tags = 5;
 	ResourceMetrics metrics = 6;
-	StatefulSetCondition conditions = 7;
+	repeated StatefulSetCondition conditions = 7;
 }
 
 // reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2576
