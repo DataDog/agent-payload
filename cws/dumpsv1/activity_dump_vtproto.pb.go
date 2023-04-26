@@ -939,6 +939,24 @@ func (m *FileInfo) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
+	if m.HashState != 0 {
+		i = encodeVarint(dAtA, i, uint64(m.HashState))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x90
+	}
+	if len(m.Hashes) > 0 {
+		for iNdEx := len(m.Hashes) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.Hashes[iNdEx])
+			copy(dAtA[i:], m.Hashes[iNdEx])
+			i = encodeVarint(dAtA, i, uint64(len(m.Hashes[iNdEx])))
+			i--
+			dAtA[i] = 0x1
+			i--
+			dAtA[i] = 0x8a
+		}
+	}
 	if len(m.PackageSrcversion) > 0 {
 		i -= len(m.PackageSrcversion)
 		copy(dAtA[i:], m.PackageSrcversion)
@@ -1467,7 +1485,9 @@ var vtprotoPool_FileInfo = sync.Pool{
 }
 
 func (m *FileInfo) ResetVT() {
+	f0 := m.Hashes[:0]
 	m.Reset()
+	m.Hashes = f0
 }
 func (m *FileInfo) ReturnToVTPool() {
 	if m != nil {
@@ -1925,6 +1945,15 @@ func (m *FileInfo) SizeVT() (n int) {
 	l = len(m.PackageSrcversion)
 	if l > 0 {
 		n += 2 + l + sov(uint64(l))
+	}
+	if len(m.Hashes) > 0 {
+		for _, s := range m.Hashes {
+			l = len(s)
+			n += 2 + l + sov(uint64(l))
+		}
+	}
+	if m.HashState != 0 {
+		n += 2 + sov(uint64(m.HashState))
 	}
 	n += len(m.unknownFields)
 	return n
@@ -5109,6 +5138,57 @@ func (m *FileInfo) UnmarshalVT(dAtA []byte) error {
 			}
 			m.PackageSrcversion = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		case 17:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Hashes", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLength
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLength
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Hashes = append(m.Hashes, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
+		case 18:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HashState", wireType)
+			}
+			m.HashState = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.HashState |= HashState(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skip(dAtA[iNdEx:])
