@@ -99,12 +99,25 @@ BASH
       echo "Generating contimage proto"
       PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/contimage/contimage.proto
 
-      echo "Generating sbom proto"
-      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto
-      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/sbom/sbom.proto
-
       # Install protoc-gen-go-vtproto
       GOPATH=#{protoc_gen_go_dir} go install github.com/planetscale/vtprotobuf/cmd/protoc-gen-go-vtproto@latest
+
+      echo "Generating sbom proto"
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. \
+        --go_out=$GOPATH/src \
+        --go-vtproto_out=$GOPATH/src \
+        --go-vtproto_opt=features=pool+marshal+unmarshal+size \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cyclonedx_v1_4/cyclonedx_v1_4.Bom \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cyclonedx_v1_4/cyclonedx_v1_4.Component \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cyclonedx_v1_4/cyclonedx_v1_4.Dependency \
+        proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. \
+        --go_out=$GOPATH/src \
+        --go-vtproto_out=$GOPATH/src \
+        --go-vtproto_opt=features=pool+marshal+unmarshal+size \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/sbom/sbom.SBOMPayload \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/sbom/sbom.SBOMEntity \
+        proto/sbom/sbom.proto
 
       echo "Generating CWS Activity Dumps v1"
       PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. \
