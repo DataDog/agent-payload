@@ -1160,6 +1160,70 @@ message PersistentVolumeSpec {
 	repeated string mountOptions = 7;
 	string volumeMode = 8;
 	repeated NodeSelectorTerm nodeAffinity = 9;
+	PersistentVolumeSource persistentVolumeSource = 10;
+}
+
+// reference https://github.com/kubernetes/api/blob/release-1.27/core/v1/generated.proto#L1722
+message PersistentVolumeSource{
+	 GCEPersistentDiskVolumeSource gcePersistentDisk = 1;
+	 AWSElasticBlockStoreVolumeSource awsElasticBlockStore = 2;
+	 AzureFilePersistentVolumeSource azureFile = 3;
+	 AzureDiskVolumeSource azureDisk = 4;
+	 CSIVolumeSource csi = 5;
+}
+
+// reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L1616
+message GCEPersistentDiskVolumeSource {
+	 string pdName = 1;
+	 string fsType = 2;
+	 int32 partition = 3;
+	 bool readOnly = 4;
+}
+
+// reference https://github.com/kubernetes/api/blob/release-1.27/core/v1/generated.proto#L39
+message AWSElasticBlockStoreVolumeSource {
+	 string volumeID = 1;
+	 string fsType = 2;
+	 int32 partition = 3;
+	 bool readOnly = 4;
+}
+
+// reference https://github.com/kubernetes/api/blob/release-1.27/core/v1/generated.proto#L127
+message AzureFilePersistentVolumeSource {
+	 string secretName = 1;
+	 string shareName = 2;
+	 bool readOnly = 3;
+	 string secretNamespace = 4;
+}
+
+// reference https://github.com/kubernetes/api/blob/release-1.27/core/v1/generated.proto#L100
+message AzureDiskVolumeSource {
+	 string diskName = 1;
+	 string diskURI = 2;
+	 string cachingMode = 3;
+	 string fsType = 4;
+	 bool readOnly = 5;
+	 string kind = 6;
+}
+
+// reference https://github.com/kubernetes/api/blob/release-1.27/core/v1/generated.proto#L172
+message CSIVolumeSource {
+	string driver = 1;
+	string volumeHandle=2;
+	bool readOnly = 3;
+	string fsType = 4;
+	map<string, string> volumeAttributes = 5;
+	SecretReference controllerPublishSecretRef = 6;
+	SecretReference nodeStageSecretRef = 7;
+	SecretReference nodePublishSecretRef = 8;
+	SecretReference controllerExpandSecretRef = 9;
+	SecretReference nodeExpandSecretRef = 10;
+}
+
+// reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L4553
+message SecretReference {
+	string name = 1;
+	string namespace = 2;
 }
 
 // reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L2940
