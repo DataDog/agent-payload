@@ -51,6 +51,6 @@ message ContainerImage {
   }
   repeated ContainerImageLayer layers = 10;
 
-  google.protobuf.Timestamp builtAt     = 11;
-  google.protobuf.Timestamp publishedAt = 13;
+  google.protobuf.Timestamp          builtAt     = 11;
+  optional google.protobuf.Timestamp publishedAt = 13;
 }
