@@ -330,11 +330,13 @@ func getDNSNameAsByteSliceByOffset(buf []byte, offset int) (stringasbyteslice []
 	if offset+int(namelen) > len(buf) {
 		return nil, fmt.Errorf("offset out of range [%d:%d] > %d", offset, offset+int(namelen), len(buf))
 	}
-
-	if offset+int(namelen) <= offset {
-		return nil, fmt.Errorf("illegal namelen")
+	// For when the domain name is an empty string
+	if namelen == 0 {
+		return nil, fmt.Errorf("illegal domain namelen of 0")
 	}
-
+	if offset+int(namelen) <= offset {
+		return nil, fmt.Errorf("integer overflow from domain name length: (%d+%d) <= %d", offset, int(namelen), offset)
+	}
 	return buf[offset : offset+int(namelen)], nil
 }
 
