@@ -3,6 +3,7 @@ package process
 import (
 	"bytes"
 	"encoding/binary"
+	"errors"
 	"fmt"
 	"math"
 
@@ -330,9 +331,10 @@ func getDNSNameAsByteSliceByOffset(buf []byte, offset int) (stringasbyteslice []
 	if offset+int(namelen) > len(buf) {
 		return nil, fmt.Errorf("offset out of range [%d:%d] > %d", offset, offset+int(namelen), len(buf))
 	}
+	var ErrIllegalZeroNamelen = errors.New("illegal domain namelen of 0")
 	// For when the domain name is an empty string
 	if namelen == 0 {
-		return nil, fmt.Errorf("illegal domain namelen of 0")
+		return nil, ErrIllegalZeroNamelen
 	}
 	if offset+int(namelen) <= offset {
 		return nil, fmt.Errorf("integer overflow from domain name length: (%d+%d) <= %d", offset, int(namelen), offset)
