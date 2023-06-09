@@ -58,6 +58,8 @@ type bucketEntry struct {
 // 1 byte for version, 2 byte for bucket count
 const dns1Version2PreambleLength = 3
 
+var ErrIllegalZeroNamelen = errors.New("illegal domain namelen of 0")
+
 // Used for calculating the number of buckets for a given input map.
 // Currently the bucket count is calculated as `len(input) * bucketFactor`
 //const defaultBucketFactor = 0.75
@@ -315,8 +317,6 @@ func getDNSNameListV2(buf []byte) []string {
 	}
 	return names
 }
-
-var ErrIllegalZeroNamelen = errors.New("illegal domain namelen of 0")
 
 func getDNSNameAsByteSliceByOffset(buf []byte, offset int) (stringasbyteslice []byte, err error) {
 	if offset >= len(buf) {
