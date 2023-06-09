@@ -3,6 +3,7 @@ package process
 import (
 	"bytes"
 	"encoding/binary"
+	"errors"
 	"fmt"
 	"math"
 
@@ -56,6 +57,8 @@ type bucketEntry struct {
 */
 // 1 byte for version, 2 byte for bucket count
 const dns1Version2PreambleLength = 3
+
+var ErrIllegalZeroNamelen = errors.New("illegal domain namelen of 0")
 
 // Used for calculating the number of buckets for a given input map.
 // Currently the bucket count is calculated as `len(input) * bucketFactor`
@@ -332,7 +335,7 @@ func getDNSNameAsByteSliceByOffset(buf []byte, offset int) (stringasbyteslice []
 	}
 	// For when the domain name is an empty string
 	if namelen == 0 {
-		return nil, fmt.Errorf("illegal domain namelen of 0")
+		return nil, ErrIllegalZeroNamelen
 	}
 	if offset+int(namelen) <= offset {
 		return nil, fmt.Errorf("integer overflow from domain name length: (%d+%d) <= %d", offset, int(namelen), offset)
