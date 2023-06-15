@@ -146,6 +146,20 @@ message FileInfo {
     string package_name = 14;
     string package_version = 15;
     string package_srcversion = 16;
+
+    repeated string hashes = 17;
+    HashState hash_state = 18;
+}
+
+enum HashState {
+    NO_HASH = 0;
+    DONE = 1;
+    FILE_NOT_FOUND = 2;
+    PATHNAME_RESOLUTION_ERROR = 3;
+    FILE_TOO_BIG = 4;
+    EVENT_TYPE_NOT_CONFIGURED = 5;
+    HASH_WAS_RATE_LIMITED = 6;
+    UNKNOWN_HASH_ERROR = 7;
 }
 
 message Credentials {

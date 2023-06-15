@@ -15,6 +15,168 @@ public final class SecDumpProto {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   /**
+   * Protobuf enum {@code datadog.cws.dumpsv1.HashState}
+   */
+  public enum HashState
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>NO_HASH = 0;</code>
+     */
+    NO_HASH(0),
+    /**
+     * <code>DONE = 1;</code>
+     */
+    DONE(1),
+    /**
+     * <code>FILE_NOT_FOUND = 2;</code>
+     */
+    FILE_NOT_FOUND(2),
+    /**
+     * <code>PATHNAME_RESOLUTION_ERROR = 3;</code>
+     */
+    PATHNAME_RESOLUTION_ERROR(3),
+    /**
+     * <code>FILE_TOO_BIG = 4;</code>
+     */
+    FILE_TOO_BIG(4),
+    /**
+     * <code>EVENT_TYPE_NOT_CONFIGURED = 5;</code>
+     */
+    EVENT_TYPE_NOT_CONFIGURED(5),
+    /**
+     * <code>HASH_WAS_RATE_LIMITED = 6;</code>
+     */
+    HASH_WAS_RATE_LIMITED(6),
+    /**
+     * <code>UNKNOWN_HASH_ERROR = 7;</code>
+     */
+    UNKNOWN_HASH_ERROR(7),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>NO_HASH = 0;</code>
+     */
+    public static final int NO_HASH_VALUE = 0;
+    /**
+     * <code>DONE = 1;</code>
+     */
+    public static final int DONE_VALUE = 1;
+    /**
+     * <code>FILE_NOT_FOUND = 2;</code>
+     */
+    public static final int FILE_NOT_FOUND_VALUE = 2;
+    /**
+     * <code>PATHNAME_RESOLUTION_ERROR = 3;</code>
+     */
+    public static final int PATHNAME_RESOLUTION_ERROR_VALUE = 3;
+    /**
+     * <code>FILE_TOO_BIG = 4;</code>
+     */
+    public static final int FILE_TOO_BIG_VALUE = 4;
+    /**
+     * <code>EVENT_TYPE_NOT_CONFIGURED = 5;</code>
+     */
+    public static final int EVENT_TYPE_NOT_CONFIGURED_VALUE = 5;
+    /**
+     * <code>HASH_WAS_RATE_LIMITED = 6;</code>
+     */
+    public static final int HASH_WAS_RATE_LIMITED_VALUE = 6;
+    /**
+     * <code>UNKNOWN_HASH_ERROR = 7;</code>
+     */
+    public static final int UNKNOWN_HASH_ERROR_VALUE = 7;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static HashState valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static HashState forNumber(int value) {
+      switch (value) {
+        case 0: return NO_HASH;
+        case 1: return DONE;
+        case 2: return FILE_NOT_FOUND;
+        case 3: return PATHNAME_RESOLUTION_ERROR;
+        case 4: return FILE_TOO_BIG;
+        case 5: return EVENT_TYPE_NOT_CONFIGURED;
+        case 6: return HASH_WAS_RATE_LIMITED;
+        case 7: return UNKNOWN_HASH_ERROR;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<HashState>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        HashState> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<HashState>() {
+            public HashState findValueByNumber(int number) {
+              return HashState.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.dd.cws.adv1.pb.SecDumpProto.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final HashState[] VALUES = values();
+
+    public static HashState valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private HashState(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:datadog.cws.dumpsv1.HashState)
+  }
+
+  /**
    * Protobuf enum {@code datadog.cws.dumpsv1.GenerationType}
    */
   public enum GenerationType
@@ -105,7 +267,7 @@ public final class SecDumpProto {
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.dd.cws.adv1.pb.SecDumpProto.getDescriptor().getEnumTypes().get(0);
+      return com.dd.cws.adv1.pb.SecDumpProto.getDescriptor().getEnumTypes().get(1);
     }
 
     private static final GenerationType[] VALUES = values();
@@ -15712,6 +15874,42 @@ public final class SecDumpProto {
      */
     com.google.protobuf.ByteString
         getPackageSrcversionBytes();
+
+    /**
+     * <code>repeated string hashes = 17;</code>
+     * @return A list containing the hashes.
+     */
+    java.util.List<java.lang.String>
+        getHashesList();
+    /**
+     * <code>repeated string hashes = 17;</code>
+     * @return The count of hashes.
+     */
+    int getHashesCount();
+    /**
+     * <code>repeated string hashes = 17;</code>
+     * @param index The index of the element to return.
+     * @return The hashes at the given index.
+     */
+    java.lang.String getHashes(int index);
+    /**
+     * <code>repeated string hashes = 17;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the hashes at the given index.
+     */
+    com.google.protobuf.ByteString
+        getHashesBytes(int index);
+
+    /**
+     * <code>.datadog.cws.dumpsv1.HashState hash_state = 18;</code>
+     * @return The enum numeric value on the wire for hashState.
+     */
+    int getHashStateValue();
+    /**
+     * <code>.datadog.cws.dumpsv1.HashState hash_state = 18;</code>
+     * @return The hashState.
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.HashState getHashState();
   }
   /**
    * Protobuf type {@code datadog.cws.dumpsv1.FileInfo}
@@ -15734,6 +15932,8 @@ public final class SecDumpProto {
       packageName_ = "";
       packageVersion_ = "";
       packageSrcversion_ = "";
+      hashes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      hashState_ = 0;
     }
 
     @java.lang.Override
@@ -16165,6 +16365,60 @@ public final class SecDumpProto {
       }
     }
 
+    public static final int HASHES_FIELD_NUMBER = 17;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringList hashes_;
+    /**
+     * <code>repeated string hashes = 17;</code>
+     * @return A list containing the hashes.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getHashesList() {
+      return hashes_;
+    }
+    /**
+     * <code>repeated string hashes = 17;</code>
+     * @return The count of hashes.
+     */
+    public int getHashesCount() {
+      return hashes_.size();
+    }
+    /**
+     * <code>repeated string hashes = 17;</code>
+     * @param index The index of the element to return.
+     * @return The hashes at the given index.
+     */
+    public java.lang.String getHashes(int index) {
+      return hashes_.get(index);
+    }
+    /**
+     * <code>repeated string hashes = 17;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the hashes at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getHashesBytes(int index) {
+      return hashes_.getByteString(index);
+    }
+
+    public static final int HASH_STATE_FIELD_NUMBER = 18;
+    private int hashState_ = 0;
+    /**
+     * <code>.datadog.cws.dumpsv1.HashState hash_state = 18;</code>
+     * @return The enum numeric value on the wire for hashState.
+     */
+    @java.lang.Override public int getHashStateValue() {
+      return hashState_;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.HashState hash_state = 18;</code>
+     * @return The hashState.
+     */
+    @java.lang.Override public com.dd.cws.adv1.pb.SecDumpProto.HashState getHashState() {
+      com.dd.cws.adv1.pb.SecDumpProto.HashState result = com.dd.cws.adv1.pb.SecDumpProto.HashState.forNumber(hashState_);
+      return result == null ? com.dd.cws.adv1.pb.SecDumpProto.HashState.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -16226,6 +16480,12 @@ public final class SecDumpProto {
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(packageSrcversion_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 16, packageSrcversion_);
+      }
+      for (int i = 0; i < hashes_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 17, hashes_.getRaw(i));
+      }
+      if (hashState_ != com.dd.cws.adv1.pb.SecDumpProto.HashState.NO_HASH.getNumber()) {
+        output.writeEnum(18, hashState_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -16292,6 +16552,18 @@ public final class SecDumpProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(packageSrcversion_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(16, packageSrcversion_);
       }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < hashes_.size(); i++) {
+          dataSize += computeStringSizeNoTag(hashes_.getRaw(i));
+        }
+        size += dataSize;
+        size += 2 * getHashesList().size();
+      }
+      if (hashState_ != com.dd.cws.adv1.pb.SecDumpProto.HashState.NO_HASH.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(18, hashState_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -16339,6 +16611,9 @@ public final class SecDumpProto {
           .equals(other.getPackageVersion())) return false;
       if (!getPackageSrcversion()
           .equals(other.getPackageSrcversion())) return false;
+      if (!getHashesList()
+          .equals(other.getHashesList())) return false;
+      if (hashState_ != other.hashState_) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -16386,6 +16661,12 @@ public final class SecDumpProto {
       hash = (53 * hash) + getPackageVersion().hashCode();
       hash = (37 * hash) + PACKAGE_SRCVERSION_FIELD_NUMBER;
       hash = (53 * hash) + getPackageSrcversion().hashCode();
+      if (getHashesCount() > 0) {
+        hash = (37 * hash) + HASHES_FIELD_NUMBER;
+        hash = (53 * hash) + getHashesList().hashCode();
+      }
+      hash = (37 * hash) + HASH_STATE_FIELD_NUMBER;
+      hash = (53 * hash) + hashState_;
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -16531,6 +16812,9 @@ public final class SecDumpProto {
         packageName_ = "";
         packageVersion_ = "";
         packageSrcversion_ = "";
+        hashes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00010000);
+        hashState_ = 0;
         return this;
       }
 
@@ -16557,9 +16841,18 @@ public final class SecDumpProto {
       @java.lang.Override
       public com.dd.cws.adv1.pb.SecDumpProto.FileInfo buildPartial() {
         com.dd.cws.adv1.pb.SecDumpProto.FileInfo result = new com.dd.cws.adv1.pb.SecDumpProto.FileInfo(this);
+        buildPartialRepeatedFields(result);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartialRepeatedFields(com.dd.cws.adv1.pb.SecDumpProto.FileInfo result) {
+        if (((bitField0_ & 0x00010000) != 0)) {
+          hashes_ = hashes_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00010000);
+        }
+        result.hashes_ = hashes_;
       }
 
       private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.FileInfo result) {
@@ -16611,6 +16904,9 @@ public final class SecDumpProto {
         }
         if (((from_bitField0_ & 0x00008000) != 0)) {
           result.packageSrcversion_ = packageSrcversion_;
+        }
+        if (((from_bitField0_ & 0x00020000) != 0)) {
+          result.hashState_ = hashState_;
         }
       }
 
@@ -16722,6 +17018,19 @@ public final class SecDumpProto {
           bitField0_ |= 0x00008000;
           onChanged();
         }
+        if (!other.hashes_.isEmpty()) {
+          if (hashes_.isEmpty()) {
+            hashes_ = other.hashes_;
+            bitField0_ = (bitField0_ & ~0x00010000);
+          } else {
+            ensureHashesIsMutable();
+            hashes_.addAll(other.hashes_);
+          }
+          onChanged();
+        }
+        if (other.hashState_ != 0) {
+          setHashStateValue(other.getHashStateValue());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -16828,6 +17137,17 @@ public final class SecDumpProto {
                 bitField0_ |= 0x00008000;
                 break;
               } // case 130
+              case 138: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureHashesIsMutable();
+                hashes_.add(s);
+                break;
+              } // case 138
+              case 144: {
+                hashState_ = input.readEnum();
+                bitField0_ |= 0x00020000;
+                break;
+              } // case 144
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -17685,6 +18005,163 @@ public final class SecDumpProto {
         checkByteStringIsUtf8(value);
         packageSrcversion_ = value;
         bitField0_ |= 0x00008000;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringList hashes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureHashesIsMutable() {
+        if (!((bitField0_ & 0x00010000) != 0)) {
+          hashes_ = new com.google.protobuf.LazyStringArrayList(hashes_);
+          bitField0_ |= 0x00010000;
+         }
+      }
+      /**
+       * <code>repeated string hashes = 17;</code>
+       * @return A list containing the hashes.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getHashesList() {
+        return hashes_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string hashes = 17;</code>
+       * @return The count of hashes.
+       */
+      public int getHashesCount() {
+        return hashes_.size();
+      }
+      /**
+       * <code>repeated string hashes = 17;</code>
+       * @param index The index of the element to return.
+       * @return The hashes at the given index.
+       */
+      public java.lang.String getHashes(int index) {
+        return hashes_.get(index);
+      }
+      /**
+       * <code>repeated string hashes = 17;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the hashes at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getHashesBytes(int index) {
+        return hashes_.getByteString(index);
+      }
+      /**
+       * <code>repeated string hashes = 17;</code>
+       * @param index The index to set the value at.
+       * @param value The hashes to set.
+       * @return This builder for chaining.
+       */
+      public Builder setHashes(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureHashesIsMutable();
+        hashes_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string hashes = 17;</code>
+       * @param value The hashes to add.
+       * @return This builder for chaining.
+       */
+      public Builder addHashes(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureHashesIsMutable();
+        hashes_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string hashes = 17;</code>
+       * @param values The hashes to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllHashes(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureHashesIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, hashes_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string hashes = 17;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearHashes() {
+        hashes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00010000);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string hashes = 17;</code>
+       * @param value The bytes of the hashes to add.
+       * @return This builder for chaining.
+       */
+      public Builder addHashesBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureHashesIsMutable();
+        hashes_.add(value);
+        onChanged();
+        return this;
+      }
+
+      private int hashState_ = 0;
+      /**
+       * <code>.datadog.cws.dumpsv1.HashState hash_state = 18;</code>
+       * @return The enum numeric value on the wire for hashState.
+       */
+      @java.lang.Override public int getHashStateValue() {
+        return hashState_;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.HashState hash_state = 18;</code>
+       * @param value The enum numeric value on the wire for hashState to set.
+       * @return This builder for chaining.
+       */
+      public Builder setHashStateValue(int value) {
+        hashState_ = value;
+        bitField0_ |= 0x00020000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.HashState hash_state = 18;</code>
+       * @return The hashState.
+       */
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.HashState getHashState() {
+        com.dd.cws.adv1.pb.SecDumpProto.HashState result = com.dd.cws.adv1.pb.SecDumpProto.HashState.forNumber(hashState_);
+        return result == null ? com.dd.cws.adv1.pb.SecDumpProto.HashState.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.HashState hash_state = 18;</code>
+       * @param value The hashState to set.
+       * @return This builder for chaining.
+       */
+      public Builder setHashState(com.dd.cws.adv1.pb.SecDumpProto.HashState value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00020000;
+        hashState_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.HashState hash_state = 18;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearHashState() {
+        bitField0_ = (bitField0_ & ~0x00020000);
+        hashState_ = 0;
         onChanged();
         return this;
       }
@@ -23013,35 +23490,41 @@ java.lang.String defaultValue) {
       "hedRule\022.\n\010requests\030\001 \003(\0132\034.datadog.cws." +
       "dumpsv1.DNSInfo\"Q\n\007DNSInfo\022\014\n\004name\030\001 \001(\t" +
       "\022\014\n\004type\030\002 \001(\r\022\r\n\005class\030\003 \001(\r\022\014\n\004size\030\004 " +
-      "\001(\r\022\r\n\005count\030\005 \001(\r\"\245\002\n\010FileInfo\022\013\n\003uid\030\001" +
+      "\001(\r\022\r\n\005count\030\005 \001(\r\"\351\002\n\010FileInfo\022\013\n\003uid\030\001" +
       " \001(\r\022\014\n\004user\030\002 \001(\t\022\013\n\003gid\030\003 \001(\r\022\r\n\005group" +
       "\030\004 \001(\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005ctime\030\006 \001(\004\022\r\n\005m" +
       "time\030\007 \001(\004\022\020\n\010mount_id\030\010 \001(\r\022\r\n\005inode\030\t " +
       "\001(\004\022\026\n\016in_upper_layer\030\n \001(\010\022\014\n\004path\030\013 \001(" +
       "\t\022\020\n\010basename\030\014 \001(\t\022\022\n\nfilesystem\030\r \001(\t\022" +
       "\024\n\014package_name\030\016 \001(\t\022\027\n\017package_version" +
-      "\030\017 \001(\t\022\032\n\022package_srcversion\030\020 \001(\t\"\224\002\n\013C" +
-      "redentials\022\013\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004" +
-      "user\030\003 \001(\t\022\r\n\005group\030\004 \001(\t\022\025\n\reffective_u" +
-      "id\030\005 \001(\r\022\025\n\reffective_gid\030\006 \001(\r\022\026\n\016effec" +
-      "tive_user\030\007 \001(\t\022\027\n\017effective_group\030\010 \001(\t" +
-      "\022\016\n\006fs_uid\030\t \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007fs_u" +
-      "ser\030\013 \001(\t\022\020\n\010fs_group\030\014 \001(\t\022\025\n\rcap_effec" +
-      "tive\030\r \001(\004\022\025\n\rcap_permitted\030\016 \001(\004\"I\n\nSoc" +
-      "ketNode\022\016\n\006family\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035." +
-      "datadog.cws.dumpsv1.BindNode\"]\n\010BindNode" +
-      "\0227\n\rmatched_rules\030\003 \003(\0132 .datadog.cws.du" +
-      "mpsv1.MatchedRule\022\014\n\004port\030\001 \001(\r\022\n\n\002ip\030\002 " +
-      "\001(\t\"\325\001\n\013MatchedRule\022\017\n\007rule_id\030\001 \001(\t\022\024\n\014" +
-      "rule_version\030\002 \001(\t\022\023\n\013policy_name\030\003 \001(\t\022" +
-      "\026\n\016policy_version\030\004 \001(\t\022A\n\trule_tags\030\005 \003" +
-      "(\0132..datadog.cws.dumpsv1.MatchedRule.Rul" +
-      "eTagsEntry\032/\n\rRuleTagsEntry\022\013\n\003key\030\001 \001(\t" +
-      "\022\r\n\005value\030\002 \001(\t:\0028\001*8\n\016GenerationType\022\013\n" +
-      "\007UNKNOWN\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPSHOT\020\002BU\n" +
-      "\022com.dd.cws.adv1.pbB\014SecDumpProtoP\000Z/git" +
-      "hub.com/DataDog/agent-payload/v5/cws/dum" +
-      "psv1b\006proto3"
+      "\030\017 \001(\t\022\032\n\022package_srcversion\030\020 \001(\t\022\016\n\006ha" +
+      "shes\030\021 \003(\t\0222\n\nhash_state\030\022 \001(\0162\036.datadog" +
+      ".cws.dumpsv1.HashState\"\224\002\n\013Credentials\022\013" +
+      "\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004user\030\003 \001(\t\022\r" +
+      "\n\005group\030\004 \001(\t\022\025\n\reffective_uid\030\005 \001(\r\022\025\n\r" +
+      "effective_gid\030\006 \001(\r\022\026\n\016effective_user\030\007 " +
+      "\001(\t\022\027\n\017effective_group\030\010 \001(\t\022\016\n\006fs_uid\030\t" +
+      " \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007fs_user\030\013 \001(\t\022\020\n" +
+      "\010fs_group\030\014 \001(\t\022\025\n\rcap_effective\030\r \001(\004\022\025" +
+      "\n\rcap_permitted\030\016 \001(\004\"I\n\nSocketNode\022\016\n\006f" +
+      "amily\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035.datadog.cws." +
+      "dumpsv1.BindNode\"]\n\010BindNode\0227\n\rmatched_" +
+      "rules\030\003 \003(\0132 .datadog.cws.dumpsv1.Matche" +
+      "dRule\022\014\n\004port\030\001 \001(\r\022\n\n\002ip\030\002 \001(\t\"\325\001\n\013Matc" +
+      "hedRule\022\017\n\007rule_id\030\001 \001(\t\022\024\n\014rule_version" +
+      "\030\002 \001(\t\022\023\n\013policy_name\030\003 \001(\t\022\026\n\016policy_ve" +
+      "rsion\030\004 \001(\t\022A\n\trule_tags\030\005 \003(\0132..datadog" +
+      ".cws.dumpsv1.MatchedRule.RuleTagsEntry\032/" +
+      "\n\rRuleTagsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 " +
+      "\001(\t:\0028\001*\271\001\n\tHashState\022\013\n\007NO_HASH\020\000\022\010\n\004DO" +
+      "NE\020\001\022\022\n\016FILE_NOT_FOUND\020\002\022\035\n\031PATHNAME_RES" +
+      "OLUTION_ERROR\020\003\022\020\n\014FILE_TOO_BIG\020\004\022\035\n\031EVE" +
+      "NT_TYPE_NOT_CONFIGURED\020\005\022\031\n\025HASH_WAS_RAT" +
+      "E_LIMITED\020\006\022\026\n\022UNKNOWN_HASH_ERROR\020\007*8\n\016G" +
+      "enerationType\022\013\n\007UNKNOWN\020\000\022\013\n\007RUNTIME\020\001\022" +
+      "\014\n\010SNAPSHOT\020\002BU\n\022com.dd.cws.adv1.pbB\014Sec" +
+      "DumpProtoP\000Z/github.com/DataDog/agent-pa" +
+      "yload/v5/cws/dumpsv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -23106,7 +23589,7 @@ java.lang.String defaultValue) {
     internal_static_datadog_cws_dumpsv1_FileInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_FileInfo_descriptor,
-        new java.lang.String[] { "Uid", "User", "Gid", "Group", "Mode", "Ctime", "Mtime", "MountId", "Inode", "InUpperLayer", "Path", "Basename", "Filesystem", "PackageName", "PackageVersion", "PackageSrcversion", });
+        new java.lang.String[] { "Uid", "User", "Gid", "Group", "Mode", "Ctime", "Mtime", "MountId", "Inode", "InUpperLayer", "Path", "Basename", "Filesystem", "PackageName", "PackageVersion", "PackageSrcversion", "Hashes", "HashState", });
     internal_static_datadog_cws_dumpsv1_Credentials_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_datadog_cws_dumpsv1_Credentials_fieldAccessorTable = new
