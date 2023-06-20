@@ -712,13 +712,13 @@ func (x *ConnectionBuilder) SetIsLocalPortEphemeral(v uint64) {
 		x.writer.Write(x.scratch)
 	}
 }
-func (x *ConnectionBuilder) SetLastBytesSent(v) {
+func (x *ConnectionBuilder) SetLastBytesSent(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x80)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ConnectionBuilder) SetLastBytesReceived(v) {
+func (x *ConnectionBuilder) SetLastBytesReceived(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x88)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -737,13 +737,13 @@ func (x *ConnectionBuilder) SetDirection(v uint64) {
 		x.writer.Write(x.scratch)
 	}
 }
-func (x *ConnectionBuilder) SetLastPacketsSent(v) {
+func (x *ConnectionBuilder) SetLastPacketsSent(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x130)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ConnectionBuilder) SetLastPacketsReceived(v) {
+func (x *ConnectionBuilder) SetLastPacketsReceived(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x138)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -818,13 +818,13 @@ func (x *ConnectionBuilder) SetDnsTimeouts(v uint32) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ConnectionBuilder) SetDnsSuccessLatencySum(v) {
+func (x *ConnectionBuilder) SetDnsSuccessLatencySum(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xe0)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ConnectionBuilder) SetDnsFailureLatencySum(v) {
+func (x *ConnectionBuilder) SetDnsFailureLatencySum(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xe8)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -1536,13 +1536,13 @@ func (x *DNSStatsBuilder) SetDnsTimeouts(v uint32) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *DNSStatsBuilder) SetDnsSuccessLatencySum(v) {
+func (x *DNSStatsBuilder) SetDnsSuccessLatencySum(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *DNSStatsBuilder) SetDnsFailureLatencySum(v) {
+func (x *DNSStatsBuilder) SetDnsFailureLatencySum(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))

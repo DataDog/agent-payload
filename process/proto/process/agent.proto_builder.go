@@ -1827,13 +1827,13 @@ func (x *ProcessBuilder) SetContainerKey(v uint32) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ProcessBuilder) SetVoluntaryCtxSwitches(v) {
+func (x *ProcessBuilder) SetVoluntaryCtxSwitches(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x80)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ProcessBuilder) SetInvoluntaryCtxSwitches(v) {
+func (x *ProcessBuilder) SetInvoluntaryCtxSwitches(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x88)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -2141,7 +2141,7 @@ func (x *ContainerBuilder) SetCpuLimit(v float32) {
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ContainerBuilder) SetMemoryLimit(v) {
+func (x *ContainerBuilder) SetMemoryLimit(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x30)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -2218,13 +2218,13 @@ func (x *ContainerBuilder) SetTotalPct(v float32) {
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ContainerBuilder) SetMemRss(v) {
+func (x *ContainerBuilder) SetMemRss(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa8)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ContainerBuilder) SetMemCache(v) {
+func (x *ContainerBuilder) SetMemCache(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xb0)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -2270,19 +2270,19 @@ func (x *ContainerBuilder) AddAddresses(cb func(w *ContainerAddrBuilder)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
-func (x *ContainerBuilder) SetThreadCount(v) {
+func (x *ContainerBuilder) SetThreadCount(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xe0)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ContainerBuilder) SetThreadLimit(v) {
+func (x *ContainerBuilder) SetThreadLimit(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xe8)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ContainerBuilder) SetMemUsage(v) {
+func (x *ContainerBuilder) SetMemUsage(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xf0)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -2293,7 +2293,7 @@ func (x *ContainerBuilder) SetCpuUsageNs(v float32) {
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ContainerBuilder) SetMemAccounted(v) {
+func (x *ContainerBuilder) SetMemAccounted(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x100)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -2454,13 +2454,13 @@ func (x *ProcessStatBuilder) SetContainerNetSentBps(v float32) {
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ProcessStatBuilder) SetVoluntaryCtxSwitches(v) {
+func (x *ProcessStatBuilder) SetVoluntaryCtxSwitches(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xc0)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ProcessStatBuilder) SetInvoluntaryCtxSwitches(v) {
+func (x *ProcessStatBuilder) SetInvoluntaryCtxSwitches(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xc8)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -2614,19 +2614,19 @@ func (x *ContainerStatBuilder) SetCpuLimit(v float32) {
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ContainerStatBuilder) SetMemRss(v) {
+func (x *ContainerStatBuilder) SetMemRss(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x30)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ContainerStatBuilder) SetMemCache(v) {
+func (x *ContainerStatBuilder) SetMemCache(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x38)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ContainerStatBuilder) SetMemLimit(v) {
+func (x *ContainerStatBuilder) SetMemLimit(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x40)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -2696,19 +2696,19 @@ func (x *ContainerStatBuilder) SetByteKey(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
-func (x *ContainerStatBuilder) SetThreadCount(v) {
+func (x *ContainerStatBuilder) SetThreadCount(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa0)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ContainerStatBuilder) SetThreadLimit(v) {
+func (x *ContainerStatBuilder) SetThreadLimit(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa8)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ContainerStatBuilder) SetMemUsage(v) {
+func (x *ContainerStatBuilder) SetMemUsage(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xb0)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -2719,7 +2719,7 @@ func (x *ContainerStatBuilder) SetCpuUsageNs(v float32) {
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ContainerStatBuilder) SetMemAccounted(v) {
+func (x *ContainerStatBuilder) SetMemAccounted(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xc0)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -2857,49 +2857,49 @@ func NewMemoryStatBuilder(writer io.Writer) *MemoryStatBuilder {
 		writer: writer,
 	}
 }
-func (x *MemoryStatBuilder) SetRss(v) {
+func (x *MemoryStatBuilder) SetRss(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *MemoryStatBuilder) SetVms(v) {
+func (x *MemoryStatBuilder) SetVms(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *MemoryStatBuilder) SetSwap(v) {
+func (x *MemoryStatBuilder) SetSwap(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *MemoryStatBuilder) SetShared(v) {
+func (x *MemoryStatBuilder) SetShared(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x20)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *MemoryStatBuilder) SetText(v) {
+func (x *MemoryStatBuilder) SetText(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x28)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *MemoryStatBuilder) SetLib(v) {
+func (x *MemoryStatBuilder) SetLib(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x30)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *MemoryStatBuilder) SetData(v) {
+func (x *MemoryStatBuilder) SetData(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x38)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *MemoryStatBuilder) SetDirty(v) {
+func (x *MemoryStatBuilder) SetDirty(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x40)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -3175,25 +3175,25 @@ func (x *ClusterBuilder) SetPodAllocatable(v uint32) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ClusterBuilder) SetMemoryAllocatable(v) {
+func (x *ClusterBuilder) SetMemoryAllocatable(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x30)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ClusterBuilder) SetMemoryCapacity(v) {
+func (x *ClusterBuilder) SetMemoryCapacity(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x38)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ClusterBuilder) SetCpuAllocatable(v) {
+func (x *ClusterBuilder) SetCpuAllocatable(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x40)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *ClusterBuilder) SetCpuCapacity(v) {
+func (x *ClusterBuilder) SetCpuCapacity(v uint64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x48)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
