@@ -119,6 +119,15 @@ BASH
         --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessInfo \
         proto/cws/dumpsv1/activity_dump.proto
 
+      echo "Generating NPM CollectorConnections"
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. \
+        --java_out=java \
+        --go_out=$GOPATH/src \
+        --go-vtproto_out=$GOPATH/src \
+        --go-vtproto_opt=features=pool+marshal+unmarshal+size \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/process.CollectorConnections \
+        proto/process/connections.proto
+
       cp -r v5/* .
       rm -rf v5
 BASH
