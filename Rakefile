@@ -121,7 +121,6 @@ BASH
 
       echo "Generating NPM CollectorConnections"
       PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. \
-        --java_out=java \
         --go_out=$GOPATH/src \
         --go-vtproto_out=$GOPATH/src \
         --go-vtproto_opt=features=pool+marshal+unmarshal+size \
