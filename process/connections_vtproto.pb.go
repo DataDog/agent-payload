@@ -1812,37 +1812,29 @@ func encodeVarint(dAtA []byte, offset int, v uint64) int {
 	return base
 }
 
-var vtprotoPool_CollectorConnections = sync.Pool{
+var vtprotoPool_Connections = sync.Pool{
 	New: func() interface{} {
-		return &CollectorConnections{}
+		return &Connections{}
 	},
 }
 
-func (m *CollectorConnections) ResetVT() {
-	f0 := m.EncodedTags[:0]
-	f1 := m.EncodedDNS[:0]
-	f2 := m.Domains[:0]
-	f3 := m.EncodedDomainDatabase[:0]
-	f4 := m.EncodedDnsLookups[:0]
-	f5 := m.EncodedConnectionsTags[:0]
-	f6 := m.PrebuiltEBPFAssets[:0]
+func (m *Connections) ResetVT() {
+	f0 := m.Domains[:0]
+	f1 := m.Tags[:0]
+	f2 := m.PrebuiltEBPFAssets[:0]
 	m.Reset()
-	m.EncodedTags = f0
-	m.EncodedDNS = f1
-	m.Domains = f2
-	m.EncodedDomainDatabase = f3
-	m.EncodedDnsLookups = f4
-	m.EncodedConnectionsTags = f5
-	m.PrebuiltEBPFAssets = f6
+	m.Domains = f0
+	m.Tags = f1
+	m.PrebuiltEBPFAssets = f2
 }
-func (m *CollectorConnections) ReturnToVTPool() {
+func (m *Connections) ReturnToVTPool() {
 	if m != nil {
 		m.ResetVT()
-		vtprotoPool_CollectorConnections.Put(m)
+		vtprotoPool_Connections.Put(m)
 	}
 }
-func CollectorConnectionsFromVTPool() *CollectorConnections {
-	return vtprotoPool_CollectorConnections.Get().(*CollectorConnections)
+func ConnectionsFromVTPool() *Connections {
+	return vtprotoPool_Connections.Get().(*Connections)
 }
 func (m *CollectorConnections) SizeVT() (n int) {
 	if m == nil {
@@ -2720,14 +2712,7 @@ func (m *CollectorConnections) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if len(m.Connections) == cap(m.Connections) {
-				m.Connections = append(m.Connections, &Connection{})
-			} else {
-				m.Connections = m.Connections[:len(m.Connections)+1]
-				if m.Connections[len(m.Connections)-1] == nil {
-					m.Connections[len(m.Connections)-1] = &Connection{}
-				}
-			}
+			m.Connections = append(m.Connections, &Connection{})
 			if err := m.Connections[len(m.Connections)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -3485,14 +3470,7 @@ func (m *CollectorConnections) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if len(m.Routes) == cap(m.Routes) {
-				m.Routes = append(m.Routes, &Route{})
-			} else {
-				m.Routes = m.Routes[:len(m.Routes)+1]
-				if m.Routes[len(m.Routes)-1] == nil {
-					m.Routes[len(m.Routes)-1] = &Route{}
-				}
-			}
+			m.Routes = append(m.Routes, &Route{})
 			if err := m.Routes[len(m.Routes)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -3526,14 +3504,7 @@ func (m *CollectorConnections) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if len(m.RouteMetadata) == cap(m.RouteMetadata) {
-				m.RouteMetadata = append(m.RouteMetadata, &RouteMetadata{})
-			} else {
-				m.RouteMetadata = m.RouteMetadata[:len(m.RouteMetadata)+1]
-				if m.RouteMetadata[len(m.RouteMetadata)-1] == nil {
-					m.RouteMetadata[len(m.RouteMetadata)-1] = &RouteMetadata{}
-				}
-			}
+			m.RouteMetadata = append(m.RouteMetadata, &RouteMetadata{})
 			if err := m.RouteMetadata[len(m.RouteMetadata)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -4162,7 +4133,14 @@ func (m *Connections) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Conns = append(m.Conns, &Connection{})
+			if len(m.Conns) == cap(m.Conns) {
+				m.Conns = append(m.Conns, &Connection{})
+			} else {
+				m.Conns = m.Conns[:len(m.Conns)+1]
+				if m.Conns[len(m.Conns)-1] == nil {
+					m.Conns[len(m.Conns)-1] = &Connection{}
+				}
+			}
 			if err := m.Conns[len(m.Conns)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -4393,7 +4371,14 @@ func (m *Connections) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Routes = append(m.Routes, &Route{})
+			if len(m.Routes) == cap(m.Routes) {
+				m.Routes = append(m.Routes, &Route{})
+			} else {
+				m.Routes = m.Routes[:len(m.Routes)+1]
+				if m.Routes[len(m.Routes)-1] == nil {
+					m.Routes[len(m.Routes)-1] = &Route{}
+				}
+			}
 			if err := m.Routes[len(m.Routes)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}

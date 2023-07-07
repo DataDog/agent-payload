@@ -119,13 +119,22 @@ BASH
         --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessInfo \
         proto/cws/dumpsv1/activity_dump.proto
 
-      echo "Generating NPM CollectorConnections"
+      echo "Generating NPM Connections"
       PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. \
         --go_out=$GOPATH/src \
         --go-vtproto_out=$GOPATH/src \
         --go-vtproto_opt=features=pool+marshal+unmarshal+size \
-        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/process.CollectorConnections \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/process.Connections \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/process.Host \
         proto/process/connections.proto
+
+      echo "Generating Agent Shared VTProto"
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. \
+        --go_out=$GOPATH/src \
+        --go-vtproto_out=$GOPATH/src \
+        --go-vtproto_opt=features=pool+marshal+unmarshal+size \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/process.Host \
+        proto/process/agent.proto
 
       cp -r v5/* .
       rm -rf v5
