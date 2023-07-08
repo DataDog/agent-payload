@@ -1,4 +1,4 @@
-//go:build cgo
+//go:build !cgo
 
 package process
 
@@ -13,10 +13,6 @@ import (
 	"reflect"
 	"strconv"
 
-	"github.com/DataDog/zstd"
-	"github.com/DataDog/zstd_0"
-
-	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/proto"
 )
 
@@ -58,25 +54,7 @@ type MessageHeader struct {
 }
 
 func unmarshal(enc MessageEncoding, body []byte, m proto.Message) error {
-	switch enc {
-	case MessageEncodingProtobuf:
-		return proto.Unmarshal(body, m)
-	case MessageEncodingJSON:
-		return jsonpb.Unmarshal(bytes.NewReader(body), m)
-	case MessageEncodingZstdPB, MessageEncodingZstd1xPB:
-		var d []byte
-		var err error
-		if enc == MessageEncodingZstd1xPB {
-			d, err = zstd.Decompress(nil, body)
-		} else {
-			d, err = zstd_0.Decompress(nil, body)
-		}
-		if err != nil {
-			return err
-		}
-		return proto.Unmarshal(d, m)
-	}
-	return fmt.Errorf("unknown message encoding: %d", enc)
+	panic("zstd not supported")
 }
 
 // MessageType is a string representing the type of a message.
@@ -357,46 +335,7 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 // EncodeMessage encodes a message object into bytes with protobuf. A type
 // header is added for ease of decoding.
 func EncodeMessage(m Message) ([]byte, error) {
-	hb, err := encodeHeader(m.Header)
-	if err != nil {
-		return nil, fmt.Errorf("could not encode header: %s", err)
-	}
-
-	b := new(bytes.Buffer)
-	if _, err := b.Write(hb); err != nil {
-		return nil, err
-	}
-
-	var p []byte
-	switch m.Header.Encoding {
-	case MessageEncodingProtobuf:
-		p, err = proto.Marshal(m.Body)
-		if err != nil {
-			return nil, err
-		}
-	case MessageEncodingJSON:
-		marshaler := jsonpb.Marshaler{EmitDefaults: true}
-		s, err := marshaler.MarshalToString(m.Body)
-		if err != nil {
-			return nil, err
-		}
-		p = []byte(s)
-	case MessageEncodingZstdPB, MessageEncodingZstd1xPB:
-		pb, err := proto.Marshal(m.Body)
-		if err != nil {
-			return nil, err
-		}
-
-		if m.Header.Encoding == MessageEncodingZstd1xPB {
-			p, err = zstd.Compress(nil, pb)
-		} else {
-			p, err = zstd_0.Compress(nil, pb)
-		}
-	default:
-		return nil, fmt.Errorf("unknown message encoding: %d", m.Header.Encoding)
-	}
-	_, err = b.Write(p)
-	return b.Bytes(), err
+	panic("zstd not supported")
 }
 
 // ReadHeader reads the header off raw message bytes.
