@@ -53,9 +53,6 @@ func (x *CollectorConnectionsBuilder) AddConnections(cb func(w *ConnectionBuilde
 	x.connectionBuilder.writer = &x.buf
 	x.connectionBuilder.scratch = x.scratch
 	cb(&x.connectionBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -84,9 +81,6 @@ func (x *CollectorConnectionsBuilder) AddResolvedResources(cb func(w *CollectorC
 	x.collectorConnections_ResolvedResourcesEntryBuilder.writer = &x.buf
 	x.collectorConnections_ResolvedResourcesEntryBuilder.scratch = x.scratch
 	cb(&x.collectorConnections_ResolvedResourcesEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x42)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -97,9 +91,6 @@ func (x *CollectorConnectionsBuilder) AddContainerForPid(cb func(w *CollectorCon
 	x.collectorConnections_ContainerForPidEntryBuilder.writer = &x.buf
 	x.collectorConnections_ContainerForPidEntryBuilder.scratch = x.scratch
 	cb(&x.collectorConnections_ContainerForPidEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x52)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -140,9 +131,6 @@ func (x *CollectorConnectionsBuilder) SetConnTelemetry(cb func(w *CollectorConne
 	x.collectorConnectionsTelemetryBuilder.writer = &x.buf
 	x.collectorConnectionsTelemetryBuilder.scratch = x.scratch
 	cb(&x.collectorConnectionsTelemetryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x82)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -153,9 +141,6 @@ func (x *CollectorConnectionsBuilder) AddConnTelemetryMap(cb func(w *CollectorCo
 	x.collectorConnections_ConnTelemetryMapEntryBuilder.writer = &x.buf
 	x.collectorConnections_ConnTelemetryMapEntryBuilder.scratch = x.scratch
 	cb(&x.collectorConnections_ConnTelemetryMapEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x13a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -202,9 +187,6 @@ func (x *CollectorConnectionsBuilder) AddCompilationTelemetryByAsset(cb func(w *
 	x.collectorConnections_CompilationTelemetryByAssetEntryBuilder.writer = &x.buf
 	x.collectorConnections_CompilationTelemetryByAssetEntryBuilder.scratch = x.scratch
 	cb(&x.collectorConnections_CompilationTelemetryByAssetEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xaa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -223,9 +205,6 @@ func (x *CollectorConnectionsBuilder) AddCORETelemetryByAsset(cb func(w *Collect
 	x.collectorConnections_CORETelemetryByAssetEntryBuilder.writer = &x.buf
 	x.collectorConnections_CORETelemetryByAssetEntryBuilder.scratch = x.scratch
 	cb(&x.collectorConnections_CORETelemetryByAssetEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x152)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -245,9 +224,6 @@ func (x *CollectorConnectionsBuilder) AddRoutes(cb func(w *RouteBuilder)) {
 	x.routeBuilder.writer = &x.buf
 	x.routeBuilder.scratch = x.scratch
 	cb(&x.routeBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xfa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -258,9 +234,6 @@ func (x *CollectorConnectionsBuilder) AddRouteMetadata(cb func(w *RouteMetadataB
 	x.routeMetadataBuilder.writer = &x.buf
 	x.routeMetadataBuilder.scratch = x.scratch
 	cb(&x.routeMetadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x112)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -271,9 +244,6 @@ func (x *CollectorConnectionsBuilder) SetAgentConfiguration(cb func(w *AgentConf
 	x.agentConfigurationBuilder.writer = &x.buf
 	x.agentConfigurationBuilder.scratch = x.scratch
 	cb(&x.agentConfigurationBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x11a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -326,9 +296,6 @@ func (x *CollectorConnectionsBuilder) AddResolvedHostsByName(cb func(w *Collecto
 	x.collectorConnections_ResolvedHostsByNameEntryBuilder.writer = &x.buf
 	x.collectorConnections_ResolvedHostsByNameEntryBuilder.scratch = x.scratch
 	cb(&x.collectorConnections_ResolvedHostsByNameEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x142)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -361,9 +328,6 @@ func (x *CollectorConnections_ResolvedResourcesEntryBuilder) SetValue(cb func(w 
 	x.resourceMetadataBuilder.writer = &x.buf
 	x.resourceMetadataBuilder.scratch = x.scratch
 	cb(&x.resourceMetadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -456,9 +420,6 @@ func (x *CollectorConnections_CompilationTelemetryByAssetEntryBuilder) SetValue(
 	x.runtimeCompilationTelemetryBuilder.writer = &x.buf
 	x.runtimeCompilationTelemetryBuilder.scratch = x.scratch
 	cb(&x.runtimeCompilationTelemetryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -520,9 +481,6 @@ func (x *CollectorConnections_ResolvedHostsByNameEntryBuilder) SetValue(cb func(
 	x.hostBuilder.writer = &x.buf
 	x.hostBuilder.scratch = x.scratch
 	cb(&x.hostBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -553,9 +511,6 @@ func (x *ConnectionsBuilder) AddConns(cb func(w *ConnectionBuilder)) {
 	x.connectionBuilder.writer = &x.buf
 	x.connectionBuilder.scratch = x.scratch
 	cb(&x.connectionBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -566,9 +521,6 @@ func (x *ConnectionsBuilder) AddDns(cb func(w *Connections_DnsEntryBuilder)) {
 	x.connections_DnsEntryBuilder.writer = &x.buf
 	x.connections_DnsEntryBuilder.scratch = x.scratch
 	cb(&x.connections_DnsEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -579,9 +531,6 @@ func (x *ConnectionsBuilder) SetConnTelemetry(cb func(w *ConnectionsTelemetryBui
 	x.connectionsTelemetryBuilder.writer = &x.buf
 	x.connectionsTelemetryBuilder.scratch = x.scratch
 	cb(&x.connectionsTelemetryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -601,9 +550,6 @@ func (x *ConnectionsBuilder) AddRoutes(cb func(w *RouteBuilder)) {
 	x.routeBuilder.writer = &x.buf
 	x.routeBuilder.scratch = x.scratch
 	cb(&x.routeBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -614,9 +560,6 @@ func (x *ConnectionsBuilder) AddCompilationTelemetryByAsset(cb func(w *Connectio
 	x.connections_CompilationTelemetryByAssetEntryBuilder.writer = &x.buf
 	x.connections_CompilationTelemetryByAssetEntryBuilder.scratch = x.scratch
 	cb(&x.connections_CompilationTelemetryByAssetEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -627,9 +570,6 @@ func (x *ConnectionsBuilder) SetAgentConfiguration(cb func(w *AgentConfiguration
 	x.agentConfigurationBuilder.writer = &x.buf
 	x.agentConfigurationBuilder.scratch = x.scratch
 	cb(&x.agentConfigurationBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -649,9 +589,6 @@ func (x *ConnectionsBuilder) AddConnTelemetryMap(cb func(w *Connections_ConnTele
 	x.connections_ConnTelemetryMapEntryBuilder.writer = &x.buf
 	x.connections_ConnTelemetryMapEntryBuilder.scratch = x.scratch
 	cb(&x.connections_ConnTelemetryMapEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x4a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -670,9 +607,6 @@ func (x *ConnectionsBuilder) AddCORETelemetryByAsset(cb func(w *Connections_CORE
 	x.connections_CORETelemetryByAssetEntryBuilder.writer = &x.buf
 	x.connections_CORETelemetryByAssetEntryBuilder.scratch = x.scratch
 	cb(&x.connections_CORETelemetryByAssetEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x5a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -714,9 +648,6 @@ func (x *Connections_DnsEntryBuilder) SetValue(cb func(w *DNSEntryBuilder)) {
 	x.dNSEntryBuilder.writer = &x.buf
 	x.dNSEntryBuilder.scratch = x.scratch
 	cb(&x.dNSEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -749,9 +680,6 @@ func (x *Connections_CompilationTelemetryByAssetEntryBuilder) SetValue(cb func(w
 	x.runtimeCompilationTelemetryBuilder.writer = &x.buf
 	x.runtimeCompilationTelemetryBuilder.scratch = x.scratch
 	cb(&x.runtimeCompilationTelemetryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -849,9 +777,6 @@ func (x *ConnectionBuilder) SetLaddr(cb func(w *AddrBuilder)) {
 	x.addrBuilder.writer = &x.buf
 	x.addrBuilder.scratch = x.scratch
 	cb(&x.addrBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -862,9 +787,6 @@ func (x *ConnectionBuilder) SetRaddr(cb func(w *AddrBuilder)) {
 	x.addrBuilder.writer = &x.buf
 	x.addrBuilder.scratch = x.scratch
 	cb(&x.addrBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -952,9 +874,6 @@ func (x *ConnectionBuilder) SetProtocol(cb func(w *ProtocolStackBuilder)) {
 	x.protocolStackBuilder.writer = &x.buf
 	x.protocolStackBuilder.scratch = x.scratch
 	cb(&x.protocolStackBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x182)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -983,9 +902,6 @@ func (x *ConnectionBuilder) SetIpTranslation(cb func(w *IPTranslationBuilder)) {
 	x.iPTranslationBuilder.writer = &x.buf
 	x.iPTranslationBuilder.scratch = x.scratch
 	cb(&x.iPTranslationBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xaa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1066,9 +982,6 @@ func (x *ConnectionBuilder) AddDnsCountByRcode(cb func(w *Connection_DnsCountByR
 	x.connection_DnsCountByRcodeEntryBuilder.writer = &x.buf
 	x.connection_DnsCountByRcodeEntryBuilder.scratch = x.scratch
 	cb(&x.connection_DnsCountByRcodeEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x10a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1097,9 +1010,6 @@ func (x *ConnectionBuilder) AddDnsStatsByDomain(cb func(w *Connection_DnsStatsBy
 	x.connection_DnsStatsByDomainEntryBuilder.writer = &x.buf
 	x.connection_DnsStatsByDomainEntryBuilder.scratch = x.scratch
 	cb(&x.connection_DnsStatsByDomainEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x112)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1110,9 +1020,6 @@ func (x *ConnectionBuilder) AddDnsStatsByDomainByQueryType(cb func(w *Connection
 	x.connection_DnsStatsByDomainByQueryTypeEntryBuilder.writer = &x.buf
 	x.connection_DnsStatsByDomainByQueryTypeEntryBuilder.scratch = x.scratch
 	cb(&x.connection_DnsStatsByDomainByQueryTypeEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x152)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1123,9 +1030,6 @@ func (x *ConnectionBuilder) AddDnsStatsByDomainOffsetByQueryType(cb func(w *Conn
 	x.connection_DnsStatsByDomainOffsetByQueryTypeEntryBuilder.writer = &x.buf
 	x.connection_DnsStatsByDomainOffsetByQueryTypeEntryBuilder.scratch = x.scratch
 	cb(&x.connection_DnsStatsByDomainOffsetByQueryTypeEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x15a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1275,9 +1179,6 @@ func (x *Connection_DnsStatsByDomainEntryBuilder) SetValue(cb func(w *DNSStatsBu
 	x.dNSStatsBuilder.writer = &x.buf
 	x.dNSStatsBuilder.scratch = x.scratch
 	cb(&x.dNSStatsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1310,9 +1211,6 @@ func (x *Connection_DnsStatsByDomainByQueryTypeEntryBuilder) SetValue(cb func(w 
 	x.dNSStatsByQueryTypeBuilder.writer = &x.buf
 	x.dNSStatsByQueryTypeBuilder.scratch = x.scratch
 	cb(&x.dNSStatsByQueryTypeBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1345,9 +1243,6 @@ func (x *Connection_DnsStatsByDomainOffsetByQueryTypeEntryBuilder) SetValue(cb f
 	x.dNSStatsByQueryTypeBuilder.writer = &x.buf
 	x.dNSStatsByQueryTypeBuilder.scratch = x.scratch
 	cb(&x.dNSStatsByQueryTypeBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1738,9 +1633,6 @@ func (x *RouteBuilder) SetSubnet(cb func(w *SubnetBuilder)) {
 	x.subnetBuilder.writer = &x.buf
 	x.subnetBuilder.scratch = x.scratch
 	cb(&x.subnetBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1997,9 +1889,6 @@ func (x *DNSStatsBuilder) AddDnsCountByRcode(cb func(w *DNSStats_DnsCountByRcode
 	x.dNSStats_DnsCountByRcodeEntryBuilder.writer = &x.buf
 	x.dNSStats_DnsCountByRcodeEntryBuilder.scratch = x.scratch
 	cb(&x.dNSStats_DnsCountByRcodeEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2053,9 +1942,6 @@ func (x *DNSStatsByQueryTypeBuilder) AddDnsStatsByQueryType(cb func(w *DNSStatsB
 	x.dNSStatsByQueryType_DnsStatsByQueryTypeEntryBuilder.writer = &x.buf
 	x.dNSStatsByQueryType_DnsStatsByQueryTypeEntryBuilder.scratch = x.scratch
 	cb(&x.dNSStatsByQueryType_DnsStatsByQueryTypeEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2088,9 +1974,6 @@ func (x *DNSStatsByQueryType_DnsStatsByQueryTypeEntryBuilder) SetValue(cb func(w
 	x.dNSStatsBuilder.writer = &x.buf
 	x.dNSStatsBuilder.scratch = x.scratch
 	cb(&x.dNSStatsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)

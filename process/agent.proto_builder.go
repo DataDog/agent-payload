@@ -27,9 +27,6 @@ func (x *ResCollectorBuilder) SetHeader(cb func(w *ResCollector_HeaderBuilder)) 
 	x.resCollector_HeaderBuilder.writer = &x.buf
 	x.resCollector_HeaderBuilder.scratch = x.scratch
 	cb(&x.resCollector_HeaderBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -49,9 +46,6 @@ func (x *ResCollectorBuilder) SetStatus(cb func(w *CollectorStatusBuilder)) {
 	x.collectorStatusBuilder.writer = &x.buf
 	x.collectorStatusBuilder.scratch = x.scratch
 	cb(&x.collectorStatusBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -117,9 +111,6 @@ func (x *CollectorProcBuilder) AddProcesses(cb func(w *ProcessBuilder)) {
 	x.processBuilder.writer = &x.buf
 	x.processBuilder.scratch = x.scratch
 	cb(&x.processBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -130,9 +121,6 @@ func (x *CollectorProcBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.hostBuilder.writer = &x.buf
 	x.hostBuilder.scratch = x.scratch
 	cb(&x.hostBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -143,9 +131,6 @@ func (x *CollectorProcBuilder) SetInfo(cb func(w *SystemInfoBuilder)) {
 	x.systemInfoBuilder.writer = &x.buf
 	x.systemInfoBuilder.scratch = x.scratch
 	cb(&x.systemInfoBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -174,9 +159,6 @@ func (x *CollectorProcBuilder) AddContainers(cb func(w *ContainerBuilder)) {
 	x.containerBuilder.writer = &x.buf
 	x.containerBuilder.scratch = x.scratch
 	cb(&x.containerBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x52)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -245,9 +227,6 @@ func (x *CollectorProcDiscoveryBuilder) AddProcessDiscoveries(cb func(w *Process
 	x.processDiscoveryBuilder.writer = &x.buf
 	x.processDiscoveryBuilder.scratch = x.scratch
 	cb(&x.processDiscoveryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -258,9 +237,6 @@ func (x *CollectorProcDiscoveryBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.hostBuilder.writer = &x.buf
 	x.hostBuilder.scratch = x.scratch
 	cb(&x.hostBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -294,9 +270,6 @@ func (x *CollectorRealTimeBuilder) AddStats(cb func(w *ProcessStatBuilder)) {
 	x.processStatBuilder.writer = &x.buf
 	x.processStatBuilder.scratch = x.scratch
 	cb(&x.processStatBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -361,9 +334,6 @@ func (x *CollectorRealTimeBuilder) AddContainerStats(cb func(w *ContainerStatBui
 	x.containerStatBuilder.writer = &x.buf
 	x.containerStatBuilder.scratch = x.scratch
 	cb(&x.containerStatBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x52)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -415,9 +385,6 @@ func (x *CollectorContainerBuilder) SetInfo(cb func(w *SystemInfoBuilder)) {
 	x.systemInfoBuilder.writer = &x.buf
 	x.systemInfoBuilder.scratch = x.scratch
 	cb(&x.systemInfoBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -428,9 +395,6 @@ func (x *CollectorContainerBuilder) AddContainers(cb func(w *ContainerBuilder)) 
 	x.containerBuilder.writer = &x.buf
 	x.containerBuilder.scratch = x.scratch
 	cb(&x.containerBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -459,9 +423,6 @@ func (x *CollectorContainerBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.hostBuilder.writer = &x.buf
 	x.hostBuilder.scratch = x.scratch
 	cb(&x.hostBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x42)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -502,9 +463,6 @@ func (x *CollectorContainerRealTimeBuilder) AddStats(cb func(w *ContainerStatBui
 	x.containerStatBuilder.writer = &x.buf
 	x.containerStatBuilder.scratch = x.scratch
 	cb(&x.containerStatBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -648,9 +606,6 @@ func (x *CollectorPodBuilder) AddPods(cb func(w *PodBuilder)) {
 	x.podBuilder.writer = &x.buf
 	x.podBuilder.scratch = x.scratch
 	cb(&x.podBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -661,9 +616,6 @@ func (x *CollectorPodBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.hostBuilder.writer = &x.buf
 	x.hostBuilder.scratch = x.scratch
 	cb(&x.hostBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -732,9 +684,6 @@ func (x *CollectorReplicaSetBuilder) AddReplicaSets(cb func(w *ReplicaSetBuilder
 	x.replicaSetBuilder.writer = &x.buf
 	x.replicaSetBuilder.scratch = x.scratch
 	cb(&x.replicaSetBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -803,9 +752,6 @@ func (x *CollectorDeploymentBuilder) AddDeployments(cb func(w *DeploymentBuilder
 	x.deploymentBuilder.writer = &x.buf
 	x.deploymentBuilder.scratch = x.scratch
 	cb(&x.deploymentBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -874,9 +820,6 @@ func (x *CollectorServiceBuilder) AddServices(cb func(w *ServiceBuilder)) {
 	x.serviceBuilder.writer = &x.buf
 	x.serviceBuilder.scratch = x.scratch
 	cb(&x.serviceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -946,9 +889,6 @@ func (x *CollectorNodeBuilder) AddNodes(cb func(w *NodeBuilder)) {
 	x.nodeBuilder.writer = &x.buf
 	x.nodeBuilder.scratch = x.scratch
 	cb(&x.nodeBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -968,9 +908,6 @@ func (x *CollectorNodeBuilder) AddHostAliasMapping(cb func(w *CollectorNode_Host
 	x.collectorNode_HostAliasMappingEntryBuilder.writer = &x.buf
 	x.collectorNode_HostAliasMappingEntryBuilder.scratch = x.scratch
 	cb(&x.collectorNode_HostAliasMappingEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1003,9 +940,6 @@ func (x *CollectorNode_HostAliasMappingEntryBuilder) SetValue(cb func(w *HostBui
 	x.hostBuilder.writer = &x.buf
 	x.hostBuilder.scratch = x.scratch
 	cb(&x.hostBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1065,9 +999,6 @@ func (x *CollectorClusterBuilder) SetCluster(cb func(w *ClusterBuilder)) {
 	x.clusterBuilder.writer = &x.buf
 	x.clusterBuilder.scratch = x.scratch
 	cb(&x.clusterBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1136,9 +1067,6 @@ func (x *CollectorManifestBuilder) AddManifests(cb func(w *ManifestBuilder)) {
 	x.manifestBuilder.writer = &x.buf
 	x.manifestBuilder.scratch = x.scratch
 	cb(&x.manifestBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1162,9 +1090,6 @@ func (x *CollectorManifestCRDBuilder) SetManifest(cb func(w *CollectorManifestBu
 	x.collectorManifestBuilder.writer = &x.buf
 	x.collectorManifestBuilder.scratch = x.scratch
 	cb(&x.collectorManifestBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1188,9 +1113,6 @@ func (x *CollectorManifestCRBuilder) SetManifest(cb func(w *CollectorManifestBui
 	x.collectorManifestBuilder.writer = &x.buf
 	x.collectorManifestBuilder.scratch = x.scratch
 	cb(&x.collectorManifestBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1250,9 +1172,6 @@ func (x *CollectorNamespaceBuilder) AddNamespaces(cb func(w *NamespaceBuilder)) 
 	x.namespaceBuilder.writer = &x.buf
 	x.namespaceBuilder.scratch = x.scratch
 	cb(&x.namespaceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1321,9 +1240,6 @@ func (x *CollectorJobBuilder) AddJobs(cb func(w *JobBuilder)) {
 	x.jobBuilder.writer = &x.buf
 	x.jobBuilder.scratch = x.scratch
 	cb(&x.jobBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1392,9 +1308,6 @@ func (x *CollectorCronJobBuilder) AddCronJobs(cb func(w *CronJobBuilder)) {
 	x.cronJobBuilder.writer = &x.buf
 	x.cronJobBuilder.scratch = x.scratch
 	cb(&x.cronJobBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1463,9 +1376,6 @@ func (x *CollectorDaemonSetBuilder) AddDaemonSets(cb func(w *DaemonSetBuilder)) 
 	x.daemonSetBuilder.writer = &x.buf
 	x.daemonSetBuilder.scratch = x.scratch
 	cb(&x.daemonSetBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1534,9 +1444,6 @@ func (x *CollectorStatefulSetBuilder) AddStatefulSets(cb func(w *StatefulSetBuil
 	x.statefulSetBuilder.writer = &x.buf
 	x.statefulSetBuilder.scratch = x.scratch
 	cb(&x.statefulSetBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1605,9 +1512,6 @@ func (x *CollectorPersistentVolumeBuilder) AddPersistentVolumes(cb func(w *Persi
 	x.persistentVolumeBuilder.writer = &x.buf
 	x.persistentVolumeBuilder.scratch = x.scratch
 	cb(&x.persistentVolumeBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1676,9 +1580,6 @@ func (x *CollectorPersistentVolumeClaimBuilder) AddPersistentVolumeClaims(cb fun
 	x.persistentVolumeClaimBuilder.writer = &x.buf
 	x.persistentVolumeClaimBuilder.scratch = x.scratch
 	cb(&x.persistentVolumeClaimBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1747,9 +1648,6 @@ func (x *CollectorRoleBuilder) AddRoles(cb func(w *RoleBuilder)) {
 	x.roleBuilder.writer = &x.buf
 	x.roleBuilder.scratch = x.scratch
 	cb(&x.roleBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1818,9 +1716,6 @@ func (x *CollectorRoleBindingBuilder) AddRoleBindings(cb func(w *RoleBindingBuil
 	x.roleBindingBuilder.writer = &x.buf
 	x.roleBindingBuilder.scratch = x.scratch
 	cb(&x.roleBindingBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1889,9 +1784,6 @@ func (x *CollectorClusterRoleBuilder) AddClusterRoles(cb func(w *ClusterRoleBuil
 	x.clusterRoleBuilder.writer = &x.buf
 	x.clusterRoleBuilder.scratch = x.scratch
 	cb(&x.clusterRoleBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1960,9 +1852,6 @@ func (x *CollectorClusterRoleBindingBuilder) AddClusterRoleBindings(cb func(w *C
 	x.clusterRoleBindingBuilder.writer = &x.buf
 	x.clusterRoleBindingBuilder.scratch = x.scratch
 	cb(&x.clusterRoleBindingBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2031,9 +1920,6 @@ func (x *CollectorServiceAccountBuilder) AddServiceAccounts(cb func(w *ServiceAc
 	x.serviceAccountBuilder.writer = &x.buf
 	x.serviceAccountBuilder.scratch = x.scratch
 	cb(&x.serviceAccountBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2102,9 +1988,6 @@ func (x *CollectorIngressBuilder) AddIngresses(cb func(w *IngressBuilder)) {
 	x.ingressBuilder.writer = &x.buf
 	x.ingressBuilder.scratch = x.scratch
 	cb(&x.ingressBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2173,9 +2056,6 @@ func (x *CollectorVerticalPodAutoscalerBuilder) AddVerticalPodAutoscalers(cb fun
 	x.verticalPodAutoscalerBuilder.writer = &x.buf
 	x.verticalPodAutoscalerBuilder.scratch = x.scratch
 	cb(&x.verticalPodAutoscalerBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2272,9 +2152,6 @@ func (x *ProcessBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.hostBuilder.writer = &x.buf
 	x.hostBuilder.scratch = x.scratch
 	cb(&x.hostBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2285,9 +2162,6 @@ func (x *ProcessBuilder) SetCommand(cb func(w *CommandBuilder)) {
 	x.commandBuilder.writer = &x.buf
 	x.commandBuilder.scratch = x.scratch
 	cb(&x.commandBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2298,9 +2172,6 @@ func (x *ProcessBuilder) SetUser(cb func(w *ProcessUserBuilder)) {
 	x.processUserBuilder.writer = &x.buf
 	x.processUserBuilder.scratch = x.scratch
 	cb(&x.processUserBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2311,9 +2182,6 @@ func (x *ProcessBuilder) SetMemory(cb func(w *MemoryStatBuilder)) {
 	x.memoryStatBuilder.writer = &x.buf
 	x.memoryStatBuilder.scratch = x.scratch
 	cb(&x.memoryStatBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2324,9 +2192,6 @@ func (x *ProcessBuilder) SetCpu(cb func(w *CPUStatBuilder)) {
 	x.cPUStatBuilder.writer = &x.buf
 	x.cPUStatBuilder.scratch = x.scratch
 	cb(&x.cPUStatBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x42)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2346,9 +2211,6 @@ func (x *ProcessBuilder) SetContainer(cb func(w *ContainerBuilder)) {
 	x.containerBuilder.writer = &x.buf
 	x.containerBuilder.scratch = x.scratch
 	cb(&x.containerBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x52)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2376,9 +2238,6 @@ func (x *ProcessBuilder) SetIoStat(cb func(w *IOStatBuilder)) {
 	x.iOStatBuilder.writer = &x.buf
 	x.iOStatBuilder.scratch = x.scratch
 	cb(&x.iOStatBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x6a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2447,9 +2306,6 @@ func (x *ProcessBuilder) SetNetworks(cb func(w *ProcessNetworksBuilder)) {
 	x.processNetworksBuilder.writer = &x.buf
 	x.processNetworksBuilder.scratch = x.scratch
 	cb(&x.processNetworksBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xaa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2493,9 +2349,6 @@ func (x *ProcessDiscoveryBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.hostBuilder.writer = &x.buf
 	x.hostBuilder.scratch = x.scratch
 	cb(&x.hostBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2506,9 +2359,6 @@ func (x *ProcessDiscoveryBuilder) SetCommand(cb func(w *CommandBuilder)) {
 	x.commandBuilder.writer = &x.buf
 	x.commandBuilder.scratch = x.scratch
 	cb(&x.commandBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2519,9 +2369,6 @@ func (x *ProcessDiscoveryBuilder) SetUser(cb func(w *ProcessUserBuilder)) {
 	x.processUserBuilder.writer = &x.buf
 	x.processUserBuilder.scratch = x.scratch
 	cb(&x.processUserBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2957,9 +2804,6 @@ func (x *ContainerBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.hostBuilder.writer = &x.buf
 	x.hostBuilder.scratch = x.scratch
 	cb(&x.hostBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xba)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2999,9 +2843,6 @@ func (x *ContainerBuilder) AddAddresses(cb func(w *ContainerAddrBuilder)) {
 	x.containerAddrBuilder.writer = &x.buf
 	x.containerAddrBuilder.scratch = x.scratch
 	cb(&x.containerAddrBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xda)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -3090,9 +2931,6 @@ func (x *ProcessStatBuilder) SetMemory(cb func(w *MemoryStatBuilder)) {
 	x.memoryStatBuilder.writer = &x.buf
 	x.memoryStatBuilder.scratch = x.scratch
 	cb(&x.memoryStatBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -3103,9 +2941,6 @@ func (x *ProcessStatBuilder) SetCpu(cb func(w *CPUStatBuilder)) {
 	x.cPUStatBuilder.writer = &x.buf
 	x.cPUStatBuilder.scratch = x.scratch
 	cb(&x.cPUStatBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -3177,9 +3012,6 @@ func (x *ProcessStatBuilder) SetIoStat(cb func(w *IOStatBuilder)) {
 	x.iOStatBuilder.writer = &x.buf
 	x.iOStatBuilder.scratch = x.scratch
 	cb(&x.iOStatBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x9a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -3190,9 +3022,6 @@ func (x *ProcessStatBuilder) SetNetworks(cb func(w *ProcessNetworksBuilder)) {
 	x.processNetworksBuilder.writer = &x.buf
 	x.processNetworksBuilder.scratch = x.scratch
 	cb(&x.processNetworksBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xe2)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -3378,9 +3207,6 @@ func (x *ProcStatsWithPermByPIDBuilder) AddStatsByPID(cb func(w *ProcStatsWithPe
 	x.procStatsWithPermByPID_StatsByPIDEntryBuilder.writer = &x.buf
 	x.procStatsWithPermByPID_StatsByPIDEntryBuilder.scratch = x.scratch
 	cb(&x.procStatsWithPermByPID_StatsByPIDEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -3413,9 +3239,6 @@ func (x *ProcStatsWithPermByPID_StatsByPIDEntryBuilder) SetValue(cb func(w *Proc
 	x.procStatsWithPermBuilder.writer = &x.buf
 	x.procStatsWithPermBuilder.scratch = x.scratch
 	cb(&x.procStatsWithPermBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -3666,9 +3489,6 @@ func (x *SystemInfoBuilder) SetOs(cb func(w *OSInfoBuilder)) {
 	x.oSInfoBuilder.writer = &x.buf
 	x.oSInfoBuilder.scratch = x.scratch
 	cb(&x.oSInfoBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -3679,9 +3499,6 @@ func (x *SystemInfoBuilder) AddCpus(cb func(w *CPUInfoBuilder)) {
 	x.cPUInfoBuilder.writer = &x.buf
 	x.cPUInfoBuilder.scratch = x.scratch
 	cb(&x.cPUInfoBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -3941,9 +3758,6 @@ func (x *CPUStatBuilder) AddCpus(cb func(w *SingleCPUStatBuilder)) {
 	x.singleCPUStatBuilder.writer = &x.buf
 	x.singleCPUStatBuilder.scratch = x.scratch
 	cb(&x.singleCPUStatBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -4211,9 +4025,6 @@ func (x *ClusterBuilder) AddKubeletVersions(cb func(w *Cluster_KubeletVersionsEn
 	x.cluster_KubeletVersionsEntryBuilder.writer = &x.buf
 	x.cluster_KubeletVersionsEntryBuilder.scratch = x.scratch
 	cb(&x.cluster_KubeletVersionsEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -4224,9 +4035,6 @@ func (x *ClusterBuilder) AddApiServerVersions(cb func(w *Cluster_ApiServerVersio
 	x.cluster_ApiServerVersionsEntryBuilder.writer = &x.buf
 	x.cluster_ApiServerVersionsEntryBuilder.scratch = x.scratch
 	cb(&x.cluster_ApiServerVersionsEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -4318,9 +4126,6 @@ func (x *ClusterBuilder) SetMetrics(cb func(w *ResourceMetricsBuilder)) {
 	x.resourceMetricsBuilder.writer = &x.buf
 	x.resourceMetricsBuilder.scratch = x.scratch
 	cb(&x.resourceMetricsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x6a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -4467,9 +4272,6 @@ func (x *MetadataBuilder) AddOwnerReferences(cb func(w *OwnerReferenceBuilder)) 
 	x.ownerReferenceBuilder.writer = &x.buf
 	x.ownerReferenceBuilder.scratch = x.scratch
 	cb(&x.ownerReferenceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x42)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -4707,9 +4509,6 @@ func (x *NodeBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -4745,9 +4544,6 @@ func (x *NodeBuilder) AddTaints(cb func(w *TaintBuilder)) {
 	x.taintBuilder.writer = &x.buf
 	x.taintBuilder.scratch = x.scratch
 	cb(&x.taintBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -4758,9 +4554,6 @@ func (x *NodeBuilder) SetStatus(cb func(w *NodeStatusBuilder)) {
 	x.nodeStatusBuilder.writer = &x.buf
 	x.nodeStatusBuilder.scratch = x.scratch
 	cb(&x.nodeStatusBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -4809,9 +4602,6 @@ func (x *NodeBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.hostBuilder.writer = &x.buf
 	x.hostBuilder.scratch = x.scratch
 	cb(&x.hostBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x5a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -4822,9 +4612,6 @@ func (x *NodeBuilder) SetMetrics(cb func(w *ResourceMetricsBuilder)) {
 	x.resourceMetricsBuilder.writer = &x.buf
 	x.resourceMetricsBuilder.scratch = x.scratch
 	cb(&x.resourceMetricsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x62)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -4852,9 +4639,6 @@ func (x *NodeStatusBuilder) AddCapacity(cb func(w *NodeStatus_CapacityEntryBuild
 	x.nodeStatus_CapacityEntryBuilder.writer = &x.buf
 	x.nodeStatus_CapacityEntryBuilder.scratch = x.scratch
 	cb(&x.nodeStatus_CapacityEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -4865,9 +4649,6 @@ func (x *NodeStatusBuilder) AddAllocatable(cb func(w *NodeStatus_AllocatableEntr
 	x.nodeStatus_AllocatableEntryBuilder.writer = &x.buf
 	x.nodeStatus_AllocatableEntryBuilder.scratch = x.scratch
 	cb(&x.nodeStatus_AllocatableEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -4878,9 +4659,6 @@ func (x *NodeStatusBuilder) AddNodeAddresses(cb func(w *NodeStatus_NodeAddresses
 	x.nodeStatus_NodeAddressesEntryBuilder.writer = &x.buf
 	x.nodeStatus_NodeAddressesEntryBuilder.scratch = x.scratch
 	cb(&x.nodeStatus_NodeAddressesEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -4909,9 +4687,6 @@ func (x *NodeStatusBuilder) AddConditions(cb func(w *NodeConditionBuilder)) {
 	x.nodeConditionBuilder.writer = &x.buf
 	x.nodeConditionBuilder.scratch = x.scratch
 	cb(&x.nodeConditionBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -4922,9 +4697,6 @@ func (x *NodeStatusBuilder) AddImages(cb func(w *ContainerImageBuilder)) {
 	x.containerImageBuilder.writer = &x.buf
 	x.containerImageBuilder.scratch = x.scratch
 	cb(&x.containerImageBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5229,9 +5001,6 @@ func (x *ServiceSpecBuilder) AddPorts(cb func(w *ServicePortBuilder)) {
 	x.servicePortBuilder.writer = &x.buf
 	x.servicePortBuilder.scratch = x.scratch
 	cb(&x.servicePortBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5242,9 +5011,6 @@ func (x *ServiceSpecBuilder) AddSelectors(cb func(w *LabelSelectorRequirementBui
 	x.labelSelectorRequirementBuilder.writer = &x.buf
 	x.labelSelectorRequirementBuilder.scratch = x.scratch
 	cb(&x.labelSelectorRequirementBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5343,9 +5109,6 @@ func (x *ServiceSpecBuilder) SetSessionAffinityConfig(cb func(w *ServiceSessionA
 	x.serviceSessionAffinityConfigBuilder.writer = &x.buf
 	x.serviceSessionAffinityConfigBuilder.scratch = x.scratch
 	cb(&x.serviceSessionAffinityConfigBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x6a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5402,9 +5165,6 @@ func (x *ServiceBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5415,9 +5175,6 @@ func (x *ServiceBuilder) SetSpec(cb func(w *ServiceSpecBuilder)) {
 	x.serviceSpecBuilder.writer = &x.buf
 	x.serviceSpecBuilder.scratch = x.scratch
 	cb(&x.serviceSpecBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5428,9 +5185,6 @@ func (x *ServiceBuilder) SetStatus(cb func(w *ServiceStatusBuilder)) {
 	x.serviceStatusBuilder.writer = &x.buf
 	x.serviceStatusBuilder.scratch = x.scratch
 	cb(&x.serviceStatusBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5461,9 +5215,6 @@ func (x *ServiceBuilder) SetMetrics(cb func(w *ResourceMetricsBuilder)) {
 	x.resourceMetricsBuilder.writer = &x.buf
 	x.resourceMetricsBuilder.scratch = x.scratch
 	cb(&x.resourceMetricsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5557,9 +5308,6 @@ func (x *DeploymentBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5613,9 +5361,6 @@ func (x *DeploymentBuilder) AddSelectors(cb func(w *LabelSelectorRequirementBuil
 	x.labelSelectorRequirementBuilder.writer = &x.buf
 	x.labelSelectorRequirementBuilder.scratch = x.scratch
 	cb(&x.labelSelectorRequirementBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5680,9 +5425,6 @@ func (x *DeploymentBuilder) AddResourceRequirements(cb func(w *ResourceRequireme
 	x.resourceRequirementsBuilder.writer = &x.buf
 	x.resourceRequirementsBuilder.scratch = x.scratch
 	cb(&x.resourceRequirementsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x82)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5713,9 +5455,6 @@ func (x *DeploymentBuilder) SetMetrics(cb func(w *ResourceMetricsBuilder)) {
 	x.resourceMetricsBuilder.writer = &x.buf
 	x.resourceMetricsBuilder.scratch = x.scratch
 	cb(&x.resourceMetricsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5726,9 +5465,6 @@ func (x *DeploymentBuilder) AddConditions(cb func(w *DeploymentConditionBuilder)
 	x.deploymentConditionBuilder.writer = &x.buf
 	x.deploymentConditionBuilder.scratch = x.scratch
 	cb(&x.deploymentConditionBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x92)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5813,9 +5549,6 @@ func (x *ReplicaSetBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5835,9 +5568,6 @@ func (x *ReplicaSetBuilder) AddSelectors(cb func(w *LabelSelectorRequirementBuil
 	x.labelSelectorRequirementBuilder.writer = &x.buf
 	x.labelSelectorRequirementBuilder.scratch = x.scratch
 	cb(&x.labelSelectorRequirementBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5884,9 +5614,6 @@ func (x *ReplicaSetBuilder) AddResourceRequirements(cb func(w *ResourceRequireme
 	x.resourceRequirementsBuilder.writer = &x.buf
 	x.resourceRequirementsBuilder.scratch = x.scratch
 	cb(&x.resourceRequirementsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x52)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5917,9 +5644,6 @@ func (x *ReplicaSetBuilder) SetMetrics(cb func(w *ResourceMetricsBuilder)) {
 	x.resourceMetricsBuilder.writer = &x.buf
 	x.resourceMetricsBuilder.scratch = x.scratch
 	cb(&x.resourceMetricsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x5a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5930,9 +5654,6 @@ func (x *ReplicaSetBuilder) AddConditions(cb func(w *ReplicaSetConditionBuilder)
 	x.replicaSetConditionBuilder.writer = &x.buf
 	x.replicaSetConditionBuilder.scratch = x.scratch
 	cb(&x.replicaSetConditionBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x62)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6000,9 +5721,6 @@ func (x *PodBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6058,9 +5776,6 @@ func (x *PodBuilder) AddContainerStatuses(cb func(w *ContainerStatusBuilder)) {
 	x.containerStatusBuilder.writer = &x.buf
 	x.containerStatusBuilder.scratch = x.scratch
 	cb(&x.containerStatusBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6071,9 +5786,6 @@ func (x *PodBuilder) AddInitContainerStatuses(cb func(w *ContainerStatusBuilder)
 	x.containerStatusBuilder.writer = &x.buf
 	x.containerStatusBuilder.scratch = x.scratch
 	cb(&x.containerStatusBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x72)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6122,9 +5834,6 @@ func (x *PodBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.hostBuilder.writer = &x.buf
 	x.hostBuilder.scratch = x.scratch
 	cb(&x.hostBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x62)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6135,9 +5844,6 @@ func (x *PodBuilder) AddResourceRequirements(cb func(w *ResourceRequirementsBuil
 	x.resourceRequirementsBuilder.writer = &x.buf
 	x.resourceRequirementsBuilder.scratch = x.scratch
 	cb(&x.resourceRequirementsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x6a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6166,9 +5872,6 @@ func (x *PodBuilder) SetMetrics(cb func(w *ResourceMetricsBuilder)) {
 	x.resourceMetricsBuilder.writer = &x.buf
 	x.resourceMetricsBuilder.scratch = x.scratch
 	cb(&x.resourceMetricsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6197,9 +5900,6 @@ func (x *PodBuilder) AddConditions(cb func(w *PodConditionBuilder)) {
 	x.podConditionBuilder.writer = &x.buf
 	x.podConditionBuilder.scratch = x.scratch
 	cb(&x.podConditionBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa2)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6479,9 +6179,6 @@ func (x *NamespaceBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6530,9 +6227,6 @@ func (x *NamespaceBuilder) AddConditions(cb func(w *NamespaceConditionBuilder)) 
 	x.namespaceConditionBuilder.writer = &x.buf
 	x.namespaceConditionBuilder.scratch = x.scratch
 	cb(&x.namespaceConditionBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6557,9 +6251,6 @@ func (x *ResourceRequirementsBuilder) AddLimits(cb func(w *ResourceRequirements_
 	x.resourceRequirements_LimitsEntryBuilder.writer = &x.buf
 	x.resourceRequirements_LimitsEntryBuilder.scratch = x.scratch
 	cb(&x.resourceRequirements_LimitsEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6570,9 +6261,6 @@ func (x *ResourceRequirementsBuilder) AddRequests(cb func(w *ResourceRequirement
 	x.resourceRequirements_RequestsEntryBuilder.writer = &x.buf
 	x.resourceRequirements_RequestsEntryBuilder.scratch = x.scratch
 	cb(&x.resourceRequirements_RequestsEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6673,9 +6361,6 @@ func (x *ResourceMetricsBuilder) AddMetricValues(cb func(w *ResourceMetrics_Metr
 	x.resourceMetrics_MetricValuesEntryBuilder.writer = &x.buf
 	x.resourceMetrics_MetricValuesEntryBuilder.scratch = x.scratch
 	cb(&x.resourceMetrics_MetricValuesEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6765,9 +6450,6 @@ func (x *JobSpecBuilder) AddSelectors(cb func(w *LabelSelectorRequirementBuilder
 	x.labelSelectorRequirementBuilder.writer = &x.buf
 	x.labelSelectorRequirementBuilder.scratch = x.scratch
 	cb(&x.labelSelectorRequirementBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6785,9 +6467,6 @@ func (x *JobSpecBuilder) AddResourceRequirements(cb func(w *ResourceRequirements
 	x.resourceRequirementsBuilder.writer = &x.buf
 	x.resourceRequirementsBuilder.scratch = x.scratch
 	cb(&x.resourceRequirementsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6946,9 +6625,6 @@ func (x *JobBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6959,9 +6635,6 @@ func (x *JobBuilder) SetSpec(cb func(w *JobSpecBuilder)) {
 	x.jobSpecBuilder.writer = &x.buf
 	x.jobSpecBuilder.scratch = x.scratch
 	cb(&x.jobSpecBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6972,9 +6645,6 @@ func (x *JobBuilder) SetStatus(cb func(w *JobStatusBuilder)) {
 	x.jobStatusBuilder.writer = &x.buf
 	x.jobStatusBuilder.scratch = x.scratch
 	cb(&x.jobStatusBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7005,9 +6675,6 @@ func (x *JobBuilder) AddConditions(cb func(w *JobConditionBuilder)) {
 	x.jobConditionBuilder.writer = &x.buf
 	x.jobConditionBuilder.scratch = x.scratch
 	cb(&x.jobConditionBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7083,9 +6750,6 @@ func (x *CronJobSpecBuilder) AddResourceRequirements(cb func(w *ResourceRequirem
 	x.resourceRequirementsBuilder.writer = &x.buf
 	x.resourceRequirementsBuilder.scratch = x.scratch
 	cb(&x.resourceRequirementsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7109,9 +6773,6 @@ func (x *CronJobStatusBuilder) AddActive(cb func(w *ObjectReferenceBuilder)) {
 	x.objectReferenceBuilder.writer = &x.buf
 	x.objectReferenceBuilder.scratch = x.scratch
 	cb(&x.objectReferenceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7146,9 +6807,6 @@ func (x *CronJobBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7159,9 +6817,6 @@ func (x *CronJobBuilder) SetSpec(cb func(w *CronJobSpecBuilder)) {
 	x.cronJobSpecBuilder.writer = &x.buf
 	x.cronJobSpecBuilder.scratch = x.scratch
 	cb(&x.cronJobSpecBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7172,9 +6827,6 @@ func (x *CronJobBuilder) SetStatus(cb func(w *CronJobStatusBuilder)) {
 	x.cronJobStatusBuilder.writer = &x.buf
 	x.cronJobStatusBuilder.scratch = x.scratch
 	cb(&x.cronJobStatusBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7219,9 +6871,6 @@ func (x *DaemonSetSpecBuilder) AddSelectors(cb func(w *LabelSelectorRequirementB
 	x.labelSelectorRequirementBuilder.writer = &x.buf
 	x.labelSelectorRequirementBuilder.scratch = x.scratch
 	cb(&x.labelSelectorRequirementBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7268,9 +6917,6 @@ func (x *DaemonSetSpecBuilder) AddResourceRequirements(cb func(w *ResourceRequir
 	x.resourceRequirementsBuilder.writer = &x.buf
 	x.resourceRequirementsBuilder.scratch = x.scratch
 	cb(&x.resourceRequirementsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7430,9 +7076,6 @@ func (x *DaemonSetBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7443,9 +7086,6 @@ func (x *DaemonSetBuilder) SetSpec(cb func(w *DaemonSetSpecBuilder)) {
 	x.daemonSetSpecBuilder.writer = &x.buf
 	x.daemonSetSpecBuilder.scratch = x.scratch
 	cb(&x.daemonSetSpecBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7456,9 +7096,6 @@ func (x *DaemonSetBuilder) SetStatus(cb func(w *DaemonSetStatusBuilder)) {
 	x.daemonSetStatusBuilder.writer = &x.buf
 	x.daemonSetStatusBuilder.scratch = x.scratch
 	cb(&x.daemonSetStatusBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7489,9 +7126,6 @@ func (x *DaemonSetBuilder) SetMetrics(cb func(w *ResourceMetricsBuilder)) {
 	x.resourceMetricsBuilder.writer = &x.buf
 	x.resourceMetricsBuilder.scratch = x.scratch
 	cb(&x.resourceMetricsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7502,9 +7136,6 @@ func (x *DaemonSetBuilder) AddConditions(cb func(w *DaemonSetConditionBuilder)) 
 	x.daemonSetConditionBuilder.writer = &x.buf
 	x.daemonSetConditionBuilder.scratch = x.scratch
 	cb(&x.daemonSetConditionBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7538,9 +7169,6 @@ func (x *StatefulSetSpecBuilder) AddSelectors(cb func(w *LabelSelectorRequiremen
 	x.labelSelectorRequirementBuilder.writer = &x.buf
 	x.labelSelectorRequirementBuilder.scratch = x.scratch
 	cb(&x.labelSelectorRequirementBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7587,9 +7215,6 @@ func (x *StatefulSetSpecBuilder) AddResourceRequirements(cb func(w *ResourceRequ
 	x.resourceRequirementsBuilder.writer = &x.buf
 	x.resourceRequirementsBuilder.scratch = x.scratch
 	cb(&x.resourceRequirementsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7722,9 +7347,6 @@ func (x *StatefulSetBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7735,9 +7357,6 @@ func (x *StatefulSetBuilder) SetSpec(cb func(w *StatefulSetSpecBuilder)) {
 	x.statefulSetSpecBuilder.writer = &x.buf
 	x.statefulSetSpecBuilder.scratch = x.scratch
 	cb(&x.statefulSetSpecBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7748,9 +7367,6 @@ func (x *StatefulSetBuilder) SetStatus(cb func(w *StatefulSetStatusBuilder)) {
 	x.statefulSetStatusBuilder.writer = &x.buf
 	x.statefulSetStatusBuilder.scratch = x.scratch
 	cb(&x.statefulSetStatusBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7781,9 +7397,6 @@ func (x *StatefulSetBuilder) SetMetrics(cb func(w *ResourceMetricsBuilder)) {
 	x.resourceMetricsBuilder.writer = &x.buf
 	x.resourceMetricsBuilder.scratch = x.scratch
 	cb(&x.resourceMetricsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7794,9 +7407,6 @@ func (x *StatefulSetBuilder) AddConditions(cb func(w *StatefulSetConditionBuilde
 	x.statefulSetConditionBuilder.writer = &x.buf
 	x.statefulSetConditionBuilder.scratch = x.scratch
 	cb(&x.statefulSetConditionBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7822,9 +7432,6 @@ func (x *PersistentVolumeBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7835,9 +7442,6 @@ func (x *PersistentVolumeBuilder) SetSpec(cb func(w *PersistentVolumeSpecBuilder
 	x.persistentVolumeSpecBuilder.writer = &x.buf
 	x.persistentVolumeSpecBuilder.scratch = x.scratch
 	cb(&x.persistentVolumeSpecBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7848,9 +7452,6 @@ func (x *PersistentVolumeBuilder) SetStatus(cb func(w *PersistentVolumeStatusBui
 	x.persistentVolumeStatusBuilder.writer = &x.buf
 	x.persistentVolumeStatusBuilder.scratch = x.scratch
 	cb(&x.persistentVolumeStatusBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7897,9 +7498,6 @@ func (x *PersistentVolumeSpecBuilder) AddCapacity(cb func(w *PersistentVolumeSpe
 	x.persistentVolumeSpec_CapacityEntryBuilder.writer = &x.buf
 	x.persistentVolumeSpec_CapacityEntryBuilder.scratch = x.scratch
 	cb(&x.persistentVolumeSpec_CapacityEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7928,9 +7526,6 @@ func (x *PersistentVolumeSpecBuilder) SetClaimRef(cb func(w *ObjectReferenceBuil
 	x.objectReferenceBuilder.writer = &x.buf
 	x.objectReferenceBuilder.scratch = x.scratch
 	cb(&x.objectReferenceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7977,9 +7572,6 @@ func (x *PersistentVolumeSpecBuilder) AddNodeAffinity(cb func(w *NodeSelectorTer
 	x.nodeSelectorTermBuilder.writer = &x.buf
 	x.nodeSelectorTermBuilder.scratch = x.scratch
 	cb(&x.nodeSelectorTermBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x4a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7990,9 +7582,6 @@ func (x *PersistentVolumeSpecBuilder) SetPersistentVolumeSource(cb func(w *Persi
 	x.persistentVolumeSourceBuilder.writer = &x.buf
 	x.persistentVolumeSourceBuilder.scratch = x.scratch
 	cb(&x.persistentVolumeSourceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x52)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8050,9 +7639,6 @@ func (x *PersistentVolumeSourceBuilder) SetGcePersistentDisk(cb func(w *GCEPersi
 	x.gCEPersistentDiskVolumeSourceBuilder.writer = &x.buf
 	x.gCEPersistentDiskVolumeSourceBuilder.scratch = x.scratch
 	cb(&x.gCEPersistentDiskVolumeSourceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8063,9 +7649,6 @@ func (x *PersistentVolumeSourceBuilder) SetAwsElasticBlockStore(cb func(w *AWSEl
 	x.aWSElasticBlockStoreVolumeSourceBuilder.writer = &x.buf
 	x.aWSElasticBlockStoreVolumeSourceBuilder.scratch = x.scratch
 	cb(&x.aWSElasticBlockStoreVolumeSourceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8076,9 +7659,6 @@ func (x *PersistentVolumeSourceBuilder) SetAzureFile(cb func(w *AzureFilePersist
 	x.azureFilePersistentVolumeSourceBuilder.writer = &x.buf
 	x.azureFilePersistentVolumeSourceBuilder.scratch = x.scratch
 	cb(&x.azureFilePersistentVolumeSourceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8089,9 +7669,6 @@ func (x *PersistentVolumeSourceBuilder) SetAzureDisk(cb func(w *AzureDiskVolumeS
 	x.azureDiskVolumeSourceBuilder.writer = &x.buf
 	x.azureDiskVolumeSourceBuilder.scratch = x.scratch
 	cb(&x.azureDiskVolumeSourceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8102,9 +7679,6 @@ func (x *PersistentVolumeSourceBuilder) SetCsi(cb func(w *CSIVolumeSourceBuilder
 	x.cSIVolumeSourceBuilder.writer = &x.buf
 	x.cSIVolumeSourceBuilder.scratch = x.scratch
 	cb(&x.cSIVolumeSourceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8365,9 +7939,6 @@ func (x *CSIVolumeSourceBuilder) AddVolumeAttributes(cb func(w *CSIVolumeSource_
 	x.cSIVolumeSource_VolumeAttributesEntryBuilder.writer = &x.buf
 	x.cSIVolumeSource_VolumeAttributesEntryBuilder.scratch = x.scratch
 	cb(&x.cSIVolumeSource_VolumeAttributesEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8378,9 +7949,6 @@ func (x *CSIVolumeSourceBuilder) SetControllerPublishSecretRef(cb func(w *Secret
 	x.secretReferenceBuilder.writer = &x.buf
 	x.secretReferenceBuilder.scratch = x.scratch
 	cb(&x.secretReferenceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8391,9 +7959,6 @@ func (x *CSIVolumeSourceBuilder) SetNodeStageSecretRef(cb func(w *SecretReferenc
 	x.secretReferenceBuilder.writer = &x.buf
 	x.secretReferenceBuilder.scratch = x.scratch
 	cb(&x.secretReferenceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8404,9 +7969,6 @@ func (x *CSIVolumeSourceBuilder) SetNodePublishSecretRef(cb func(w *SecretRefere
 	x.secretReferenceBuilder.writer = &x.buf
 	x.secretReferenceBuilder.scratch = x.scratch
 	cb(&x.secretReferenceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x42)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8417,9 +7979,6 @@ func (x *CSIVolumeSourceBuilder) SetControllerExpandSecretRef(cb func(w *SecretR
 	x.secretReferenceBuilder.writer = &x.buf
 	x.secretReferenceBuilder.scratch = x.scratch
 	cb(&x.secretReferenceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x4a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8430,9 +7989,6 @@ func (x *CSIVolumeSourceBuilder) SetNodeExpandSecretRef(cb func(w *SecretReferen
 	x.secretReferenceBuilder.writer = &x.buf
 	x.secretReferenceBuilder.scratch = x.scratch
 	cb(&x.secretReferenceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x52)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8555,9 +8111,6 @@ func (x *NodeSelectorTermBuilder) AddMatchExpressions(cb func(w *LabelSelectorRe
 	x.labelSelectorRequirementBuilder.writer = &x.buf
 	x.labelSelectorRequirementBuilder.scratch = x.scratch
 	cb(&x.labelSelectorRequirementBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8568,9 +8121,6 @@ func (x *NodeSelectorTermBuilder) AddMatchFields(cb func(w *LabelSelectorRequire
 	x.labelSelectorRequirementBuilder.writer = &x.buf
 	x.labelSelectorRequirementBuilder.scratch = x.scratch
 	cb(&x.labelSelectorRequirementBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8596,9 +8146,6 @@ func (x *PersistentVolumeClaimBuilder) SetMetadata(cb func(w *MetadataBuilder)) 
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8609,9 +8156,6 @@ func (x *PersistentVolumeClaimBuilder) SetSpec(cb func(w *PersistentVolumeClaimS
 	x.persistentVolumeClaimSpecBuilder.writer = &x.buf
 	x.persistentVolumeClaimSpecBuilder.scratch = x.scratch
 	cb(&x.persistentVolumeClaimSpecBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8622,9 +8166,6 @@ func (x *PersistentVolumeClaimBuilder) SetStatus(cb func(w *PersistentVolumeClai
 	x.persistentVolumeClaimStatusBuilder.writer = &x.buf
 	x.persistentVolumeClaimStatusBuilder.scratch = x.scratch
 	cb(&x.persistentVolumeClaimStatusBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8687,9 +8228,6 @@ func (x *PersistentVolumeClaimStatusBuilder) AddCapacity(cb func(w *PersistentVo
 	x.persistentVolumeClaimStatus_CapacityEntryBuilder.writer = &x.buf
 	x.persistentVolumeClaimStatus_CapacityEntryBuilder.scratch = x.scratch
 	cb(&x.persistentVolumeClaimStatus_CapacityEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8700,9 +8238,6 @@ func (x *PersistentVolumeClaimStatusBuilder) AddConditions(cb func(w *Persistent
 	x.persistentVolumeClaimConditionBuilder.writer = &x.buf
 	x.persistentVolumeClaimConditionBuilder.scratch = x.scratch
 	cb(&x.persistentVolumeClaimConditionBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8767,9 +8302,6 @@ func (x *PersistentVolumeClaimSpecBuilder) SetResources(cb func(w *ResourceRequi
 	x.resourceRequirementsBuilder.writer = &x.buf
 	x.resourceRequirementsBuilder.scratch = x.scratch
 	cb(&x.resourceRequirementsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8789,9 +8321,6 @@ func (x *PersistentVolumeClaimSpecBuilder) AddSelector(cb func(w *LabelSelectorR
 	x.labelSelectorRequirementBuilder.writer = &x.buf
 	x.labelSelectorRequirementBuilder.scratch = x.scratch
 	cb(&x.labelSelectorRequirementBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8820,9 +8349,6 @@ func (x *PersistentVolumeClaimSpecBuilder) SetDataSource(cb func(w *TypedLocalOb
 	x.typedLocalObjectReferenceBuilder.writer = &x.buf
 	x.typedLocalObjectReferenceBuilder.scratch = x.scratch
 	cb(&x.typedLocalObjectReferenceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9057,9 +8583,6 @@ func (x *RoleBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9070,9 +8593,6 @@ func (x *RoleBuilder) AddRules(cb func(w *PolicyRuleBuilder)) {
 	x.policyRuleBuilder.writer = &x.buf
 	x.policyRuleBuilder.scratch = x.scratch
 	cb(&x.policyRuleBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9118,9 +8638,6 @@ func (x *RoleBindingBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9131,9 +8648,6 @@ func (x *RoleBindingBuilder) AddSubjects(cb func(w *SubjectBuilder)) {
 	x.subjectBuilder.writer = &x.buf
 	x.subjectBuilder.scratch = x.scratch
 	cb(&x.subjectBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9144,9 +8658,6 @@ func (x *RoleBindingBuilder) SetRoleRef(cb func(w *TypedLocalObjectReferenceBuil
 	x.typedLocalObjectReferenceBuilder.writer = &x.buf
 	x.typedLocalObjectReferenceBuilder.scratch = x.scratch
 	cb(&x.typedLocalObjectReferenceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9193,9 +8704,6 @@ func (x *ClusterRoleBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9206,9 +8714,6 @@ func (x *ClusterRoleBuilder) AddRules(cb func(w *PolicyRuleBuilder)) {
 	x.policyRuleBuilder.writer = &x.buf
 	x.policyRuleBuilder.scratch = x.scratch
 	cb(&x.policyRuleBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9219,9 +8724,6 @@ func (x *ClusterRoleBuilder) AddAggregationRules(cb func(w *LabelSelectorRequire
 	x.labelSelectorRequirementBuilder.writer = &x.buf
 	x.labelSelectorRequirementBuilder.scratch = x.scratch
 	cb(&x.labelSelectorRequirementBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9252,9 +8754,6 @@ func (x *ClusterRoleBuilder) SetMetrics(cb func(w *ResourceMetricsBuilder)) {
 	x.resourceMetricsBuilder.writer = &x.buf
 	x.resourceMetricsBuilder.scratch = x.scratch
 	cb(&x.resourceMetricsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9280,9 +8779,6 @@ func (x *ClusterRoleBindingBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9293,9 +8789,6 @@ func (x *ClusterRoleBindingBuilder) AddSubjects(cb func(w *SubjectBuilder)) {
 	x.subjectBuilder.writer = &x.buf
 	x.subjectBuilder.scratch = x.scratch
 	cb(&x.subjectBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9306,9 +8799,6 @@ func (x *ClusterRoleBindingBuilder) SetRoleRef(cb func(w *TypedLocalObjectRefere
 	x.typedLocalObjectReferenceBuilder.writer = &x.buf
 	x.typedLocalObjectReferenceBuilder.scratch = x.scratch
 	cb(&x.typedLocalObjectReferenceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9354,9 +8844,6 @@ func (x *ServiceAccountBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9367,9 +8854,6 @@ func (x *ServiceAccountBuilder) AddSecrets(cb func(w *ObjectReferenceBuilder)) {
 	x.objectReferenceBuilder.writer = &x.buf
 	x.objectReferenceBuilder.scratch = x.scratch
 	cb(&x.objectReferenceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9380,9 +8864,6 @@ func (x *ServiceAccountBuilder) AddImagePullSecrets(cb func(w *TypedLocalObjectR
 	x.typedLocalObjectReferenceBuilder.writer = &x.buf
 	x.typedLocalObjectReferenceBuilder.scratch = x.scratch
 	cb(&x.typedLocalObjectReferenceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9473,9 +8954,6 @@ func (x *IngressBackendBuilder) SetService(cb func(w *IngressServiceBackendBuild
 	x.ingressServiceBackendBuilder.writer = &x.buf
 	x.ingressServiceBackendBuilder.scratch = x.scratch
 	cb(&x.ingressServiceBackendBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9486,9 +8964,6 @@ func (x *IngressBackendBuilder) SetResource(cb func(w *TypedLocalObjectReference
 	x.typedLocalObjectReferenceBuilder.writer = &x.buf
 	x.typedLocalObjectReferenceBuilder.scratch = x.scratch
 	cb(&x.typedLocalObjectReferenceBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9560,9 +9035,6 @@ func (x *HTTPIngressPathBuilder) SetBackend(cb func(w *IngressBackendBuilder)) {
 	x.ingressBackendBuilder.writer = &x.buf
 	x.ingressBackendBuilder.scratch = x.scratch
 	cb(&x.ingressBackendBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9595,9 +9067,6 @@ func (x *IngressRuleBuilder) AddHttpPaths(cb func(w *HTTPIngressPathBuilder)) {
 	x.hTTPIngressPathBuilder.writer = &x.buf
 	x.hTTPIngressPathBuilder.scratch = x.scratch
 	cb(&x.hTTPIngressPathBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9623,9 +9092,6 @@ func (x *IngressSpecBuilder) SetDefaultBackend(cb func(w *IngressBackendBuilder)
 	x.ingressBackendBuilder.writer = &x.buf
 	x.ingressBackendBuilder.scratch = x.scratch
 	cb(&x.ingressBackendBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9636,9 +9102,6 @@ func (x *IngressSpecBuilder) AddTls(cb func(w *IngressTLSBuilder)) {
 	x.ingressTLSBuilder.writer = &x.buf
 	x.ingressTLSBuilder.scratch = x.scratch
 	cb(&x.ingressTLSBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9649,9 +9112,6 @@ func (x *IngressSpecBuilder) AddRules(cb func(w *IngressRuleBuilder)) {
 	x.ingressRuleBuilder.writer = &x.buf
 	x.ingressRuleBuilder.scratch = x.scratch
 	cb(&x.ingressRuleBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9741,9 +9201,6 @@ func (x *LoadBalancerIngressBuilder) AddPorts(cb func(w *PortStatusBuilder)) {
 	x.portStatusBuilder.writer = &x.buf
 	x.portStatusBuilder.scratch = x.scratch
 	cb(&x.portStatusBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9767,9 +9224,6 @@ func (x *IngressStatusBuilder) AddIngress(cb func(w *LoadBalancerIngressBuilder)
 	x.loadBalancerIngressBuilder.writer = &x.buf
 	x.loadBalancerIngressBuilder.scratch = x.scratch
 	cb(&x.loadBalancerIngressBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9795,9 +9249,6 @@ func (x *IngressBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9808,9 +9259,6 @@ func (x *IngressBuilder) SetSpec(cb func(w *IngressSpecBuilder)) {
 	x.ingressSpecBuilder.writer = &x.buf
 	x.ingressSpecBuilder.scratch = x.scratch
 	cb(&x.ingressSpecBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9821,9 +9269,6 @@ func (x *IngressBuilder) SetStatus(cb func(w *IngressStatusBuilder)) {
 	x.ingressStatusBuilder.writer = &x.buf
 	x.ingressStatusBuilder.scratch = x.scratch
 	cb(&x.ingressStatusBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9897,9 +9342,6 @@ func (x *KafkaAggregationBuilder) SetHeader(cb func(w *KafkaRequestHeaderBuilder
 	x.kafkaRequestHeaderBuilder.writer = &x.buf
 	x.kafkaRequestHeaderBuilder.scratch = x.scratch
 	cb(&x.kafkaRequestHeaderBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9943,9 +9385,6 @@ func (x *DataStreamsAggregationsBuilder) SetKafkaProduceAggregations(cb func(w *
 	x.dataStreamsAggregations_KafkaProduceAggregationsBuilder.writer = &x.buf
 	x.dataStreamsAggregations_KafkaProduceAggregationsBuilder.scratch = x.scratch
 	cb(&x.dataStreamsAggregations_KafkaProduceAggregationsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9956,9 +9395,6 @@ func (x *DataStreamsAggregationsBuilder) SetKafkaFetchAggregations(cb func(w *Da
 	x.dataStreamsAggregations_KafkaFetchAggregationsBuilder.writer = &x.buf
 	x.dataStreamsAggregations_KafkaFetchAggregationsBuilder.scratch = x.scratch
 	cb(&x.dataStreamsAggregations_KafkaFetchAggregationsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9969,9 +9405,6 @@ func (x *DataStreamsAggregationsBuilder) AddKafkaAggregations(cb func(w *KafkaAg
 	x.kafkaAggregationBuilder.writer = &x.buf
 	x.kafkaAggregationBuilder.scratch = x.scratch
 	cb(&x.kafkaAggregationBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10025,9 +9458,6 @@ func (x *DataStreamsAggregations_KafkaProduceAggregationsBuilder) AddStats(cb fu
 	x.dataStreamsAggregations_TopicStatsBuilder.writer = &x.buf
 	x.dataStreamsAggregations_TopicStatsBuilder.scratch = x.scratch
 	cb(&x.dataStreamsAggregations_TopicStatsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10051,9 +9481,6 @@ func (x *DataStreamsAggregations_KafkaFetchAggregationsBuilder) AddStats(cb func
 	x.dataStreamsAggregations_TopicStatsBuilder.writer = &x.buf
 	x.dataStreamsAggregations_TopicStatsBuilder.scratch = x.scratch
 	cb(&x.dataStreamsAggregations_TopicStatsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10077,9 +9504,6 @@ func (x *HTTPAggregationsBuilder) AddEndpointAggregations(cb func(w *HTTPStatsBu
 	x.hTTPStatsBuilder.writer = &x.buf
 	x.hTTPStatsBuilder.scratch = x.scratch
 	cb(&x.hTTPStatsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10103,9 +9527,6 @@ func (x *HTTP2AggregationsBuilder) AddEndpointAggregations(cb func(w *HTTPStatsB
 	x.hTTPStatsBuilder.writer = &x.buf
 	x.hTTPStatsBuilder.scratch = x.scratch
 	cb(&x.hTTPStatsBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10154,9 +9575,6 @@ func (x *HTTPStatsBuilder) AddStatsByResponseStatus(cb func(w *HTTPStats_DataBui
 	x.hTTPStats_DataBuilder.writer = &x.buf
 	x.hTTPStats_DataBuilder.scratch = x.scratch
 	cb(&x.hTTPStats_DataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10167,9 +9585,6 @@ func (x *HTTPStatsBuilder) AddStatsByStatusCode(cb func(w *HTTPStats_StatsByStat
 	x.hTTPStats_StatsByStatusCodeEntryBuilder.writer = &x.buf
 	x.hTTPStats_StatsByStatusCodeEntryBuilder.scratch = x.scratch
 	cb(&x.hTTPStats_StatsByStatusCodeEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10202,9 +9617,6 @@ func (x *HTTPStats_StatsByStatusCodeEntryBuilder) SetValue(cb func(w *HTTPStats_
 	x.hTTPStats_DataBuilder.writer = &x.buf
 	x.hTTPStats_DataBuilder.scratch = x.scratch
 	cb(&x.hTTPStats_DataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10289,9 +9701,6 @@ func (x *ResourceListBuilder) AddMetricValues(cb func(w *ResourceList_MetricValu
 	x.resourceList_MetricValuesEntryBuilder.writer = &x.buf
 	x.resourceList_MetricValuesEntryBuilder.scratch = x.scratch
 	cb(&x.resourceList_MetricValuesEntryBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10347,9 +9756,6 @@ func (x *VerticalPodAutoscalerBuilder) SetMetadata(cb func(w *MetadataBuilder)) 
 	x.metadataBuilder.writer = &x.buf
 	x.metadataBuilder.scratch = x.scratch
 	cb(&x.metadataBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10360,9 +9766,6 @@ func (x *VerticalPodAutoscalerBuilder) SetSpec(cb func(w *VerticalPodAutoscalerS
 	x.verticalPodAutoscalerSpecBuilder.writer = &x.buf
 	x.verticalPodAutoscalerSpecBuilder.scratch = x.scratch
 	cb(&x.verticalPodAutoscalerSpecBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10373,9 +9776,6 @@ func (x *VerticalPodAutoscalerBuilder) SetStatus(cb func(w *VerticalPodAutoscale
 	x.verticalPodAutoscalerStatusBuilder.writer = &x.buf
 	x.verticalPodAutoscalerStatusBuilder.scratch = x.scratch
 	cb(&x.verticalPodAutoscalerStatusBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10406,9 +9806,6 @@ func (x *VerticalPodAutoscalerBuilder) AddConditions(cb func(w *VerticalPodAutos
 	x.verticalPodAutoscalerConditionBuilder.writer = &x.buf
 	x.verticalPodAutoscalerConditionBuilder.scratch = x.scratch
 	cb(&x.verticalPodAutoscalerConditionBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10490,9 +9887,6 @@ func (x *VerticalPodAutoscalerSpecBuilder) SetTarget(cb func(w *VerticalPodAutos
 	x.verticalPodAutoscalerTargetBuilder.writer = &x.buf
 	x.verticalPodAutoscalerTargetBuilder.scratch = x.scratch
 	cb(&x.verticalPodAutoscalerTargetBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10512,9 +9906,6 @@ func (x *VerticalPodAutoscalerSpecBuilder) AddResourcePolicies(cb func(w *Contai
 	x.containerResourcePolicyBuilder.writer = &x.buf
 	x.containerResourcePolicyBuilder.scratch = x.scratch
 	cb(&x.containerResourcePolicyBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10586,9 +9977,6 @@ func (x *ContainerResourcePolicyBuilder) SetMinAllowed(cb func(w *ResourceListBu
 	x.resourceListBuilder.writer = &x.buf
 	x.resourceListBuilder.scratch = x.scratch
 	cb(&x.resourceListBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10599,9 +9987,6 @@ func (x *ContainerResourcePolicyBuilder) SetMaxAllowed(cb func(w *ResourceListBu
 	x.resourceListBuilder.writer = &x.buf
 	x.resourceListBuilder.scratch = x.scratch
 	cb(&x.resourceListBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10653,9 +10038,6 @@ func (x *VerticalPodAutoscalerStatusBuilder) AddRecommendations(cb func(w *Conta
 	x.containerRecommendationBuilder.writer = &x.buf
 	x.containerRecommendationBuilder.scratch = x.scratch
 	cb(&x.containerRecommendationBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10666,9 +10048,6 @@ func (x *VerticalPodAutoscalerStatusBuilder) AddConditions(cb func(w *VPAConditi
 	x.vPAConditionBuilder.writer = &x.buf
 	x.vPAConditionBuilder.scratch = x.scratch
 	cb(&x.vPAConditionBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10701,9 +10080,6 @@ func (x *ContainerRecommendationBuilder) SetTarget(cb func(w *ResourceListBuilde
 	x.resourceListBuilder.writer = &x.buf
 	x.resourceListBuilder.scratch = x.scratch
 	cb(&x.resourceListBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10714,9 +10090,6 @@ func (x *ContainerRecommendationBuilder) SetLowerBound(cb func(w *ResourceListBu
 	x.resourceListBuilder.writer = &x.buf
 	x.resourceListBuilder.scratch = x.scratch
 	cb(&x.resourceListBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10727,9 +10100,6 @@ func (x *ContainerRecommendationBuilder) SetUpperBound(cb func(w *ResourceListBu
 	x.resourceListBuilder.writer = &x.buf
 	x.resourceListBuilder.scratch = x.scratch
 	cb(&x.resourceListBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -10740,9 +10110,6 @@ func (x *ContainerRecommendationBuilder) SetUncappedTarget(cb func(w *ResourceLi
 	x.resourceListBuilder.writer = &x.buf
 	x.resourceListBuilder.scratch = x.scratch
 	cb(&x.resourceListBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)

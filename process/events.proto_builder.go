@@ -36,9 +36,6 @@ func (x *CollectorProcEventBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.hostBuilder.writer = &x.buf
 	x.hostBuilder.scratch = x.scratch
 	cb(&x.hostBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -49,9 +46,6 @@ func (x *CollectorProcEventBuilder) SetInfo(cb func(w *SystemInfoBuilder)) {
 	x.systemInfoBuilder.writer = &x.buf
 	x.systemInfoBuilder.scratch = x.scratch
 	cb(&x.systemInfoBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -62,9 +56,6 @@ func (x *CollectorProcEventBuilder) AddEvents(cb func(w *ProcessEventBuilder)) {
 	x.processEventBuilder.writer = &x.buf
 	x.processEventBuilder.scratch = x.scratch
 	cb(&x.processEventBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -136,9 +127,6 @@ func (x *ProcessEventBuilder) SetCommand(cb func(w *CommandBuilder)) {
 	x.commandBuilder.writer = &x.buf
 	x.commandBuilder.scratch = x.scratch
 	cb(&x.commandBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -149,9 +137,6 @@ func (x *ProcessEventBuilder) SetUser(cb func(w *ProcessUserBuilder)) {
 	x.processUserBuilder.writer = &x.buf
 	x.processUserBuilder.scratch = x.scratch
 	cb(&x.processUserBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -162,9 +147,6 @@ func (x *ProcessEventBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.hostBuilder.writer = &x.buf
 	x.hostBuilder.scratch = x.scratch
 	cb(&x.hostBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -184,9 +166,6 @@ func (x *ProcessEventBuilder) SetExec(cb func(w *ProcessExecBuilder)) {
 	x.processExecBuilder.writer = &x.buf
 	x.processExecBuilder.scratch = x.scratch
 	cb(&x.processExecBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x42)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -197,9 +176,6 @@ func (x *ProcessEventBuilder) SetExit(cb func(w *ProcessExitBuilder)) {
 	x.processExitBuilder.writer = &x.buf
 	x.processExitBuilder.scratch = x.scratch
 	cb(&x.processExitBuilder)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x4a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
