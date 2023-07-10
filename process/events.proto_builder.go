@@ -23,9 +23,6 @@ func NewCollectorProcEventBuilder(writer io.Writer) *CollectorProcEventBuilder {
 	}
 }
 func (x *CollectorProcEventBuilder) SetHostname(v string) {
-	if len(v) == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -62,18 +59,12 @@ func (x *CollectorProcEventBuilder) AddEvents(cb func(w *ProcessEventBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorProcEventBuilder) SetGroupId(v int32) {
-	if v == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x28)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
 func (x *CollectorProcEventBuilder) SetGroupSize(v int32) {
-	if v == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x30)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -97,26 +88,19 @@ func NewProcessEventBuilder(writer io.Writer) *ProcessEventBuilder {
 	}
 }
 func (x *ProcessEventBuilder) SetType(v uint64) {
-	if v == 0 {
-		return
+	if v != 0 {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8)
+		x.scratch = protowire.AppendVarint(x.scratch, v)
+		x.writer.Write(x.scratch)
 	}
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8)
-	x.scratch = protowire.AppendVarint(x.scratch, v)
-	x.writer.Write(x.scratch)
 }
 func (x *ProcessEventBuilder) SetCollectionTime(v int64) {
-	if v == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ProcessEventBuilder) SetPid(v uint32) {
-	if v == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -153,9 +137,6 @@ func (x *ProcessEventBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ProcessEventBuilder) SetContainerId(v string) {
-	if len(v) == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -194,18 +175,12 @@ func NewProcessExecBuilder(writer io.Writer) *ProcessExecBuilder {
 	}
 }
 func (x *ProcessExecBuilder) SetForkTime(v int64) {
-	if v == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ProcessExecBuilder) SetExecTime(v int64) {
-	if v == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -224,27 +199,18 @@ func NewProcessExitBuilder(writer io.Writer) *ProcessExitBuilder {
 	}
 }
 func (x *ProcessExitBuilder) SetExecTime(v int64) {
-	if v == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ProcessExitBuilder) SetExitTime(v int64) {
-	if v == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ProcessExitBuilder) SetExitCode(v int32) {
-	if v == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
