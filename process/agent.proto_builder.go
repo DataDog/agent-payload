@@ -2282,9 +2282,6 @@ func (x *ProcessBuilder) SetInvoluntaryCtxSwitches(v uint64) {
 func (x *ProcessBuilder) SetByteKey(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x92)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2293,9 +2290,6 @@ func (x *ProcessBuilder) SetByteKey(cb func(b *bytes.Buffer)) {
 func (x *ProcessBuilder) SetContainerByteKey(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x9a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2386,9 +2380,6 @@ func (x *ProcessDiscoveryBuilder) SetCreateTime(v int64) {
 func (x *ProcessDiscoveryBuilder) SetByteKey(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -2821,9 +2812,6 @@ func (x *ContainerBuilder) SetStarted(v int64) {
 func (x *ContainerBuilder) SetByteKey(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xca)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -3113,9 +3101,6 @@ func (x *ProcessStatBuilder) SetInvoluntaryCtxSwitches(v uint64) {
 func (x *ProcessStatBuilder) SetByteKey(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xd2)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -3124,9 +3109,6 @@ func (x *ProcessStatBuilder) SetByteKey(cb func(b *bytes.Buffer)) {
 func (x *ProcessStatBuilder) SetContainerByteKey(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xda)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -3409,9 +3391,6 @@ func (x *ContainerStatBuilder) SetStarted(v int64) {
 func (x *ContainerStatBuilder) SetByteKey(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x9a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -4562,9 +4541,6 @@ func (x *NodeBuilder) SetStatus(cb func(w *NodeStatusBuilder)) {
 func (x *NodeBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5193,9 +5169,6 @@ func (x *ServiceBuilder) SetStatus(cb func(w *ServiceStatusBuilder)) {
 func (x *ServiceBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5433,9 +5406,6 @@ func (x *DeploymentBuilder) AddResourceRequirements(cb func(w *ResourceRequireme
 func (x *DeploymentBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x72)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5622,9 +5592,6 @@ func (x *ReplicaSetBuilder) AddResourceRequirements(cb func(w *ResourceRequireme
 func (x *ReplicaSetBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x42)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -5812,9 +5779,6 @@ func (x *PodBuilder) SetStatus(v string) {
 func (x *PodBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x52)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6077,9 +6041,6 @@ func (x *ManifestBuilder) SetUid(v string) {
 func (x *ManifestBuilder) SetContent(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6205,9 +6166,6 @@ func (x *NamespaceBuilder) SetConditionMessage(v string) {
 func (x *NamespaceBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6653,9 +6611,6 @@ func (x *JobBuilder) SetStatus(cb func(w *JobStatusBuilder)) {
 func (x *JobBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -6835,9 +6790,6 @@ func (x *CronJobBuilder) SetStatus(cb func(w *CronJobStatusBuilder)) {
 func (x *CronJobBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7104,9 +7056,6 @@ func (x *DaemonSetBuilder) SetStatus(cb func(w *DaemonSetStatusBuilder)) {
 func (x *DaemonSetBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7375,9 +7324,6 @@ func (x *StatefulSetBuilder) SetStatus(cb func(w *StatefulSetStatusBuilder)) {
 func (x *StatefulSetBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -7460,9 +7406,6 @@ func (x *PersistentVolumeBuilder) SetStatus(cb func(w *PersistentVolumeStatusBui
 func (x *PersistentVolumeBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8174,9 +8117,6 @@ func (x *PersistentVolumeClaimBuilder) SetStatus(cb func(w *PersistentVolumeClai
 func (x *PersistentVolumeClaimBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8601,9 +8541,6 @@ func (x *RoleBuilder) AddRules(cb func(w *PolicyRuleBuilder)) {
 func (x *RoleBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8666,9 +8603,6 @@ func (x *RoleBindingBuilder) SetRoleRef(cb func(w *TypedLocalObjectReferenceBuil
 func (x *RoleBindingBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8732,9 +8666,6 @@ func (x *ClusterRoleBuilder) AddAggregationRules(cb func(w *LabelSelectorRequire
 func (x *ClusterRoleBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8807,9 +8738,6 @@ func (x *ClusterRoleBindingBuilder) SetRoleRef(cb func(w *TypedLocalObjectRefere
 func (x *ClusterRoleBindingBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -8879,9 +8807,6 @@ func (x *ServiceAccountBuilder) SetAutomountServiceAccountToken(v bool) {
 func (x *ServiceAccountBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9277,9 +9202,6 @@ func (x *IngressBuilder) SetStatus(cb func(w *IngressStatusBuilder)) {
 func (x *IngressBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9646,9 +9568,6 @@ func (x *HTTPStats_DataBuilder) SetCount(v uint32) {
 func (x *HTTPStats_DataBuilder) SetLatencies(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9784,9 +9703,6 @@ func (x *VerticalPodAutoscalerBuilder) SetStatus(cb func(w *VerticalPodAutoscale
 func (x *VerticalPodAutoscalerBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)

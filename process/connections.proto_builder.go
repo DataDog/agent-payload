@@ -99,9 +99,6 @@ func (x *CollectorConnectionsBuilder) AddContainerForPid(cb func(w *CollectorCon
 func (x *CollectorConnectionsBuilder) SetEncodedTags(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x5a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -110,9 +107,6 @@ func (x *CollectorConnectionsBuilder) SetEncodedTags(cb func(b *bytes.Buffer)) {
 func (x *CollectorConnectionsBuilder) SetEncodedConnectionsTags(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x132)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -252,9 +246,6 @@ func (x *CollectorConnectionsBuilder) SetAgentConfiguration(cb func(w *AgentConf
 func (x *CollectorConnectionsBuilder) SetEncodedDNS(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x72)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -272,9 +263,6 @@ func (x *CollectorConnectionsBuilder) AddDomains(v string) {
 func (x *CollectorConnectionsBuilder) SetEncodedDomainDatabase(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x122)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -283,9 +271,6 @@ func (x *CollectorConnectionsBuilder) SetEncodedDomainDatabase(cb func(b *bytes.
 func (x *CollectorConnectionsBuilder) SetEncodedDnsLookups(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1056,9 +1041,6 @@ func (x *ConnectionBuilder) SetRouteTargetIdx(v int32) {
 func (x *ConnectionBuilder) SetHttpAggregations(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1103,9 +1085,6 @@ func (x *ConnectionBuilder) SetStateIndex(v uint32) {
 func (x *ConnectionBuilder) SetDataStreamsAggregations(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x18a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1114,9 +1093,6 @@ func (x *ConnectionBuilder) SetDataStreamsAggregations(cb func(b *bytes.Buffer))
 func (x *ConnectionBuilder) SetHttp2Aggregations(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x192)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1281,9 +1257,6 @@ func (x *ResourceMetadataBuilder) SetKey(v uint32) {
 func (x *ResourceMetadataBuilder) SetByteKey(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
-	if x.buf.Len() == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
