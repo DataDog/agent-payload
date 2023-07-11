@@ -7,11 +7,11 @@ package process
 import (
 	binary "encoding/binary"
 	fmt "fmt"
+	proto "google.golang.org/protobuf/proto"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	io "io"
 	math "math"
 	bits "math/bits"
-	sync "sync"
 )
 
 const (
@@ -21,6 +21,6633 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+func (this *ResCollector_Header) EqualVT(that *ResCollector_Header) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ResCollector_Header) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ResCollector_Header)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ResCollector) EqualVT(that *ResCollector) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Header.EqualVT(that.Header) {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	if !this.Status.EqualVT(that.Status) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ResCollector) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ResCollector)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorProc) EqualVT(that *CollectorProc) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Hints == nil && that.Hints != nil {
+		return false
+	} else if this.Hints != nil {
+		if that.Hints == nil {
+			return false
+		}
+		if !this.Hints.(interface {
+			EqualVT(isCollectorProc_Hints) bool
+		}).EqualVT(that.Hints) {
+			return false
+		}
+	}
+	if this.HostName != that.HostName {
+		return false
+	}
+	if len(this.Processes) != len(that.Processes) {
+		return false
+	}
+	for i, vx := range this.Processes {
+		vy := that.Processes[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Process{}
+			}
+			if q == nil {
+				q = &Process{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Host.EqualVT(that.Host) {
+		return false
+	}
+	if !this.Info.EqualVT(that.Info) {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.Containers) != len(that.Containers) {
+		return false
+	}
+	for i, vx := range this.Containers {
+		vy := that.Containers[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Container{}
+			}
+			if q == nil {
+				q = &Container{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NetworkId != that.NetworkId {
+		return false
+	}
+	if this.ContainerHostType != that.ContainerHostType {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorProc) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorProc)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorProc_HintMask) EqualVT(thatIface isCollectorProc_Hints) bool {
+	that, ok := thatIface.(*CollectorProc_HintMask)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if this.HintMask != that.HintMask {
+		return false
+	}
+	return true
+}
+
+func (this *CollectorProcDiscovery) EqualVT(that *CollectorProcDiscovery) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.HostName != that.HostName {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.ProcessDiscoveries) != len(that.ProcessDiscoveries) {
+		return false
+	}
+	for i, vx := range this.ProcessDiscoveries {
+		vy := that.ProcessDiscoveries[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ProcessDiscovery{}
+			}
+			if q == nil {
+				q = &ProcessDiscovery{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Host.EqualVT(that.Host) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorProcDiscovery) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorProcDiscovery)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorRealTime) EqualVT(that *CollectorRealTime) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.HostName != that.HostName {
+		return false
+	}
+	if len(this.Stats) != len(that.Stats) {
+		return false
+	}
+	for i, vx := range this.Stats {
+		vy := that.Stats[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ProcessStat{}
+			}
+			if q == nil {
+				q = &ProcessStat{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.HostId != that.HostId {
+		return false
+	}
+	if this.OrgId != that.OrgId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if this.NumCpus != that.NumCpus {
+		return false
+	}
+	if this.TotalMemory != that.TotalMemory {
+		return false
+	}
+	if len(this.ContainerStats) != len(that.ContainerStats) {
+		return false
+	}
+	for i, vx := range this.ContainerStats {
+		vy := that.ContainerStats[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ContainerStat{}
+			}
+			if q == nil {
+				q = &ContainerStat{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.ContainerHostType != that.ContainerHostType {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorRealTime) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorRealTime)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorContainer) EqualVT(that *CollectorContainer) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.HostName != that.HostName {
+		return false
+	}
+	if !this.Info.EqualVT(that.Info) {
+		return false
+	}
+	if len(this.Containers) != len(that.Containers) {
+		return false
+	}
+	for i, vx := range this.Containers {
+		vy := that.Containers[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Container{}
+			}
+			if q == nil {
+				q = &Container{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if !this.Host.EqualVT(that.Host) {
+		return false
+	}
+	if this.ContainerHostType != that.ContainerHostType {
+		return false
+	}
+	if this.NetworkId != that.NetworkId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorContainer) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorContainer)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorContainerRealTime) EqualVT(that *CollectorContainerRealTime) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.HostName != that.HostName {
+		return false
+	}
+	if len(this.Stats) != len(that.Stats) {
+		return false
+	}
+	for i, vx := range this.Stats {
+		vy := that.Stats[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ContainerStat{}
+			}
+			if q == nil {
+				q = &ContainerStat{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.NumCpus != that.NumCpus {
+		return false
+	}
+	if this.TotalMemory != that.TotalMemory {
+		return false
+	}
+	if this.HostId != that.HostId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if this.ContainerHostType != that.ContainerHostType {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorContainerRealTime) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorContainerRealTime)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorReqStatus) EqualVT(that *CollectorReqStatus) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.HostName != that.HostName {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorReqStatus) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorReqStatus)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorPod) EqualVT(that *CollectorPod) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.HostName != that.HostName {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.Pods) != len(that.Pods) {
+		return false
+	}
+	for i, vx := range this.Pods {
+		vy := that.Pods[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Pod{}
+			}
+			if q == nil {
+				q = &Pod{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Host.EqualVT(that.Host) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorPod) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorPod)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorReplicaSet) EqualVT(that *CollectorReplicaSet) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.ReplicaSets) != len(that.ReplicaSets) {
+		return false
+	}
+	for i, vx := range this.ReplicaSets {
+		vy := that.ReplicaSets[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ReplicaSet{}
+			}
+			if q == nil {
+				q = &ReplicaSet{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorReplicaSet) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorReplicaSet)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorDeployment) EqualVT(that *CollectorDeployment) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.Deployments) != len(that.Deployments) {
+		return false
+	}
+	for i, vx := range this.Deployments {
+		vy := that.Deployments[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Deployment{}
+			}
+			if q == nil {
+				q = &Deployment{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorDeployment) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorDeployment)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorService) EqualVT(that *CollectorService) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.Services) != len(that.Services) {
+		return false
+	}
+	for i, vx := range this.Services {
+		vy := that.Services[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Service{}
+			}
+			if q == nil {
+				q = &Service{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorService) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorService)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorNode) EqualVT(that *CollectorNode) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.Nodes) != len(that.Nodes) {
+		return false
+	}
+	for i, vx := range this.Nodes {
+		vy := that.Nodes[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Node{}
+			}
+			if q == nil {
+				q = &Node{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.HostAliasMapping) != len(that.HostAliasMapping) {
+		return false
+	}
+	for i, vx := range this.HostAliasMapping {
+		vy, ok := that.HostAliasMapping[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Host{}
+			}
+			if q == nil {
+				q = &Host{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorNode) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorNode)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorCluster) EqualVT(that *CollectorCluster) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if !this.Cluster.EqualVT(that.Cluster) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorCluster) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorCluster)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorManifest) EqualVT(that *CollectorManifest) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.Manifests) != len(that.Manifests) {
+		return false
+	}
+	for i, vx := range this.Manifests {
+		vy := that.Manifests[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Manifest{}
+			}
+			if q == nil {
+				q = &Manifest{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorManifest) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorManifest)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorManifestCRD) EqualVT(that *CollectorManifestCRD) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Manifest.EqualVT(that.Manifest) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorManifestCRD) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorManifestCRD)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorManifestCR) EqualVT(that *CollectorManifestCR) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Manifest.EqualVT(that.Manifest) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorManifestCR) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorManifestCR)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorNamespace) EqualVT(that *CollectorNamespace) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.Namespaces) != len(that.Namespaces) {
+		return false
+	}
+	for i, vx := range this.Namespaces {
+		vy := that.Namespaces[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Namespace{}
+			}
+			if q == nil {
+				q = &Namespace{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorNamespace) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorNamespace)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorJob) EqualVT(that *CollectorJob) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.Jobs) != len(that.Jobs) {
+		return false
+	}
+	for i, vx := range this.Jobs {
+		vy := that.Jobs[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Job{}
+			}
+			if q == nil {
+				q = &Job{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorJob) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorJob)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorCronJob) EqualVT(that *CollectorCronJob) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.CronJobs) != len(that.CronJobs) {
+		return false
+	}
+	for i, vx := range this.CronJobs {
+		vy := that.CronJobs[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &CronJob{}
+			}
+			if q == nil {
+				q = &CronJob{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorCronJob) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorCronJob)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorDaemonSet) EqualVT(that *CollectorDaemonSet) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.DaemonSets) != len(that.DaemonSets) {
+		return false
+	}
+	for i, vx := range this.DaemonSets {
+		vy := that.DaemonSets[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DaemonSet{}
+			}
+			if q == nil {
+				q = &DaemonSet{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorDaemonSet) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorDaemonSet)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorStatefulSet) EqualVT(that *CollectorStatefulSet) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.StatefulSets) != len(that.StatefulSets) {
+		return false
+	}
+	for i, vx := range this.StatefulSets {
+		vy := that.StatefulSets[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &StatefulSet{}
+			}
+			if q == nil {
+				q = &StatefulSet{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorStatefulSet) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorStatefulSet)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorPersistentVolume) EqualVT(that *CollectorPersistentVolume) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.PersistentVolumes) != len(that.PersistentVolumes) {
+		return false
+	}
+	for i, vx := range this.PersistentVolumes {
+		vy := that.PersistentVolumes[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &PersistentVolume{}
+			}
+			if q == nil {
+				q = &PersistentVolume{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorPersistentVolume) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorPersistentVolume)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorPersistentVolumeClaim) EqualVT(that *CollectorPersistentVolumeClaim) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.PersistentVolumeClaims) != len(that.PersistentVolumeClaims) {
+		return false
+	}
+	for i, vx := range this.PersistentVolumeClaims {
+		vy := that.PersistentVolumeClaims[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &PersistentVolumeClaim{}
+			}
+			if q == nil {
+				q = &PersistentVolumeClaim{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorPersistentVolumeClaim) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorPersistentVolumeClaim)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorRole) EqualVT(that *CollectorRole) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.Roles) != len(that.Roles) {
+		return false
+	}
+	for i, vx := range this.Roles {
+		vy := that.Roles[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Role{}
+			}
+			if q == nil {
+				q = &Role{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorRole) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorRole)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorRoleBinding) EqualVT(that *CollectorRoleBinding) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.RoleBindings) != len(that.RoleBindings) {
+		return false
+	}
+	for i, vx := range this.RoleBindings {
+		vy := that.RoleBindings[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &RoleBinding{}
+			}
+			if q == nil {
+				q = &RoleBinding{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorRoleBinding) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorRoleBinding)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorClusterRole) EqualVT(that *CollectorClusterRole) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.ClusterRoles) != len(that.ClusterRoles) {
+		return false
+	}
+	for i, vx := range this.ClusterRoles {
+		vy := that.ClusterRoles[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ClusterRole{}
+			}
+			if q == nil {
+				q = &ClusterRole{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorClusterRole) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorClusterRole)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorClusterRoleBinding) EqualVT(that *CollectorClusterRoleBinding) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.ClusterRoleBindings) != len(that.ClusterRoleBindings) {
+		return false
+	}
+	for i, vx := range this.ClusterRoleBindings {
+		vy := that.ClusterRoleBindings[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ClusterRoleBinding{}
+			}
+			if q == nil {
+				q = &ClusterRoleBinding{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorClusterRoleBinding) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorClusterRoleBinding)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorServiceAccount) EqualVT(that *CollectorServiceAccount) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.ServiceAccounts) != len(that.ServiceAccounts) {
+		return false
+	}
+	for i, vx := range this.ServiceAccounts {
+		vy := that.ServiceAccounts[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ServiceAccount{}
+			}
+			if q == nil {
+				q = &ServiceAccount{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorServiceAccount) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorServiceAccount)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorIngress) EqualVT(that *CollectorIngress) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.Ingresses) != len(that.Ingresses) {
+		return false
+	}
+	for i, vx := range this.Ingresses {
+		vy := that.Ingresses[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Ingress{}
+			}
+			if q == nil {
+				q = &Ingress{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorIngress) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorIngress)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorVerticalPodAutoscaler) EqualVT(that *CollectorVerticalPodAutoscaler) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClusterName != that.ClusterName {
+		return false
+	}
+	if this.ClusterId != that.ClusterId {
+		return false
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.VerticalPodAutoscalers) != len(that.VerticalPodAutoscalers) {
+		return false
+	}
+	for i, vx := range this.VerticalPodAutoscalers {
+		vy := that.VerticalPodAutoscalers[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &VerticalPodAutoscaler{}
+			}
+			if q == nil {
+				q = &VerticalPodAutoscaler{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorVerticalPodAutoscaler) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorVerticalPodAutoscaler)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorStatus) EqualVT(that *CollectorStatus) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ActiveClients != that.ActiveClients {
+		return false
+	}
+	if this.Interval != that.Interval {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorStatus) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorStatus)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Process) EqualVT(that *Process) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Key != that.Key {
+		return false
+	}
+	if this.Pid != that.Pid {
+		return false
+	}
+	if !this.Host.EqualVT(that.Host) {
+		return false
+	}
+	if !this.Command.EqualVT(that.Command) {
+		return false
+	}
+	if !this.User.EqualVT(that.User) {
+		return false
+	}
+	if !this.Memory.EqualVT(that.Memory) {
+		return false
+	}
+	if !this.Cpu.EqualVT(that.Cpu) {
+		return false
+	}
+	if this.CreateTime != that.CreateTime {
+		return false
+	}
+	if !this.Container.EqualVT(that.Container) {
+		return false
+	}
+	if this.OpenFdCount != that.OpenFdCount {
+		return false
+	}
+	if this.State != that.State {
+		return false
+	}
+	if !this.IoStat.EqualVT(that.IoStat) {
+		return false
+	}
+	if this.ContainerId != that.ContainerId {
+		return false
+	}
+	if this.ContainerKey != that.ContainerKey {
+		return false
+	}
+	if this.VoluntaryCtxSwitches != that.VoluntaryCtxSwitches {
+		return false
+	}
+	if this.InvoluntaryCtxSwitches != that.InvoluntaryCtxSwitches {
+		return false
+	}
+	if string(this.ByteKey) != string(that.ByteKey) {
+		return false
+	}
+	if string(this.ContainerByteKey) != string(that.ContainerByteKey) {
+		return false
+	}
+	if this.NsPid != that.NsPid {
+		return false
+	}
+	if !this.Networks.EqualVT(that.Networks) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Process) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Process)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ProcessDiscovery) EqualVT(that *ProcessDiscovery) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Pid != that.Pid {
+		return false
+	}
+	if this.NsPid != that.NsPid {
+		return false
+	}
+	if !this.Host.EqualVT(that.Host) {
+		return false
+	}
+	if !this.Command.EqualVT(that.Command) {
+		return false
+	}
+	if !this.User.EqualVT(that.User) {
+		return false
+	}
+	if this.CreateTime != that.CreateTime {
+		return false
+	}
+	if string(this.ByteKey) != string(that.ByteKey) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProcessDiscovery) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProcessDiscovery)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Command) EqualVT(that *Command) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Args) != len(that.Args) {
+		return false
+	}
+	for i, vx := range this.Args {
+		vy := that.Args[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.Cwd != that.Cwd {
+		return false
+	}
+	if this.Root != that.Root {
+		return false
+	}
+	if this.OnDisk != that.OnDisk {
+		return false
+	}
+	if this.Ppid != that.Ppid {
+		return false
+	}
+	if this.Pgroup != that.Pgroup {
+		return false
+	}
+	if this.Exe != that.Exe {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Command) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Command)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ProcessUser) EqualVT(that *ProcessUser) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Uid != that.Uid {
+		return false
+	}
+	if this.Gid != that.Gid {
+		return false
+	}
+	if this.Euid != that.Euid {
+		return false
+	}
+	if this.Egid != that.Egid {
+		return false
+	}
+	if this.Suid != that.Suid {
+		return false
+	}
+	if this.Sgid != that.Sgid {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProcessUser) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProcessUser)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ProcessNetworks) EqualVT(that *ProcessNetworks) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ConnectionRate != that.ConnectionRate {
+		return false
+	}
+	if this.BytesRate != that.BytesRate {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProcessNetworks) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProcessNetworks)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ContainerAddr) EqualVT(that *ContainerAddr) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Ip != that.Ip {
+		return false
+	}
+	if this.Port != that.Port {
+		return false
+	}
+	if this.Protocol != that.Protocol {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ContainerAddr) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ContainerAddr)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Container) EqualVT(that *Container) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Image != that.Image {
+		return false
+	}
+	if this.CpuLimit != that.CpuLimit {
+		return false
+	}
+	if this.MemoryLimit != that.MemoryLimit {
+		return false
+	}
+	if this.State != that.State {
+		return false
+	}
+	if this.Health != that.Health {
+		return false
+	}
+	if this.Created != that.Created {
+		return false
+	}
+	if this.Rbps != that.Rbps {
+		return false
+	}
+	if this.Wbps != that.Wbps {
+		return false
+	}
+	if this.Key != that.Key {
+		return false
+	}
+	if this.NetRcvdPs != that.NetRcvdPs {
+		return false
+	}
+	if this.NetSentPs != that.NetSentPs {
+		return false
+	}
+	if this.NetRcvdBps != that.NetRcvdBps {
+		return false
+	}
+	if this.NetSentBps != that.NetSentBps {
+		return false
+	}
+	if this.UserPct != that.UserPct {
+		return false
+	}
+	if this.SystemPct != that.SystemPct {
+		return false
+	}
+	if this.TotalPct != that.TotalPct {
+		return false
+	}
+	if this.MemRss != that.MemRss {
+		return false
+	}
+	if this.MemCache != that.MemCache {
+		return false
+	}
+	if !this.Host.EqualVT(that.Host) {
+		return false
+	}
+	if this.Started != that.Started {
+		return false
+	}
+	if string(this.ByteKey) != string(that.ByteKey) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Addresses) != len(that.Addresses) {
+		return false
+	}
+	for i, vx := range this.Addresses {
+		vy := that.Addresses[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ContainerAddr{}
+			}
+			if q == nil {
+				q = &ContainerAddr{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.ThreadCount != that.ThreadCount {
+		return false
+	}
+	if this.ThreadLimit != that.ThreadLimit {
+		return false
+	}
+	if this.MemUsage != that.MemUsage {
+		return false
+	}
+	if this.CpuUsageNs != that.CpuUsageNs {
+		return false
+	}
+	if this.MemAccounted != that.MemAccounted {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Container) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Container)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ProcessStat) EqualVT(that *ProcessStat) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Pid != that.Pid {
+		return false
+	}
+	if this.CreateTime != that.CreateTime {
+		return false
+	}
+	if !this.Memory.EqualVT(that.Memory) {
+		return false
+	}
+	if !this.Cpu.EqualVT(that.Cpu) {
+		return false
+	}
+	if this.Nice != that.Nice {
+		return false
+	}
+	if this.Threads != that.Threads {
+		return false
+	}
+	if this.OpenFdCount != that.OpenFdCount {
+		return false
+	}
+	if this.Key != that.Key {
+		return false
+	}
+	if this.ContainerId != that.ContainerId {
+		return false
+	}
+	if this.ContainerState != that.ContainerState {
+		return false
+	}
+	if this.ProcessState != that.ProcessState {
+		return false
+	}
+	if this.ContainerHealth != that.ContainerHealth {
+		return false
+	}
+	if this.ContainerRbps != that.ContainerRbps {
+		return false
+	}
+	if this.ContainerWbps != that.ContainerWbps {
+		return false
+	}
+	if this.ContainerKey != that.ContainerKey {
+		return false
+	}
+	if !this.IoStat.EqualVT(that.IoStat) {
+		return false
+	}
+	if this.ContainerNetRcvdPs != that.ContainerNetRcvdPs {
+		return false
+	}
+	if this.ContainerNetSentPs != that.ContainerNetSentPs {
+		return false
+	}
+	if this.ContainerNetRcvdBps != that.ContainerNetRcvdBps {
+		return false
+	}
+	if this.ContainerNetSentBps != that.ContainerNetSentBps {
+		return false
+	}
+	if this.VoluntaryCtxSwitches != that.VoluntaryCtxSwitches {
+		return false
+	}
+	if this.InvoluntaryCtxSwitches != that.InvoluntaryCtxSwitches {
+		return false
+	}
+	if string(this.ByteKey) != string(that.ByteKey) {
+		return false
+	}
+	if string(this.ContainerByteKey) != string(that.ContainerByteKey) {
+		return false
+	}
+	if !this.Networks.EqualVT(that.Networks) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProcessStat) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProcessStat)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ProcStatsWithPerm) EqualVT(that *ProcStatsWithPerm) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.OpenFDCount != that.OpenFDCount {
+		return false
+	}
+	if this.ReadCount != that.ReadCount {
+		return false
+	}
+	if this.WriteCount != that.WriteCount {
+		return false
+	}
+	if this.ReadBytes != that.ReadBytes {
+		return false
+	}
+	if this.WriteBytes != that.WriteBytes {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProcStatsWithPerm) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProcStatsWithPerm)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ProcStatsWithPermByPID) EqualVT(that *ProcStatsWithPermByPID) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.StatsByPID) != len(that.StatsByPID) {
+		return false
+	}
+	for i, vx := range this.StatsByPID {
+		vy, ok := that.StatsByPID[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ProcStatsWithPerm{}
+			}
+			if q == nil {
+				q = &ProcStatsWithPerm{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProcStatsWithPermByPID) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProcStatsWithPermByPID)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ContainerStat) EqualVT(that *ContainerStat) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	if this.UserPct != that.UserPct {
+		return false
+	}
+	if this.SystemPct != that.SystemPct {
+		return false
+	}
+	if this.TotalPct != that.TotalPct {
+		return false
+	}
+	if this.CpuLimit != that.CpuLimit {
+		return false
+	}
+	if this.MemRss != that.MemRss {
+		return false
+	}
+	if this.MemCache != that.MemCache {
+		return false
+	}
+	if this.MemLimit != that.MemLimit {
+		return false
+	}
+	if this.Rbps != that.Rbps {
+		return false
+	}
+	if this.Wbps != that.Wbps {
+		return false
+	}
+	if this.NetRcvdPs != that.NetRcvdPs {
+		return false
+	}
+	if this.NetSentPs != that.NetSentPs {
+		return false
+	}
+	if this.NetRcvdBps != that.NetRcvdBps {
+		return false
+	}
+	if this.NetSentBps != that.NetSentBps {
+		return false
+	}
+	if this.State != that.State {
+		return false
+	}
+	if this.Health != that.Health {
+		return false
+	}
+	if this.Key != that.Key {
+		return false
+	}
+	if this.Started != that.Started {
+		return false
+	}
+	if string(this.ByteKey) != string(that.ByteKey) {
+		return false
+	}
+	if this.ThreadCount != that.ThreadCount {
+		return false
+	}
+	if this.ThreadLimit != that.ThreadLimit {
+		return false
+	}
+	if this.MemUsage != that.MemUsage {
+		return false
+	}
+	if this.CpuUsageNs != that.CpuUsageNs {
+		return false
+	}
+	if this.MemAccounted != that.MemAccounted {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ContainerStat) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ContainerStat)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *SystemInfo) EqualVT(that *SystemInfo) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Uuid != that.Uuid {
+		return false
+	}
+	if !this.Os.EqualVT(that.Os) {
+		return false
+	}
+	if len(this.Cpus) != len(that.Cpus) {
+		return false
+	}
+	for i, vx := range this.Cpus {
+		vy := that.Cpus[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &CPUInfo{}
+			}
+			if q == nil {
+				q = &CPUInfo{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.TotalMemory != that.TotalMemory {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SystemInfo) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SystemInfo)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *OSInfo) EqualVT(that *OSInfo) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Platform != that.Platform {
+		return false
+	}
+	if this.Family != that.Family {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	if this.KernelVersion != that.KernelVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *OSInfo) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*OSInfo)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *IOStat) EqualVT(that *IOStat) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ReadRate != that.ReadRate {
+		return false
+	}
+	if this.WriteRate != that.WriteRate {
+		return false
+	}
+	if this.ReadBytesRate != that.ReadBytesRate {
+		return false
+	}
+	if this.WriteBytesRate != that.WriteBytesRate {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *IOStat) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*IOStat)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *MemoryStat) EqualVT(that *MemoryStat) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Rss != that.Rss {
+		return false
+	}
+	if this.Vms != that.Vms {
+		return false
+	}
+	if this.Swap != that.Swap {
+		return false
+	}
+	if this.Shared != that.Shared {
+		return false
+	}
+	if this.Text != that.Text {
+		return false
+	}
+	if this.Lib != that.Lib {
+		return false
+	}
+	if this.Data != that.Data {
+		return false
+	}
+	if this.Dirty != that.Dirty {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *MemoryStat) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*MemoryStat)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CPUStat) EqualVT(that *CPUStat) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.LastCpu != that.LastCpu {
+		return false
+	}
+	if this.TotalPct != that.TotalPct {
+		return false
+	}
+	if this.UserPct != that.UserPct {
+		return false
+	}
+	if this.SystemPct != that.SystemPct {
+		return false
+	}
+	if this.NumThreads != that.NumThreads {
+		return false
+	}
+	if len(this.Cpus) != len(that.Cpus) {
+		return false
+	}
+	for i, vx := range this.Cpus {
+		vy := that.Cpus[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &SingleCPUStat{}
+			}
+			if q == nil {
+				q = &SingleCPUStat{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.Nice != that.Nice {
+		return false
+	}
+	if this.UserTime != that.UserTime {
+		return false
+	}
+	if this.SystemTime != that.SystemTime {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CPUStat) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CPUStat)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *SingleCPUStat) EqualVT(that *SingleCPUStat) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.TotalPct != that.TotalPct {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SingleCPUStat) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SingleCPUStat)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CPUInfo) EqualVT(that *CPUInfo) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Number != that.Number {
+		return false
+	}
+	if this.Vendor != that.Vendor {
+		return false
+	}
+	if this.Family != that.Family {
+		return false
+	}
+	if this.Model != that.Model {
+		return false
+	}
+	if this.PhysicalId != that.PhysicalId {
+		return false
+	}
+	if this.CoreId != that.CoreId {
+		return false
+	}
+	if this.Cores != that.Cores {
+		return false
+	}
+	if this.Mhz != that.Mhz {
+		return false
+	}
+	if this.CacheSize != that.CacheSize {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CPUInfo) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CPUInfo)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Host) EqualVT(that *Host) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	if this.OrgId != that.OrgId {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if len(this.AllTags) != len(that.AllTags) {
+		return false
+	}
+	for i, vx := range this.AllTags {
+		vy := that.AllTags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.NumCpus != that.NumCpus {
+		return false
+	}
+	if this.TotalMemory != that.TotalMemory {
+		return false
+	}
+	if this.TagIndex != that.TagIndex {
+		return false
+	}
+	if this.TagsModified != that.TagsModified {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Host) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Host)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Cluster) EqualVT(that *Cluster) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.NodeCount != that.NodeCount {
+		return false
+	}
+	if len(this.KubeletVersions) != len(that.KubeletVersions) {
+		return false
+	}
+	for i, vx := range this.KubeletVersions {
+		vy, ok := that.KubeletVersions[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.ApiServerVersions) != len(that.ApiServerVersions) {
+		return false
+	}
+	for i, vx := range this.ApiServerVersions {
+		vy, ok := that.ApiServerVersions[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if this.PodCapacity != that.PodCapacity {
+		return false
+	}
+	if this.PodAllocatable != that.PodAllocatable {
+		return false
+	}
+	if this.MemoryAllocatable != that.MemoryAllocatable {
+		return false
+	}
+	if this.MemoryCapacity != that.MemoryCapacity {
+		return false
+	}
+	if this.CpuAllocatable != that.CpuAllocatable {
+		return false
+	}
+	if this.CpuCapacity != that.CpuCapacity {
+		return false
+	}
+	if this.ResourceVersion != that.ResourceVersion {
+		return false
+	}
+	if this.CreationTimestamp != that.CreationTimestamp {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if !this.Metrics.EqualVT(that.Metrics) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Cluster) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Cluster)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Metadata) EqualVT(that *Metadata) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Namespace != that.Namespace {
+		return false
+	}
+	if this.Uid != that.Uid {
+		return false
+	}
+	if this.CreationTimestamp != that.CreationTimestamp {
+		return false
+	}
+	if this.DeletionTimestamp != that.DeletionTimestamp {
+		return false
+	}
+	if len(this.Labels) != len(that.Labels) {
+		return false
+	}
+	for i, vx := range this.Labels {
+		vy := that.Labels[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Annotations) != len(that.Annotations) {
+		return false
+	}
+	for i, vx := range this.Annotations {
+		vy := that.Annotations[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.OwnerReferences) != len(that.OwnerReferences) {
+		return false
+	}
+	for i, vx := range this.OwnerReferences {
+		vy := that.OwnerReferences[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &OwnerReference{}
+			}
+			if q == nil {
+				q = &OwnerReference{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.ResourceVersion != that.ResourceVersion {
+		return false
+	}
+	if len(this.Finalizers) != len(that.Finalizers) {
+		return false
+	}
+	for i, vx := range this.Finalizers {
+		vy := that.Finalizers[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Metadata) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Metadata)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *OwnerReference) EqualVT(that *OwnerReference) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Uid != that.Uid {
+		return false
+	}
+	if this.Kind != that.Kind {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *OwnerReference) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*OwnerReference)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ObjectReference) EqualVT(that *ObjectReference) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Kind != that.Kind {
+		return false
+	}
+	if this.Namespace != that.Namespace {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Uid != that.Uid {
+		return false
+	}
+	if this.ApiVersion != that.ApiVersion {
+		return false
+	}
+	if this.ResourceVersion != that.ResourceVersion {
+		return false
+	}
+	if this.FieldPath != that.FieldPath {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ObjectReference) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ObjectReference)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ServicePort) EqualVT(that *ServicePort) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Protocol != that.Protocol {
+		return false
+	}
+	if this.Port != that.Port {
+		return false
+	}
+	if this.TargetPort != that.TargetPort {
+		return false
+	}
+	if this.NodePort != that.NodePort {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ServicePort) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ServicePort)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ServiceSessionAffinityConfig) EqualVT(that *ServiceSessionAffinityConfig) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ClientIPTimeoutSeconds != that.ClientIPTimeoutSeconds {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ServiceSessionAffinityConfig) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ServiceSessionAffinityConfig)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Node) EqualVT(that *Node) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if this.PodCIDR != that.PodCIDR {
+		return false
+	}
+	if len(this.PodCIDRs) != len(that.PodCIDRs) {
+		return false
+	}
+	for i, vx := range this.PodCIDRs {
+		vy := that.PodCIDRs[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.Unschedulable != that.Unschedulable {
+		return false
+	}
+	if len(this.Taints) != len(that.Taints) {
+		return false
+	}
+	for i, vx := range this.Taints {
+		vy := that.Taints[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Taint{}
+			}
+			if q == nil {
+				q = &Taint{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Status.EqualVT(that.Status) {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Roles) != len(that.Roles) {
+		return false
+	}
+	for i, vx := range this.Roles {
+		vy := that.Roles[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.ProviderID != that.ProviderID {
+		return false
+	}
+	if !this.Host.EqualVT(that.Host) {
+		return false
+	}
+	if !this.Metrics.EqualVT(that.Metrics) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Node) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Node)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *NodeStatus) EqualVT(that *NodeStatus) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Capacity) != len(that.Capacity) {
+		return false
+	}
+	for i, vx := range this.Capacity {
+		vy, ok := that.Capacity[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Allocatable) != len(that.Allocatable) {
+		return false
+	}
+	for i, vx := range this.Allocatable {
+		vy, ok := that.Allocatable[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.NodeAddresses) != len(that.NodeAddresses) {
+		return false
+	}
+	for i, vx := range this.NodeAddresses {
+		vy, ok := that.NodeAddresses[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.KubeletVersion != that.KubeletVersion {
+		return false
+	}
+	if len(this.Conditions) != len(that.Conditions) {
+		return false
+	}
+	for i, vx := range this.Conditions {
+		vy := that.Conditions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &NodeCondition{}
+			}
+			if q == nil {
+				q = &NodeCondition{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Images) != len(that.Images) {
+		return false
+	}
+	for i, vx := range this.Images {
+		vy := that.Images[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ContainerImage{}
+			}
+			if q == nil {
+				q = &ContainerImage{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.KubeProxyVersion != that.KubeProxyVersion {
+		return false
+	}
+	if this.OperatingSystem != that.OperatingSystem {
+		return false
+	}
+	if this.Architecture != that.Architecture {
+		return false
+	}
+	if this.KernelVersion != that.KernelVersion {
+		return false
+	}
+	if this.OsImage != that.OsImage {
+		return false
+	}
+	if this.ContainerRuntimeVersion != that.ContainerRuntimeVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *NodeStatus) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*NodeStatus)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *NodeCondition) EqualVT(that *NodeCondition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.LastTransitionTime != that.LastTransitionTime {
+		return false
+	}
+	if this.Reason != that.Reason {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *NodeCondition) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*NodeCondition)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ContainerImage) EqualVT(that *ContainerImage) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Names) != len(that.Names) {
+		return false
+	}
+	for i, vx := range this.Names {
+		vy := that.Names[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.SizeBytes != that.SizeBytes {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ContainerImage) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ContainerImage)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Taint) EqualVT(that *Taint) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Key != that.Key {
+		return false
+	}
+	if this.Value != that.Value {
+		return false
+	}
+	if this.Effect != that.Effect {
+		return false
+	}
+	if this.TimeAdded != that.TimeAdded {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Taint) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Taint)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ServiceSpec) EqualVT(that *ServiceSpec) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Ports) != len(that.Ports) {
+		return false
+	}
+	for i, vx := range this.Ports {
+		vy := that.Ports[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ServicePort{}
+			}
+			if q == nil {
+				q = &ServicePort{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Selectors) != len(that.Selectors) {
+		return false
+	}
+	for i, vx := range this.Selectors {
+		vy := that.Selectors[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &LabelSelectorRequirement{}
+			}
+			if q == nil {
+				q = &LabelSelectorRequirement{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.ClusterIP != that.ClusterIP {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if len(this.ExternalIPs) != len(that.ExternalIPs) {
+		return false
+	}
+	for i, vx := range this.ExternalIPs {
+		vy := that.ExternalIPs[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.SessionAffinity != that.SessionAffinity {
+		return false
+	}
+	if this.LoadBalancerIP != that.LoadBalancerIP {
+		return false
+	}
+	if len(this.LoadBalancerSourceRanges) != len(that.LoadBalancerSourceRanges) {
+		return false
+	}
+	for i, vx := range this.LoadBalancerSourceRanges {
+		vy := that.LoadBalancerSourceRanges[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.ExternalName != that.ExternalName {
+		return false
+	}
+	if this.ExternalTrafficPolicy != that.ExternalTrafficPolicy {
+		return false
+	}
+	if this.HealthCheckNodePort != that.HealthCheckNodePort {
+		return false
+	}
+	if this.PublishNotReadyAddresses != that.PublishNotReadyAddresses {
+		return false
+	}
+	if !this.SessionAffinityConfig.EqualVT(that.SessionAffinityConfig) {
+		return false
+	}
+	if this.IpFamily != that.IpFamily {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ServiceSpec) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ServiceSpec)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ServiceStatus) EqualVT(that *ServiceStatus) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.LoadBalancerIngress) != len(that.LoadBalancerIngress) {
+		return false
+	}
+	for i, vx := range this.LoadBalancerIngress {
+		vy := that.LoadBalancerIngress[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ServiceStatus) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ServiceStatus)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Service) EqualVT(that *Service) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if !this.Spec.EqualVT(that.Spec) {
+		return false
+	}
+	if !this.Status.EqualVT(that.Status) {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if !this.Metrics.EqualVT(that.Metrics) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Service) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Service)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *DeploymentCondition) EqualVT(that *DeploymentCondition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.Reason != that.Reason {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	if this.LastUpdateTime != that.LastUpdateTime {
+		return false
+	}
+	if this.LastTransitionTime != that.LastTransitionTime {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DeploymentCondition) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DeploymentCondition)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Deployment) EqualVT(that *Deployment) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if this.ReplicasDesired != that.ReplicasDesired {
+		return false
+	}
+	if this.DeploymentStrategy != that.DeploymentStrategy {
+		return false
+	}
+	if this.MaxUnavailable != that.MaxUnavailable {
+		return false
+	}
+	if this.MaxSurge != that.MaxSurge {
+		return false
+	}
+	if this.Paused != that.Paused {
+		return false
+	}
+	if len(this.Selectors) != len(that.Selectors) {
+		return false
+	}
+	for i, vx := range this.Selectors {
+		vy := that.Selectors[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &LabelSelectorRequirement{}
+			}
+			if q == nil {
+				q = &LabelSelectorRequirement{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.Replicas != that.Replicas {
+		return false
+	}
+	if this.UpdatedReplicas != that.UpdatedReplicas {
+		return false
+	}
+	if this.ReadyReplicas != that.ReadyReplicas {
+		return false
+	}
+	if this.AvailableReplicas != that.AvailableReplicas {
+		return false
+	}
+	if this.UnavailableReplicas != that.UnavailableReplicas {
+		return false
+	}
+	if this.ConditionMessage != that.ConditionMessage {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.ResourceRequirements) != len(that.ResourceRequirements) {
+		return false
+	}
+	for i, vx := range this.ResourceRequirements {
+		vy := that.ResourceRequirements[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ResourceRequirements{}
+			}
+			if q == nil {
+				q = &ResourceRequirements{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Metrics.EqualVT(that.Metrics) {
+		return false
+	}
+	if len(this.Conditions) != len(that.Conditions) {
+		return false
+	}
+	for i, vx := range this.Conditions {
+		vy := that.Conditions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DeploymentCondition{}
+			}
+			if q == nil {
+				q = &DeploymentCondition{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Deployment) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Deployment)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ReplicaSetCondition) EqualVT(that *ReplicaSetCondition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.LastTransitionTime != that.LastTransitionTime {
+		return false
+	}
+	if this.Reason != that.Reason {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReplicaSetCondition) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReplicaSetCondition)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ReplicaSet) EqualVT(that *ReplicaSet) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if this.ReplicasDesired != that.ReplicasDesired {
+		return false
+	}
+	if len(this.Selectors) != len(that.Selectors) {
+		return false
+	}
+	for i, vx := range this.Selectors {
+		vy := that.Selectors[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &LabelSelectorRequirement{}
+			}
+			if q == nil {
+				q = &LabelSelectorRequirement{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.Replicas != that.Replicas {
+		return false
+	}
+	if this.FullyLabeledReplicas != that.FullyLabeledReplicas {
+		return false
+	}
+	if this.ReadyReplicas != that.ReadyReplicas {
+		return false
+	}
+	if this.AvailableReplicas != that.AvailableReplicas {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.ResourceRequirements) != len(that.ResourceRequirements) {
+		return false
+	}
+	for i, vx := range this.ResourceRequirements {
+		vy := that.ResourceRequirements[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ResourceRequirements{}
+			}
+			if q == nil {
+				q = &ResourceRequirements{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.Metrics.EqualVT(that.Metrics) {
+		return false
+	}
+	if len(this.Conditions) != len(that.Conditions) {
+		return false
+	}
+	for i, vx := range this.Conditions {
+		vy := that.Conditions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ReplicaSetCondition{}
+			}
+			if q == nil {
+				q = &ReplicaSetCondition{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ReplicaSet) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ReplicaSet)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *LabelSelectorRequirement) EqualVT(that *LabelSelectorRequirement) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Key != that.Key {
+		return false
+	}
+	if this.Operator != that.Operator {
+		return false
+	}
+	if len(this.Values) != len(that.Values) {
+		return false
+	}
+	for i, vx := range this.Values {
+		vy := that.Values[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *LabelSelectorRequirement) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*LabelSelectorRequirement)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Pod) EqualVT(that *Pod) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if this.IP != that.IP {
+		return false
+	}
+	if this.NominatedNodeName != that.NominatedNodeName {
+		return false
+	}
+	if this.NodeName != that.NodeName {
+		return false
+	}
+	if this.Phase != that.Phase {
+		return false
+	}
+	if this.RestartCount != that.RestartCount {
+		return false
+	}
+	if len(this.ContainerStatuses) != len(that.ContainerStatuses) {
+		return false
+	}
+	for i, vx := range this.ContainerStatuses {
+		vy := that.ContainerStatuses[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ContainerStatus{}
+			}
+			if q == nil {
+				q = &ContainerStatus{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.ConditionMessage != that.ConditionMessage {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if !this.Host.EqualVT(that.Host) {
+		return false
+	}
+	if len(this.ResourceRequirements) != len(that.ResourceRequirements) {
+		return false
+	}
+	for i, vx := range this.ResourceRequirements {
+		vy := that.ResourceRequirements[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ResourceRequirements{}
+			}
+			if q == nil {
+				q = &ResourceRequirements{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.InitContainerStatuses) != len(that.InitContainerStatuses) {
+		return false
+	}
+	for i, vx := range this.InitContainerStatuses {
+		vy := that.InitContainerStatuses[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ContainerStatus{}
+			}
+			if q == nil {
+				q = &ContainerStatus{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.QOSClass != that.QOSClass {
+		return false
+	}
+	if this.PriorityClass != that.PriorityClass {
+		return false
+	}
+	if !this.Metrics.EqualVT(that.Metrics) {
+		return false
+	}
+	if this.StartTime != that.StartTime {
+		return false
+	}
+	if this.ScheduledTime != that.ScheduledTime {
+		return false
+	}
+	if len(this.Conditions) != len(that.Conditions) {
+		return false
+	}
+	for i, vx := range this.Conditions {
+		vy := that.Conditions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &PodCondition{}
+			}
+			if q == nil {
+				q = &PodCondition{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Pod) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Pod)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *PodCondition) EqualVT(that *PodCondition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.LastProbeTime != that.LastProbeTime {
+		return false
+	}
+	if this.LastTransitionTime != that.LastTransitionTime {
+		return false
+	}
+	if this.Reason != that.Reason {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PodCondition) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PodCondition)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ContainerStatus) EqualVT(that *ContainerStatus) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.ContainerID != that.ContainerID {
+		return false
+	}
+	if this.Ready != that.Ready {
+		return false
+	}
+	if this.RestartCount != that.RestartCount {
+		return false
+	}
+	if this.State != that.State {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ContainerStatus) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ContainerStatus)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Manifest) EqualVT(that *Manifest) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.ResourceVersion != that.ResourceVersion {
+		return false
+	}
+	if this.Uid != that.Uid {
+		return false
+	}
+	if string(this.Content) != string(that.Content) {
+		return false
+	}
+	if this.ContentType != that.ContentType {
+		return false
+	}
+	if this.Version != that.Version {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Manifest) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Manifest)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *NamespaceCondition) EqualVT(that *NamespaceCondition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.LastTransitionTime != that.LastTransitionTime {
+		return false
+	}
+	if this.Reason != that.Reason {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *NamespaceCondition) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*NamespaceCondition)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Namespace) EqualVT(that *Namespace) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.ConditionMessage != that.ConditionMessage {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Conditions) != len(that.Conditions) {
+		return false
+	}
+	for i, vx := range this.Conditions {
+		vy := that.Conditions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &NamespaceCondition{}
+			}
+			if q == nil {
+				q = &NamespaceCondition{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Namespace) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Namespace)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ResourceRequirements) EqualVT(that *ResourceRequirements) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Limits) != len(that.Limits) {
+		return false
+	}
+	for i, vx := range this.Limits {
+		vy, ok := that.Limits[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Requests) != len(that.Requests) {
+		return false
+	}
+	for i, vx := range this.Requests {
+		vy, ok := that.Requests[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ResourceRequirements) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ResourceRequirements)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ResourceMetrics) EqualVT(that *ResourceMetrics) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.MetricValues) != len(that.MetricValues) {
+		return false
+	}
+	for i, vx := range this.MetricValues {
+		vy, ok := that.MetricValues[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ResourceMetrics) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ResourceMetrics)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *JobSpec) EqualVT(that *JobSpec) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Parallelism != that.Parallelism {
+		return false
+	}
+	if this.Completions != that.Completions {
+		return false
+	}
+	if this.ActiveDeadlineSeconds != that.ActiveDeadlineSeconds {
+		return false
+	}
+	if this.BackoffLimit != that.BackoffLimit {
+		return false
+	}
+	if len(this.Selectors) != len(that.Selectors) {
+		return false
+	}
+	for i, vx := range this.Selectors {
+		vy := that.Selectors[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &LabelSelectorRequirement{}
+			}
+			if q == nil {
+				q = &LabelSelectorRequirement{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.ManualSelector != that.ManualSelector {
+		return false
+	}
+	if len(this.ResourceRequirements) != len(that.ResourceRequirements) {
+		return false
+	}
+	for i, vx := range this.ResourceRequirements {
+		vy := that.ResourceRequirements[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ResourceRequirements{}
+			}
+			if q == nil {
+				q = &ResourceRequirements{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *JobSpec) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*JobSpec)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *JobStatus) EqualVT(that *JobStatus) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ConditionMessage != that.ConditionMessage {
+		return false
+	}
+	if this.StartTime != that.StartTime {
+		return false
+	}
+	if this.CompletionTime != that.CompletionTime {
+		return false
+	}
+	if this.Active != that.Active {
+		return false
+	}
+	if this.Succeeded != that.Succeeded {
+		return false
+	}
+	if this.Failed != that.Failed {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *JobStatus) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*JobStatus)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *JobCondition) EqualVT(that *JobCondition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.LastProbeTime != that.LastProbeTime {
+		return false
+	}
+	if this.LastTransitionTime != that.LastTransitionTime {
+		return false
+	}
+	if this.Reason != that.Reason {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *JobCondition) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*JobCondition)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Job) EqualVT(that *Job) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if !this.Spec.EqualVT(that.Spec) {
+		return false
+	}
+	if !this.Status.EqualVT(that.Status) {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Conditions) != len(that.Conditions) {
+		return false
+	}
+	for i, vx := range this.Conditions {
+		vy := that.Conditions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &JobCondition{}
+			}
+			if q == nil {
+				q = &JobCondition{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Job) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Job)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CronJobSpec) EqualVT(that *CronJobSpec) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Schedule != that.Schedule {
+		return false
+	}
+	if this.StartingDeadlineSeconds != that.StartingDeadlineSeconds {
+		return false
+	}
+	if this.ConcurrencyPolicy != that.ConcurrencyPolicy {
+		return false
+	}
+	if this.Suspend != that.Suspend {
+		return false
+	}
+	if this.SuccessfulJobsHistoryLimit != that.SuccessfulJobsHistoryLimit {
+		return false
+	}
+	if this.FailedJobsHistoryLimit != that.FailedJobsHistoryLimit {
+		return false
+	}
+	if len(this.ResourceRequirements) != len(that.ResourceRequirements) {
+		return false
+	}
+	for i, vx := range this.ResourceRequirements {
+		vy := that.ResourceRequirements[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ResourceRequirements{}
+			}
+			if q == nil {
+				q = &ResourceRequirements{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CronJobSpec) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CronJobSpec)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CronJobStatus) EqualVT(that *CronJobStatus) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Active) != len(that.Active) {
+		return false
+	}
+	for i, vx := range this.Active {
+		vy := that.Active[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ObjectReference{}
+			}
+			if q == nil {
+				q = &ObjectReference{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.LastScheduleTime != that.LastScheduleTime {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CronJobStatus) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CronJobStatus)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CronJob) EqualVT(that *CronJob) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if !this.Spec.EqualVT(that.Spec) {
+		return false
+	}
+	if !this.Status.EqualVT(that.Status) {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CronJob) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CronJob)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *DaemonSetSpec) EqualVT(that *DaemonSetSpec) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Selectors) != len(that.Selectors) {
+		return false
+	}
+	for i, vx := range this.Selectors {
+		vy := that.Selectors[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &LabelSelectorRequirement{}
+			}
+			if q == nil {
+				q = &LabelSelectorRequirement{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.DeploymentStrategy != that.DeploymentStrategy {
+		return false
+	}
+	if this.MaxUnavailable != that.MaxUnavailable {
+		return false
+	}
+	if this.MinReadySeconds != that.MinReadySeconds {
+		return false
+	}
+	if this.RevisionHistoryLimit != that.RevisionHistoryLimit {
+		return false
+	}
+	if len(this.ResourceRequirements) != len(that.ResourceRequirements) {
+		return false
+	}
+	for i, vx := range this.ResourceRequirements {
+		vy := that.ResourceRequirements[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ResourceRequirements{}
+			}
+			if q == nil {
+				q = &ResourceRequirements{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DaemonSetSpec) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DaemonSetSpec)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *DaemonSetStatus) EqualVT(that *DaemonSetStatus) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.CurrentNumberScheduled != that.CurrentNumberScheduled {
+		return false
+	}
+	if this.NumberMisscheduled != that.NumberMisscheduled {
+		return false
+	}
+	if this.DesiredNumberScheduled != that.DesiredNumberScheduled {
+		return false
+	}
+	if this.NumberReady != that.NumberReady {
+		return false
+	}
+	if this.UpdatedNumberScheduled != that.UpdatedNumberScheduled {
+		return false
+	}
+	if this.NumberAvailable != that.NumberAvailable {
+		return false
+	}
+	if this.NumberUnavailable != that.NumberUnavailable {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DaemonSetStatus) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DaemonSetStatus)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *DaemonSetCondition) EqualVT(that *DaemonSetCondition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.LastTransitionTime != that.LastTransitionTime {
+		return false
+	}
+	if this.Reason != that.Reason {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DaemonSetCondition) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DaemonSetCondition)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *DaemonSet) EqualVT(that *DaemonSet) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if !this.Spec.EqualVT(that.Spec) {
+		return false
+	}
+	if !this.Status.EqualVT(that.Status) {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if !this.Metrics.EqualVT(that.Metrics) {
+		return false
+	}
+	if len(this.Conditions) != len(that.Conditions) {
+		return false
+	}
+	for i, vx := range this.Conditions {
+		vy := that.Conditions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DaemonSetCondition{}
+			}
+			if q == nil {
+				q = &DaemonSetCondition{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DaemonSet) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DaemonSet)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *StatefulSetSpec) EqualVT(that *StatefulSetSpec) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DesiredReplicas != that.DesiredReplicas {
+		return false
+	}
+	if len(this.Selectors) != len(that.Selectors) {
+		return false
+	}
+	for i, vx := range this.Selectors {
+		vy := that.Selectors[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &LabelSelectorRequirement{}
+			}
+			if q == nil {
+				q = &LabelSelectorRequirement{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.ServiceName != that.ServiceName {
+		return false
+	}
+	if this.PodManagementPolicy != that.PodManagementPolicy {
+		return false
+	}
+	if this.UpdateStrategy != that.UpdateStrategy {
+		return false
+	}
+	if this.Partition != that.Partition {
+		return false
+	}
+	if len(this.ResourceRequirements) != len(that.ResourceRequirements) {
+		return false
+	}
+	for i, vx := range this.ResourceRequirements {
+		vy := that.ResourceRequirements[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ResourceRequirements{}
+			}
+			if q == nil {
+				q = &ResourceRequirements{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *StatefulSetSpec) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*StatefulSetSpec)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *StatefulSetStatus) EqualVT(that *StatefulSetStatus) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Replicas != that.Replicas {
+		return false
+	}
+	if this.ReadyReplicas != that.ReadyReplicas {
+		return false
+	}
+	if this.CurrentReplicas != that.CurrentReplicas {
+		return false
+	}
+	if this.UpdatedReplicas != that.UpdatedReplicas {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *StatefulSetStatus) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*StatefulSetStatus)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *StatefulSetCondition) EqualVT(that *StatefulSetCondition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.LastTransitionTime != that.LastTransitionTime {
+		return false
+	}
+	if this.Reason != that.Reason {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *StatefulSetCondition) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*StatefulSetCondition)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *StatefulSet) EqualVT(that *StatefulSet) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if !this.Spec.EqualVT(that.Spec) {
+		return false
+	}
+	if !this.Status.EqualVT(that.Status) {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if !this.Metrics.EqualVT(that.Metrics) {
+		return false
+	}
+	if len(this.Conditions) != len(that.Conditions) {
+		return false
+	}
+	for i, vx := range this.Conditions {
+		vy := that.Conditions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &StatefulSetCondition{}
+			}
+			if q == nil {
+				q = &StatefulSetCondition{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *StatefulSet) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*StatefulSet)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *PersistentVolume) EqualVT(that *PersistentVolume) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if !this.Spec.EqualVT(that.Spec) {
+		return false
+	}
+	if !this.Status.EqualVT(that.Status) {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PersistentVolume) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PersistentVolume)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *PersistentVolumeSpec) EqualVT(that *PersistentVolumeSpec) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Capacity) != len(that.Capacity) {
+		return false
+	}
+	for i, vx := range this.Capacity {
+		vy, ok := that.Capacity[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if this.PersistentVolumeType != that.PersistentVolumeType {
+		return false
+	}
+	if len(this.AccessModes) != len(that.AccessModes) {
+		return false
+	}
+	for i, vx := range this.AccessModes {
+		vy := that.AccessModes[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if !this.ClaimRef.EqualVT(that.ClaimRef) {
+		return false
+	}
+	if this.PersistentVolumeReclaimPolicy != that.PersistentVolumeReclaimPolicy {
+		return false
+	}
+	if this.StorageClassName != that.StorageClassName {
+		return false
+	}
+	if len(this.MountOptions) != len(that.MountOptions) {
+		return false
+	}
+	for i, vx := range this.MountOptions {
+		vy := that.MountOptions[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.VolumeMode != that.VolumeMode {
+		return false
+	}
+	if len(this.NodeAffinity) != len(that.NodeAffinity) {
+		return false
+	}
+	for i, vx := range this.NodeAffinity {
+		vy := that.NodeAffinity[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &NodeSelectorTerm{}
+			}
+			if q == nil {
+				q = &NodeSelectorTerm{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.PersistentVolumeSource.EqualVT(that.PersistentVolumeSource) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PersistentVolumeSpec) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PersistentVolumeSpec)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *PersistentVolumeSource) EqualVT(that *PersistentVolumeSource) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.GcePersistentDisk.EqualVT(that.GcePersistentDisk) {
+		return false
+	}
+	if !this.AwsElasticBlockStore.EqualVT(that.AwsElasticBlockStore) {
+		return false
+	}
+	if !this.AzureFile.EqualVT(that.AzureFile) {
+		return false
+	}
+	if !this.AzureDisk.EqualVT(that.AzureDisk) {
+		return false
+	}
+	if !this.Csi.EqualVT(that.Csi) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PersistentVolumeSource) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PersistentVolumeSource)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *GCEPersistentDiskVolumeSource) EqualVT(that *GCEPersistentDiskVolumeSource) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.PdName != that.PdName {
+		return false
+	}
+	if this.FsType != that.FsType {
+		return false
+	}
+	if this.Partition != that.Partition {
+		return false
+	}
+	if this.ReadOnly != that.ReadOnly {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *GCEPersistentDiskVolumeSource) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*GCEPersistentDiskVolumeSource)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *AWSElasticBlockStoreVolumeSource) EqualVT(that *AWSElasticBlockStoreVolumeSource) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.VolumeID != that.VolumeID {
+		return false
+	}
+	if this.FsType != that.FsType {
+		return false
+	}
+	if this.Partition != that.Partition {
+		return false
+	}
+	if this.ReadOnly != that.ReadOnly {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AWSElasticBlockStoreVolumeSource) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AWSElasticBlockStoreVolumeSource)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *AzureFilePersistentVolumeSource) EqualVT(that *AzureFilePersistentVolumeSource) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.SecretName != that.SecretName {
+		return false
+	}
+	if this.ShareName != that.ShareName {
+		return false
+	}
+	if this.ReadOnly != that.ReadOnly {
+		return false
+	}
+	if this.SecretNamespace != that.SecretNamespace {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AzureFilePersistentVolumeSource) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AzureFilePersistentVolumeSource)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *AzureDiskVolumeSource) EqualVT(that *AzureDiskVolumeSource) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DiskName != that.DiskName {
+		return false
+	}
+	if this.DiskURI != that.DiskURI {
+		return false
+	}
+	if this.CachingMode != that.CachingMode {
+		return false
+	}
+	if this.FsType != that.FsType {
+		return false
+	}
+	if this.ReadOnly != that.ReadOnly {
+		return false
+	}
+	if this.Kind != that.Kind {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AzureDiskVolumeSource) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AzureDiskVolumeSource)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CSIVolumeSource) EqualVT(that *CSIVolumeSource) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Driver != that.Driver {
+		return false
+	}
+	if this.VolumeHandle != that.VolumeHandle {
+		return false
+	}
+	if this.ReadOnly != that.ReadOnly {
+		return false
+	}
+	if this.FsType != that.FsType {
+		return false
+	}
+	if len(this.VolumeAttributes) != len(that.VolumeAttributes) {
+		return false
+	}
+	for i, vx := range this.VolumeAttributes {
+		vy, ok := that.VolumeAttributes[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if !this.ControllerPublishSecretRef.EqualVT(that.ControllerPublishSecretRef) {
+		return false
+	}
+	if !this.NodeStageSecretRef.EqualVT(that.NodeStageSecretRef) {
+		return false
+	}
+	if !this.NodePublishSecretRef.EqualVT(that.NodePublishSecretRef) {
+		return false
+	}
+	if !this.ControllerExpandSecretRef.EqualVT(that.ControllerExpandSecretRef) {
+		return false
+	}
+	if !this.NodeExpandSecretRef.EqualVT(that.NodeExpandSecretRef) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CSIVolumeSource) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CSIVolumeSource)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *SecretReference) EqualVT(that *SecretReference) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Namespace != that.Namespace {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *SecretReference) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*SecretReference)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *PersistentVolumeStatus) EqualVT(that *PersistentVolumeStatus) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Phase != that.Phase {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	if this.Reason != that.Reason {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PersistentVolumeStatus) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PersistentVolumeStatus)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *NodeSelectorTerm) EqualVT(that *NodeSelectorTerm) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.MatchExpressions) != len(that.MatchExpressions) {
+		return false
+	}
+	for i, vx := range this.MatchExpressions {
+		vy := that.MatchExpressions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &LabelSelectorRequirement{}
+			}
+			if q == nil {
+				q = &LabelSelectorRequirement{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.MatchFields) != len(that.MatchFields) {
+		return false
+	}
+	for i, vx := range this.MatchFields {
+		vy := that.MatchFields[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &LabelSelectorRequirement{}
+			}
+			if q == nil {
+				q = &LabelSelectorRequirement{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *NodeSelectorTerm) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*NodeSelectorTerm)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *PersistentVolumeClaim) EqualVT(that *PersistentVolumeClaim) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if !this.Spec.EqualVT(that.Spec) {
+		return false
+	}
+	if !this.Status.EqualVT(that.Status) {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PersistentVolumeClaim) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PersistentVolumeClaim)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *PersistentVolumeClaimStatus) EqualVT(that *PersistentVolumeClaimStatus) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Phase != that.Phase {
+		return false
+	}
+	if len(this.AccessModes) != len(that.AccessModes) {
+		return false
+	}
+	for i, vx := range this.AccessModes {
+		vy := that.AccessModes[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Capacity) != len(that.Capacity) {
+		return false
+	}
+	for i, vx := range this.Capacity {
+		vy, ok := that.Capacity[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Conditions) != len(that.Conditions) {
+		return false
+	}
+	for i, vx := range this.Conditions {
+		vy := that.Conditions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &PersistentVolumeClaimCondition{}
+			}
+			if q == nil {
+				q = &PersistentVolumeClaimCondition{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PersistentVolumeClaimStatus) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PersistentVolumeClaimStatus)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *PersistentVolumeClaimSpec) EqualVT(that *PersistentVolumeClaimSpec) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.AccessModes) != len(that.AccessModes) {
+		return false
+	}
+	for i, vx := range this.AccessModes {
+		vy := that.AccessModes[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if !this.Resources.EqualVT(that.Resources) {
+		return false
+	}
+	if this.VolumeName != that.VolumeName {
+		return false
+	}
+	if len(this.Selector) != len(that.Selector) {
+		return false
+	}
+	for i, vx := range this.Selector {
+		vy := that.Selector[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &LabelSelectorRequirement{}
+			}
+			if q == nil {
+				q = &LabelSelectorRequirement{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.StorageClassName != that.StorageClassName {
+		return false
+	}
+	if this.VolumeMode != that.VolumeMode {
+		return false
+	}
+	if !this.DataSource.EqualVT(that.DataSource) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PersistentVolumeClaimSpec) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PersistentVolumeClaimSpec)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *TypedLocalObjectReference) EqualVT(that *TypedLocalObjectReference) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ApiGroup != that.ApiGroup {
+		return false
+	}
+	if this.Kind != that.Kind {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *TypedLocalObjectReference) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*TypedLocalObjectReference)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *PersistentVolumeClaimCondition) EqualVT(that *PersistentVolumeClaimCondition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.LastProbeTime != that.LastProbeTime {
+		return false
+	}
+	if this.LastTransitionTime != that.LastTransitionTime {
+		return false
+	}
+	if this.Reason != that.Reason {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PersistentVolumeClaimCondition) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PersistentVolumeClaimCondition)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *PolicyRule) EqualVT(that *PolicyRule) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Verbs) != len(that.Verbs) {
+		return false
+	}
+	for i, vx := range this.Verbs {
+		vy := that.Verbs[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.ApiGroups) != len(that.ApiGroups) {
+		return false
+	}
+	for i, vx := range this.ApiGroups {
+		vy := that.ApiGroups[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Resources) != len(that.Resources) {
+		return false
+	}
+	for i, vx := range this.Resources {
+		vy := that.Resources[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.ResourceNames) != len(that.ResourceNames) {
+		return false
+	}
+	for i, vx := range this.ResourceNames {
+		vy := that.ResourceNames[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.NonResourceURLs) != len(that.NonResourceURLs) {
+		return false
+	}
+	for i, vx := range this.NonResourceURLs {
+		vy := that.NonResourceURLs[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PolicyRule) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PolicyRule)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Subject) EqualVT(that *Subject) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Kind != that.Kind {
+		return false
+	}
+	if this.ApiGroup != that.ApiGroup {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	if this.Namespace != that.Namespace {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Subject) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Subject)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Role) EqualVT(that *Role) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if len(this.Rules) != len(that.Rules) {
+		return false
+	}
+	for i, vx := range this.Rules {
+		vy := that.Rules[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &PolicyRule{}
+			}
+			if q == nil {
+				q = &PolicyRule{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Role) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Role)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *RoleBinding) EqualVT(that *RoleBinding) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if len(this.Subjects) != len(that.Subjects) {
+		return false
+	}
+	for i, vx := range this.Subjects {
+		vy := that.Subjects[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Subject{}
+			}
+			if q == nil {
+				q = &Subject{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.RoleRef.EqualVT(that.RoleRef) {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RoleBinding) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RoleBinding)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ClusterRole) EqualVT(that *ClusterRole) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if len(this.Rules) != len(that.Rules) {
+		return false
+	}
+	for i, vx := range this.Rules {
+		vy := that.Rules[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &PolicyRule{}
+			}
+			if q == nil {
+				q = &PolicyRule{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.AggregationRules) != len(that.AggregationRules) {
+		return false
+	}
+	for i, vx := range this.AggregationRules {
+		vy := that.AggregationRules[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &LabelSelectorRequirement{}
+			}
+			if q == nil {
+				q = &LabelSelectorRequirement{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if !this.Metrics.EqualVT(that.Metrics) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ClusterRole) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ClusterRole)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ClusterRoleBinding) EqualVT(that *ClusterRoleBinding) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if len(this.Subjects) != len(that.Subjects) {
+		return false
+	}
+	for i, vx := range this.Subjects {
+		vy := that.Subjects[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Subject{}
+			}
+			if q == nil {
+				q = &Subject{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.RoleRef.EqualVT(that.RoleRef) {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ClusterRoleBinding) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ClusterRoleBinding)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ServiceAccount) EqualVT(that *ServiceAccount) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if len(this.Secrets) != len(that.Secrets) {
+		return false
+	}
+	for i, vx := range this.Secrets {
+		vy := that.Secrets[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ObjectReference{}
+			}
+			if q == nil {
+				q = &ObjectReference{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ImagePullSecrets) != len(that.ImagePullSecrets) {
+		return false
+	}
+	for i, vx := range this.ImagePullSecrets {
+		vy := that.ImagePullSecrets[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &TypedLocalObjectReference{}
+			}
+			if q == nil {
+				q = &TypedLocalObjectReference{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.AutomountServiceAccountToken != that.AutomountServiceAccountToken {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ServiceAccount) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ServiceAccount)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *IngressServiceBackend) EqualVT(that *IngressServiceBackend) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ServiceName != that.ServiceName {
+		return false
+	}
+	if this.PortName != that.PortName {
+		return false
+	}
+	if this.PortNumber != that.PortNumber {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *IngressServiceBackend) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*IngressServiceBackend)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *IngressBackend) EqualVT(that *IngressBackend) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Service.EqualVT(that.Service) {
+		return false
+	}
+	if !this.Resource.EqualVT(that.Resource) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *IngressBackend) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*IngressBackend)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *IngressTLS) EqualVT(that *IngressTLS) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Hosts) != len(that.Hosts) {
+		return false
+	}
+	for i, vx := range this.Hosts {
+		vy := that.Hosts[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.SecretName != that.SecretName {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *IngressTLS) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*IngressTLS)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *HTTPIngressPath) EqualVT(that *HTTPIngressPath) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Path != that.Path {
+		return false
+	}
+	if !this.Backend.EqualVT(that.Backend) {
+		return false
+	}
+	if this.PathType != that.PathType {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *HTTPIngressPath) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*HTTPIngressPath)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *IngressRule) EqualVT(that *IngressRule) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Host != that.Host {
+		return false
+	}
+	if len(this.HttpPaths) != len(that.HttpPaths) {
+		return false
+	}
+	for i, vx := range this.HttpPaths {
+		vy := that.HttpPaths[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &HTTPIngressPath{}
+			}
+			if q == nil {
+				q = &HTTPIngressPath{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *IngressRule) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*IngressRule)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *IngressSpec) EqualVT(that *IngressSpec) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.DefaultBackend.EqualVT(that.DefaultBackend) {
+		return false
+	}
+	if len(this.Tls) != len(that.Tls) {
+		return false
+	}
+	for i, vx := range this.Tls {
+		vy := that.Tls[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &IngressTLS{}
+			}
+			if q == nil {
+				q = &IngressTLS{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Rules) != len(that.Rules) {
+		return false
+	}
+	for i, vx := range this.Rules {
+		vy := that.Rules[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &IngressRule{}
+			}
+			if q == nil {
+				q = &IngressRule{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.IngressClassName != that.IngressClassName {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *IngressSpec) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*IngressSpec)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *PortStatus) EqualVT(that *PortStatus) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Port != that.Port {
+		return false
+	}
+	if this.Protocol != that.Protocol {
+		return false
+	}
+	if this.Error != that.Error {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *PortStatus) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*PortStatus)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *LoadBalancerIngress) EqualVT(that *LoadBalancerIngress) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Ip != that.Ip {
+		return false
+	}
+	if this.Hostname != that.Hostname {
+		return false
+	}
+	if len(this.Ports) != len(that.Ports) {
+		return false
+	}
+	for i, vx := range this.Ports {
+		vy := that.Ports[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &PortStatus{}
+			}
+			if q == nil {
+				q = &PortStatus{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *LoadBalancerIngress) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*LoadBalancerIngress)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *IngressStatus) EqualVT(that *IngressStatus) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Ingress) != len(that.Ingress) {
+		return false
+	}
+	for i, vx := range this.Ingress {
+		vy := that.Ingress[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &LoadBalancerIngress{}
+			}
+			if q == nil {
+				q = &LoadBalancerIngress{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *IngressStatus) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*IngressStatus)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Ingress) EqualVT(that *Ingress) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if !this.Spec.EqualVT(that.Spec) {
+		return false
+	}
+	if !this.Status.EqualVT(that.Status) {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Ingress) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Ingress)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *KafkaRequestHeader) EqualVT(that *KafkaRequestHeader) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RequestType != that.RequestType {
+		return false
+	}
+	if this.RequestVersion != that.RequestVersion {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *KafkaRequestHeader) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*KafkaRequestHeader)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *KafkaAggregation) EqualVT(that *KafkaAggregation) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Header.EqualVT(that.Header) {
+		return false
+	}
+	if this.Topic != that.Topic {
+		return false
+	}
+	if this.Count != that.Count {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *KafkaAggregation) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*KafkaAggregation)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *DataStreamsAggregations_TopicStats) EqualVT(that *DataStreamsAggregations_TopicStats) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Topic != that.Topic {
+		return false
+	}
+	if this.Count != that.Count {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DataStreamsAggregations_TopicStats) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DataStreamsAggregations_TopicStats)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *DataStreamsAggregations_KafkaProduceAggregations) EqualVT(that *DataStreamsAggregations_KafkaProduceAggregations) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Stats) != len(that.Stats) {
+		return false
+	}
+	for i, vx := range this.Stats {
+		vy := that.Stats[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DataStreamsAggregations_TopicStats{}
+			}
+			if q == nil {
+				q = &DataStreamsAggregations_TopicStats{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DataStreamsAggregations_KafkaProduceAggregations) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DataStreamsAggregations_KafkaProduceAggregations)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *DataStreamsAggregations_KafkaFetchAggregations) EqualVT(that *DataStreamsAggregations_KafkaFetchAggregations) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Stats) != len(that.Stats) {
+		return false
+	}
+	for i, vx := range this.Stats {
+		vy := that.Stats[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DataStreamsAggregations_TopicStats{}
+			}
+			if q == nil {
+				q = &DataStreamsAggregations_TopicStats{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DataStreamsAggregations_KafkaFetchAggregations) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DataStreamsAggregations_KafkaFetchAggregations)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *DataStreamsAggregations) EqualVT(that *DataStreamsAggregations) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.KafkaProduceAggregations.EqualVT(that.KafkaProduceAggregations) {
+		return false
+	}
+	if !this.KafkaFetchAggregations.EqualVT(that.KafkaFetchAggregations) {
+		return false
+	}
+	if len(this.KafkaAggregations) != len(that.KafkaAggregations) {
+		return false
+	}
+	for i, vx := range this.KafkaAggregations {
+		vy := that.KafkaAggregations[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &KafkaAggregation{}
+			}
+			if q == nil {
+				q = &KafkaAggregation{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DataStreamsAggregations) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DataStreamsAggregations)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *HTTPAggregations) EqualVT(that *HTTPAggregations) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.EndpointAggregations) != len(that.EndpointAggregations) {
+		return false
+	}
+	for i, vx := range this.EndpointAggregations {
+		vy := that.EndpointAggregations[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &HTTPStats{}
+			}
+			if q == nil {
+				q = &HTTPStats{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *HTTPAggregations) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*HTTPAggregations)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *HTTP2Aggregations) EqualVT(that *HTTP2Aggregations) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.EndpointAggregations) != len(that.EndpointAggregations) {
+		return false
+	}
+	for i, vx := range this.EndpointAggregations {
+		vy := that.EndpointAggregations[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &HTTPStats{}
+			}
+			if q == nil {
+				q = &HTTPStats{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *HTTP2Aggregations) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*HTTP2Aggregations)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *HTTPStats_Data) EqualVT(that *HTTPStats_Data) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Count != that.Count {
+		return false
+	}
+	if string(this.Latencies) != string(that.Latencies) {
+		return false
+	}
+	if this.FirstLatencySample != that.FirstLatencySample {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *HTTPStats_Data) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*HTTPStats_Data)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *HTTPStats) EqualVT(that *HTTPStats) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.StatsByResponseStatus) != len(that.StatsByResponseStatus) {
+		return false
+	}
+	for i, vx := range this.StatsByResponseStatus {
+		vy := that.StatsByResponseStatus[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &HTTPStats_Data{}
+			}
+			if q == nil {
+				q = &HTTPStats_Data{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.StatsByStatusCode) != len(that.StatsByStatusCode) {
+		return false
+	}
+	for i, vx := range this.StatsByStatusCode {
+		vy, ok := that.StatsByStatusCode[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &HTTPStats_Data{}
+			}
+			if q == nil {
+				q = &HTTPStats_Data{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.Path != that.Path {
+		return false
+	}
+	if this.Method != that.Method {
+		return false
+	}
+	if this.FullPath != that.FullPath {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *HTTPStats) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*HTTPStats)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *DNSDatabaseEntry) EqualVT(that *DNSDatabaseEntry) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.NameOffsets) != len(that.NameOffsets) {
+		return false
+	}
+	for i, vx := range this.NameOffsets {
+		vy := that.NameOffsets[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DNSDatabaseEntry) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DNSDatabaseEntry)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ResourceList) EqualVT(that *ResourceList) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.MetricValues) != len(that.MetricValues) {
+		return false
+	}
+	for i, vx := range this.MetricValues {
+		vy, ok := that.MetricValues[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ResourceList) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ResourceList)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *VerticalPodAutoscaler) EqualVT(that *VerticalPodAutoscaler) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Metadata.EqualVT(that.Metadata) {
+		return false
+	}
+	if !this.Spec.EqualVT(that.Spec) {
+		return false
+	}
+	if !this.Status.EqualVT(that.Status) {
+		return false
+	}
+	if string(this.Yaml) != string(that.Yaml) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Conditions) != len(that.Conditions) {
+		return false
+	}
+	for i, vx := range this.Conditions {
+		vy := that.Conditions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &VerticalPodAutoscalerCondition{}
+			}
+			if q == nil {
+				q = &VerticalPodAutoscalerCondition{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *VerticalPodAutoscaler) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*VerticalPodAutoscaler)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *VerticalPodAutoscalerCondition) EqualVT(that *VerticalPodAutoscalerCondition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.Status != that.Status {
+		return false
+	}
+	if this.LastTransitionTime != that.LastTransitionTime {
+		return false
+	}
+	if this.Reason != that.Reason {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *VerticalPodAutoscalerCondition) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*VerticalPodAutoscalerCondition)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *VerticalPodAutoscalerSpec) EqualVT(that *VerticalPodAutoscalerSpec) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Target.EqualVT(that.Target) {
+		return false
+	}
+	if this.UpdateMode != that.UpdateMode {
+		return false
+	}
+	if len(this.ResourcePolicies) != len(that.ResourcePolicies) {
+		return false
+	}
+	for i, vx := range this.ResourcePolicies {
+		vy := that.ResourcePolicies[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ContainerResourcePolicy{}
+			}
+			if q == nil {
+				q = &ContainerResourcePolicy{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *VerticalPodAutoscalerSpec) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*VerticalPodAutoscalerSpec)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *VerticalPodAutoscalerTarget) EqualVT(that *VerticalPodAutoscalerTarget) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Kind != that.Kind {
+		return false
+	}
+	if this.Name != that.Name {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *VerticalPodAutoscalerTarget) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*VerticalPodAutoscalerTarget)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ContainerResourcePolicy) EqualVT(that *ContainerResourcePolicy) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ContainerName != that.ContainerName {
+		return false
+	}
+	if this.Mode != that.Mode {
+		return false
+	}
+	if !this.MinAllowed.EqualVT(that.MinAllowed) {
+		return false
+	}
+	if !this.MaxAllowed.EqualVT(that.MaxAllowed) {
+		return false
+	}
+	if len(this.ControlledResource) != len(that.ControlledResource) {
+		return false
+	}
+	for i, vx := range this.ControlledResource {
+		vy := that.ControlledResource[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.ControlledValues != that.ControlledValues {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ContainerResourcePolicy) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ContainerResourcePolicy)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *VerticalPodAutoscalerStatus) EqualVT(that *VerticalPodAutoscalerStatus) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.LastRecommendedDate != that.LastRecommendedDate {
+		return false
+	}
+	if len(this.Recommendations) != len(that.Recommendations) {
+		return false
+	}
+	for i, vx := range this.Recommendations {
+		vy := that.Recommendations[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ContainerRecommendation{}
+			}
+			if q == nil {
+				q = &ContainerRecommendation{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Conditions) != len(that.Conditions) {
+		return false
+	}
+	for i, vx := range this.Conditions {
+		vy := that.Conditions[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &VPACondition{}
+			}
+			if q == nil {
+				q = &VPACondition{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *VerticalPodAutoscalerStatus) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*VerticalPodAutoscalerStatus)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ContainerRecommendation) EqualVT(that *ContainerRecommendation) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ContainerName != that.ContainerName {
+		return false
+	}
+	if !this.Target.EqualVT(that.Target) {
+		return false
+	}
+	if !this.LowerBound.EqualVT(that.LowerBound) {
+		return false
+	}
+	if !this.UpperBound.EqualVT(that.UpperBound) {
+		return false
+	}
+	if !this.UncappedTarget.EqualVT(that.UncappedTarget) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ContainerRecommendation) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ContainerRecommendation)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *VPACondition) EqualVT(that *VPACondition) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ConditionType != that.ConditionType {
+		return false
+	}
+	if this.ConditionStatus != that.ConditionStatus {
+		return false
+	}
+	if this.LastTransitionTime != that.LastTransitionTime {
+		return false
+	}
+	if this.Reason != that.Reason {
+		return false
+	}
+	if this.Message != that.Message {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *VPACondition) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*VPACondition)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
 func (m *ResCollector_Header) MarshalVT() (dAtA []byte, err error) {
 	if m == nil {
 		return nil, nil
@@ -11450,27 +18077,6 @@ func encodeVarint(dAtA []byte, offset int, v uint64) int {
 	}
 	dAtA[offset] = uint8(v)
 	return base
-}
-
-var vtprotoPool_Host = sync.Pool{
-	New: func() interface{} {
-		return &Host{}
-	},
-}
-
-func (m *Host) ResetVT() {
-	f0 := m.AllTags[:0]
-	m.Reset()
-	m.AllTags = f0
-}
-func (m *Host) ReturnToVTPool() {
-	if m != nil {
-		m.ResetVT()
-		vtprotoPool_Host.Put(m)
-	}
-}
-func HostFromVTPool() *Host {
-	return vtprotoPool_Host.Get().(*Host)
 }
 func (m *ResCollector_Header) SizeVT() (n int) {
 	if m == nil {

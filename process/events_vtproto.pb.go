@@ -6,6 +6,7 @@ package process
 
 import (
 	fmt "fmt"
+	proto "google.golang.org/protobuf/proto"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	io "io"
 )
@@ -17,6 +18,200 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+func (this *CollectorProcEvent) EqualVT(that *CollectorProcEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Hostname != that.Hostname {
+		return false
+	}
+	if !this.Host.EqualVT(that.Host) {
+		return false
+	}
+	if !this.Info.EqualVT(that.Info) {
+		return false
+	}
+	if len(this.Events) != len(that.Events) {
+		return false
+	}
+	for i, vx := range this.Events {
+		vy := that.Events[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ProcessEvent{}
+			}
+			if q == nil {
+				q = &ProcessEvent{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorProcEvent) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorProcEvent)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ProcessEvent) EqualVT(that *ProcessEvent) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.TypedEvent == nil && that.TypedEvent != nil {
+		return false
+	} else if this.TypedEvent != nil {
+		if that.TypedEvent == nil {
+			return false
+		}
+		if !this.TypedEvent.(interface {
+			EqualVT(isProcessEvent_TypedEvent) bool
+		}).EqualVT(that.TypedEvent) {
+			return false
+		}
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.CollectionTime != that.CollectionTime {
+		return false
+	}
+	if this.Pid != that.Pid {
+		return false
+	}
+	if !this.Command.EqualVT(that.Command) {
+		return false
+	}
+	if !this.User.EqualVT(that.User) {
+		return false
+	}
+	if !this.Host.EqualVT(that.Host) {
+		return false
+	}
+	if this.ContainerId != that.ContainerId {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProcessEvent) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProcessEvent)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ProcessEvent_Exec) EqualVT(thatIface isProcessEvent_TypedEvent) bool {
+	that, ok := thatIface.(*ProcessEvent_Exec)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Exec, that.Exec; p != q {
+		if p == nil {
+			p = &ProcessExec{}
+		}
+		if q == nil {
+			q = &ProcessExec{}
+		}
+		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProcessEvent_Exit) EqualVT(thatIface isProcessEvent_TypedEvent) bool {
+	that, ok := thatIface.(*ProcessEvent_Exit)
+	if !ok {
+		return false
+	}
+	if this == that {
+		return true
+	}
+	if this == nil && that != nil || this != nil && that == nil {
+		return false
+	}
+	if p, q := this.Exit, that.Exit; p != q {
+		if p == nil {
+			p = &ProcessExit{}
+		}
+		if q == nil {
+			q = &ProcessExit{}
+		}
+		if !p.EqualVT(q) {
+			return false
+		}
+	}
+	return true
+}
+
+func (this *ProcessExec) EqualVT(that *ProcessExec) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ForkTime != that.ForkTime {
+		return false
+	}
+	if this.ExecTime != that.ExecTime {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProcessExec) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProcessExec)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ProcessExit) EqualVT(that *ProcessExit) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ExecTime != that.ExecTime {
+		return false
+	}
+	if this.ExitTime != that.ExitTime {
+		return false
+	}
+	if this.ExitCode != that.ExitCode {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProcessExit) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProcessExit)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
 func (m *CollectorProcEvent) MarshalVT() (dAtA []byte, err error) {
 	if m == nil {
 		return nil, nil

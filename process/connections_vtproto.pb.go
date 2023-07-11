@@ -6,9 +6,9 @@ package process
 
 import (
 	fmt "fmt"
+	proto "google.golang.org/protobuf/proto"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	io "io"
-	sync "sync"
 )
 
 const (
@@ -18,6 +18,1029 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+func (this *CollectorConnections) EqualVT(that *CollectorConnections) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.HostName != that.HostName {
+		return false
+	}
+	if len(this.Connections) != len(that.Connections) {
+		return false
+	}
+	for i, vx := range this.Connections {
+		vy := that.Connections[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Connection{}
+			}
+			if q == nil {
+				q = &Connection{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.GroupId != that.GroupId {
+		return false
+	}
+	if this.GroupSize != that.GroupSize {
+		return false
+	}
+	if len(this.ResolvedResources) != len(that.ResolvedResources) {
+		return false
+	}
+	for i, vx := range this.ResolvedResources {
+		vy, ok := that.ResolvedResources[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &ResourceMetadata{}
+			}
+			if q == nil {
+				q = &ResourceMetadata{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.ContainerForPid) != len(that.ContainerForPid) {
+		return false
+	}
+	for i, vx := range this.ContainerForPid {
+		vy, ok := that.ContainerForPid[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if string(this.EncodedTags) != string(that.EncodedTags) {
+		return false
+	}
+	if this.NetworkId != that.NetworkId {
+		return false
+	}
+	if string(this.EncodedDNS) != string(that.EncodedDNS) {
+		return false
+	}
+	if this.ContainerHostType != that.ContainerHostType {
+		return false
+	}
+	if !this.ConnTelemetry.EqualVT(that.ConnTelemetry) {
+		return false
+	}
+	if this.Architecture != that.Architecture {
+		return false
+	}
+	if this.KernelVersion != that.KernelVersion {
+		return false
+	}
+	if this.Platform != that.Platform {
+		return false
+	}
+	if this.PlatformVersion != that.PlatformVersion {
+		return false
+	}
+	if len(this.CompilationTelemetryByAsset) != len(that.CompilationTelemetryByAsset) {
+		return false
+	}
+	for i, vx := range this.CompilationTelemetryByAsset {
+		vy, ok := that.CompilationTelemetryByAsset[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &RuntimeCompilationTelemetry{}
+			}
+			if q == nil {
+				q = &RuntimeCompilationTelemetry{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Domains) != len(that.Domains) {
+		return false
+	}
+	for i, vx := range this.Domains {
+		vy := that.Domains[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Routes) != len(that.Routes) {
+		return false
+	}
+	for i, vx := range this.Routes {
+		vy := that.Routes[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Route{}
+			}
+			if q == nil {
+				q = &Route{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.RouteMetadata) != len(that.RouteMetadata) {
+		return false
+	}
+	for i, vx := range this.RouteMetadata {
+		vy := that.RouteMetadata[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &RouteMetadata{}
+			}
+			if q == nil {
+				q = &RouteMetadata{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.AgentConfiguration.EqualVT(that.AgentConfiguration) {
+		return false
+	}
+	if string(this.EncodedDomainDatabase) != string(that.EncodedDomainDatabase) {
+		return false
+	}
+	if string(this.EncodedDnsLookups) != string(that.EncodedDnsLookups) {
+		return false
+	}
+	if string(this.EncodedConnectionsTags) != string(that.EncodedConnectionsTags) {
+		return false
+	}
+	if len(this.ConnTelemetryMap) != len(that.ConnTelemetryMap) {
+		return false
+	}
+	for i, vx := range this.ConnTelemetryMap {
+		vy, ok := that.ConnTelemetryMap[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.ResolvedHostsByName) != len(that.ResolvedHostsByName) {
+		return false
+	}
+	for i, vx := range this.ResolvedHostsByName {
+		vy, ok := that.ResolvedHostsByName[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Host{}
+			}
+			if q == nil {
+				q = &Host{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.KernelHeaderFetchResult != that.KernelHeaderFetchResult {
+		return false
+	}
+	if len(this.CORETelemetryByAsset) != len(that.CORETelemetryByAsset) {
+		return false
+	}
+	for i, vx := range this.CORETelemetryByAsset {
+		vy, ok := that.CORETelemetryByAsset[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.PrebuiltEBPFAssets) != len(that.PrebuiltEBPFAssets) {
+		return false
+	}
+	for i, vx := range this.PrebuiltEBPFAssets {
+		vy := that.PrebuiltEBPFAssets[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorConnections) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorConnections)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Connections) EqualVT(that *Connections) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Conns) != len(that.Conns) {
+		return false
+	}
+	for i, vx := range this.Conns {
+		vy := that.Conns[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Connection{}
+			}
+			if q == nil {
+				q = &Connection{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Dns) != len(that.Dns) {
+		return false
+	}
+	for i, vx := range this.Dns {
+		vy, ok := that.Dns[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DNSEntry{}
+			}
+			if q == nil {
+				q = &DNSEntry{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.ConnTelemetry.EqualVT(that.ConnTelemetry) {
+		return false
+	}
+	if len(this.Domains) != len(that.Domains) {
+		return false
+	}
+	for i, vx := range this.Domains {
+		vy := that.Domains[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.Routes) != len(that.Routes) {
+		return false
+	}
+	for i, vx := range this.Routes {
+		vy := that.Routes[i]
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &Route{}
+			}
+			if q == nil {
+				q = &Route{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.CompilationTelemetryByAsset) != len(that.CompilationTelemetryByAsset) {
+		return false
+	}
+	for i, vx := range this.CompilationTelemetryByAsset {
+		vy, ok := that.CompilationTelemetryByAsset[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &RuntimeCompilationTelemetry{}
+			}
+			if q == nil {
+				q = &RuntimeCompilationTelemetry{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if !this.AgentConfiguration.EqualVT(that.AgentConfiguration) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.ConnTelemetryMap) != len(that.ConnTelemetryMap) {
+		return false
+	}
+	for i, vx := range this.ConnTelemetryMap {
+		vy, ok := that.ConnTelemetryMap[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if this.KernelHeaderFetchResult != that.KernelHeaderFetchResult {
+		return false
+	}
+	if len(this.CORETelemetryByAsset) != len(that.CORETelemetryByAsset) {
+		return false
+	}
+	for i, vx := range this.CORETelemetryByAsset {
+		vy, ok := that.CORETelemetryByAsset[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.PrebuiltEBPFAssets) != len(that.PrebuiltEBPFAssets) {
+		return false
+	}
+	for i, vx := range this.PrebuiltEBPFAssets {
+		vy := that.PrebuiltEBPFAssets[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Connections) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Connections)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Connection) EqualVT(that *Connection) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Pid != that.Pid {
+		return false
+	}
+	if !this.Laddr.EqualVT(that.Laddr) {
+		return false
+	}
+	if !this.Raddr.EqualVT(that.Raddr) {
+		return false
+	}
+	if this.Family != that.Family {
+		return false
+	}
+	if this.Type != that.Type {
+		return false
+	}
+	if this.LastBytesSent != that.LastBytesSent {
+		return false
+	}
+	if this.LastBytesReceived != that.LastBytesReceived {
+		return false
+	}
+	if this.LastRetransmits != that.LastRetransmits {
+		return false
+	}
+	if this.Direction != that.Direction {
+		return false
+	}
+	if this.NetNS != that.NetNS {
+		return false
+	}
+	if !this.IpTranslation.EqualVT(that.IpTranslation) {
+		return false
+	}
+	if this.Rtt != that.Rtt {
+		return false
+	}
+	if this.RttVar != that.RttVar {
+		return false
+	}
+	if this.IntraHost != that.IntraHost {
+		return false
+	}
+	if this.DnsSuccessfulResponses != that.DnsSuccessfulResponses {
+		return false
+	}
+	if this.DnsFailedResponses != that.DnsFailedResponses {
+		return false
+	}
+	if this.DnsTimeouts != that.DnsTimeouts {
+		return false
+	}
+	if this.DnsSuccessLatencySum != that.DnsSuccessLatencySum {
+		return false
+	}
+	if this.DnsFailureLatencySum != that.DnsFailureLatencySum {
+		return false
+	}
+	if this.LastTcpEstablished != that.LastTcpEstablished {
+		return false
+	}
+	if this.LastTcpClosed != that.LastTcpClosed {
+		return false
+	}
+	if this.RemoteNetworkId != that.RemoteNetworkId {
+		return false
+	}
+	if len(this.DnsCountByRcode) != len(that.DnsCountByRcode) {
+		return false
+	}
+	for i, vx := range this.DnsCountByRcode {
+		vy, ok := that.DnsCountByRcode[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	if len(this.DnsStatsByDomain) != len(that.DnsStatsByDomain) {
+		return false
+	}
+	for i, vx := range this.DnsStatsByDomain {
+		vy, ok := that.DnsStatsByDomain[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DNSStats{}
+			}
+			if q == nil {
+				q = &DNSStats{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if this.RouteIdx != that.RouteIdx {
+		return false
+	}
+	if string(this.HttpAggregations) != string(that.HttpAggregations) {
+		return false
+	}
+	if this.LastPacketsSent != that.LastPacketsSent {
+		return false
+	}
+	if this.LastPacketsReceived != that.LastPacketsReceived {
+		return false
+	}
+	if this.RouteTargetIdx != that.RouteTargetIdx {
+		return false
+	}
+	if this.IsLocalPortEphemeral != that.IsLocalPortEphemeral {
+		return false
+	}
+	if len(this.DnsStatsByDomainByQueryType) != len(that.DnsStatsByDomainByQueryType) {
+		return false
+	}
+	for i, vx := range this.DnsStatsByDomainByQueryType {
+		vy, ok := that.DnsStatsByDomainByQueryType[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DNSStatsByQueryType{}
+			}
+			if q == nil {
+				q = &DNSStatsByQueryType{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.DnsStatsByDomainOffsetByQueryType) != len(that.DnsStatsByDomainOffsetByQueryType) {
+		return false
+	}
+	for i, vx := range this.DnsStatsByDomainOffsetByQueryType {
+		vy, ok := that.DnsStatsByDomainOffsetByQueryType[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DNSStatsByQueryType{}
+			}
+			if q == nil {
+				q = &DNSStatsByQueryType{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.TagsIdx != that.TagsIdx {
+		return false
+	}
+	if this.StateIndex != that.StateIndex {
+		return false
+	}
+	if this.TagsChecksum != that.TagsChecksum {
+		return false
+	}
+	if !this.Protocol.EqualVT(that.Protocol) {
+		return false
+	}
+	if string(this.DataStreamsAggregations) != string(that.DataStreamsAggregations) {
+		return false
+	}
+	if string(this.Http2Aggregations) != string(that.Http2Aggregations) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Connection) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Connection)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ResourceMetadata) EqualVT(that *ResourceMetadata) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Id != that.Id {
+		return false
+	}
+	if this.Key != that.Key {
+		return false
+	}
+	if string(this.ByteKey) != string(that.ByteKey) {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	if this.TagIndex != that.TagIndex {
+		return false
+	}
+	if this.TagsModified != that.TagsModified {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ResourceMetadata) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ResourceMetadata)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ConnectionsTelemetry) EqualVT(that *ConnectionsTelemetry) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.MonotonicKprobesTriggered != that.MonotonicKprobesTriggered {
+		return false
+	}
+	if this.MonotonicKprobesMissed != that.MonotonicKprobesMissed {
+		return false
+	}
+	if this.MonotonicConntrackRegisters != that.MonotonicConntrackRegisters {
+		return false
+	}
+	if this.MonotonicConntrackRegistersDropped != that.MonotonicConntrackRegistersDropped {
+		return false
+	}
+	if this.MonotonicDnsPacketsProcessed != that.MonotonicDnsPacketsProcessed {
+		return false
+	}
+	if this.MonotonicConnsClosed != that.MonotonicConnsClosed {
+		return false
+	}
+	if this.ConnsBpfMapSize != that.ConnsBpfMapSize {
+		return false
+	}
+	if this.MonotonicUdpSendsProcessed != that.MonotonicUdpSendsProcessed {
+		return false
+	}
+	if this.MonotonicUdpSendsMissed != that.MonotonicUdpSendsMissed {
+		return false
+	}
+	if this.ConntrackSamplingPercent != that.ConntrackSamplingPercent {
+		return false
+	}
+	if this.DnsStatsDropped != that.DnsStatsDropped {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ConnectionsTelemetry) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ConnectionsTelemetry)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *CollectorConnectionsTelemetry) EqualVT(that *CollectorConnectionsTelemetry) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.KprobesTriggered != that.KprobesTriggered {
+		return false
+	}
+	if this.KprobesMissed != that.KprobesMissed {
+		return false
+	}
+	if this.ConntrackRegisters != that.ConntrackRegisters {
+		return false
+	}
+	if this.ConntrackRegistersDropped != that.ConntrackRegistersDropped {
+		return false
+	}
+	if this.DnsPacketsProcessed != that.DnsPacketsProcessed {
+		return false
+	}
+	if this.ConnsClosed != that.ConnsClosed {
+		return false
+	}
+	if this.ConnsBpfMapSize != that.ConnsBpfMapSize {
+		return false
+	}
+	if this.UdpSendsProcessed != that.UdpSendsProcessed {
+		return false
+	}
+	if this.UdpSendsMissed != that.UdpSendsMissed {
+		return false
+	}
+	if this.ConntrackSamplingPercent != that.ConntrackSamplingPercent {
+		return false
+	}
+	if this.DnsStatsDropped != that.DnsStatsDropped {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *CollectorConnectionsTelemetry) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*CollectorConnectionsTelemetry)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *RuntimeCompilationTelemetry) EqualVT(that *RuntimeCompilationTelemetry) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.RuntimeCompilationEnabled != that.RuntimeCompilationEnabled {
+		return false
+	}
+	if this.RuntimeCompilationResult != that.RuntimeCompilationResult {
+		return false
+	}
+	if this.RuntimeCompilationDuration != that.RuntimeCompilationDuration {
+		return false
+	}
+	if this.KernelHeaderFetchResult != that.KernelHeaderFetchResult {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RuntimeCompilationTelemetry) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RuntimeCompilationTelemetry)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *AgentConfiguration) EqualVT(that *AgentConfiguration) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.NpmEnabled != that.NpmEnabled {
+		return false
+	}
+	if this.UsmEnabled != that.UsmEnabled {
+		return false
+	}
+	if this.DsmEnabled != that.DsmEnabled {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *AgentConfiguration) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*AgentConfiguration)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Route) EqualVT(that *Route) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if !this.Subnet.EqualVT(that.Subnet) {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Route) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Route)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Subnet) EqualVT(that *Subnet) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Alias != that.Alias {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Subnet) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Subnet)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *RouteMetadata) EqualVT(that *RouteMetadata) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Alias != that.Alias {
+		return false
+	}
+	if this.TagIndex != that.TagIndex {
+		return false
+	}
+	if this.TagsModified != that.TagsModified {
+		return false
+	}
+	if len(this.Tags) != len(that.Tags) {
+		return false
+	}
+	for i, vx := range this.Tags {
+		vy := that.Tags[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *RouteMetadata) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*RouteMetadata)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *IPTranslation) EqualVT(that *IPTranslation) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.ReplSrcIP != that.ReplSrcIP {
+		return false
+	}
+	if this.ReplDstIP != that.ReplDstIP {
+		return false
+	}
+	if this.ReplSrcPort != that.ReplSrcPort {
+		return false
+	}
+	if this.ReplDstPort != that.ReplDstPort {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *IPTranslation) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*IPTranslation)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *Addr) EqualVT(that *Addr) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.Ip != that.Ip {
+		return false
+	}
+	if this.Port != that.Port {
+		return false
+	}
+	if this.ContainerId != that.ContainerId {
+		return false
+	}
+	if this.HostName != that.HostName {
+		return false
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *Addr) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*Addr)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *ProtocolStack) EqualVT(that *ProtocolStack) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Stack) != len(that.Stack) {
+		return false
+	}
+	for i, vx := range this.Stack {
+		vy := that.Stack[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *ProtocolStack) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*ProtocolStack)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *DNSEntry) EqualVT(that *DNSEntry) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.Names) != len(that.Names) {
+		return false
+	}
+	for i, vx := range this.Names {
+		vy := that.Names[i]
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DNSEntry) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DNSEntry)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *DNSStats) EqualVT(that *DNSStats) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if this.DnsTimeouts != that.DnsTimeouts {
+		return false
+	}
+	if this.DnsSuccessLatencySum != that.DnsSuccessLatencySum {
+		return false
+	}
+	if this.DnsFailureLatencySum != that.DnsFailureLatencySum {
+		return false
+	}
+	if len(this.DnsCountByRcode) != len(that.DnsCountByRcode) {
+		return false
+	}
+	for i, vx := range this.DnsCountByRcode {
+		vy, ok := that.DnsCountByRcode[i]
+		if !ok {
+			return false
+		}
+		if vx != vy {
+			return false
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DNSStats) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DNSStats)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
+func (this *DNSStatsByQueryType) EqualVT(that *DNSStatsByQueryType) bool {
+	if this == that {
+		return true
+	} else if this == nil || that == nil {
+		return false
+	}
+	if len(this.DnsStatsByQueryType) != len(that.DnsStatsByQueryType) {
+		return false
+	}
+	for i, vx := range this.DnsStatsByQueryType {
+		vy, ok := that.DnsStatsByQueryType[i]
+		if !ok {
+			return false
+		}
+		if p, q := vx, vy; p != q {
+			if p == nil {
+				p = &DNSStats{}
+			}
+			if q == nil {
+				q = &DNSStats{}
+			}
+			if !p.EqualVT(q) {
+				return false
+			}
+		}
+	}
+	return string(this.unknownFields) == string(that.unknownFields)
+}
+
+func (this *DNSStatsByQueryType) EqualMessageVT(thatMsg proto.Message) bool {
+	that, ok := thatMsg.(*DNSStatsByQueryType)
+	if !ok {
+		return false
+	}
+	return this.EqualVT(that)
+}
 func (m *CollectorConnections) MarshalVT() (dAtA []byte, err error) {
 	if m == nil {
 		return nil, nil
@@ -1799,30 +2822,6 @@ func (m *DNSStatsByQueryType) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-var vtprotoPool_Connections = sync.Pool{
-	New: func() interface{} {
-		return &Connections{}
-	},
-}
-
-func (m *Connections) ResetVT() {
-	f0 := m.Domains[:0]
-	f1 := m.Tags[:0]
-	f2 := m.PrebuiltEBPFAssets[:0]
-	m.Reset()
-	m.Domains = f0
-	m.Tags = f1
-	m.PrebuiltEBPFAssets = f2
-}
-func (m *Connections) ReturnToVTPool() {
-	if m != nil {
-		m.ResetVT()
-		vtprotoPool_Connections.Put(m)
-	}
-}
-func ConnectionsFromVTPool() *Connections {
-	return vtprotoPool_Connections.Get().(*Connections)
-}
 func (m *CollectorConnections) SizeVT() (n int) {
 	if m == nil {
 		return 0
@@ -4114,14 +5113,7 @@ func (m *Connections) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if len(m.Conns) == cap(m.Conns) {
-				m.Conns = append(m.Conns, &Connection{})
-			} else {
-				m.Conns = m.Conns[:len(m.Conns)+1]
-				if m.Conns[len(m.Conns)-1] == nil {
-					m.Conns[len(m.Conns)-1] = &Connection{}
-				}
-			}
+			m.Conns = append(m.Conns, &Connection{})
 			if err := m.Conns[len(m.Conns)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -4352,14 +5344,7 @@ func (m *Connections) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if len(m.Routes) == cap(m.Routes) {
-				m.Routes = append(m.Routes, &Route{})
-			} else {
-				m.Routes = m.Routes[:len(m.Routes)+1]
-				if m.Routes[len(m.Routes)-1] == nil {
-					m.Routes[len(m.Routes)-1] = &Route{}
-				}
-			}
+			m.Routes = append(m.Routes, &Route{})
 			if err := m.Routes[len(m.Routes)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
