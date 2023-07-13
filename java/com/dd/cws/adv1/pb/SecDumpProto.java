@@ -5729,12 +5729,6 @@ public final class SecDumpProto {
     com.dd.cws.adv1.pb.SecDumpProto.GenerationType getGenerationType();
 
     /**
-     * <code>bool is_exec_child = 10;</code>
-     * @return The isExecChild.
-     */
-    boolean getIsExecChild();
-
-    /**
      * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 9;</code>
      */
     java.util.List<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule> 
@@ -5960,17 +5954,6 @@ public final class SecDumpProto {
     @java.lang.Override public com.dd.cws.adv1.pb.SecDumpProto.GenerationType getGenerationType() {
       com.dd.cws.adv1.pb.SecDumpProto.GenerationType result = com.dd.cws.adv1.pb.SecDumpProto.GenerationType.forNumber(generationType_);
       return result == null ? com.dd.cws.adv1.pb.SecDumpProto.GenerationType.UNRECOGNIZED : result;
-    }
-
-    public static final int IS_EXEC_CHILD_FIELD_NUMBER = 10;
-    private boolean isExecChild_ = false;
-    /**
-     * <code>bool is_exec_child = 10;</code>
-     * @return The isExecChild.
-     */
-    @java.lang.Override
-    public boolean getIsExecChild() {
-      return isExecChild_;
     }
 
     public static final int MATCHED_RULES_FIELD_NUMBER = 9;
@@ -6250,9 +6233,6 @@ public final class SecDumpProto {
       for (int i = 0; i < matchedRules_.size(); i++) {
         output.writeMessage(9, matchedRules_.get(i));
       }
-      if (isExecChild_ != false) {
-        output.writeBool(10, isExecChild_);
-      }
       getUnknownFields().writeTo(output);
     }
 
@@ -6304,10 +6284,6 @@ public final class SecDumpProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(9, matchedRules_.get(i));
       }
-      if (isExecChild_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(10, isExecChild_);
-      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -6329,8 +6305,6 @@ public final class SecDumpProto {
             .equals(other.getProcess())) return false;
       }
       if (generationType_ != other.generationType_) return false;
-      if (getIsExecChild()
-          != other.getIsExecChild()) return false;
       if (!getMatchedRulesList()
           .equals(other.getMatchedRulesList())) return false;
       if (!getChildrenList()
@@ -6360,9 +6334,6 @@ public final class SecDumpProto {
       }
       hash = (37 * hash) + GENERATION_TYPE_FIELD_NUMBER;
       hash = (53 * hash) + generationType_;
-      hash = (37 * hash) + IS_EXEC_CHILD_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getIsExecChild());
       if (getMatchedRulesCount() > 0) {
         hash = (37 * hash) + MATCHED_RULES_FIELD_NUMBER;
         hash = (53 * hash) + getMatchedRulesList().hashCode();
@@ -6522,42 +6493,41 @@ public final class SecDumpProto {
           processBuilder_ = null;
         }
         generationType_ = 0;
-        isExecChild_ = false;
         if (matchedRulesBuilder_ == null) {
           matchedRules_ = java.util.Collections.emptyList();
         } else {
           matchedRules_ = null;
           matchedRulesBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000004);
         if (childrenBuilder_ == null) {
           children_ = java.util.Collections.emptyList();
         } else {
           children_ = null;
           childrenBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000008);
         if (filesBuilder_ == null) {
           files_ = java.util.Collections.emptyList();
         } else {
           files_ = null;
           filesBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000010);
         if (dnsNamesBuilder_ == null) {
           dnsNames_ = java.util.Collections.emptyList();
         } else {
           dnsNames_ = null;
           dnsNamesBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000020);
         if (socketsBuilder_ == null) {
           sockets_ = java.util.Collections.emptyList();
         } else {
           sockets_ = null;
           socketsBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000040);
         syscalls_ = emptyIntList();
         return this;
       }
@@ -6593,53 +6563,53 @@ public final class SecDumpProto {
 
       private void buildPartialRepeatedFields(com.dd.cws.adv1.pb.SecDumpProto.ProcessActivityNode result) {
         if (matchedRulesBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) != 0)) {
+          if (((bitField0_ & 0x00000004) != 0)) {
             matchedRules_ = java.util.Collections.unmodifiableList(matchedRules_);
-            bitField0_ = (bitField0_ & ~0x00000008);
+            bitField0_ = (bitField0_ & ~0x00000004);
           }
           result.matchedRules_ = matchedRules_;
         } else {
           result.matchedRules_ = matchedRulesBuilder_.build();
         }
         if (childrenBuilder_ == null) {
-          if (((bitField0_ & 0x00000010) != 0)) {
+          if (((bitField0_ & 0x00000008) != 0)) {
             children_ = java.util.Collections.unmodifiableList(children_);
-            bitField0_ = (bitField0_ & ~0x00000010);
+            bitField0_ = (bitField0_ & ~0x00000008);
           }
           result.children_ = children_;
         } else {
           result.children_ = childrenBuilder_.build();
         }
         if (filesBuilder_ == null) {
-          if (((bitField0_ & 0x00000020) != 0)) {
+          if (((bitField0_ & 0x00000010) != 0)) {
             files_ = java.util.Collections.unmodifiableList(files_);
-            bitField0_ = (bitField0_ & ~0x00000020);
+            bitField0_ = (bitField0_ & ~0x00000010);
           }
           result.files_ = files_;
         } else {
           result.files_ = filesBuilder_.build();
         }
         if (dnsNamesBuilder_ == null) {
-          if (((bitField0_ & 0x00000040) != 0)) {
+          if (((bitField0_ & 0x00000020) != 0)) {
             dnsNames_ = java.util.Collections.unmodifiableList(dnsNames_);
-            bitField0_ = (bitField0_ & ~0x00000040);
+            bitField0_ = (bitField0_ & ~0x00000020);
           }
           result.dnsNames_ = dnsNames_;
         } else {
           result.dnsNames_ = dnsNamesBuilder_.build();
         }
         if (socketsBuilder_ == null) {
-          if (((bitField0_ & 0x00000080) != 0)) {
+          if (((bitField0_ & 0x00000040) != 0)) {
             sockets_ = java.util.Collections.unmodifiableList(sockets_);
-            bitField0_ = (bitField0_ & ~0x00000080);
+            bitField0_ = (bitField0_ & ~0x00000040);
           }
           result.sockets_ = sockets_;
         } else {
           result.sockets_ = socketsBuilder_.build();
         }
-        if (((bitField0_ & 0x00000100) != 0)) {
+        if (((bitField0_ & 0x00000080) != 0)) {
           syscalls_.makeImmutable();
-          bitField0_ = (bitField0_ & ~0x00000100);
+          bitField0_ = (bitField0_ & ~0x00000080);
         }
         result.syscalls_ = syscalls_;
       }
@@ -6653,9 +6623,6 @@ public final class SecDumpProto {
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.generationType_ = generationType_;
-        }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.isExecChild_ = isExecChild_;
         }
       }
 
@@ -6709,14 +6676,11 @@ public final class SecDumpProto {
         if (other.generationType_ != 0) {
           setGenerationTypeValue(other.getGenerationTypeValue());
         }
-        if (other.getIsExecChild() != false) {
-          setIsExecChild(other.getIsExecChild());
-        }
         if (matchedRulesBuilder_ == null) {
           if (!other.matchedRules_.isEmpty()) {
             if (matchedRules_.isEmpty()) {
               matchedRules_ = other.matchedRules_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000004);
             } else {
               ensureMatchedRulesIsMutable();
               matchedRules_.addAll(other.matchedRules_);
@@ -6729,7 +6693,7 @@ public final class SecDumpProto {
               matchedRulesBuilder_.dispose();
               matchedRulesBuilder_ = null;
               matchedRules_ = other.matchedRules_;
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000004);
               matchedRulesBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getMatchedRulesFieldBuilder() : null;
@@ -6742,7 +6706,7 @@ public final class SecDumpProto {
           if (!other.children_.isEmpty()) {
             if (children_.isEmpty()) {
               children_ = other.children_;
-              bitField0_ = (bitField0_ & ~0x00000010);
+              bitField0_ = (bitField0_ & ~0x00000008);
             } else {
               ensureChildrenIsMutable();
               children_.addAll(other.children_);
@@ -6755,7 +6719,7 @@ public final class SecDumpProto {
               childrenBuilder_.dispose();
               childrenBuilder_ = null;
               children_ = other.children_;
-              bitField0_ = (bitField0_ & ~0x00000010);
+              bitField0_ = (bitField0_ & ~0x00000008);
               childrenBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getChildrenFieldBuilder() : null;
@@ -6768,7 +6732,7 @@ public final class SecDumpProto {
           if (!other.files_.isEmpty()) {
             if (files_.isEmpty()) {
               files_ = other.files_;
-              bitField0_ = (bitField0_ & ~0x00000020);
+              bitField0_ = (bitField0_ & ~0x00000010);
             } else {
               ensureFilesIsMutable();
               files_.addAll(other.files_);
@@ -6781,7 +6745,7 @@ public final class SecDumpProto {
               filesBuilder_.dispose();
               filesBuilder_ = null;
               files_ = other.files_;
-              bitField0_ = (bitField0_ & ~0x00000020);
+              bitField0_ = (bitField0_ & ~0x00000010);
               filesBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getFilesFieldBuilder() : null;
@@ -6794,7 +6758,7 @@ public final class SecDumpProto {
           if (!other.dnsNames_.isEmpty()) {
             if (dnsNames_.isEmpty()) {
               dnsNames_ = other.dnsNames_;
-              bitField0_ = (bitField0_ & ~0x00000040);
+              bitField0_ = (bitField0_ & ~0x00000020);
             } else {
               ensureDnsNamesIsMutable();
               dnsNames_.addAll(other.dnsNames_);
@@ -6807,7 +6771,7 @@ public final class SecDumpProto {
               dnsNamesBuilder_.dispose();
               dnsNamesBuilder_ = null;
               dnsNames_ = other.dnsNames_;
-              bitField0_ = (bitField0_ & ~0x00000040);
+              bitField0_ = (bitField0_ & ~0x00000020);
               dnsNamesBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getDnsNamesFieldBuilder() : null;
@@ -6820,7 +6784,7 @@ public final class SecDumpProto {
           if (!other.sockets_.isEmpty()) {
             if (sockets_.isEmpty()) {
               sockets_ = other.sockets_;
-              bitField0_ = (bitField0_ & ~0x00000080);
+              bitField0_ = (bitField0_ & ~0x00000040);
             } else {
               ensureSocketsIsMutable();
               sockets_.addAll(other.sockets_);
@@ -6833,7 +6797,7 @@ public final class SecDumpProto {
               socketsBuilder_.dispose();
               socketsBuilder_ = null;
               sockets_ = other.sockets_;
-              bitField0_ = (bitField0_ & ~0x00000080);
+              bitField0_ = (bitField0_ & ~0x00000040);
               socketsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getSocketsFieldBuilder() : null;
@@ -6845,7 +6809,7 @@ public final class SecDumpProto {
         if (!other.syscalls_.isEmpty()) {
           if (syscalls_.isEmpty()) {
             syscalls_ = other.syscalls_;
-            bitField0_ = (bitField0_ & ~0x00000100);
+            bitField0_ = (bitField0_ & ~0x00000080);
           } else {
             ensureSyscallsIsMutable();
             syscalls_.addAll(other.syscalls_);
@@ -6971,11 +6935,6 @@ public final class SecDumpProto {
                 }
                 break;
               } // case 74
-              case 80: {
-                isExecChild_ = input.readBool();
-                bitField0_ |= 0x00000004;
-                break;
-              } // case 80
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -7165,44 +7124,12 @@ public final class SecDumpProto {
         return this;
       }
 
-      private boolean isExecChild_ ;
-      /**
-       * <code>bool is_exec_child = 10;</code>
-       * @return The isExecChild.
-       */
-      @java.lang.Override
-      public boolean getIsExecChild() {
-        return isExecChild_;
-      }
-      /**
-       * <code>bool is_exec_child = 10;</code>
-       * @param value The isExecChild to set.
-       * @return This builder for chaining.
-       */
-      public Builder setIsExecChild(boolean value) {
-        
-        isExecChild_ = value;
-        bitField0_ |= 0x00000004;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bool is_exec_child = 10;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearIsExecChild() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        isExecChild_ = false;
-        onChanged();
-        return this;
-      }
-
       private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule> matchedRules_ =
         java.util.Collections.emptyList();
       private void ensureMatchedRulesIsMutable() {
-        if (!((bitField0_ & 0x00000008) != 0)) {
+        if (!((bitField0_ & 0x00000004) != 0)) {
           matchedRules_ = new java.util.ArrayList<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule>(matchedRules_);
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000004;
          }
       }
 
@@ -7352,7 +7279,7 @@ public final class SecDumpProto {
       public Builder clearMatchedRules() {
         if (matchedRulesBuilder_ == null) {
           matchedRules_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
+          bitField0_ = (bitField0_ & ~0x00000004);
           onChanged();
         } else {
           matchedRulesBuilder_.clear();
@@ -7429,7 +7356,7 @@ public final class SecDumpProto {
           matchedRulesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               com.dd.cws.adv1.pb.SecDumpProto.MatchedRule, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder, com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder>(
                   matchedRules_,
-                  ((bitField0_ & 0x00000008) != 0),
+                  ((bitField0_ & 0x00000004) != 0),
                   getParentForChildren(),
                   isClean());
           matchedRules_ = null;
@@ -7440,9 +7367,9 @@ public final class SecDumpProto {
       private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.ProcessActivityNode> children_ =
         java.util.Collections.emptyList();
       private void ensureChildrenIsMutable() {
-        if (!((bitField0_ & 0x00000010) != 0)) {
+        if (!((bitField0_ & 0x00000008) != 0)) {
           children_ = new java.util.ArrayList<com.dd.cws.adv1.pb.SecDumpProto.ProcessActivityNode>(children_);
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000008;
          }
       }
 
@@ -7592,7 +7519,7 @@ public final class SecDumpProto {
       public Builder clearChildren() {
         if (childrenBuilder_ == null) {
           children_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000008);
           onChanged();
         } else {
           childrenBuilder_.clear();
@@ -7669,7 +7596,7 @@ public final class SecDumpProto {
           childrenBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               com.dd.cws.adv1.pb.SecDumpProto.ProcessActivityNode, com.dd.cws.adv1.pb.SecDumpProto.ProcessActivityNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.ProcessActivityNodeOrBuilder>(
                   children_,
-                  ((bitField0_ & 0x00000010) != 0),
+                  ((bitField0_ & 0x00000008) != 0),
                   getParentForChildren(),
                   isClean());
           children_ = null;
@@ -7680,9 +7607,9 @@ public final class SecDumpProto {
       private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.FileActivityNode> files_ =
         java.util.Collections.emptyList();
       private void ensureFilesIsMutable() {
-        if (!((bitField0_ & 0x00000020) != 0)) {
+        if (!((bitField0_ & 0x00000010) != 0)) {
           files_ = new java.util.ArrayList<com.dd.cws.adv1.pb.SecDumpProto.FileActivityNode>(files_);
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000010;
          }
       }
 
@@ -7832,7 +7759,7 @@ public final class SecDumpProto {
       public Builder clearFiles() {
         if (filesBuilder_ == null) {
           files_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000010);
           onChanged();
         } else {
           filesBuilder_.clear();
@@ -7909,7 +7836,7 @@ public final class SecDumpProto {
           filesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               com.dd.cws.adv1.pb.SecDumpProto.FileActivityNode, com.dd.cws.adv1.pb.SecDumpProto.FileActivityNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.FileActivityNodeOrBuilder>(
                   files_,
-                  ((bitField0_ & 0x00000020) != 0),
+                  ((bitField0_ & 0x00000010) != 0),
                   getParentForChildren(),
                   isClean());
           files_ = null;
@@ -7920,9 +7847,9 @@ public final class SecDumpProto {
       private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.DNSNode> dnsNames_ =
         java.util.Collections.emptyList();
       private void ensureDnsNamesIsMutable() {
-        if (!((bitField0_ & 0x00000040) != 0)) {
+        if (!((bitField0_ & 0x00000020) != 0)) {
           dnsNames_ = new java.util.ArrayList<com.dd.cws.adv1.pb.SecDumpProto.DNSNode>(dnsNames_);
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000020;
          }
       }
 
@@ -8072,7 +7999,7 @@ public final class SecDumpProto {
       public Builder clearDnsNames() {
         if (dnsNamesBuilder_ == null) {
           dnsNames_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000020);
           onChanged();
         } else {
           dnsNamesBuilder_.clear();
@@ -8149,7 +8076,7 @@ public final class SecDumpProto {
           dnsNamesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               com.dd.cws.adv1.pb.SecDumpProto.DNSNode, com.dd.cws.adv1.pb.SecDumpProto.DNSNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.DNSNodeOrBuilder>(
                   dnsNames_,
-                  ((bitField0_ & 0x00000040) != 0),
+                  ((bitField0_ & 0x00000020) != 0),
                   getParentForChildren(),
                   isClean());
           dnsNames_ = null;
@@ -8160,9 +8087,9 @@ public final class SecDumpProto {
       private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.SocketNode> sockets_ =
         java.util.Collections.emptyList();
       private void ensureSocketsIsMutable() {
-        if (!((bitField0_ & 0x00000080) != 0)) {
+        if (!((bitField0_ & 0x00000040) != 0)) {
           sockets_ = new java.util.ArrayList<com.dd.cws.adv1.pb.SecDumpProto.SocketNode>(sockets_);
-          bitField0_ |= 0x00000080;
+          bitField0_ |= 0x00000040;
          }
       }
 
@@ -8312,7 +8239,7 @@ public final class SecDumpProto {
       public Builder clearSockets() {
         if (socketsBuilder_ == null) {
           sockets_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000080);
+          bitField0_ = (bitField0_ & ~0x00000040);
           onChanged();
         } else {
           socketsBuilder_.clear();
@@ -8389,7 +8316,7 @@ public final class SecDumpProto {
           socketsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               com.dd.cws.adv1.pb.SecDumpProto.SocketNode, com.dd.cws.adv1.pb.SecDumpProto.SocketNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.SocketNodeOrBuilder>(
                   sockets_,
-                  ((bitField0_ & 0x00000080) != 0),
+                  ((bitField0_ & 0x00000040) != 0),
                   getParentForChildren(),
                   isClean());
           sockets_ = null;
@@ -8399,9 +8326,9 @@ public final class SecDumpProto {
 
       private com.google.protobuf.Internal.IntList syscalls_ = emptyIntList();
       private void ensureSyscallsIsMutable() {
-        if (!((bitField0_ & 0x00000100) != 0)) {
+        if (!((bitField0_ & 0x00000080) != 0)) {
           syscalls_ = mutableCopy(syscalls_);
-          bitField0_ |= 0x00000100;
+          bitField0_ |= 0x00000080;
         }
       }
       /**
@@ -8410,7 +8337,7 @@ public final class SecDumpProto {
        */
       public java.util.List<java.lang.Integer>
           getSyscallsList() {
-        return ((bitField0_ & 0x00000100) != 0) ?
+        return ((bitField0_ & 0x00000080) != 0) ?
                  java.util.Collections.unmodifiableList(syscalls_) : syscalls_;
       }
       /**
@@ -8473,7 +8400,7 @@ public final class SecDumpProto {
        */
       public Builder clearSyscalls() {
         syscalls_ = emptyIntList();
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000080);
         onChanged();
         return this;
       }
@@ -8744,6 +8671,12 @@ public final class SecDumpProto {
      * @return The envsTruncated.
      */
     boolean getEnvsTruncated();
+
+    /**
+     * <code>bool is_exec_child = 21;</code>
+     * @return The isExecChild.
+     */
+    boolean getIsExecChild();
   }
   /**
    * Protobuf type {@code datadog.cws.dumpsv1.ProcessInfo}
@@ -9203,6 +9136,17 @@ public final class SecDumpProto {
       return envsTruncated_;
     }
 
+    public static final int IS_EXEC_CHILD_FIELD_NUMBER = 21;
+    private boolean isExecChild_ = false;
+    /**
+     * <code>bool is_exec_child = 21;</code>
+     * @return The isExecChild.
+     */
+    @java.lang.Override
+    public boolean getIsExecChild() {
+      return isExecChild_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -9276,6 +9220,9 @@ public final class SecDumpProto {
       }
       if (envsTruncated_ != false) {
         output.writeBool(20, envsTruncated_);
+      }
+      if (isExecChild_ != false) {
+        output.writeBool(21, isExecChild_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -9370,6 +9317,10 @@ public final class SecDumpProto {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(20, envsTruncated_);
       }
+      if (isExecChild_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(21, isExecChild_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -9431,6 +9382,8 @@ public final class SecDumpProto {
           .equals(other.getEnvsList())) return false;
       if (getEnvsTruncated()
           != other.getEnvsTruncated()) return false;
+      if (getIsExecChild()
+          != other.getIsExecChild()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -9498,6 +9451,9 @@ public final class SecDumpProto {
       hash = (37 * hash) + ENVS_TRUNCATED_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getEnvsTruncated());
+      hash = (37 * hash) + IS_EXEC_CHILD_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsExecChild());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -9657,6 +9613,7 @@ public final class SecDumpProto {
         envs_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00040000);
         envsTruncated_ = false;
+        isExecChild_ = false;
         return this;
       }
 
@@ -9761,6 +9718,9 @@ public final class SecDumpProto {
         }
         if (((from_bitField0_ & 0x00080000) != 0)) {
           result.envsTruncated_ = envsTruncated_;
+        }
+        if (((from_bitField0_ & 0x00100000) != 0)) {
+          result.isExecChild_ = isExecChild_;
         }
       }
 
@@ -9889,6 +9849,9 @@ public final class SecDumpProto {
         }
         if (other.getEnvsTruncated() != false) {
           setEnvsTruncated(other.getEnvsTruncated());
+        }
+        if (other.getIsExecChild() != false) {
+          setIsExecChild(other.getIsExecChild());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -10022,6 +9985,11 @@ public final class SecDumpProto {
                 bitField0_ |= 0x00080000;
                 break;
               } // case 160
+              case 168: {
+                isExecChild_ = input.readBool();
+                bitField0_ |= 0x00100000;
+                break;
+              } // case 168
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -11153,6 +11121,38 @@ public final class SecDumpProto {
       public Builder clearEnvsTruncated() {
         bitField0_ = (bitField0_ & ~0x00080000);
         envsTruncated_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean isExecChild_ ;
+      /**
+       * <code>bool is_exec_child = 21;</code>
+       * @return The isExecChild.
+       */
+      @java.lang.Override
+      public boolean getIsExecChild() {
+        return isExecChild_;
+      }
+      /**
+       * <code>bool is_exec_child = 21;</code>
+       * @param value The isExecChild to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsExecChild(boolean value) {
+        
+        isExecChild_ = value;
+        bitField0_ |= 0x00100000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool is_exec_child = 21;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsExecChild() {
+        bitField0_ = (bitField0_ & ~0x00100000);
+        isExecChild_ = false;
         onChanged();
         return this;
       }
@@ -23527,28 +23527,28 @@ java.lang.String defaultValue) {
       "(\0132\035.datadog.cws.dumpsv1.Metadata\022\014\n\004tag" +
       "s\030\004 \003(\t\022\020\n\010syscalls\030\005 \003(\r\0226\n\004tree\030\006 \003(\0132" +
       "(.datadog.cws.dumpsv1.ProcessActivityNod" +
-      "e\"\303\003\n\023ProcessActivityNode\0221\n\007process\030\001 \001" +
+      "e\"\254\003\n\023ProcessActivityNode\0221\n\007process\030\001 \001" +
       "(\0132 .datadog.cws.dumpsv1.ProcessInfo\022<\n\017" +
       "generation_type\030\010 \001(\0162#.datadog.cws.dump" +
-      "sv1.GenerationType\022\025\n\ris_exec_child\030\n \001(" +
-      "\010\0227\n\rmatched_rules\030\t \003(\0132 .datadog.cws.d" +
-      "umpsv1.MatchedRule\022:\n\010children\030\003 \003(\0132(.d" +
-      "atadog.cws.dumpsv1.ProcessActivityNode\0224" +
-      "\n\005files\030\004 \003(\0132%.datadog.cws.dumpsv1.File" +
-      "ActivityNode\022/\n\tdns_names\030\005 \003(\0132\034.datado" +
-      "g.cws.dumpsv1.DNSNode\0220\n\007sockets\030\006 \003(\0132\037" +
-      ".datadog.cws.dumpsv1.SocketNode\022\020\n\010sysca" +
-      "lls\030\007 \003(\rJ\004\010\002\020\003\"\244\003\n\013ProcessInfo\022\013\n\003pid\030\001" +
-      " \001(\r\022\013\n\003tid\030\002 \001(\r\022\014\n\004ppid\030\003 \001(\r\022\016\n\006cooki" +
-      "e\030\004 \001(\r\022\021\n\tis_thread\030\005 \001(\010\022+\n\004file\030\006 \001(\013" +
-      "2\035.datadog.cws.dumpsv1.FileInfo\022\024\n\014conta" +
-      "iner_id\030\007 \001(\t\022\017\n\007span_id\030\010 \001(\004\022\020\n\010trace_" +
-      "id\030\t \001(\004\022\013\n\003tty\030\n \001(\t\022\014\n\004comm\030\013 \001(\t\022\021\n\tf" +
-      "ork_time\030\014 \001(\004\022\021\n\texit_time\030\r \001(\004\022\021\n\texe" +
-      "c_time\030\016 \001(\004\0225\n\013credentials\030\017 \001(\0132 .data" +
-      "dog.cws.dumpsv1.Credentials\022\014\n\004args\030\020 \003(" +
-      "\t\022\r\n\005argv0\030\021 \001(\t\022\026\n\016args_truncated\030\022 \001(\010" +
-      "\022\014\n\004envs\030\023 \003(\t\022\026\n\016envs_truncated\030\024 \001(\010\"\330" +
+      "sv1.GenerationType\0227\n\rmatched_rules\030\t \003(" +
+      "\0132 .datadog.cws.dumpsv1.MatchedRule\022:\n\010c" +
+      "hildren\030\003 \003(\0132(.datadog.cws.dumpsv1.Proc" +
+      "essActivityNode\0224\n\005files\030\004 \003(\0132%.datadog" +
+      ".cws.dumpsv1.FileActivityNode\022/\n\tdns_nam" +
+      "es\030\005 \003(\0132\034.datadog.cws.dumpsv1.DNSNode\0220" +
+      "\n\007sockets\030\006 \003(\0132\037.datadog.cws.dumpsv1.So" +
+      "cketNode\022\020\n\010syscalls\030\007 \003(\rJ\004\010\002\020\003\"\273\003\n\013Pro" +
+      "cessInfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\014\n\004pp" +
+      "id\030\003 \001(\r\022\016\n\006cookie\030\004 \001(\r\022\021\n\tis_thread\030\005 " +
+      "\001(\010\022+\n\004file\030\006 \001(\0132\035.datadog.cws.dumpsv1." +
+      "FileInfo\022\024\n\014container_id\030\007 \001(\t\022\017\n\007span_i" +
+      "d\030\010 \001(\004\022\020\n\010trace_id\030\t \001(\004\022\013\n\003tty\030\n \001(\t\022\014" +
+      "\n\004comm\030\013 \001(\t\022\021\n\tfork_time\030\014 \001(\004\022\021\n\texit_" +
+      "time\030\r \001(\004\022\021\n\texec_time\030\016 \001(\004\0225\n\013credent" +
+      "ials\030\017 \001(\0132 .datadog.cws.dumpsv1.Credent" +
+      "ials\022\014\n\004args\030\020 \003(\t\022\r\n\005argv0\030\021 \001(\t\022\026\n\016arg" +
+      "s_truncated\030\022 \001(\010\022\014\n\004envs\030\023 \003(\t\022\026\n\016envs_" +
+      "truncated\030\024 \001(\010\022\025\n\ris_exec_child\030\025 \001(\010\"\330" +
       "\002\n\020FileActivityNode\0227\n\rmatched_rules\030\t \003" +
       "(\0132 .datadog.cws.dumpsv1.MatchedRule\022\014\n\004" +
       "name\030\001 \001(\t\022\022\n\nis_pattern\030\007 \001(\010\022+\n\004file\030\002" +
@@ -23627,13 +23627,13 @@ java.lang.String defaultValue) {
     internal_static_datadog_cws_dumpsv1_ProcessActivityNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_ProcessActivityNode_descriptor,
-        new java.lang.String[] { "Process", "GenerationType", "IsExecChild", "MatchedRules", "Children", "Files", "DnsNames", "Sockets", "Syscalls", });
+        new java.lang.String[] { "Process", "GenerationType", "MatchedRules", "Children", "Files", "DnsNames", "Sockets", "Syscalls", });
     internal_static_datadog_cws_dumpsv1_ProcessInfo_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_datadog_cws_dumpsv1_ProcessInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_ProcessInfo_descriptor,
-        new java.lang.String[] { "Pid", "Tid", "Ppid", "Cookie", "IsThread", "File", "ContainerId", "SpanId", "TraceId", "Tty", "Comm", "ForkTime", "ExitTime", "ExecTime", "Credentials", "Args", "Argv0", "ArgsTruncated", "Envs", "EnvsTruncated", });
+        new java.lang.String[] { "Pid", "Tid", "Ppid", "Cookie", "IsThread", "File", "ContainerId", "SpanId", "TraceId", "Tty", "Comm", "ForkTime", "ExitTime", "ExecTime", "Credentials", "Args", "Argv0", "ArgsTruncated", "Envs", "EnvsTruncated", "IsExecChild", });
     internal_static_datadog_cws_dumpsv1_FileActivityNode_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_datadog_cws_dumpsv1_FileActivityNode_fieldAccessorTable = new

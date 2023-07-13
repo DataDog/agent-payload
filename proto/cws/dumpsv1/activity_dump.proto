@@ -50,7 +50,6 @@ message ProcessActivityNode {
     ProcessInfo process = 1;
     reserved 2;
     GenerationType generation_type = 8;
-    bool is_exec_child = 10;
 
     repeated MatchedRule matched_rules = 9;
     repeated ProcessActivityNode children = 3;
@@ -88,6 +87,8 @@ message ProcessInfo {
     bool args_truncated = 18;
     repeated string envs = 19;
     bool envs_truncated = 20;
+
+    bool is_exec_child = 21;
 }
 
 message FileActivityNode {
