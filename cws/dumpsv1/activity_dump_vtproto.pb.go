@@ -358,16 +358,6 @@ func (m *ProcessActivityNode) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
-	if m.IsExecChild {
-		i--
-		if m.IsExecChild {
-			dAtA[i] = 1
-		} else {
-			dAtA[i] = 0
-		}
-		i--
-		dAtA[i] = 0x50
-	}
 	if len(m.MatchedRules) > 0 {
 		for iNdEx := len(m.MatchedRules) - 1; iNdEx >= 0; iNdEx-- {
 			size, err := m.MatchedRules[iNdEx].MarshalToSizedBufferVT(dAtA[:i])
@@ -495,6 +485,18 @@ func (m *ProcessInfo) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 	if m.unknownFields != nil {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
+	}
+	if m.IsExecChild {
+		i--
+		if m.IsExecChild {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xa8
 	}
 	if m.EnvsTruncated {
 		i--
@@ -1698,9 +1700,6 @@ func (m *ProcessActivityNode) SizeVT() (n int) {
 			n += 1 + l + sov(uint64(l))
 		}
 	}
-	if m.IsExecChild {
-		n += 2
-	}
 	n += len(m.unknownFields)
 	return n
 }
@@ -1781,6 +1780,9 @@ func (m *ProcessInfo) SizeVT() (n int) {
 		}
 	}
 	if m.EnvsTruncated {
+		n += 3
+	}
+	if m.IsExecChild {
 		n += 3
 	}
 	n += len(m.unknownFields)
@@ -3462,26 +3464,6 @@ func (m *ProcessActivityNode) UnmarshalVT(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 10:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field IsExecChild", wireType)
-			}
-			var v int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflow
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				v |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			m.IsExecChild = bool(v != 0)
 		default:
 			iNdEx = preIndex
 			skippy, err := skip(dAtA[iNdEx:])
@@ -4028,6 +4010,26 @@ func (m *ProcessInfo) UnmarshalVT(dAtA []byte) error {
 				}
 			}
 			m.EnvsTruncated = bool(v != 0)
+		case 21:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IsExecChild", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.IsExecChild = bool(v != 0)
 		default:
 			iNdEx = preIndex
 			skippy, err := skip(dAtA[iNdEx:])
