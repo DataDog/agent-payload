@@ -486,6 +486,18 @@ func (m *ProcessInfo) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
+	if m.IsExecChild {
+		i--
+		if m.IsExecChild {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xa8
+	}
 	if m.EnvsTruncated {
 		i--
 		if m.EnvsTruncated {
@@ -1768,6 +1780,9 @@ func (m *ProcessInfo) SizeVT() (n int) {
 		}
 	}
 	if m.EnvsTruncated {
+		n += 3
+	}
+	if m.IsExecChild {
 		n += 3
 	}
 	n += len(m.unknownFields)
@@ -3995,6 +4010,26 @@ func (m *ProcessInfo) UnmarshalVT(dAtA []byte) error {
 				}
 			}
 			m.EnvsTruncated = bool(v != 0)
+		case 21:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IsExecChild", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.IsExecChild = bool(v != 0)
 		default:
 			iNdEx = preIndex
 			skippy, err := skip(dAtA[iNdEx:])

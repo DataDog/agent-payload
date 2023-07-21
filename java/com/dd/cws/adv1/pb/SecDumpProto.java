@@ -8671,6 +8671,12 @@ public final class SecDumpProto {
      * @return The envsTruncated.
      */
     boolean getEnvsTruncated();
+
+    /**
+     * <code>bool is_exec_child = 21;</code>
+     * @return The isExecChild.
+     */
+    boolean getIsExecChild();
   }
   /**
    * Protobuf type {@code datadog.cws.dumpsv1.ProcessInfo}
@@ -9130,6 +9136,17 @@ public final class SecDumpProto {
       return envsTruncated_;
     }
 
+    public static final int IS_EXEC_CHILD_FIELD_NUMBER = 21;
+    private boolean isExecChild_ = false;
+    /**
+     * <code>bool is_exec_child = 21;</code>
+     * @return The isExecChild.
+     */
+    @java.lang.Override
+    public boolean getIsExecChild() {
+      return isExecChild_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -9203,6 +9220,9 @@ public final class SecDumpProto {
       }
       if (envsTruncated_ != false) {
         output.writeBool(20, envsTruncated_);
+      }
+      if (isExecChild_ != false) {
+        output.writeBool(21, isExecChild_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -9297,6 +9317,10 @@ public final class SecDumpProto {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(20, envsTruncated_);
       }
+      if (isExecChild_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(21, isExecChild_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -9358,6 +9382,8 @@ public final class SecDumpProto {
           .equals(other.getEnvsList())) return false;
       if (getEnvsTruncated()
           != other.getEnvsTruncated()) return false;
+      if (getIsExecChild()
+          != other.getIsExecChild()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -9425,6 +9451,9 @@ public final class SecDumpProto {
       hash = (37 * hash) + ENVS_TRUNCATED_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getEnvsTruncated());
+      hash = (37 * hash) + IS_EXEC_CHILD_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsExecChild());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -9584,6 +9613,7 @@ public final class SecDumpProto {
         envs_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00040000);
         envsTruncated_ = false;
+        isExecChild_ = false;
         return this;
       }
 
@@ -9688,6 +9718,9 @@ public final class SecDumpProto {
         }
         if (((from_bitField0_ & 0x00080000) != 0)) {
           result.envsTruncated_ = envsTruncated_;
+        }
+        if (((from_bitField0_ & 0x00100000) != 0)) {
+          result.isExecChild_ = isExecChild_;
         }
       }
 
@@ -9816,6 +9849,9 @@ public final class SecDumpProto {
         }
         if (other.getEnvsTruncated() != false) {
           setEnvsTruncated(other.getEnvsTruncated());
+        }
+        if (other.getIsExecChild() != false) {
+          setIsExecChild(other.getIsExecChild());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -9949,6 +9985,11 @@ public final class SecDumpProto {
                 bitField0_ |= 0x00080000;
                 break;
               } // case 160
+              case 168: {
+                isExecChild_ = input.readBool();
+                bitField0_ |= 0x00100000;
+                break;
+              } // case 168
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -11080,6 +11121,38 @@ public final class SecDumpProto {
       public Builder clearEnvsTruncated() {
         bitField0_ = (bitField0_ & ~0x00080000);
         envsTruncated_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean isExecChild_ ;
+      /**
+       * <code>bool is_exec_child = 21;</code>
+       * @return The isExecChild.
+       */
+      @java.lang.Override
+      public boolean getIsExecChild() {
+        return isExecChild_;
+      }
+      /**
+       * <code>bool is_exec_child = 21;</code>
+       * @param value The isExecChild to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsExecChild(boolean value) {
+        
+        isExecChild_ = value;
+        bitField0_ |= 0x00100000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool is_exec_child = 21;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsExecChild() {
+        bitField0_ = (bitField0_ & ~0x00100000);
+        isExecChild_ = false;
         onChanged();
         return this;
       }
@@ -23464,7 +23537,7 @@ java.lang.String defaultValue) {
       ".cws.dumpsv1.FileActivityNode\022/\n\tdns_nam" +
       "es\030\005 \003(\0132\034.datadog.cws.dumpsv1.DNSNode\0220" +
       "\n\007sockets\030\006 \003(\0132\037.datadog.cws.dumpsv1.So" +
-      "cketNode\022\020\n\010syscalls\030\007 \003(\rJ\004\010\002\020\003\"\244\003\n\013Pro" +
+      "cketNode\022\020\n\010syscalls\030\007 \003(\rJ\004\010\002\020\003\"\273\003\n\013Pro" +
       "cessInfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\014\n\004pp" +
       "id\030\003 \001(\r\022\016\n\006cookie\030\004 \001(\r\022\021\n\tis_thread\030\005 " +
       "\001(\010\022+\n\004file\030\006 \001(\0132\035.datadog.cws.dumpsv1." +
@@ -23475,56 +23548,57 @@ java.lang.String defaultValue) {
       "ials\030\017 \001(\0132 .datadog.cws.dumpsv1.Credent" +
       "ials\022\014\n\004args\030\020 \003(\t\022\r\n\005argv0\030\021 \001(\t\022\026\n\016arg" +
       "s_truncated\030\022 \001(\010\022\014\n\004envs\030\023 \003(\t\022\026\n\016envs_" +
-      "truncated\030\024 \001(\010\"\330\002\n\020FileActivityNode\0227\n\r" +
-      "matched_rules\030\t \003(\0132 .datadog.cws.dumpsv" +
-      "1.MatchedRule\022\014\n\004name\030\001 \001(\t\022\022\n\nis_patter" +
-      "n\030\007 \001(\010\022+\n\004file\030\002 \001(\0132\035.datadog.cws.dump" +
-      "sv1.FileInfo\022<\n\017generation_type\030\010 \001(\0162#." +
-      "datadog.cws.dumpsv1.GenerationType\022\022\n\nfi" +
-      "rst_seen\030\004 \001(\004\022+\n\004open\030\005 \001(\0132\035.datadog.c" +
-      "ws.dumpsv1.OpenNode\0227\n\010children\030\006 \003(\0132%." +
-      "datadog.cws.dumpsv1.FileActivityNodeJ\004\010\003" +
-      "\020\004\"7\n\010OpenNode\022\016\n\006retval\030\001 \001(\022\022\r\n\005flags\030" +
-      "\002 \001(\r\022\014\n\004mode\030\003 \001(\r\"r\n\007DNSNode\0227\n\rmatche" +
-      "d_rules\030\002 \003(\0132 .datadog.cws.dumpsv1.Matc" +
-      "hedRule\022.\n\010requests\030\001 \003(\0132\034.datadog.cws." +
-      "dumpsv1.DNSInfo\"Q\n\007DNSInfo\022\014\n\004name\030\001 \001(\t" +
-      "\022\014\n\004type\030\002 \001(\r\022\r\n\005class\030\003 \001(\r\022\014\n\004size\030\004 " +
-      "\001(\r\022\r\n\005count\030\005 \001(\r\"\351\002\n\010FileInfo\022\013\n\003uid\030\001" +
-      " \001(\r\022\014\n\004user\030\002 \001(\t\022\013\n\003gid\030\003 \001(\r\022\r\n\005group" +
-      "\030\004 \001(\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005ctime\030\006 \001(\004\022\r\n\005m" +
-      "time\030\007 \001(\004\022\020\n\010mount_id\030\010 \001(\r\022\r\n\005inode\030\t " +
-      "\001(\004\022\026\n\016in_upper_layer\030\n \001(\010\022\014\n\004path\030\013 \001(" +
-      "\t\022\020\n\010basename\030\014 \001(\t\022\022\n\nfilesystem\030\r \001(\t\022" +
-      "\024\n\014package_name\030\016 \001(\t\022\027\n\017package_version" +
-      "\030\017 \001(\t\022\032\n\022package_srcversion\030\020 \001(\t\022\016\n\006ha" +
-      "shes\030\021 \003(\t\0222\n\nhash_state\030\022 \001(\0162\036.datadog" +
-      ".cws.dumpsv1.HashState\"\224\002\n\013Credentials\022\013" +
-      "\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004user\030\003 \001(\t\022\r" +
-      "\n\005group\030\004 \001(\t\022\025\n\reffective_uid\030\005 \001(\r\022\025\n\r" +
-      "effective_gid\030\006 \001(\r\022\026\n\016effective_user\030\007 " +
-      "\001(\t\022\027\n\017effective_group\030\010 \001(\t\022\016\n\006fs_uid\030\t" +
-      " \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007fs_user\030\013 \001(\t\022\020\n" +
-      "\010fs_group\030\014 \001(\t\022\025\n\rcap_effective\030\r \001(\004\022\025" +
-      "\n\rcap_permitted\030\016 \001(\004\"I\n\nSocketNode\022\016\n\006f" +
-      "amily\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035.datadog.cws." +
-      "dumpsv1.BindNode\"]\n\010BindNode\0227\n\rmatched_" +
-      "rules\030\003 \003(\0132 .datadog.cws.dumpsv1.Matche" +
-      "dRule\022\014\n\004port\030\001 \001(\r\022\n\n\002ip\030\002 \001(\t\"\325\001\n\013Matc" +
-      "hedRule\022\017\n\007rule_id\030\001 \001(\t\022\024\n\014rule_version" +
-      "\030\002 \001(\t\022\023\n\013policy_name\030\003 \001(\t\022\026\n\016policy_ve" +
-      "rsion\030\004 \001(\t\022A\n\trule_tags\030\005 \003(\0132..datadog" +
-      ".cws.dumpsv1.MatchedRule.RuleTagsEntry\032/" +
-      "\n\rRuleTagsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 " +
-      "\001(\t:\0028\001*\271\001\n\tHashState\022\013\n\007NO_HASH\020\000\022\010\n\004DO" +
-      "NE\020\001\022\022\n\016FILE_NOT_FOUND\020\002\022\035\n\031PATHNAME_RES" +
-      "OLUTION_ERROR\020\003\022\020\n\014FILE_TOO_BIG\020\004\022\035\n\031EVE" +
-      "NT_TYPE_NOT_CONFIGURED\020\005\022\031\n\025HASH_WAS_RAT" +
-      "E_LIMITED\020\006\022\026\n\022UNKNOWN_HASH_ERROR\020\007*8\n\016G" +
-      "enerationType\022\013\n\007UNKNOWN\020\000\022\013\n\007RUNTIME\020\001\022" +
-      "\014\n\010SNAPSHOT\020\002BU\n\022com.dd.cws.adv1.pbB\014Sec" +
-      "DumpProtoP\000Z/github.com/DataDog/agent-pa" +
-      "yload/v5/cws/dumpsv1b\006proto3"
+      "truncated\030\024 \001(\010\022\025\n\ris_exec_child\030\025 \001(\010\"\330" +
+      "\002\n\020FileActivityNode\0227\n\rmatched_rules\030\t \003" +
+      "(\0132 .datadog.cws.dumpsv1.MatchedRule\022\014\n\004" +
+      "name\030\001 \001(\t\022\022\n\nis_pattern\030\007 \001(\010\022+\n\004file\030\002" +
+      " \001(\0132\035.datadog.cws.dumpsv1.FileInfo\022<\n\017g" +
+      "eneration_type\030\010 \001(\0162#.datadog.cws.dumps" +
+      "v1.GenerationType\022\022\n\nfirst_seen\030\004 \001(\004\022+\n" +
+      "\004open\030\005 \001(\0132\035.datadog.cws.dumpsv1.OpenNo" +
+      "de\0227\n\010children\030\006 \003(\0132%.datadog.cws.dumps" +
+      "v1.FileActivityNodeJ\004\010\003\020\004\"7\n\010OpenNode\022\016\n" +
+      "\006retval\030\001 \001(\022\022\r\n\005flags\030\002 \001(\r\022\014\n\004mode\030\003 \001" +
+      "(\r\"r\n\007DNSNode\0227\n\rmatched_rules\030\002 \003(\0132 .d" +
+      "atadog.cws.dumpsv1.MatchedRule\022.\n\010reques" +
+      "ts\030\001 \003(\0132\034.datadog.cws.dumpsv1.DNSInfo\"Q" +
+      "\n\007DNSInfo\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(\r\022\r\n" +
+      "\005class\030\003 \001(\r\022\014\n\004size\030\004 \001(\r\022\r\n\005count\030\005 \001(" +
+      "\r\"\351\002\n\010FileInfo\022\013\n\003uid\030\001 \001(\r\022\014\n\004user\030\002 \001(" +
+      "\t\022\013\n\003gid\030\003 \001(\r\022\r\n\005group\030\004 \001(\t\022\014\n\004mode\030\005 " +
+      "\001(\r\022\r\n\005ctime\030\006 \001(\004\022\r\n\005mtime\030\007 \001(\004\022\020\n\010mou" +
+      "nt_id\030\010 \001(\r\022\r\n\005inode\030\t \001(\004\022\026\n\016in_upper_l" +
+      "ayer\030\n \001(\010\022\014\n\004path\030\013 \001(\t\022\020\n\010basename\030\014 \001" +
+      "(\t\022\022\n\nfilesystem\030\r \001(\t\022\024\n\014package_name\030\016" +
+      " \001(\t\022\027\n\017package_version\030\017 \001(\t\022\032\n\022package" +
+      "_srcversion\030\020 \001(\t\022\016\n\006hashes\030\021 \003(\t\0222\n\nhas" +
+      "h_state\030\022 \001(\0162\036.datadog.cws.dumpsv1.Hash" +
+      "State\"\224\002\n\013Credentials\022\013\n\003uid\030\001 \001(\r\022\013\n\003gi" +
+      "d\030\002 \001(\r\022\014\n\004user\030\003 \001(\t\022\r\n\005group\030\004 \001(\t\022\025\n\r" +
+      "effective_uid\030\005 \001(\r\022\025\n\reffective_gid\030\006 \001" +
+      "(\r\022\026\n\016effective_user\030\007 \001(\t\022\027\n\017effective_" +
+      "group\030\010 \001(\t\022\016\n\006fs_uid\030\t \001(\r\022\016\n\006fs_gid\030\n " +
+      "\001(\r\022\017\n\007fs_user\030\013 \001(\t\022\020\n\010fs_group\030\014 \001(\t\022\025" +
+      "\n\rcap_effective\030\r \001(\004\022\025\n\rcap_permitted\030\016" +
+      " \001(\004\"I\n\nSocketNode\022\016\n\006family\030\001 \001(\t\022+\n\004bi" +
+      "nd\030\002 \003(\0132\035.datadog.cws.dumpsv1.BindNode\"" +
+      "]\n\010BindNode\0227\n\rmatched_rules\030\003 \003(\0132 .dat" +
+      "adog.cws.dumpsv1.MatchedRule\022\014\n\004port\030\001 \001" +
+      "(\r\022\n\n\002ip\030\002 \001(\t\"\325\001\n\013MatchedRule\022\017\n\007rule_i" +
+      "d\030\001 \001(\t\022\024\n\014rule_version\030\002 \001(\t\022\023\n\013policy_" +
+      "name\030\003 \001(\t\022\026\n\016policy_version\030\004 \001(\t\022A\n\tru" +
+      "le_tags\030\005 \003(\0132..datadog.cws.dumpsv1.Matc" +
+      "hedRule.RuleTagsEntry\032/\n\rRuleTagsEntry\022\013" +
+      "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001*\271\001\n\tHashS" +
+      "tate\022\013\n\007NO_HASH\020\000\022\010\n\004DONE\020\001\022\022\n\016FILE_NOT_" +
+      "FOUND\020\002\022\035\n\031PATHNAME_RESOLUTION_ERROR\020\003\022\020" +
+      "\n\014FILE_TOO_BIG\020\004\022\035\n\031EVENT_TYPE_NOT_CONFI" +
+      "GURED\020\005\022\031\n\025HASH_WAS_RATE_LIMITED\020\006\022\026\n\022UN" +
+      "KNOWN_HASH_ERROR\020\007*8\n\016GenerationType\022\013\n\007" +
+      "UNKNOWN\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPSHOT\020\002BU\n\022" +
+      "com.dd.cws.adv1.pbB\014SecDumpProtoP\000Z/gith" +
+      "ub.com/DataDog/agent-payload/v5/cws/dump" +
+      "sv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -23559,7 +23633,7 @@ java.lang.String defaultValue) {
     internal_static_datadog_cws_dumpsv1_ProcessInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_ProcessInfo_descriptor,
-        new java.lang.String[] { "Pid", "Tid", "Ppid", "Cookie", "IsThread", "File", "ContainerId", "SpanId", "TraceId", "Tty", "Comm", "ForkTime", "ExitTime", "ExecTime", "Credentials", "Args", "Argv0", "ArgsTruncated", "Envs", "EnvsTruncated", });
+        new java.lang.String[] { "Pid", "Tid", "Ppid", "Cookie", "IsThread", "File", "ContainerId", "SpanId", "TraceId", "Tty", "Comm", "ForkTime", "ExitTime", "ExecTime", "Credentials", "Args", "Argv0", "ArgsTruncated", "Envs", "EnvsTruncated", "IsExecChild", });
     internal_static_datadog_cws_dumpsv1_FileActivityNode_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_datadog_cws_dumpsv1_FileActivityNode_fieldAccessorTable = new
