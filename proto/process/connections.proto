@@ -342,6 +342,7 @@ enum ProtocolType {
   protocolAMQP = 8;
   protocolRedis = 9;
   protocolMySQL= 10;
+  protocolGRPC = 11;
 }
 
 message ProtocolStack {
