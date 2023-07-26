@@ -87,9 +87,6 @@ BASH
 
       popd
 
-      echo "Generating process proto"
-      PATH=/tmp/gogo-bin-d76fbc1373015ced59b43ac267f28d546b955683 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofaster_out=$GOPATH/src proto/process/*.proto
-
       # Install protoc-gen-go
       GOPATH=#{protoc_gen_go_dir} go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 
@@ -118,6 +115,13 @@ BASH
         --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.FileInfo \
         --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessInfo \
         proto/cws/dumpsv1/activity_dump.proto
+
+      echo "Generating NPM Connections"
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. \
+        --go_out=$GOPATH/src \
+        --go-vtproto_out=$GOPATH/src \
+        --go-vtproto_opt=features=pool+marshal+unmarshal+size+equal \
+        proto/process/*.proto
 
       cp -r v5/* .
       rm -rf v5
