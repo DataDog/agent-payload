@@ -30,6 +30,10 @@ func NewCollectorConnectionsBuilder(writer io.Writer) *CollectorConnectionsBuild
 		writer: writer,
 	}
 }
+func (x *CollectorConnectionsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorConnectionsBuilder) SetHostName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
@@ -267,6 +271,10 @@ func NewCollectorConnections_ResolvedResourcesEntryBuilder(writer io.Writer) *Co
 		writer: writer,
 	}
 }
+func (x *CollectorConnections_ResolvedResourcesEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorConnections_ResolvedResourcesEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -295,6 +303,10 @@ func NewCollectorConnections_ContainerForPidEntryBuilder(writer io.Writer) *Coll
 		writer: writer,
 	}
 }
+func (x *CollectorConnections_ContainerForPidEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorConnections_ContainerForPidEntryBuilder) SetKey(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -318,6 +330,10 @@ func NewCollectorConnections_ConnTelemetryMapEntryBuilder(writer io.Writer) *Col
 	return &CollectorConnections_ConnTelemetryMapEntryBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorConnections_ConnTelemetryMapEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorConnections_ConnTelemetryMapEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
@@ -343,6 +359,10 @@ func NewCollectorConnections_CompilationTelemetryByAssetEntryBuilder(writer io.W
 	return &CollectorConnections_CompilationTelemetryByAssetEntryBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorConnections_CompilationTelemetryByAssetEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorConnections_CompilationTelemetryByAssetEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
@@ -372,6 +392,10 @@ func NewCollectorConnections_CORETelemetryByAssetEntryBuilder(writer io.Writer) 
 		writer: writer,
 	}
 }
+func (x *CollectorConnections_CORETelemetryByAssetEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorConnections_CORETelemetryByAssetEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -397,6 +421,10 @@ func NewCollectorConnections_ResolvedHostsByNameEntryBuilder(writer io.Writer) *
 	return &CollectorConnections_ResolvedHostsByNameEntryBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorConnections_ResolvedHostsByNameEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorConnections_ResolvedHostsByNameEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
@@ -433,6 +461,10 @@ func NewConnectionsBuilder(writer io.Writer) *ConnectionsBuilder {
 	return &ConnectionsBuilder{
 		writer: writer,
 	}
+}
+func (x *ConnectionsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ConnectionsBuilder) AddConns(cb func(w *ConnectionBuilder)) {
 	x.buf.Reset()
@@ -552,6 +584,10 @@ func NewConnections_DnsEntryBuilder(writer io.Writer) *Connections_DnsEntryBuild
 		writer: writer,
 	}
 }
+func (x *Connections_DnsEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *Connections_DnsEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -581,6 +617,10 @@ func NewConnections_CompilationTelemetryByAssetEntryBuilder(writer io.Writer) *C
 		writer: writer,
 	}
 }
+func (x *Connections_CompilationTelemetryByAssetEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *Connections_CompilationTelemetryByAssetEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -609,6 +649,10 @@ func NewConnections_ConnTelemetryMapEntryBuilder(writer io.Writer) *Connections_
 		writer: writer,
 	}
 }
+func (x *Connections_ConnTelemetryMapEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *Connections_ConnTelemetryMapEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -632,6 +676,10 @@ func NewConnections_CORETelemetryByAssetEntryBuilder(writer io.Writer) *Connecti
 	return &Connections_CORETelemetryByAssetEntryBuilder{
 		writer: writer,
 	}
+}
+func (x *Connections_CORETelemetryByAssetEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *Connections_CORETelemetryByAssetEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
@@ -664,6 +712,10 @@ func NewConnectionBuilder(writer io.Writer) *ConnectionBuilder {
 	return &ConnectionBuilder{
 		writer: writer,
 	}
+}
+func (x *ConnectionBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ConnectionBuilder) SetPid(v int32) {
 	x.scratch = x.scratch[:0]
@@ -954,6 +1006,10 @@ func NewConnection_DnsCountByRcodeEntryBuilder(writer io.Writer) *Connection_Dns
 		writer: writer,
 	}
 }
+func (x *Connection_DnsCountByRcodeEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *Connection_DnsCountByRcodeEntryBuilder) SetKey(v uint32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -978,6 +1034,10 @@ func NewConnection_DnsStatsByDomainEntryBuilder(writer io.Writer) *Connection_Dn
 	return &Connection_DnsStatsByDomainEntryBuilder{
 		writer: writer,
 	}
+}
+func (x *Connection_DnsStatsByDomainEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *Connection_DnsStatsByDomainEntryBuilder) SetKey(v int32) {
 	x.scratch = x.scratch[:0]
@@ -1008,6 +1068,10 @@ func NewConnection_DnsStatsByDomainByQueryTypeEntryBuilder(writer io.Writer) *Co
 		writer: writer,
 	}
 }
+func (x *Connection_DnsStatsByDomainByQueryTypeEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *Connection_DnsStatsByDomainByQueryTypeEntryBuilder) SetKey(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -1037,6 +1101,10 @@ func NewConnection_DnsStatsByDomainOffsetByQueryTypeEntryBuilder(writer io.Write
 		writer: writer,
 	}
 }
+func (x *Connection_DnsStatsByDomainOffsetByQueryTypeEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *Connection_DnsStatsByDomainOffsetByQueryTypeEntryBuilder) SetKey(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -1064,6 +1132,10 @@ func NewResourceMetadataBuilder(writer io.Writer) *ResourceMetadataBuilder {
 	return &ResourceMetadataBuilder{
 		writer: writer,
 	}
+}
+func (x *ResourceMetadataBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ResourceMetadataBuilder) SetId(v string) {
 	x.scratch = x.scratch[:0]
@@ -1114,6 +1186,10 @@ func NewConnectionsTelemetryBuilder(writer io.Writer) *ConnectionsTelemetryBuild
 	return &ConnectionsTelemetryBuilder{
 		writer: writer,
 	}
+}
+func (x *ConnectionsTelemetryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ConnectionsTelemetryBuilder) SetMonotonicKprobesTriggered(v int64) {
 	x.scratch = x.scratch[:0]
@@ -1193,6 +1269,10 @@ func NewCollectorConnectionsTelemetryBuilder(writer io.Writer) *CollectorConnect
 		writer: writer,
 	}
 }
+func (x *CollectorConnectionsTelemetryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorConnectionsTelemetryBuilder) SetKprobesTriggered(v int64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -1271,6 +1351,10 @@ func NewRuntimeCompilationTelemetryBuilder(writer io.Writer) *RuntimeCompilation
 		writer: writer,
 	}
 }
+func (x *RuntimeCompilationTelemetryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *RuntimeCompilationTelemetryBuilder) SetRuntimeCompilationEnabled(v bool) {
 	if v {
 		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8)
@@ -1310,6 +1394,10 @@ func NewAgentConfigurationBuilder(writer io.Writer) *AgentConfigurationBuilder {
 		writer: writer,
 	}
 }
+func (x *AgentConfigurationBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *AgentConfigurationBuilder) SetNpmEnabled(v bool) {
 	if v {
 		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8)
@@ -1344,6 +1432,10 @@ func NewRouteBuilder(writer io.Writer) *RouteBuilder {
 		writer: writer,
 	}
 }
+func (x *RouteBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *RouteBuilder) SetSubnet(cb func(w *SubnetBuilder)) {
 	x.buf.Reset()
 	x.subnetBuilder.writer = &x.buf
@@ -1366,6 +1458,10 @@ func NewSubnetBuilder(writer io.Writer) *SubnetBuilder {
 		writer: writer,
 	}
 }
+func (x *SubnetBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *SubnetBuilder) SetAlias(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -1383,6 +1479,10 @@ func NewRouteMetadataBuilder(writer io.Writer) *RouteMetadataBuilder {
 	return &RouteMetadataBuilder{
 		writer: writer,
 	}
+}
+func (x *RouteMetadataBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *RouteMetadataBuilder) SetAlias(v string) {
 	x.scratch = x.scratch[:0]
@@ -1420,6 +1520,10 @@ func NewIPTranslationBuilder(writer io.Writer) *IPTranslationBuilder {
 		writer: writer,
 	}
 }
+func (x *IPTranslationBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *IPTranslationBuilder) SetReplSrcIP(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -1455,6 +1559,10 @@ func NewAddrBuilder(writer io.Writer) *AddrBuilder {
 	return &AddrBuilder{
 		writer: writer,
 	}
+}
+func (x *AddrBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *AddrBuilder) SetIp(v string) {
 	x.scratch = x.scratch[:0]
@@ -1492,6 +1600,10 @@ func NewProtocolStackBuilder(writer io.Writer) *ProtocolStackBuilder {
 		writer: writer,
 	}
 }
+func (x *ProtocolStackBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ProtocolStackBuilder) AddStack(v uint64) {
 	if v != 0 {
 		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8)
@@ -1511,6 +1623,10 @@ func NewDNSEntryBuilder(writer io.Writer) *DNSEntryBuilder {
 		writer: writer,
 	}
 }
+func (x *DNSEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *DNSEntryBuilder) AddNames(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -1529,6 +1645,10 @@ func NewDNSStatsBuilder(writer io.Writer) *DNSStatsBuilder {
 	return &DNSStatsBuilder{
 		writer: writer,
 	}
+}
+func (x *DNSStatsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *DNSStatsBuilder) SetDnsTimeouts(v uint32) {
 	x.scratch = x.scratch[:0]
@@ -1570,6 +1690,10 @@ func NewDNSStats_DnsCountByRcodeEntryBuilder(writer io.Writer) *DNSStats_DnsCoun
 		writer: writer,
 	}
 }
+func (x *DNSStats_DnsCountByRcodeEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *DNSStats_DnsCountByRcodeEntryBuilder) SetKey(v uint32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -1595,6 +1719,10 @@ func NewDNSStatsByQueryTypeBuilder(writer io.Writer) *DNSStatsByQueryTypeBuilder
 		writer: writer,
 	}
 }
+func (x *DNSStatsByQueryTypeBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *DNSStatsByQueryTypeBuilder) AddDnsStatsByQueryType(cb func(w *DNSStatsByQueryType_DnsStatsByQueryTypeEntryBuilder)) {
 	x.buf.Reset()
 	x.dNSStatsByQueryType_DnsStatsByQueryTypeEntryBuilder.writer = &x.buf
@@ -1617,6 +1745,10 @@ func NewDNSStatsByQueryType_DnsStatsByQueryTypeEntryBuilder(writer io.Writer) *D
 	return &DNSStatsByQueryType_DnsStatsByQueryTypeEntryBuilder{
 		writer: writer,
 	}
+}
+func (x *DNSStatsByQueryType_DnsStatsByQueryTypeEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *DNSStatsByQueryType_DnsStatsByQueryTypeEntryBuilder) SetKey(v int32) {
 	x.scratch = x.scratch[:0]

@@ -22,6 +22,10 @@ func NewCollectorProcEventBuilder(writer io.Writer) *CollectorProcEventBuilder {
 		writer: writer,
 	}
 }
+func (x *CollectorProcEventBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorProcEventBuilder) SetHostname(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -86,6 +90,10 @@ func NewProcessEventBuilder(writer io.Writer) *ProcessEventBuilder {
 	return &ProcessEventBuilder{
 		writer: writer,
 	}
+}
+func (x *ProcessEventBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ProcessEventBuilder) SetType(v uint64) {
 	if v != 0 {
@@ -174,6 +182,10 @@ func NewProcessExecBuilder(writer io.Writer) *ProcessExecBuilder {
 		writer: writer,
 	}
 }
+func (x *ProcessExecBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ProcessExecBuilder) SetForkTime(v int64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -197,6 +209,10 @@ func NewProcessExitBuilder(writer io.Writer) *ProcessExitBuilder {
 	return &ProcessExitBuilder{
 		writer: writer,
 	}
+}
+func (x *ProcessExitBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ProcessExitBuilder) SetExecTime(v int64) {
 	x.scratch = x.scratch[:0]

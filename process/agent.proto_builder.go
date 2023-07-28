@@ -22,6 +22,10 @@ func NewResCollectorBuilder(writer io.Writer) *ResCollectorBuilder {
 		writer: writer,
 	}
 }
+func (x *ResCollectorBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ResCollectorBuilder) SetHeader(cb func(w *ResCollector_HeaderBuilder)) {
 	x.buf.Reset()
 	x.resCollector_HeaderBuilder.writer = &x.buf
@@ -60,6 +64,10 @@ func NewResCollector_HeaderBuilder(writer io.Writer) *ResCollector_HeaderBuilder
 		writer: writer,
 	}
 }
+func (x *ResCollector_HeaderBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ResCollector_HeaderBuilder) SetType(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x20)
@@ -81,6 +89,10 @@ func NewCollectorProcBuilder(writer io.Writer) *CollectorProcBuilder {
 	return &CollectorProcBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorProcBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorProcBuilder) SetHostName(v string) {
 	x.scratch = x.scratch[:0]
@@ -173,6 +185,10 @@ func NewCollectorProcDiscoveryBuilder(writer io.Writer) *CollectorProcDiscoveryB
 		writer: writer,
 	}
 }
+func (x *CollectorProcDiscoveryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorProcDiscoveryBuilder) SetHostName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -224,6 +240,10 @@ func NewCollectorRealTimeBuilder(writer io.Writer) *CollectorRealTimeBuilder {
 	return &CollectorRealTimeBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorRealTimeBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorRealTimeBuilder) SetHostName(v string) {
 	x.scratch = x.scratch[:0]
@@ -309,6 +329,10 @@ func NewCollectorContainerBuilder(writer io.Writer) *CollectorContainerBuilder {
 		writer: writer,
 	}
 }
+func (x *CollectorContainerBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorContainerBuilder) SetHostName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -383,6 +407,10 @@ func NewCollectorContainerRealTimeBuilder(writer io.Writer) *CollectorContainerR
 		writer: writer,
 	}
 }
+func (x *CollectorContainerRealTimeBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorContainerRealTimeBuilder) SetHostName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -448,6 +476,10 @@ func NewCollectorReqStatusBuilder(writer io.Writer) *CollectorReqStatusBuilder {
 		writer: writer,
 	}
 }
+func (x *CollectorReqStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorReqStatusBuilder) SetHostName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
@@ -467,6 +499,10 @@ func NewCollectorPodBuilder(writer io.Writer) *CollectorPodBuilder {
 	return &CollectorPodBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorPodBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorPodBuilder) SetHostName(v string) {
 	x.scratch = x.scratch[:0]
@@ -537,6 +573,10 @@ func NewCollectorReplicaSetBuilder(writer io.Writer) *CollectorReplicaSetBuilder
 		writer: writer,
 	}
 }
+func (x *CollectorReplicaSetBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorReplicaSetBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -589,6 +629,10 @@ func NewCollectorDeploymentBuilder(writer io.Writer) *CollectorDeploymentBuilder
 	return &CollectorDeploymentBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorDeploymentBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorDeploymentBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
@@ -643,6 +687,10 @@ func NewCollectorServiceBuilder(writer io.Writer) *CollectorServiceBuilder {
 		writer: writer,
 	}
 }
+func (x *CollectorServiceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorServiceBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -696,6 +744,10 @@ func NewCollectorNodeBuilder(writer io.Writer) *CollectorNodeBuilder {
 	return &CollectorNodeBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorNodeBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorNodeBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
@@ -760,6 +812,10 @@ func NewCollectorNode_HostAliasMappingEntryBuilder(writer io.Writer) *CollectorN
 		writer: writer,
 	}
 }
+func (x *CollectorNode_HostAliasMappingEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorNode_HostAliasMappingEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -788,6 +844,10 @@ func NewCollectorClusterBuilder(writer io.Writer) *CollectorClusterBuilder {
 	return &CollectorClusterBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorClusterBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorClusterBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
@@ -842,6 +902,10 @@ func NewCollectorManifestBuilder(writer io.Writer) *CollectorManifestBuilder {
 		writer: writer,
 	}
 }
+func (x *CollectorManifestBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorManifestBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -889,6 +953,10 @@ func NewCollectorManifestCRDBuilder(writer io.Writer) *CollectorManifestCRDBuild
 		writer: writer,
 	}
 }
+func (x *CollectorManifestCRDBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorManifestCRDBuilder) SetManifest(cb func(w *CollectorManifestBuilder)) {
 	x.buf.Reset()
 	x.collectorManifestBuilder.writer = &x.buf
@@ -912,6 +980,10 @@ func NewCollectorManifestCRBuilder(writer io.Writer) *CollectorManifestCRBuilder
 		writer: writer,
 	}
 }
+func (x *CollectorManifestCRBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorManifestCRBuilder) SetManifest(cb func(w *CollectorManifestBuilder)) {
 	x.buf.Reset()
 	x.collectorManifestBuilder.writer = &x.buf
@@ -934,6 +1006,10 @@ func NewCollectorNamespaceBuilder(writer io.Writer) *CollectorNamespaceBuilder {
 	return &CollectorNamespaceBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorNamespaceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorNamespaceBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
@@ -988,6 +1064,10 @@ func NewCollectorJobBuilder(writer io.Writer) *CollectorJobBuilder {
 		writer: writer,
 	}
 }
+func (x *CollectorJobBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorJobBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -1040,6 +1120,10 @@ func NewCollectorCronJobBuilder(writer io.Writer) *CollectorCronJobBuilder {
 	return &CollectorCronJobBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorCronJobBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorCronJobBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
@@ -1094,6 +1178,10 @@ func NewCollectorDaemonSetBuilder(writer io.Writer) *CollectorDaemonSetBuilder {
 		writer: writer,
 	}
 }
+func (x *CollectorDaemonSetBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorDaemonSetBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -1146,6 +1234,10 @@ func NewCollectorStatefulSetBuilder(writer io.Writer) *CollectorStatefulSetBuild
 	return &CollectorStatefulSetBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorStatefulSetBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorStatefulSetBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
@@ -1200,6 +1292,10 @@ func NewCollectorPersistentVolumeBuilder(writer io.Writer) *CollectorPersistentV
 		writer: writer,
 	}
 }
+func (x *CollectorPersistentVolumeBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorPersistentVolumeBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -1252,6 +1348,10 @@ func NewCollectorPersistentVolumeClaimBuilder(writer io.Writer) *CollectorPersis
 	return &CollectorPersistentVolumeClaimBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorPersistentVolumeClaimBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorPersistentVolumeClaimBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
@@ -1306,6 +1406,10 @@ func NewCollectorRoleBuilder(writer io.Writer) *CollectorRoleBuilder {
 		writer: writer,
 	}
 }
+func (x *CollectorRoleBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorRoleBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -1358,6 +1462,10 @@ func NewCollectorRoleBindingBuilder(writer io.Writer) *CollectorRoleBindingBuild
 	return &CollectorRoleBindingBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorRoleBindingBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorRoleBindingBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
@@ -1412,6 +1520,10 @@ func NewCollectorClusterRoleBuilder(writer io.Writer) *CollectorClusterRoleBuild
 		writer: writer,
 	}
 }
+func (x *CollectorClusterRoleBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorClusterRoleBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -1464,6 +1576,10 @@ func NewCollectorClusterRoleBindingBuilder(writer io.Writer) *CollectorClusterRo
 	return &CollectorClusterRoleBindingBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorClusterRoleBindingBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorClusterRoleBindingBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
@@ -1518,6 +1634,10 @@ func NewCollectorServiceAccountBuilder(writer io.Writer) *CollectorServiceAccoun
 		writer: writer,
 	}
 }
+func (x *CollectorServiceAccountBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorServiceAccountBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -1570,6 +1690,10 @@ func NewCollectorIngressBuilder(writer io.Writer) *CollectorIngressBuilder {
 	return &CollectorIngressBuilder{
 		writer: writer,
 	}
+}
+func (x *CollectorIngressBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CollectorIngressBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
@@ -1624,6 +1748,10 @@ func NewCollectorVerticalPodAutoscalerBuilder(writer io.Writer) *CollectorVertic
 		writer: writer,
 	}
 }
+func (x *CollectorVerticalPodAutoscalerBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorVerticalPodAutoscalerBuilder) SetClusterName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -1676,6 +1804,10 @@ func NewCollectorStatusBuilder(writer io.Writer) *CollectorStatusBuilder {
 		writer: writer,
 	}
 }
+func (x *CollectorStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CollectorStatusBuilder) SetActiveClients(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -1707,6 +1839,10 @@ func NewProcessBuilder(writer io.Writer) *ProcessBuilder {
 	return &ProcessBuilder{
 		writer: writer,
 	}
+}
+func (x *ProcessBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ProcessBuilder) SetKey(v uint32) {
 	x.scratch = x.scratch[:0]
@@ -1880,6 +2016,10 @@ func NewProcessDiscoveryBuilder(writer io.Writer) *ProcessDiscoveryBuilder {
 		writer: writer,
 	}
 }
+func (x *ProcessDiscoveryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ProcessDiscoveryBuilder) SetPid(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -1948,6 +2088,10 @@ func NewCommandBuilder(writer io.Writer) *CommandBuilder {
 		writer: writer,
 	}
 }
+func (x *CommandBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CommandBuilder) AddArgs(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -2003,6 +2147,10 @@ func NewProcessUserBuilder(writer io.Writer) *ProcessUserBuilder {
 		writer: writer,
 	}
 }
+func (x *ProcessUserBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ProcessUserBuilder) SetName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -2057,6 +2205,10 @@ func NewProcessNetworksBuilder(writer io.Writer) *ProcessNetworksBuilder {
 		writer: writer,
 	}
 }
+func (x *ProcessNetworksBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ProcessNetworksBuilder) SetConnectionRate(v float32) {
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x9)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
@@ -2078,6 +2230,10 @@ func NewContainerAddrBuilder(writer io.Writer) *ContainerAddrBuilder {
 	return &ContainerAddrBuilder{
 		writer: writer,
 	}
+}
+func (x *ContainerAddrBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ContainerAddrBuilder) SetIp(v string) {
 	x.scratch = x.scratch[:0]
@@ -2111,6 +2267,10 @@ func NewContainerBuilder(writer io.Writer) *ContainerBuilder {
 	return &ContainerBuilder{
 		writer: writer,
 	}
+}
+func (x *ContainerBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ContainerBuilder) SetType(v string) {
 	x.scratch = x.scratch[:0]
@@ -2315,6 +2475,10 @@ func NewProcessStatBuilder(writer io.Writer) *ProcessStatBuilder {
 		writer: writer,
 	}
 }
+func (x *ProcessStatBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ProcessStatBuilder) SetPid(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -2494,6 +2658,10 @@ func NewProcStatsWithPermBuilder(writer io.Writer) *ProcStatsWithPermBuilder {
 		writer: writer,
 	}
 }
+func (x *ProcStatsWithPermBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ProcStatsWithPermBuilder) SetOpenFDCount(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -2537,6 +2705,10 @@ func NewProcStatsWithPermByPIDBuilder(writer io.Writer) *ProcStatsWithPermByPIDB
 		writer: writer,
 	}
 }
+func (x *ProcStatsWithPermByPIDBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ProcStatsWithPermByPIDBuilder) AddStatsByPID(cb func(w *ProcStatsWithPermByPID_StatsByPIDEntryBuilder)) {
 	x.buf.Reset()
 	x.procStatsWithPermByPID_StatsByPIDEntryBuilder.writer = &x.buf
@@ -2559,6 +2731,10 @@ func NewProcStatsWithPermByPID_StatsByPIDEntryBuilder(writer io.Writer) *ProcSta
 	return &ProcStatsWithPermByPID_StatsByPIDEntryBuilder{
 		writer: writer,
 	}
+}
+func (x *ProcStatsWithPermByPID_StatsByPIDEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ProcStatsWithPermByPID_StatsByPIDEntryBuilder) SetKey(v int32) {
 	x.scratch = x.scratch[:0]
@@ -2587,6 +2763,10 @@ func NewContainerStatBuilder(writer io.Writer) *ContainerStatBuilder {
 	return &ContainerStatBuilder{
 		writer: writer,
 	}
+}
+func (x *ContainerStatBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ContainerStatBuilder) SetId(v string) {
 	x.scratch = x.scratch[:0]
@@ -2739,6 +2919,10 @@ func NewSystemInfoBuilder(writer io.Writer) *SystemInfoBuilder {
 		writer: writer,
 	}
 }
+func (x *SystemInfoBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *SystemInfoBuilder) SetUuid(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -2783,6 +2967,10 @@ func NewOSInfoBuilder(writer io.Writer) *OSInfoBuilder {
 		writer: writer,
 	}
 }
+func (x *OSInfoBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *OSInfoBuilder) SetName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -2825,6 +3013,10 @@ func NewIOStatBuilder(writer io.Writer) *IOStatBuilder {
 		writer: writer,
 	}
 }
+func (x *IOStatBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *IOStatBuilder) SetReadRate(v float32) {
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x9)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
@@ -2856,6 +3048,10 @@ func NewMemoryStatBuilder(writer io.Writer) *MemoryStatBuilder {
 	return &MemoryStatBuilder{
 		writer: writer,
 	}
+}
+func (x *MemoryStatBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *MemoryStatBuilder) SetRss(v uint64) {
 	x.scratch = x.scratch[:0]
@@ -2917,6 +3113,10 @@ func NewCPUStatBuilder(writer io.Writer) *CPUStatBuilder {
 	return &CPUStatBuilder{
 		writer: writer,
 	}
+}
+func (x *CPUStatBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CPUStatBuilder) SetLastCpu(v string) {
 	x.scratch = x.scratch[:0]
@@ -2985,6 +3185,10 @@ func NewSingleCPUStatBuilder(writer io.Writer) *SingleCPUStatBuilder {
 		writer: writer,
 	}
 }
+func (x *SingleCPUStatBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *SingleCPUStatBuilder) SetName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -3007,6 +3211,10 @@ func NewCPUInfoBuilder(writer io.Writer) *CPUInfoBuilder {
 	return &CPUInfoBuilder{
 		writer: writer,
 	}
+}
+func (x *CPUInfoBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CPUInfoBuilder) SetNumber(v int32) {
 	x.scratch = x.scratch[:0]
@@ -3074,6 +3282,10 @@ func NewHostBuilder(writer io.Writer) *HostBuilder {
 		writer: writer,
 	}
 }
+func (x *HostBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *HostBuilder) SetId(v int64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -3136,6 +3348,10 @@ func NewClusterBuilder(writer io.Writer) *ClusterBuilder {
 	return &ClusterBuilder{
 		writer: writer,
 	}
+}
+func (x *ClusterBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ClusterBuilder) SetNodeCount(v int32) {
 	x.scratch = x.scratch[:0]
@@ -3239,6 +3455,10 @@ func NewCluster_KubeletVersionsEntryBuilder(writer io.Writer) *Cluster_KubeletVe
 		writer: writer,
 	}
 }
+func (x *Cluster_KubeletVersionsEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *Cluster_KubeletVersionsEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -3262,6 +3482,10 @@ func NewCluster_ApiServerVersionsEntryBuilder(writer io.Writer) *Cluster_ApiServ
 	return &Cluster_ApiServerVersionsEntryBuilder{
 		writer: writer,
 	}
+}
+func (x *Cluster_ApiServerVersionsEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *Cluster_ApiServerVersionsEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
@@ -3287,6 +3511,10 @@ func NewMetadataBuilder(writer io.Writer) *MetadataBuilder {
 	return &MetadataBuilder{
 		writer: writer,
 	}
+}
+func (x *MetadataBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *MetadataBuilder) SetName(v string) {
 	x.scratch = x.scratch[:0]
@@ -3364,6 +3592,10 @@ func NewOwnerReferenceBuilder(writer io.Writer) *OwnerReferenceBuilder {
 		writer: writer,
 	}
 }
+func (x *OwnerReferenceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *OwnerReferenceBuilder) SetName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -3393,6 +3625,10 @@ func NewObjectReferenceBuilder(writer io.Writer) *ObjectReferenceBuilder {
 	return &ObjectReferenceBuilder{
 		writer: writer,
 	}
+}
+func (x *ObjectReferenceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ObjectReferenceBuilder) SetKind(v string) {
 	x.scratch = x.scratch[:0]
@@ -3448,6 +3684,10 @@ func NewServicePortBuilder(writer io.Writer) *ServicePortBuilder {
 		writer: writer,
 	}
 }
+func (x *ServicePortBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ServicePortBuilder) SetName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -3490,6 +3730,10 @@ func NewServiceSessionAffinityConfigBuilder(writer io.Writer) *ServiceSessionAff
 		writer: writer,
 	}
 }
+func (x *ServiceSessionAffinityConfigBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ServiceSessionAffinityConfigBuilder) SetClientIPTimeoutSeconds(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -3512,6 +3756,10 @@ func NewNodeBuilder(writer io.Writer) *NodeBuilder {
 	return &NodeBuilder{
 		writer: writer,
 	}
+}
+func (x *NodeBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *NodeBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -3625,6 +3873,10 @@ func NewNodeStatusBuilder(writer io.Writer) *NodeStatusBuilder {
 		writer: writer,
 	}
 }
+func (x *NodeStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *NodeStatusBuilder) AddCapacity(cb func(w *NodeStatus_CapacityEntryBuilder)) {
 	x.buf.Reset()
 	x.nodeStatus_CapacityEntryBuilder.writer = &x.buf
@@ -3735,6 +3987,10 @@ func NewNodeStatus_CapacityEntryBuilder(writer io.Writer) *NodeStatus_CapacityEn
 		writer: writer,
 	}
 }
+func (x *NodeStatus_CapacityEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *NodeStatus_CapacityEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -3758,6 +4014,10 @@ func NewNodeStatus_AllocatableEntryBuilder(writer io.Writer) *NodeStatus_Allocat
 	return &NodeStatus_AllocatableEntryBuilder{
 		writer: writer,
 	}
+}
+func (x *NodeStatus_AllocatableEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *NodeStatus_AllocatableEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
@@ -3783,6 +4043,10 @@ func NewNodeStatus_NodeAddressesEntryBuilder(writer io.Writer) *NodeStatus_NodeA
 		writer: writer,
 	}
 }
+func (x *NodeStatus_NodeAddressesEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *NodeStatus_NodeAddressesEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -3806,6 +4070,10 @@ func NewNodeConditionBuilder(writer io.Writer) *NodeConditionBuilder {
 	return &NodeConditionBuilder{
 		writer: writer,
 	}
+}
+func (x *NodeConditionBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *NodeConditionBuilder) SetType(v string) {
 	x.scratch = x.scratch[:0]
@@ -3849,6 +4117,10 @@ func NewContainerImageBuilder(writer io.Writer) *ContainerImageBuilder {
 		writer: writer,
 	}
 }
+func (x *ContainerImageBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ContainerImageBuilder) AddNames(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -3872,6 +4144,10 @@ func NewTaintBuilder(writer io.Writer) *TaintBuilder {
 	return &TaintBuilder{
 		writer: writer,
 	}
+}
+func (x *TaintBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *TaintBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
@@ -3911,6 +4187,10 @@ func NewServiceSpecBuilder(writer io.Writer) *ServiceSpecBuilder {
 	return &ServiceSpecBuilder{
 		writer: writer,
 	}
+}
+func (x *ServiceSpecBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ServiceSpecBuilder) AddPorts(cb func(w *ServicePortBuilder)) {
 	x.buf.Reset()
@@ -4021,6 +4301,10 @@ func NewServiceStatusBuilder(writer io.Writer) *ServiceStatusBuilder {
 		writer: writer,
 	}
 }
+func (x *ServiceStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ServiceStatusBuilder) AddLoadBalancerIngress(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8a)
@@ -4042,6 +4326,10 @@ func NewServiceBuilder(writer io.Writer) *ServiceBuilder {
 	return &ServiceBuilder{
 		writer: writer,
 	}
+}
+func (x *ServiceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ServiceBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -4109,6 +4397,10 @@ func NewDeploymentConditionBuilder(writer io.Writer) *DeploymentConditionBuilder
 		writer: writer,
 	}
 }
+func (x *DeploymentConditionBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *DeploymentConditionBuilder) SetType(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -4161,6 +4453,10 @@ func NewDeploymentBuilder(writer io.Writer) *DeploymentBuilder {
 	return &DeploymentBuilder{
 		writer: writer,
 	}
+}
+func (x *DeploymentBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *DeploymentBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -4305,6 +4601,10 @@ func NewReplicaSetConditionBuilder(writer io.Writer) *ReplicaSetConditionBuilder
 		writer: writer,
 	}
 }
+func (x *ReplicaSetConditionBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ReplicaSetConditionBuilder) SetType(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -4351,6 +4651,10 @@ func NewReplicaSetBuilder(writer io.Writer) *ReplicaSetBuilder {
 	return &ReplicaSetBuilder{
 		writer: writer,
 	}
+}
+func (x *ReplicaSetBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ReplicaSetBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -4458,6 +4762,10 @@ func NewLabelSelectorRequirementBuilder(writer io.Writer) *LabelSelectorRequirem
 		writer: writer,
 	}
 }
+func (x *LabelSelectorRequirementBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *LabelSelectorRequirementBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -4493,6 +4801,10 @@ func NewPodBuilder(writer io.Writer) *PodBuilder {
 	return &PodBuilder{
 		writer: writer,
 	}
+}
+func (x *PodBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *PodBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -4656,6 +4968,10 @@ func NewPodConditionBuilder(writer io.Writer) *PodConditionBuilder {
 		writer: writer,
 	}
 }
+func (x *PodConditionBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *PodConditionBuilder) SetType(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -4703,6 +5019,10 @@ func NewContainerStatusBuilder(writer io.Writer) *ContainerStatusBuilder {
 	return &ContainerStatusBuilder{
 		writer: writer,
 	}
+}
+func (x *ContainerStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ContainerStatusBuilder) SetName(v string) {
 	x.scratch = x.scratch[:0]
@@ -4752,6 +5072,10 @@ func NewManifestBuilder(writer io.Writer) *ManifestBuilder {
 	return &ManifestBuilder{
 		writer: writer,
 	}
+}
+func (x *ManifestBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ManifestBuilder) SetType(v int32) {
 	x.scratch = x.scratch[:0]
@@ -4803,6 +5127,10 @@ func NewNamespaceConditionBuilder(writer io.Writer) *NamespaceConditionBuilder {
 		writer: writer,
 	}
 }
+func (x *NamespaceConditionBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *NamespaceConditionBuilder) SetType(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -4846,6 +5174,10 @@ func NewNamespaceBuilder(writer io.Writer) *NamespaceBuilder {
 	return &NamespaceBuilder{
 		writer: writer,
 	}
+}
+func (x *NamespaceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *NamespaceBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -4907,6 +5239,10 @@ func NewResourceRequirementsBuilder(writer io.Writer) *ResourceRequirementsBuild
 		writer: writer,
 	}
 }
+func (x *ResourceRequirementsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ResourceRequirementsBuilder) AddLimits(cb func(w *ResourceRequirements_LimitsEntryBuilder)) {
 	x.buf.Reset()
 	x.resourceRequirements_LimitsEntryBuilder.writer = &x.buf
@@ -4952,6 +5288,10 @@ func NewResourceRequirements_LimitsEntryBuilder(writer io.Writer) *ResourceRequi
 		writer: writer,
 	}
 }
+func (x *ResourceRequirements_LimitsEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ResourceRequirements_LimitsEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -4975,6 +5315,10 @@ func NewResourceRequirements_RequestsEntryBuilder(writer io.Writer) *ResourceReq
 	return &ResourceRequirements_RequestsEntryBuilder{
 		writer: writer,
 	}
+}
+func (x *ResourceRequirements_RequestsEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ResourceRequirements_RequestsEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
@@ -5001,6 +5345,10 @@ func NewResourceMetricsBuilder(writer io.Writer) *ResourceMetricsBuilder {
 		writer: writer,
 	}
 }
+func (x *ResourceMetricsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ResourceMetricsBuilder) AddMetricValues(cb func(w *ResourceMetrics_MetricValuesEntryBuilder)) {
 	x.buf.Reset()
 	x.resourceMetrics_MetricValuesEntryBuilder.writer = &x.buf
@@ -5022,6 +5370,10 @@ func NewResourceMetrics_MetricValuesEntryBuilder(writer io.Writer) *ResourceMetr
 	return &ResourceMetrics_MetricValuesEntryBuilder{
 		writer: writer,
 	}
+}
+func (x *ResourceMetrics_MetricValuesEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ResourceMetrics_MetricValuesEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
@@ -5047,6 +5399,10 @@ func NewJobSpecBuilder(writer io.Writer) *JobSpecBuilder {
 	return &JobSpecBuilder{
 		writer: writer,
 	}
+}
+func (x *JobSpecBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *JobSpecBuilder) SetParallelism(v int32) {
 	x.scratch = x.scratch[:0]
@@ -5111,6 +5467,10 @@ func NewJobStatusBuilder(writer io.Writer) *JobStatusBuilder {
 		writer: writer,
 	}
 }
+func (x *JobStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *JobStatusBuilder) SetConditionMessage(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -5158,6 +5518,10 @@ func NewJobConditionBuilder(writer io.Writer) *JobConditionBuilder {
 	return &JobConditionBuilder{
 		writer: writer,
 	}
+}
+func (x *JobConditionBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *JobConditionBuilder) SetType(v string) {
 	x.scratch = x.scratch[:0]
@@ -5210,6 +5574,10 @@ func NewJobBuilder(writer io.Writer) *JobBuilder {
 	return &JobBuilder{
 		writer: writer,
 	}
+}
+func (x *JobBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *JobBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -5278,6 +5646,10 @@ func NewCronJobSpecBuilder(writer io.Writer) *CronJobSpecBuilder {
 		writer: writer,
 	}
 }
+func (x *CronJobSpecBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CronJobSpecBuilder) SetSchedule(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -5338,6 +5710,10 @@ func NewCronJobStatusBuilder(writer io.Writer) *CronJobStatusBuilder {
 		writer: writer,
 	}
 }
+func (x *CronJobStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CronJobStatusBuilder) AddActive(cb func(w *ObjectReferenceBuilder)) {
 	x.buf.Reset()
 	x.objectReferenceBuilder.writer = &x.buf
@@ -5368,6 +5744,10 @@ func NewCronJobBuilder(writer io.Writer) *CronJobBuilder {
 	return &CronJobBuilder{
 		writer: writer,
 	}
+}
+func (x *CronJobBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CronJobBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -5427,6 +5807,10 @@ func NewDaemonSetSpecBuilder(writer io.Writer) *DaemonSetSpecBuilder {
 		writer: writer,
 	}
 }
+func (x *DaemonSetSpecBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *DaemonSetSpecBuilder) AddSelectors(cb func(w *LabelSelectorRequirementBuilder)) {
 	x.buf.Reset()
 	x.labelSelectorRequirementBuilder.writer = &x.buf
@@ -5483,6 +5867,10 @@ func NewDaemonSetStatusBuilder(writer io.Writer) *DaemonSetStatusBuilder {
 		writer: writer,
 	}
 }
+func (x *DaemonSetStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *DaemonSetStatusBuilder) SetCurrentNumberScheduled(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -5537,6 +5925,10 @@ func NewDaemonSetConditionBuilder(writer io.Writer) *DaemonSetConditionBuilder {
 		writer: writer,
 	}
 }
+func (x *DaemonSetConditionBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *DaemonSetConditionBuilder) SetType(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -5583,6 +5975,10 @@ func NewDaemonSetBuilder(writer io.Writer) *DaemonSetBuilder {
 	return &DaemonSetBuilder{
 		writer: writer,
 	}
+}
+func (x *DaemonSetBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *DaemonSetBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -5662,6 +6058,10 @@ func NewStatefulSetSpecBuilder(writer io.Writer) *StatefulSetSpecBuilder {
 		writer: writer,
 	}
 }
+func (x *StatefulSetSpecBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *StatefulSetSpecBuilder) SetDesiredReplicas(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -5724,6 +6124,10 @@ func NewStatefulSetStatusBuilder(writer io.Writer) *StatefulSetStatusBuilder {
 		writer: writer,
 	}
 }
+func (x *StatefulSetStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *StatefulSetStatusBuilder) SetReplicas(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -5759,6 +6163,10 @@ func NewStatefulSetConditionBuilder(writer io.Writer) *StatefulSetConditionBuild
 	return &StatefulSetConditionBuilder{
 		writer: writer,
 	}
+}
+func (x *StatefulSetConditionBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *StatefulSetConditionBuilder) SetType(v string) {
 	x.scratch = x.scratch[:0]
@@ -5806,6 +6214,10 @@ func NewStatefulSetBuilder(writer io.Writer) *StatefulSetBuilder {
 	return &StatefulSetBuilder{
 		writer: writer,
 	}
+}
+func (x *StatefulSetBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *StatefulSetBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -5886,6 +6298,10 @@ func NewPersistentVolumeBuilder(writer io.Writer) *PersistentVolumeBuilder {
 		writer: writer,
 	}
 }
+func (x *PersistentVolumeBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *PersistentVolumeBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
 	x.metadataBuilder.writer = &x.buf
@@ -5945,6 +6361,10 @@ func NewPersistentVolumeSpecBuilder(writer io.Writer) *PersistentVolumeSpecBuild
 	return &PersistentVolumeSpecBuilder{
 		writer: writer,
 	}
+}
+func (x *PersistentVolumeSpecBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *PersistentVolumeSpecBuilder) AddCapacity(cb func(w *PersistentVolumeSpec_CapacityEntryBuilder)) {
 	x.buf.Reset()
@@ -6034,6 +6454,10 @@ func NewPersistentVolumeSpec_CapacityEntryBuilder(writer io.Writer) *PersistentV
 		writer: writer,
 	}
 }
+func (x *PersistentVolumeSpec_CapacityEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *PersistentVolumeSpec_CapacityEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -6062,6 +6486,10 @@ func NewPersistentVolumeSourceBuilder(writer io.Writer) *PersistentVolumeSourceB
 	return &PersistentVolumeSourceBuilder{
 		writer: writer,
 	}
+}
+func (x *PersistentVolumeSourceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *PersistentVolumeSourceBuilder) SetGcePersistentDisk(cb func(w *GCEPersistentDiskVolumeSourceBuilder)) {
 	x.buf.Reset()
@@ -6125,6 +6553,10 @@ func NewGCEPersistentDiskVolumeSourceBuilder(writer io.Writer) *GCEPersistentDis
 		writer: writer,
 	}
 }
+func (x *GCEPersistentDiskVolumeSourceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *GCEPersistentDiskVolumeSourceBuilder) SetPdName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -6161,6 +6593,10 @@ func NewAWSElasticBlockStoreVolumeSourceBuilder(writer io.Writer) *AWSElasticBlo
 	return &AWSElasticBlockStoreVolumeSourceBuilder{
 		writer: writer,
 	}
+}
+func (x *AWSElasticBlockStoreVolumeSourceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *AWSElasticBlockStoreVolumeSourceBuilder) SetVolumeID(v string) {
 	x.scratch = x.scratch[:0]
@@ -6199,6 +6635,10 @@ func NewAzureFilePersistentVolumeSourceBuilder(writer io.Writer) *AzureFilePersi
 		writer: writer,
 	}
 }
+func (x *AzureFilePersistentVolumeSourceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *AzureFilePersistentVolumeSourceBuilder) SetSecretName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -6235,6 +6675,10 @@ func NewAzureDiskVolumeSourceBuilder(writer io.Writer) *AzureDiskVolumeSourceBui
 	return &AzureDiskVolumeSourceBuilder{
 		writer: writer,
 	}
+}
+func (x *AzureDiskVolumeSourceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *AzureDiskVolumeSourceBuilder) SetDiskName(v string) {
 	x.scratch = x.scratch[:0]
@@ -6286,6 +6730,10 @@ func NewCSIVolumeSourceBuilder(writer io.Writer) *CSIVolumeSourceBuilder {
 	return &CSIVolumeSourceBuilder{
 		writer: writer,
 	}
+}
+func (x *CSIVolumeSourceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *CSIVolumeSourceBuilder) SetDriver(v string) {
 	x.scratch = x.scratch[:0]
@@ -6384,6 +6832,10 @@ func NewCSIVolumeSource_VolumeAttributesEntryBuilder(writer io.Writer) *CSIVolum
 		writer: writer,
 	}
 }
+func (x *CSIVolumeSource_VolumeAttributesEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *CSIVolumeSource_VolumeAttributesEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -6408,6 +6860,10 @@ func NewSecretReferenceBuilder(writer io.Writer) *SecretReferenceBuilder {
 		writer: writer,
 	}
 }
+func (x *SecretReferenceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *SecretReferenceBuilder) SetName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -6431,6 +6887,10 @@ func NewPersistentVolumeStatusBuilder(writer io.Writer) *PersistentVolumeStatusB
 	return &PersistentVolumeStatusBuilder{
 		writer: writer,
 	}
+}
+func (x *PersistentVolumeStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *PersistentVolumeStatusBuilder) SetPhase(v string) {
 	x.scratch = x.scratch[:0]
@@ -6462,6 +6922,10 @@ func NewNodeSelectorTermBuilder(writer io.Writer) *NodeSelectorTermBuilder {
 	return &NodeSelectorTermBuilder{
 		writer: writer,
 	}
+}
+func (x *NodeSelectorTermBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *NodeSelectorTermBuilder) AddMatchExpressions(cb func(w *LabelSelectorRequirementBuilder)) {
 	x.buf.Reset()
@@ -6497,6 +6961,10 @@ func NewPersistentVolumeClaimBuilder(writer io.Writer) *PersistentVolumeClaimBui
 	return &PersistentVolumeClaimBuilder{
 		writer: writer,
 	}
+}
+func (x *PersistentVolumeClaimBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *PersistentVolumeClaimBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -6556,6 +7024,10 @@ func NewPersistentVolumeClaimStatusBuilder(writer io.Writer) *PersistentVolumeCl
 		writer: writer,
 	}
 }
+func (x *PersistentVolumeClaimStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *PersistentVolumeClaimStatusBuilder) SetPhase(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -6600,6 +7072,10 @@ func NewPersistentVolumeClaimStatus_CapacityEntryBuilder(writer io.Writer) *Pers
 		writer: writer,
 	}
 }
+func (x *PersistentVolumeClaimStatus_CapacityEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *PersistentVolumeClaimStatus_CapacityEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -6626,6 +7102,10 @@ func NewPersistentVolumeClaimSpecBuilder(writer io.Writer) *PersistentVolumeClai
 	return &PersistentVolumeClaimSpecBuilder{
 		writer: writer,
 	}
+}
+func (x *PersistentVolumeClaimSpecBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *PersistentVolumeClaimSpecBuilder) AddAccessModes(v string) {
 	x.scratch = x.scratch[:0]
@@ -6693,6 +7173,10 @@ func NewTypedLocalObjectReferenceBuilder(writer io.Writer) *TypedLocalObjectRefe
 		writer: writer,
 	}
 }
+func (x *TypedLocalObjectReferenceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *TypedLocalObjectReferenceBuilder) SetApiGroup(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -6722,6 +7206,10 @@ func NewPersistentVolumeClaimConditionBuilder(writer io.Writer) *PersistentVolum
 	return &PersistentVolumeClaimConditionBuilder{
 		writer: writer,
 	}
+}
+func (x *PersistentVolumeClaimConditionBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *PersistentVolumeClaimConditionBuilder) SetType(v string) {
 	x.scratch = x.scratch[:0]
@@ -6771,6 +7259,10 @@ func NewPolicyRuleBuilder(writer io.Writer) *PolicyRuleBuilder {
 		writer: writer,
 	}
 }
+func (x *PolicyRuleBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *PolicyRuleBuilder) AddVerbs(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -6813,6 +7305,10 @@ func NewSubjectBuilder(writer io.Writer) *SubjectBuilder {
 		writer: writer,
 	}
 }
+func (x *SubjectBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *SubjectBuilder) SetKind(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -6850,6 +7346,10 @@ func NewRoleBuilder(writer io.Writer) *RoleBuilder {
 	return &RoleBuilder{
 		writer: writer,
 	}
+}
+func (x *RoleBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *RoleBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -6899,6 +7399,10 @@ func NewRoleBindingBuilder(writer io.Writer) *RoleBindingBuilder {
 	return &RoleBindingBuilder{
 		writer: writer,
 	}
+}
+func (x *RoleBindingBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *RoleBindingBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -6959,6 +7463,10 @@ func NewClusterRoleBuilder(writer io.Writer) *ClusterRoleBuilder {
 	return &ClusterRoleBuilder{
 		writer: writer,
 	}
+}
+func (x *ClusterRoleBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ClusterRoleBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -7029,6 +7537,10 @@ func NewClusterRoleBindingBuilder(writer io.Writer) *ClusterRoleBindingBuilder {
 		writer: writer,
 	}
 }
+func (x *ClusterRoleBindingBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *ClusterRoleBindingBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
 	x.metadataBuilder.writer = &x.buf
@@ -7087,6 +7599,10 @@ func NewServiceAccountBuilder(writer io.Writer) *ServiceAccountBuilder {
 	return &ServiceAccountBuilder{
 		writer: writer,
 	}
+}
+func (x *ServiceAccountBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ServiceAccountBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -7151,6 +7667,10 @@ func NewIngressServiceBackendBuilder(writer io.Writer) *IngressServiceBackendBui
 		writer: writer,
 	}
 }
+func (x *IngressServiceBackendBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *IngressServiceBackendBuilder) SetServiceName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -7182,6 +7702,10 @@ func NewIngressBackendBuilder(writer io.Writer) *IngressBackendBuilder {
 	return &IngressBackendBuilder{
 		writer: writer,
 	}
+}
+func (x *IngressBackendBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *IngressBackendBuilder) SetService(cb func(w *IngressServiceBackendBuilder)) {
 	x.buf.Reset()
@@ -7215,6 +7739,10 @@ func NewIngressTLSBuilder(writer io.Writer) *IngressTLSBuilder {
 		writer: writer,
 	}
 }
+func (x *IngressTLSBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *IngressTLSBuilder) AddHosts(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -7239,6 +7767,10 @@ func NewHTTPIngressPathBuilder(writer io.Writer) *HTTPIngressPathBuilder {
 	return &HTTPIngressPathBuilder{
 		writer: writer,
 	}
+}
+func (x *HTTPIngressPathBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *HTTPIngressPathBuilder) SetPath(v string) {
 	x.scratch = x.scratch[:0]
@@ -7275,6 +7807,10 @@ func NewIngressRuleBuilder(writer io.Writer) *IngressRuleBuilder {
 		writer: writer,
 	}
 }
+func (x *IngressRuleBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *IngressRuleBuilder) SetHost(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -7305,6 +7841,10 @@ func NewIngressSpecBuilder(writer io.Writer) *IngressSpecBuilder {
 	return &IngressSpecBuilder{
 		writer: writer,
 	}
+}
+func (x *IngressSpecBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *IngressSpecBuilder) SetDefaultBackend(cb func(w *IngressBackendBuilder)) {
 	x.buf.Reset()
@@ -7354,6 +7894,10 @@ func NewPortStatusBuilder(writer io.Writer) *PortStatusBuilder {
 		writer: writer,
 	}
 }
+func (x *PortStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *PortStatusBuilder) SetPort(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -7384,6 +7928,10 @@ func NewLoadBalancerIngressBuilder(writer io.Writer) *LoadBalancerIngressBuilder
 	return &LoadBalancerIngressBuilder{
 		writer: writer,
 	}
+}
+func (x *LoadBalancerIngressBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *LoadBalancerIngressBuilder) SetIp(v string) {
 	x.scratch = x.scratch[:0]
@@ -7420,6 +7968,10 @@ func NewIngressStatusBuilder(writer io.Writer) *IngressStatusBuilder {
 		writer: writer,
 	}
 }
+func (x *IngressStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *IngressStatusBuilder) AddIngress(cb func(w *LoadBalancerIngressBuilder)) {
 	x.buf.Reset()
 	x.loadBalancerIngressBuilder.writer = &x.buf
@@ -7444,6 +7996,10 @@ func NewIngressBuilder(writer io.Writer) *IngressBuilder {
 	return &IngressBuilder{
 		writer: writer,
 	}
+}
+func (x *IngressBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *IngressBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -7501,6 +8057,10 @@ func NewKafkaRequestHeaderBuilder(writer io.Writer) *KafkaRequestHeaderBuilder {
 		writer: writer,
 	}
 }
+func (x *KafkaRequestHeaderBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *KafkaRequestHeaderBuilder) SetRequest_type(v uint32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -7525,6 +8085,10 @@ func NewKafkaAggregationBuilder(writer io.Writer) *KafkaAggregationBuilder {
 	return &KafkaAggregationBuilder{
 		writer: writer,
 	}
+}
+func (x *KafkaAggregationBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *KafkaAggregationBuilder) SetHeader(cb func(w *KafkaRequestHeaderBuilder)) {
 	x.buf.Reset()
@@ -7562,6 +8126,10 @@ func NewDataStreamsAggregationsBuilder(writer io.Writer) *DataStreamsAggregation
 	return &DataStreamsAggregationsBuilder{
 		writer: writer,
 	}
+}
+func (x *DataStreamsAggregationsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *DataStreamsAggregationsBuilder) SetKafkaProduceAggregations(cb func(w *DataStreamsAggregations_KafkaProduceAggregationsBuilder)) {
 	x.buf.Reset()
@@ -7605,6 +8173,10 @@ func NewDataStreamsAggregations_TopicStatsBuilder(writer io.Writer) *DataStreams
 		writer: writer,
 	}
 }
+func (x *DataStreamsAggregations_TopicStatsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *DataStreamsAggregations_TopicStatsBuilder) SetTopic(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -7630,6 +8202,10 @@ func NewDataStreamsAggregations_KafkaProduceAggregationsBuilder(writer io.Writer
 		writer: writer,
 	}
 }
+func (x *DataStreamsAggregations_KafkaProduceAggregationsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *DataStreamsAggregations_KafkaProduceAggregationsBuilder) AddStats(cb func(w *DataStreamsAggregations_TopicStatsBuilder)) {
 	x.buf.Reset()
 	x.dataStreamsAggregations_TopicStatsBuilder.writer = &x.buf
@@ -7652,6 +8228,10 @@ func NewDataStreamsAggregations_KafkaFetchAggregationsBuilder(writer io.Writer) 
 	return &DataStreamsAggregations_KafkaFetchAggregationsBuilder{
 		writer: writer,
 	}
+}
+func (x *DataStreamsAggregations_KafkaFetchAggregationsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *DataStreamsAggregations_KafkaFetchAggregationsBuilder) AddStats(cb func(w *DataStreamsAggregations_TopicStatsBuilder)) {
 	x.buf.Reset()
@@ -7676,6 +8256,10 @@ func NewHTTPAggregationsBuilder(writer io.Writer) *HTTPAggregationsBuilder {
 		writer: writer,
 	}
 }
+func (x *HTTPAggregationsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *HTTPAggregationsBuilder) AddEndpointAggregations(cb func(w *HTTPStatsBuilder)) {
 	x.buf.Reset()
 	x.hTTPStatsBuilder.writer = &x.buf
@@ -7698,6 +8282,10 @@ func NewHTTP2AggregationsBuilder(writer io.Writer) *HTTP2AggregationsBuilder {
 	return &HTTP2AggregationsBuilder{
 		writer: writer,
 	}
+}
+func (x *HTTP2AggregationsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *HTTP2AggregationsBuilder) AddEndpointAggregations(cb func(w *HTTPStatsBuilder)) {
 	x.buf.Reset()
@@ -7722,6 +8310,10 @@ func NewHTTPStatsBuilder(writer io.Writer) *HTTPStatsBuilder {
 	return &HTTPStatsBuilder{
 		writer: writer,
 	}
+}
+func (x *HTTPStatsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *HTTPStatsBuilder) SetPath(v string) {
 	x.scratch = x.scratch[:0]
@@ -7776,6 +8368,10 @@ func NewHTTPStats_StatsByStatusCodeEntryBuilder(writer io.Writer) *HTTPStats_Sta
 		writer: writer,
 	}
 }
+func (x *HTTPStats_StatsByStatusCodeEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *HTTPStats_StatsByStatusCodeEntryBuilder) SetKey(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -7803,6 +8399,10 @@ func NewHTTPStats_DataBuilder(writer io.Writer) *HTTPStats_DataBuilder {
 	return &HTTPStats_DataBuilder{
 		writer: writer,
 	}
+}
+func (x *HTTPStats_DataBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *HTTPStats_DataBuilder) SetCount(v uint32) {
 	x.scratch = x.scratch[:0]
@@ -7835,6 +8435,10 @@ func NewDNSDatabaseEntryBuilder(writer io.Writer) *DNSDatabaseEntryBuilder {
 		writer: writer,
 	}
 }
+func (x *DNSDatabaseEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *DNSDatabaseEntryBuilder) AddNameOffsets(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -7853,6 +8457,10 @@ func NewResourceListBuilder(writer io.Writer) *ResourceListBuilder {
 	return &ResourceListBuilder{
 		writer: writer,
 	}
+}
+func (x *ResourceListBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ResourceListBuilder) AddMetricValues(cb func(w *ResourceList_MetricValuesEntryBuilder)) {
 	x.buf.Reset()
@@ -7875,6 +8483,10 @@ func NewResourceList_MetricValuesEntryBuilder(writer io.Writer) *ResourceList_Me
 	return &ResourceList_MetricValuesEntryBuilder{
 		writer: writer,
 	}
+}
+func (x *ResourceList_MetricValuesEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ResourceList_MetricValuesEntryBuilder) SetKey(v string) {
 	x.scratch = x.scratch[:0]
@@ -7902,6 +8514,10 @@ func NewVerticalPodAutoscalerBuilder(writer io.Writer) *VerticalPodAutoscalerBui
 	return &VerticalPodAutoscalerBuilder{
 		writer: writer,
 	}
+}
+func (x *VerticalPodAutoscalerBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *VerticalPodAutoscalerBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
 	x.buf.Reset()
@@ -7969,6 +8585,10 @@ func NewVerticalPodAutoscalerConditionBuilder(writer io.Writer) *VerticalPodAuto
 		writer: writer,
 	}
 }
+func (x *VerticalPodAutoscalerConditionBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *VerticalPodAutoscalerConditionBuilder) SetType(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -8013,6 +8633,10 @@ func NewVerticalPodAutoscalerSpecBuilder(writer io.Writer) *VerticalPodAutoscale
 		writer: writer,
 	}
 }
+func (x *VerticalPodAutoscalerSpecBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *VerticalPodAutoscalerSpecBuilder) SetTarget(cb func(w *VerticalPodAutoscalerTargetBuilder)) {
 	x.buf.Reset()
 	x.verticalPodAutoscalerTargetBuilder.writer = &x.buf
@@ -8051,6 +8675,10 @@ func NewVerticalPodAutoscalerTargetBuilder(writer io.Writer) *VerticalPodAutosca
 		writer: writer,
 	}
 }
+func (x *VerticalPodAutoscalerTargetBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *VerticalPodAutoscalerTargetBuilder) SetKind(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
@@ -8075,6 +8703,10 @@ func NewContainerResourcePolicyBuilder(writer io.Writer) *ContainerResourcePolic
 	return &ContainerResourcePolicyBuilder{
 		writer: writer,
 	}
+}
+func (x *ContainerResourcePolicyBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ContainerResourcePolicyBuilder) SetContainerName(v string) {
 	x.scratch = x.scratch[:0]
@@ -8134,6 +8766,10 @@ func NewVerticalPodAutoscalerStatusBuilder(writer io.Writer) *VerticalPodAutosca
 		writer: writer,
 	}
 }
+func (x *VerticalPodAutoscalerStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
 func (x *VerticalPodAutoscalerStatusBuilder) SetLastRecommendedDate(v int64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
@@ -8172,6 +8808,10 @@ func NewContainerRecommendationBuilder(writer io.Writer) *ContainerRecommendatio
 	return &ContainerRecommendationBuilder{
 		writer: writer,
 	}
+}
+func (x *ContainerRecommendationBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *ContainerRecommendationBuilder) SetContainerName(v string) {
 	x.scratch = x.scratch[:0]
@@ -8230,6 +8870,10 @@ func NewVPAConditionBuilder(writer io.Writer) *VPAConditionBuilder {
 	return &VPAConditionBuilder{
 		writer: writer,
 	}
+}
+func (x *VPAConditionBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 func (x *VPAConditionBuilder) SetConditionType(v string) {
 	x.scratch = x.scratch[:0]
