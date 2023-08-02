@@ -310,6 +310,15 @@ message CollectorVerticalPodAutoscaler {
 	repeated string tags = 6;
 }
 
+message CollectorHorizontalPodAutoscaler {
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated HorizontalPodAutoscaler horizontalPodAutoscalers = 5;
+	repeated string tags = 6;
+}
+
 //
 // Models
 //
@@ -653,6 +662,7 @@ enum K8sResource {
     CRD = 20;
     CR = 21;
     VERTICALPODAUTOSCALER = 22;
+    HORIZONTALPODAUTOSCALER = 23;
 }
 
 message Cluster {
@@ -1605,10 +1615,10 @@ message HorizontalPodAutoscaler {
 
 message HorizontalPodAutoscalerSpec {
 	HorizontalPodAutoscalerTarget target = 1;
-    int32 minReplicas = 2;
-    int32 maxReplicas = 3;
-    repeated HorizontalPodAutoscalerMetricSpec metrics = 4;
-    HorizontalPodAutoscalerBehavior behavior = 5;
+	int32 minReplicas = 2;
+	int32 maxReplicas = 3;
+	repeated HorizontalPodAutoscalerMetricSpec metrics = 4;
+	HorizontalPodAutoscalerBehavior behavior = 5;
 }
 
 message HorizontalPodAutoscalerTarget {
@@ -1617,75 +1627,75 @@ message HorizontalPodAutoscalerTarget {
 }
 
 message HorizontalPodAutoscalerMetricSpec {
-    string type = 1;
-    ObjectMetricSource object = 2;
-    PodsMetricSource pods = 3;
-    ResourceMetricSource resource = 4;
-    ContainerResourceMetricSource containerResource = 5;
-    ExternalMetricSource external = 6;
+	string type = 1;
+	ObjectMetricSource object = 2;
+	PodsMetricSource pods = 3;
+	ResourceMetricSource resource = 4;
+	ContainerResourceMetricSource containerResource = 5;
+	ExternalMetricSource external = 6;
 }
 
 message ObjectMetricSource {
-    ObjectReference describedObject = 1;
-    MetricTarget target = 2;
-    MetricIdentifier metric = 3;
+	ObjectReference describedObject = 1;
+	MetricTarget target = 2;
+	MetricIdentifier metric = 3;
 }
 
 message MetricTarget {
-    string type = 1;
-    int64 value = 2;
+	string type = 1;
+	int64 value = 2;
 }
 
 message MetricIdentifier {
-    string name = 1;
-    string labelsSelector = 2;
+	string name = 1;
+	string labelsSelector = 2;
 }
 
 
 message PodsMetricSource {
-    MetricIdentifier metric = 1;
-    MetricTarget target = 2;
+	MetricIdentifier metric = 1;
+	MetricTarget target = 2;
 }
 
 message ResourceMetricSource {
-    string resourceName = 1;
-    MetricTarget target = 2;
+	string resourceName = 1;
+	MetricTarget target = 2;
 }
 
 message ContainerResourceMetricSource {
-    string resourceName = 1;
-    MetricTarget target = 2;
-    string container = 3;
+	string resourceName = 1;
+	MetricTarget target = 2;
+	string container = 3;
 }
 
 message ExternalMetricSource {
-    MetricIdentifier metric = 1;
-    MetricTarget target = 2;
+	MetricIdentifier metric = 1;
+	MetricTarget target = 2;
 }
 
 message HorizontalPodAutoscalerBehavior {
-    HPAScalingRules scaleUp = 1;
-    HPAScalingRules scaleDown = 2;
+	HPAScalingRules scaleUp = 1;
+	HPAScalingRules scaleDown = 2;
 }
 
 message HPAScalingRules {
-    int32 stabilizationWindowSeconds = 1;
-    string selectPolicy = 2;
-    repeated HPAScalingPolicy policies =3;
+	int32 stabilizationWindowSeconds = 1;
+	string selectPolicy = 2;
+	repeated HPAScalingPolicy policies =3;
 }
 
 message HPAScalingPolicy{
-    string type = 1;
-    int32 value = 2;
-    int32 periodSeconds = 3;
+	string type = 1;
+	int32 value = 2;
+	int32 periodSeconds = 3;
 }
 
 message HorizontalPodAutoscalerStatus {
-    int64 observedGeneration = 1;
-    int64 lastScaleTime = 2;
-    int32 currentReplicas = 3;
-    int32 desiredReplicas = 4;
-    repeated HorizontalPodAutoscalerMetricSpec currentMetrics = 5;
+	int64 observedGeneration = 1;
+	int64 lastScaleTime = 2;
+	int32 currentReplicas = 3;
+	int32 desiredReplicas = 4;
+	repeated HorizontalPodAutoscalerMetricSpec currentMetrics = 5;
 }
 
 message HorizontalPodAutoscalerCondition {
