@@ -362,6 +362,7 @@ message Command {
 	int32 ppid = 6;
 	int32 pgroup = 7;
 	string exe = 8;
+	string comm = 9;
 }
 
 message ProcessUser {
