@@ -1715,7 +1715,7 @@ message HorizontalPodAutoscalerMetricStatus {
 	ExternalMetricStatus external = 6;
 }
 
-message ObjectMetricSource {
+message ObjectMetricStatus {
 	ObjectReference describedObject = 1;
 	int64 current = 2;
 	MetricIdentifier metric = 3;
