@@ -1648,7 +1648,7 @@ message MetricTarget {
 
 message MetricIdentifier {
 	string name = 1;
-	string labelsSelector = 2;
+	string labelSelector = 2;
 }
 
 
@@ -1695,7 +1695,7 @@ message HorizontalPodAutoscalerStatus {
 	int64 lastScaleTime = 2;
 	int32 currentReplicas = 3;
 	int32 desiredReplicas = 4;
-	repeated HorizontalPodAutoscalerMetricSpec currentMetrics = 5;
+	repeated HorizontalPodAutoscalerMetricStatus currentMetrics = 5;
 }
 
 message HorizontalPodAutoscalerCondition {
@@ -1704,4 +1704,40 @@ message HorizontalPodAutoscalerCondition {
 	int64 lastTransitionTime = 3;
 	string reason = 4;
 	string message = 5;
+}
+
+message HorizontalPodAutoscalerMetricStatus {
+	string type = 1;
+	ObjectMetricStatus object = 2;
+	PodsMetricStatus pods = 3;
+	ResourceMetricStatus resource = 4;
+	ContainerResourceMetricStatus containerResource = 5;
+	ExternalMetricStatus external = 6;
+}
+
+message ObjectMetricSource {
+	ObjectReference describedObject = 1;
+	int64 current = 2;
+	MetricIdentifier metric = 3;
+}
+
+message PodsMetricStatus {
+	MetricIdentifier metric = 1;
+	int64 current = 2;
+}
+
+message ResourceMetricStatus {
+	string resourceName = 1;
+	int64 current = 2;
+}
+
+message ContainerResourceMetricStatus {
+	string resourceName = 1;
+	int64 current = 2;
+	string container = 3;
+}
+
+message ExternalMetricStatus {
+	MetricIdentifier metric = 1;
+	int64 current = 2;
 }
