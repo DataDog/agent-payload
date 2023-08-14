@@ -1648,7 +1648,7 @@ message MetricTarget {
 
 message MetricIdentifier {
 	string name = 1;
-	string labelSelector = 2;
+	repeated LabelSelectorRequirement labelSelector = 2;
 }
 
 
