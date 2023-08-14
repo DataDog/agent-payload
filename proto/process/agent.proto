@@ -1603,7 +1603,7 @@ message VPACondition {
 	string Message = 5;
 }
 
-// https://github.com/kubernetes/api/blob/master/autoscaling/v2/types.go
+// https://github.com/kubernetes/api/blob/v0.23.15/autoscaling/v2/types.go
 message HorizontalPodAutoscaler {
 	Metadata metadata = 1;
 	HorizontalPodAutoscalerSpec spec = 2;
