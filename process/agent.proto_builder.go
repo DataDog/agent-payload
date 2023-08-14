@@ -2135,6 +2135,12 @@ func (x *CommandBuilder) SetExe(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CommandBuilder) SetComm(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x4a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type ProcessUserBuilder struct {
 	writer  io.Writer
