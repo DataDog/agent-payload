@@ -48,3 +48,19 @@ After updating the IDL you must:
 
 - Regenerate the code: `rake codegen`, rake will use gimme to run the rake command with the current defined go version
 - Create a new tag with the updated version of the payload
+
+# Publishing Changes
+
+After merging changes to `master` create a release by:
+
+1. Navigate to the [Releases](https://github.com/DataDog/agent-payload/releases) page
+2. Click "Draft a new release"
+3. In the "Choose a tag" drop down, type in the next version number
+   
+   Generally you can add one to the last version number.  Make sure to include the `v` prefix. For example, if the last release was  v5.0.37, your release should be v5.0.38.
+   
+5. The release title should be the same as the version tag
+6. Use "Generate release notes" to fill in the release description
+7. Click "Publish release"
+   
+   This will create a git tag that can now be referenced in other repos. 
