@@ -84,37 +84,38 @@ type MessageType uint8
 // Note: Ordering my seem unusual, this is just to match the backend where there
 // are additional types that aren't covered here.
 const (
-	TypeCollectorProc                  = 12
-	TypeCollectorConnections           = 22
-	TypeResCollector                   = 23
-	TypeCollectorRealTime              = 27
-	TypeCollectorContainer             = 39
-	TypeCollectorContainerRealTime     = 40
-	TypeCollectorPod                   = 41
-	TypeCollectorReplicaSet            = 42
-	TypeCollectorDeployment            = 43
-	TypeCollectorService               = 44
-	TypeCollectorNode                  = 45
-	TypeCollectorCluster               = 46
-	TypeCollectorJob                   = 47
-	TypeCollectorCronJob               = 48
-	TypeCollectorDaemonSet             = 49
-	TypeCollectorStatefulSet           = 50
-	TypeCollectorPersistentVolume      = 51
-	TypeCollectorPersistentVolumeClaim = 52
-	TypeCollectorProcDiscovery         = 53
-	TypeCollectorRole                  = 54
-	TypeCollectorRoleBinding           = 55
-	TypeCollectorClusterRole           = 56
-	TypeCollectorClusterRoleBinding    = 57
-	TypeCollectorServiceAccount        = 58
-	TypeCollectorIngress               = 59
-	TypeCollectorProcEvent             = 60
-	TypeCollectorNamespace             = 61
-	TypeCollectorManifest              = 80
-	TypeCollectorManifestCRD           = 81
-	TypeCollectorManifestCR            = 82
-	TypeCollectorVerticalPodAutoscaler = 83
+	TypeCollectorProc                    = 12
+	TypeCollectorConnections             = 22
+	TypeResCollector                     = 23
+	TypeCollectorRealTime                = 27
+	TypeCollectorContainer               = 39
+	TypeCollectorContainerRealTime       = 40
+	TypeCollectorPod                     = 41
+	TypeCollectorReplicaSet              = 42
+	TypeCollectorDeployment              = 43
+	TypeCollectorService                 = 44
+	TypeCollectorNode                    = 45
+	TypeCollectorCluster                 = 46
+	TypeCollectorJob                     = 47
+	TypeCollectorCronJob                 = 48
+	TypeCollectorDaemonSet               = 49
+	TypeCollectorStatefulSet             = 50
+	TypeCollectorPersistentVolume        = 51
+	TypeCollectorPersistentVolumeClaim   = 52
+	TypeCollectorProcDiscovery           = 53
+	TypeCollectorRole                    = 54
+	TypeCollectorRoleBinding             = 55
+	TypeCollectorClusterRole             = 56
+	TypeCollectorClusterRoleBinding      = 57
+	TypeCollectorServiceAccount          = 58
+	TypeCollectorIngress                 = 59
+	TypeCollectorProcEvent               = 60
+	TypeCollectorNamespace               = 61
+	TypeCollectorManifest                = 80
+	TypeCollectorManifestCRD             = 81
+	TypeCollectorManifestCR              = 82
+	TypeCollectorVerticalPodAutoscaler   = 83
+	TypeCollectorHorizontalPodAutoscaler = 84
 )
 
 func (m MessageType) String() string {
@@ -179,6 +180,8 @@ func (m MessageType) String() string {
 		return "manifest-cr"
 	case TypeCollectorVerticalPodAutoscaler:
 		return "vertical-pod-autoscaler"
+	case TypeCollectorHorizontalPodAutoscaler:
+		return "horizontal-pod-autoscaler"
 	default:
 		// otherwise convert the type identifier
 		return strconv.Itoa(int(m))
@@ -271,6 +274,8 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorManifestCR{}
 	case TypeCollectorVerticalPodAutoscaler:
 		m = &CollectorVerticalPodAutoscaler{}
+	case TypeCollectorHorizontalPodAutoscaler:
+		m = &CollectorHorizontalPodAutoscaler{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -346,6 +351,8 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorNamespace
 	case *CollectorVerticalPodAutoscaler:
 		t = TypeCollectorVerticalPodAutoscaler
+	case *CollectorHorizontalPodAutoscaler:
+		t = TypeCollectorHorizontalPodAutoscaler
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}
