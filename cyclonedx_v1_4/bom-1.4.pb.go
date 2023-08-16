@@ -2004,7 +2004,6 @@ type LicenseChoice struct {
 	unknownFields protoimpl.UnknownFields
 
 	// Types that are assignable to Choice:
-	//
 	//	*LicenseChoice_License
 	//	*LicenseChoice_Expression
 	Choice isLicenseChoice_Choice `protobuf_oneof:"choice"`
@@ -2085,7 +2084,6 @@ type License struct {
 	unknownFields protoimpl.UnknownFields
 
 	// Types that are assignable to License:
-	//
 	//	*License_Id
 	//	*License_Name
 	License isLicense_License `protobuf_oneof:"license"`
@@ -3962,7 +3960,6 @@ type VulnerabilityAffectedVersions struct {
 	unknownFields protoimpl.UnknownFields
 
 	// Types that are assignable to Choice:
-	//
 	//	*VulnerabilityAffectedVersions_Version
 	//	*VulnerabilityAffectedVersions_Range
 	Choice isVulnerabilityAffectedVersions_Choice `protobuf_oneof:"choice"`

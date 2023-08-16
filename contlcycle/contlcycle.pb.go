@@ -189,7 +189,6 @@ type Event struct {
 
 	EventType Event_EventType `protobuf:"varint,1,opt,name=eventType,proto3,enum=datadog.contlcycle.Event_EventType" json:"eventType,omitempty"` // eventType represents the event's type (deletion)
 	// Types that are assignable to TypedEvent:
-	//
 	//	*Event_Container
 	//	*Event_Pod
 	TypedEvent isEvent_TypedEvent `protobuf_oneof:"typedEvent"`
@@ -280,11 +279,9 @@ type ContainerEvent struct {
 	ContainerID string `protobuf:"bytes,1,opt,name=containerID,proto3" json:"containerID,omitempty"` // containerID contains the container ID
 	Source      string `protobuf:"bytes,2,opt,name=source,proto3" json:"source,omitempty"`           // source contains the container source (docker, containerd..)
 	// Types that are assignable to OptionalExitCode:
-	//
 	//	*ContainerEvent_ExitCode
 	OptionalExitCode isContainerEvent_OptionalExitCode `protobuf_oneof:"optionalExitCode"`
 	// Types that are assignable to OptionalExitTimestamp:
-	//
 	//	*ContainerEvent_ExitTimestamp
 	OptionalExitTimestamp isContainerEvent_OptionalExitTimestamp `protobuf_oneof:"optionalExitTimestamp"`
 	Owner                 *ContainerEvent_Owner                  `protobuf:"bytes,5,opt,name=owner,proto3,oneof" json:"owner,omitempty"` // owner contains the information about who this container belongs to

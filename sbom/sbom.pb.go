@@ -168,7 +168,6 @@ type SBOMEntity struct {
 	InUse              bool                 `protobuf:"varint,5,opt,name=inUse,proto3" json:"inUse,omitempty"`                                // Whether the SBOM concerns a running entity (running container) or an inert entity (image not used by any container)
 	GenerationDuration *duration.Duration   `protobuf:"bytes,6,opt,name=generationDuration,proto3,oneof" json:"generationDuration,omitempty"` // SBOM generation duration (how long it took to generate the SBOM report)
 	// Types that are assignable to Sbom:
-	//
 	//	*SBOMEntity_Cyclonedx
 	Sbom isSBOMEntity_Sbom `protobuf_oneof:"sbom"`
 }
