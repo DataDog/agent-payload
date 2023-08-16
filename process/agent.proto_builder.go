@@ -1793,6 +1793,63 @@ func (x *CollectorVerticalPodAutoscalerBuilder) AddTags(v string) {
 	x.writer.Write(x.scratch)
 }
 
+type CollectorHorizontalPodAutoscalerBuilder struct {
+	writer                         io.Writer
+	buf                            bytes.Buffer
+	scratch                        []byte
+	horizontalPodAutoscalerBuilder HorizontalPodAutoscalerBuilder
+}
+
+func NewCollectorHorizontalPodAutoscalerBuilder(writer io.Writer) *CollectorHorizontalPodAutoscalerBuilder {
+	return &CollectorHorizontalPodAutoscalerBuilder{
+		writer: writer,
+	}
+}
+func (x *CollectorHorizontalPodAutoscalerBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *CollectorHorizontalPodAutoscalerBuilder) SetClusterName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorHorizontalPodAutoscalerBuilder) SetClusterId(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorHorizontalPodAutoscalerBuilder) SetGroupId(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorHorizontalPodAutoscalerBuilder) SetGroupSize(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x20)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorHorizontalPodAutoscalerBuilder) AddHorizontalPodAutoscalers(cb func(w *HorizontalPodAutoscalerBuilder)) {
+	x.buf.Reset()
+	x.horizontalPodAutoscalerBuilder.writer = &x.buf
+	x.horizontalPodAutoscalerBuilder.scratch = x.scratch
+	cb(&x.horizontalPodAutoscalerBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *CollectorHorizontalPodAutoscalerBuilder) AddTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
 type CollectorStatusBuilder struct {
 	writer  io.Writer
 	buf     bytes.Buffer
@@ -8909,5 +8966,959 @@ func (x *VPAConditionBuilder) SetMessage(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type HorizontalPodAutoscalerBuilder struct {
+	writer                                  io.Writer
+	buf                                     bytes.Buffer
+	scratch                                 []byte
+	metadataBuilder                         MetadataBuilder
+	horizontalPodAutoscalerSpecBuilder      HorizontalPodAutoscalerSpecBuilder
+	horizontalPodAutoscalerStatusBuilder    HorizontalPodAutoscalerStatusBuilder
+	horizontalPodAutoscalerConditionBuilder HorizontalPodAutoscalerConditionBuilder
+}
+
+func NewHorizontalPodAutoscalerBuilder(writer io.Writer) *HorizontalPodAutoscalerBuilder {
+	return &HorizontalPodAutoscalerBuilder{
+		writer: writer,
+	}
+}
+func (x *HorizontalPodAutoscalerBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *HorizontalPodAutoscalerBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
+	x.buf.Reset()
+	x.metadataBuilder.writer = &x.buf
+	x.metadataBuilder.scratch = x.scratch
+	cb(&x.metadataBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *HorizontalPodAutoscalerBuilder) SetSpec(cb func(w *HorizontalPodAutoscalerSpecBuilder)) {
+	x.buf.Reset()
+	x.horizontalPodAutoscalerSpecBuilder.writer = &x.buf
+	x.horizontalPodAutoscalerSpecBuilder.scratch = x.scratch
+	cb(&x.horizontalPodAutoscalerSpecBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *HorizontalPodAutoscalerBuilder) SetStatus(cb func(w *HorizontalPodAutoscalerStatusBuilder)) {
+	x.buf.Reset()
+	x.horizontalPodAutoscalerStatusBuilder.writer = &x.buf
+	x.horizontalPodAutoscalerStatusBuilder.scratch = x.scratch
+	cb(&x.horizontalPodAutoscalerStatusBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *HorizontalPodAutoscalerBuilder) SetYaml(cb func(b *bytes.Buffer)) {
+	x.buf.Reset()
+	cb(&x.buf)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *HorizontalPodAutoscalerBuilder) AddTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *HorizontalPodAutoscalerBuilder) AddConditions(cb func(w *HorizontalPodAutoscalerConditionBuilder)) {
+	x.buf.Reset()
+	x.horizontalPodAutoscalerConditionBuilder.writer = &x.buf
+	x.horizontalPodAutoscalerConditionBuilder.scratch = x.scratch
+	cb(&x.horizontalPodAutoscalerConditionBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type HorizontalPodAutoscalerSpecBuilder struct {
+	writer                                   io.Writer
+	buf                                      bytes.Buffer
+	scratch                                  []byte
+	horizontalPodAutoscalerTargetBuilder     HorizontalPodAutoscalerTargetBuilder
+	horizontalPodAutoscalerMetricSpecBuilder HorizontalPodAutoscalerMetricSpecBuilder
+	horizontalPodAutoscalerBehaviorBuilder   HorizontalPodAutoscalerBehaviorBuilder
+}
+
+func NewHorizontalPodAutoscalerSpecBuilder(writer io.Writer) *HorizontalPodAutoscalerSpecBuilder {
+	return &HorizontalPodAutoscalerSpecBuilder{
+		writer: writer,
+	}
+}
+func (x *HorizontalPodAutoscalerSpecBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *HorizontalPodAutoscalerSpecBuilder) SetTarget(cb func(w *HorizontalPodAutoscalerTargetBuilder)) {
+	x.buf.Reset()
+	x.horizontalPodAutoscalerTargetBuilder.writer = &x.buf
+	x.horizontalPodAutoscalerTargetBuilder.scratch = x.scratch
+	cb(&x.horizontalPodAutoscalerTargetBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *HorizontalPodAutoscalerSpecBuilder) SetMinReplicas(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *HorizontalPodAutoscalerSpecBuilder) SetMaxReplicas(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *HorizontalPodAutoscalerSpecBuilder) AddMetrics(cb func(w *HorizontalPodAutoscalerMetricSpecBuilder)) {
+	x.buf.Reset()
+	x.horizontalPodAutoscalerMetricSpecBuilder.writer = &x.buf
+	x.horizontalPodAutoscalerMetricSpecBuilder.scratch = x.scratch
+	cb(&x.horizontalPodAutoscalerMetricSpecBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *HorizontalPodAutoscalerSpecBuilder) SetBehavior(cb func(w *HorizontalPodAutoscalerBehaviorBuilder)) {
+	x.buf.Reset()
+	x.horizontalPodAutoscalerBehaviorBuilder.writer = &x.buf
+	x.horizontalPodAutoscalerBehaviorBuilder.scratch = x.scratch
+	cb(&x.horizontalPodAutoscalerBehaviorBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type HorizontalPodAutoscalerTargetBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewHorizontalPodAutoscalerTargetBuilder(writer io.Writer) *HorizontalPodAutoscalerTargetBuilder {
+	return &HorizontalPodAutoscalerTargetBuilder{
+		writer: writer,
+	}
+}
+func (x *HorizontalPodAutoscalerTargetBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *HorizontalPodAutoscalerTargetBuilder) SetKind(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *HorizontalPodAutoscalerTargetBuilder) SetName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type HorizontalPodAutoscalerMetricSpecBuilder struct {
+	writer                               io.Writer
+	buf                                  bytes.Buffer
+	scratch                              []byte
+	objectMetricSourceBuilder            ObjectMetricSourceBuilder
+	podsMetricSourceBuilder              PodsMetricSourceBuilder
+	resourceMetricSourceBuilder          ResourceMetricSourceBuilder
+	containerResourceMetricSourceBuilder ContainerResourceMetricSourceBuilder
+	externalMetricSourceBuilder          ExternalMetricSourceBuilder
+}
+
+func NewHorizontalPodAutoscalerMetricSpecBuilder(writer io.Writer) *HorizontalPodAutoscalerMetricSpecBuilder {
+	return &HorizontalPodAutoscalerMetricSpecBuilder{
+		writer: writer,
+	}
+}
+func (x *HorizontalPodAutoscalerMetricSpecBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *HorizontalPodAutoscalerMetricSpecBuilder) SetType(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *HorizontalPodAutoscalerMetricSpecBuilder) SetObject(cb func(w *ObjectMetricSourceBuilder)) {
+	x.buf.Reset()
+	x.objectMetricSourceBuilder.writer = &x.buf
+	x.objectMetricSourceBuilder.scratch = x.scratch
+	cb(&x.objectMetricSourceBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *HorizontalPodAutoscalerMetricSpecBuilder) SetPods(cb func(w *PodsMetricSourceBuilder)) {
+	x.buf.Reset()
+	x.podsMetricSourceBuilder.writer = &x.buf
+	x.podsMetricSourceBuilder.scratch = x.scratch
+	cb(&x.podsMetricSourceBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *HorizontalPodAutoscalerMetricSpecBuilder) SetResource(cb func(w *ResourceMetricSourceBuilder)) {
+	x.buf.Reset()
+	x.resourceMetricSourceBuilder.writer = &x.buf
+	x.resourceMetricSourceBuilder.scratch = x.scratch
+	cb(&x.resourceMetricSourceBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *HorizontalPodAutoscalerMetricSpecBuilder) SetContainerResource(cb func(w *ContainerResourceMetricSourceBuilder)) {
+	x.buf.Reset()
+	x.containerResourceMetricSourceBuilder.writer = &x.buf
+	x.containerResourceMetricSourceBuilder.scratch = x.scratch
+	cb(&x.containerResourceMetricSourceBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *HorizontalPodAutoscalerMetricSpecBuilder) SetExternal(cb func(w *ExternalMetricSourceBuilder)) {
+	x.buf.Reset()
+	x.externalMetricSourceBuilder.writer = &x.buf
+	x.externalMetricSourceBuilder.scratch = x.scratch
+	cb(&x.externalMetricSourceBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type ObjectMetricSourceBuilder struct {
+	writer                  io.Writer
+	buf                     bytes.Buffer
+	scratch                 []byte
+	objectReferenceBuilder  ObjectReferenceBuilder
+	metricTargetBuilder     MetricTargetBuilder
+	metricIdentifierBuilder MetricIdentifierBuilder
+}
+
+func NewObjectMetricSourceBuilder(writer io.Writer) *ObjectMetricSourceBuilder {
+	return &ObjectMetricSourceBuilder{
+		writer: writer,
+	}
+}
+func (x *ObjectMetricSourceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ObjectMetricSourceBuilder) SetDescribedObject(cb func(w *ObjectReferenceBuilder)) {
+	x.buf.Reset()
+	x.objectReferenceBuilder.writer = &x.buf
+	x.objectReferenceBuilder.scratch = x.scratch
+	cb(&x.objectReferenceBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ObjectMetricSourceBuilder) SetTarget(cb func(w *MetricTargetBuilder)) {
+	x.buf.Reset()
+	x.metricTargetBuilder.writer = &x.buf
+	x.metricTargetBuilder.scratch = x.scratch
+	cb(&x.metricTargetBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ObjectMetricSourceBuilder) SetMetric(cb func(w *MetricIdentifierBuilder)) {
+	x.buf.Reset()
+	x.metricIdentifierBuilder.writer = &x.buf
+	x.metricIdentifierBuilder.scratch = x.scratch
+	cb(&x.metricIdentifierBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type MetricTargetBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewMetricTargetBuilder(writer io.Writer) *MetricTargetBuilder {
+	return &MetricTargetBuilder{
+		writer: writer,
+	}
+}
+func (x *MetricTargetBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *MetricTargetBuilder) SetType(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *MetricTargetBuilder) SetValue(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
+type MetricIdentifierBuilder struct {
+	writer                          io.Writer
+	buf                             bytes.Buffer
+	scratch                         []byte
+	labelSelectorRequirementBuilder LabelSelectorRequirementBuilder
+}
+
+func NewMetricIdentifierBuilder(writer io.Writer) *MetricIdentifierBuilder {
+	return &MetricIdentifierBuilder{
+		writer: writer,
+	}
+}
+func (x *MetricIdentifierBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *MetricIdentifierBuilder) SetName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *MetricIdentifierBuilder) AddLabelSelector(cb func(w *LabelSelectorRequirementBuilder)) {
+	x.buf.Reset()
+	x.labelSelectorRequirementBuilder.writer = &x.buf
+	x.labelSelectorRequirementBuilder.scratch = x.scratch
+	cb(&x.labelSelectorRequirementBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type PodsMetricSourceBuilder struct {
+	writer                  io.Writer
+	buf                     bytes.Buffer
+	scratch                 []byte
+	metricIdentifierBuilder MetricIdentifierBuilder
+	metricTargetBuilder     MetricTargetBuilder
+}
+
+func NewPodsMetricSourceBuilder(writer io.Writer) *PodsMetricSourceBuilder {
+	return &PodsMetricSourceBuilder{
+		writer: writer,
+	}
+}
+func (x *PodsMetricSourceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *PodsMetricSourceBuilder) SetMetric(cb func(w *MetricIdentifierBuilder)) {
+	x.buf.Reset()
+	x.metricIdentifierBuilder.writer = &x.buf
+	x.metricIdentifierBuilder.scratch = x.scratch
+	cb(&x.metricIdentifierBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *PodsMetricSourceBuilder) SetTarget(cb func(w *MetricTargetBuilder)) {
+	x.buf.Reset()
+	x.metricTargetBuilder.writer = &x.buf
+	x.metricTargetBuilder.scratch = x.scratch
+	cb(&x.metricTargetBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type ResourceMetricSourceBuilder struct {
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	metricTargetBuilder MetricTargetBuilder
+}
+
+func NewResourceMetricSourceBuilder(writer io.Writer) *ResourceMetricSourceBuilder {
+	return &ResourceMetricSourceBuilder{
+		writer: writer,
+	}
+}
+func (x *ResourceMetricSourceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ResourceMetricSourceBuilder) SetResourceName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ResourceMetricSourceBuilder) SetTarget(cb func(w *MetricTargetBuilder)) {
+	x.buf.Reset()
+	x.metricTargetBuilder.writer = &x.buf
+	x.metricTargetBuilder.scratch = x.scratch
+	cb(&x.metricTargetBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type ContainerResourceMetricSourceBuilder struct {
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	metricTargetBuilder MetricTargetBuilder
+}
+
+func NewContainerResourceMetricSourceBuilder(writer io.Writer) *ContainerResourceMetricSourceBuilder {
+	return &ContainerResourceMetricSourceBuilder{
+		writer: writer,
+	}
+}
+func (x *ContainerResourceMetricSourceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ContainerResourceMetricSourceBuilder) SetResourceName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ContainerResourceMetricSourceBuilder) SetTarget(cb func(w *MetricTargetBuilder)) {
+	x.buf.Reset()
+	x.metricTargetBuilder.writer = &x.buf
+	x.metricTargetBuilder.scratch = x.scratch
+	cb(&x.metricTargetBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ContainerResourceMetricSourceBuilder) SetContainer(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type ExternalMetricSourceBuilder struct {
+	writer                  io.Writer
+	buf                     bytes.Buffer
+	scratch                 []byte
+	metricIdentifierBuilder MetricIdentifierBuilder
+	metricTargetBuilder     MetricTargetBuilder
+}
+
+func NewExternalMetricSourceBuilder(writer io.Writer) *ExternalMetricSourceBuilder {
+	return &ExternalMetricSourceBuilder{
+		writer: writer,
+	}
+}
+func (x *ExternalMetricSourceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ExternalMetricSourceBuilder) SetMetric(cb func(w *MetricIdentifierBuilder)) {
+	x.buf.Reset()
+	x.metricIdentifierBuilder.writer = &x.buf
+	x.metricIdentifierBuilder.scratch = x.scratch
+	cb(&x.metricIdentifierBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ExternalMetricSourceBuilder) SetTarget(cb func(w *MetricTargetBuilder)) {
+	x.buf.Reset()
+	x.metricTargetBuilder.writer = &x.buf
+	x.metricTargetBuilder.scratch = x.scratch
+	cb(&x.metricTargetBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type HorizontalPodAutoscalerBehaviorBuilder struct {
+	writer                 io.Writer
+	buf                    bytes.Buffer
+	scratch                []byte
+	hPAScalingRulesBuilder HPAScalingRulesBuilder
+}
+
+func NewHorizontalPodAutoscalerBehaviorBuilder(writer io.Writer) *HorizontalPodAutoscalerBehaviorBuilder {
+	return &HorizontalPodAutoscalerBehaviorBuilder{
+		writer: writer,
+	}
+}
+func (x *HorizontalPodAutoscalerBehaviorBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *HorizontalPodAutoscalerBehaviorBuilder) SetScaleUp(cb func(w *HPAScalingRulesBuilder)) {
+	x.buf.Reset()
+	x.hPAScalingRulesBuilder.writer = &x.buf
+	x.hPAScalingRulesBuilder.scratch = x.scratch
+	cb(&x.hPAScalingRulesBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *HorizontalPodAutoscalerBehaviorBuilder) SetScaleDown(cb func(w *HPAScalingRulesBuilder)) {
+	x.buf.Reset()
+	x.hPAScalingRulesBuilder.writer = &x.buf
+	x.hPAScalingRulesBuilder.scratch = x.scratch
+	cb(&x.hPAScalingRulesBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type HPAScalingRulesBuilder struct {
+	writer                  io.Writer
+	buf                     bytes.Buffer
+	scratch                 []byte
+	hPAScalingPolicyBuilder HPAScalingPolicyBuilder
+}
+
+func NewHPAScalingRulesBuilder(writer io.Writer) *HPAScalingRulesBuilder {
+	return &HPAScalingRulesBuilder{
+		writer: writer,
+	}
+}
+func (x *HPAScalingRulesBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *HPAScalingRulesBuilder) SetStabilizationWindowSeconds(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *HPAScalingRulesBuilder) SetSelectPolicy(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *HPAScalingRulesBuilder) AddPolicies(cb func(w *HPAScalingPolicyBuilder)) {
+	x.buf.Reset()
+	x.hPAScalingPolicyBuilder.writer = &x.buf
+	x.hPAScalingPolicyBuilder.scratch = x.scratch
+	cb(&x.hPAScalingPolicyBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type HPAScalingPolicyBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewHPAScalingPolicyBuilder(writer io.Writer) *HPAScalingPolicyBuilder {
+	return &HPAScalingPolicyBuilder{
+		writer: writer,
+	}
+}
+func (x *HPAScalingPolicyBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *HPAScalingPolicyBuilder) SetType(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *HPAScalingPolicyBuilder) SetValue(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *HPAScalingPolicyBuilder) SetPeriodSeconds(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
+type HorizontalPodAutoscalerStatusBuilder struct {
+	writer                                     io.Writer
+	buf                                        bytes.Buffer
+	scratch                                    []byte
+	horizontalPodAutoscalerMetricStatusBuilder HorizontalPodAutoscalerMetricStatusBuilder
+}
+
+func NewHorizontalPodAutoscalerStatusBuilder(writer io.Writer) *HorizontalPodAutoscalerStatusBuilder {
+	return &HorizontalPodAutoscalerStatusBuilder{
+		writer: writer,
+	}
+}
+func (x *HorizontalPodAutoscalerStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *HorizontalPodAutoscalerStatusBuilder) SetObservedGeneration(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *HorizontalPodAutoscalerStatusBuilder) SetLastScaleTime(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *HorizontalPodAutoscalerStatusBuilder) SetCurrentReplicas(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *HorizontalPodAutoscalerStatusBuilder) SetDesiredReplicas(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x20)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *HorizontalPodAutoscalerStatusBuilder) AddCurrentMetrics(cb func(w *HorizontalPodAutoscalerMetricStatusBuilder)) {
+	x.buf.Reset()
+	x.horizontalPodAutoscalerMetricStatusBuilder.writer = &x.buf
+	x.horizontalPodAutoscalerMetricStatusBuilder.scratch = x.scratch
+	cb(&x.horizontalPodAutoscalerMetricStatusBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type HorizontalPodAutoscalerConditionBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewHorizontalPodAutoscalerConditionBuilder(writer io.Writer) *HorizontalPodAutoscalerConditionBuilder {
+	return &HorizontalPodAutoscalerConditionBuilder{
+		writer: writer,
+	}
+}
+func (x *HorizontalPodAutoscalerConditionBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *HorizontalPodAutoscalerConditionBuilder) SetConditionType(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *HorizontalPodAutoscalerConditionBuilder) SetConditionStatus(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *HorizontalPodAutoscalerConditionBuilder) SetLastTransitionTime(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *HorizontalPodAutoscalerConditionBuilder) SetReason(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *HorizontalPodAutoscalerConditionBuilder) SetMessage(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type HorizontalPodAutoscalerMetricStatusBuilder struct {
+	writer                               io.Writer
+	buf                                  bytes.Buffer
+	scratch                              []byte
+	objectMetricStatusBuilder            ObjectMetricStatusBuilder
+	podsMetricStatusBuilder              PodsMetricStatusBuilder
+	resourceMetricStatusBuilder          ResourceMetricStatusBuilder
+	containerResourceMetricStatusBuilder ContainerResourceMetricStatusBuilder
+	externalMetricStatusBuilder          ExternalMetricStatusBuilder
+}
+
+func NewHorizontalPodAutoscalerMetricStatusBuilder(writer io.Writer) *HorizontalPodAutoscalerMetricStatusBuilder {
+	return &HorizontalPodAutoscalerMetricStatusBuilder{
+		writer: writer,
+	}
+}
+func (x *HorizontalPodAutoscalerMetricStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *HorizontalPodAutoscalerMetricStatusBuilder) SetType(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *HorizontalPodAutoscalerMetricStatusBuilder) SetObject(cb func(w *ObjectMetricStatusBuilder)) {
+	x.buf.Reset()
+	x.objectMetricStatusBuilder.writer = &x.buf
+	x.objectMetricStatusBuilder.scratch = x.scratch
+	cb(&x.objectMetricStatusBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *HorizontalPodAutoscalerMetricStatusBuilder) SetPods(cb func(w *PodsMetricStatusBuilder)) {
+	x.buf.Reset()
+	x.podsMetricStatusBuilder.writer = &x.buf
+	x.podsMetricStatusBuilder.scratch = x.scratch
+	cb(&x.podsMetricStatusBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *HorizontalPodAutoscalerMetricStatusBuilder) SetResource(cb func(w *ResourceMetricStatusBuilder)) {
+	x.buf.Reset()
+	x.resourceMetricStatusBuilder.writer = &x.buf
+	x.resourceMetricStatusBuilder.scratch = x.scratch
+	cb(&x.resourceMetricStatusBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *HorizontalPodAutoscalerMetricStatusBuilder) SetContainerResource(cb func(w *ContainerResourceMetricStatusBuilder)) {
+	x.buf.Reset()
+	x.containerResourceMetricStatusBuilder.writer = &x.buf
+	x.containerResourceMetricStatusBuilder.scratch = x.scratch
+	cb(&x.containerResourceMetricStatusBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *HorizontalPodAutoscalerMetricStatusBuilder) SetExternal(cb func(w *ExternalMetricStatusBuilder)) {
+	x.buf.Reset()
+	x.externalMetricStatusBuilder.writer = &x.buf
+	x.externalMetricStatusBuilder.scratch = x.scratch
+	cb(&x.externalMetricStatusBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type ObjectMetricStatusBuilder struct {
+	writer                  io.Writer
+	buf                     bytes.Buffer
+	scratch                 []byte
+	objectReferenceBuilder  ObjectReferenceBuilder
+	metricIdentifierBuilder MetricIdentifierBuilder
+}
+
+func NewObjectMetricStatusBuilder(writer io.Writer) *ObjectMetricStatusBuilder {
+	return &ObjectMetricStatusBuilder{
+		writer: writer,
+	}
+}
+func (x *ObjectMetricStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ObjectMetricStatusBuilder) SetDescribedObject(cb func(w *ObjectReferenceBuilder)) {
+	x.buf.Reset()
+	x.objectReferenceBuilder.writer = &x.buf
+	x.objectReferenceBuilder.scratch = x.scratch
+	cb(&x.objectReferenceBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ObjectMetricStatusBuilder) SetCurrent(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ObjectMetricStatusBuilder) SetMetric(cb func(w *MetricIdentifierBuilder)) {
+	x.buf.Reset()
+	x.metricIdentifierBuilder.writer = &x.buf
+	x.metricIdentifierBuilder.scratch = x.scratch
+	cb(&x.metricIdentifierBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type PodsMetricStatusBuilder struct {
+	writer                  io.Writer
+	buf                     bytes.Buffer
+	scratch                 []byte
+	metricIdentifierBuilder MetricIdentifierBuilder
+}
+
+func NewPodsMetricStatusBuilder(writer io.Writer) *PodsMetricStatusBuilder {
+	return &PodsMetricStatusBuilder{
+		writer: writer,
+	}
+}
+func (x *PodsMetricStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *PodsMetricStatusBuilder) SetMetric(cb func(w *MetricIdentifierBuilder)) {
+	x.buf.Reset()
+	x.metricIdentifierBuilder.writer = &x.buf
+	x.metricIdentifierBuilder.scratch = x.scratch
+	cb(&x.metricIdentifierBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *PodsMetricStatusBuilder) SetCurrent(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
+type ResourceMetricStatusBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewResourceMetricStatusBuilder(writer io.Writer) *ResourceMetricStatusBuilder {
+	return &ResourceMetricStatusBuilder{
+		writer: writer,
+	}
+}
+func (x *ResourceMetricStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ResourceMetricStatusBuilder) SetResourceName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ResourceMetricStatusBuilder) SetCurrent(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
+type ContainerResourceMetricStatusBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewContainerResourceMetricStatusBuilder(writer io.Writer) *ContainerResourceMetricStatusBuilder {
+	return &ContainerResourceMetricStatusBuilder{
+		writer: writer,
+	}
+}
+func (x *ContainerResourceMetricStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ContainerResourceMetricStatusBuilder) SetResourceName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ContainerResourceMetricStatusBuilder) SetCurrent(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ContainerResourceMetricStatusBuilder) SetContainer(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type ExternalMetricStatusBuilder struct {
+	writer                  io.Writer
+	buf                     bytes.Buffer
+	scratch                 []byte
+	metricIdentifierBuilder MetricIdentifierBuilder
+}
+
+func NewExternalMetricStatusBuilder(writer io.Writer) *ExternalMetricStatusBuilder {
+	return &ExternalMetricStatusBuilder{
+		writer: writer,
+	}
+}
+func (x *ExternalMetricStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ExternalMetricStatusBuilder) SetMetric(cb func(w *MetricIdentifierBuilder)) {
+	x.buf.Reset()
+	x.metricIdentifierBuilder.writer = &x.buf
+	x.metricIdentifierBuilder.scratch = x.scratch
+	cb(&x.metricIdentifierBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ExternalMetricStatusBuilder) SetCurrent(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
