@@ -36,4 +36,5 @@ enum SBOMSourceType {
   CONTAINER_IMAGE_LAYERS = 1;
   CONTAINER_FILE_SYSTEM  = 2;
   HOST_FILE_SYSTEM       = 3;
+  CI_PIPELINE            = 4;
 }
