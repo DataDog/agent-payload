@@ -88,7 +88,7 @@ message ProcessInfo {
     repeated string envs = 19;
     bool envs_truncated = 20;
 
-    bool is_exec_child = 21;
+    bool is_exec_exec = 21;
 }
 
 message FileActivityNode {
