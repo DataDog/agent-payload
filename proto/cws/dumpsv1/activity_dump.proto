@@ -63,7 +63,7 @@ message ProcessInfo {
     uint32 pid = 1;
     uint32 tid = 2;
     uint32 ppid = 3;
-    uint32 cookie = 4;
+    uint32 cookie = 4 [deprecated = true];
     bool is_thread = 5;
 
     FileInfo file = 6;
@@ -89,6 +89,7 @@ message ProcessInfo {
     bool envs_truncated = 20;
 
     bool is_exec_child = 21;
+    uint64 cookie64 = 22;
 }
 
 message FileActivityNode {
