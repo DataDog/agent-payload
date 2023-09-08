@@ -967,6 +967,12 @@ func (x *CollectorManifestCRDBuilder) SetManifest(cb func(w *CollectorManifestBu
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *CollectorManifestCRDBuilder) AddTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorManifestCRBuilder struct {
 	writer                   io.Writer
@@ -993,6 +999,12 @@ func (x *CollectorManifestCRBuilder) SetManifest(cb func(w *CollectorManifestBui
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
+}
+func (x *CollectorManifestCRBuilder) AddTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
 }
 
 type CollectorNamespaceBuilder struct {

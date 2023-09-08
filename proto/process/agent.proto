@@ -178,10 +178,12 @@ message CollectorManifest {
 
 message CollectorManifestCRD {
 	CollectorManifest manifest = 1;
+	repeated string tags = 2;
 }
 
 message CollectorManifestCR {
 	CollectorManifest manifest = 1;
+	repeated string tags = 2;
 }
 
 message CollectorNamespace {
