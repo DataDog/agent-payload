@@ -394,6 +394,12 @@ func (x *CollectorContainerBuilder) SetContainerHostType(v uint64) {
 		x.writer.Write(x.scratch)
 	}
 }
+func (x *CollectorContainerBuilder) SetAgentStartTime(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x50)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
 
 type CollectorContainerRealTimeBuilder struct {
 	writer               io.Writer

@@ -87,6 +87,7 @@ message CollectorContainer {
 	Host host = 8;
 
 	ContainerHostType containerHostType = 9;
+	int64 agentStartTime = 10;
 }
 
 message CollectorContainerRealTime {
