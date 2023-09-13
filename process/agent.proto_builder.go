@@ -171,6 +171,12 @@ func (x *CollectorProcBuilder) SetHintMask(v int32) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorProcBuilder) SetAgentStartTime(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x78)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
 
 type CollectorProcDiscoveryBuilder struct {
 	writer                  io.Writer

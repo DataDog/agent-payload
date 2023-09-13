@@ -47,6 +47,7 @@ message CollectorProc {
 	ContainerHostType containerHostType = 12;
 
 	oneof hints {int32 hintMask = 14;}
+	int64 agentStartTime = 15;
 }
 
 message CollectorProcDiscovery {
