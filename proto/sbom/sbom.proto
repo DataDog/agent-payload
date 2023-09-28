@@ -27,8 +27,10 @@ message SBOMEntity {
   optional google.protobuf.Duration  generationDuration = 6; // SBOM generation duration (how long it took to generate the SBOM report)
   oneof sbom {
     cyclonedx.v1_4.Bom cyclonedx = 10; // only cyclonedx will be supported initially but putting it optional will allow us to move to another format later
-    // spdx.SBOM      spdx      = 11; // SPDX can be added later as any other format.
+    // spdx.SBOM      spdx      = 13; // SPDX can be added later as any other format.
+    string error = 12;
   }
+  SBOMStatus status = 11;
 }
 
 enum SBOMSourceType {
@@ -37,4 +39,10 @@ enum SBOMSourceType {
   CONTAINER_FILE_SYSTEM  = 2;
   HOST_FILE_SYSTEM       = 3;
   CI_PIPELINE            = 4;
+}
+
+enum SBOMStatus {
+  PENDING = 0;
+  SUCCESS = 1;
+  FAILED = 2;
 }
