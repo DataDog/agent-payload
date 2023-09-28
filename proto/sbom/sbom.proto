@@ -20,11 +20,13 @@ message SBOMPayload {
 message SBOMEntity {
   SBOMSourceType                     type               = 1;
   string                             id                 = 2; // Unique identifier to be able to correlated and "deduplicate" SBOM
-  repeated string                    dd_tags            = 7; // datadog tags that will be added by the agent depending of the SBOMSourceType
   optional google.protobuf.Timestamp generatedAt        = 3; // the datetime of the SBOM generation
   repeated string                    repo_tags          = 4; // the tags of the container image
   bool                               inUse              = 5; // Whether the SBOM concerns a running entity (running container) or an inert entity (image not used by any container)
   optional google.protobuf.Duration  generationDuration = 6; // SBOM generation duration (how long it took to generate the SBOM report)
+  repeated string                    dd_tags            = 7; // datadog tags that will be added by the agent depending of the SBOMSourceType
+  bool                               heartbeat          = 8; // Whether the SBOM is identical to the previously sent one
+  string                             hash               = 9; // Hash of the SBOM
   oneof sbom {
     cyclonedx.v1_4.Bom cyclonedx = 10; // only cyclonedx will be supported initially but putting it optional will allow us to move to another format later
     // spdx.SBOM      spdx      = 13; // SPDX can be added later as any other format.
