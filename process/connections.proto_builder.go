@@ -571,6 +571,12 @@ func (x *ConnectionsBuilder) AddPrebuiltEBPFAssets(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *ConnectionsBuilder) SetConnLen(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x68)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
 
 type Connections_DnsEntryBuilder struct {
 	writer          io.Writer

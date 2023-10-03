@@ -99,6 +99,7 @@ message Connections {
   KernelHeaderFetchResult kernelHeaderFetchResult = 10;
   map<string, COREResult> CORETelemetryByAsset = 11;
   repeated string PrebuiltEBPFAssets = 12;
+  int64 ConnLen = 13;
 }
 
 
