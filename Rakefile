@@ -64,18 +64,18 @@ BASH
       mkdir -p #{gogo_dir}/src/github.com/gogo
       git clone https://github.com/gogo/protobuf.git #{gogo_dir}/src/github.com/gogo/protobuf
 
-      # Install v1.0.0
+      # Install v1.3.2
       pushd #{gogo_dir}/src/github.com/gogo/protobuf
-      git checkout v1.0.0
-      GOBIN=/tmp/gogo-bin-v1.0.0 GOPATH=#{gogo_dir} make clean install
+      git checkout v1.3.2
+      GOBIN=/tmp/gogo-bin-v1.3.2 GOPATH=#{gogo_dir} make clean install
 
       popd
 
       echo "Generating logs proto"
-      PATH=/tmp/gogo-bin-v1.0.0 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src --java_out=java proto/logs/agent_logs_payload.proto
+      PATH=/tmp/gogo-bin-v1.3.2 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src --java_out=java proto/logs/agent_logs_payload.proto
 
       echo "Generating metrics proto (go)"
-      PATH=/tmp/gogo-bin-v1.0.0 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src proto/metrics/agent_payload.proto
+      PATH=/tmp/gogo-bin-v1.3.2 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src proto/metrics/agent_payload.proto
 
       echo "Generating metrics proto (python)"
       #{protoc_binary} --proto_path=#{gogo_dir}/src:$GOPATH/src:./proto/metrics --python_out=python agent_payload.proto
