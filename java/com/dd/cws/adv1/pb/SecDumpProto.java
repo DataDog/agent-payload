@@ -293,6 +293,150 @@ public final class SecDumpProto {
     // @@protoc_insertion_point(enum_scope:datadog.cws.dumpsv1.GenerationType)
   }
 
+  /**
+   * Protobuf enum {@code datadog.cws.dumpsv1.event_profile_state}
+   */
+  public enum event_profile_state
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>NO_PROFILE = 0;</code>
+     */
+    NO_PROFILE(0),
+    /**
+     * <code>PROFILE_AT_MAX_SIZE = 1;</code>
+     */
+    PROFILE_AT_MAX_SIZE(1),
+    /**
+     * <code>UNSTABLE_PROFILE = 2;</code>
+     */
+    UNSTABLE_PROFILE(2),
+    /**
+     * <code>STABLE_PROFILE = 3;</code>
+     */
+    STABLE_PROFILE(3),
+    /**
+     * <code>AUTO_LEARNING = 4;</code>
+     */
+    AUTO_LEARNING(4),
+    /**
+     * <code>WORKLOAD_WARMUP = 5;</code>
+     */
+    WORKLOAD_WARMUP(5),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>NO_PROFILE = 0;</code>
+     */
+    public static final int NO_PROFILE_VALUE = 0;
+    /**
+     * <code>PROFILE_AT_MAX_SIZE = 1;</code>
+     */
+    public static final int PROFILE_AT_MAX_SIZE_VALUE = 1;
+    /**
+     * <code>UNSTABLE_PROFILE = 2;</code>
+     */
+    public static final int UNSTABLE_PROFILE_VALUE = 2;
+    /**
+     * <code>STABLE_PROFILE = 3;</code>
+     */
+    public static final int STABLE_PROFILE_VALUE = 3;
+    /**
+     * <code>AUTO_LEARNING = 4;</code>
+     */
+    public static final int AUTO_LEARNING_VALUE = 4;
+    /**
+     * <code>WORKLOAD_WARMUP = 5;</code>
+     */
+    public static final int WORKLOAD_WARMUP_VALUE = 5;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static event_profile_state valueOf(int value) {
+      return forNumber(value);
+    }
+
+    /**
+     * @param value The numeric wire value of the corresponding enum entry.
+     * @return The enum associated with the given numeric wire value.
+     */
+    public static event_profile_state forNumber(int value) {
+      switch (value) {
+        case 0: return NO_PROFILE;
+        case 1: return PROFILE_AT_MAX_SIZE;
+        case 2: return UNSTABLE_PROFILE;
+        case 3: return STABLE_PROFILE;
+        case 4: return AUTO_LEARNING;
+        case 5: return WORKLOAD_WARMUP;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<event_profile_state>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        event_profile_state> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<event_profile_state>() {
+            public event_profile_state findValueByNumber(int number) {
+              return event_profile_state.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.dd.cws.adv1.pb.SecDumpProto.getDescriptor().getEnumTypes().get(2);
+    }
+
+    private static final event_profile_state[] VALUES = values();
+
+    public static event_profile_state valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private event_profile_state(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:datadog.cws.dumpsv1.event_profile_state)
+  }
+
   public interface SecDumpOrBuilder extends
       // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.SecDump)
       com.google.protobuf.MessageOrBuilder {
@@ -4103,6 +4247,1270 @@ public final class SecDumpProto {
 
   }
 
+  public interface ProfileContextOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.ProfileContext)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>uint64 first_seen = 1;</code>
+     * @return The firstSeen.
+     */
+    long getFirstSeen();
+
+    /**
+     * <code>uint64 last_seen = 2;</code>
+     * @return The lastSeen.
+     */
+    long getLastSeen();
+
+    /**
+     * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+     */
+    int getEventTypeStateCount();
+    /**
+     * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+     */
+    boolean containsEventTypeState(
+        int key);
+    /**
+     * Use {@link #getEventTypeStateMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state>
+    getEventTypeState();
+    /**
+     * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+     */
+    java.util.Map<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state>
+    getEventTypeStateMap();
+    /**
+     * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+     */
+    /* nullable */
+com.dd.cws.adv1.pb.SecDumpProto.event_type_state getEventTypeStateOrDefault(
+        int key,
+        /* nullable */
+com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue);
+    /**
+     * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.event_type_state getEventTypeStateOrThrow(
+        int key);
+
+    /**
+     * <code>repeated uint32 syscalls = 4;</code>
+     * @return A list containing the syscalls.
+     */
+    java.util.List<java.lang.Integer> getSyscallsList();
+    /**
+     * <code>repeated uint32 syscalls = 4;</code>
+     * @return The count of syscalls.
+     */
+    int getSyscallsCount();
+    /**
+     * <code>repeated uint32 syscalls = 4;</code>
+     * @param index The index of the element to return.
+     * @return The syscalls at the given index.
+     */
+    int getSyscalls(int index);
+
+    /**
+     * <code>repeated string tags = 5;</code>
+     * @return A list containing the tags.
+     */
+    java.util.List<java.lang.String>
+        getTagsList();
+    /**
+     * <code>repeated string tags = 5;</code>
+     * @return The count of tags.
+     */
+    int getTagsCount();
+    /**
+     * <code>repeated string tags = 5;</code>
+     * @param index The index of the element to return.
+     * @return The tags at the given index.
+     */
+    java.lang.String getTags(int index);
+    /**
+     * <code>repeated string tags = 5;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the tags at the given index.
+     */
+    com.google.protobuf.ByteString
+        getTagsBytes(int index);
+  }
+  /**
+   * Protobuf type {@code datadog.cws.dumpsv1.ProfileContext}
+   */
+  public static final class ProfileContext extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.ProfileContext)
+      ProfileContextOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ProfileContext.newBuilder() to construct.
+    private ProfileContext(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ProfileContext() {
+      syscalls_ = emptyIntList();
+      tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new ProfileContext();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ProfileContext_descriptor;
+    }
+
+    @SuppressWarnings({"rawtypes"})
+    @java.lang.Override
+    protected com.google.protobuf.MapField internalGetMapField(
+        int number) {
+      switch (number) {
+        case 3:
+          return internalGetEventTypeState();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ProfileContext_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.dd.cws.adv1.pb.SecDumpProto.ProfileContext.class, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext.Builder.class);
+    }
+
+    public static final int FIRST_SEEN_FIELD_NUMBER = 1;
+    private long firstSeen_ = 0L;
+    /**
+     * <code>uint64 first_seen = 1;</code>
+     * @return The firstSeen.
+     */
+    @java.lang.Override
+    public long getFirstSeen() {
+      return firstSeen_;
+    }
+
+    public static final int LAST_SEEN_FIELD_NUMBER = 2;
+    private long lastSeen_ = 0L;
+    /**
+     * <code>uint64 last_seen = 2;</code>
+     * @return The lastSeen.
+     */
+    @java.lang.Override
+    public long getLastSeen() {
+      return lastSeen_;
+    }
+
+    public static final int EVENT_TYPE_STATE_FIELD_NUMBER = 3;
+    private static final class EventTypeStateDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state>newDefaultInstance(
+                  com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ProfileContext_EventTypeStateEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.UINT32,
+                  0,
+                  com.google.protobuf.WireFormat.FieldType.MESSAGE,
+                  com.dd.cws.adv1.pb.SecDumpProto.event_type_state.getDefaultInstance());
+    }
+    @SuppressWarnings("serial")
+    private com.google.protobuf.MapField<
+        java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state> eventTypeState_;
+    private com.google.protobuf.MapField<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state>
+    internalGetEventTypeState() {
+      if (eventTypeState_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            EventTypeStateDefaultEntryHolder.defaultEntry);
+      }
+      return eventTypeState_;
+    }
+    public int getEventTypeStateCount() {
+      return internalGetEventTypeState().getMap().size();
+    }
+    /**
+     * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+     */
+    @java.lang.Override
+    public boolean containsEventTypeState(
+        int key) {
+      
+      return internalGetEventTypeState().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getEventTypeStateMap()} instead.
+     */
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state> getEventTypeState() {
+      return getEventTypeStateMap();
+    }
+    /**
+     * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+     */
+    @java.lang.Override
+    public java.util.Map<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state> getEventTypeStateMap() {
+      return internalGetEventTypeState().getMap();
+    }
+    /**
+     * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+     */
+    @java.lang.Override
+    public /* nullable */
+com.dd.cws.adv1.pb.SecDumpProto.event_type_state getEventTypeStateOrDefault(
+        int key,
+        /* nullable */
+com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue) {
+      
+      java.util.Map<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state> map =
+          internalGetEventTypeState().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.event_type_state getEventTypeStateOrThrow(
+        int key) {
+      
+      java.util.Map<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state> map =
+          internalGetEventTypeState().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+
+    public static final int SYSCALLS_FIELD_NUMBER = 4;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.Internal.IntList syscalls_;
+    /**
+     * <code>repeated uint32 syscalls = 4;</code>
+     * @return A list containing the syscalls.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Integer>
+        getSyscallsList() {
+      return syscalls_;
+    }
+    /**
+     * <code>repeated uint32 syscalls = 4;</code>
+     * @return The count of syscalls.
+     */
+    public int getSyscallsCount() {
+      return syscalls_.size();
+    }
+    /**
+     * <code>repeated uint32 syscalls = 4;</code>
+     * @param index The index of the element to return.
+     * @return The syscalls at the given index.
+     */
+    public int getSyscalls(int index) {
+      return syscalls_.getInt(index);
+    }
+    private int syscallsMemoizedSerializedSize = -1;
+
+    public static final int TAGS_FIELD_NUMBER = 5;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringList tags_;
+    /**
+     * <code>repeated string tags = 5;</code>
+     * @return A list containing the tags.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getTagsList() {
+      return tags_;
+    }
+    /**
+     * <code>repeated string tags = 5;</code>
+     * @return The count of tags.
+     */
+    public int getTagsCount() {
+      return tags_.size();
+    }
+    /**
+     * <code>repeated string tags = 5;</code>
+     * @param index The index of the element to return.
+     * @return The tags at the given index.
+     */
+    public java.lang.String getTags(int index) {
+      return tags_.get(index);
+    }
+    /**
+     * <code>repeated string tags = 5;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the tags at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getTagsBytes(int index) {
+      return tags_.getByteString(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (firstSeen_ != 0L) {
+        output.writeUInt64(1, firstSeen_);
+      }
+      if (lastSeen_ != 0L) {
+        output.writeUInt64(2, lastSeen_);
+      }
+      com.google.protobuf.GeneratedMessageV3
+        .serializeIntegerMapTo(
+          output,
+          internalGetEventTypeState(),
+          EventTypeStateDefaultEntryHolder.defaultEntry,
+          3);
+      if (getSyscallsList().size() > 0) {
+        output.writeUInt32NoTag(34);
+        output.writeUInt32NoTag(syscallsMemoizedSerializedSize);
+      }
+      for (int i = 0; i < syscalls_.size(); i++) {
+        output.writeUInt32NoTag(syscalls_.getInt(i));
+      }
+      for (int i = 0; i < tags_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, tags_.getRaw(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (firstSeen_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, firstSeen_);
+      }
+      if (lastSeen_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(2, lastSeen_);
+      }
+      for (java.util.Map.Entry<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state> entry
+           : internalGetEventTypeState().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state>
+        eventTypeState__ = EventTypeStateDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(3, eventTypeState__);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < syscalls_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeUInt32SizeNoTag(syscalls_.getInt(i));
+        }
+        size += dataSize;
+        if (!getSyscallsList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        syscallsMemoizedSerializedSize = dataSize;
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < tags_.size(); i++) {
+          dataSize += computeStringSizeNoTag(tags_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getTagsList().size();
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.ProfileContext)) {
+        return super.equals(obj);
+      }
+      com.dd.cws.adv1.pb.SecDumpProto.ProfileContext other = (com.dd.cws.adv1.pb.SecDumpProto.ProfileContext) obj;
+
+      if (getFirstSeen()
+          != other.getFirstSeen()) return false;
+      if (getLastSeen()
+          != other.getLastSeen()) return false;
+      if (!internalGetEventTypeState().equals(
+          other.internalGetEventTypeState())) return false;
+      if (!getSyscallsList()
+          .equals(other.getSyscallsList())) return false;
+      if (!getTagsList()
+          .equals(other.getTagsList())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + FIRST_SEEN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getFirstSeen());
+      hash = (37 * hash) + LAST_SEEN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLastSeen());
+      if (!internalGetEventTypeState().getMap().isEmpty()) {
+        hash = (37 * hash) + EVENT_TYPE_STATE_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetEventTypeState().hashCode();
+      }
+      if (getSyscallsCount() > 0) {
+        hash = (37 * hash) + SYSCALLS_FIELD_NUMBER;
+        hash = (53 * hash) + getSyscallsList().hashCode();
+      }
+      if (getTagsCount() > 0) {
+        hash = (37 * hash) + TAGS_FIELD_NUMBER;
+        hash = (53 * hash) + getTagsList().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.ProfileContext parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.ProfileContext parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.ProfileContext parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.ProfileContext parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.ProfileContext parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.ProfileContext parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.ProfileContext parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.ProfileContext parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.ProfileContext parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.ProfileContext parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.ProfileContext parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.ProfileContext parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.ProfileContext prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code datadog.cws.dumpsv1.ProfileContext}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.ProfileContext)
+        com.dd.cws.adv1.pb.SecDumpProto.ProfileContextOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ProfileContext_descriptor;
+      }
+
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMapField(
+          int number) {
+        switch (number) {
+          case 3:
+            return internalGetEventTypeState();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMutableMapField(
+          int number) {
+        switch (number) {
+          case 3:
+            return internalGetMutableEventTypeState();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ProfileContext_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.dd.cws.adv1.pb.SecDumpProto.ProfileContext.class, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext.Builder.class);
+      }
+
+      // Construct using com.dd.cws.adv1.pb.SecDumpProto.ProfileContext.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        firstSeen_ = 0L;
+        lastSeen_ = 0L;
+        internalGetMutableEventTypeState().clear();
+        syscalls_ = emptyIntList();
+        tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ProfileContext_descriptor;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.ProfileContext getDefaultInstanceForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.ProfileContext.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.ProfileContext build() {
+        com.dd.cws.adv1.pb.SecDumpProto.ProfileContext result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.ProfileContext buildPartial() {
+        com.dd.cws.adv1.pb.SecDumpProto.ProfileContext result = new com.dd.cws.adv1.pb.SecDumpProto.ProfileContext(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(com.dd.cws.adv1.pb.SecDumpProto.ProfileContext result) {
+        if (((bitField0_ & 0x00000008) != 0)) {
+          syscalls_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000008);
+        }
+        result.syscalls_ = syscalls_;
+        if (((bitField0_ & 0x00000010) != 0)) {
+          tags_ = tags_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000010);
+        }
+        result.tags_ = tags_;
+      }
+
+      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.ProfileContext result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.firstSeen_ = firstSeen_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.lastSeen_ = lastSeen_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.eventTypeState_ = internalGetEventTypeState();
+          result.eventTypeState_.makeImmutable();
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.ProfileContext) {
+          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.ProfileContext)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.ProfileContext other) {
+        if (other == com.dd.cws.adv1.pb.SecDumpProto.ProfileContext.getDefaultInstance()) return this;
+        if (other.getFirstSeen() != 0L) {
+          setFirstSeen(other.getFirstSeen());
+        }
+        if (other.getLastSeen() != 0L) {
+          setLastSeen(other.getLastSeen());
+        }
+        internalGetMutableEventTypeState().mergeFrom(
+            other.internalGetEventTypeState());
+        bitField0_ |= 0x00000004;
+        if (!other.syscalls_.isEmpty()) {
+          if (syscalls_.isEmpty()) {
+            syscalls_ = other.syscalls_;
+            bitField0_ = (bitField0_ & ~0x00000008);
+          } else {
+            ensureSyscallsIsMutable();
+            syscalls_.addAll(other.syscalls_);
+          }
+          onChanged();
+        }
+        if (!other.tags_.isEmpty()) {
+          if (tags_.isEmpty()) {
+            tags_ = other.tags_;
+            bitField0_ = (bitField0_ & ~0x00000010);
+          } else {
+            ensureTagsIsMutable();
+            tags_.addAll(other.tags_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                firstSeen_ = input.readUInt64();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              case 16: {
+                lastSeen_ = input.readUInt64();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              case 26: {
+                com.google.protobuf.MapEntry<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state>
+                eventTypeState__ = input.readMessage(
+                    EventTypeStateDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+                internalGetMutableEventTypeState().getMutableMap().put(
+                    eventTypeState__.getKey(), eventTypeState__.getValue());
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              case 32: {
+                int v = input.readUInt32();
+                ensureSyscallsIsMutable();
+                syscalls_.addInt(v);
+                break;
+              } // case 32
+              case 34: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                ensureSyscallsIsMutable();
+                while (input.getBytesUntilLimit() > 0) {
+                  syscalls_.addInt(input.readUInt32());
+                }
+                input.popLimit(limit);
+                break;
+              } // case 34
+              case 42: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureTagsIsMutable();
+                tags_.add(s);
+                break;
+              } // case 42
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private long firstSeen_ ;
+      /**
+       * <code>uint64 first_seen = 1;</code>
+       * @return The firstSeen.
+       */
+      @java.lang.Override
+      public long getFirstSeen() {
+        return firstSeen_;
+      }
+      /**
+       * <code>uint64 first_seen = 1;</code>
+       * @param value The firstSeen to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFirstSeen(long value) {
+        
+        firstSeen_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 first_seen = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFirstSeen() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        firstSeen_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long lastSeen_ ;
+      /**
+       * <code>uint64 last_seen = 2;</code>
+       * @return The lastSeen.
+       */
+      @java.lang.Override
+      public long getLastSeen() {
+        return lastSeen_;
+      }
+      /**
+       * <code>uint64 last_seen = 2;</code>
+       * @param value The lastSeen to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLastSeen(long value) {
+        
+        lastSeen_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 last_seen = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLastSeen() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        lastSeen_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.MapField<
+          java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state> eventTypeState_;
+      private com.google.protobuf.MapField<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state>
+          internalGetEventTypeState() {
+        if (eventTypeState_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              EventTypeStateDefaultEntryHolder.defaultEntry);
+        }
+        return eventTypeState_;
+      }
+      private com.google.protobuf.MapField<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state>
+          internalGetMutableEventTypeState() {
+        if (eventTypeState_ == null) {
+          eventTypeState_ = com.google.protobuf.MapField.newMapField(
+              EventTypeStateDefaultEntryHolder.defaultEntry);
+        }
+        if (!eventTypeState_.isMutable()) {
+          eventTypeState_ = eventTypeState_.copy();
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return eventTypeState_;
+      }
+      public int getEventTypeStateCount() {
+        return internalGetEventTypeState().getMap().size();
+      }
+      /**
+       * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+       */
+      @java.lang.Override
+      public boolean containsEventTypeState(
+          int key) {
+        
+        return internalGetEventTypeState().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getEventTypeStateMap()} instead.
+       */
+      @java.lang.Override
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state> getEventTypeState() {
+        return getEventTypeStateMap();
+      }
+      /**
+       * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+       */
+      @java.lang.Override
+      public java.util.Map<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state> getEventTypeStateMap() {
+        return internalGetEventTypeState().getMap();
+      }
+      /**
+       * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+       */
+      @java.lang.Override
+      public /* nullable */
+com.dd.cws.adv1.pb.SecDumpProto.event_type_state getEventTypeStateOrDefault(
+          int key,
+          /* nullable */
+com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue) {
+        
+        java.util.Map<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state> map =
+            internalGetEventTypeState().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+       */
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.event_type_state getEventTypeStateOrThrow(
+          int key) {
+        
+        java.util.Map<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state> map =
+            internalGetEventTypeState().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+      public Builder clearEventTypeState() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        internalGetMutableEventTypeState().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+       */
+      public Builder removeEventTypeState(
+          int key) {
+        
+        internalGetMutableEventTypeState().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state>
+          getMutableEventTypeState() {
+        bitField0_ |= 0x00000004;
+        return internalGetMutableEventTypeState().getMutableMap();
+      }
+      /**
+       * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+       */
+      public Builder putEventTypeState(
+          int key,
+          com.dd.cws.adv1.pb.SecDumpProto.event_type_state value) {
+        
+        if (value == null) { throw new NullPointerException("map value"); }
+        internalGetMutableEventTypeState().getMutableMap()
+            .put(key, value);
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>map&lt;uint32, .datadog.cws.dumpsv1.event_type_state&gt; event_type_state = 3;</code>
+       */
+      public Builder putAllEventTypeState(
+          java.util.Map<java.lang.Integer, com.dd.cws.adv1.pb.SecDumpProto.event_type_state> values) {
+        internalGetMutableEventTypeState().getMutableMap()
+            .putAll(values);
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+
+      private com.google.protobuf.Internal.IntList syscalls_ = emptyIntList();
+      private void ensureSyscallsIsMutable() {
+        if (!((bitField0_ & 0x00000008) != 0)) {
+          syscalls_ = mutableCopy(syscalls_);
+          bitField0_ |= 0x00000008;
+        }
+      }
+      /**
+       * <code>repeated uint32 syscalls = 4;</code>
+       * @return A list containing the syscalls.
+       */
+      public java.util.List<java.lang.Integer>
+          getSyscallsList() {
+        return ((bitField0_ & 0x00000008) != 0) ?
+                 java.util.Collections.unmodifiableList(syscalls_) : syscalls_;
+      }
+      /**
+       * <code>repeated uint32 syscalls = 4;</code>
+       * @return The count of syscalls.
+       */
+      public int getSyscallsCount() {
+        return syscalls_.size();
+      }
+      /**
+       * <code>repeated uint32 syscalls = 4;</code>
+       * @param index The index of the element to return.
+       * @return The syscalls at the given index.
+       */
+      public int getSyscalls(int index) {
+        return syscalls_.getInt(index);
+      }
+      /**
+       * <code>repeated uint32 syscalls = 4;</code>
+       * @param index The index to set the value at.
+       * @param value The syscalls to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSyscalls(
+          int index, int value) {
+        
+        ensureSyscallsIsMutable();
+        syscalls_.setInt(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated uint32 syscalls = 4;</code>
+       * @param value The syscalls to add.
+       * @return This builder for chaining.
+       */
+      public Builder addSyscalls(int value) {
+        
+        ensureSyscallsIsMutable();
+        syscalls_.addInt(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated uint32 syscalls = 4;</code>
+       * @param values The syscalls to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllSyscalls(
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureSyscallsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, syscalls_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated uint32 syscalls = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSyscalls() {
+        syscalls_ = emptyIntList();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringList tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureTagsIsMutable() {
+        if (!((bitField0_ & 0x00000010) != 0)) {
+          tags_ = new com.google.protobuf.LazyStringArrayList(tags_);
+          bitField0_ |= 0x00000010;
+         }
+      }
+      /**
+       * <code>repeated string tags = 5;</code>
+       * @return A list containing the tags.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getTagsList() {
+        return tags_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string tags = 5;</code>
+       * @return The count of tags.
+       */
+      public int getTagsCount() {
+        return tags_.size();
+      }
+      /**
+       * <code>repeated string tags = 5;</code>
+       * @param index The index of the element to return.
+       * @return The tags at the given index.
+       */
+      public java.lang.String getTags(int index) {
+        return tags_.get(index);
+      }
+      /**
+       * <code>repeated string tags = 5;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the tags at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getTagsBytes(int index) {
+        return tags_.getByteString(index);
+      }
+      /**
+       * <code>repeated string tags = 5;</code>
+       * @param index The index to set the value at.
+       * @param value The tags to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTags(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureTagsIsMutable();
+        tags_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string tags = 5;</code>
+       * @param value The tags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addTags(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureTagsIsMutable();
+        tags_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string tags = 5;</code>
+       * @param values The tags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllTags(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureTagsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, tags_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string tags = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTags() {
+        tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string tags = 5;</code>
+       * @param value The bytes of the tags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addTagsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureTagsIsMutable();
+        tags_.add(value);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.ProfileContext)
+    }
+
+    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.ProfileContext)
+    private static final com.dd.cws.adv1.pb.SecDumpProto.ProfileContext DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.ProfileContext();
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.ProfileContext getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ProfileContext>
+        PARSER = new com.google.protobuf.AbstractParser<ProfileContext>() {
+      @java.lang.Override
+      public ProfileContext parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<ProfileContext> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ProfileContext> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.ProfileContext getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface SecurityProfileOrBuilder extends
       // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.SecurityProfile)
       com.google.protobuf.MessageOrBuilder {
@@ -4114,15 +5522,19 @@ public final class SecDumpProto {
     int getStatus();
 
     /**
-     * <code>string version = 2;</code>
+     * <code>string version = 2 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=49
      * @return The version.
      */
-    java.lang.String getVersion();
+    @java.lang.Deprecated java.lang.String getVersion();
     /**
-     * <code>string version = 2;</code>
+     * <code>string version = 2 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=49
      * @return The bytes for version.
      */
-    com.google.protobuf.ByteString
+    @java.lang.Deprecated com.google.protobuf.ByteString
         getVersionBytes();
 
     /**
@@ -4141,46 +5553,60 @@ public final class SecDumpProto {
     com.dd.cws.adv1.pb.SecDumpProto.MetadataOrBuilder getMetadataOrBuilder();
 
     /**
-     * <code>repeated string tags = 4;</code>
+     * <code>repeated string tags = 4 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=51
      * @return A list containing the tags.
      */
-    java.util.List<java.lang.String>
+    @java.lang.Deprecated java.util.List<java.lang.String>
         getTagsList();
     /**
-     * <code>repeated string tags = 4;</code>
+     * <code>repeated string tags = 4 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=51
      * @return The count of tags.
      */
-    int getTagsCount();
+    @java.lang.Deprecated int getTagsCount();
     /**
-     * <code>repeated string tags = 4;</code>
+     * <code>repeated string tags = 4 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=51
      * @param index The index of the element to return.
      * @return The tags at the given index.
      */
-    java.lang.String getTags(int index);
+    @java.lang.Deprecated java.lang.String getTags(int index);
     /**
-     * <code>repeated string tags = 4;</code>
+     * <code>repeated string tags = 4 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=51
      * @param index The index of the value to return.
      * @return The bytes of the tags at the given index.
      */
-    com.google.protobuf.ByteString
+    @java.lang.Deprecated com.google.protobuf.ByteString
         getTagsBytes(int index);
 
     /**
-     * <code>repeated uint32 syscalls = 5;</code>
+     * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=52
      * @return A list containing the syscalls.
      */
-    java.util.List<java.lang.Integer> getSyscallsList();
+    @java.lang.Deprecated java.util.List<java.lang.Integer> getSyscallsList();
     /**
-     * <code>repeated uint32 syscalls = 5;</code>
+     * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=52
      * @return The count of syscalls.
      */
-    int getSyscallsCount();
+    @java.lang.Deprecated int getSyscallsCount();
     /**
-     * <code>repeated uint32 syscalls = 5;</code>
+     * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=52
      * @param index The index of the element to return.
      * @return The syscalls at the given index.
      */
-    int getSyscalls(int index);
+    @java.lang.Deprecated int getSyscalls(int index);
 
     /**
      * <code>repeated .datadog.cws.dumpsv1.ProcessActivityNode tree = 6;</code>
@@ -4205,6 +5631,40 @@ public final class SecDumpProto {
      */
     com.dd.cws.adv1.pb.SecDumpProto.ProcessActivityNodeOrBuilder getTreeOrBuilder(
         int index);
+
+    /**
+     * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+     */
+    int getProfileContextsCount();
+    /**
+     * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+     */
+    boolean containsProfileContexts(
+        java.lang.String key);
+    /**
+     * Use {@link #getProfileContextsMap()} instead.
+     */
+    @java.lang.Deprecated
+    java.util.Map<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext>
+    getProfileContexts();
+    /**
+     * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+     */
+    java.util.Map<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext>
+    getProfileContextsMap();
+    /**
+     * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+     */
+    /* nullable */
+com.dd.cws.adv1.pb.SecDumpProto.ProfileContext getProfileContextsOrDefault(
+        java.lang.String key,
+        /* nullable */
+com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue);
+    /**
+     * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.ProfileContext getProfileContextsOrThrow(
+        java.lang.String key);
   }
   /**
    * Protobuf type {@code datadog.cws.dumpsv1.SecurityProfile}
@@ -4242,6 +5702,18 @@ public final class SecDumpProto {
       return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_SecurityProfile_descriptor;
     }
 
+    @SuppressWarnings({"rawtypes"})
+    @java.lang.Override
+    protected com.google.protobuf.MapField internalGetMapField(
+        int number) {
+      switch (number) {
+        case 7:
+          return internalGetProfileContexts();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
@@ -4265,11 +5737,13 @@ public final class SecDumpProto {
     @SuppressWarnings("serial")
     private volatile java.lang.Object version_ = "";
     /**
-     * <code>string version = 2;</code>
+     * <code>string version = 2 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=49
      * @return The version.
      */
     @java.lang.Override
-    public java.lang.String getVersion() {
+    @java.lang.Deprecated public java.lang.String getVersion() {
       java.lang.Object ref = version_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
@@ -4282,11 +5756,13 @@ public final class SecDumpProto {
       }
     }
     /**
-     * <code>string version = 2;</code>
+     * <code>string version = 2 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=49
      * @return The bytes for version.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString
+    @java.lang.Deprecated public com.google.protobuf.ByteString
         getVersionBytes() {
       java.lang.Object ref = version_;
       if (ref instanceof java.lang.String) {
@@ -4330,34 +5806,42 @@ public final class SecDumpProto {
     @SuppressWarnings("serial")
     private com.google.protobuf.LazyStringList tags_;
     /**
-     * <code>repeated string tags = 4;</code>
+     * <code>repeated string tags = 4 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=51
      * @return A list containing the tags.
      */
-    public com.google.protobuf.ProtocolStringList
+    @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
         getTagsList() {
       return tags_;
     }
     /**
-     * <code>repeated string tags = 4;</code>
+     * <code>repeated string tags = 4 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=51
      * @return The count of tags.
      */
-    public int getTagsCount() {
+    @java.lang.Deprecated public int getTagsCount() {
       return tags_.size();
     }
     /**
-     * <code>repeated string tags = 4;</code>
+     * <code>repeated string tags = 4 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=51
      * @param index The index of the element to return.
      * @return The tags at the given index.
      */
-    public java.lang.String getTags(int index) {
+    @java.lang.Deprecated public java.lang.String getTags(int index) {
       return tags_.get(index);
     }
     /**
-     * <code>repeated string tags = 4;</code>
+     * <code>repeated string tags = 4 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=51
      * @param index The index of the value to return.
      * @return The bytes of the tags at the given index.
      */
-    public com.google.protobuf.ByteString
+    @java.lang.Deprecated public com.google.protobuf.ByteString
         getTagsBytes(int index) {
       return tags_.getByteString(index);
     }
@@ -4366,27 +5850,33 @@ public final class SecDumpProto {
     @SuppressWarnings("serial")
     private com.google.protobuf.Internal.IntList syscalls_;
     /**
-     * <code>repeated uint32 syscalls = 5;</code>
+     * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=52
      * @return A list containing the syscalls.
      */
     @java.lang.Override
-    public java.util.List<java.lang.Integer>
+    @java.lang.Deprecated public java.util.List<java.lang.Integer>
         getSyscallsList() {
       return syscalls_;
     }
     /**
-     * <code>repeated uint32 syscalls = 5;</code>
+     * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=52
      * @return The count of syscalls.
      */
-    public int getSyscallsCount() {
+    @java.lang.Deprecated public int getSyscallsCount() {
       return syscalls_.size();
     }
     /**
-     * <code>repeated uint32 syscalls = 5;</code>
+     * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=52
      * @param index The index of the element to return.
      * @return The syscalls at the given index.
      */
-    public int getSyscalls(int index) {
+    @java.lang.Deprecated public int getSyscalls(int index) {
       return syscalls_.getInt(index);
     }
     private int syscallsMemoizedSerializedSize = -1;
@@ -4432,6 +5922,85 @@ public final class SecDumpProto {
       return tree_.get(index);
     }
 
+    public static final int PROFILE_CONTEXTS_FIELD_NUMBER = 7;
+    private static final class ProfileContextsDefaultEntryHolder {
+      static final com.google.protobuf.MapEntry<
+          java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext> defaultEntry =
+              com.google.protobuf.MapEntry
+              .<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext>newDefaultInstance(
+                  com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_SecurityProfile_ProfileContextsEntry_descriptor, 
+                  com.google.protobuf.WireFormat.FieldType.STRING,
+                  "",
+                  com.google.protobuf.WireFormat.FieldType.MESSAGE,
+                  com.dd.cws.adv1.pb.SecDumpProto.ProfileContext.getDefaultInstance());
+    }
+    @SuppressWarnings("serial")
+    private com.google.protobuf.MapField<
+        java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext> profileContexts_;
+    private com.google.protobuf.MapField<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext>
+    internalGetProfileContexts() {
+      if (profileContexts_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            ProfileContextsDefaultEntryHolder.defaultEntry);
+      }
+      return profileContexts_;
+    }
+    public int getProfileContextsCount() {
+      return internalGetProfileContexts().getMap().size();
+    }
+    /**
+     * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+     */
+    @java.lang.Override
+    public boolean containsProfileContexts(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      return internalGetProfileContexts().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getProfileContextsMap()} instead.
+     */
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext> getProfileContexts() {
+      return getProfileContextsMap();
+    }
+    /**
+     * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+     */
+    @java.lang.Override
+    public java.util.Map<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext> getProfileContextsMap() {
+      return internalGetProfileContexts().getMap();
+    }
+    /**
+     * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+     */
+    @java.lang.Override
+    public /* nullable */
+com.dd.cws.adv1.pb.SecDumpProto.ProfileContext getProfileContextsOrDefault(
+        java.lang.String key,
+        /* nullable */
+com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext> map =
+          internalGetProfileContexts().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.ProfileContext getProfileContextsOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext> map =
+          internalGetProfileContexts().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -4469,6 +6038,12 @@ public final class SecDumpProto {
       for (int i = 0; i < tree_.size(); i++) {
         output.writeMessage(6, tree_.get(i));
       }
+      com.google.protobuf.GeneratedMessageV3
+        .serializeStringMapTo(
+          output,
+          internalGetProfileContexts(),
+          ProfileContextsDefaultEntryHolder.defaultEntry,
+          7);
       getUnknownFields().writeTo(output);
     }
 
@@ -4515,6 +6090,16 @@ public final class SecDumpProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(6, tree_.get(i));
       }
+      for (java.util.Map.Entry<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext> entry
+           : internalGetProfileContexts().getMap().entrySet()) {
+        com.google.protobuf.MapEntry<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext>
+        profileContexts__ = ProfileContextsDefaultEntryHolder.defaultEntry.newBuilderForType()
+            .setKey(entry.getKey())
+            .setValue(entry.getValue())
+            .build();
+        size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(7, profileContexts__);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -4545,6 +6130,8 @@ public final class SecDumpProto {
           .equals(other.getSyscallsList())) return false;
       if (!getTreeList()
           .equals(other.getTreeList())) return false;
+      if (!internalGetProfileContexts().equals(
+          other.internalGetProfileContexts())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -4575,6 +6162,10 @@ public final class SecDumpProto {
       if (getTreeCount() > 0) {
         hash = (37 * hash) + TREE_FIELD_NUMBER;
         hash = (53 * hash) + getTreeList().hashCode();
+      }
+      if (!internalGetProfileContexts().getMap().isEmpty()) {
+        hash = (37 * hash) + PROFILE_CONTEXTS_FIELD_NUMBER;
+        hash = (53 * hash) + internalGetProfileContexts().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -4683,6 +6274,28 @@ public final class SecDumpProto {
         return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_SecurityProfile_descriptor;
       }
 
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMapField(
+          int number) {
+        switch (number) {
+          case 7:
+            return internalGetProfileContexts();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
+      @SuppressWarnings({"rawtypes"})
+      protected com.google.protobuf.MapField internalGetMutableMapField(
+          int number) {
+        switch (number) {
+          case 7:
+            return internalGetMutableProfileContexts();
+          default:
+            throw new RuntimeException(
+                "Invalid map field number: " + number);
+        }
+      }
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
@@ -4722,6 +6335,7 @@ public final class SecDumpProto {
           treeBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000020);
+        internalGetMutableProfileContexts().clear();
         return this;
       }
 
@@ -4788,6 +6402,10 @@ public final class SecDumpProto {
           result.metadata_ = metadataBuilder_ == null
               ? metadata_
               : metadataBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.profileContexts_ = internalGetProfileContexts();
+          result.profileContexts_.makeImmutable();
         }
       }
 
@@ -4892,6 +6510,9 @@ public final class SecDumpProto {
             }
           }
         }
+        internalGetMutableProfileContexts().mergeFrom(
+            other.internalGetProfileContexts());
+        bitField0_ |= 0x00000040;
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -4970,6 +6591,15 @@ public final class SecDumpProto {
                 }
                 break;
               } // case 50
+              case 58: {
+                com.google.protobuf.MapEntry<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext>
+                profileContexts__ = input.readMessage(
+                    ProfileContextsDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+                internalGetMutableProfileContexts().getMutableMap().put(
+                    profileContexts__.getKey(), profileContexts__.getValue());
+                bitField0_ |= 0x00000040;
+                break;
+              } // case 58
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -5021,10 +6651,12 @@ public final class SecDumpProto {
 
       private java.lang.Object version_ = "";
       /**
-       * <code>string version = 2;</code>
+       * <code>string version = 2 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=49
        * @return The version.
        */
-      public java.lang.String getVersion() {
+      @java.lang.Deprecated public java.lang.String getVersion() {
         java.lang.Object ref = version_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
@@ -5037,10 +6669,12 @@ public final class SecDumpProto {
         }
       }
       /**
-       * <code>string version = 2;</code>
+       * <code>string version = 2 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=49
        * @return The bytes for version.
        */
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getVersionBytes() {
         java.lang.Object ref = version_;
         if (ref instanceof String) {
@@ -5054,11 +6688,13 @@ public final class SecDumpProto {
         }
       }
       /**
-       * <code>string version = 2;</code>
+       * <code>string version = 2 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=49
        * @param value The version to set.
        * @return This builder for chaining.
        */
-      public Builder setVersion(
+      @java.lang.Deprecated public Builder setVersion(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         version_ = value;
@@ -5067,21 +6703,25 @@ public final class SecDumpProto {
         return this;
       }
       /**
-       * <code>string version = 2;</code>
+       * <code>string version = 2 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=49
        * @return This builder for chaining.
        */
-      public Builder clearVersion() {
+      @java.lang.Deprecated public Builder clearVersion() {
         version_ = getDefaultInstance().getVersion();
         bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;
       }
       /**
-       * <code>string version = 2;</code>
+       * <code>string version = 2 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=49
        * @param value The bytes for version to set.
        * @return This builder for chaining.
        */
-      public Builder setVersionBytes(
+      @java.lang.Deprecated public Builder setVersionBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
@@ -5218,44 +6858,54 @@ public final class SecDumpProto {
          }
       }
       /**
-       * <code>repeated string tags = 4;</code>
+       * <code>repeated string tags = 4 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=51
        * @return A list containing the tags.
        */
-      public com.google.protobuf.ProtocolStringList
+      @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
           getTagsList() {
         return tags_.getUnmodifiableView();
       }
       /**
-       * <code>repeated string tags = 4;</code>
+       * <code>repeated string tags = 4 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=51
        * @return The count of tags.
        */
-      public int getTagsCount() {
+      @java.lang.Deprecated public int getTagsCount() {
         return tags_.size();
       }
       /**
-       * <code>repeated string tags = 4;</code>
+       * <code>repeated string tags = 4 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=51
        * @param index The index of the element to return.
        * @return The tags at the given index.
        */
-      public java.lang.String getTags(int index) {
+      @java.lang.Deprecated public java.lang.String getTags(int index) {
         return tags_.get(index);
       }
       /**
-       * <code>repeated string tags = 4;</code>
+       * <code>repeated string tags = 4 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=51
        * @param index The index of the value to return.
        * @return The bytes of the tags at the given index.
        */
-      public com.google.protobuf.ByteString
+      @java.lang.Deprecated public com.google.protobuf.ByteString
           getTagsBytes(int index) {
         return tags_.getByteString(index);
       }
       /**
-       * <code>repeated string tags = 4;</code>
+       * <code>repeated string tags = 4 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=51
        * @param index The index to set the value at.
        * @param value The tags to set.
        * @return This builder for chaining.
        */
-      public Builder setTags(
+      @java.lang.Deprecated public Builder setTags(
           int index, java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         ensureTagsIsMutable();
@@ -5264,11 +6914,13 @@ public final class SecDumpProto {
         return this;
       }
       /**
-       * <code>repeated string tags = 4;</code>
+       * <code>repeated string tags = 4 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=51
        * @param value The tags to add.
        * @return This builder for chaining.
        */
-      public Builder addTags(
+      @java.lang.Deprecated public Builder addTags(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         ensureTagsIsMutable();
@@ -5277,11 +6929,13 @@ public final class SecDumpProto {
         return this;
       }
       /**
-       * <code>repeated string tags = 4;</code>
+       * <code>repeated string tags = 4 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=51
        * @param values The tags to add.
        * @return This builder for chaining.
        */
-      public Builder addAllTags(
+      @java.lang.Deprecated public Builder addAllTags(
           java.lang.Iterable<java.lang.String> values) {
         ensureTagsIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -5290,21 +6944,25 @@ public final class SecDumpProto {
         return this;
       }
       /**
-       * <code>repeated string tags = 4;</code>
+       * <code>repeated string tags = 4 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=51
        * @return This builder for chaining.
        */
-      public Builder clearTags() {
+      @java.lang.Deprecated public Builder clearTags() {
         tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000008);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string tags = 4;</code>
+       * <code>repeated string tags = 4 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=51
        * @param value The bytes of the tags to add.
        * @return This builder for chaining.
        */
-      public Builder addTagsBytes(
+      @java.lang.Deprecated public Builder addTagsBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
@@ -5322,36 +6980,44 @@ public final class SecDumpProto {
         }
       }
       /**
-       * <code>repeated uint32 syscalls = 5;</code>
+       * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=52
        * @return A list containing the syscalls.
        */
-      public java.util.List<java.lang.Integer>
+      @java.lang.Deprecated public java.util.List<java.lang.Integer>
           getSyscallsList() {
         return ((bitField0_ & 0x00000010) != 0) ?
                  java.util.Collections.unmodifiableList(syscalls_) : syscalls_;
       }
       /**
-       * <code>repeated uint32 syscalls = 5;</code>
+       * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=52
        * @return The count of syscalls.
        */
-      public int getSyscallsCount() {
+      @java.lang.Deprecated public int getSyscallsCount() {
         return syscalls_.size();
       }
       /**
-       * <code>repeated uint32 syscalls = 5;</code>
+       * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=52
        * @param index The index of the element to return.
        * @return The syscalls at the given index.
        */
-      public int getSyscalls(int index) {
+      @java.lang.Deprecated public int getSyscalls(int index) {
         return syscalls_.getInt(index);
       }
       /**
-       * <code>repeated uint32 syscalls = 5;</code>
+       * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=52
        * @param index The index to set the value at.
        * @param value The syscalls to set.
        * @return This builder for chaining.
        */
-      public Builder setSyscalls(
+      @java.lang.Deprecated public Builder setSyscalls(
           int index, int value) {
         
         ensureSyscallsIsMutable();
@@ -5360,11 +7026,13 @@ public final class SecDumpProto {
         return this;
       }
       /**
-       * <code>repeated uint32 syscalls = 5;</code>
+       * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=52
        * @param value The syscalls to add.
        * @return This builder for chaining.
        */
-      public Builder addSyscalls(int value) {
+      @java.lang.Deprecated public Builder addSyscalls(int value) {
         
         ensureSyscallsIsMutable();
         syscalls_.addInt(value);
@@ -5372,11 +7040,13 @@ public final class SecDumpProto {
         return this;
       }
       /**
-       * <code>repeated uint32 syscalls = 5;</code>
+       * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=52
        * @param values The syscalls to add.
        * @return This builder for chaining.
        */
-      public Builder addAllSyscalls(
+      @java.lang.Deprecated public Builder addAllSyscalls(
           java.lang.Iterable<? extends java.lang.Integer> values) {
         ensureSyscallsIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -5385,10 +7055,12 @@ public final class SecDumpProto {
         return this;
       }
       /**
-       * <code>repeated uint32 syscalls = 5;</code>
+       * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=52
        * @return This builder for chaining.
        */
-      public Builder clearSyscalls() {
+      @java.lang.Deprecated public Builder clearSyscalls() {
         syscalls_ = emptyIntList();
         bitField0_ = (bitField0_ & ~0x00000010);
         onChanged();
@@ -5634,6 +7306,133 @@ public final class SecDumpProto {
         }
         return treeBuilder_;
       }
+
+      private com.google.protobuf.MapField<
+          java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext> profileContexts_;
+      private com.google.protobuf.MapField<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext>
+          internalGetProfileContexts() {
+        if (profileContexts_ == null) {
+          return com.google.protobuf.MapField.emptyMapField(
+              ProfileContextsDefaultEntryHolder.defaultEntry);
+        }
+        return profileContexts_;
+      }
+      private com.google.protobuf.MapField<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext>
+          internalGetMutableProfileContexts() {
+        if (profileContexts_ == null) {
+          profileContexts_ = com.google.protobuf.MapField.newMapField(
+              ProfileContextsDefaultEntryHolder.defaultEntry);
+        }
+        if (!profileContexts_.isMutable()) {
+          profileContexts_ = profileContexts_.copy();
+        }
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return profileContexts_;
+      }
+      public int getProfileContextsCount() {
+        return internalGetProfileContexts().getMap().size();
+      }
+      /**
+       * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+       */
+      @java.lang.Override
+      public boolean containsProfileContexts(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        return internalGetProfileContexts().getMap().containsKey(key);
+      }
+      /**
+       * Use {@link #getProfileContextsMap()} instead.
+       */
+      @java.lang.Override
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext> getProfileContexts() {
+        return getProfileContextsMap();
+      }
+      /**
+       * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+       */
+      @java.lang.Override
+      public java.util.Map<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext> getProfileContextsMap() {
+        return internalGetProfileContexts().getMap();
+      }
+      /**
+       * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+       */
+      @java.lang.Override
+      public /* nullable */
+com.dd.cws.adv1.pb.SecDumpProto.ProfileContext getProfileContextsOrDefault(
+          java.lang.String key,
+          /* nullable */
+com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext> map =
+            internalGetProfileContexts().getMap();
+        return map.containsKey(key) ? map.get(key) : defaultValue;
+      }
+      /**
+       * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+       */
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.ProfileContext getProfileContextsOrThrow(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        java.util.Map<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext> map =
+            internalGetProfileContexts().getMap();
+        if (!map.containsKey(key)) {
+          throw new java.lang.IllegalArgumentException();
+        }
+        return map.get(key);
+      }
+      public Builder clearProfileContexts() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        internalGetMutableProfileContexts().getMutableMap()
+            .clear();
+        return this;
+      }
+      /**
+       * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+       */
+      public Builder removeProfileContexts(
+          java.lang.String key) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        internalGetMutableProfileContexts().getMutableMap()
+            .remove(key);
+        return this;
+      }
+      /**
+       * Use alternate mutation accessors instead.
+       */
+      @java.lang.Deprecated
+      public java.util.Map<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext>
+          getMutableProfileContexts() {
+        bitField0_ |= 0x00000040;
+        return internalGetMutableProfileContexts().getMutableMap();
+      }
+      /**
+       * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+       */
+      public Builder putProfileContexts(
+          java.lang.String key,
+          com.dd.cws.adv1.pb.SecDumpProto.ProfileContext value) {
+        if (key == null) { throw new NullPointerException("map key"); }
+        if (value == null) { throw new NullPointerException("map value"); }
+        internalGetMutableProfileContexts().getMutableMap()
+            .put(key, value);
+        bitField0_ |= 0x00000040;
+        return this;
+      }
+      /**
+       * <code>map&lt;string, .datadog.cws.dumpsv1.ProfileContext&gt; profile_contexts = 7;</code>
+       */
+      public Builder putAllProfileContexts(
+          java.util.Map<java.lang.String, com.dd.cws.adv1.pb.SecDumpProto.ProfileContext> values) {
+        internalGetMutableProfileContexts().getMutableMap()
+            .putAll(values);
+        bitField0_ |= 0x00000040;
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -5864,6 +7663,31 @@ public final class SecDumpProto {
      * @return The syscalls at the given index.
      */
     int getSyscalls(int index);
+
+    /**
+     * <code>repeated string image_tags = 10;</code>
+     * @return A list containing the imageTags.
+     */
+    java.util.List<java.lang.String>
+        getImageTagsList();
+    /**
+     * <code>repeated string image_tags = 10;</code>
+     * @return The count of imageTags.
+     */
+    int getImageTagsCount();
+    /**
+     * <code>repeated string image_tags = 10;</code>
+     * @param index The index of the element to return.
+     * @return The imageTags at the given index.
+     */
+    java.lang.String getImageTags(int index);
+    /**
+     * <code>repeated string image_tags = 10;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the imageTags at the given index.
+     */
+    com.google.protobuf.ByteString
+        getImageTagsBytes(int index);
   }
   /**
    * Protobuf type {@code datadog.cws.dumpsv1.ProcessActivityNode}
@@ -5885,6 +7709,7 @@ public final class SecDumpProto {
       dnsNames_ = java.util.Collections.emptyList();
       sockets_ = java.util.Collections.emptyList();
       syscalls_ = emptyIntList();
+      imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
 
     @java.lang.Override
@@ -6190,6 +8015,42 @@ public final class SecDumpProto {
     }
     private int syscallsMemoizedSerializedSize = -1;
 
+    public static final int IMAGE_TAGS_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringList imageTags_;
+    /**
+     * <code>repeated string image_tags = 10;</code>
+     * @return A list containing the imageTags.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getImageTagsList() {
+      return imageTags_;
+    }
+    /**
+     * <code>repeated string image_tags = 10;</code>
+     * @return The count of imageTags.
+     */
+    public int getImageTagsCount() {
+      return imageTags_.size();
+    }
+    /**
+     * <code>repeated string image_tags = 10;</code>
+     * @param index The index of the element to return.
+     * @return The imageTags at the given index.
+     */
+    public java.lang.String getImageTags(int index) {
+      return imageTags_.get(index);
+    }
+    /**
+     * <code>repeated string image_tags = 10;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the imageTags at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getImageTagsBytes(int index) {
+      return imageTags_.getByteString(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -6232,6 +8093,9 @@ public final class SecDumpProto {
       }
       for (int i = 0; i < matchedRules_.size(); i++) {
         output.writeMessage(9, matchedRules_.get(i));
+      }
+      for (int i = 0; i < imageTags_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, imageTags_.getRaw(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -6284,6 +8148,14 @@ public final class SecDumpProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(9, matchedRules_.get(i));
       }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < imageTags_.size(); i++) {
+          dataSize += computeStringSizeNoTag(imageTags_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getImageTagsList().size();
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -6317,6 +8189,8 @@ public final class SecDumpProto {
           .equals(other.getSocketsList())) return false;
       if (!getSyscallsList()
           .equals(other.getSyscallsList())) return false;
+      if (!getImageTagsList()
+          .equals(other.getImageTagsList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -6357,6 +8231,10 @@ public final class SecDumpProto {
       if (getSyscallsCount() > 0) {
         hash = (37 * hash) + SYSCALLS_FIELD_NUMBER;
         hash = (53 * hash) + getSyscallsList().hashCode();
+      }
+      if (getImageTagsCount() > 0) {
+        hash = (37 * hash) + IMAGE_TAGS_FIELD_NUMBER;
+        hash = (53 * hash) + getImageTagsList().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -6529,6 +8407,8 @@ public final class SecDumpProto {
         }
         bitField0_ = (bitField0_ & ~0x00000040);
         syscalls_ = emptyIntList();
+        imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000100);
         return this;
       }
 
@@ -6612,6 +8492,11 @@ public final class SecDumpProto {
           bitField0_ = (bitField0_ & ~0x00000080);
         }
         result.syscalls_ = syscalls_;
+        if (((bitField0_ & 0x00000100) != 0)) {
+          imageTags_ = imageTags_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000100);
+        }
+        result.imageTags_ = imageTags_;
       }
 
       private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.ProcessActivityNode result) {
@@ -6816,6 +8701,16 @@ public final class SecDumpProto {
           }
           onChanged();
         }
+        if (!other.imageTags_.isEmpty()) {
+          if (imageTags_.isEmpty()) {
+            imageTags_ = other.imageTags_;
+            bitField0_ = (bitField0_ & ~0x00000100);
+          } else {
+            ensureImageTagsIsMutable();
+            imageTags_.addAll(other.imageTags_);
+          }
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -6935,6 +8830,12 @@ public final class SecDumpProto {
                 }
                 break;
               } // case 74
+              case 82: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureImageTagsIsMutable();
+                imageTags_.add(s);
+                break;
+              } // case 82
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -8404,6 +10305,110 @@ public final class SecDumpProto {
         onChanged();
         return this;
       }
+
+      private com.google.protobuf.LazyStringList imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureImageTagsIsMutable() {
+        if (!((bitField0_ & 0x00000100) != 0)) {
+          imageTags_ = new com.google.protobuf.LazyStringArrayList(imageTags_);
+          bitField0_ |= 0x00000100;
+         }
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @return A list containing the imageTags.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getImageTagsList() {
+        return imageTags_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @return The count of imageTags.
+       */
+      public int getImageTagsCount() {
+        return imageTags_.size();
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @param index The index of the element to return.
+       * @return The imageTags at the given index.
+       */
+      public java.lang.String getImageTags(int index) {
+        return imageTags_.get(index);
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the imageTags at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getImageTagsBytes(int index) {
+        return imageTags_.getByteString(index);
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @param index The index to set the value at.
+       * @param value The imageTags to set.
+       * @return This builder for chaining.
+       */
+      public Builder setImageTags(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureImageTagsIsMutable();
+        imageTags_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @param value The imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addImageTags(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureImageTagsIsMutable();
+        imageTags_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @param values The imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllImageTags(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureImageTagsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, imageTags_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearImageTags() {
+        imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @param value The bytes of the imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addImageTagsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureImageTagsIsMutable();
+        imageTags_.add(value);
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -8493,7 +10498,7 @@ public final class SecDumpProto {
     /**
      * <code>uint32 cookie = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=65
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=75
      * @return The cookie.
      */
     @java.lang.Deprecated int getCookie();
@@ -8770,7 +10775,7 @@ public final class SecDumpProto {
     /**
      * <code>uint32 cookie = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=65
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=75
      * @return The cookie.
      */
     @java.lang.Override
@@ -10152,7 +12157,7 @@ public final class SecDumpProto {
       /**
        * <code>uint32 cookie = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=65
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=75
        * @return The cookie.
        */
       @java.lang.Override
@@ -10162,7 +12167,7 @@ public final class SecDumpProto {
       /**
        * <code>uint32 cookie = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=65
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=75
        * @param value The cookie to set.
        * @return This builder for chaining.
        */
@@ -10176,7 +12181,7 @@ public final class SecDumpProto {
       /**
        * <code>uint32 cookie = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=65
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=75
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearCookie() {
@@ -11332,6 +13337,31 @@ public final class SecDumpProto {
         int index);
 
     /**
+     * <code>repeated string image_tags = 10;</code>
+     * @return A list containing the imageTags.
+     */
+    java.util.List<java.lang.String>
+        getImageTagsList();
+    /**
+     * <code>repeated string image_tags = 10;</code>
+     * @return The count of imageTags.
+     */
+    int getImageTagsCount();
+    /**
+     * <code>repeated string image_tags = 10;</code>
+     * @param index The index of the element to return.
+     * @return The imageTags at the given index.
+     */
+    java.lang.String getImageTags(int index);
+    /**
+     * <code>repeated string image_tags = 10;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the imageTags at the given index.
+     */
+    com.google.protobuf.ByteString
+        getImageTagsBytes(int index);
+
+    /**
      * <code>string name = 1;</code>
      * @return The name.
      */
@@ -11434,6 +13464,7 @@ public final class SecDumpProto {
     }
     private FileActivityNode() {
       matchedRules_ = java.util.Collections.emptyList();
+      imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       name_ = "";
       generationType_ = 0;
       children_ = java.util.Collections.emptyList();
@@ -11503,6 +13534,42 @@ public final class SecDumpProto {
     public com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder getMatchedRulesOrBuilder(
         int index) {
       return matchedRules_.get(index);
+    }
+
+    public static final int IMAGE_TAGS_FIELD_NUMBER = 10;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringList imageTags_;
+    /**
+     * <code>repeated string image_tags = 10;</code>
+     * @return A list containing the imageTags.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getImageTagsList() {
+      return imageTags_;
+    }
+    /**
+     * <code>repeated string image_tags = 10;</code>
+     * @return The count of imageTags.
+     */
+    public int getImageTagsCount() {
+      return imageTags_.size();
+    }
+    /**
+     * <code>repeated string image_tags = 10;</code>
+     * @param index The index of the element to return.
+     * @return The imageTags at the given index.
+     */
+    public java.lang.String getImageTags(int index) {
+      return imageTags_.get(index);
+    }
+    /**
+     * <code>repeated string image_tags = 10;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the imageTags at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getImageTagsBytes(int index) {
+      return imageTags_.getByteString(index);
     }
 
     public static final int NAME_FIELD_NUMBER = 1;
@@ -11715,6 +13782,9 @@ public final class SecDumpProto {
       for (int i = 0; i < matchedRules_.size(); i++) {
         output.writeMessage(9, matchedRules_.get(i));
       }
+      for (int i = 0; i < imageTags_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, imageTags_.getRaw(i));
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -11755,6 +13825,14 @@ public final class SecDumpProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(9, matchedRules_.get(i));
       }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < imageTags_.size(); i++) {
+          dataSize += computeStringSizeNoTag(imageTags_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getImageTagsList().size();
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -11772,6 +13850,8 @@ public final class SecDumpProto {
 
       if (!getMatchedRulesList()
           .equals(other.getMatchedRulesList())) return false;
+      if (!getImageTagsList()
+          .equals(other.getImageTagsList())) return false;
       if (!getName()
           .equals(other.getName())) return false;
       if (getIsPattern()
@@ -11805,6 +13885,10 @@ public final class SecDumpProto {
       if (getMatchedRulesCount() > 0) {
         hash = (37 * hash) + MATCHED_RULES_FIELD_NUMBER;
         hash = (53 * hash) + getMatchedRulesList().hashCode();
+      }
+      if (getImageTagsCount() > 0) {
+        hash = (37 * hash) + IMAGE_TAGS_FIELD_NUMBER;
+        hash = (53 * hash) + getImageTagsList().hashCode();
       }
       hash = (37 * hash) + NAME_FIELD_NUMBER;
       hash = (53 * hash) + getName().hashCode();
@@ -11964,6 +14048,8 @@ public final class SecDumpProto {
           matchedRulesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
+        imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
         name_ = "";
         isPattern_ = false;
         file_ = null;
@@ -11984,7 +14070,7 @@ public final class SecDumpProto {
           children_ = null;
           childrenBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000100);
         return this;
       }
 
@@ -12027,10 +14113,15 @@ public final class SecDumpProto {
         } else {
           result.matchedRules_ = matchedRulesBuilder_.build();
         }
+        if (((bitField0_ & 0x00000002) != 0)) {
+          imageTags_ = imageTags_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.imageTags_ = imageTags_;
         if (childrenBuilder_ == null) {
-          if (((bitField0_ & 0x00000080) != 0)) {
+          if (((bitField0_ & 0x00000100) != 0)) {
             children_ = java.util.Collections.unmodifiableList(children_);
-            bitField0_ = (bitField0_ & ~0x00000080);
+            bitField0_ = (bitField0_ & ~0x00000100);
           }
           result.children_ = children_;
         } else {
@@ -12040,24 +14131,24 @@ public final class SecDumpProto {
 
       private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.FileActivityNode result) {
         int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000002) != 0)) {
+        if (((from_bitField0_ & 0x00000004) != 0)) {
           result.name_ = name_;
         }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
+        if (((from_bitField0_ & 0x00000008) != 0)) {
           result.isPattern_ = isPattern_;
         }
-        if (((from_bitField0_ & 0x00000008) != 0)) {
+        if (((from_bitField0_ & 0x00000010) != 0)) {
           result.file_ = fileBuilder_ == null
               ? file_
               : fileBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000010) != 0)) {
+        if (((from_bitField0_ & 0x00000020) != 0)) {
           result.generationType_ = generationType_;
         }
-        if (((from_bitField0_ & 0x00000020) != 0)) {
+        if (((from_bitField0_ & 0x00000040) != 0)) {
           result.firstSeen_ = firstSeen_;
         }
-        if (((from_bitField0_ & 0x00000040) != 0)) {
+        if (((from_bitField0_ & 0x00000080) != 0)) {
           result.open_ = openBuilder_ == null
               ? open_
               : openBuilder_.build();
@@ -12134,9 +14225,19 @@ public final class SecDumpProto {
             }
           }
         }
+        if (!other.imageTags_.isEmpty()) {
+          if (imageTags_.isEmpty()) {
+            imageTags_ = other.imageTags_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureImageTagsIsMutable();
+            imageTags_.addAll(other.imageTags_);
+          }
+          onChanged();
+        }
         if (!other.getName().isEmpty()) {
           name_ = other.name_;
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000004;
           onChanged();
         }
         if (other.getIsPattern() != false) {
@@ -12158,7 +14259,7 @@ public final class SecDumpProto {
           if (!other.children_.isEmpty()) {
             if (children_.isEmpty()) {
               children_ = other.children_;
-              bitField0_ = (bitField0_ & ~0x00000080);
+              bitField0_ = (bitField0_ & ~0x00000100);
             } else {
               ensureChildrenIsMutable();
               children_.addAll(other.children_);
@@ -12171,7 +14272,7 @@ public final class SecDumpProto {
               childrenBuilder_.dispose();
               childrenBuilder_ = null;
               children_ = other.children_;
-              bitField0_ = (bitField0_ & ~0x00000080);
+              bitField0_ = (bitField0_ & ~0x00000100);
               childrenBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getChildrenFieldBuilder() : null;
@@ -12208,26 +14309,26 @@ public final class SecDumpProto {
                 break;
               case 10: {
                 name_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000002;
+                bitField0_ |= 0x00000004;
                 break;
               } // case 10
               case 18: {
                 input.readMessage(
                     getFileFieldBuilder().getBuilder(),
                     extensionRegistry);
-                bitField0_ |= 0x00000008;
+                bitField0_ |= 0x00000010;
                 break;
               } // case 18
               case 32: {
                 firstSeen_ = input.readUInt64();
-                bitField0_ |= 0x00000020;
+                bitField0_ |= 0x00000040;
                 break;
               } // case 32
               case 42: {
                 input.readMessage(
                     getOpenFieldBuilder().getBuilder(),
                     extensionRegistry);
-                bitField0_ |= 0x00000040;
+                bitField0_ |= 0x00000080;
                 break;
               } // case 42
               case 50: {
@@ -12245,12 +14346,12 @@ public final class SecDumpProto {
               } // case 50
               case 56: {
                 isPattern_ = input.readBool();
-                bitField0_ |= 0x00000004;
+                bitField0_ |= 0x00000008;
                 break;
               } // case 56
               case 64: {
                 generationType_ = input.readEnum();
-                bitField0_ |= 0x00000010;
+                bitField0_ |= 0x00000020;
                 break;
               } // case 64
               case 74: {
@@ -12266,6 +14367,12 @@ public final class SecDumpProto {
                 }
                 break;
               } // case 74
+              case 82: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureImageTagsIsMutable();
+                imageTags_.add(s);
+                break;
+              } // case 82
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -12523,6 +14630,110 @@ public final class SecDumpProto {
         return matchedRulesBuilder_;
       }
 
+      private com.google.protobuf.LazyStringList imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureImageTagsIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          imageTags_ = new com.google.protobuf.LazyStringArrayList(imageTags_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @return A list containing the imageTags.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getImageTagsList() {
+        return imageTags_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @return The count of imageTags.
+       */
+      public int getImageTagsCount() {
+        return imageTags_.size();
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @param index The index of the element to return.
+       * @return The imageTags at the given index.
+       */
+      public java.lang.String getImageTags(int index) {
+        return imageTags_.get(index);
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the imageTags at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getImageTagsBytes(int index) {
+        return imageTags_.getByteString(index);
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @param index The index to set the value at.
+       * @param value The imageTags to set.
+       * @return This builder for chaining.
+       */
+      public Builder setImageTags(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureImageTagsIsMutable();
+        imageTags_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @param value The imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addImageTags(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureImageTagsIsMutable();
+        imageTags_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @param values The imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllImageTags(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureImageTagsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, imageTags_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearImageTags() {
+        imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 10;</code>
+       * @param value The bytes of the imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addImageTagsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureImageTagsIsMutable();
+        imageTags_.add(value);
+        onChanged();
+        return this;
+      }
+
       private java.lang.Object name_ = "";
       /**
        * <code>string name = 1;</code>
@@ -12566,7 +14777,7 @@ public final class SecDumpProto {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         name_ = value;
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -12576,7 +14787,7 @@ public final class SecDumpProto {
        */
       public Builder clearName() {
         name_ = getDefaultInstance().getName();
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         onChanged();
         return this;
       }
@@ -12590,7 +14801,7 @@ public final class SecDumpProto {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         name_ = value;
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -12612,7 +14823,7 @@ public final class SecDumpProto {
       public Builder setIsPattern(boolean value) {
         
         isPattern_ = value;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -12621,7 +14832,7 @@ public final class SecDumpProto {
        * @return This builder for chaining.
        */
       public Builder clearIsPattern() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         isPattern_ = false;
         onChanged();
         return this;
@@ -12635,7 +14846,7 @@ public final class SecDumpProto {
        * @return Whether the file field is set.
        */
       public boolean hasFile() {
-        return ((bitField0_ & 0x00000008) != 0);
+        return ((bitField0_ & 0x00000010) != 0);
       }
       /**
        * <code>.datadog.cws.dumpsv1.FileInfo file = 2;</code>
@@ -12660,7 +14871,7 @@ public final class SecDumpProto {
         } else {
           fileBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -12674,7 +14885,7 @@ public final class SecDumpProto {
         } else {
           fileBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -12683,7 +14894,7 @@ public final class SecDumpProto {
        */
       public Builder mergeFile(com.dd.cws.adv1.pb.SecDumpProto.FileInfo value) {
         if (fileBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) != 0) &&
+          if (((bitField0_ & 0x00000010) != 0) &&
             file_ != null &&
             file_ != com.dd.cws.adv1.pb.SecDumpProto.FileInfo.getDefaultInstance()) {
             getFileBuilder().mergeFrom(value);
@@ -12693,7 +14904,7 @@ public final class SecDumpProto {
         } else {
           fileBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -12701,7 +14912,7 @@ public final class SecDumpProto {
        * <code>.datadog.cws.dumpsv1.FileInfo file = 2;</code>
        */
       public Builder clearFile() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         file_ = null;
         if (fileBuilder_ != null) {
           fileBuilder_.dispose();
@@ -12714,7 +14925,7 @@ public final class SecDumpProto {
        * <code>.datadog.cws.dumpsv1.FileInfo file = 2;</code>
        */
       public com.dd.cws.adv1.pb.SecDumpProto.FileInfo.Builder getFileBuilder() {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
         return getFileFieldBuilder().getBuilder();
       }
@@ -12761,7 +14972,7 @@ public final class SecDumpProto {
        */
       public Builder setGenerationTypeValue(int value) {
         generationType_ = value;
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
@@ -12783,7 +14994,7 @@ public final class SecDumpProto {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         generationType_ = value.getNumber();
         onChanged();
         return this;
@@ -12793,7 +15004,7 @@ public final class SecDumpProto {
        * @return This builder for chaining.
        */
       public Builder clearGenerationType() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         generationType_ = 0;
         onChanged();
         return this;
@@ -12816,7 +15027,7 @@ public final class SecDumpProto {
       public Builder setFirstSeen(long value) {
         
         firstSeen_ = value;
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
@@ -12825,7 +15036,7 @@ public final class SecDumpProto {
        * @return This builder for chaining.
        */
       public Builder clearFirstSeen() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         firstSeen_ = 0L;
         onChanged();
         return this;
@@ -12839,7 +15050,7 @@ public final class SecDumpProto {
        * @return Whether the open field is set.
        */
       public boolean hasOpen() {
-        return ((bitField0_ & 0x00000040) != 0);
+        return ((bitField0_ & 0x00000080) != 0);
       }
       /**
        * <code>.datadog.cws.dumpsv1.OpenNode open = 5;</code>
@@ -12864,7 +15075,7 @@ public final class SecDumpProto {
         } else {
           openBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         onChanged();
         return this;
       }
@@ -12878,7 +15089,7 @@ public final class SecDumpProto {
         } else {
           openBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         onChanged();
         return this;
       }
@@ -12887,7 +15098,7 @@ public final class SecDumpProto {
        */
       public Builder mergeOpen(com.dd.cws.adv1.pb.SecDumpProto.OpenNode value) {
         if (openBuilder_ == null) {
-          if (((bitField0_ & 0x00000040) != 0) &&
+          if (((bitField0_ & 0x00000080) != 0) &&
             open_ != null &&
             open_ != com.dd.cws.adv1.pb.SecDumpProto.OpenNode.getDefaultInstance()) {
             getOpenBuilder().mergeFrom(value);
@@ -12897,7 +15108,7 @@ public final class SecDumpProto {
         } else {
           openBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         onChanged();
         return this;
       }
@@ -12905,7 +15116,7 @@ public final class SecDumpProto {
        * <code>.datadog.cws.dumpsv1.OpenNode open = 5;</code>
        */
       public Builder clearOpen() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         open_ = null;
         if (openBuilder_ != null) {
           openBuilder_.dispose();
@@ -12918,7 +15129,7 @@ public final class SecDumpProto {
        * <code>.datadog.cws.dumpsv1.OpenNode open = 5;</code>
        */
       public com.dd.cws.adv1.pb.SecDumpProto.OpenNode.Builder getOpenBuilder() {
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         onChanged();
         return getOpenFieldBuilder().getBuilder();
       }
@@ -12953,9 +15164,9 @@ public final class SecDumpProto {
       private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.FileActivityNode> children_ =
         java.util.Collections.emptyList();
       private void ensureChildrenIsMutable() {
-        if (!((bitField0_ & 0x00000080) != 0)) {
+        if (!((bitField0_ & 0x00000100) != 0)) {
           children_ = new java.util.ArrayList<com.dd.cws.adv1.pb.SecDumpProto.FileActivityNode>(children_);
-          bitField0_ |= 0x00000080;
+          bitField0_ |= 0x00000100;
          }
       }
 
@@ -13105,7 +15316,7 @@ public final class SecDumpProto {
       public Builder clearChildren() {
         if (childrenBuilder_ == null) {
           children_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000080);
+          bitField0_ = (bitField0_ & ~0x00000100);
           onChanged();
         } else {
           childrenBuilder_.clear();
@@ -13182,7 +15393,7 @@ public final class SecDumpProto {
           childrenBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               com.dd.cws.adv1.pb.SecDumpProto.FileActivityNode, com.dd.cws.adv1.pb.SecDumpProto.FileActivityNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.FileActivityNodeOrBuilder>(
                   children_,
-                  ((bitField0_ & 0x00000080) != 0),
+                  ((bitField0_ & 0x00000100) != 0),
                   getParentForChildren(),
                   isClean());
           children_ = null;
@@ -13906,6 +16117,31 @@ public final class SecDumpProto {
         int index);
 
     /**
+     * <code>repeated string image_tags = 3;</code>
+     * @return A list containing the imageTags.
+     */
+    java.util.List<java.lang.String>
+        getImageTagsList();
+    /**
+     * <code>repeated string image_tags = 3;</code>
+     * @return The count of imageTags.
+     */
+    int getImageTagsCount();
+    /**
+     * <code>repeated string image_tags = 3;</code>
+     * @param index The index of the element to return.
+     * @return The imageTags at the given index.
+     */
+    java.lang.String getImageTags(int index);
+    /**
+     * <code>repeated string image_tags = 3;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the imageTags at the given index.
+     */
+    com.google.protobuf.ByteString
+        getImageTagsBytes(int index);
+
+    /**
      * <code>repeated .datadog.cws.dumpsv1.DNSInfo requests = 1;</code>
      */
     java.util.List<com.dd.cws.adv1.pb.SecDumpProto.DNSInfo> 
@@ -13943,6 +16179,7 @@ public final class SecDumpProto {
     }
     private DNSNode() {
       matchedRules_ = java.util.Collections.emptyList();
+      imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       requests_ = java.util.Collections.emptyList();
     }
 
@@ -14012,6 +16249,42 @@ public final class SecDumpProto {
       return matchedRules_.get(index);
     }
 
+    public static final int IMAGE_TAGS_FIELD_NUMBER = 3;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringList imageTags_;
+    /**
+     * <code>repeated string image_tags = 3;</code>
+     * @return A list containing the imageTags.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getImageTagsList() {
+      return imageTags_;
+    }
+    /**
+     * <code>repeated string image_tags = 3;</code>
+     * @return The count of imageTags.
+     */
+    public int getImageTagsCount() {
+      return imageTags_.size();
+    }
+    /**
+     * <code>repeated string image_tags = 3;</code>
+     * @param index The index of the element to return.
+     * @return The imageTags at the given index.
+     */
+    public java.lang.String getImageTags(int index) {
+      return imageTags_.get(index);
+    }
+    /**
+     * <code>repeated string image_tags = 3;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the imageTags at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getImageTagsBytes(int index) {
+      return imageTags_.getByteString(index);
+    }
+
     public static final int REQUESTS_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
     private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.DNSInfo> requests_;
@@ -14073,6 +16346,9 @@ public final class SecDumpProto {
       for (int i = 0; i < matchedRules_.size(); i++) {
         output.writeMessage(2, matchedRules_.get(i));
       }
+      for (int i = 0; i < imageTags_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, imageTags_.getRaw(i));
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -14089,6 +16365,14 @@ public final class SecDumpProto {
       for (int i = 0; i < matchedRules_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, matchedRules_.get(i));
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < imageTags_.size(); i++) {
+          dataSize += computeStringSizeNoTag(imageTags_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getImageTagsList().size();
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -14107,6 +16391,8 @@ public final class SecDumpProto {
 
       if (!getMatchedRulesList()
           .equals(other.getMatchedRulesList())) return false;
+      if (!getImageTagsList()
+          .equals(other.getImageTagsList())) return false;
       if (!getRequestsList()
           .equals(other.getRequestsList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
@@ -14123,6 +16409,10 @@ public final class SecDumpProto {
       if (getMatchedRulesCount() > 0) {
         hash = (37 * hash) + MATCHED_RULES_FIELD_NUMBER;
         hash = (53 * hash) + getMatchedRulesList().hashCode();
+      }
+      if (getImageTagsCount() > 0) {
+        hash = (37 * hash) + IMAGE_TAGS_FIELD_NUMBER;
+        hash = (53 * hash) + getImageTagsList().hashCode();
       }
       if (getRequestsCount() > 0) {
         hash = (37 * hash) + REQUESTS_FIELD_NUMBER;
@@ -14264,13 +16554,15 @@ public final class SecDumpProto {
           matchedRulesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
+        imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
         if (requestsBuilder_ == null) {
           requests_ = java.util.Collections.emptyList();
         } else {
           requests_ = null;
           requestsBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -14313,10 +16605,15 @@ public final class SecDumpProto {
         } else {
           result.matchedRules_ = matchedRulesBuilder_.build();
         }
+        if (((bitField0_ & 0x00000002) != 0)) {
+          imageTags_ = imageTags_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.imageTags_ = imageTags_;
         if (requestsBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) != 0)) {
+          if (((bitField0_ & 0x00000004) != 0)) {
             requests_ = java.util.Collections.unmodifiableList(requests_);
-            bitField0_ = (bitField0_ & ~0x00000002);
+            bitField0_ = (bitField0_ & ~0x00000004);
           }
           result.requests_ = requests_;
         } else {
@@ -14398,11 +16695,21 @@ public final class SecDumpProto {
             }
           }
         }
+        if (!other.imageTags_.isEmpty()) {
+          if (imageTags_.isEmpty()) {
+            imageTags_ = other.imageTags_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureImageTagsIsMutable();
+            imageTags_.addAll(other.imageTags_);
+          }
+          onChanged();
+        }
         if (requestsBuilder_ == null) {
           if (!other.requests_.isEmpty()) {
             if (requests_.isEmpty()) {
               requests_ = other.requests_;
-              bitField0_ = (bitField0_ & ~0x00000002);
+              bitField0_ = (bitField0_ & ~0x00000004);
             } else {
               ensureRequestsIsMutable();
               requests_.addAll(other.requests_);
@@ -14415,7 +16722,7 @@ public final class SecDumpProto {
               requestsBuilder_.dispose();
               requestsBuilder_ = null;
               requests_ = other.requests_;
-              bitField0_ = (bitField0_ & ~0x00000002);
+              bitField0_ = (bitField0_ & ~0x00000004);
               requestsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getRequestsFieldBuilder() : null;
@@ -14476,6 +16783,12 @@ public final class SecDumpProto {
                 }
                 break;
               } // case 18
+              case 26: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureImageTagsIsMutable();
+                imageTags_.add(s);
+                break;
+              } // case 26
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -14733,12 +17046,116 @@ public final class SecDumpProto {
         return matchedRulesBuilder_;
       }
 
+      private com.google.protobuf.LazyStringList imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureImageTagsIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          imageTags_ = new com.google.protobuf.LazyStringArrayList(imageTags_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      /**
+       * <code>repeated string image_tags = 3;</code>
+       * @return A list containing the imageTags.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getImageTagsList() {
+        return imageTags_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string image_tags = 3;</code>
+       * @return The count of imageTags.
+       */
+      public int getImageTagsCount() {
+        return imageTags_.size();
+      }
+      /**
+       * <code>repeated string image_tags = 3;</code>
+       * @param index The index of the element to return.
+       * @return The imageTags at the given index.
+       */
+      public java.lang.String getImageTags(int index) {
+        return imageTags_.get(index);
+      }
+      /**
+       * <code>repeated string image_tags = 3;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the imageTags at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getImageTagsBytes(int index) {
+        return imageTags_.getByteString(index);
+      }
+      /**
+       * <code>repeated string image_tags = 3;</code>
+       * @param index The index to set the value at.
+       * @param value The imageTags to set.
+       * @return This builder for chaining.
+       */
+      public Builder setImageTags(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureImageTagsIsMutable();
+        imageTags_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 3;</code>
+       * @param value The imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addImageTags(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureImageTagsIsMutable();
+        imageTags_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 3;</code>
+       * @param values The imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllImageTags(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureImageTagsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, imageTags_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearImageTags() {
+        imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 3;</code>
+       * @param value The bytes of the imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addImageTagsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureImageTagsIsMutable();
+        imageTags_.add(value);
+        onChanged();
+        return this;
+      }
+
       private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.DNSInfo> requests_ =
         java.util.Collections.emptyList();
       private void ensureRequestsIsMutable() {
-        if (!((bitField0_ & 0x00000002) != 0)) {
+        if (!((bitField0_ & 0x00000004) != 0)) {
           requests_ = new java.util.ArrayList<com.dd.cws.adv1.pb.SecDumpProto.DNSInfo>(requests_);
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000004;
          }
       }
 
@@ -14888,7 +17305,7 @@ public final class SecDumpProto {
       public Builder clearRequests() {
         if (requestsBuilder_ == null) {
           requests_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000004);
           onChanged();
         } else {
           requestsBuilder_.clear();
@@ -14965,7 +17382,7 @@ public final class SecDumpProto {
           requestsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               com.dd.cws.adv1.pb.SecDumpProto.DNSInfo, com.dd.cws.adv1.pb.SecDumpProto.DNSInfo.Builder, com.dd.cws.adv1.pb.SecDumpProto.DNSInfoOrBuilder>(
                   requests_,
-                  ((bitField0_ & 0x00000002) != 0),
+                  ((bitField0_ & 0x00000004) != 0),
                   getParentForChildren(),
                   isClean());
           requests_ = null;
@@ -21220,6 +23637,31 @@ public final class SecDumpProto {
         int index);
 
     /**
+     * <code>repeated string image_tags = 4;</code>
+     * @return A list containing the imageTags.
+     */
+    java.util.List<java.lang.String>
+        getImageTagsList();
+    /**
+     * <code>repeated string image_tags = 4;</code>
+     * @return The count of imageTags.
+     */
+    int getImageTagsCount();
+    /**
+     * <code>repeated string image_tags = 4;</code>
+     * @param index The index of the element to return.
+     * @return The imageTags at the given index.
+     */
+    java.lang.String getImageTags(int index);
+    /**
+     * <code>repeated string image_tags = 4;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the imageTags at the given index.
+     */
+    com.google.protobuf.ByteString
+        getImageTagsBytes(int index);
+
+    /**
      * <code>uint32 port = 1;</code>
      * @return The port.
      */
@@ -21251,6 +23693,7 @@ public final class SecDumpProto {
     }
     private BindNode() {
       matchedRules_ = java.util.Collections.emptyList();
+      imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       ip_ = "";
     }
 
@@ -21318,6 +23761,42 @@ public final class SecDumpProto {
     public com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder getMatchedRulesOrBuilder(
         int index) {
       return matchedRules_.get(index);
+    }
+
+    public static final int IMAGE_TAGS_FIELD_NUMBER = 4;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringList imageTags_;
+    /**
+     * <code>repeated string image_tags = 4;</code>
+     * @return A list containing the imageTags.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getImageTagsList() {
+      return imageTags_;
+    }
+    /**
+     * <code>repeated string image_tags = 4;</code>
+     * @return The count of imageTags.
+     */
+    public int getImageTagsCount() {
+      return imageTags_.size();
+    }
+    /**
+     * <code>repeated string image_tags = 4;</code>
+     * @param index The index of the element to return.
+     * @return The imageTags at the given index.
+     */
+    public java.lang.String getImageTags(int index) {
+      return imageTags_.get(index);
+    }
+    /**
+     * <code>repeated string image_tags = 4;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the imageTags at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getImageTagsBytes(int index) {
+      return imageTags_.getByteString(index);
     }
 
     public static final int PORT_FIELD_NUMBER = 1;
@@ -21393,6 +23872,9 @@ public final class SecDumpProto {
       for (int i = 0; i < matchedRules_.size(); i++) {
         output.writeMessage(3, matchedRules_.get(i));
       }
+      for (int i = 0; i < imageTags_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, imageTags_.getRaw(i));
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -21413,6 +23895,14 @@ public final class SecDumpProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, matchedRules_.get(i));
       }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < imageTags_.size(); i++) {
+          dataSize += computeStringSizeNoTag(imageTags_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getImageTagsList().size();
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -21430,6 +23920,8 @@ public final class SecDumpProto {
 
       if (!getMatchedRulesList()
           .equals(other.getMatchedRulesList())) return false;
+      if (!getImageTagsList()
+          .equals(other.getImageTagsList())) return false;
       if (getPort()
           != other.getPort()) return false;
       if (!getIp()
@@ -21448,6 +23940,10 @@ public final class SecDumpProto {
       if (getMatchedRulesCount() > 0) {
         hash = (37 * hash) + MATCHED_RULES_FIELD_NUMBER;
         hash = (53 * hash) + getMatchedRulesList().hashCode();
+      }
+      if (getImageTagsCount() > 0) {
+        hash = (37 * hash) + IMAGE_TAGS_FIELD_NUMBER;
+        hash = (53 * hash) + getImageTagsList().hashCode();
       }
       hash = (37 * hash) + PORT_FIELD_NUMBER;
       hash = (53 * hash) + getPort();
@@ -21589,6 +24085,8 @@ public final class SecDumpProto {
           matchedRulesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
+        imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
         port_ = 0;
         ip_ = "";
         return this;
@@ -21633,14 +24131,19 @@ public final class SecDumpProto {
         } else {
           result.matchedRules_ = matchedRulesBuilder_.build();
         }
+        if (((bitField0_ & 0x00000002) != 0)) {
+          imageTags_ = imageTags_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.imageTags_ = imageTags_;
       }
 
       private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.BindNode result) {
         int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000002) != 0)) {
+        if (((from_bitField0_ & 0x00000004) != 0)) {
           result.port_ = port_;
         }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
+        if (((from_bitField0_ & 0x00000008) != 0)) {
           result.ip_ = ip_;
         }
       }
@@ -21715,12 +24218,22 @@ public final class SecDumpProto {
             }
           }
         }
+        if (!other.imageTags_.isEmpty()) {
+          if (imageTags_.isEmpty()) {
+            imageTags_ = other.imageTags_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureImageTagsIsMutable();
+            imageTags_.addAll(other.imageTags_);
+          }
+          onChanged();
+        }
         if (other.getPort() != 0) {
           setPort(other.getPort());
         }
         if (!other.getIp().isEmpty()) {
           ip_ = other.ip_;
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000008;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -21751,12 +24264,12 @@ public final class SecDumpProto {
                 break;
               case 8: {
                 port_ = input.readUInt32();
-                bitField0_ |= 0x00000002;
+                bitField0_ |= 0x00000004;
                 break;
               } // case 8
               case 18: {
                 ip_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000004;
+                bitField0_ |= 0x00000008;
                 break;
               } // case 18
               case 26: {
@@ -21772,6 +24285,12 @@ public final class SecDumpProto {
                 }
                 break;
               } // case 26
+              case 34: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureImageTagsIsMutable();
+                imageTags_.add(s);
+                break;
+              } // case 34
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -22029,6 +24548,110 @@ public final class SecDumpProto {
         return matchedRulesBuilder_;
       }
 
+      private com.google.protobuf.LazyStringList imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureImageTagsIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          imageTags_ = new com.google.protobuf.LazyStringArrayList(imageTags_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      /**
+       * <code>repeated string image_tags = 4;</code>
+       * @return A list containing the imageTags.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getImageTagsList() {
+        return imageTags_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string image_tags = 4;</code>
+       * @return The count of imageTags.
+       */
+      public int getImageTagsCount() {
+        return imageTags_.size();
+      }
+      /**
+       * <code>repeated string image_tags = 4;</code>
+       * @param index The index of the element to return.
+       * @return The imageTags at the given index.
+       */
+      public java.lang.String getImageTags(int index) {
+        return imageTags_.get(index);
+      }
+      /**
+       * <code>repeated string image_tags = 4;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the imageTags at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getImageTagsBytes(int index) {
+        return imageTags_.getByteString(index);
+      }
+      /**
+       * <code>repeated string image_tags = 4;</code>
+       * @param index The index to set the value at.
+       * @param value The imageTags to set.
+       * @return This builder for chaining.
+       */
+      public Builder setImageTags(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureImageTagsIsMutable();
+        imageTags_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 4;</code>
+       * @param value The imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addImageTags(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureImageTagsIsMutable();
+        imageTags_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 4;</code>
+       * @param values The imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllImageTags(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureImageTagsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, imageTags_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearImageTags() {
+        imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 4;</code>
+       * @param value The bytes of the imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addImageTagsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureImageTagsIsMutable();
+        imageTags_.add(value);
+        onChanged();
+        return this;
+      }
+
       private int port_ ;
       /**
        * <code>uint32 port = 1;</code>
@@ -22046,7 +24669,7 @@ public final class SecDumpProto {
       public Builder setPort(int value) {
         
         port_ = value;
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -22055,7 +24678,7 @@ public final class SecDumpProto {
        * @return This builder for chaining.
        */
       public Builder clearPort() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         port_ = 0;
         onChanged();
         return this;
@@ -22104,7 +24727,7 @@ public final class SecDumpProto {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         ip_ = value;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -22114,7 +24737,7 @@ public final class SecDumpProto {
        */
       public Builder clearIp() {
         ip_ = getDefaultInstance().getIp();
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         onChanged();
         return this;
       }
@@ -22128,7 +24751,7 @@ public final class SecDumpProto {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         ip_ = value;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -23508,6 +26131,591 @@ java.lang.String defaultValue) {
 
   }
 
+  public interface event_type_stateOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.event_type_state)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>uint64 last_anomaly_nano = 1;</code>
+     * @return The lastAnomalyNano.
+     */
+    long getLastAnomalyNano();
+
+    /**
+     * <code>.datadog.cws.dumpsv1.event_profile_state event_profile_state = 2;</code>
+     * @return The enum numeric value on the wire for eventProfileState.
+     */
+    int getEventProfileStateValue();
+    /**
+     * <code>.datadog.cws.dumpsv1.event_profile_state event_profile_state = 2;</code>
+     * @return The eventProfileState.
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.event_profile_state getEventProfileState();
+  }
+  /**
+   * Protobuf type {@code datadog.cws.dumpsv1.event_type_state}
+   */
+  public static final class event_type_state extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.event_type_state)
+      event_type_stateOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use event_type_state.newBuilder() to construct.
+    private event_type_state(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private event_type_state() {
+      eventProfileState_ = 0;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new event_type_state();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_event_type_state_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_event_type_state_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.dd.cws.adv1.pb.SecDumpProto.event_type_state.class, com.dd.cws.adv1.pb.SecDumpProto.event_type_state.Builder.class);
+    }
+
+    public static final int LAST_ANOMALY_NANO_FIELD_NUMBER = 1;
+    private long lastAnomalyNano_ = 0L;
+    /**
+     * <code>uint64 last_anomaly_nano = 1;</code>
+     * @return The lastAnomalyNano.
+     */
+    @java.lang.Override
+    public long getLastAnomalyNano() {
+      return lastAnomalyNano_;
+    }
+
+    public static final int EVENT_PROFILE_STATE_FIELD_NUMBER = 2;
+    private int eventProfileState_ = 0;
+    /**
+     * <code>.datadog.cws.dumpsv1.event_profile_state event_profile_state = 2;</code>
+     * @return The enum numeric value on the wire for eventProfileState.
+     */
+    @java.lang.Override public int getEventProfileStateValue() {
+      return eventProfileState_;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.event_profile_state event_profile_state = 2;</code>
+     * @return The eventProfileState.
+     */
+    @java.lang.Override public com.dd.cws.adv1.pb.SecDumpProto.event_profile_state getEventProfileState() {
+      com.dd.cws.adv1.pb.SecDumpProto.event_profile_state result = com.dd.cws.adv1.pb.SecDumpProto.event_profile_state.forNumber(eventProfileState_);
+      return result == null ? com.dd.cws.adv1.pb.SecDumpProto.event_profile_state.UNRECOGNIZED : result;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (lastAnomalyNano_ != 0L) {
+        output.writeUInt64(1, lastAnomalyNano_);
+      }
+      if (eventProfileState_ != com.dd.cws.adv1.pb.SecDumpProto.event_profile_state.NO_PROFILE.getNumber()) {
+        output.writeEnum(2, eventProfileState_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (lastAnomalyNano_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, lastAnomalyNano_);
+      }
+      if (eventProfileState_ != com.dd.cws.adv1.pb.SecDumpProto.event_profile_state.NO_PROFILE.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, eventProfileState_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.event_type_state)) {
+        return super.equals(obj);
+      }
+      com.dd.cws.adv1.pb.SecDumpProto.event_type_state other = (com.dd.cws.adv1.pb.SecDumpProto.event_type_state) obj;
+
+      if (getLastAnomalyNano()
+          != other.getLastAnomalyNano()) return false;
+      if (eventProfileState_ != other.eventProfileState_) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + LAST_ANOMALY_NANO_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLastAnomalyNano());
+      hash = (37 * hash) + EVENT_PROFILE_STATE_FIELD_NUMBER;
+      hash = (53 * hash) + eventProfileState_;
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.event_type_state parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.event_type_state parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.event_type_state parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.event_type_state parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.event_type_state parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.event_type_state parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.event_type_state parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.event_type_state parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.event_type_state parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.event_type_state parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.event_type_state parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.event_type_state parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.event_type_state prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code datadog.cws.dumpsv1.event_type_state}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.event_type_state)
+        com.dd.cws.adv1.pb.SecDumpProto.event_type_stateOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_event_type_state_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_event_type_state_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.dd.cws.adv1.pb.SecDumpProto.event_type_state.class, com.dd.cws.adv1.pb.SecDumpProto.event_type_state.Builder.class);
+      }
+
+      // Construct using com.dd.cws.adv1.pb.SecDumpProto.event_type_state.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        lastAnomalyNano_ = 0L;
+        eventProfileState_ = 0;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_event_type_state_descriptor;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.event_type_state getDefaultInstanceForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.event_type_state.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.event_type_state build() {
+        com.dd.cws.adv1.pb.SecDumpProto.event_type_state result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.event_type_state buildPartial() {
+        com.dd.cws.adv1.pb.SecDumpProto.event_type_state result = new com.dd.cws.adv1.pb.SecDumpProto.event_type_state(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.event_type_state result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.lastAnomalyNano_ = lastAnomalyNano_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.eventProfileState_ = eventProfileState_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.event_type_state) {
+          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.event_type_state)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.event_type_state other) {
+        if (other == com.dd.cws.adv1.pb.SecDumpProto.event_type_state.getDefaultInstance()) return this;
+        if (other.getLastAnomalyNano() != 0L) {
+          setLastAnomalyNano(other.getLastAnomalyNano());
+        }
+        if (other.eventProfileState_ != 0) {
+          setEventProfileStateValue(other.getEventProfileStateValue());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                lastAnomalyNano_ = input.readUInt64();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              case 16: {
+                eventProfileState_ = input.readEnum();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private long lastAnomalyNano_ ;
+      /**
+       * <code>uint64 last_anomaly_nano = 1;</code>
+       * @return The lastAnomalyNano.
+       */
+      @java.lang.Override
+      public long getLastAnomalyNano() {
+        return lastAnomalyNano_;
+      }
+      /**
+       * <code>uint64 last_anomaly_nano = 1;</code>
+       * @param value The lastAnomalyNano to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLastAnomalyNano(long value) {
+        
+        lastAnomalyNano_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 last_anomaly_nano = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLastAnomalyNano() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        lastAnomalyNano_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private int eventProfileState_ = 0;
+      /**
+       * <code>.datadog.cws.dumpsv1.event_profile_state event_profile_state = 2;</code>
+       * @return The enum numeric value on the wire for eventProfileState.
+       */
+      @java.lang.Override public int getEventProfileStateValue() {
+        return eventProfileState_;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.event_profile_state event_profile_state = 2;</code>
+       * @param value The enum numeric value on the wire for eventProfileState to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEventProfileStateValue(int value) {
+        eventProfileState_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.event_profile_state event_profile_state = 2;</code>
+       * @return The eventProfileState.
+       */
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.event_profile_state getEventProfileState() {
+        com.dd.cws.adv1.pb.SecDumpProto.event_profile_state result = com.dd.cws.adv1.pb.SecDumpProto.event_profile_state.forNumber(eventProfileState_);
+        return result == null ? com.dd.cws.adv1.pb.SecDumpProto.event_profile_state.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.event_profile_state event_profile_state = 2;</code>
+       * @param value The eventProfileState to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEventProfileState(com.dd.cws.adv1.pb.SecDumpProto.event_profile_state value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        eventProfileState_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.event_profile_state event_profile_state = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEventProfileState() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        eventProfileState_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.event_type_state)
+    }
+
+    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.event_type_state)
+    private static final com.dd.cws.adv1.pb.SecDumpProto.event_type_state DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.event_type_state();
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.event_type_state getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<event_type_state>
+        PARSER = new com.google.protobuf.AbstractParser<event_type_state>() {
+      @java.lang.Override
+      public event_type_state parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<event_type_state> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<event_type_state> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.event_type_state getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_datadog_cws_dumpsv1_SecDump_descriptor;
   private static final 
@@ -23519,10 +26727,25 @@ java.lang.String defaultValue) {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_datadog_cws_dumpsv1_Metadata_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_datadog_cws_dumpsv1_ProfileContext_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_datadog_cws_dumpsv1_ProfileContext_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_datadog_cws_dumpsv1_ProfileContext_EventTypeStateEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_datadog_cws_dumpsv1_ProfileContext_EventTypeStateEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_datadog_cws_dumpsv1_SecurityProfile_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_datadog_cws_dumpsv1_SecurityProfile_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_datadog_cws_dumpsv1_SecurityProfile_ProfileContextsEntry_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_datadog_cws_dumpsv1_SecurityProfile_ProfileContextsEntry_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_datadog_cws_dumpsv1_ProcessActivityNode_descriptor;
   private static final 
@@ -23583,6 +26806,11 @@ java.lang.String defaultValue) {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_datadog_cws_dumpsv1_MatchedRule_RuleTagsEntry_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_datadog_cws_dumpsv1_event_type_state_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_datadog_cws_dumpsv1_event_type_state_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -23605,83 +26833,103 @@ java.lang.String defaultValue) {
       "(\t\022\032\n\022differentiate_args\030\007 \001(\010\022\014\n\004comm\030\010" +
       " \001(\t\022\024\n\014container_id\030\t \001(\t\022\r\n\005start\030\n \001(" +
       "\004\022\013\n\003end\030\013 \001(\004\022\014\n\004size\030\014 \001(\004\022\025\n\rserializ" +
-      "ation\030\016 \001(\t\"\273\001\n\017SecurityProfile\022\016\n\006statu" +
-      "s\030\001 \001(\r\022\017\n\007version\030\002 \001(\t\022/\n\010metadata\030\003 \001" +
-      "(\0132\035.datadog.cws.dumpsv1.Metadata\022\014\n\004tag" +
-      "s\030\004 \003(\t\022\020\n\010syscalls\030\005 \003(\r\0226\n\004tree\030\006 \003(\0132" +
-      "(.datadog.cws.dumpsv1.ProcessActivityNod" +
-      "e\"\254\003\n\023ProcessActivityNode\0221\n\007process\030\001 \001" +
-      "(\0132 .datadog.cws.dumpsv1.ProcessInfo\022<\n\017" +
-      "generation_type\030\010 \001(\0162#.datadog.cws.dump" +
-      "sv1.GenerationType\0227\n\rmatched_rules\030\t \003(" +
-      "\0132 .datadog.cws.dumpsv1.MatchedRule\022:\n\010c" +
-      "hildren\030\003 \003(\0132(.datadog.cws.dumpsv1.Proc" +
-      "essActivityNode\0224\n\005files\030\004 \003(\0132%.datadog" +
-      ".cws.dumpsv1.FileActivityNode\022/\n\tdns_nam" +
-      "es\030\005 \003(\0132\034.datadog.cws.dumpsv1.DNSNode\0220" +
-      "\n\007sockets\030\006 \003(\0132\037.datadog.cws.dumpsv1.So" +
-      "cketNode\022\020\n\010syscalls\030\007 \003(\rJ\004\010\002\020\003\"\321\003\n\013Pro" +
-      "cessInfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\014\n\004pp" +
-      "id\030\003 \001(\r\022\022\n\006cookie\030\004 \001(\rB\002\030\001\022\021\n\tis_threa" +
-      "d\030\005 \001(\010\022+\n\004file\030\006 \001(\0132\035.datadog.cws.dump" +
-      "sv1.FileInfo\022\024\n\014container_id\030\007 \001(\t\022\017\n\007sp" +
-      "an_id\030\010 \001(\004\022\020\n\010trace_id\030\t \001(\004\022\013\n\003tty\030\n \001" +
-      "(\t\022\014\n\004comm\030\013 \001(\t\022\021\n\tfork_time\030\014 \001(\004\022\021\n\te" +
-      "xit_time\030\r \001(\004\022\021\n\texec_time\030\016 \001(\004\0225\n\013cre" +
-      "dentials\030\017 \001(\0132 .datadog.cws.dumpsv1.Cre" +
-      "dentials\022\014\n\004args\030\020 \003(\t\022\r\n\005argv0\030\021 \001(\t\022\026\n" +
-      "\016args_truncated\030\022 \001(\010\022\014\n\004envs\030\023 \003(\t\022\026\n\016e" +
-      "nvs_truncated\030\024 \001(\010\022\025\n\ris_exec_child\030\025 \001" +
-      "(\010\022\020\n\010cookie64\030\026 \001(\004\"\330\002\n\020FileActivityNod" +
-      "e\0227\n\rmatched_rules\030\t \003(\0132 .datadog.cws.d" +
-      "umpsv1.MatchedRule\022\014\n\004name\030\001 \001(\t\022\022\n\nis_p" +
-      "attern\030\007 \001(\010\022+\n\004file\030\002 \001(\0132\035.datadog.cws" +
-      ".dumpsv1.FileInfo\022<\n\017generation_type\030\010 \001" +
-      "(\0162#.datadog.cws.dumpsv1.GenerationType\022" +
-      "\022\n\nfirst_seen\030\004 \001(\004\022+\n\004open\030\005 \001(\0132\035.data" +
-      "dog.cws.dumpsv1.OpenNode\0227\n\010children\030\006 \003" +
-      "(\0132%.datadog.cws.dumpsv1.FileActivityNod" +
-      "eJ\004\010\003\020\004\"7\n\010OpenNode\022\016\n\006retval\030\001 \001(\022\022\r\n\005f" +
-      "lags\030\002 \001(\r\022\014\n\004mode\030\003 \001(\r\"r\n\007DNSNode\0227\n\rm" +
-      "atched_rules\030\002 \003(\0132 .datadog.cws.dumpsv1" +
-      ".MatchedRule\022.\n\010requests\030\001 \003(\0132\034.datadog" +
-      ".cws.dumpsv1.DNSInfo\"Q\n\007DNSInfo\022\014\n\004name\030" +
-      "\001 \001(\t\022\014\n\004type\030\002 \001(\r\022\r\n\005class\030\003 \001(\r\022\014\n\004si" +
-      "ze\030\004 \001(\r\022\r\n\005count\030\005 \001(\r\"\351\002\n\010FileInfo\022\013\n\003" +
-      "uid\030\001 \001(\r\022\014\n\004user\030\002 \001(\t\022\013\n\003gid\030\003 \001(\r\022\r\n\005" +
-      "group\030\004 \001(\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005ctime\030\006 \001(\004" +
-      "\022\r\n\005mtime\030\007 \001(\004\022\020\n\010mount_id\030\010 \001(\r\022\r\n\005ino" +
-      "de\030\t \001(\004\022\026\n\016in_upper_layer\030\n \001(\010\022\014\n\004path" +
-      "\030\013 \001(\t\022\020\n\010basename\030\014 \001(\t\022\022\n\nfilesystem\030\r" +
-      " \001(\t\022\024\n\014package_name\030\016 \001(\t\022\027\n\017package_ve" +
-      "rsion\030\017 \001(\t\022\032\n\022package_srcversion\030\020 \001(\t\022" +
-      "\016\n\006hashes\030\021 \003(\t\0222\n\nhash_state\030\022 \001(\0162\036.da" +
-      "tadog.cws.dumpsv1.HashState\"\224\002\n\013Credenti" +
-      "als\022\013\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004user\030\003 " +
-      "\001(\t\022\r\n\005group\030\004 \001(\t\022\025\n\reffective_uid\030\005 \001(" +
-      "\r\022\025\n\reffective_gid\030\006 \001(\r\022\026\n\016effective_us" +
-      "er\030\007 \001(\t\022\027\n\017effective_group\030\010 \001(\t\022\016\n\006fs_" +
-      "uid\030\t \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007fs_user\030\013 \001" +
-      "(\t\022\020\n\010fs_group\030\014 \001(\t\022\025\n\rcap_effective\030\r " +
-      "\001(\004\022\025\n\rcap_permitted\030\016 \001(\004\"I\n\nSocketNode" +
-      "\022\016\n\006family\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035.datadog" +
-      ".cws.dumpsv1.BindNode\"]\n\010BindNode\0227\n\rmat" +
-      "ched_rules\030\003 \003(\0132 .datadog.cws.dumpsv1.M" +
-      "atchedRule\022\014\n\004port\030\001 \001(\r\022\n\n\002ip\030\002 \001(\t\"\325\001\n" +
-      "\013MatchedRule\022\017\n\007rule_id\030\001 \001(\t\022\024\n\014rule_ve" +
-      "rsion\030\002 \001(\t\022\023\n\013policy_name\030\003 \001(\t\022\026\n\016poli" +
-      "cy_version\030\004 \001(\t\022A\n\trule_tags\030\005 \003(\0132..da" +
-      "tadog.cws.dumpsv1.MatchedRule.RuleTagsEn" +
-      "try\032/\n\rRuleTagsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005val" +
-      "ue\030\002 \001(\t:\0028\001*\271\001\n\tHashState\022\013\n\007NO_HASH\020\000\022" +
-      "\010\n\004DONE\020\001\022\022\n\016FILE_NOT_FOUND\020\002\022\035\n\031PATHNAM" +
-      "E_RESOLUTION_ERROR\020\003\022\020\n\014FILE_TOO_BIG\020\004\022\035" +
-      "\n\031EVENT_TYPE_NOT_CONFIGURED\020\005\022\031\n\025HASH_WA" +
-      "S_RATE_LIMITED\020\006\022\026\n\022UNKNOWN_HASH_ERROR\020\007" +
-      "*8\n\016GenerationType\022\013\n\007UNKNOWN\020\000\022\013\n\007RUNTI" +
-      "ME\020\001\022\014\n\010SNAPSHOT\020\002BU\n\022com.dd.cws.adv1.pb" +
-      "B\014SecDumpProtoP\000Z/github.com/DataDog/age" +
-      "nt-payload/v5/cws/dumpsv1b\006proto3"
+      "ation\030\016 \001(\t\"\210\002\n\016ProfileContext\022\022\n\nfirst_" +
+      "seen\030\001 \001(\004\022\021\n\tlast_seen\030\002 \001(\004\022Q\n\020event_t" +
+      "ype_state\030\003 \003(\01327.datadog.cws.dumpsv1.Pr" +
+      "ofileContext.EventTypeStateEntry\022\020\n\010sysc" +
+      "alls\030\004 \003(\r\022\014\n\004tags\030\005 \003(\t\032\\\n\023EventTypeSta" +
+      "teEntry\022\013\n\003key\030\001 \001(\r\0224\n\005value\030\002 \001(\0132%.da" +
+      "tadog.cws.dumpsv1.event_type_state:\0028\001\"\371" +
+      "\002\n\017SecurityProfile\022\016\n\006status\030\001 \001(\r\022\023\n\007ve" +
+      "rsion\030\002 \001(\tB\002\030\001\022/\n\010metadata\030\003 \001(\0132\035.data" +
+      "dog.cws.dumpsv1.Metadata\022\020\n\004tags\030\004 \003(\tB\002" +
+      "\030\001\022\024\n\010syscalls\030\005 \003(\rB\002\030\001\0226\n\004tree\030\006 \003(\0132(" +
+      ".datadog.cws.dumpsv1.ProcessActivityNode" +
+      "\022S\n\020profile_contexts\030\007 \003(\01329.datadog.cws" +
+      ".dumpsv1.SecurityProfile.ProfileContexts" +
+      "Entry\032[\n\024ProfileContextsEntry\022\013\n\003key\030\001 \001" +
+      "(\t\0222\n\005value\030\002 \001(\0132#.datadog.cws.dumpsv1." +
+      "ProfileContext:\0028\001\"\300\003\n\023ProcessActivityNo" +
+      "de\0221\n\007process\030\001 \001(\0132 .datadog.cws.dumpsv" +
+      "1.ProcessInfo\022<\n\017generation_type\030\010 \001(\0162#" +
+      ".datadog.cws.dumpsv1.GenerationType\0227\n\rm" +
+      "atched_rules\030\t \003(\0132 .datadog.cws.dumpsv1" +
+      ".MatchedRule\022:\n\010children\030\003 \003(\0132(.datadog" +
+      ".cws.dumpsv1.ProcessActivityNode\0224\n\005file" +
+      "s\030\004 \003(\0132%.datadog.cws.dumpsv1.FileActivi" +
+      "tyNode\022/\n\tdns_names\030\005 \003(\0132\034.datadog.cws." +
+      "dumpsv1.DNSNode\0220\n\007sockets\030\006 \003(\0132\037.datad" +
+      "og.cws.dumpsv1.SocketNode\022\020\n\010syscalls\030\007 " +
+      "\003(\r\022\022\n\nimage_tags\030\n \003(\tJ\004\010\002\020\003\"\321\003\n\013Proces" +
+      "sInfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\014\n\004ppid\030" +
+      "\003 \001(\r\022\022\n\006cookie\030\004 \001(\rB\002\030\001\022\021\n\tis_thread\030\005" +
+      " \001(\010\022+\n\004file\030\006 \001(\0132\035.datadog.cws.dumpsv1" +
+      ".FileInfo\022\024\n\014container_id\030\007 \001(\t\022\017\n\007span_" +
+      "id\030\010 \001(\004\022\020\n\010trace_id\030\t \001(\004\022\013\n\003tty\030\n \001(\t\022" +
+      "\014\n\004comm\030\013 \001(\t\022\021\n\tfork_time\030\014 \001(\004\022\021\n\texit" +
+      "_time\030\r \001(\004\022\021\n\texec_time\030\016 \001(\004\0225\n\013creden" +
+      "tials\030\017 \001(\0132 .datadog.cws.dumpsv1.Creden" +
+      "tials\022\014\n\004args\030\020 \003(\t\022\r\n\005argv0\030\021 \001(\t\022\026\n\016ar" +
+      "gs_truncated\030\022 \001(\010\022\014\n\004envs\030\023 \003(\t\022\026\n\016envs" +
+      "_truncated\030\024 \001(\010\022\025\n\ris_exec_child\030\025 \001(\010\022" +
+      "\020\n\010cookie64\030\026 \001(\004\"\354\002\n\020FileActivityNode\0227" +
+      "\n\rmatched_rules\030\t \003(\0132 .datadog.cws.dump" +
+      "sv1.MatchedRule\022\022\n\nimage_tags\030\n \003(\t\022\014\n\004n" +
+      "ame\030\001 \001(\t\022\022\n\nis_pattern\030\007 \001(\010\022+\n\004file\030\002 " +
+      "\001(\0132\035.datadog.cws.dumpsv1.FileInfo\022<\n\017ge" +
+      "neration_type\030\010 \001(\0162#.datadog.cws.dumpsv" +
+      "1.GenerationType\022\022\n\nfirst_seen\030\004 \001(\004\022+\n\004" +
+      "open\030\005 \001(\0132\035.datadog.cws.dumpsv1.OpenNod" +
+      "e\0227\n\010children\030\006 \003(\0132%.datadog.cws.dumpsv" +
+      "1.FileActivityNodeJ\004\010\003\020\004\"7\n\010OpenNode\022\016\n\006" +
+      "retval\030\001 \001(\022\022\r\n\005flags\030\002 \001(\r\022\014\n\004mode\030\003 \001(" +
+      "\r\"\206\001\n\007DNSNode\0227\n\rmatched_rules\030\002 \003(\0132 .d" +
+      "atadog.cws.dumpsv1.MatchedRule\022\022\n\nimage_" +
+      "tags\030\003 \003(\t\022.\n\010requests\030\001 \003(\0132\034.datadog.c" +
+      "ws.dumpsv1.DNSInfo\"Q\n\007DNSInfo\022\014\n\004name\030\001 " +
+      "\001(\t\022\014\n\004type\030\002 \001(\r\022\r\n\005class\030\003 \001(\r\022\014\n\004size" +
+      "\030\004 \001(\r\022\r\n\005count\030\005 \001(\r\"\351\002\n\010FileInfo\022\013\n\003ui" +
+      "d\030\001 \001(\r\022\014\n\004user\030\002 \001(\t\022\013\n\003gid\030\003 \001(\r\022\r\n\005gr" +
+      "oup\030\004 \001(\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005ctime\030\006 \001(\004\022\r" +
+      "\n\005mtime\030\007 \001(\004\022\020\n\010mount_id\030\010 \001(\r\022\r\n\005inode" +
+      "\030\t \001(\004\022\026\n\016in_upper_layer\030\n \001(\010\022\014\n\004path\030\013" +
+      " \001(\t\022\020\n\010basename\030\014 \001(\t\022\022\n\nfilesystem\030\r \001" +
+      "(\t\022\024\n\014package_name\030\016 \001(\t\022\027\n\017package_vers" +
+      "ion\030\017 \001(\t\022\032\n\022package_srcversion\030\020 \001(\t\022\016\n" +
+      "\006hashes\030\021 \003(\t\0222\n\nhash_state\030\022 \001(\0162\036.data" +
+      "dog.cws.dumpsv1.HashState\"\224\002\n\013Credential" +
+      "s\022\013\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004user\030\003 \001(" +
+      "\t\022\r\n\005group\030\004 \001(\t\022\025\n\reffective_uid\030\005 \001(\r\022" +
+      "\025\n\reffective_gid\030\006 \001(\r\022\026\n\016effective_user" +
+      "\030\007 \001(\t\022\027\n\017effective_group\030\010 \001(\t\022\016\n\006fs_ui" +
+      "d\030\t \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007fs_user\030\013 \001(\t" +
+      "\022\020\n\010fs_group\030\014 \001(\t\022\025\n\rcap_effective\030\r \001(" +
+      "\004\022\025\n\rcap_permitted\030\016 \001(\004\"I\n\nSocketNode\022\016" +
+      "\n\006family\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035.datadog.c" +
+      "ws.dumpsv1.BindNode\"q\n\010BindNode\0227\n\rmatch" +
+      "ed_rules\030\003 \003(\0132 .datadog.cws.dumpsv1.Mat" +
+      "chedRule\022\022\n\nimage_tags\030\004 \003(\t\022\014\n\004port\030\001 \001" +
+      "(\r\022\n\n\002ip\030\002 \001(\t\"\325\001\n\013MatchedRule\022\017\n\007rule_i" +
+      "d\030\001 \001(\t\022\024\n\014rule_version\030\002 \001(\t\022\023\n\013policy_" +
+      "name\030\003 \001(\t\022\026\n\016policy_version\030\004 \001(\t\022A\n\tru" +
+      "le_tags\030\005 \003(\0132..datadog.cws.dumpsv1.Matc" +
+      "hedRule.RuleTagsEntry\032/\n\rRuleTagsEntry\022\013" +
+      "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"t\n\020event_" +
+      "type_state\022\031\n\021last_anomaly_nano\030\001 \001(\004\022E\n" +
+      "\023event_profile_state\030\002 \001(\0162(.datadog.cws" +
+      ".dumpsv1.event_profile_state*\271\001\n\tHashSta" +
+      "te\022\013\n\007NO_HASH\020\000\022\010\n\004DONE\020\001\022\022\n\016FILE_NOT_FO" +
+      "UND\020\002\022\035\n\031PATHNAME_RESOLUTION_ERROR\020\003\022\020\n\014" +
+      "FILE_TOO_BIG\020\004\022\035\n\031EVENT_TYPE_NOT_CONFIGU" +
+      "RED\020\005\022\031\n\025HASH_WAS_RATE_LIMITED\020\006\022\026\n\022UNKN" +
+      "OWN_HASH_ERROR\020\007*8\n\016GenerationType\022\013\n\007UN" +
+      "KNOWN\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPSHOT\020\002*\220\001\n\023e" +
+      "vent_profile_state\022\016\n\nNO_PROFILE\020\000\022\027\n\023PR" +
+      "OFILE_AT_MAX_SIZE\020\001\022\024\n\020UNSTABLE_PROFILE\020" +
+      "\002\022\022\n\016STABLE_PROFILE\020\003\022\021\n\rAUTO_LEARNING\020\004" +
+      "\022\023\n\017WORKLOAD_WARMUP\020\005BU\n\022com.dd.cws.adv1" +
+      ".pbB\014SecDumpProtoP\000Z/github.com/DataDog/" +
+      "agent-payload/v5/cws/dumpsv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -23699,74 +26947,92 @@ java.lang.String defaultValue) {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_Metadata_descriptor,
         new java.lang.String[] { "AgentVersion", "AgentCommit", "KernelVersion", "LinuxDistribution", "Arch", "Name", "ProtobufVersion", "DifferentiateArgs", "Comm", "ContainerId", "Start", "End", "Size", "Serialization", });
-    internal_static_datadog_cws_dumpsv1_SecurityProfile_descriptor =
+    internal_static_datadog_cws_dumpsv1_ProfileContext_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_datadog_cws_dumpsv1_ProfileContext_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_datadog_cws_dumpsv1_ProfileContext_descriptor,
+        new java.lang.String[] { "FirstSeen", "LastSeen", "EventTypeState", "Syscalls", "Tags", });
+    internal_static_datadog_cws_dumpsv1_ProfileContext_EventTypeStateEntry_descriptor =
+      internal_static_datadog_cws_dumpsv1_ProfileContext_descriptor.getNestedTypes().get(0);
+    internal_static_datadog_cws_dumpsv1_ProfileContext_EventTypeStateEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_datadog_cws_dumpsv1_ProfileContext_EventTypeStateEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_datadog_cws_dumpsv1_SecurityProfile_descriptor =
+      getDescriptor().getMessageTypes().get(3);
     internal_static_datadog_cws_dumpsv1_SecurityProfile_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_SecurityProfile_descriptor,
-        new java.lang.String[] { "Status", "Version", "Metadata", "Tags", "Syscalls", "Tree", });
+        new java.lang.String[] { "Status", "Version", "Metadata", "Tags", "Syscalls", "Tree", "ProfileContexts", });
+    internal_static_datadog_cws_dumpsv1_SecurityProfile_ProfileContextsEntry_descriptor =
+      internal_static_datadog_cws_dumpsv1_SecurityProfile_descriptor.getNestedTypes().get(0);
+    internal_static_datadog_cws_dumpsv1_SecurityProfile_ProfileContextsEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_datadog_cws_dumpsv1_SecurityProfile_ProfileContextsEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
     internal_static_datadog_cws_dumpsv1_ProcessActivityNode_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_datadog_cws_dumpsv1_ProcessActivityNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_ProcessActivityNode_descriptor,
-        new java.lang.String[] { "Process", "GenerationType", "MatchedRules", "Children", "Files", "DnsNames", "Sockets", "Syscalls", });
+        new java.lang.String[] { "Process", "GenerationType", "MatchedRules", "Children", "Files", "DnsNames", "Sockets", "Syscalls", "ImageTags", });
     internal_static_datadog_cws_dumpsv1_ProcessInfo_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_datadog_cws_dumpsv1_ProcessInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_ProcessInfo_descriptor,
         new java.lang.String[] { "Pid", "Tid", "Ppid", "Cookie", "IsThread", "File", "ContainerId", "SpanId", "TraceId", "Tty", "Comm", "ForkTime", "ExitTime", "ExecTime", "Credentials", "Args", "Argv0", "ArgsTruncated", "Envs", "EnvsTruncated", "IsExecChild", "Cookie64", });
     internal_static_datadog_cws_dumpsv1_FileActivityNode_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_datadog_cws_dumpsv1_FileActivityNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_FileActivityNode_descriptor,
-        new java.lang.String[] { "MatchedRules", "Name", "IsPattern", "File", "GenerationType", "FirstSeen", "Open", "Children", });
+        new java.lang.String[] { "MatchedRules", "ImageTags", "Name", "IsPattern", "File", "GenerationType", "FirstSeen", "Open", "Children", });
     internal_static_datadog_cws_dumpsv1_OpenNode_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_datadog_cws_dumpsv1_OpenNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_OpenNode_descriptor,
         new java.lang.String[] { "Retval", "Flags", "Mode", });
     internal_static_datadog_cws_dumpsv1_DNSNode_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_datadog_cws_dumpsv1_DNSNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_DNSNode_descriptor,
-        new java.lang.String[] { "MatchedRules", "Requests", });
+        new java.lang.String[] { "MatchedRules", "ImageTags", "Requests", });
     internal_static_datadog_cws_dumpsv1_DNSInfo_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_datadog_cws_dumpsv1_DNSInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_DNSInfo_descriptor,
         new java.lang.String[] { "Name", "Type", "Class_", "Size", "Count", });
     internal_static_datadog_cws_dumpsv1_FileInfo_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_datadog_cws_dumpsv1_FileInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_FileInfo_descriptor,
         new java.lang.String[] { "Uid", "User", "Gid", "Group", "Mode", "Ctime", "Mtime", "MountId", "Inode", "InUpperLayer", "Path", "Basename", "Filesystem", "PackageName", "PackageVersion", "PackageSrcversion", "Hashes", "HashState", });
     internal_static_datadog_cws_dumpsv1_Credentials_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_datadog_cws_dumpsv1_Credentials_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_Credentials_descriptor,
         new java.lang.String[] { "Uid", "Gid", "User", "Group", "EffectiveUid", "EffectiveGid", "EffectiveUser", "EffectiveGroup", "FsUid", "FsGid", "FsUser", "FsGroup", "CapEffective", "CapPermitted", });
     internal_static_datadog_cws_dumpsv1_SocketNode_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_datadog_cws_dumpsv1_SocketNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_SocketNode_descriptor,
         new java.lang.String[] { "Family", "Bind", });
     internal_static_datadog_cws_dumpsv1_BindNode_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_datadog_cws_dumpsv1_BindNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_BindNode_descriptor,
-        new java.lang.String[] { "MatchedRules", "Port", "Ip", });
+        new java.lang.String[] { "MatchedRules", "ImageTags", "Port", "Ip", });
     internal_static_datadog_cws_dumpsv1_MatchedRule_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_datadog_cws_dumpsv1_MatchedRule_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_MatchedRule_descriptor,
@@ -23777,6 +27043,12 @@ java.lang.String defaultValue) {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_MatchedRule_RuleTagsEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
+    internal_static_datadog_cws_dumpsv1_event_type_state_descriptor =
+      getDescriptor().getMessageTypes().get(15);
+    internal_static_datadog_cws_dumpsv1_event_type_state_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_datadog_cws_dumpsv1_event_type_state_descriptor,
+        new java.lang.String[] { "LastAnomalyNano", "EventProfileState", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

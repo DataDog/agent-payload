@@ -37,13 +37,22 @@ message Metadata {
     string serialization = 14;
 }
 
+message ProfileContext {
+    uint64 first_seen = 1;
+    uint64 last_seen = 2;
+    map<uint32, event_type_state> event_type_state = 3;
+    repeated uint32 syscalls = 4;
+    repeated string tags = 5;
+}
+
 message SecurityProfile {
     uint32 status = 1;
-    string version = 2;
+    string version = 2 [deprecated = true];
     Metadata metadata = 3;
-    repeated string tags = 4;
-    repeated uint32 syscalls = 5;
+    repeated string tags = 4 [deprecated = true];
+    repeated uint32 syscalls = 5 [deprecated = true];
     repeated ProcessActivityNode tree = 6;
+    map<string, ProfileContext> profile_contexts = 7;
 }
 
 message ProcessActivityNode {
@@ -57,6 +66,7 @@ message ProcessActivityNode {
     repeated DNSNode dns_names = 5;
     repeated SocketNode sockets = 6;
     repeated uint32 syscalls = 7;
+    repeated string image_tags = 10;
 }
 
 message ProcessInfo {
@@ -94,6 +104,7 @@ message ProcessInfo {
 
 message FileActivityNode {
     repeated MatchedRule matched_rules = 9;
+    repeated string image_tags = 10;
 
     string name = 1;
     bool is_pattern = 7;
@@ -115,6 +126,7 @@ message OpenNode {
 
 message DNSNode {
     repeated MatchedRule matched_rules = 2;
+    repeated string image_tags = 3;
 
     repeated DNSInfo requests = 1;
 }
@@ -192,6 +204,7 @@ message SocketNode {
 
 message BindNode {
     repeated MatchedRule matched_rules = 3;
+    repeated string image_tags = 4;
 
     uint32 port = 1;
     string ip = 2;
@@ -209,4 +222,18 @@ message MatchedRule {
     string policy_name = 3;
     string policy_version = 4;
     map<string, string> rule_tags = 5;
+}
+
+enum event_profile_state {
+    NO_PROFILE = 0;
+    PROFILE_AT_MAX_SIZE = 1;
+    UNSTABLE_PROFILE = 2;
+    STABLE_PROFILE = 3;
+    AUTO_LEARNING = 4;
+    WORKLOAD_WARMUP = 5;
+}
+
+message event_type_state {
+    uint64 last_anomaly_nano = 1;
+    event_profile_state event_profile_state = 2;
 }
