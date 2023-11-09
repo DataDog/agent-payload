@@ -2539,6 +2539,12 @@ func (x *ContainerBuilder) SetCpuRequest(v float32) {
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
+func (x *ContainerBuilder) SetMemoryRequest(v uint64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x110)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
 
 type ProcessStatBuilder struct {
 	writer                 io.Writer
@@ -2988,6 +2994,12 @@ func (x *ContainerStatBuilder) SetMemAccounted(v uint64) {
 func (x *ContainerStatBuilder) SetCpuRequest(v float32) {
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xc9)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ContainerStatBuilder) SetMemoryRequest(v uint64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xd0)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
 
