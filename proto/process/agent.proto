@@ -454,6 +454,7 @@ message Container {
 	float cpuUsageNs = 31;
 	uint64 memAccounted = 32;
 	float cpuRequest = 33;
+	uint64 memoryRequest = 34;
 }
 
 // Process state codes in http://wiki.preshweb.co.uk/doku.php?id=linux:psflags
@@ -554,6 +555,7 @@ message ContainerStat {
 	float cpuUsageNs = 23;
 	uint64 memAccounted = 24;
 	float cpuRequest = 25;
+	uint64 memoryRequest = 26;
 }
 
 
