@@ -15,6 +15,33 @@ message CommonMetadata {
 	string api_key = 6;
 }
 
+enum OriginProduct {
+	no_origin_product = 0;
+	reserved 1 to 16;
+}
+
+enum OriginCategory {
+	no_origin_category = 0;
+	reserved 1 to 16;
+}
+
+enum OriginService {
+	no_origin_service = 0;
+	reserved 1 to 216;
+}
+
+message Origin {
+	reserved 1 to 3;
+	OriginProduct origin_product = 4;
+	OriginCategory origin_category = 5;
+	OriginService origin_service = 6;
+}
+
+// Metadata is used in both the MetricSeries and Sketch messages defined below.
+message Metadata {
+	Origin origin = 1;
+}
+
 message MetricPayload {
     enum MetricType {
         UNSPECIFIED = 0;
@@ -53,8 +80,8 @@ message MetricPayload {
         string source_type_name = 7;
         // interval, in seconds, between samples of this metric
         int64 interval = 8;
-
-        reserved 9;
+        // Metrics origin metadata
+        Metadata metadata = 9;
     }
     repeated MetricSeries series = 1;
 }
@@ -106,6 +133,11 @@ message SketchPayload {
                 reserved 5, 6;
 				reserved "distributionsK", "distributionsC";
 		repeated Dogsketch dogsketches = 7 [(gogoproto.nullable) = false];
+		// XXX(joey): there exists a metadata field on the SketchPayload as well with a different type. The
+		// CommonMetadata type was copied from the open-source agent repo and is the same for each metric
+		// sent in the SketchPayload while this Metadata type allows for setting an origin per metric sent
+		// in one SketchPayload.
+		Metadata metadata = 8;
 	}
 	repeated Sketch sketches = 1 [(gogoproto.nullable) = false];
 	CommonMetadata metadata = 2 [(gogoproto.nullable) = false];

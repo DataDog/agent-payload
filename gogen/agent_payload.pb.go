@@ -24,6 +24,72 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+type OriginProduct int32
+
+const (
+	OriginProduct_no_origin_product OriginProduct = 0
+)
+
+var OriginProduct_name = map[int32]string{
+	0: "no_origin_product",
+}
+
+var OriginProduct_value = map[string]int32{
+	"no_origin_product": 0,
+}
+
+func (x OriginProduct) String() string {
+	return proto.EnumName(OriginProduct_name, int32(x))
+}
+
+func (OriginProduct) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_0063f25d3d575515, []int{0}
+}
+
+type OriginCategory int32
+
+const (
+	OriginCategory_no_origin_category OriginCategory = 0
+)
+
+var OriginCategory_name = map[int32]string{
+	0: "no_origin_category",
+}
+
+var OriginCategory_value = map[string]int32{
+	"no_origin_category": 0,
+}
+
+func (x OriginCategory) String() string {
+	return proto.EnumName(OriginCategory_name, int32(x))
+}
+
+func (OriginCategory) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_0063f25d3d575515, []int{1}
+}
+
+type OriginService int32
+
+const (
+	OriginService_no_origin_service OriginService = 0
+)
+
+var OriginService_name = map[int32]string{
+	0: "no_origin_service",
+}
+
+var OriginService_value = map[string]int32{
+	"no_origin_service": 0,
+}
+
+func (x OriginService) String() string {
+	return proto.EnumName(OriginService_name, int32(x))
+}
+
+func (OriginService) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_0063f25d3d575515, []int{2}
+}
+
 type MetricPayload_MetricType int32
 
 const (
@@ -52,7 +118,7 @@ func (x MetricPayload_MetricType) String() string {
 }
 
 func (MetricPayload_MetricType) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_0063f25d3d575515, []int{1, 0}
+	return fileDescriptor_0063f25d3d575515, []int{3, 0}
 }
 
 type CommonMetadata struct {
@@ -142,6 +208,117 @@ func (m *CommonMetadata) GetApiKey() string {
 	return ""
 }
 
+type Origin struct {
+	OriginProduct        OriginProduct  `protobuf:"varint,4,opt,name=origin_product,json=originProduct,proto3,enum=datadog.agentpayload.OriginProduct" json:"origin_product,omitempty"`
+	OriginCategory       OriginCategory `protobuf:"varint,5,opt,name=origin_category,json=originCategory,proto3,enum=datadog.agentpayload.OriginCategory" json:"origin_category,omitempty"`
+	OriginService        OriginService  `protobuf:"varint,6,opt,name=origin_service,json=originService,proto3,enum=datadog.agentpayload.OriginService" json:"origin_service,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
+	XXX_unrecognized     []byte         `json:"-"`
+	XXX_sizecache        int32          `json:"-"`
+}
+
+func (m *Origin) Reset()         { *m = Origin{} }
+func (m *Origin) String() string { return proto.CompactTextString(m) }
+func (*Origin) ProtoMessage()    {}
+func (*Origin) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0063f25d3d575515, []int{1}
+}
+func (m *Origin) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *Origin) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_Origin.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *Origin) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Origin.Merge(m, src)
+}
+func (m *Origin) XXX_Size() int {
+	return m.Size()
+}
+func (m *Origin) XXX_DiscardUnknown() {
+	xxx_messageInfo_Origin.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Origin proto.InternalMessageInfo
+
+func (m *Origin) GetOriginProduct() OriginProduct {
+	if m != nil {
+		return m.OriginProduct
+	}
+	return OriginProduct_no_origin_product
+}
+
+func (m *Origin) GetOriginCategory() OriginCategory {
+	if m != nil {
+		return m.OriginCategory
+	}
+	return OriginCategory_no_origin_category
+}
+
+func (m *Origin) GetOriginService() OriginService {
+	if m != nil {
+		return m.OriginService
+	}
+	return OriginService_no_origin_service
+}
+
+// Metadata is used in both the MetricSeries and Sketch messages defined below.
+type Metadata struct {
+	Origin               *Origin  `protobuf:"bytes,1,opt,name=origin,proto3" json:"origin,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Metadata) Reset()         { *m = Metadata{} }
+func (m *Metadata) String() string { return proto.CompactTextString(m) }
+func (*Metadata) ProtoMessage()    {}
+func (*Metadata) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0063f25d3d575515, []int{2}
+}
+func (m *Metadata) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *Metadata) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_Metadata.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *Metadata) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Metadata.Merge(m, src)
+}
+func (m *Metadata) XXX_Size() int {
+	return m.Size()
+}
+func (m *Metadata) XXX_DiscardUnknown() {
+	xxx_messageInfo_Metadata.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Metadata proto.InternalMessageInfo
+
+func (m *Metadata) GetOrigin() *Origin {
+	if m != nil {
+		return m.Origin
+	}
+	return nil
+}
+
 type MetricPayload struct {
 	Series               []*MetricPayload_MetricSeries `protobuf:"bytes,1,rep,name=series,proto3" json:"series,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                      `json:"-"`
@@ -153,7 +330,7 @@ func (m *MetricPayload) Reset()         { *m = MetricPayload{} }
 func (m *MetricPayload) String() string { return proto.CompactTextString(m) }
 func (*MetricPayload) ProtoMessage()    {}
 func (*MetricPayload) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0063f25d3d575515, []int{1}
+	return fileDescriptor_0063f25d3d575515, []int{3}
 }
 func (m *MetricPayload) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -203,7 +380,7 @@ func (m *MetricPayload_MetricPoint) Reset()         { *m = MetricPayload_MetricP
 func (m *MetricPayload_MetricPoint) String() string { return proto.CompactTextString(m) }
 func (*MetricPayload_MetricPoint) ProtoMessage()    {}
 func (*MetricPayload_MetricPoint) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0063f25d3d575515, []int{1, 0}
+	return fileDescriptor_0063f25d3d575515, []int{3, 0}
 }
 func (m *MetricPayload_MetricPoint) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -258,7 +435,7 @@ func (m *MetricPayload_Resource) Reset()         { *m = MetricPayload_Resource{}
 func (m *MetricPayload_Resource) String() string { return proto.CompactTextString(m) }
 func (*MetricPayload_Resource) ProtoMessage()    {}
 func (*MetricPayload_Resource) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0063f25d3d575515, []int{1, 1}
+	return fileDescriptor_0063f25d3d575515, []int{3, 1}
 }
 func (m *MetricPayload_Resource) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -318,17 +495,19 @@ type MetricPayload_MetricSeries struct {
 	// source of this metric (check name, etc.)
 	SourceTypeName string `protobuf:"bytes,7,opt,name=source_type_name,json=sourceTypeName,proto3" json:"source_type_name,omitempty"`
 	// interval, in seconds, between samples of this metric
-	Interval             int64    `protobuf:"varint,8,opt,name=interval,proto3" json:"interval,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Interval int64 `protobuf:"varint,8,opt,name=interval,proto3" json:"interval,omitempty"`
+	// Metrics origin metadata
+	Metadata             *Metadata `protobuf:"bytes,9,opt,name=metadata,proto3" json:"metadata,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
 }
 
 func (m *MetricPayload_MetricSeries) Reset()         { *m = MetricPayload_MetricSeries{} }
 func (m *MetricPayload_MetricSeries) String() string { return proto.CompactTextString(m) }
 func (*MetricPayload_MetricSeries) ProtoMessage()    {}
 func (*MetricPayload_MetricSeries) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0063f25d3d575515, []int{1, 2}
+	return fileDescriptor_0063f25d3d575515, []int{3, 2}
 }
 func (m *MetricPayload_MetricSeries) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -413,6 +592,13 @@ func (m *MetricPayload_MetricSeries) GetInterval() int64 {
 	return 0
 }
 
+func (m *MetricPayload_MetricSeries) GetMetadata() *Metadata {
+	if m != nil {
+		return m.Metadata
+	}
+	return nil
+}
+
 type EventsPayload struct {
 	Events               []*EventsPayload_Event `protobuf:"bytes,1,rep,name=events,proto3" json:"events,omitempty"`
 	Metadata             *CommonMetadata        `protobuf:"bytes,2,opt,name=metadata,proto3" json:"metadata,omitempty"`
@@ -425,7 +611,7 @@ func (m *EventsPayload) Reset()         { *m = EventsPayload{} }
 func (m *EventsPayload) String() string { return proto.CompactTextString(m) }
 func (*EventsPayload) ProtoMessage()    {}
 func (*EventsPayload) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0063f25d3d575515, []int{2}
+	return fileDescriptor_0063f25d3d575515, []int{4}
 }
 func (m *EventsPayload) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -487,7 +673,7 @@ func (m *EventsPayload_Event) Reset()         { *m = EventsPayload_Event{} }
 func (m *EventsPayload_Event) String() string { return proto.CompactTextString(m) }
 func (*EventsPayload_Event) ProtoMessage()    {}
 func (*EventsPayload_Event) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0063f25d3d575515, []int{2, 0}
+	return fileDescriptor_0063f25d3d575515, []int{4, 0}
 }
 func (m *EventsPayload_Event) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -591,7 +777,7 @@ func (m *SketchPayload) Reset()         { *m = SketchPayload{} }
 func (m *SketchPayload) String() string { return proto.CompactTextString(m) }
 func (*SketchPayload) ProtoMessage()    {}
 func (*SketchPayload) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0063f25d3d575515, []int{3}
+	return fileDescriptor_0063f25d3d575515, []int{5}
 }
 func (m *SketchPayload) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -635,21 +821,26 @@ func (m *SketchPayload) GetMetadata() CommonMetadata {
 }
 
 type SketchPayload_Sketch struct {
-	Metric               string                              `protobuf:"bytes,1,opt,name=metric,proto3" json:"metric,omitempty"`
-	Host                 string                              `protobuf:"bytes,2,opt,name=host,proto3" json:"host,omitempty"`
-	Distributions        []SketchPayload_Sketch_Distribution `protobuf:"bytes,3,rep,name=distributions,proto3" json:"distributions"`
-	Tags                 []string                            `protobuf:"bytes,4,rep,name=tags,proto3" json:"tags,omitempty"`
-	Dogsketches          []SketchPayload_Sketch_Dogsketch    `protobuf:"bytes,7,rep,name=dogsketches,proto3" json:"dogsketches"`
-	XXX_NoUnkeyedLiteral struct{}                            `json:"-"`
-	XXX_unrecognized     []byte                              `json:"-"`
-	XXX_sizecache        int32                               `json:"-"`
+	Metric        string                              `protobuf:"bytes,1,opt,name=metric,proto3" json:"metric,omitempty"`
+	Host          string                              `protobuf:"bytes,2,opt,name=host,proto3" json:"host,omitempty"`
+	Distributions []SketchPayload_Sketch_Distribution `protobuf:"bytes,3,rep,name=distributions,proto3" json:"distributions"`
+	Tags          []string                            `protobuf:"bytes,4,rep,name=tags,proto3" json:"tags,omitempty"`
+	Dogsketches   []SketchPayload_Sketch_Dogsketch    `protobuf:"bytes,7,rep,name=dogsketches,proto3" json:"dogsketches"`
+	// XXX(joey): there exists a metadata field on the SketchPayload as well with a different type. The
+	// CommonMetadata type was copied from the open-source agent repo and is the same for each metric
+	// sent in the SketchPayload while this Metadata type allows for setting an origin per metric sent
+	// in one SketchPayload.
+	Metadata             *Metadata `protobuf:"bytes,8,opt,name=metadata,proto3" json:"metadata,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
 }
 
 func (m *SketchPayload_Sketch) Reset()         { *m = SketchPayload_Sketch{} }
 func (m *SketchPayload_Sketch) String() string { return proto.CompactTextString(m) }
 func (*SketchPayload_Sketch) ProtoMessage()    {}
 func (*SketchPayload_Sketch) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0063f25d3d575515, []int{3, 0}
+	return fileDescriptor_0063f25d3d575515, []int{5, 0}
 }
 func (m *SketchPayload_Sketch) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -713,6 +904,13 @@ func (m *SketchPayload_Sketch) GetDogsketches() []SketchPayload_Sketch_Dogsketch
 	return nil
 }
 
+func (m *SketchPayload_Sketch) GetMetadata() *Metadata {
+	if m != nil {
+		return m.Metadata
+	}
+	return nil
+}
+
 type SketchPayload_Sketch_Distribution struct {
 	Ts                   int64     `protobuf:"varint,1,opt,name=ts,proto3" json:"ts,omitempty"`
 	Cnt                  int64     `protobuf:"varint,2,opt,name=cnt,proto3" json:"cnt,omitempty"`
@@ -733,7 +931,7 @@ func (m *SketchPayload_Sketch_Distribution) Reset()         { *m = SketchPayload
 func (m *SketchPayload_Sketch_Distribution) String() string { return proto.CompactTextString(m) }
 func (*SketchPayload_Sketch_Distribution) ProtoMessage()    {}
 func (*SketchPayload_Sketch_Distribution) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0063f25d3d575515, []int{3, 0, 0}
+	return fileDescriptor_0063f25d3d575515, []int{5, 0, 0}
 }
 func (m *SketchPayload_Sketch_Distribution) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -850,7 +1048,7 @@ func (m *SketchPayload_Sketch_Dogsketch) Reset()         { *m = SketchPayload_Sk
 func (m *SketchPayload_Sketch_Dogsketch) String() string { return proto.CompactTextString(m) }
 func (*SketchPayload_Sketch_Dogsketch) ProtoMessage()    {}
 func (*SketchPayload_Sketch_Dogsketch) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0063f25d3d575515, []int{3, 0, 1}
+	return fileDescriptor_0063f25d3d575515, []int{5, 0, 1}
 }
 func (m *SketchPayload_Sketch_Dogsketch) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -936,8 +1134,13 @@ func (m *SketchPayload_Sketch_Dogsketch) GetN() []uint32 {
 }
 
 func init() {
+	proto.RegisterEnum("datadog.agentpayload.OriginProduct", OriginProduct_name, OriginProduct_value)
+	proto.RegisterEnum("datadog.agentpayload.OriginCategory", OriginCategory_name, OriginCategory_value)
+	proto.RegisterEnum("datadog.agentpayload.OriginService", OriginService_name, OriginService_value)
 	proto.RegisterEnum("datadog.agentpayload.MetricPayload_MetricType", MetricPayload_MetricType_name, MetricPayload_MetricType_value)
 	proto.RegisterType((*CommonMetadata)(nil), "datadog.agentpayload.CommonMetadata")
+	proto.RegisterType((*Origin)(nil), "datadog.agentpayload.Origin")
+	proto.RegisterType((*Metadata)(nil), "datadog.agentpayload.Metadata")
 	proto.RegisterType((*MetricPayload)(nil), "datadog.agentpayload.MetricPayload")
 	proto.RegisterType((*MetricPayload_MetricPoint)(nil), "datadog.agentpayload.MetricPayload.MetricPoint")
 	proto.RegisterType((*MetricPayload_Resource)(nil), "datadog.agentpayload.MetricPayload.Resource")
@@ -953,68 +1156,78 @@ func init() {
 func init() { proto.RegisterFile("proto/metrics/agent_payload.proto", fileDescriptor_0063f25d3d575515) }
 
 var fileDescriptor_0063f25d3d575515 = []byte{
-	// 967 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x56, 0x4f, 0x6f, 0xe3, 0x44,
-	0x14, 0xdf, 0x89, 0x13, 0xd7, 0x7e, 0x69, 0xba, 0x61, 0xb4, 0x02, 0x2b, 0x40, 0xb7, 0x04, 0x24,
-	0xb2, 0x88, 0x4d, 0x50, 0x00, 0xed, 0x09, 0x89, 0xfe, 0xc9, 0x96, 0xb6, 0x6c, 0x59, 0xb9, 0x2d,
-	0x07, 0x84, 0x14, 0x4d, 0x92, 0x59, 0x77, 0xd4, 0xd8, 0x63, 0xd9, 0xe3, 0xa8, 0xe1, 0xce, 0x85,
-	0x03, 0x12, 0x5f, 0x85, 0x33, 0x1f, 0x60, 0x2f, 0x48, 0x7c, 0x02, 0x84, 0xfa, 0x15, 0x38, 0x70,
-	0x45, 0xf3, 0x3c, 0x76, 0x9d, 0x55, 0x0e, 0x85, 0xc3, 0xde, 0xde, 0xfb, 0x8d, 0xdf, 0x7b, 0xf3,
-	0x7e, 0xbf, 0xf7, 0x92, 0x81, 0xf7, 0xe2, 0x44, 0x2a, 0x39, 0x08, 0xb9, 0x4a, 0xc4, 0x34, 0x1d,
-	0xb0, 0x80, 0x47, 0x6a, 0x1c, 0xb3, 0xe5, 0x5c, 0xb2, 0x59, 0x1f, 0xcf, 0xe8, 0x83, 0x19, 0x53,
-	0x6c, 0x26, 0x83, 0x3e, 0x1e, 0x9a, 0xb3, 0xce, 0xe3, 0x40, 0xa8, 0xcb, 0x6c, 0xd2, 0x9f, 0xca,
-	0x70, 0x10, 0xc8, 0x40, 0x0e, 0xf0, 0xe3, 0x49, 0xf6, 0x02, 0xbd, 0x3c, 0xab, 0xb6, 0xf2, 0x24,
-	0xdd, 0xdf, 0x09, 0x6c, 0xed, 0xcb, 0x30, 0x94, 0xd1, 0x33, 0xae, 0x98, 0xce, 0x48, 0xdf, 0x87,
-	0x56, 0x5e, 0x6e, 0xc1, 0x93, 0x54, 0xc8, 0xc8, 0x23, 0x3b, 0xa4, 0xe7, 0xfa, 0x9b, 0x08, 0x7e,
-	0x9b, 0x63, 0xb4, 0x03, 0x8e, 0x12, 0x21, 0xff, 0x41, 0x46, 0xdc, 0xab, 0xe1, 0x79, 0xe9, 0xeb,
-	0x04, 0xd3, 0x2c, 0x49, 0x74, 0x0a, 0x1e, 0xcb, 0xe9, 0xa5, 0x67, 0xed, 0x90, 0x1e, 0xf1, 0x37,
-	0x0d, 0x38, 0xd2, 0x18, 0x7d, 0x08, 0x4d, 0x11, 0x29, 0x9e, 0x44, 0x6c, 0x3e, 0x16, 0xb1, 0x57,
-	0xc7, 0x1c, 0x50, 0x40, 0x47, 0x31, 0x7d, 0x1b, 0xdc, 0x38, 0x9b, 0xcc, 0xc5, 0x54, 0x1f, 0x37,
-	0xf2, 0x12, 0x39, 0x70, 0x14, 0xd3, 0xb7, 0x60, 0x83, 0xc5, 0x62, 0x7c, 0xc5, 0x97, 0x9e, 0x8d,
-	0x47, 0x36, 0x8b, 0xc5, 0x09, 0x5f, 0x76, 0x7f, 0x6c, 0x40, 0xeb, 0x19, 0x92, 0xf6, 0x3c, 0x27,
-	0x84, 0x7e, 0x05, 0x76, 0xca, 0x13, 0xc1, 0x53, 0x8f, 0xec, 0x58, 0xbd, 0xe6, 0xf0, 0x93, 0xfe,
-	0x3a, 0xde, 0xfa, 0x2b, 0x41, 0xc6, 0x3b, 0xc3, 0x38, 0xdf, 0xc4, 0x77, 0x76, 0xa1, 0x69, 0xbe,
-	0x92, 0x22, 0x52, 0xf4, 0x01, 0x34, 0x16, 0x6c, 0x9e, 0x71, 0xe4, 0x87, 0xf8, 0xb9, 0x43, 0xdf,
-	0x01, 0x57, 0x13, 0x91, 0x2a, 0x16, 0xc6, 0xc8, 0x8c, 0xe5, 0xdf, 0x02, 0x9d, 0x21, 0x38, 0x3e,
-	0x4f, 0x65, 0x96, 0x4c, 0x39, 0xa5, 0x50, 0x57, 0xcb, 0x98, 0x1b, 0x7a, 0xd1, 0xd6, 0x58, 0xc4,
-	0xc2, 0x82, 0x52, 0xb4, 0x3b, 0x7f, 0xd7, 0x60, 0xb3, 0x7a, 0x1f, 0x7a, 0x0c, 0x6e, 0x62, 0x92,
-	0x14, 0x4d, 0x7d, 0x7c, 0x97, 0xa6, 0x8a, 0xca, 0xfe, 0x6d, 0x38, 0x7d, 0x13, 0xec, 0x7c, 0xc6,
-	0x4c, 0x49, 0xe3, 0xe1, 0xe5, 0x58, 0x90, 0x7a, 0xd6, 0x8e, 0x85, 0x97, 0x63, 0x41, 0x4a, 0x0f,
-	0xc1, 0x8e, 0x75, 0xe7, 0xa9, 0x57, 0xc7, 0xa2, 0x83, 0xbb, 0x33, 0x89, 0x8c, 0xf9, 0x26, 0x9c,
-	0xee, 0x99, 0xce, 0xb5, 0xaa, 0x5b, 0xc3, 0xfe, 0xdd, 0xd3, 0x9c, 0x2f, 0x63, 0x7e, 0xcb, 0x54,
-	0x16, 0x09, 0x65, 0xe4, 0x47, 0x9b, 0xf6, 0xa0, 0x9d, 0xf7, 0x35, 0xd6, 0x9f, 0x8c, 0x91, 0xc9,
-	0x0d, 0x3c, 0xdf, 0xca, 0x71, 0x1d, 0x7f, 0xca, 0x42, 0xae, 0xc7, 0x17, 0x47, 0x6d, 0xc1, 0xe6,
-	0x9e, 0x83, 0x22, 0x95, 0xfe, 0x71, 0xdd, 0x71, 0xdb, 0xd0, 0xfd, 0x02, 0xe0, 0xb6, 0x26, 0xbd,
-	0x0f, 0xcd, 0x8b, 0xd3, 0xb3, 0xe7, 0xa3, 0xfd, 0xa3, 0xa7, 0x47, 0xa3, 0x83, 0xf6, 0x3d, 0xea,
-	0x42, 0x63, 0xff, 0x9b, 0x8b, 0xd3, 0xf3, 0x36, 0xa1, 0x0e, 0xd4, 0xfd, 0xdd, 0xf3, 0x51, 0xbb,
-	0xa6, 0xc1, 0xc3, 0xdd, 0x8b, 0xc3, 0x51, 0xdb, 0xea, 0xfe, 0x6c, 0x41, 0x6b, 0xb4, 0xe0, 0x91,
-	0x4a, 0x8b, 0x39, 0xdc, 0x05, 0x9b, 0x23, 0x60, 0x24, 0x7b, 0xb4, 0xbe, 0xed, 0x95, 0xa0, 0xdc,
-	0xf3, 0x4d, 0x20, 0xfd, 0x12, 0x9c, 0xd0, 0x6c, 0x29, 0xca, 0xd5, 0x1c, 0x7e, 0xb0, 0x3e, 0xc9,
-	0xea, 0x46, 0xfb, 0x65, 0x54, 0xe7, 0x1f, 0x02, 0x0d, 0xcc, 0xa9, 0xa7, 0x57, 0x09, 0x35, 0x2f,
-	0xc6, 0x2f, 0x77, 0x50, 0x76, 0x7e, 0xad, 0x8a, 0xf9, 0xd3, 0x36, 0xdd, 0x82, 0x9a, 0x4a, 0x71,
-	0x87, 0x2d, 0xbf, 0xa6, 0x52, 0xcd, 0x5d, 0x9c, 0x08, 0x99, 0x08, 0xb5, 0x34, 0x6b, 0x5b, 0xfa,
-	0x3a, 0xfe, 0x52, 0xa6, 0xca, 0xec, 0x2b, 0xda, 0xe5, 0x28, 0xd9, 0x95, 0x51, 0x7a, 0x17, 0x80,
-	0xcd, 0x79, 0xa2, 0x50, 0x28, 0xa3, 0x91, 0x8b, 0x08, 0xd2, 0xfd, 0x21, 0xdc, 0x67, 0x41, 0x90,
-	0xf0, 0x80, 0x29, 0x21, 0x23, 0x5c, 0x73, 0x27, 0xd7, 0xb1, 0x02, 0x9f, 0xf0, 0xe5, 0x5a, 0xc5,
-	0xdd, 0x75, 0x8a, 0x77, 0x7f, 0xb5, 0xa1, 0x75, 0x76, 0xc5, 0xd5, 0xf4, 0xb2, 0x10, 0xe4, 0x6b,
-	0x70, 0x52, 0x04, 0xca, 0x2d, 0xfa, 0x68, 0x3d, 0x9b, 0x2b, 0x61, 0xc6, 0xdb, 0xab, 0xbf, 0xfc,
-	0xf3, 0xe1, 0x3d, 0xbf, 0xcc, 0x40, 0x9f, 0xfe, 0x3f, 0x6d, 0x8a, 0x3c, 0xa5, 0x42, 0x3f, 0x35,
-	0xc0, 0xce, 0x4b, 0x54, 0x76, 0x93, 0xbc, 0xba, 0x9b, 0x48, 0x72, 0xad, 0x42, 0xf2, 0x14, 0x5a,
-	0x33, 0x91, 0xaa, 0x44, 0x4c, 0x32, 0xcd, 0x4d, 0xbe, 0xb8, 0xcd, 0xe1, 0x93, 0xbb, 0x77, 0xd4,
-	0x3f, 0xa8, 0xc4, 0x9b, 0x6b, 0xad, 0xe6, 0x2c, 0x95, 0xac, 0x57, 0x94, 0xfc, 0x1e, 0x9a, 0x33,
-	0x19, 0x94, 0x44, 0x6e, 0x60, 0xd9, 0xcf, 0xfe, 0x4b, 0xd9, 0x22, 0xda, 0xd4, 0xac, 0xa6, 0xeb,
-	0xfc, 0x46, 0x60, 0xb3, 0x7a, 0x2f, 0x33, 0x8c, 0xa4, 0x1c, 0xc6, 0x36, 0x58, 0xd3, 0x48, 0x99,
-	0x1f, 0x5a, 0x6d, 0x6a, 0x24, 0x14, 0x91, 0xf9, 0xcf, 0xd1, 0x26, 0x22, 0xec, 0x1a, 0x67, 0x55,
-	0x23, 0xec, 0x5a, 0x23, 0x6c, 0x11, 0xe0, 0x94, 0x12, 0x5f, 0x9b, 0x1a, 0x49, 0xb3, 0x10, 0x7f,
-	0x4d, 0x88, 0xaf, 0x4d, 0xba, 0x09, 0x64, 0x81, 0xed, 0x10, 0x9f, 0x2c, 0xb4, 0x17, 0x78, 0xce,
-	0x8e, 0xd5, 0x6b, 0xf9, 0x24, 0xd0, 0xcb, 0x33, 0xe3, 0x73, 0xc5, 0x3c, 0x17, 0x91, 0xdc, 0xd1,
-	0x39, 0x26, 0xd9, 0x0b, 0x0f, 0x30, 0x46, 0x9b, 0x9d, 0x5f, 0x08, 0xb8, 0x65, 0x7f, 0xaf, 0xf7,
-	0xee, 0x57, 0x78, 0xf7, 0x37, 0x7c, 0x72, 0xa5, 0xbd, 0xa8, 0xb8, 0x7b, 0x74, 0x5c, 0x77, 0x1a,
-	0x6d, 0xfb, 0xb8, 0xee, 0xd8, 0xed, 0x0d, 0x7f, 0x6b, 0x45, 0xdf, 0x93, 0x57, 0xfc, 0xfd, 0xbd,
-	0x27, 0x2f, 0x6f, 0xb6, 0xc9, 0x1f, 0x37, 0xdb, 0xe4, 0xaf, 0x9b, 0x6d, 0xf2, 0xdd, 0xa3, 0xca,
-	0xd3, 0xe2, 0x80, 0x29, 0x76, 0x20, 0x83, 0xfc, 0x61, 0xf2, 0xd8, 0x08, 0x3c, 0x58, 0x7c, 0xae,
-	0xdf, 0x16, 0x3c, 0x9a, 0xd8, 0xf8, 0xba, 0xf8, 0xf4, 0xdf, 0x00, 0x00, 0x00, 0xff, 0xff, 0x07,
-	0x32, 0x8e, 0xac, 0xc7, 0x08, 0x00, 0x00,
+	// 1135 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x56, 0x4f, 0x6f, 0x1b, 0x45,
+	0x14, 0xcf, 0xf8, 0xcf, 0x66, 0xfd, 0x1c, 0xbb, 0xdb, 0x51, 0x29, 0x2b, 0x53, 0xd2, 0xe0, 0x22,
+	0x91, 0x46, 0x8d, 0x8d, 0x4c, 0x51, 0x25, 0x24, 0xa4, 0xe6, 0x8f, 0x1b, 0x92, 0x90, 0x34, 0xda,
+	0x24, 0x1c, 0x10, 0x92, 0x35, 0x5e, 0x4f, 0x37, 0xab, 0xd8, 0x3b, 0xab, 0xdd, 0xb1, 0x15, 0xf3,
+	0x21, 0x90, 0xf8, 0x18, 0x7c, 0x06, 0x38, 0xa3, 0x5e, 0x90, 0x38, 0x72, 0x42, 0x28, 0x1f, 0x00,
+	0x8e, 0x5c, 0xd1, 0xbc, 0x9d, 0x5d, 0xaf, 0x2b, 0xb7, 0xa4, 0x1c, 0xb8, 0xbd, 0xf7, 0xe6, 0xfd,
+	0x7f, 0xbf, 0x37, 0x7a, 0xf0, 0x41, 0x18, 0x09, 0x29, 0xda, 0x23, 0x2e, 0x23, 0xdf, 0x8d, 0xdb,
+	0xcc, 0xe3, 0x81, 0xec, 0x85, 0x6c, 0x3a, 0x14, 0x6c, 0xd0, 0xc2, 0x37, 0x7a, 0x67, 0xc0, 0x24,
+	0x1b, 0x08, 0xaf, 0x85, 0x8f, 0xfa, 0xad, 0xb1, 0xe9, 0xf9, 0xf2, 0x62, 0xdc, 0x6f, 0xb9, 0x62,
+	0xd4, 0xf6, 0x84, 0x27, 0xda, 0xa8, 0xdc, 0x1f, 0xbf, 0x40, 0x2e, 0xf1, 0xaa, 0xa8, 0xc4, 0x49,
+	0xf3, 0x17, 0x02, 0xf5, 0x1d, 0x31, 0x1a, 0x89, 0xe0, 0x88, 0x4b, 0xa6, 0x3c, 0xd2, 0x07, 0x50,
+	0x4b, 0xc2, 0x4d, 0x78, 0x14, 0xfb, 0x22, 0xb0, 0xc9, 0x1a, 0x59, 0xaf, 0x38, 0x2b, 0x28, 0xfc,
+	0x2a, 0x91, 0xd1, 0x06, 0x98, 0xd2, 0x1f, 0xf1, 0x6f, 0x45, 0xc0, 0xed, 0x02, 0xbe, 0x67, 0xbc,
+	0x72, 0xe0, 0x8e, 0xa3, 0x48, 0xb9, 0xe0, 0xa1, 0x70, 0x2f, 0xec, 0xe2, 0x1a, 0x59, 0x27, 0xce,
+	0x8a, 0x16, 0x76, 0x95, 0x8c, 0xde, 0x87, 0xaa, 0x1f, 0x48, 0x1e, 0x05, 0x6c, 0xd8, 0xf3, 0x43,
+	0xbb, 0x84, 0x3e, 0x20, 0x15, 0xed, 0x87, 0xf4, 0x3d, 0xa8, 0x84, 0xe3, 0xfe, 0xd0, 0x77, 0xd5,
+	0x73, 0x39, 0x09, 0x91, 0x08, 0xf6, 0x43, 0xfa, 0x2e, 0x2c, 0xb3, 0xd0, 0xef, 0x5d, 0xf2, 0xa9,
+	0x6d, 0xe0, 0x93, 0xc1, 0x42, 0xff, 0x90, 0x4f, 0x9b, 0x7f, 0x11, 0x30, 0x9e, 0x47, 0xbe, 0xe7,
+	0x07, 0xf4, 0x00, 0xea, 0x02, 0xa9, 0x5e, 0x18, 0x89, 0xc1, 0xd8, 0x95, 0x18, 0xa4, 0xde, 0x79,
+	0xd0, 0x5a, 0xd4, 0xb8, 0x56, 0x62, 0x75, 0x92, 0xa8, 0x3a, 0x35, 0x91, 0x67, 0xe9, 0x11, 0xdc,
+	0xd2, 0xbe, 0x5c, 0x26, 0xb9, 0x27, 0xa2, 0x29, 0xa6, 0x54, 0xef, 0x7c, 0xf8, 0x26, 0x67, 0x3b,
+	0x5a, 0xd7, 0xd1, 0x89, 0xa4, 0x7c, 0x2e, 0xb5, 0x98, 0x47, 0x13, 0xdf, 0xe5, 0x58, 0xc5, 0xbf,
+	0xa4, 0x76, 0x9a, 0xa8, 0xa6, 0xa9, 0x69, 0xb6, 0xf9, 0x14, 0xcc, 0x6c, 0x74, 0x8f, 0xc1, 0x48,
+	0x1e, 0x71, 0x66, 0xd5, 0xce, 0xbd, 0x37, 0xf9, 0x73, 0xb4, 0x6e, 0xf3, 0xc7, 0x32, 0xd4, 0x8e,
+	0x10, 0x68, 0x27, 0x89, 0x02, 0xfd, 0x02, 0x8c, 0x98, 0x47, 0x3e, 0x8f, 0x6d, 0xb2, 0x56, 0x5c,
+	0xaf, 0x76, 0x3e, 0x5e, 0xec, 0x67, 0xce, 0x48, 0x73, 0xa7, 0x68, 0xe7, 0x68, 0xfb, 0xc6, 0x16,
+	0x54, 0xb5, 0x96, 0xf0, 0x03, 0x49, 0xef, 0x40, 0x79, 0xc2, 0x86, 0x63, 0x8e, 0xf9, 0x11, 0x27,
+	0x61, 0xe8, 0x3d, 0xa8, 0x28, 0xf0, 0xc4, 0x92, 0x8d, 0x42, 0x44, 0x53, 0xd1, 0x99, 0x09, 0x1a,
+	0x1d, 0x30, 0x1d, 0x1e, 0x8b, 0x71, 0xe4, 0x72, 0x4a, 0xa1, 0x24, 0xa7, 0x21, 0xd7, 0x90, 0x44,
+	0x5a, 0xc9, 0x02, 0x36, 0x4a, 0x61, 0x88, 0x74, 0xe3, 0x87, 0x22, 0xac, 0xe4, 0xf3, 0xa1, 0x07,
+	0x50, 0x89, 0xb4, 0x93, 0xb4, 0xa8, 0x47, 0x37, 0x29, 0x2a, 0x8d, 0xec, 0xcc, 0xcc, 0xe9, 0x5d,
+	0x30, 0x92, 0xbd, 0xd4, 0x21, 0x35, 0x87, 0xc9, 0x31, 0x2f, 0xb6, 0x8b, 0x6b, 0x45, 0x4c, 0x8e,
+	0x79, 0x31, 0xdd, 0x03, 0x23, 0x54, 0x95, 0xc7, 0x76, 0x09, 0x83, 0xb6, 0x6f, 0xde, 0x49, 0xec,
+	0x98, 0xa3, 0xcd, 0xe9, 0xb6, 0xae, 0x3c, 0x81, 0x5d, 0xeb, 0xe6, 0x6e, 0xce, 0xa6, 0x21, 0x9f,
+	0x75, 0x6a, 0x1c, 0xf8, 0x52, 0xaf, 0x0c, 0xd2, 0x74, 0x1d, 0xac, 0xa4, 0xae, 0x9e, 0x52, 0xe9,
+	0x61, 0x27, 0x97, 0xf1, 0xbd, 0x9e, 0xc8, 0x95, 0xfd, 0x31, 0x1b, 0x71, 0xb5, 0xf2, 0xb8, 0x9e,
+	0x13, 0x36, 0xb4, 0x4d, 0x1c, 0x52, 0xc6, 0xd3, 0xcf, 0xc0, 0x1c, 0x69, 0x10, 0xda, 0x15, 0x84,
+	0xde, 0xea, 0x6b, 0x33, 0x44, 0x2d, 0x27, 0xd3, 0x6f, 0x7e, 0x0e, 0x30, 0xcb, 0x94, 0xde, 0x82,
+	0xea, 0xf9, 0xf1, 0xe9, 0x49, 0x77, 0x67, 0xff, 0xd9, 0x7e, 0x77, 0xd7, 0x5a, 0xa2, 0x15, 0x28,
+	0xef, 0x3c, 0x3f, 0x3f, 0x3e, 0xb3, 0x08, 0x35, 0xa1, 0xe4, 0x6c, 0x9d, 0x75, 0xad, 0x82, 0x12,
+	0xee, 0x6d, 0x9d, 0xef, 0x75, 0xad, 0x62, 0xf3, 0xbb, 0x22, 0xd4, 0xba, 0x13, 0x1e, 0xc8, 0x38,
+	0x45, 0xef, 0x16, 0x18, 0x1c, 0x05, 0x7a, 0xd0, 0x0f, 0x17, 0xa7, 0x32, 0x67, 0x94, 0x70, 0x8e,
+	0x36, 0xa4, 0x4f, 0x73, 0xf5, 0x14, 0xb0, 0x9e, 0xd7, 0x2c, 0xfa, 0xfc, 0xdf, 0x39, 0xab, 0xaa,
+	0xf1, 0x37, 0x81, 0x32, 0xfa, 0x54, 0x98, 0x97, 0xbe, 0x1c, 0xa6, 0xa0, 0x4d, 0x18, 0x04, 0x0b,
+	0xbf, 0x92, 0x29, 0x6a, 0x15, 0x4d, 0xeb, 0x50, 0x90, 0x31, 0xfe, 0x96, 0x45, 0xa7, 0x20, 0x63,
+	0xd5, 0xf1, 0x30, 0xf2, 0x45, 0xe4, 0xcb, 0xa9, 0xfe, 0x20, 0x33, 0x5e, 0xd9, 0x5f, 0x88, 0x58,
+	0xea, 0x9f, 0x11, 0xe9, 0x0c, 0x80, 0x46, 0x0e, 0x80, 0xef, 0x03, 0xb0, 0x21, 0x8f, 0x24, 0x8e,
+	0x57, 0x4f, 0xb6, 0x82, 0x12, 0x6c, 0xf7, 0x47, 0x70, 0x8b, 0x79, 0x5e, 0xc4, 0x3d, 0x26, 0x7d,
+	0x11, 0xe0, 0x87, 0x6a, 0x26, 0xd3, 0xcf, 0x89, 0x0f, 0xf9, 0x74, 0x21, 0x4e, 0x2a, 0x8b, 0x70,
+	0xd2, 0xfc, 0xd3, 0x80, 0xda, 0xe9, 0x25, 0x97, 0xee, 0x45, 0x3a, 0x90, 0x2f, 0xc1, 0x8c, 0x51,
+	0x90, 0xed, 0xde, 0xc6, 0xe2, 0x6e, 0xce, 0x99, 0x69, 0x6e, 0xbb, 0xf4, 0xf2, 0xf7, 0xfb, 0x4b,
+	0x4e, 0xe6, 0x81, 0x3e, 0xfb, 0x6f, 0xb3, 0x49, 0xfd, 0x64, 0x13, 0xfa, 0xb9, 0x0c, 0x46, 0x12,
+	0x22, 0xb7, 0xd1, 0xe4, 0xd5, 0x8d, 0xc6, 0x26, 0x17, 0x72, 0x4d, 0x76, 0xa1, 0x36, 0xf0, 0x63,
+	0x19, 0xf9, 0xfd, 0xb1, 0xea, 0x4d, 0xb2, 0xee, 0xd5, 0xce, 0x93, 0x9b, 0x57, 0xd4, 0xda, 0xcd,
+	0xd9, 0xeb, 0xb4, 0xe6, 0x7d, 0x66, 0x93, 0x2c, 0xe5, 0x26, 0xf9, 0x0d, 0x54, 0x07, 0xc2, 0xcb,
+	0x1a, 0xb9, 0x8c, 0x61, 0x1f, 0xbf, 0x4d, 0xd8, 0xd4, 0x5a, 0xc7, 0xcc, 0xbb, 0x9b, 0xdb, 0x60,
+	0xf3, 0xed, 0x36, 0xb8, 0xf1, 0x13, 0x81, 0x95, 0x7c, 0x4d, 0x1a, 0xc8, 0x24, 0x03, 0xb2, 0x05,
+	0x45, 0x37, 0x90, 0xfa, 0x6b, 0x57, 0xa4, 0x92, 0x8c, 0xfc, 0x40, 0x5f, 0x06, 0x8a, 0x44, 0x09,
+	0xbb, 0x42, 0x9c, 0x2b, 0x09, 0xbb, 0x52, 0x12, 0x36, 0xf1, 0x10, 0xe1, 0xc4, 0x51, 0xa4, 0x92,
+	0xc4, 0xe3, 0x11, 0xfe, 0x5f, 0xc4, 0x51, 0x24, 0x5d, 0x01, 0x32, 0xc1, 0x56, 0x10, 0x87, 0x4c,
+	0x14, 0xe7, 0xd9, 0xe6, 0x5a, 0x71, 0xbd, 0xe6, 0x10, 0x4f, 0x2d, 0xde, 0x80, 0x0f, 0xf1, 0x47,
+	0x52, 0x92, 0x84, 0x51, 0x3e, 0xfa, 0xe3, 0x17, 0x36, 0xa0, 0x8d, 0x22, 0x1b, 0xdf, 0x13, 0xa8,
+	0x64, 0xbd, 0xf9, 0x7f, 0x73, 0xbf, 0xc4, 0xdc, 0x6f, 0x3b, 0xe4, 0x52, 0x71, 0x41, 0x9a, 0x7b,
+	0x70, 0x50, 0x32, 0xcb, 0x96, 0x71, 0x50, 0x32, 0x0d, 0x6b, 0xd9, 0xa9, 0xcf, 0x61, 0xe3, 0xf0,
+	0x15, 0x7e, 0x67, 0xe3, 0x11, 0xd4, 0xe6, 0x8e, 0x17, 0xfa, 0x0e, 0xdc, 0x0e, 0x44, 0x6f, 0xfe,
+	0xf8, 0xb1, 0x96, 0x9a, 0x25, 0x93, 0x58, 0xd6, 0x46, 0x0b, 0xea, 0xf3, 0xd7, 0x09, 0xbd, 0x0b,
+	0x74, 0xa6, 0x9e, 0xde, 0x37, 0x99, 0xfe, 0x66, 0xea, 0x5d, 0x1f, 0x1c, 0xf3, 0xde, 0xf5, 0xfd,
+	0x62, 0x2d, 0x35, 0xcb, 0x26, 0xb1, 0x7e, 0x23, 0xdb, 0x4f, 0x5e, 0x5e, 0xaf, 0x92, 0x5f, 0xaf,
+	0x57, 0xc9, 0x1f, 0xd7, 0xab, 0xe4, 0xeb, 0x87, 0xb9, 0x6b, 0x74, 0x97, 0x49, 0xb6, 0x2b, 0xbc,
+	0xe4, 0x96, 0xdd, 0xd4, 0x70, 0x6a, 0x4f, 0x3e, 0x55, 0xe7, 0x28, 0x0f, 0xfa, 0x06, 0x1e, 0xa4,
+	0x9f, 0xfc, 0x13, 0x00, 0x00, 0xff, 0xff, 0x04, 0xa7, 0x52, 0x89, 0xfa, 0x0a, 0x00, 0x00,
 }
 
 func (m *CommonMetadata) Marshal() (dAtA []byte, err error) {
@@ -1079,6 +1292,87 @@ func (m *CommonMetadata) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.AgentVersion)
 		copy(dAtA[i:], m.AgentVersion)
 		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.AgentVersion)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *Origin) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *Origin) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *Origin) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.OriginService != 0 {
+		i = encodeVarintAgentPayload(dAtA, i, uint64(m.OriginService))
+		i--
+		dAtA[i] = 0x30
+	}
+	if m.OriginCategory != 0 {
+		i = encodeVarintAgentPayload(dAtA, i, uint64(m.OriginCategory))
+		i--
+		dAtA[i] = 0x28
+	}
+	if m.OriginProduct != 0 {
+		i = encodeVarintAgentPayload(dAtA, i, uint64(m.OriginProduct))
+		i--
+		dAtA[i] = 0x20
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *Metadata) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *Metadata) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *Metadata) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.XXX_unrecognized != nil {
+		i -= len(m.XXX_unrecognized)
+		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.Origin != nil {
+		{
+			size, err := m.Origin.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintAgentPayload(dAtA, i, uint64(size))
+		}
 		i--
 		dAtA[i] = 0xa
 	}
@@ -1228,6 +1522,18 @@ func (m *MetricPayload_MetricSeries) MarshalToSizedBuffer(dAtA []byte) (int, err
 	if m.XXX_unrecognized != nil {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if m.Metadata != nil {
+		{
+			size, err := m.Metadata.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintAgentPayload(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x4a
 	}
 	if m.Interval != 0 {
 		i = encodeVarintAgentPayload(dAtA, i, uint64(m.Interval))
@@ -1518,6 +1824,18 @@ func (m *SketchPayload_Sketch) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
+	if m.Metadata != nil {
+		{
+			size, err := m.Metadata.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintAgentPayload(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x42
+	}
 	if len(m.Dogsketches) > 0 {
 		for iNdEx := len(m.Dogsketches) - 1; iNdEx >= 0; iNdEx-- {
 			{
@@ -1598,55 +1916,55 @@ func (m *SketchPayload_Sketch_Distribution) MarshalToSizedBuffer(dAtA []byte) (i
 	}
 	if len(m.Buf) > 0 {
 		for iNdEx := len(m.Buf) - 1; iNdEx >= 0; iNdEx-- {
-			f3 := math.Float64bits(float64(m.Buf[iNdEx]))
+			f6 := math.Float64bits(float64(m.Buf[iNdEx]))
 			i -= 8
-			encoding_binary.LittleEndian.PutUint64(dAtA[i:], uint64(f3))
+			encoding_binary.LittleEndian.PutUint64(dAtA[i:], uint64(f6))
 		}
 		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.Buf)*8))
 		i--
 		dAtA[i] = 0x52
 	}
 	if len(m.Delta) > 0 {
-		dAtA5 := make([]byte, len(m.Delta)*10)
-		var j4 int
+		dAtA8 := make([]byte, len(m.Delta)*10)
+		var j7 int
 		for _, num := range m.Delta {
 			for num >= 1<<7 {
-				dAtA5[j4] = uint8(uint64(num)&0x7f | 0x80)
+				dAtA8[j7] = uint8(uint64(num)&0x7f | 0x80)
 				num >>= 7
-				j4++
+				j7++
 			}
-			dAtA5[j4] = uint8(num)
-			j4++
+			dAtA8[j7] = uint8(num)
+			j7++
 		}
-		i -= j4
-		copy(dAtA[i:], dAtA5[:j4])
-		i = encodeVarintAgentPayload(dAtA, i, uint64(j4))
+		i -= j7
+		copy(dAtA[i:], dAtA8[:j7])
+		i = encodeVarintAgentPayload(dAtA, i, uint64(j7))
 		i--
 		dAtA[i] = 0x4a
 	}
 	if len(m.G) > 0 {
-		dAtA7 := make([]byte, len(m.G)*10)
-		var j6 int
+		dAtA10 := make([]byte, len(m.G)*10)
+		var j9 int
 		for _, num := range m.G {
 			for num >= 1<<7 {
-				dAtA7[j6] = uint8(uint64(num)&0x7f | 0x80)
+				dAtA10[j9] = uint8(uint64(num)&0x7f | 0x80)
 				num >>= 7
-				j6++
+				j9++
 			}
-			dAtA7[j6] = uint8(num)
-			j6++
+			dAtA10[j9] = uint8(num)
+			j9++
 		}
-		i -= j6
-		copy(dAtA[i:], dAtA7[:j6])
-		i = encodeVarintAgentPayload(dAtA, i, uint64(j6))
+		i -= j9
+		copy(dAtA[i:], dAtA10[:j9])
+		i = encodeVarintAgentPayload(dAtA, i, uint64(j9))
 		i--
 		dAtA[i] = 0x42
 	}
 	if len(m.V) > 0 {
 		for iNdEx := len(m.V) - 1; iNdEx >= 0; iNdEx-- {
-			f8 := math.Float64bits(float64(m.V[iNdEx]))
+			f11 := math.Float64bits(float64(m.V[iNdEx]))
 			i -= 8
-			encoding_binary.LittleEndian.PutUint64(dAtA[i:], uint64(f8))
+			encoding_binary.LittleEndian.PutUint64(dAtA[i:], uint64(f11))
 		}
 		i = encodeVarintAgentPayload(dAtA, i, uint64(len(m.V)*8))
 		i--
@@ -1714,39 +2032,39 @@ func (m *SketchPayload_Sketch_Dogsketch) MarshalToSizedBuffer(dAtA []byte) (int,
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
 	if len(m.N) > 0 {
-		dAtA10 := make([]byte, len(m.N)*10)
-		var j9 int
+		dAtA13 := make([]byte, len(m.N)*10)
+		var j12 int
 		for _, num := range m.N {
 			for num >= 1<<7 {
-				dAtA10[j9] = uint8(uint64(num)&0x7f | 0x80)
+				dAtA13[j12] = uint8(uint64(num)&0x7f | 0x80)
 				num >>= 7
-				j9++
+				j12++
 			}
-			dAtA10[j9] = uint8(num)
-			j9++
+			dAtA13[j12] = uint8(num)
+			j12++
 		}
-		i -= j9
-		copy(dAtA[i:], dAtA10[:j9])
-		i = encodeVarintAgentPayload(dAtA, i, uint64(j9))
+		i -= j12
+		copy(dAtA[i:], dAtA13[:j12])
+		i = encodeVarintAgentPayload(dAtA, i, uint64(j12))
 		i--
 		dAtA[i] = 0x42
 	}
 	if len(m.K) > 0 {
-		dAtA11 := make([]byte, len(m.K)*5)
-		var j12 int
+		dAtA14 := make([]byte, len(m.K)*5)
+		var j15 int
 		for _, num := range m.K {
-			x13 := (uint32(num) << 1) ^ uint32((num >> 31))
-			for x13 >= 1<<7 {
-				dAtA11[j12] = uint8(uint64(x13)&0x7f | 0x80)
-				j12++
-				x13 >>= 7
+			x16 := (uint32(num) << 1) ^ uint32((num >> 31))
+			for x16 >= 1<<7 {
+				dAtA14[j15] = uint8(uint64(x16)&0x7f | 0x80)
+				j15++
+				x16 >>= 7
 			}
-			dAtA11[j12] = uint8(x13)
-			j12++
+			dAtA14[j15] = uint8(x16)
+			j15++
 		}
-		i -= j12
-		copy(dAtA[i:], dAtA11[:j12])
-		i = encodeVarintAgentPayload(dAtA, i, uint64(j12))
+		i -= j15
+		copy(dAtA[i:], dAtA14[:j15])
+		i = encodeVarintAgentPayload(dAtA, i, uint64(j15))
 		i--
 		dAtA[i] = 0x3a
 	}
@@ -1825,6 +2143,43 @@ func (m *CommonMetadata) Size() (n int) {
 	}
 	l = len(m.ApiKey)
 	if l > 0 {
+		n += 1 + l + sovAgentPayload(uint64(l))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *Origin) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.OriginProduct != 0 {
+		n += 1 + sovAgentPayload(uint64(m.OriginProduct))
+	}
+	if m.OriginCategory != 0 {
+		n += 1 + sovAgentPayload(uint64(m.OriginCategory))
+	}
+	if m.OriginService != 0 {
+		n += 1 + sovAgentPayload(uint64(m.OriginService))
+	}
+	if m.XXX_unrecognized != nil {
+		n += len(m.XXX_unrecognized)
+	}
+	return n
+}
+
+func (m *Metadata) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Origin != nil {
+		l = m.Origin.Size()
 		n += 1 + l + sovAgentPayload(uint64(l))
 	}
 	if m.XXX_unrecognized != nil {
@@ -1930,6 +2285,10 @@ func (m *MetricPayload_MetricSeries) Size() (n int) {
 	}
 	if m.Interval != 0 {
 		n += 1 + sovAgentPayload(uint64(m.Interval))
+	}
+	if m.Metadata != nil {
+		l = m.Metadata.Size()
+		n += 1 + l + sovAgentPayload(uint64(l))
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -2059,6 +2418,10 @@ func (m *SketchPayload_Sketch) Size() (n int) {
 			l = e.Size()
 			n += 1 + l + sovAgentPayload(uint64(l))
 		}
+	}
+	if m.Metadata != nil {
+		l = m.Metadata.Size()
+		n += 1 + l + sovAgentPayload(uint64(l))
 	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
@@ -2365,6 +2728,201 @@ func (m *CommonMetadata) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.ApiKey = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *Origin) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgentPayload
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Origin: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Origin: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OriginProduct", wireType)
+			}
+			m.OriginProduct = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.OriginProduct |= OriginProduct(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OriginCategory", wireType)
+			}
+			m.OriginCategory = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.OriginCategory |= OriginCategory(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OriginService", wireType)
+			}
+			m.OriginService = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.OriginService |= OriginService(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipAgentPayload(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.XXX_unrecognized = append(m.XXX_unrecognized, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *Metadata) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowAgentPayload
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Metadata: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Metadata: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Origin", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Origin == nil {
+				m.Origin = &Origin{}
+			}
+			if err := m.Origin.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -2932,6 +3490,42 @@ func (m *MetricPayload_MetricSeries) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Metadata", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Metadata == nil {
+				m.Metadata = &Metadata{}
+			}
+			if err := m.Metadata.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAgentPayload(dAtA[iNdEx:])
@@ -3709,6 +4303,42 @@ func (m *SketchPayload_Sketch) Unmarshal(dAtA []byte) error {
 			}
 			m.Dogsketches = append(m.Dogsketches, SketchPayload_Sketch_Dogsketch{})
 			if err := m.Dogsketches[len(m.Dogsketches)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Metadata", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowAgentPayload
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthAgentPayload
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Metadata == nil {
+				m.Metadata = &Metadata{}
+			}
+			if err := m.Metadata.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
