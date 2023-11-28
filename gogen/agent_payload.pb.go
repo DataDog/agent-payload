@@ -755,19 +755,15 @@ func (m *SketchPayload) GetMetadata() CommonMetadata {
 }
 
 type SketchPayload_Sketch struct {
-	Metric        string                              `protobuf:"bytes,1,opt,name=metric,proto3" json:"metric,omitempty"`
-	Host          string                              `protobuf:"bytes,2,opt,name=host,proto3" json:"host,omitempty"`
-	Distributions []SketchPayload_Sketch_Distribution `protobuf:"bytes,3,rep,name=distributions,proto3" json:"distributions"`
-	Tags          []string                            `protobuf:"bytes,4,rep,name=tags,proto3" json:"tags,omitempty"`
-	Dogsketches   []SketchPayload_Sketch_Dogsketch    `protobuf:"bytes,7,rep,name=dogsketches,proto3" json:"dogsketches"`
-	// XXX(joey): there exists a metadata field on the SketchPayload as well with a different type. The
-	// CommonMetadata type was copied from the open-source agent repo and is the same for each metric
-	// sent in the SketchPayload while this Metadata type allows for setting an origin per metric sent
-	// in one SketchPayload.
-	Metadata             *Metadata `protobuf:"bytes,8,opt,name=metadata,proto3" json:"metadata,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
-	XXX_unrecognized     []byte    `json:"-"`
-	XXX_sizecache        int32     `json:"-"`
+	Metric               string                              `protobuf:"bytes,1,opt,name=metric,proto3" json:"metric,omitempty"`
+	Host                 string                              `protobuf:"bytes,2,opt,name=host,proto3" json:"host,omitempty"`
+	Distributions        []SketchPayload_Sketch_Distribution `protobuf:"bytes,3,rep,name=distributions,proto3" json:"distributions"`
+	Tags                 []string                            `protobuf:"bytes,4,rep,name=tags,proto3" json:"tags,omitempty"`
+	Dogsketches          []SketchPayload_Sketch_Dogsketch    `protobuf:"bytes,7,rep,name=dogsketches,proto3" json:"dogsketches"`
+	Metadata             *Metadata                           `protobuf:"bytes,8,opt,name=metadata,proto3" json:"metadata,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                            `json:"-"`
+	XXX_unrecognized     []byte                              `json:"-"`
+	XXX_sizecache        int32                               `json:"-"`
 }
 
 func (m *SketchPayload_Sketch) Reset()         { *m = SketchPayload_Sketch{} }

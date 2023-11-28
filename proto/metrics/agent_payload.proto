@@ -118,10 +118,6 @@ message SketchPayload {
                 reserved 5, 6;
 				reserved "distributionsK", "distributionsC";
 		repeated Dogsketch dogsketches = 7 [(gogoproto.nullable) = false];
-		// XXX(joey): there exists a metadata field on the SketchPayload as well with a different type. The
-		// CommonMetadata type was copied from the open-source agent repo and is the same for each metric
-		// sent in the SketchPayload while this Metadata type allows for setting an origin per metric sent
-		// in one SketchPayload.
 		Metadata metadata = 8;
 	}
 	repeated Sketch sketches = 1 [(gogoproto.nullable) = false];
