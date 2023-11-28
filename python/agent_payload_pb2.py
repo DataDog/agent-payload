@@ -3,7 +3,6 @@
 
 import sys
 _b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
-from google.protobuf.internal import enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
@@ -21,70 +20,10 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='agent_payload.proto',
   package='datadog.agentpayload',
   syntax='proto3',
-  serialized_pb=_b('\n\x13\x61gent_payload.proto\x12\x14\x64\x61tadog.agentpayload\x1a-github.com/gogo/protobuf/gogoproto/gogo.proto\"\x89\x01\n\x0e\x43ommonMetadata\x12\x15\n\ragent_version\x18\x01 \x01(\t\x12\x10\n\x08timezone\x18\x02 \x01(\t\x12\x15\n\rcurrent_epoch\x18\x03 \x01(\x01\x12\x13\n\x0binternal_ip\x18\x04 \x01(\t\x12\x11\n\tpublic_ip\x18\x05 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x06 \x01(\t\"\xc7\x01\n\x06Origin\x12;\n\x0eorigin_product\x18\x04 \x01(\x0e\x32#.datadog.agentpayload.OriginProduct\x12=\n\x0forigin_category\x18\x05 \x01(\x0e\x32$.datadog.agentpayload.OriginCategory\x12;\n\x0eorigin_service\x18\x06 \x01(\x0e\x32#.datadog.agentpayload.OriginServiceJ\x04\x08\x01\x10\x04\"8\n\x08Metadata\x12,\n\x06origin\x18\x01 \x01(\x0b\x32\x1c.datadog.agentpayload.Origin\"\xc4\x04\n\rMetricPayload\x12@\n\x06series\x18\x01 \x03(\x0b\x32\x30.datadog.agentpayload.MetricPayload.MetricSeries\x1a/\n\x0bMetricPoint\x12\r\n\x05value\x18\x01 \x01(\x01\x12\x11\n\ttimestamp\x18\x02 \x01(\x03\x1a&\n\x08Resource\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x1a\xd8\x02\n\x0cMetricSeries\x12?\n\tresources\x18\x01 \x03(\x0b\x32,.datadog.agentpayload.MetricPayload.Resource\x12\x0e\n\x06metric\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12?\n\x06points\x18\x04 \x03(\x0b\x32/.datadog.agentpayload.MetricPayload.MetricPoint\x12<\n\x04type\x18\x05 \x01(\x0e\x32..datadog.agentpayload.MetricPayload.MetricType\x12\x0c\n\x04unit\x18\x06 \x01(\t\x12\x18\n\x10source_type_name\x18\x07 \x01(\t\x12\x10\n\x08interval\x18\x08 \x01(\x03\x12\x30\n\x08metadata\x18\t \x01(\x0b\x32\x1e.datadog.agentpayload.Metadata\"=\n\nMetricType\x12\x0f\n\x0bUNSPECIFIED\x10\x00\x12\t\n\x05\x43OUNT\x10\x01\x12\x08\n\x04RATE\x10\x02\x12\t\n\x05GAUGE\x10\x03\"\xaa\x02\n\rEventsPayload\x12\x39\n\x06\x65vents\x18\x01 \x03(\x0b\x32).datadog.agentpayload.EventsPayload.Event\x12\x36\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadata\x1a\xa5\x01\n\x05\x45vent\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x10\n\x08priority\x18\x04 \x01(\t\x12\x0c\n\x04host\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x12\n\nalert_type\x18\x07 \x01(\t\x12\x17\n\x0f\x61ggregation_key\x18\x08 \x01(\t\x12\x18\n\x10source_type_name\x18\t \x01(\t\"\xcd\x05\n\rSketchPayload\x12\x42\n\x08sketches\x18\x01 \x03(\x0b\x32*.datadog.agentpayload.SketchPayload.SketchB\x04\xc8\xde\x1f\x00\x12<\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadataB\x04\xc8\xde\x1f\x00\x1a\xb9\x04\n\x06Sketch\x12\x0e\n\x06metric\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12T\n\rdistributions\x18\x03 \x03(\x0b\x32\x37.datadog.agentpayload.SketchPayload.Sketch.DistributionB\x04\xc8\xde\x1f\x00\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12O\n\x0b\x64ogsketches\x18\x07 \x03(\x0b\x32\x34.datadog.agentpayload.SketchPayload.Sketch.DogsketchB\x04\xc8\xde\x1f\x00\x12\x30\n\x08metadata\x18\x08 \x01(\x0b\x32\x1e.datadog.agentpayload.Metadata\x1a\x8d\x01\n\x0c\x44istribution\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01v\x18\x07 \x03(\x01\x12\t\n\x01g\x18\x08 \x03(\r\x12\r\n\x05\x64\x65lta\x18\t \x03(\r\x12\x0b\n\x03\x62uf\x18\n \x03(\x01\x1an\n\tDogsketch\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01k\x18\x07 \x03(\x11\x12\t\n\x01n\x18\x08 \x03(\rJ\x04\x08\x05\x10\x06J\x04\x08\x06\x10\x07R\x0e\x64istributionsKR\x0e\x64istributionsC*,\n\rOriginProduct\x12\x15\n\x11no_origin_product\x10\x00\"\x04\x08\x01\x10\x10*.\n\x0eOriginCategory\x12\x16\n\x12no_origin_category\x10\x00\"\x04\x08\x01\x10\x10*-\n\rOriginService\x12\x15\n\x11no_origin_service\x10\x00\"\x05\x08\x01\x10\xd8\x01\x42+Z)github.com/DataDog/agent-payload/v5/gogenb\x06proto3')
+  serialized_pb=_b('\n\x13\x61gent_payload.proto\x12\x14\x64\x61tadog.agentpayload\x1a-github.com/gogo/protobuf/gogoproto/gogo.proto\"\x89\x01\n\x0e\x43ommonMetadata\x12\x15\n\ragent_version\x18\x01 \x01(\t\x12\x10\n\x08timezone\x18\x02 \x01(\t\x12\x15\n\rcurrent_epoch\x18\x03 \x01(\x01\x12\x13\n\x0binternal_ip\x18\x04 \x01(\t\x12\x11\n\tpublic_ip\x18\x05 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x06 \x01(\t\"c\n\x06Origin\x12\x16\n\x0eorigin_product\x18\x04 \x01(\r\x12\x17\n\x0forigin_category\x18\x05 \x01(\r\x12\x16\n\x0eorigin_service\x18\x06 \x01(\rJ\x04\x08\x01\x10\x02J\x04\x08\x02\x10\x03J\x04\x08\x03\x10\x04\"8\n\x08Metadata\x12,\n\x06origin\x18\x01 \x01(\x0b\x32\x1c.datadog.agentpayload.Origin\"\xc4\x04\n\rMetricPayload\x12@\n\x06series\x18\x01 \x03(\x0b\x32\x30.datadog.agentpayload.MetricPayload.MetricSeries\x1a/\n\x0bMetricPoint\x12\r\n\x05value\x18\x01 \x01(\x01\x12\x11\n\ttimestamp\x18\x02 \x01(\x03\x1a&\n\x08Resource\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x1a\xd8\x02\n\x0cMetricSeries\x12?\n\tresources\x18\x01 \x03(\x0b\x32,.datadog.agentpayload.MetricPayload.Resource\x12\x0e\n\x06metric\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12?\n\x06points\x18\x04 \x03(\x0b\x32/.datadog.agentpayload.MetricPayload.MetricPoint\x12<\n\x04type\x18\x05 \x01(\x0e\x32..datadog.agentpayload.MetricPayload.MetricType\x12\x0c\n\x04unit\x18\x06 \x01(\t\x12\x18\n\x10source_type_name\x18\x07 \x01(\t\x12\x10\n\x08interval\x18\x08 \x01(\x03\x12\x30\n\x08metadata\x18\t \x01(\x0b\x32\x1e.datadog.agentpayload.Metadata\"=\n\nMetricType\x12\x0f\n\x0bUNSPECIFIED\x10\x00\x12\t\n\x05\x43OUNT\x10\x01\x12\x08\n\x04RATE\x10\x02\x12\t\n\x05GAUGE\x10\x03\"\xaa\x02\n\rEventsPayload\x12\x39\n\x06\x65vents\x18\x01 \x03(\x0b\x32).datadog.agentpayload.EventsPayload.Event\x12\x36\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadata\x1a\xa5\x01\n\x05\x45vent\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x10\n\x08priority\x18\x04 \x01(\t\x12\x0c\n\x04host\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x12\n\nalert_type\x18\x07 \x01(\t\x12\x17\n\x0f\x61ggregation_key\x18\x08 \x01(\t\x12\x18\n\x10source_type_name\x18\t \x01(\t\"\xcd\x05\n\rSketchPayload\x12\x42\n\x08sketches\x18\x01 \x03(\x0b\x32*.datadog.agentpayload.SketchPayload.SketchB\x04\xc8\xde\x1f\x00\x12<\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadataB\x04\xc8\xde\x1f\x00\x1a\xb9\x04\n\x06Sketch\x12\x0e\n\x06metric\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12T\n\rdistributions\x18\x03 \x03(\x0b\x32\x37.datadog.agentpayload.SketchPayload.Sketch.DistributionB\x04\xc8\xde\x1f\x00\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12O\n\x0b\x64ogsketches\x18\x07 \x03(\x0b\x32\x34.datadog.agentpayload.SketchPayload.Sketch.DogsketchB\x04\xc8\xde\x1f\x00\x12\x30\n\x08metadata\x18\x08 \x01(\x0b\x32\x1e.datadog.agentpayload.Metadata\x1a\x8d\x01\n\x0c\x44istribution\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01v\x18\x07 \x03(\x01\x12\t\n\x01g\x18\x08 \x03(\r\x12\r\n\x05\x64\x65lta\x18\t \x03(\r\x12\x0b\n\x03\x62uf\x18\n \x03(\x01\x1an\n\tDogsketch\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01k\x18\x07 \x03(\x11\x12\t\n\x01n\x18\x08 \x03(\rJ\x04\x08\x05\x10\x06J\x04\x08\x06\x10\x07R\x0e\x64istributionsKR\x0e\x64istributionsCB+Z)github.com/DataDog/agent-payload/v5/gogenb\x06proto3')
   ,
   dependencies=[github_dot_com_dot_gogo_dot_protobuf_dot_gogoproto_dot_gogo__pb2.DESCRIPTOR,])
 
-_ORIGINPRODUCT = _descriptor.EnumDescriptor(
-  name='OriginProduct',
-  full_name='datadog.agentpayload.OriginProduct',
-  filename=None,
-  file=DESCRIPTOR,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='no_origin_product', index=0, number=0,
-      options=None,
-      type=None),
-  ],
-  containing_type=None,
-  options=None,
-  serialized_start=2096,
-  serialized_end=2140,
-)
-_sym_db.RegisterEnumDescriptor(_ORIGINPRODUCT)
-
-OriginProduct = enum_type_wrapper.EnumTypeWrapper(_ORIGINPRODUCT)
-_ORIGINCATEGORY = _descriptor.EnumDescriptor(
-  name='OriginCategory',
-  full_name='datadog.agentpayload.OriginCategory',
-  filename=None,
-  file=DESCRIPTOR,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='no_origin_category', index=0, number=0,
-      options=None,
-      type=None),
-  ],
-  containing_type=None,
-  options=None,
-  serialized_start=2142,
-  serialized_end=2188,
-)
-_sym_db.RegisterEnumDescriptor(_ORIGINCATEGORY)
-
-OriginCategory = enum_type_wrapper.EnumTypeWrapper(_ORIGINCATEGORY)
-_ORIGINSERVICE = _descriptor.EnumDescriptor(
-  name='OriginService',
-  full_name='datadog.agentpayload.OriginService',
-  filename=None,
-  file=DESCRIPTOR,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='no_origin_service', index=0, number=0,
-      options=None,
-      type=None),
-  ],
-  containing_type=None,
-  options=None,
-  serialized_start=2190,
-  serialized_end=2235,
-)
-_sym_db.RegisterEnumDescriptor(_ORIGINSERVICE)
-
-OriginService = enum_type_wrapper.EnumTypeWrapper(_ORIGINSERVICE)
-no_origin_product = 0
-no_origin_category = 0
-no_origin_service = 0
 
 
 _METRICPAYLOAD_METRICTYPE = _descriptor.EnumDescriptor(
@@ -112,8 +51,8 @@ _METRICPAYLOAD_METRICTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1012,
-  serialized_end=1073,
+  serialized_start=911,
+  serialized_end=972,
 )
 _sym_db.RegisterEnumDescriptor(_METRICPAYLOAD_METRICTYPE)
 
@@ -193,21 +132,21 @@ _ORIGIN = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='origin_product', full_name='datadog.agentpayload.Origin.origin_product', index=0,
-      number=4, type=14, cpp_type=8, label=1,
+      number=4, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='origin_category', full_name='datadog.agentpayload.Origin.origin_category', index=1,
-      number=5, type=14, cpp_type=8, label=1,
+      number=5, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='origin_service', full_name='datadog.agentpayload.Origin.origin_service', index=2,
-      number=6, type=14, cpp_type=8, label=1,
+      number=6, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -224,8 +163,8 @@ _ORIGIN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=233,
-  serialized_end=432,
+  serialized_start=232,
+  serialized_end=331,
 )
 
 
@@ -255,8 +194,8 @@ _METADATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=434,
-  serialized_end=490,
+  serialized_start=333,
+  serialized_end=389,
 )
 
 
@@ -293,8 +232,8 @@ _METRICPAYLOAD_METRICPOINT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=576,
-  serialized_end=623,
+  serialized_start=475,
+  serialized_end=522,
 )
 
 _METRICPAYLOAD_RESOURCE = _descriptor.Descriptor(
@@ -330,8 +269,8 @@ _METRICPAYLOAD_RESOURCE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=625,
-  serialized_end=663,
+  serialized_start=524,
+  serialized_end=562,
 )
 
 _METRICPAYLOAD_METRICSERIES = _descriptor.Descriptor(
@@ -416,8 +355,8 @@ _METRICPAYLOAD_METRICSERIES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=666,
-  serialized_end=1010,
+  serialized_start=565,
+  serialized_end=909,
 )
 
 _METRICPAYLOAD = _descriptor.Descriptor(
@@ -447,8 +386,8 @@ _METRICPAYLOAD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=493,
-  serialized_end=1073,
+  serialized_start=392,
+  serialized_end=972,
 )
 
 
@@ -534,8 +473,8 @@ _EVENTSPAYLOAD_EVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1209,
-  serialized_end=1374,
+  serialized_start=1108,
+  serialized_end=1273,
 )
 
 _EVENTSPAYLOAD = _descriptor.Descriptor(
@@ -571,8 +510,8 @@ _EVENTSPAYLOAD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1076,
-  serialized_end=1374,
+  serialized_start=975,
+  serialized_end=1273,
 )
 
 
@@ -665,8 +604,8 @@ _SKETCHPAYLOAD_SKETCH_DISTRIBUTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1797,
-  serialized_end=1938,
+  serialized_start=1696,
+  serialized_end=1837,
 )
 
 _SKETCHPAYLOAD_SKETCH_DOGSKETCH = _descriptor.Descriptor(
@@ -744,8 +683,8 @@ _SKETCHPAYLOAD_SKETCH_DOGSKETCH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1940,
-  serialized_end=2050,
+  serialized_start=1839,
+  serialized_end=1949,
 )
 
 _SKETCHPAYLOAD_SKETCH = _descriptor.Descriptor(
@@ -809,8 +748,8 @@ _SKETCHPAYLOAD_SKETCH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1525,
-  serialized_end=2094,
+  serialized_start=1424,
+  serialized_end=1993,
 )
 
 _SKETCHPAYLOAD = _descriptor.Descriptor(
@@ -846,13 +785,10 @@ _SKETCHPAYLOAD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1377,
-  serialized_end=2094,
+  serialized_start=1276,
+  serialized_end=1993,
 )
 
-_ORIGIN.fields_by_name['origin_product'].enum_type = _ORIGINPRODUCT
-_ORIGIN.fields_by_name['origin_category'].enum_type = _ORIGINCATEGORY
-_ORIGIN.fields_by_name['origin_service'].enum_type = _ORIGINSERVICE
 _METADATA.fields_by_name['origin'].message_type = _ORIGIN
 _METRICPAYLOAD_METRICPOINT.containing_type = _METRICPAYLOAD
 _METRICPAYLOAD_RESOURCE.containing_type = _METRICPAYLOAD
@@ -880,9 +816,6 @@ DESCRIPTOR.message_types_by_name['Metadata'] = _METADATA
 DESCRIPTOR.message_types_by_name['MetricPayload'] = _METRICPAYLOAD
 DESCRIPTOR.message_types_by_name['EventsPayload'] = _EVENTSPAYLOAD
 DESCRIPTOR.message_types_by_name['SketchPayload'] = _SKETCHPAYLOAD
-DESCRIPTOR.enum_types_by_name['OriginProduct'] = _ORIGINPRODUCT
-DESCRIPTOR.enum_types_by_name['OriginCategory'] = _ORIGINCATEGORY
-DESCRIPTOR.enum_types_by_name['OriginService'] = _ORIGINSERVICE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 CommonMetadata = _reflection.GeneratedProtocolMessageType('CommonMetadata', (_message.Message,), dict(

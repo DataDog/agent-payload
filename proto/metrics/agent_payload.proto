@@ -15,26 +15,11 @@ message CommonMetadata {
 	string api_key = 6;
 }
 
-enum OriginProduct {
-	no_origin_product = 0;
-	reserved 1 to 16;
-}
-
-enum OriginCategory {
-	no_origin_category = 0;
-	reserved 1 to 16;
-}
-
-enum OriginService {
-	no_origin_service = 0;
-	reserved 1 to 216;
-}
-
 message Origin {
-	reserved 1 to 3;
-	OriginProduct origin_product = 4;
-	OriginCategory origin_category = 5;
-	OriginService origin_service = 6;
+    reserved 1,2,3;
+    uint32 origin_product = 4;
+    uint32 origin_category = 5;
+    uint32 origin_service = 6;
 }
 
 // Metadata is used in both the MetricSeries and Sketch messages defined below.
