@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='agent_payload.proto',
   package='datadog.agentpayload',
   syntax='proto3',
-  serialized_pb=_b('\n\x13\x61gent_payload.proto\x12\x14\x64\x61tadog.agentpayload\x1a-github.com/gogo/protobuf/gogoproto/gogo.proto\"\x89\x01\n\x0e\x43ommonMetadata\x12\x15\n\ragent_version\x18\x01 \x01(\t\x12\x10\n\x08timezone\x18\x02 \x01(\t\x12\x15\n\rcurrent_epoch\x18\x03 \x01(\x01\x12\x13\n\x0binternal_ip\x18\x04 \x01(\t\x12\x11\n\tpublic_ip\x18\x05 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x06 \x01(\t\"\x98\x04\n\rMetricPayload\x12@\n\x06series\x18\x01 \x03(\x0b\x32\x30.datadog.agentpayload.MetricPayload.MetricSeries\x1a/\n\x0bMetricPoint\x12\r\n\x05value\x18\x01 \x01(\x01\x12\x11\n\ttimestamp\x18\x02 \x01(\x03\x1a&\n\x08Resource\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x1a\xac\x02\n\x0cMetricSeries\x12?\n\tresources\x18\x01 \x03(\x0b\x32,.datadog.agentpayload.MetricPayload.Resource\x12\x0e\n\x06metric\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12?\n\x06points\x18\x04 \x03(\x0b\x32/.datadog.agentpayload.MetricPayload.MetricPoint\x12<\n\x04type\x18\x05 \x01(\x0e\x32..datadog.agentpayload.MetricPayload.MetricType\x12\x0c\n\x04unit\x18\x06 \x01(\t\x12\x18\n\x10source_type_name\x18\x07 \x01(\t\x12\x10\n\x08interval\x18\x08 \x01(\x03J\x04\x08\t\x10\n\"=\n\nMetricType\x12\x0f\n\x0bUNSPECIFIED\x10\x00\x12\t\n\x05\x43OUNT\x10\x01\x12\x08\n\x04RATE\x10\x02\x12\t\n\x05GAUGE\x10\x03\"\xaa\x02\n\rEventsPayload\x12\x39\n\x06\x65vents\x18\x01 \x03(\x0b\x32).datadog.agentpayload.EventsPayload.Event\x12\x36\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadata\x1a\xa5\x01\n\x05\x45vent\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x10\n\x08priority\x18\x04 \x01(\t\x12\x0c\n\x04host\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x12\n\nalert_type\x18\x07 \x01(\t\x12\x17\n\x0f\x61ggregation_key\x18\x08 \x01(\t\x12\x18\n\x10source_type_name\x18\t \x01(\t\"\x9b\x05\n\rSketchPayload\x12\x42\n\x08sketches\x18\x01 \x03(\x0b\x32*.datadog.agentpayload.SketchPayload.SketchB\x04\xc8\xde\x1f\x00\x12<\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadataB\x04\xc8\xde\x1f\x00\x1a\x87\x04\n\x06Sketch\x12\x0e\n\x06metric\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12T\n\rdistributions\x18\x03 \x03(\x0b\x32\x37.datadog.agentpayload.SketchPayload.Sketch.DistributionB\x04\xc8\xde\x1f\x00\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12O\n\x0b\x64ogsketches\x18\x07 \x03(\x0b\x32\x34.datadog.agentpayload.SketchPayload.Sketch.DogsketchB\x04\xc8\xde\x1f\x00\x1a\x8d\x01\n\x0c\x44istribution\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01v\x18\x07 \x03(\x01\x12\t\n\x01g\x18\x08 \x03(\r\x12\r\n\x05\x64\x65lta\x18\t \x03(\r\x12\x0b\n\x03\x62uf\x18\n \x03(\x01\x1an\n\tDogsketch\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01k\x18\x07 \x03(\x11\x12\t\n\x01n\x18\x08 \x03(\rJ\x04\x08\x05\x10\x06J\x04\x08\x06\x10\x07R\x0e\x64istributionsKR\x0e\x64istributionsCB+Z)github.com/DataDog/agent-payload/v5/gogenb\x06proto3')
+  serialized_pb=_b('\n\x13\x61gent_payload.proto\x12\x14\x64\x61tadog.agentpayload\x1a-github.com/gogo/protobuf/gogoproto/gogo.proto\"\x89\x01\n\x0e\x43ommonMetadata\x12\x15\n\ragent_version\x18\x01 \x01(\t\x12\x10\n\x08timezone\x18\x02 \x01(\t\x12\x15\n\rcurrent_epoch\x18\x03 \x01(\x01\x12\x13\n\x0binternal_ip\x18\x04 \x01(\t\x12\x11\n\tpublic_ip\x18\x05 \x01(\t\x12\x0f\n\x07\x61pi_key\x18\x06 \x01(\t\"c\n\x06Origin\x12\x16\n\x0eorigin_product\x18\x04 \x01(\r\x12\x17\n\x0forigin_category\x18\x05 \x01(\r\x12\x16\n\x0eorigin_service\x18\x06 \x01(\rJ\x04\x08\x01\x10\x02J\x04\x08\x02\x10\x03J\x04\x08\x03\x10\x04\"8\n\x08Metadata\x12,\n\x06origin\x18\x01 \x01(\x0b\x32\x1c.datadog.agentpayload.Origin\"\xc4\x04\n\rMetricPayload\x12@\n\x06series\x18\x01 \x03(\x0b\x32\x30.datadog.agentpayload.MetricPayload.MetricSeries\x1a/\n\x0bMetricPoint\x12\r\n\x05value\x18\x01 \x01(\x01\x12\x11\n\ttimestamp\x18\x02 \x01(\x03\x1a&\n\x08Resource\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x1a\xd8\x02\n\x0cMetricSeries\x12?\n\tresources\x18\x01 \x03(\x0b\x32,.datadog.agentpayload.MetricPayload.Resource\x12\x0e\n\x06metric\x18\x02 \x01(\t\x12\x0c\n\x04tags\x18\x03 \x03(\t\x12?\n\x06points\x18\x04 \x03(\x0b\x32/.datadog.agentpayload.MetricPayload.MetricPoint\x12<\n\x04type\x18\x05 \x01(\x0e\x32..datadog.agentpayload.MetricPayload.MetricType\x12\x0c\n\x04unit\x18\x06 \x01(\t\x12\x18\n\x10source_type_name\x18\x07 \x01(\t\x12\x10\n\x08interval\x18\x08 \x01(\x03\x12\x30\n\x08metadata\x18\t \x01(\x0b\x32\x1e.datadog.agentpayload.Metadata\"=\n\nMetricType\x12\x0f\n\x0bUNSPECIFIED\x10\x00\x12\t\n\x05\x43OUNT\x10\x01\x12\x08\n\x04RATE\x10\x02\x12\t\n\x05GAUGE\x10\x03\"\xaa\x02\n\rEventsPayload\x12\x39\n\x06\x65vents\x18\x01 \x03(\x0b\x32).datadog.agentpayload.EventsPayload.Event\x12\x36\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadata\x1a\xa5\x01\n\x05\x45vent\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\n\n\x02ts\x18\x03 \x01(\x03\x12\x10\n\x08priority\x18\x04 \x01(\t\x12\x0c\n\x04host\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x12\n\nalert_type\x18\x07 \x01(\t\x12\x17\n\x0f\x61ggregation_key\x18\x08 \x01(\t\x12\x18\n\x10source_type_name\x18\t \x01(\t\"\xcd\x05\n\rSketchPayload\x12\x42\n\x08sketches\x18\x01 \x03(\x0b\x32*.datadog.agentpayload.SketchPayload.SketchB\x04\xc8\xde\x1f\x00\x12<\n\x08metadata\x18\x02 \x01(\x0b\x32$.datadog.agentpayload.CommonMetadataB\x04\xc8\xde\x1f\x00\x1a\xb9\x04\n\x06Sketch\x12\x0e\n\x06metric\x18\x01 \x01(\t\x12\x0c\n\x04host\x18\x02 \x01(\t\x12T\n\rdistributions\x18\x03 \x03(\x0b\x32\x37.datadog.agentpayload.SketchPayload.Sketch.DistributionB\x04\xc8\xde\x1f\x00\x12\x0c\n\x04tags\x18\x04 \x03(\t\x12O\n\x0b\x64ogsketches\x18\x07 \x03(\x0b\x32\x34.datadog.agentpayload.SketchPayload.Sketch.DogsketchB\x04\xc8\xde\x1f\x00\x12\x30\n\x08metadata\x18\x08 \x01(\x0b\x32\x1e.datadog.agentpayload.Metadata\x1a\x8d\x01\n\x0c\x44istribution\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01v\x18\x07 \x03(\x01\x12\t\n\x01g\x18\x08 \x03(\r\x12\r\n\x05\x64\x65lta\x18\t \x03(\r\x12\x0b\n\x03\x62uf\x18\n \x03(\x01\x1an\n\tDogsketch\x12\n\n\x02ts\x18\x01 \x01(\x03\x12\x0b\n\x03\x63nt\x18\x02 \x01(\x03\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\x0b\n\x03\x61vg\x18\x05 \x01(\x01\x12\x0b\n\x03sum\x18\x06 \x01(\x01\x12\t\n\x01k\x18\x07 \x03(\x11\x12\t\n\x01n\x18\x08 \x03(\rJ\x04\x08\x05\x10\x06J\x04\x08\x06\x10\x07R\x0e\x64istributionsKR\x0e\x64istributionsCB+Z)github.com/DataDog/agent-payload/v5/gogenb\x06proto3')
   ,
   dependencies=[github_dot_com_dot_gogo_dot_protobuf_dot_gogoproto_dot_gogo__pb2.DESCRIPTOR,])
 
@@ -51,8 +51,8 @@ _METRICPAYLOAD_METRICTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=708,
-  serialized_end=769,
+  serialized_start=911,
+  serialized_end=972,
 )
 _sym_db.RegisterEnumDescriptor(_METRICPAYLOAD_METRICTYPE)
 
@@ -123,6 +123,82 @@ _COMMONMETADATA = _descriptor.Descriptor(
 )
 
 
+_ORIGIN = _descriptor.Descriptor(
+  name='Origin',
+  full_name='datadog.agentpayload.Origin',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='origin_product', full_name='datadog.agentpayload.Origin.origin_product', index=0,
+      number=4, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='origin_category', full_name='datadog.agentpayload.Origin.origin_category', index=1,
+      number=5, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='origin_service', full_name='datadog.agentpayload.Origin.origin_service', index=2,
+      number=6, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=232,
+  serialized_end=331,
+)
+
+
+_METADATA = _descriptor.Descriptor(
+  name='Metadata',
+  full_name='datadog.agentpayload.Metadata',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='origin', full_name='datadog.agentpayload.Metadata.origin', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=333,
+  serialized_end=389,
+)
+
+
 _METRICPAYLOAD_METRICPOINT = _descriptor.Descriptor(
   name='MetricPoint',
   full_name='datadog.agentpayload.MetricPayload.MetricPoint',
@@ -156,8 +232,8 @@ _METRICPAYLOAD_METRICPOINT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=316,
-  serialized_end=363,
+  serialized_start=475,
+  serialized_end=522,
 )
 
 _METRICPAYLOAD_RESOURCE = _descriptor.Descriptor(
@@ -193,8 +269,8 @@ _METRICPAYLOAD_RESOURCE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=365,
-  serialized_end=403,
+  serialized_start=524,
+  serialized_end=562,
 )
 
 _METRICPAYLOAD_METRICSERIES = _descriptor.Descriptor(
@@ -260,6 +336,13 @@ _METRICPAYLOAD_METRICSERIES = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='metadata', full_name='datadog.agentpayload.MetricPayload.MetricSeries.metadata', index=8,
+      number=9, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -272,8 +355,8 @@ _METRICPAYLOAD_METRICSERIES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=406,
-  serialized_end=706,
+  serialized_start=565,
+  serialized_end=909,
 )
 
 _METRICPAYLOAD = _descriptor.Descriptor(
@@ -303,8 +386,8 @@ _METRICPAYLOAD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=233,
-  serialized_end=769,
+  serialized_start=392,
+  serialized_end=972,
 )
 
 
@@ -390,8 +473,8 @@ _EVENTSPAYLOAD_EVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=905,
-  serialized_end=1070,
+  serialized_start=1108,
+  serialized_end=1273,
 )
 
 _EVENTSPAYLOAD = _descriptor.Descriptor(
@@ -427,8 +510,8 @@ _EVENTSPAYLOAD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=772,
-  serialized_end=1070,
+  serialized_start=975,
+  serialized_end=1273,
 )
 
 
@@ -521,8 +604,8 @@ _SKETCHPAYLOAD_SKETCH_DISTRIBUTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1443,
-  serialized_end=1584,
+  serialized_start=1696,
+  serialized_end=1837,
 )
 
 _SKETCHPAYLOAD_SKETCH_DOGSKETCH = _descriptor.Descriptor(
@@ -600,8 +683,8 @@ _SKETCHPAYLOAD_SKETCH_DOGSKETCH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1586,
-  serialized_end=1696,
+  serialized_start=1839,
+  serialized_end=1949,
 )
 
 _SKETCHPAYLOAD_SKETCH = _descriptor.Descriptor(
@@ -646,6 +729,13 @@ _SKETCHPAYLOAD_SKETCH = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=_descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\310\336\037\000')), file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='metadata', full_name='datadog.agentpayload.SketchPayload.Sketch.metadata', index=5,
+      number=8, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -658,8 +748,8 @@ _SKETCHPAYLOAD_SKETCH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1221,
-  serialized_end=1740,
+  serialized_start=1424,
+  serialized_end=1993,
 )
 
 _SKETCHPAYLOAD = _descriptor.Descriptor(
@@ -695,15 +785,17 @@ _SKETCHPAYLOAD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1073,
-  serialized_end=1740,
+  serialized_start=1276,
+  serialized_end=1993,
 )
 
+_METADATA.fields_by_name['origin'].message_type = _ORIGIN
 _METRICPAYLOAD_METRICPOINT.containing_type = _METRICPAYLOAD
 _METRICPAYLOAD_RESOURCE.containing_type = _METRICPAYLOAD
 _METRICPAYLOAD_METRICSERIES.fields_by_name['resources'].message_type = _METRICPAYLOAD_RESOURCE
 _METRICPAYLOAD_METRICSERIES.fields_by_name['points'].message_type = _METRICPAYLOAD_METRICPOINT
 _METRICPAYLOAD_METRICSERIES.fields_by_name['type'].enum_type = _METRICPAYLOAD_METRICTYPE
+_METRICPAYLOAD_METRICSERIES.fields_by_name['metadata'].message_type = _METADATA
 _METRICPAYLOAD_METRICSERIES.containing_type = _METRICPAYLOAD
 _METRICPAYLOAD.fields_by_name['series'].message_type = _METRICPAYLOAD_METRICSERIES
 _METRICPAYLOAD_METRICTYPE.containing_type = _METRICPAYLOAD
@@ -714,10 +806,13 @@ _SKETCHPAYLOAD_SKETCH_DISTRIBUTION.containing_type = _SKETCHPAYLOAD_SKETCH
 _SKETCHPAYLOAD_SKETCH_DOGSKETCH.containing_type = _SKETCHPAYLOAD_SKETCH
 _SKETCHPAYLOAD_SKETCH.fields_by_name['distributions'].message_type = _SKETCHPAYLOAD_SKETCH_DISTRIBUTION
 _SKETCHPAYLOAD_SKETCH.fields_by_name['dogsketches'].message_type = _SKETCHPAYLOAD_SKETCH_DOGSKETCH
+_SKETCHPAYLOAD_SKETCH.fields_by_name['metadata'].message_type = _METADATA
 _SKETCHPAYLOAD_SKETCH.containing_type = _SKETCHPAYLOAD
 _SKETCHPAYLOAD.fields_by_name['sketches'].message_type = _SKETCHPAYLOAD_SKETCH
 _SKETCHPAYLOAD.fields_by_name['metadata'].message_type = _COMMONMETADATA
 DESCRIPTOR.message_types_by_name['CommonMetadata'] = _COMMONMETADATA
+DESCRIPTOR.message_types_by_name['Origin'] = _ORIGIN
+DESCRIPTOR.message_types_by_name['Metadata'] = _METADATA
 DESCRIPTOR.message_types_by_name['MetricPayload'] = _METRICPAYLOAD
 DESCRIPTOR.message_types_by_name['EventsPayload'] = _EVENTSPAYLOAD
 DESCRIPTOR.message_types_by_name['SketchPayload'] = _SKETCHPAYLOAD
@@ -729,6 +824,20 @@ CommonMetadata = _reflection.GeneratedProtocolMessageType('CommonMetadata', (_me
   # @@protoc_insertion_point(class_scope:datadog.agentpayload.CommonMetadata)
   ))
 _sym_db.RegisterMessage(CommonMetadata)
+
+Origin = _reflection.GeneratedProtocolMessageType('Origin', (_message.Message,), dict(
+  DESCRIPTOR = _ORIGIN,
+  __module__ = 'agent_payload_pb2'
+  # @@protoc_insertion_point(class_scope:datadog.agentpayload.Origin)
+  ))
+_sym_db.RegisterMessage(Origin)
+
+Metadata = _reflection.GeneratedProtocolMessageType('Metadata', (_message.Message,), dict(
+  DESCRIPTOR = _METADATA,
+  __module__ = 'agent_payload_pb2'
+  # @@protoc_insertion_point(class_scope:datadog.agentpayload.Metadata)
+  ))
+_sym_db.RegisterMessage(Metadata)
 
 MetricPayload = _reflection.GeneratedProtocolMessageType('MetricPayload', (_message.Message,), dict(
 
