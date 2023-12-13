@@ -168,7 +168,7 @@ message Connection {
   bytes httpAggregations = 37;
 
   // The stored values corresponds to an index into the `Connections.tags` field
-  repeated uint32 tags = 44;
+  repeated uint32 tags = 44 [packed = false];
 
   // the tags index of encodedConnectionsTags (from process.tagsV2.Encode())
   int32 tagsIdx = 45;
@@ -346,7 +346,7 @@ enum ProtocolType {
 }
 
 message ProtocolStack {
-  repeated ProtocolType stack = 1;
+  repeated ProtocolType stack = 1 [packed = false];
 }
 
 message DNSEntry {

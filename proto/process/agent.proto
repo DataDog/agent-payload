@@ -1539,7 +1539,7 @@ enum HTTPMethod {
 // replaces DNSEntry.  Is a list of DNS names that a given IP resolved to.
 // List of offsets into the EncodedDomainDatabase.
 message DNSDatabaseEntry {
-	repeated int32 nameOffsets = 1;
+	repeated int32 nameOffsets = 1 [packed = false];
 }
 
 // ResourceList is a set of (resource name, quantity) pairs
