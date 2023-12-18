@@ -47,6 +47,7 @@ The following implementations are available:
 After updating the IDL you must:
 
 - Regenerate the code: `rake codegen`, rake will use gimme to run the rake command with the current defined go version
+- If you have indentation/newlines changes, run `rake codegen` with the same Go version as defined in `go.mod`
 - Create a new tag with the updated version of the payload
 
 # Publishing Changes

@@ -80,15 +80,8 @@ BASH
       echo "Generating metrics proto (python)"
       #{protoc_binary} --proto_path=#{gogo_dir}/src:$GOPATH/src:./proto/metrics --python_out=python agent_payload.proto
 
-      # Install the specific tag that the process-agent needs
-      pushd #{gogo_dir}/src/github.com/gogo/protobuf
-      git checkout d76fbc1373015ced59b43ac267f28d546b955683
-      GOBIN=/tmp/gogo-bin-d76fbc1373015ced59b43ac267f28d546b955683 GOPATH=#{gogo_dir} make clean install
-
-      popd
-
-      echo "Generating process proto"
-      PATH=/tmp/gogo-bin-d76fbc1373015ced59b43ac267f28d546b955683 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofaster_out=$GOPATH/src proto/process/*.proto
+      echo "Generating process proto (go)"
+      PATH=/tmp/gogo-bin-v1.3.2 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofaster_out=$GOPATH/src proto/process/*.proto
 
       GOPATH=#{protoc_gen_go_dir} go install github.com/leeavital/protoc-gen-gostreamer@v0.1.0
       PATH=#{protoc_gen_go_dir}/bin #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:.  --gostreamer_out=$GOPATH/src proto/process/*.proto
