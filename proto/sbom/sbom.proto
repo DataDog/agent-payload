@@ -33,6 +33,7 @@ message SBOMEntity {
     string error = 12;
   }
   SBOMStatus status = 11;
+  repeated string repo_digests = 14; // The digests of the container image
 }
 
 enum SBOMSourceType {
