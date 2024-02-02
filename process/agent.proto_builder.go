@@ -2070,7 +2070,7 @@ func (x *ProcessBuilder) SetNetworks(cb func(w *ProcessNetworksBuilder)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
-func (x *ProcessBuilder) AddProcessTags(v string) {
+func (x *ProcessBuilder) SetProcessContext(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xb2)
 	x.scratch = protowire.AppendString(x.scratch, v)
