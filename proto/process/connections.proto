@@ -85,6 +85,7 @@ message CollectorConnections {
   map<string, Host> resolvedHostsByName = 40; // Post-resolution field
 }
 
+// please update process/connections.go Aggregate() if you add a field
 message Connections {
   repeated Connection conns = 1;
   map<string, DNSEntry> dns  = 2;
@@ -100,7 +101,6 @@ message Connections {
   map<string, COREResult> CORETelemetryByAsset = 11;
   repeated string PrebuiltEBPFAssets = 12;
 }
-
 
 message Connection {
   reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
@@ -196,6 +196,7 @@ message ResourceMetadata {
   int64 tagsModified = 6;
 }
 
+// please update process/connections.go Aggregate() if you add a field
 message ConnectionsTelemetry {
   int64 monotonicKprobesTriggered = 1;
   int64 monotonicKprobesMissed = 2;

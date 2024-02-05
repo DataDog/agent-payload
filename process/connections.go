@@ -142,3 +142,46 @@ func (m *CollectorConnections) GetConnectionsTags(tagIndex int32) []string {
 func (m *CollectorConnections) UnsafeIterateConnectionTags(tagIndex int32, cb func(i, total int, tag []byte) bool) {
 	unsafeIterateTags(m.EncodedConnectionsTags, int(tagIndex), cb)
 }
+
+// Aggregate telemetry counters
+func (t *ConnectionsTelemetry) Aggregate(a *ConnectionsTelemetry) {
+	if a == nil {
+		return
+	}
+	t.MonotonicKprobesTriggered += a.MonotonicKprobesTriggered
+	t.MonotonicKprobesMissed += a.MonotonicKprobesMissed
+	t.MonotonicConntrackRegisters += a.MonotonicConntrackRegisters
+	t.MonotonicConntrackRegistersDropped += a.MonotonicConntrackRegistersDropped
+	t.MonotonicDnsPacketsProcessed += a.MonotonicDnsPacketsProcessed
+	t.MonotonicConnsClosed += a.MonotonicConnsClosed
+	t.ConnsBpfMapSize += a.ConnsBpfMapSize
+	t.MonotonicUdpSendsProcessed += a.MonotonicUdpSendsProcessed
+	t.MonotonicUdpSendsMissed += a.MonotonicUdpSendsMissed
+	t.ConntrackSamplingPercent += a.ConntrackSamplingPercent
+	t.DnsStatsDropped += a.DnsStatsDropped
+}
+
+// Aggregate connections
+func (c *Connections) Aggregate(a *Connections) {
+	c.Conns = append(c.Conns, a.Conns...)
+	for ip, names := range a.Dns {
+		c.Dns[ip] = names
+	}
+	c.Domains = append(c.Domains, a.Domains...)
+	c.ConnTelemetry.Aggregate(a.ConnTelemetry)
+
+	c.Routes = append(c.Routes, a.Routes...)
+
+	for name, count := range a.ConnTelemetryMap {
+		c.ConnTelemetryMap[name] += count
+	}
+
+	// Would not need to be aggregated
+	// c.AgentConfiguration
+
+	// Only first message contain these fields, so we don't need to aggregate
+	// c.KernelHeaderFetchResult
+	// c.CompilationTelemetryByAsset
+	// c.CORETelemetryByAsset
+	// c.PrebuiltEBPFAssets
+}
