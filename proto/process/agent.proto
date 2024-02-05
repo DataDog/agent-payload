@@ -330,7 +330,6 @@ message CollectorStatus {
 	int32 interval = 2;
 }
 
-// test
 message Process {
 	reserved 6;
 
@@ -354,7 +353,7 @@ message Process {
 	bytes byteKey = 18;
 	bytes containerByteKey = 19;
 	ProcessNetworks networks = 21;
-	string processContext = 22;
+	repeated string processContext = 22;
 }
 
 message ProcessDiscovery {
