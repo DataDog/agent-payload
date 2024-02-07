@@ -7,6 +7,7 @@ package datadog.sbom;
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 import "proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto";
+import "proto/deps/github.com/CycloneDX/specification/schema/bom-1.5.proto";
 
 // SBOMPayload represents the main SBOM payload
 message SBOMPayload {
@@ -29,7 +30,8 @@ message SBOMEntity {
   string                             hash               = 9; // Hash of the SBOM
   oneof sbom {
     cyclonedx.v1_4.Bom cyclonedx = 10; // only cyclonedx will be supported initially but putting it optional will allow us to move to another format later
-    // spdx.SBOM      spdx      = 13; // SPDX can be added later as any other format.
+    cyclonedx.v1_5.Bom cyclonedx_1_5 = 13;
+    // spdx.SBOM      spdx      = 15; // SPDX can be added later as any other format.
     string error = 12;
   }
   SBOMStatus status = 11;
@@ -42,6 +44,7 @@ enum SBOMSourceType {
   CONTAINER_FILE_SYSTEM  = 2;
   HOST_FILE_SYSTEM       = 3;
   CI_PIPELINE            = 4;
+  HOST_IMAGE             = 5;
 }
 
 enum SBOMStatus {
