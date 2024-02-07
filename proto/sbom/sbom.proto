@@ -44,7 +44,7 @@ enum SBOMSourceType {
   CONTAINER_FILE_SYSTEM  = 2;
   HOST_FILE_SYSTEM       = 3;
   CI_PIPELINE            = 4;
-  HOST_IMAGE             = 5;
+  HOST_IMAGE             = 5; // SBOM sourced from an Host OS image (ie AWS AMIs, GCP OS images etc.)
 }
 
 enum SBOMStatus {

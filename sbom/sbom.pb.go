@@ -32,7 +32,7 @@ const (
 	SBOMSourceType_CONTAINER_FILE_SYSTEM  SBOMSourceType = 2
 	SBOMSourceType_HOST_FILE_SYSTEM       SBOMSourceType = 3
 	SBOMSourceType_CI_PIPELINE            SBOMSourceType = 4
-	SBOMSourceType_HOST_IMAGE             SBOMSourceType = 5
+	SBOMSourceType_HOST_IMAGE             SBOMSourceType = 5 // SBOM sourced from an Host OS image (ie AWS AMIs, GCP OS images etc.)
 )
 
 // Enum value maps for SBOMSourceType.
