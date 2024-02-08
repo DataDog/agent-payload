@@ -225,7 +225,6 @@ type SBOMEntity struct {
 	Heartbeat          bool                 `protobuf:"varint,8,opt,name=heartbeat,proto3" json:"heartbeat,omitempty"`                        // Whether the SBOM is identical to the previously sent one
 	Hash               string               `protobuf:"bytes,9,opt,name=hash,proto3" json:"hash,omitempty"`                                   // Hash of the SBOM
 	// Types that are assignable to Sbom:
-	//
 	//	*SBOMEntity_Cyclonedx
 	//	*SBOMEntity_Error
 	Sbom        isSBOMEntity_Sbom `protobuf_oneof:"sbom"`
