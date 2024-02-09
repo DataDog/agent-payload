@@ -101,7 +101,7 @@ BASH
       PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/sbom/sbom.proto
 
       # Install protoc-gen-go-vtproto
-      GOPATH=#{protoc_gen_go_dir} go install github.com/planetscale/vtprotobuf/cmd/protoc-gen-go-vtproto@latest
+      GOPATH=#{protoc_gen_go_dir} go install github.com/planetscale/vtprotobuf/cmd/protoc-gen-go-vtproto@v0.5.0
 
       echo "Generating CWS Activity Dumps v1"
       PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. \
