@@ -1862,6 +1862,63 @@ func (x *CollectorHorizontalPodAutoscalerBuilder) AddTags(v string) {
 	x.writer.Write(x.scratch)
 }
 
+type CollectorNetworkPolicyBuilder struct {
+	writer               io.Writer
+	buf                  bytes.Buffer
+	scratch              []byte
+	networkPolicyBuilder NetworkPolicyBuilder
+}
+
+func NewCollectorNetworkPolicyBuilder(writer io.Writer) *CollectorNetworkPolicyBuilder {
+	return &CollectorNetworkPolicyBuilder{
+		writer: writer,
+	}
+}
+func (x *CollectorNetworkPolicyBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *CollectorNetworkPolicyBuilder) SetClusterName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorNetworkPolicyBuilder) SetClusterId(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorNetworkPolicyBuilder) SetGroupId(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorNetworkPolicyBuilder) SetGroupSize(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x20)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorNetworkPolicyBuilder) AddNetworkPolicies(cb func(w *NetworkPolicyBuilder)) {
+	x.buf.Reset()
+	x.networkPolicyBuilder.writer = &x.buf
+	x.networkPolicyBuilder.scratch = x.scratch
+	cb(&x.networkPolicyBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *CollectorNetworkPolicyBuilder) AddTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
 type CollectorStatusBuilder struct {
 	writer  io.Writer
 	buf     bytes.Buffer
@@ -9959,6 +10016,299 @@ func (x *ExternalMetricStatusBuilder) SetMetric(cb func(w *MetricIdentifierBuild
 func (x *ExternalMetricStatusBuilder) SetCurrent(v int64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
+type NetworkPolicyBuilder struct {
+	writer                   io.Writer
+	buf                      bytes.Buffer
+	scratch                  []byte
+	metadataBuilder          MetadataBuilder
+	networkPolicySpecBuilder NetworkPolicySpecBuilder
+}
+
+func NewNetworkPolicyBuilder(writer io.Writer) *NetworkPolicyBuilder {
+	return &NetworkPolicyBuilder{
+		writer: writer,
+	}
+}
+func (x *NetworkPolicyBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *NetworkPolicyBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
+	x.buf.Reset()
+	x.metadataBuilder.writer = &x.buf
+	x.metadataBuilder.scratch = x.scratch
+	cb(&x.metadataBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *NetworkPolicyBuilder) SetSpec(cb func(w *NetworkPolicySpecBuilder)) {
+	x.buf.Reset()
+	x.networkPolicySpecBuilder.writer = &x.buf
+	x.networkPolicySpecBuilder.scratch = x.scratch
+	cb(&x.networkPolicySpecBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *NetworkPolicyBuilder) SetYaml(cb func(b *bytes.Buffer)) {
+	x.buf.Reset()
+	cb(&x.buf)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *NetworkPolicyBuilder) AddTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type NetworkPolicySpecBuilder struct {
+	writer                          io.Writer
+	buf                             bytes.Buffer
+	scratch                         []byte
+	labelSelectorRequirementBuilder LabelSelectorRequirementBuilder
+	networkPolicyIngressRuleBuilder NetworkPolicyIngressRuleBuilder
+	networkPolicyEgressRuleBuilder  NetworkPolicyEgressRuleBuilder
+}
+
+func NewNetworkPolicySpecBuilder(writer io.Writer) *NetworkPolicySpecBuilder {
+	return &NetworkPolicySpecBuilder{
+		writer: writer,
+	}
+}
+func (x *NetworkPolicySpecBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *NetworkPolicySpecBuilder) AddSelectors(cb func(w *LabelSelectorRequirementBuilder)) {
+	x.buf.Reset()
+	x.labelSelectorRequirementBuilder.writer = &x.buf
+	x.labelSelectorRequirementBuilder.scratch = x.scratch
+	cb(&x.labelSelectorRequirementBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *NetworkPolicySpecBuilder) AddIngress(cb func(w *NetworkPolicyIngressRuleBuilder)) {
+	x.buf.Reset()
+	x.networkPolicyIngressRuleBuilder.writer = &x.buf
+	x.networkPolicyIngressRuleBuilder.scratch = x.scratch
+	cb(&x.networkPolicyIngressRuleBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *NetworkPolicySpecBuilder) AddEgress(cb func(w *NetworkPolicyEgressRuleBuilder)) {
+	x.buf.Reset()
+	x.networkPolicyEgressRuleBuilder.writer = &x.buf
+	x.networkPolicyEgressRuleBuilder.scratch = x.scratch
+	cb(&x.networkPolicyEgressRuleBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *NetworkPolicySpecBuilder) AddPolicyTypes(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type NetworkPolicyIPBlockBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewNetworkPolicyIPBlockBuilder(writer io.Writer) *NetworkPolicyIPBlockBuilder {
+	return &NetworkPolicyIPBlockBuilder{
+		writer: writer,
+	}
+}
+func (x *NetworkPolicyIPBlockBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *NetworkPolicyIPBlockBuilder) SetCidr(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *NetworkPolicyIPBlockBuilder) AddExcept(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type NetworkPolicyIngressRuleBuilder struct {
+	writer                   io.Writer
+	buf                      bytes.Buffer
+	scratch                  []byte
+	networkPolicyPortBuilder NetworkPolicyPortBuilder
+	networkPolicyPeerBuilder NetworkPolicyPeerBuilder
+}
+
+func NewNetworkPolicyIngressRuleBuilder(writer io.Writer) *NetworkPolicyIngressRuleBuilder {
+	return &NetworkPolicyIngressRuleBuilder{
+		writer: writer,
+	}
+}
+func (x *NetworkPolicyIngressRuleBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *NetworkPolicyIngressRuleBuilder) AddPorts(cb func(w *NetworkPolicyPortBuilder)) {
+	x.buf.Reset()
+	x.networkPolicyPortBuilder.writer = &x.buf
+	x.networkPolicyPortBuilder.scratch = x.scratch
+	cb(&x.networkPolicyPortBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *NetworkPolicyIngressRuleBuilder) AddFrom(cb func(w *NetworkPolicyPeerBuilder)) {
+	x.buf.Reset()
+	x.networkPolicyPeerBuilder.writer = &x.buf
+	x.networkPolicyPeerBuilder.scratch = x.scratch
+	cb(&x.networkPolicyPeerBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type NetworkPolicyEgressRuleBuilder struct {
+	writer                   io.Writer
+	buf                      bytes.Buffer
+	scratch                  []byte
+	networkPolicyPortBuilder NetworkPolicyPortBuilder
+	networkPolicyPeerBuilder NetworkPolicyPeerBuilder
+}
+
+func NewNetworkPolicyEgressRuleBuilder(writer io.Writer) *NetworkPolicyEgressRuleBuilder {
+	return &NetworkPolicyEgressRuleBuilder{
+		writer: writer,
+	}
+}
+func (x *NetworkPolicyEgressRuleBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *NetworkPolicyEgressRuleBuilder) AddPorts(cb func(w *NetworkPolicyPortBuilder)) {
+	x.buf.Reset()
+	x.networkPolicyPortBuilder.writer = &x.buf
+	x.networkPolicyPortBuilder.scratch = x.scratch
+	cb(&x.networkPolicyPortBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *NetworkPolicyEgressRuleBuilder) AddTo(cb func(w *NetworkPolicyPeerBuilder)) {
+	x.buf.Reset()
+	x.networkPolicyPeerBuilder.writer = &x.buf
+	x.networkPolicyPeerBuilder.scratch = x.scratch
+	cb(&x.networkPolicyPeerBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type NetworkPolicyPeerBuilder struct {
+	writer                          io.Writer
+	buf                             bytes.Buffer
+	scratch                         []byte
+	labelSelectorRequirementBuilder LabelSelectorRequirementBuilder
+	networkPolicyIPBlockBuilder     NetworkPolicyIPBlockBuilder
+}
+
+func NewNetworkPolicyPeerBuilder(writer io.Writer) *NetworkPolicyPeerBuilder {
+	return &NetworkPolicyPeerBuilder{
+		writer: writer,
+	}
+}
+func (x *NetworkPolicyPeerBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *NetworkPolicyPeerBuilder) AddPodSelector(cb func(w *LabelSelectorRequirementBuilder)) {
+	x.buf.Reset()
+	x.labelSelectorRequirementBuilder.writer = &x.buf
+	x.labelSelectorRequirementBuilder.scratch = x.scratch
+	cb(&x.labelSelectorRequirementBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *NetworkPolicyPeerBuilder) AddNamespaceSelector(cb func(w *LabelSelectorRequirementBuilder)) {
+	x.buf.Reset()
+	x.labelSelectorRequirementBuilder.writer = &x.buf
+	x.labelSelectorRequirementBuilder.scratch = x.scratch
+	cb(&x.labelSelectorRequirementBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *NetworkPolicyPeerBuilder) SetIpBlock(cb func(w *NetworkPolicyIPBlockBuilder)) {
+	x.buf.Reset()
+	x.networkPolicyIPBlockBuilder.writer = &x.buf
+	x.networkPolicyIPBlockBuilder.scratch = x.scratch
+	cb(&x.networkPolicyIPBlockBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type NetworkPolicyPortBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewNetworkPolicyPortBuilder(writer io.Writer) *NetworkPolicyPortBuilder {
+	return &NetworkPolicyPortBuilder{
+		writer: writer,
+	}
+}
+func (x *NetworkPolicyPortBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *NetworkPolicyPortBuilder) SetProtocol(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *NetworkPolicyPortBuilder) SetPort(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *NetworkPolicyPortBuilder) SetEndPort(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
