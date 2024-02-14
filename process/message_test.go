@@ -59,6 +59,7 @@ func TestMessageTypeString(t *testing.T) {
 		TypeCollectorIngress:               "ingress",
 		TypeCollectorProcEvent:             "process-event",
 		TypeResCollector:                   "23",
+		TypeCollectorNetworkPolicy:         "network-policy",
 	}
 	for input, expected := range cases {
 		assert.Equal(t, input.String(), expected)
