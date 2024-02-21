@@ -116,6 +116,7 @@ const (
 	TypeCollectorManifestCR              = 82
 	TypeCollectorVerticalPodAutoscaler   = 83
 	TypeCollectorHorizontalPodAutoscaler = 84
+	TypeCollectorNetworkPolicy           = 85
 )
 
 func (m MessageType) String() string {
@@ -182,6 +183,8 @@ func (m MessageType) String() string {
 		return "vertical-pod-autoscaler"
 	case TypeCollectorHorizontalPodAutoscaler:
 		return "horizontal-pod-autoscaler"
+	case TypeCollectorNetworkPolicy:
+		return "network-policy"
 	default:
 		// otherwise convert the type identifier
 		return strconv.Itoa(int(m))
@@ -276,6 +279,8 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorVerticalPodAutoscaler{}
 	case TypeCollectorHorizontalPodAutoscaler:
 		m = &CollectorHorizontalPodAutoscaler{}
+	case TypeCollectorNetworkPolicy:
+		m = &CollectorNetworkPolicy{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -353,6 +358,8 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorVerticalPodAutoscaler
 	case *CollectorHorizontalPodAutoscaler:
 		t = TypeCollectorHorizontalPodAutoscaler
+	case *CollectorNetworkPolicy:
+		t = TypeCollectorNetworkPolicy
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}

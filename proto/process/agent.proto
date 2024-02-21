@@ -321,6 +321,15 @@ message CollectorHorizontalPodAutoscaler {
 	repeated string tags = 6;
 }
 
+message CollectorNetworkPolicy {
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	int32 groupSize = 4;
+	repeated NetworkPolicy networkPolicies = 5;
+	repeated string tags = 6;
+}
+
 //
 // Models
 //
@@ -670,6 +679,7 @@ enum K8sResource {
     CR = 21;
     VERTICALPODAUTOSCALER = 22;
     HORIZONTALPODAUTOSCALER = 23;
+    NETWORKPOLICY = 24;
 }
 
 message Cluster {
@@ -1747,4 +1757,47 @@ message ContainerResourceMetricStatus {
 message ExternalMetricStatus {
 	MetricIdentifier metric = 1;
 	int64 current = 2;
+}
+
+
+// https://github.com/kubernetes/api/blob/v0.23.15/networking/v1/generated.proto
+message NetworkPolicy {
+	Metadata metadata = 1;
+	NetworkPolicySpec spec = 2;
+	bytes yaml = 3 [deprecated = true];
+	repeated string tags = 4;
+}
+
+message NetworkPolicySpec {
+	repeated LabelSelectorRequirement selectors = 1;
+	repeated NetworkPolicyIngressRule ingress = 2;
+	repeated NetworkPolicyEgressRule egress = 3;
+	repeated string policyTypes = 4;
+}
+
+message NetworkPolicyIPBlock {
+	string cidr = 1;
+	repeated string except = 2;
+}
+
+message NetworkPolicyIngressRule {
+	repeated NetworkPolicyPort ports = 1;
+	repeated NetworkPolicyPeer from = 2;
+}
+
+message NetworkPolicyEgressRule {
+	repeated NetworkPolicyPort ports = 1;
+	repeated NetworkPolicyPeer to = 2;
+}
+
+message NetworkPolicyPeer {
+	repeated LabelSelectorRequirement podSelector = 1;
+	repeated LabelSelectorRequirement namespaceSelector = 2;
+	NetworkPolicyIPBlock ipBlock = 3;
+}
+
+message NetworkPolicyPort {
+	string protocol = 1;
+	int32 port = 2;
+	int32 endPort = 3;
 }
