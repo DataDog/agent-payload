@@ -1543,6 +1543,7 @@ enum HTTPMethod {
 	Head = 5;
 	Options = 6;
 	Patch = 7;
+	Trace = 8;
 }
 
 
