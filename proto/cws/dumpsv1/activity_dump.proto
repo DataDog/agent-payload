@@ -37,6 +37,11 @@ message Metadata {
     string serialization = 14;
 }
 
+message ProfileSelector {
+    string image_name = 1;
+    string image_tag = 2;
+}
+
 message ProfileContext {
     uint64 first_seen = 1;
     uint64 last_seen = 2;
@@ -53,6 +58,7 @@ message SecurityProfile {
     repeated uint32 syscalls = 5 [deprecated = true];
     repeated ProcessActivityNode tree = 6;
     map<string, ProfileContext> profile_contexts = 7;
+    ProfileSelector selector = 8;
 }
 
 message ProcessActivityNode {
