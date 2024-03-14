@@ -6219,10 +6219,12 @@ com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue) {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>uint32 status = 1;</code>
+     * <code>uint32 status = 1 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.status is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=53
      * @return The status.
      */
-    int getStatus();
+    @java.lang.Deprecated int getStatus();
 
     /**
      * <code>string version = 2 [deprecated = true];</code>
@@ -6443,11 +6445,13 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue);
     public static final int STATUS_FIELD_NUMBER = 1;
     private int status_ = 0;
     /**
-     * <code>uint32 status = 1;</code>
+     * <code>uint32 status = 1 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.SecurityProfile.status is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=53
      * @return The status.
      */
     @java.lang.Override
-    public int getStatus() {
+    @java.lang.Deprecated public int getStatus() {
       return status_;
     }
 
@@ -7399,19 +7403,23 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
 
       private int status_ ;
       /**
-       * <code>uint32 status = 1;</code>
+       * <code>uint32 status = 1 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.status is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=53
        * @return The status.
        */
       @java.lang.Override
-      public int getStatus() {
+      @java.lang.Deprecated public int getStatus() {
         return status_;
       }
       /**
-       * <code>uint32 status = 1;</code>
+       * <code>uint32 status = 1 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.status is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=53
        * @param value The status to set.
        * @return This builder for chaining.
        */
-      public Builder setStatus(int value) {
+      @java.lang.Deprecated public Builder setStatus(int value) {
         
         status_ = value;
         bitField0_ |= 0x00000001;
@@ -7419,10 +7427,12 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         return this;
       }
       /**
-       * <code>uint32 status = 1;</code>
+       * <code>uint32 status = 1 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.SecurityProfile.status is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=53
        * @return This builder for chaining.
        */
-      public Builder clearStatus() {
+      @java.lang.Deprecated public Builder clearStatus() {
         bitField0_ = (bitField0_ & ~0x00000001);
         status_ = 0;
         onChanged();
@@ -27745,98 +27755,98 @@ java.lang.String defaultValue) {
       "StateEntry\022\020\n\010syscalls\030\004 \003(\r\022\014\n\004tags\030\005 \003" +
       "(\t\032\\\n\023EventTypeStateEntry\022\013\n\003key\030\001 \001(\r\0224" +
       "\n\005value\030\002 \001(\0132%.datadog.cws.dumpsv1.even" +
-      "t_type_state:\0028\001\"\261\003\n\017SecurityProfile\022\016\n\006" +
-      "status\030\001 \001(\r\022\023\n\007version\030\002 \001(\tB\002\030\001\022/\n\010met" +
-      "adata\030\003 \001(\0132\035.datadog.cws.dumpsv1.Metada" +
-      "ta\022\020\n\004tags\030\004 \003(\tB\002\030\001\022\024\n\010syscalls\030\005 \003(\rB\002" +
-      "\030\001\0226\n\004tree\030\006 \003(\0132(.datadog.cws.dumpsv1.P" +
-      "rocessActivityNode\022S\n\020profile_contexts\030\007" +
-      " \003(\01329.datadog.cws.dumpsv1.SecurityProfi" +
-      "le.ProfileContextsEntry\0226\n\010selector\030\010 \001(" +
-      "\0132$.datadog.cws.dumpsv1.ProfileSelector\032" +
-      "[\n\024ProfileContextsEntry\022\013\n\003key\030\001 \001(\t\0222\n\005" +
-      "value\030\002 \001(\0132#.datadog.cws.dumpsv1.Profil" +
-      "eContext:\0028\001\"\300\003\n\023ProcessActivityNode\0221\n\007" +
-      "process\030\001 \001(\0132 .datadog.cws.dumpsv1.Proc" +
-      "essInfo\022<\n\017generation_type\030\010 \001(\0162#.datad" +
-      "og.cws.dumpsv1.GenerationType\0227\n\rmatched" +
-      "_rules\030\t \003(\0132 .datadog.cws.dumpsv1.Match" +
-      "edRule\022:\n\010children\030\003 \003(\0132(.datadog.cws.d" +
-      "umpsv1.ProcessActivityNode\0224\n\005files\030\004 \003(" +
-      "\0132%.datadog.cws.dumpsv1.FileActivityNode" +
-      "\022/\n\tdns_names\030\005 \003(\0132\034.datadog.cws.dumpsv" +
-      "1.DNSNode\0220\n\007sockets\030\006 \003(\0132\037.datadog.cws" +
-      ".dumpsv1.SocketNode\022\020\n\010syscalls\030\007 \003(\r\022\022\n" +
-      "\nimage_tags\030\n \003(\tJ\004\010\002\020\003\"\321\003\n\013ProcessInfo\022" +
-      "\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\014\n\004ppid\030\003 \001(\r\022" +
-      "\022\n\006cookie\030\004 \001(\rB\002\030\001\022\021\n\tis_thread\030\005 \001(\010\022+" +
-      "\n\004file\030\006 \001(\0132\035.datadog.cws.dumpsv1.FileI" +
-      "nfo\022\024\n\014container_id\030\007 \001(\t\022\017\n\007span_id\030\010 \001" +
-      "(\004\022\020\n\010trace_id\030\t \001(\004\022\013\n\003tty\030\n \001(\t\022\014\n\004com" +
-      "m\030\013 \001(\t\022\021\n\tfork_time\030\014 \001(\004\022\021\n\texit_time\030" +
-      "\r \001(\004\022\021\n\texec_time\030\016 \001(\004\0225\n\013credentials\030" +
-      "\017 \001(\0132 .datadog.cws.dumpsv1.Credentials\022" +
-      "\014\n\004args\030\020 \003(\t\022\r\n\005argv0\030\021 \001(\t\022\026\n\016args_tru" +
-      "ncated\030\022 \001(\010\022\014\n\004envs\030\023 \003(\t\022\026\n\016envs_trunc" +
-      "ated\030\024 \001(\010\022\025\n\ris_exec_child\030\025 \001(\010\022\020\n\010coo" +
-      "kie64\030\026 \001(\004\"\354\002\n\020FileActivityNode\0227\n\rmatc" +
-      "hed_rules\030\t \003(\0132 .datadog.cws.dumpsv1.Ma" +
-      "tchedRule\022\022\n\nimage_tags\030\n \003(\t\022\014\n\004name\030\001 " +
-      "\001(\t\022\022\n\nis_pattern\030\007 \001(\010\022+\n\004file\030\002 \001(\0132\035." +
-      "datadog.cws.dumpsv1.FileInfo\022<\n\017generati" +
-      "on_type\030\010 \001(\0162#.datadog.cws.dumpsv1.Gene" +
-      "rationType\022\022\n\nfirst_seen\030\004 \001(\004\022+\n\004open\030\005" +
-      " \001(\0132\035.datadog.cws.dumpsv1.OpenNode\0227\n\010c" +
-      "hildren\030\006 \003(\0132%.datadog.cws.dumpsv1.File" +
-      "ActivityNodeJ\004\010\003\020\004\"7\n\010OpenNode\022\016\n\006retval" +
-      "\030\001 \001(\022\022\r\n\005flags\030\002 \001(\r\022\014\n\004mode\030\003 \001(\r\"\206\001\n\007" +
-      "DNSNode\0227\n\rmatched_rules\030\002 \003(\0132 .datadog" +
-      ".cws.dumpsv1.MatchedRule\022\022\n\nimage_tags\030\003" +
-      " \003(\t\022.\n\010requests\030\001 \003(\0132\034.datadog.cws.dum" +
-      "psv1.DNSInfo\"Q\n\007DNSInfo\022\014\n\004name\030\001 \001(\t\022\014\n" +
-      "\004type\030\002 \001(\r\022\r\n\005class\030\003 \001(\r\022\014\n\004size\030\004 \001(\r" +
-      "\022\r\n\005count\030\005 \001(\r\"\351\002\n\010FileInfo\022\013\n\003uid\030\001 \001(" +
-      "\r\022\014\n\004user\030\002 \001(\t\022\013\n\003gid\030\003 \001(\r\022\r\n\005group\030\004 " +
-      "\001(\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005ctime\030\006 \001(\004\022\r\n\005mtim" +
-      "e\030\007 \001(\004\022\020\n\010mount_id\030\010 \001(\r\022\r\n\005inode\030\t \001(\004" +
-      "\022\026\n\016in_upper_layer\030\n \001(\010\022\014\n\004path\030\013 \001(\t\022\020" +
-      "\n\010basename\030\014 \001(\t\022\022\n\nfilesystem\030\r \001(\t\022\024\n\014" +
-      "package_name\030\016 \001(\t\022\027\n\017package_version\030\017 " +
-      "\001(\t\022\032\n\022package_srcversion\030\020 \001(\t\022\016\n\006hashe" +
-      "s\030\021 \003(\t\0222\n\nhash_state\030\022 \001(\0162\036.datadog.cw" +
-      "s.dumpsv1.HashState\"\224\002\n\013Credentials\022\013\n\003u" +
-      "id\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004user\030\003 \001(\t\022\r\n\005g" +
-      "roup\030\004 \001(\t\022\025\n\reffective_uid\030\005 \001(\r\022\025\n\reff" +
-      "ective_gid\030\006 \001(\r\022\026\n\016effective_user\030\007 \001(\t" +
-      "\022\027\n\017effective_group\030\010 \001(\t\022\016\n\006fs_uid\030\t \001(" +
-      "\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007fs_user\030\013 \001(\t\022\020\n\010fs" +
-      "_group\030\014 \001(\t\022\025\n\rcap_effective\030\r \001(\004\022\025\n\rc" +
-      "ap_permitted\030\016 \001(\004\"I\n\nSocketNode\022\016\n\006fami" +
-      "ly\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035.datadog.cws.dum" +
-      "psv1.BindNode\"q\n\010BindNode\0227\n\rmatched_rul" +
-      "es\030\003 \003(\0132 .datadog.cws.dumpsv1.MatchedRu" +
-      "le\022\022\n\nimage_tags\030\004 \003(\t\022\014\n\004port\030\001 \001(\r\022\n\n\002" +
-      "ip\030\002 \001(\t\"\325\001\n\013MatchedRule\022\017\n\007rule_id\030\001 \001(" +
-      "\t\022\024\n\014rule_version\030\002 \001(\t\022\023\n\013policy_name\030\003" +
-      " \001(\t\022\026\n\016policy_version\030\004 \001(\t\022A\n\trule_tag" +
-      "s\030\005 \003(\0132..datadog.cws.dumpsv1.MatchedRul" +
-      "e.RuleTagsEntry\032/\n\rRuleTagsEntry\022\013\n\003key\030" +
-      "\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"t\n\020event_type_s" +
-      "tate\022\031\n\021last_anomaly_nano\030\001 \001(\004\022E\n\023event" +
-      "_profile_state\030\002 \001(\0162(.datadog.cws.dumps" +
-      "v1.event_profile_state*\271\001\n\tHashState\022\013\n\007" +
-      "NO_HASH\020\000\022\010\n\004DONE\020\001\022\022\n\016FILE_NOT_FOUND\020\002\022" +
-      "\035\n\031PATHNAME_RESOLUTION_ERROR\020\003\022\020\n\014FILE_T" +
-      "OO_BIG\020\004\022\035\n\031EVENT_TYPE_NOT_CONFIGURED\020\005\022" +
-      "\031\n\025HASH_WAS_RATE_LIMITED\020\006\022\026\n\022UNKNOWN_HA" +
-      "SH_ERROR\020\007*8\n\016GenerationType\022\013\n\007UNKNOWN\020" +
-      "\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPSHOT\020\002*\220\001\n\023event_p" +
-      "rofile_state\022\016\n\nNO_PROFILE\020\000\022\027\n\023PROFILE_" +
-      "AT_MAX_SIZE\020\001\022\024\n\020UNSTABLE_PROFILE\020\002\022\022\n\016S" +
-      "TABLE_PROFILE\020\003\022\021\n\rAUTO_LEARNING\020\004\022\023\n\017WO" +
-      "RKLOAD_WARMUP\020\005BU\n\022com.dd.cws.adv1.pbB\014S" +
-      "ecDumpProtoP\000Z/github.com/DataDog/agent-" +
-      "payload/v5/cws/dumpsv1b\006proto3"
+      "t_type_state:\0028\001\"\265\003\n\017SecurityProfile\022\022\n\006" +
+      "status\030\001 \001(\rB\002\030\001\022\023\n\007version\030\002 \001(\tB\002\030\001\022/\n" +
+      "\010metadata\030\003 \001(\0132\035.datadog.cws.dumpsv1.Me" +
+      "tadata\022\020\n\004tags\030\004 \003(\tB\002\030\001\022\024\n\010syscalls\030\005 \003" +
+      "(\rB\002\030\001\0226\n\004tree\030\006 \003(\0132(.datadog.cws.dumps" +
+      "v1.ProcessActivityNode\022S\n\020profile_contex" +
+      "ts\030\007 \003(\01329.datadog.cws.dumpsv1.SecurityP" +
+      "rofile.ProfileContextsEntry\0226\n\010selector\030" +
+      "\010 \001(\0132$.datadog.cws.dumpsv1.ProfileSelec" +
+      "tor\032[\n\024ProfileContextsEntry\022\013\n\003key\030\001 \001(\t" +
+      "\0222\n\005value\030\002 \001(\0132#.datadog.cws.dumpsv1.Pr" +
+      "ofileContext:\0028\001\"\300\003\n\023ProcessActivityNode" +
+      "\0221\n\007process\030\001 \001(\0132 .datadog.cws.dumpsv1." +
+      "ProcessInfo\022<\n\017generation_type\030\010 \001(\0162#.d" +
+      "atadog.cws.dumpsv1.GenerationType\0227\n\rmat" +
+      "ched_rules\030\t \003(\0132 .datadog.cws.dumpsv1.M" +
+      "atchedRule\022:\n\010children\030\003 \003(\0132(.datadog.c" +
+      "ws.dumpsv1.ProcessActivityNode\0224\n\005files\030" +
+      "\004 \003(\0132%.datadog.cws.dumpsv1.FileActivity" +
+      "Node\022/\n\tdns_names\030\005 \003(\0132\034.datadog.cws.du" +
+      "mpsv1.DNSNode\0220\n\007sockets\030\006 \003(\0132\037.datadog" +
+      ".cws.dumpsv1.SocketNode\022\020\n\010syscalls\030\007 \003(" +
+      "\r\022\022\n\nimage_tags\030\n \003(\tJ\004\010\002\020\003\"\321\003\n\013ProcessI" +
+      "nfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\014\n\004ppid\030\003 " +
+      "\001(\r\022\022\n\006cookie\030\004 \001(\rB\002\030\001\022\021\n\tis_thread\030\005 \001" +
+      "(\010\022+\n\004file\030\006 \001(\0132\035.datadog.cws.dumpsv1.F" +
+      "ileInfo\022\024\n\014container_id\030\007 \001(\t\022\017\n\007span_id" +
+      "\030\010 \001(\004\022\020\n\010trace_id\030\t \001(\004\022\013\n\003tty\030\n \001(\t\022\014\n" +
+      "\004comm\030\013 \001(\t\022\021\n\tfork_time\030\014 \001(\004\022\021\n\texit_t" +
+      "ime\030\r \001(\004\022\021\n\texec_time\030\016 \001(\004\0225\n\013credenti" +
+      "als\030\017 \001(\0132 .datadog.cws.dumpsv1.Credenti" +
+      "als\022\014\n\004args\030\020 \003(\t\022\r\n\005argv0\030\021 \001(\t\022\026\n\016args" +
+      "_truncated\030\022 \001(\010\022\014\n\004envs\030\023 \003(\t\022\026\n\016envs_t" +
+      "runcated\030\024 \001(\010\022\025\n\ris_exec_child\030\025 \001(\010\022\020\n" +
+      "\010cookie64\030\026 \001(\004\"\354\002\n\020FileActivityNode\0227\n\r" +
+      "matched_rules\030\t \003(\0132 .datadog.cws.dumpsv" +
+      "1.MatchedRule\022\022\n\nimage_tags\030\n \003(\t\022\014\n\004nam" +
+      "e\030\001 \001(\t\022\022\n\nis_pattern\030\007 \001(\010\022+\n\004file\030\002 \001(" +
+      "\0132\035.datadog.cws.dumpsv1.FileInfo\022<\n\017gene" +
+      "ration_type\030\010 \001(\0162#.datadog.cws.dumpsv1." +
+      "GenerationType\022\022\n\nfirst_seen\030\004 \001(\004\022+\n\004op" +
+      "en\030\005 \001(\0132\035.datadog.cws.dumpsv1.OpenNode\022" +
+      "7\n\010children\030\006 \003(\0132%.datadog.cws.dumpsv1." +
+      "FileActivityNodeJ\004\010\003\020\004\"7\n\010OpenNode\022\016\n\006re" +
+      "tval\030\001 \001(\022\022\r\n\005flags\030\002 \001(\r\022\014\n\004mode\030\003 \001(\r\"" +
+      "\206\001\n\007DNSNode\0227\n\rmatched_rules\030\002 \003(\0132 .dat" +
+      "adog.cws.dumpsv1.MatchedRule\022\022\n\nimage_ta" +
+      "gs\030\003 \003(\t\022.\n\010requests\030\001 \003(\0132\034.datadog.cws" +
+      ".dumpsv1.DNSInfo\"Q\n\007DNSInfo\022\014\n\004name\030\001 \001(" +
+      "\t\022\014\n\004type\030\002 \001(\r\022\r\n\005class\030\003 \001(\r\022\014\n\004size\030\004" +
+      " \001(\r\022\r\n\005count\030\005 \001(\r\"\351\002\n\010FileInfo\022\013\n\003uid\030" +
+      "\001 \001(\r\022\014\n\004user\030\002 \001(\t\022\013\n\003gid\030\003 \001(\r\022\r\n\005grou" +
+      "p\030\004 \001(\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005ctime\030\006 \001(\004\022\r\n\005" +
+      "mtime\030\007 \001(\004\022\020\n\010mount_id\030\010 \001(\r\022\r\n\005inode\030\t" +
+      " \001(\004\022\026\n\016in_upper_layer\030\n \001(\010\022\014\n\004path\030\013 \001" +
+      "(\t\022\020\n\010basename\030\014 \001(\t\022\022\n\nfilesystem\030\r \001(\t" +
+      "\022\024\n\014package_name\030\016 \001(\t\022\027\n\017package_versio" +
+      "n\030\017 \001(\t\022\032\n\022package_srcversion\030\020 \001(\t\022\016\n\006h" +
+      "ashes\030\021 \003(\t\0222\n\nhash_state\030\022 \001(\0162\036.datado" +
+      "g.cws.dumpsv1.HashState\"\224\002\n\013Credentials\022" +
+      "\013\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004user\030\003 \001(\t\022" +
+      "\r\n\005group\030\004 \001(\t\022\025\n\reffective_uid\030\005 \001(\r\022\025\n" +
+      "\reffective_gid\030\006 \001(\r\022\026\n\016effective_user\030\007" +
+      " \001(\t\022\027\n\017effective_group\030\010 \001(\t\022\016\n\006fs_uid\030" +
+      "\t \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007fs_user\030\013 \001(\t\022\020" +
+      "\n\010fs_group\030\014 \001(\t\022\025\n\rcap_effective\030\r \001(\004\022" +
+      "\025\n\rcap_permitted\030\016 \001(\004\"I\n\nSocketNode\022\016\n\006" +
+      "family\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035.datadog.cws" +
+      ".dumpsv1.BindNode\"q\n\010BindNode\0227\n\rmatched" +
+      "_rules\030\003 \003(\0132 .datadog.cws.dumpsv1.Match" +
+      "edRule\022\022\n\nimage_tags\030\004 \003(\t\022\014\n\004port\030\001 \001(\r" +
+      "\022\n\n\002ip\030\002 \001(\t\"\325\001\n\013MatchedRule\022\017\n\007rule_id\030" +
+      "\001 \001(\t\022\024\n\014rule_version\030\002 \001(\t\022\023\n\013policy_na" +
+      "me\030\003 \001(\t\022\026\n\016policy_version\030\004 \001(\t\022A\n\trule" +
+      "_tags\030\005 \003(\0132..datadog.cws.dumpsv1.Matche" +
+      "dRule.RuleTagsEntry\032/\n\rRuleTagsEntry\022\013\n\003" +
+      "key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"t\n\020event_ty" +
+      "pe_state\022\031\n\021last_anomaly_nano\030\001 \001(\004\022E\n\023e" +
+      "vent_profile_state\030\002 \001(\0162(.datadog.cws.d" +
+      "umpsv1.event_profile_state*\271\001\n\tHashState" +
+      "\022\013\n\007NO_HASH\020\000\022\010\n\004DONE\020\001\022\022\n\016FILE_NOT_FOUN" +
+      "D\020\002\022\035\n\031PATHNAME_RESOLUTION_ERROR\020\003\022\020\n\014FI" +
+      "LE_TOO_BIG\020\004\022\035\n\031EVENT_TYPE_NOT_CONFIGURE" +
+      "D\020\005\022\031\n\025HASH_WAS_RATE_LIMITED\020\006\022\026\n\022UNKNOW" +
+      "N_HASH_ERROR\020\007*8\n\016GenerationType\022\013\n\007UNKN" +
+      "OWN\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPSHOT\020\002*\220\001\n\023eve" +
+      "nt_profile_state\022\016\n\nNO_PROFILE\020\000\022\027\n\023PROF" +
+      "ILE_AT_MAX_SIZE\020\001\022\024\n\020UNSTABLE_PROFILE\020\002\022" +
+      "\022\n\016STABLE_PROFILE\020\003\022\021\n\rAUTO_LEARNING\020\004\022\023" +
+      "\n\017WORKLOAD_WARMUP\020\005BU\n\022com.dd.cws.adv1.p" +
+      "bB\014SecDumpProtoP\000Z/github.com/DataDog/ag" +
+      "ent-payload/v5/cws/dumpsv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

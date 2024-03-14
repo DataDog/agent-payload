@@ -51,7 +51,7 @@ message ProfileContext {
 }
 
 message SecurityProfile {
-    uint32 status = 1;
+    uint32 status = 1 [deprecated = true];
     string version = 2 [deprecated = true];
     Metadata metadata = 3;
     repeated string tags = 4 [deprecated = true];
