@@ -2608,6 +2608,12 @@ func (x *ContainerBuilder) SetMemoryRequest(v uint64) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
+func (x *ContainerBuilder) SetRepoDigest(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x11a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type ProcessStatBuilder struct {
 	writer                 io.Writer
