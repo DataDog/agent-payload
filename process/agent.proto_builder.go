@@ -9266,6 +9266,14 @@ func (x *HTTPStats_DataBuilder) SetLatencies(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *HTTPStats_DataBuilder) SetEncodedLatencies(cb func(b *bytes.Buffer)) {
+	x.buf.Reset()
+	cb(&x.buf)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 func (x *HTTPStats_DataBuilder) SetFirstLatencySample(v float64) {
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x21)
 	x.scratch = protowire.AppendFixed64(x.scratch, math.Float64bits(v))

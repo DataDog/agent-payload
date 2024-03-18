@@ -1610,6 +1610,15 @@ message HTTPStats {
 		//    call ToProto() and then run through a protobuf encoder
 		bytes latencies = 2;
 
+		// A new version of the `latencies` field, this field is encoded with a custom encoder of DDSketch, which is
+		// more efficient than the protobuf encoder.
+		// To decode:
+		// import github.com/DataDog/sketches-go/ddsketch and github.com/DataDog/sketches-go/ddsketch/store
+		//    ddsketch.DecodeDDSketch(bytes, store.DenseStoreConstructor, nil)
+		// To encode:
+		//    latencies.Encode(&bytes, false) where latencies is a ddsketch.DDSketch.
+		bytes encodedLatencies = 5;
+
 		// if the HTTPStats has a single sample, this field will be the latency (in nanoseconds) of the only sample.
 		// this is purely to avoid the overhead of having single entry sketches.
 		double firstLatencySample = 4;
