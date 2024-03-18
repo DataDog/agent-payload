@@ -574,7 +574,7 @@ func (x *ECSTaskBuilder) SetArn(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
-func (x *ECSTaskBuilder) SetTaskVersion(v string) {
+func (x *ECSTaskBuilder) SetResourceVersion(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
 	x.scratch = protowire.AppendString(x.scratch, v)

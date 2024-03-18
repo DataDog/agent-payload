@@ -122,7 +122,7 @@ message CollectorECSTask {
 
 message ECSTask {
 	string arn = 1;
-	string taskVersion = 2;
+	string resourceVersion = 2; // a custom field to track changes
 	string launchType = 3;
 	string desiredStatus = 4;
 	string knownStatus = 5;
