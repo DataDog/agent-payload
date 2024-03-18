@@ -110,6 +110,93 @@ message CollectorReqStatus {
 	string hostName = 2;
 }
 
+message CollectorECSTask {
+	int64 awsAccountID = 1;
+	string clusterName = 2;
+	string clusterId = 3;
+	string region = 4;
+	int32 groupId = 5;
+	int32 groupSize = 6;
+	repeated ECSTask tasks = 7;
+}
+
+message ECSTask {
+	string arn = 1;
+	string taskVersion = 2;
+	string launchType = 3;
+	string desiredStatus = 4;
+	string knownStatus = 5;
+	string family = 6;
+	string version = 7;
+	string availabilityZone = 8;
+	map<string, double> limits = 9;
+	map<string, int64> ephemeralStorageMetrics = 10;
+	string serviceName = 11;
+	string vpcId = 12;
+	int64 pullStartedAt = 13;
+	int64 pullStoppedAt = 14;
+	int64 executionStoppedAt = 15;
+	repeated ECSContainer containers = 16;
+	repeated string tags = 17;
+	repeated string ecsTags = 18;
+	repeated string containerInstanceTags = 19;
+}
+
+message ECSContainer {
+	string dockerID = 1;
+	string dockerName = 2;
+	string name = 3;
+	string image = 4;
+	string imageID = 5;
+	int64 createdAt = 6;
+	int64 startedAt = 7;
+	int64 finishedAt = 8;
+	string desiredStatus = 9;
+	string knownStatus = 10;
+	ECSContainerExitCode exitCode = 11;
+	string type = 12;
+	string logDriver = 13;
+	map<string, string> logOptions = 14;
+	string containerArn = 15;
+	repeated ECSContainerPort ports = 16;
+	repeated ECSContainerNetwork networks = 17;
+	repeated ECSContainerVolume volumes = 18;
+	ECSContainerHealth health = 19;
+	repeated string labels = 20;
+	map<string, double> limits = 21;
+	string snapshotter = 22;
+}
+
+message ECSContainerNetwork {
+	string networkMode = 1;
+	repeated string ipv4Addresses = 2;
+	repeated string ipv6Addresses = 3;
+}
+
+message ECSContainerPort {
+	int32 containerPort = 1;
+	string protocol = 2;
+	string hostIp = 3;
+	int32 hostPort = 4;
+}
+
+message ECSContainerVolume {
+	string dockerName = 1;
+	string source = 2;
+	string destination = 3;
+}
+
+message ECSContainerHealth {
+	string status = 1;
+	int64 since = 2;
+	ECSContainerExitCode exitCode = 3;
+	string output = 4;
+}
+
+message ECSContainerExitCode {
+	int32 exitCode = 3;
+}
+
 message CollectorPod {
 	string hostName = 1;
 	string clusterName = 2;
@@ -655,8 +742,8 @@ message Host {
 }
 
 
-enum K8sResource {
-    K8SRESOURCE_UNSPECIFIED = 0;
+enum OrchestratorResource {
+    OrchestratorResource_UNSPECIFIED = 0;
     POD = 1;
     REPLICASET = 2;
     SERVICE = 3;
@@ -681,6 +768,7 @@ enum K8sResource {
     VERTICALPODAUTOSCALER = 22;
     HORIZONTALPODAUTOSCALER = 23;
     NETWORKPOLICY = 24;
+    ECSTASK = 150;
 }
 
 message Cluster {
