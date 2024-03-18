@@ -21,6 +21,7 @@ message Event {
     oneof typedEvent {
         ContainerEvent container = 2;
         PodEvent pod = 3;
+        TaskEvent task = 4;
     }
 }
 
@@ -50,7 +51,15 @@ message PodEvent {
     optional int64 exitTimestamp = 3; // exitTimestamp contains the exit timestamp of the pod
 }
 
+// TaskEvent contains task event metadata
+message TaskEvent {
+    string taskARN = 1; // taskARN contains the task ARN
+    string source = 2; // source contains the task source
+    optional int64 exitTimestamp = 3; // exitTimestamp contains the exit timestamp of the task
+}
+
 enum ObjectKind {
     Container = 0;
     Pod = 1;
+    Task = 2;
 }
