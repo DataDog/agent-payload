@@ -1520,6 +1520,7 @@ message HTTPStats {
 		//    create a github.com/DataDog/sketches-go/ddsketch.DDSketch
 		//    call ToProto() and then run through a protobuf encoder
 		bytes latencies = 2;
+		bytes selfEncodedLatencies = 5;
 
 		// if the HTTPStats has a single sample, this field will be the latency (in nanoseconds) of the only sample.
 		// this is purely to avoid the overhead of having single entry sketches.
