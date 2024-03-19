@@ -487,6 +487,682 @@ func (x *CollectorReqStatusBuilder) SetHostName(v string) {
 	x.writer.Write(x.scratch)
 }
 
+type CollectorECSTaskBuilder struct {
+	writer         io.Writer
+	buf            bytes.Buffer
+	scratch        []byte
+	eCSTaskBuilder ECSTaskBuilder
+}
+
+func NewCollectorECSTaskBuilder(writer io.Writer) *CollectorECSTaskBuilder {
+	return &CollectorECSTaskBuilder{
+		writer: writer,
+	}
+}
+func (x *CollectorECSTaskBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *CollectorECSTaskBuilder) SetAwsAccountID(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorECSTaskBuilder) SetClusterName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorECSTaskBuilder) SetClusterId(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorECSTaskBuilder) SetRegion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorECSTaskBuilder) SetGroupId(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x28)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorECSTaskBuilder) SetGroupSize(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x30)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorECSTaskBuilder) AddTasks(cb func(w *ECSTaskBuilder)) {
+	x.buf.Reset()
+	x.eCSTaskBuilder.writer = &x.buf
+	x.eCSTaskBuilder.scratch = x.scratch
+	cb(&x.eCSTaskBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type ECSTaskBuilder struct {
+	writer                                      io.Writer
+	buf                                         bytes.Buffer
+	scratch                                     []byte
+	eCSTask_LimitsEntryBuilder                  ECSTask_LimitsEntryBuilder
+	eCSTask_EphemeralStorageMetricsEntryBuilder ECSTask_EphemeralStorageMetricsEntryBuilder
+	eCSContainerBuilder                         ECSContainerBuilder
+}
+
+func NewECSTaskBuilder(writer io.Writer) *ECSTaskBuilder {
+	return &ECSTaskBuilder{
+		writer: writer,
+	}
+}
+func (x *ECSTaskBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ECSTaskBuilder) SetArn(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) SetResourceVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) SetLaunchType(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) SetDesiredStatus(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) SetKnownStatus(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) SetFamily(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) SetVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) SetAvailabilityZone(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x42)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) AddLimits(cb func(w *ECSTask_LimitsEntryBuilder)) {
+	x.buf.Reset()
+	x.eCSTask_LimitsEntryBuilder.writer = &x.buf
+	x.eCSTask_LimitsEntryBuilder.scratch = x.scratch
+	cb(&x.eCSTask_LimitsEntryBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x4a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ECSTaskBuilder) AddEphemeralStorageMetrics(cb func(w *ECSTask_EphemeralStorageMetricsEntryBuilder)) {
+	x.buf.Reset()
+	x.eCSTask_EphemeralStorageMetricsEntryBuilder.writer = &x.buf
+	x.eCSTask_EphemeralStorageMetricsEntryBuilder.scratch = x.scratch
+	cb(&x.eCSTask_EphemeralStorageMetricsEntryBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x52)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ECSTaskBuilder) SetServiceName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x5a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) SetVpcId(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x62)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) SetPullStartedAt(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x68)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) SetPullStoppedAt(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x70)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) SetExecutionStoppedAt(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x78)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) AddContainers(cb func(w *ECSContainerBuilder)) {
+	x.buf.Reset()
+	x.eCSContainerBuilder.writer = &x.buf
+	x.eCSContainerBuilder.scratch = x.scratch
+	cb(&x.eCSContainerBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x82)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ECSTaskBuilder) AddTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x8a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) AddEcsTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x92)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) AddContainerInstanceTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x9a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type ECSTask_LimitsEntryBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewECSTask_LimitsEntryBuilder(writer io.Writer) *ECSTask_LimitsEntryBuilder {
+	return &ECSTask_LimitsEntryBuilder{
+		writer: writer,
+	}
+}
+func (x *ECSTask_LimitsEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ECSTask_LimitsEntryBuilder) SetKey(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTask_LimitsEntryBuilder) SetValue(v float64) {
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x11)
+	x.scratch = protowire.AppendFixed64(x.scratch, math.Float64bits(v))
+	x.writer.Write(x.scratch)
+}
+
+type ECSTask_EphemeralStorageMetricsEntryBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewECSTask_EphemeralStorageMetricsEntryBuilder(writer io.Writer) *ECSTask_EphemeralStorageMetricsEntryBuilder {
+	return &ECSTask_EphemeralStorageMetricsEntryBuilder{
+		writer: writer,
+	}
+}
+func (x *ECSTask_EphemeralStorageMetricsEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ECSTask_EphemeralStorageMetricsEntryBuilder) SetKey(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSTask_EphemeralStorageMetricsEntryBuilder) SetValue(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
+type ECSContainerBuilder struct {
+	writer                              io.Writer
+	buf                                 bytes.Buffer
+	scratch                             []byte
+	eCSContainerExitCodeBuilder         ECSContainerExitCodeBuilder
+	eCSContainer_LogOptionsEntryBuilder ECSContainer_LogOptionsEntryBuilder
+	eCSContainerPortBuilder             ECSContainerPortBuilder
+	eCSContainerNetworkBuilder          ECSContainerNetworkBuilder
+	eCSContainerVolumeBuilder           ECSContainerVolumeBuilder
+	eCSContainerHealthBuilder           ECSContainerHealthBuilder
+	eCSContainer_LimitsEntryBuilder     ECSContainer_LimitsEntryBuilder
+}
+
+func NewECSContainerBuilder(writer io.Writer) *ECSContainerBuilder {
+	return &ECSContainerBuilder{
+		writer: writer,
+	}
+}
+func (x *ECSContainerBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ECSContainerBuilder) SetDockerID(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerBuilder) SetDockerName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerBuilder) SetName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerBuilder) SetImage(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerBuilder) SetImageID(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerBuilder) SetCreatedAt(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x30)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerBuilder) SetStartedAt(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x38)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerBuilder) SetFinishedAt(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x40)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerBuilder) SetDesiredStatus(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x4a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerBuilder) SetKnownStatus(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x52)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerBuilder) SetExitCode(cb func(w *ECSContainerExitCodeBuilder)) {
+	x.buf.Reset()
+	x.eCSContainerExitCodeBuilder.writer = &x.buf
+	x.eCSContainerExitCodeBuilder.scratch = x.scratch
+	cb(&x.eCSContainerExitCodeBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x5a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ECSContainerBuilder) SetType(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x62)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerBuilder) SetLogDriver(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x6a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerBuilder) AddLogOptions(cb func(w *ECSContainer_LogOptionsEntryBuilder)) {
+	x.buf.Reset()
+	x.eCSContainer_LogOptionsEntryBuilder.writer = &x.buf
+	x.eCSContainer_LogOptionsEntryBuilder.scratch = x.scratch
+	cb(&x.eCSContainer_LogOptionsEntryBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x72)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ECSContainerBuilder) SetContainerArn(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x7a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerBuilder) AddPorts(cb func(w *ECSContainerPortBuilder)) {
+	x.buf.Reset()
+	x.eCSContainerPortBuilder.writer = &x.buf
+	x.eCSContainerPortBuilder.scratch = x.scratch
+	cb(&x.eCSContainerPortBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x82)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ECSContainerBuilder) AddNetworks(cb func(w *ECSContainerNetworkBuilder)) {
+	x.buf.Reset()
+	x.eCSContainerNetworkBuilder.writer = &x.buf
+	x.eCSContainerNetworkBuilder.scratch = x.scratch
+	cb(&x.eCSContainerNetworkBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ECSContainerBuilder) AddVolumes(cb func(w *ECSContainerVolumeBuilder)) {
+	x.buf.Reset()
+	x.eCSContainerVolumeBuilder.writer = &x.buf
+	x.eCSContainerVolumeBuilder.scratch = x.scratch
+	cb(&x.eCSContainerVolumeBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x92)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ECSContainerBuilder) SetHealth(cb func(w *ECSContainerHealthBuilder)) {
+	x.buf.Reset()
+	x.eCSContainerHealthBuilder.writer = &x.buf
+	x.eCSContainerHealthBuilder.scratch = x.scratch
+	cb(&x.eCSContainerHealthBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x9a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ECSContainerBuilder) AddLabels(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa2)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerBuilder) AddLimits(cb func(w *ECSContainer_LimitsEntryBuilder)) {
+	x.buf.Reset()
+	x.eCSContainer_LimitsEntryBuilder.writer = &x.buf
+	x.eCSContainer_LimitsEntryBuilder.scratch = x.scratch
+	cb(&x.eCSContainer_LimitsEntryBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xaa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ECSContainerBuilder) SetSnapshotter(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xb2)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type ECSContainer_LogOptionsEntryBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewECSContainer_LogOptionsEntryBuilder(writer io.Writer) *ECSContainer_LogOptionsEntryBuilder {
+	return &ECSContainer_LogOptionsEntryBuilder{
+		writer: writer,
+	}
+}
+func (x *ECSContainer_LogOptionsEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ECSContainer_LogOptionsEntryBuilder) SetKey(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainer_LogOptionsEntryBuilder) SetValue(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type ECSContainer_LimitsEntryBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewECSContainer_LimitsEntryBuilder(writer io.Writer) *ECSContainer_LimitsEntryBuilder {
+	return &ECSContainer_LimitsEntryBuilder{
+		writer: writer,
+	}
+}
+func (x *ECSContainer_LimitsEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ECSContainer_LimitsEntryBuilder) SetKey(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainer_LimitsEntryBuilder) SetValue(v float64) {
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x11)
+	x.scratch = protowire.AppendFixed64(x.scratch, math.Float64bits(v))
+	x.writer.Write(x.scratch)
+}
+
+type ECSContainerNetworkBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewECSContainerNetworkBuilder(writer io.Writer) *ECSContainerNetworkBuilder {
+	return &ECSContainerNetworkBuilder{
+		writer: writer,
+	}
+}
+func (x *ECSContainerNetworkBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ECSContainerNetworkBuilder) SetNetworkMode(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerNetworkBuilder) AddIpv4Addresses(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerNetworkBuilder) AddIpv6Addresses(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type ECSContainerPortBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewECSContainerPortBuilder(writer io.Writer) *ECSContainerPortBuilder {
+	return &ECSContainerPortBuilder{
+		writer: writer,
+	}
+}
+func (x *ECSContainerPortBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ECSContainerPortBuilder) SetContainerPort(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerPortBuilder) SetProtocol(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerPortBuilder) SetHostIp(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerPortBuilder) SetHostPort(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x20)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
+type ECSContainerVolumeBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewECSContainerVolumeBuilder(writer io.Writer) *ECSContainerVolumeBuilder {
+	return &ECSContainerVolumeBuilder{
+		writer: writer,
+	}
+}
+func (x *ECSContainerVolumeBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ECSContainerVolumeBuilder) SetDockerName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerVolumeBuilder) SetSource(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerVolumeBuilder) SetDestination(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type ECSContainerHealthBuilder struct {
+	writer                      io.Writer
+	buf                         bytes.Buffer
+	scratch                     []byte
+	eCSContainerExitCodeBuilder ECSContainerExitCodeBuilder
+}
+
+func NewECSContainerHealthBuilder(writer io.Writer) *ECSContainerHealthBuilder {
+	return &ECSContainerHealthBuilder{
+		writer: writer,
+	}
+}
+func (x *ECSContainerHealthBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ECSContainerHealthBuilder) SetStatus(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerHealthBuilder) SetSince(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ECSContainerHealthBuilder) SetExitCode(cb func(w *ECSContainerExitCodeBuilder)) {
+	x.buf.Reset()
+	x.eCSContainerExitCodeBuilder.writer = &x.buf
+	x.eCSContainerExitCodeBuilder.scratch = x.scratch
+	cb(&x.eCSContainerExitCodeBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ECSContainerHealthBuilder) SetOutput(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type ECSContainerExitCodeBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewECSContainerExitCodeBuilder(writer io.Writer) *ECSContainerExitCodeBuilder {
+	return &ECSContainerExitCodeBuilder{
+		writer: writer,
+	}
+}
+func (x *ECSContainerExitCodeBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ECSContainerExitCodeBuilder) SetExitCode(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
 type CollectorPodBuilder struct {
 	writer      io.Writer
 	buf         bytes.Buffer
