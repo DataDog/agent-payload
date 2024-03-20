@@ -6572,6 +6572,12 @@ func (x *CronJobStatusBuilder) SetLastScheduleTime(v int64) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
+func (x *CronJobStatusBuilder) SetLastSuccessfulTime(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
 
 type CronJobBuilder struct {
 	writer               io.Writer
