@@ -117,6 +117,8 @@ const (
 	TypeCollectorVerticalPodAutoscaler   = 83
 	TypeCollectorHorizontalPodAutoscaler = 84
 	TypeCollectorNetworkPolicy           = 85
+	TypeCollectorLimitRange              = 86
+	TypeCollectorStorageClass            = 87
 	TypeCollectorECSTask                 = 200
 )
 
@@ -186,6 +188,10 @@ func (m MessageType) String() string {
 		return "horizontal-pod-autoscaler"
 	case TypeCollectorNetworkPolicy:
 		return "network-policy"
+	case TypeCollectorLimitRange:
+		return "limit-range"
+	case TypeCollectorStorageClass:
+		return "storage-class"
 	case TypeCollectorECSTask:
 		return "ecs-task"
 	default:
@@ -284,6 +290,10 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorHorizontalPodAutoscaler{}
 	case TypeCollectorNetworkPolicy:
 		m = &CollectorNetworkPolicy{}
+	case TypeCollectorLimitRange:
+		m = &CollectorLimitRange{}
+	case TypeCollectorStorageClass:
+		m = &CollectorStorageClass{}
 	case TypeCollectorECSTask:
 		m = &CollectorECSTask{}
 	default:
@@ -365,6 +375,10 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorHorizontalPodAutoscaler
 	case *CollectorNetworkPolicy:
 		t = TypeCollectorNetworkPolicy
+	case *CollectorLimitRange:
+		t = TypeCollectorLimitRange
+	case *CollectorStorageClass:
+		t = TypeCollectorStorageClass
 	case *CollectorECSTask:
 		t = TypeCollectorECSTask
 	default:
