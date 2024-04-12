@@ -4184,6 +4184,7 @@ type ClusterBuilder struct {
 	cluster_KubeletVersionsEntryBuilder   Cluster_KubeletVersionsEntryBuilder
 	cluster_ApiServerVersionsEntryBuilder Cluster_ApiServerVersionsEntryBuilder
 	resourceMetricsBuilder                ResourceMetricsBuilder
+	cluster_InstanceTypesEntryBuilder     Cluster_InstanceTypesEntryBuilder
 }
 
 func NewClusterBuilder(writer io.Writer) *ClusterBuilder {
@@ -4285,6 +4286,16 @@ func (x *ClusterBuilder) SetMetrics(cb func(w *ResourceMetricsBuilder)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *ClusterBuilder) AddInstanceTypes(cb func(w *Cluster_InstanceTypesEntryBuilder)) {
+	x.buf.Reset()
+	x.cluster_InstanceTypesEntryBuilder.writer = &x.buf
+	x.cluster_InstanceTypesEntryBuilder.scratch = x.scratch
+	cb(&x.cluster_InstanceTypesEntryBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x72)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type Cluster_KubeletVersionsEntryBuilder struct {
 	writer  io.Writer
@@ -4336,6 +4347,34 @@ func (x *Cluster_ApiServerVersionsEntryBuilder) SetKey(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *Cluster_ApiServerVersionsEntryBuilder) SetValue(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
+type Cluster_InstanceTypesEntryBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewCluster_InstanceTypesEntryBuilder(writer io.Writer) *Cluster_InstanceTypesEntryBuilder {
+	return &Cluster_InstanceTypesEntryBuilder{
+		writer: writer,
+	}
+}
+func (x *Cluster_InstanceTypesEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *Cluster_InstanceTypesEntryBuilder) SetKey(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *Cluster_InstanceTypesEntryBuilder) SetValue(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
