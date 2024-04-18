@@ -4178,12 +4178,14 @@ func (x *HostBuilder) SetTagsModified(v int64) {
 }
 
 type ClusterBuilder struct {
-	writer                                io.Writer
-	buf                                   bytes.Buffer
-	scratch                               []byte
-	cluster_KubeletVersionsEntryBuilder   Cluster_KubeletVersionsEntryBuilder
-	cluster_ApiServerVersionsEntryBuilder Cluster_ApiServerVersionsEntryBuilder
-	resourceMetricsBuilder                ResourceMetricsBuilder
+	writer                                           io.Writer
+	buf                                              bytes.Buffer
+	scratch                                          []byte
+	cluster_KubeletVersionsEntryBuilder              Cluster_KubeletVersionsEntryBuilder
+	cluster_ApiServerVersionsEntryBuilder            Cluster_ApiServerVersionsEntryBuilder
+	resourceMetricsBuilder                           ResourceMetricsBuilder
+	cluster_ExtendedResourcesAllocatableEntryBuilder Cluster_ExtendedResourcesAllocatableEntryBuilder
+	cluster_ExtendedResourcesCapacityEntryBuilder    Cluster_ExtendedResourcesCapacityEntryBuilder
 }
 
 func NewClusterBuilder(writer io.Writer) *ClusterBuilder {
@@ -4285,6 +4287,26 @@ func (x *ClusterBuilder) SetMetrics(cb func(w *ResourceMetricsBuilder)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *ClusterBuilder) AddExtendedResourcesAllocatable(cb func(w *Cluster_ExtendedResourcesAllocatableEntryBuilder)) {
+	x.buf.Reset()
+	x.cluster_ExtendedResourcesAllocatableEntryBuilder.writer = &x.buf
+	x.cluster_ExtendedResourcesAllocatableEntryBuilder.scratch = x.scratch
+	cb(&x.cluster_ExtendedResourcesAllocatableEntryBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x72)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ClusterBuilder) AddExtendedResourcesCapacity(cb func(w *Cluster_ExtendedResourcesCapacityEntryBuilder)) {
+	x.buf.Reset()
+	x.cluster_ExtendedResourcesCapacityEntryBuilder.writer = &x.buf
+	x.cluster_ExtendedResourcesCapacityEntryBuilder.scratch = x.scratch
+	cb(&x.cluster_ExtendedResourcesCapacityEntryBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x7a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type Cluster_KubeletVersionsEntryBuilder struct {
 	writer  io.Writer
@@ -4336,6 +4358,62 @@ func (x *Cluster_ApiServerVersionsEntryBuilder) SetKey(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *Cluster_ApiServerVersionsEntryBuilder) SetValue(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
+type Cluster_ExtendedResourcesAllocatableEntryBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewCluster_ExtendedResourcesAllocatableEntryBuilder(writer io.Writer) *Cluster_ExtendedResourcesAllocatableEntryBuilder {
+	return &Cluster_ExtendedResourcesAllocatableEntryBuilder{
+		writer: writer,
+	}
+}
+func (x *Cluster_ExtendedResourcesAllocatableEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *Cluster_ExtendedResourcesAllocatableEntryBuilder) SetKey(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *Cluster_ExtendedResourcesAllocatableEntryBuilder) SetValue(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
+type Cluster_ExtendedResourcesCapacityEntryBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewCluster_ExtendedResourcesCapacityEntryBuilder(writer io.Writer) *Cluster_ExtendedResourcesCapacityEntryBuilder {
+	return &Cluster_ExtendedResourcesCapacityEntryBuilder{
+		writer: writer,
+	}
+}
+func (x *Cluster_ExtendedResourcesCapacityEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *Cluster_ExtendedResourcesCapacityEntryBuilder) SetKey(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *Cluster_ExtendedResourcesCapacityEntryBuilder) SetValue(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
