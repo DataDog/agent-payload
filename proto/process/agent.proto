@@ -788,8 +788,8 @@ message Cluster {
 	int64 creationTimestamp = 11;
 	repeated string tags = 12;
 	ResourceMetrics metrics = 13;
-	map<string, int32> extendedResourcesAllocatable = 14;
-	map<string, int32> extendedResourcesCapacity = 15;
+	map<string, int64> extendedResourcesAllocatable = 14;
+	map<string, int64> extendedResourcesCapacity = 15;
 }
 
 // reference https://github.com/kubernetes/apimachinery/blob/2373d029717c4d169463414a6127cd1d0d12680e/pkg/apis/meta/v1/generated.proto#L521
