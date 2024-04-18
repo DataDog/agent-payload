@@ -4385,7 +4385,7 @@ func (x *Cluster_ExtendedResourcesAllocatableEntryBuilder) SetKey(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
-func (x *Cluster_ExtendedResourcesAllocatableEntryBuilder) SetValue(v int32) {
+func (x *Cluster_ExtendedResourcesAllocatableEntryBuilder) SetValue(v int64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -4413,7 +4413,7 @@ func (x *Cluster_ExtendedResourcesCapacityEntryBuilder) SetKey(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
-func (x *Cluster_ExtendedResourcesCapacityEntryBuilder) SetValue(v int32) {
+func (x *Cluster_ExtendedResourcesCapacityEntryBuilder) SetValue(v int64) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
