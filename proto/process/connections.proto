@@ -184,6 +184,9 @@ message Connection {
 
   // serialized HTTP2Aggregations object summarizing all http2 transactions recorded for this connection, organized by request path
   bytes http2Aggregations = 50;
+
+  // serialized map of POSIX error codes (ex ETIMEOUT) to the number of times they have been encountered in the context of this connection
+  map<string, int32> tcpFailuresByErrCode = 51;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
