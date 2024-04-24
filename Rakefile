@@ -8,6 +8,7 @@ gogo_dir="/tmp/gogo"
 protoc_binary_2="protoc"
 protoc_version_2="21.12"
 protoc_gen_go_dir="/tmp/protoc-gen-go"
+protoc_jsonschema_version="73d5723"
 
 
 namespace :codegen do
@@ -89,9 +90,13 @@ BASH
 
       # Install protoc-gen-go
       GOPATH=#{protoc_gen_go_dir} go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.34.1
+      GOPATH=#{protoc_gen_go_dir} go install github.com/chrusty/protoc-gen-jsonschema/cmd/protoc-gen-jsonschema@#{protoc_jsonschema_version}
 
       echo "Generating contlcycle proto"
       PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto
+
+      echo "Generating kubernetes autoscaling proto"
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema proto/autoscaling/kubernetes/autoscaling.proto
 
       echo "Generating contimage proto"
       PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/contimage/contimage.proto
@@ -128,7 +133,7 @@ BASH
 end
 
 task :gimme do
-    go_version = "1.18"
+    go_version = "1.21.9"
 
     if (`which gimme`; $?.success?)
       sh "gimme #{go_version}"
