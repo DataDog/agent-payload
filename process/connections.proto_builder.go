@@ -706,6 +706,7 @@ type ConnectionBuilder struct {
 	connection_DnsStatsByDomainEntryBuilder                  Connection_DnsStatsByDomainEntryBuilder
 	connection_DnsStatsByDomainByQueryTypeEntryBuilder       Connection_DnsStatsByDomainByQueryTypeEntryBuilder
 	connection_DnsStatsByDomainOffsetByQueryTypeEntryBuilder Connection_DnsStatsByDomainOffsetByQueryTypeEntryBuilder
+	connection_TcpFailuresByErrCodeEntryBuilder              Connection_TcpFailuresByErrCodeEntryBuilder
 }
 
 func NewConnectionBuilder(writer io.Writer) *ConnectionBuilder {
@@ -994,6 +995,16 @@ func (x *ConnectionBuilder) SetHttp2Aggregations(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *ConnectionBuilder) AddTcpFailuresByErrCode(cb func(w *Connection_TcpFailuresByErrCodeEntryBuilder)) {
+	x.buf.Reset()
+	x.connection_TcpFailuresByErrCodeEntryBuilder.writer = &x.buf
+	x.connection_TcpFailuresByErrCodeEntryBuilder.scratch = x.scratch
+	cb(&x.connection_TcpFailuresByErrCodeEntryBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x19a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type Connection_DnsCountByRcodeEntryBuilder struct {
 	writer  io.Writer
@@ -1120,6 +1131,34 @@ func (x *Connection_DnsStatsByDomainOffsetByQueryTypeEntryBuilder) SetValue(cb f
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
+}
+
+type Connection_TcpFailuresByErrCodeEntryBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewConnection_TcpFailuresByErrCodeEntryBuilder(writer io.Writer) *Connection_TcpFailuresByErrCodeEntryBuilder {
+	return &Connection_TcpFailuresByErrCodeEntryBuilder{
+		writer: writer,
+	}
+}
+func (x *Connection_TcpFailuresByErrCodeEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *Connection_TcpFailuresByErrCodeEntryBuilder) SetKey(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *Connection_TcpFailuresByErrCodeEntryBuilder) SetValue(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
 }
 
 type ResourceMetadataBuilder struct {
