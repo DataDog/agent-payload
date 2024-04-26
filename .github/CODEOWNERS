@@ -5,8 +5,8 @@
 # All file changes should be reviewed by the maintainer team unless
 # specified otherwise
 *                          @DataDog/agent-shared-components
-metrics/                   @DataDog/agent-shared-components @DataDog/agent-metrics-logs
-logs/                      @DataDog/agent-shared-components @DataDog/agent-metrics-logs
+metrics/                   @DataDog/agent-shared-components @DataDog/agent-processing-and-routing
+logs/                      @DataDog/agent-shared-components @DataDog/agent-processing-and-routing
 process/                   @DataDog/agent-shared-components @DataDog/container-app @DataDog/processes
 process/connections.proto  @DataDog/agent-shared-components @DataDog/Networks @DataDog/ebpf-platform
 contlcycle/                @DataDog/agent-shared-components @DataDog/container-integrations
