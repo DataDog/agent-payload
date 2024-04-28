@@ -105,7 +105,7 @@ message Connections {
 message Connection {
   reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
   // Please update when adding fields
-  // next identifier: 51
+  // next identifier: 52
 
   int32 pid = 1;
   Addr laddr = 5; // Local address
@@ -184,6 +184,9 @@ message Connection {
 
   // serialized HTTP2Aggregations object summarizing all http2 transactions recorded for this connection, organized by request path
   bytes http2Aggregations = 50;
+
+  // serialized DatabaseAggregations object summarizing all database transactions recorded for this connection.
+  bytes databaseAggregations = 51;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
