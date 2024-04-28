@@ -9180,6 +9180,108 @@ func (x *DataStreamsAggregationsBuilder) AddKafkaAggregations(cb func(w *KafkaAg
 	x.writer.Write(x.buf.Bytes())
 }
 
+type PostgresStatsBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewPostgresStatsBuilder(writer io.Writer) *PostgresStatsBuilder {
+	return &PostgresStatsBuilder{
+		writer: writer,
+	}
+}
+func (x *PostgresStatsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *PostgresStatsBuilder) SetTable_name(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *PostgresStatsBuilder) SetOperation(v uint64) {
+	if v != 0 {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x10)
+		x.scratch = protowire.AppendVarint(x.scratch, v)
+		x.writer.Write(x.scratch)
+	}
+}
+func (x *PostgresStatsBuilder) SetLatencies(cb func(b *bytes.Buffer)) {
+	x.buf.Reset()
+	cb(&x.buf)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *PostgresStatsBuilder) SetFirstLatencySample(v float64) {
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x21)
+	x.scratch = protowire.AppendFixed64(x.scratch, math.Float64bits(v))
+	x.writer.Write(x.scratch)
+}
+func (x *PostgresStatsBuilder) SetCount(v uint32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x28)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
+type DatabaseStatsBuilder struct {
+	writer               io.Writer
+	buf                  bytes.Buffer
+	scratch              []byte
+	postgresStatsBuilder PostgresStatsBuilder
+}
+
+func NewDatabaseStatsBuilder(writer io.Writer) *DatabaseStatsBuilder {
+	return &DatabaseStatsBuilder{
+		writer: writer,
+	}
+}
+func (x *DatabaseStatsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *DatabaseStatsBuilder) SetPostgres_stats(cb func(w *PostgresStatsBuilder)) {
+	x.buf.Reset()
+	x.postgresStatsBuilder.writer = &x.buf
+	x.postgresStatsBuilder.scratch = x.scratch
+	cb(&x.postgresStatsBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type DatabaseAggregationsBuilder struct {
+	writer               io.Writer
+	buf                  bytes.Buffer
+	scratch              []byte
+	databaseStatsBuilder DatabaseStatsBuilder
+}
+
+func NewDatabaseAggregationsBuilder(writer io.Writer) *DatabaseAggregationsBuilder {
+	return &DatabaseAggregationsBuilder{
+		writer: writer,
+	}
+}
+func (x *DatabaseAggregationsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *DatabaseAggregationsBuilder) AddAggregations(cb func(w *DatabaseStatsBuilder)) {
+	x.buf.Reset()
+	x.databaseStatsBuilder.writer = &x.buf
+	x.databaseStatsBuilder.scratch = x.scratch
+	cb(&x.databaseStatsBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
 type HTTPAggregationsBuilder struct {
 	writer           io.Writer
 	buf              bytes.Buffer
