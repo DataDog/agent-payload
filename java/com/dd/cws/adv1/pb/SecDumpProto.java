@@ -8597,6 +8597,30 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
      */
     com.google.protobuf.ByteString
         getImageTagsBytes(int index);
+
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+     */
+    java.util.List<com.dd.cws.adv1.pb.SecDumpProto.IMDSNode> 
+        getImdsEventsList();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.IMDSNode getImdsEvents(int index);
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+     */
+    int getImdsEventsCount();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+     */
+    java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.IMDSNodeOrBuilder> 
+        getImdsEventsOrBuilderList();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.IMDSNodeOrBuilder getImdsEventsOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code datadog.cws.dumpsv1.ProcessActivityNode}
@@ -8619,6 +8643,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       sockets_ = java.util.Collections.emptyList();
       syscalls_ = emptyIntList();
       imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      imdsEvents_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -8960,6 +8985,47 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       return imageTags_.getByteString(index);
     }
 
+    public static final int IMDS_EVENTS_FIELD_NUMBER = 11;
+    @SuppressWarnings("serial")
+    private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.IMDSNode> imdsEvents_;
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.IMDSNode> getImdsEventsList() {
+      return imdsEvents_;
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.IMDSNodeOrBuilder> 
+        getImdsEventsOrBuilderList() {
+      return imdsEvents_;
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+     */
+    @java.lang.Override
+    public int getImdsEventsCount() {
+      return imdsEvents_.size();
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.IMDSNode getImdsEvents(int index) {
+      return imdsEvents_.get(index);
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.IMDSNodeOrBuilder getImdsEventsOrBuilder(
+        int index) {
+      return imdsEvents_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -9005,6 +9071,9 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       }
       for (int i = 0; i < imageTags_.size(); i++) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 10, imageTags_.getRaw(i));
+      }
+      for (int i = 0; i < imdsEvents_.size(); i++) {
+        output.writeMessage(11, imdsEvents_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -9065,6 +9134,10 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         size += dataSize;
         size += 1 * getImageTagsList().size();
       }
+      for (int i = 0; i < imdsEvents_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(11, imdsEvents_.get(i));
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -9100,6 +9173,8 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           .equals(other.getSyscallsList())) return false;
       if (!getImageTagsList()
           .equals(other.getImageTagsList())) return false;
+      if (!getImdsEventsList()
+          .equals(other.getImdsEventsList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -9144,6 +9219,10 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       if (getImageTagsCount() > 0) {
         hash = (37 * hash) + IMAGE_TAGS_FIELD_NUMBER;
         hash = (53 * hash) + getImageTagsList().hashCode();
+      }
+      if (getImdsEventsCount() > 0) {
+        hash = (37 * hash) + IMDS_EVENTS_FIELD_NUMBER;
+        hash = (53 * hash) + getImdsEventsList().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -9318,6 +9397,13 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         syscalls_ = emptyIntList();
         imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000100);
+        if (imdsEventsBuilder_ == null) {
+          imdsEvents_ = java.util.Collections.emptyList();
+        } else {
+          imdsEvents_ = null;
+          imdsEventsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000200);
         return this;
       }
 
@@ -9406,6 +9492,15 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           bitField0_ = (bitField0_ & ~0x00000100);
         }
         result.imageTags_ = imageTags_;
+        if (imdsEventsBuilder_ == null) {
+          if (((bitField0_ & 0x00000200) != 0)) {
+            imdsEvents_ = java.util.Collections.unmodifiableList(imdsEvents_);
+            bitField0_ = (bitField0_ & ~0x00000200);
+          }
+          result.imdsEvents_ = imdsEvents_;
+        } else {
+          result.imdsEvents_ = imdsEventsBuilder_.build();
+        }
       }
 
       private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.ProcessActivityNode result) {
@@ -9620,6 +9715,32 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           }
           onChanged();
         }
+        if (imdsEventsBuilder_ == null) {
+          if (!other.imdsEvents_.isEmpty()) {
+            if (imdsEvents_.isEmpty()) {
+              imdsEvents_ = other.imdsEvents_;
+              bitField0_ = (bitField0_ & ~0x00000200);
+            } else {
+              ensureImdsEventsIsMutable();
+              imdsEvents_.addAll(other.imdsEvents_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.imdsEvents_.isEmpty()) {
+            if (imdsEventsBuilder_.isEmpty()) {
+              imdsEventsBuilder_.dispose();
+              imdsEventsBuilder_ = null;
+              imdsEvents_ = other.imdsEvents_;
+              bitField0_ = (bitField0_ & ~0x00000200);
+              imdsEventsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getImdsEventsFieldBuilder() : null;
+            } else {
+              imdsEventsBuilder_.addAllMessages(other.imdsEvents_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -9745,6 +9866,19 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
                 imageTags_.add(s);
                 break;
               } // case 82
+              case 90: {
+                com.dd.cws.adv1.pb.SecDumpProto.IMDSNode m =
+                    input.readMessage(
+                        com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.parser(),
+                        extensionRegistry);
+                if (imdsEventsBuilder_ == null) {
+                  ensureImdsEventsIsMutable();
+                  imdsEvents_.add(m);
+                } else {
+                  imdsEventsBuilder_.addMessage(m);
+                }
+                break;
+              } // case 90
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -11318,6 +11452,246 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         onChanged();
         return this;
       }
+
+      private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.IMDSNode> imdsEvents_ =
+        java.util.Collections.emptyList();
+      private void ensureImdsEventsIsMutable() {
+        if (!((bitField0_ & 0x00000200) != 0)) {
+          imdsEvents_ = new java.util.ArrayList<com.dd.cws.adv1.pb.SecDumpProto.IMDSNode>(imdsEvents_);
+          bitField0_ |= 0x00000200;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.IMDSNode, com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.IMDSNodeOrBuilder> imdsEventsBuilder_;
+
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.IMDSNode> getImdsEventsList() {
+        if (imdsEventsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(imdsEvents_);
+        } else {
+          return imdsEventsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public int getImdsEventsCount() {
+        if (imdsEventsBuilder_ == null) {
+          return imdsEvents_.size();
+        } else {
+          return imdsEventsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.IMDSNode getImdsEvents(int index) {
+        if (imdsEventsBuilder_ == null) {
+          return imdsEvents_.get(index);
+        } else {
+          return imdsEventsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public Builder setImdsEvents(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.IMDSNode value) {
+        if (imdsEventsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureImdsEventsIsMutable();
+          imdsEvents_.set(index, value);
+          onChanged();
+        } else {
+          imdsEventsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public Builder setImdsEvents(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.Builder builderForValue) {
+        if (imdsEventsBuilder_ == null) {
+          ensureImdsEventsIsMutable();
+          imdsEvents_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          imdsEventsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public Builder addImdsEvents(com.dd.cws.adv1.pb.SecDumpProto.IMDSNode value) {
+        if (imdsEventsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureImdsEventsIsMutable();
+          imdsEvents_.add(value);
+          onChanged();
+        } else {
+          imdsEventsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public Builder addImdsEvents(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.IMDSNode value) {
+        if (imdsEventsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureImdsEventsIsMutable();
+          imdsEvents_.add(index, value);
+          onChanged();
+        } else {
+          imdsEventsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public Builder addImdsEvents(
+          com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.Builder builderForValue) {
+        if (imdsEventsBuilder_ == null) {
+          ensureImdsEventsIsMutable();
+          imdsEvents_.add(builderForValue.build());
+          onChanged();
+        } else {
+          imdsEventsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public Builder addImdsEvents(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.Builder builderForValue) {
+        if (imdsEventsBuilder_ == null) {
+          ensureImdsEventsIsMutable();
+          imdsEvents_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          imdsEventsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public Builder addAllImdsEvents(
+          java.lang.Iterable<? extends com.dd.cws.adv1.pb.SecDumpProto.IMDSNode> values) {
+        if (imdsEventsBuilder_ == null) {
+          ensureImdsEventsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, imdsEvents_);
+          onChanged();
+        } else {
+          imdsEventsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public Builder clearImdsEvents() {
+        if (imdsEventsBuilder_ == null) {
+          imdsEvents_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000200);
+          onChanged();
+        } else {
+          imdsEventsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public Builder removeImdsEvents(int index) {
+        if (imdsEventsBuilder_ == null) {
+          ensureImdsEventsIsMutable();
+          imdsEvents_.remove(index);
+          onChanged();
+        } else {
+          imdsEventsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.Builder getImdsEventsBuilder(
+          int index) {
+        return getImdsEventsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.IMDSNodeOrBuilder getImdsEventsOrBuilder(
+          int index) {
+        if (imdsEventsBuilder_ == null) {
+          return imdsEvents_.get(index);  } else {
+          return imdsEventsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.IMDSNodeOrBuilder> 
+           getImdsEventsOrBuilderList() {
+        if (imdsEventsBuilder_ != null) {
+          return imdsEventsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(imdsEvents_);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.Builder addImdsEventsBuilder() {
+        return getImdsEventsFieldBuilder().addBuilder(
+            com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.Builder addImdsEventsBuilder(
+          int index) {
+        return getImdsEventsFieldBuilder().addBuilder(
+            index, com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.IMDSNode imds_events = 11;</code>
+       */
+      public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.Builder> 
+           getImdsEventsBuilderList() {
+        return getImdsEventsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.IMDSNode, com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.IMDSNodeOrBuilder> 
+          getImdsEventsFieldBuilder() {
+        if (imdsEventsBuilder_ == null) {
+          imdsEventsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.IMDSNode, com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.IMDSNodeOrBuilder>(
+                  imdsEvents_,
+                  ((bitField0_ & 0x00000200) != 0),
+                  getParentForChildren(),
+                  isClean());
+          imdsEvents_ = null;
+        }
+        return imdsEventsBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -11407,7 +11781,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint32 cookie = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=81
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=82
      * @return The cookie.
      */
     @java.lang.Deprecated int getCookie();
@@ -11684,7 +12058,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint32 cookie = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=81
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=82
      * @return The cookie.
      */
     @java.lang.Override
@@ -13066,7 +13440,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint32 cookie = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=81
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=82
        * @return The cookie.
        */
       @java.lang.Override
@@ -13076,7 +13450,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint32 cookie = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=81
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=82
        * @param value The cookie to set.
        * @return This builder for chaining.
        */
@@ -13090,7 +13464,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint32 cookie = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=81
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=82
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearCookie() {
@@ -19200,6 +19574,4507 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
 
     @java.lang.Override
     public com.dd.cws.adv1.pb.SecDumpProto.DNSInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface IMDSNodeOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.IMDSNode)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    java.util.List<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule> 
+        getMatchedRulesList();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.MatchedRule getMatchedRules(int index);
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    int getMatchedRulesCount();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder> 
+        getMatchedRulesOrBuilderList();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder getMatchedRulesOrBuilder(
+        int index);
+
+    /**
+     * <code>repeated string image_tags = 2;</code>
+     * @return A list containing the imageTags.
+     */
+    java.util.List<java.lang.String>
+        getImageTagsList();
+    /**
+     * <code>repeated string image_tags = 2;</code>
+     * @return The count of imageTags.
+     */
+    int getImageTagsCount();
+    /**
+     * <code>repeated string image_tags = 2;</code>
+     * @param index The index of the element to return.
+     * @return The imageTags at the given index.
+     */
+    java.lang.String getImageTags(int index);
+    /**
+     * <code>repeated string image_tags = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the imageTags at the given index.
+     */
+    com.google.protobuf.ByteString
+        getImageTagsBytes(int index);
+
+    /**
+     * <code>.datadog.cws.dumpsv1.IMDSEvent event = 3;</code>
+     * @return Whether the event field is set.
+     */
+    boolean hasEvent();
+    /**
+     * <code>.datadog.cws.dumpsv1.IMDSEvent event = 3;</code>
+     * @return The event.
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent getEvent();
+    /**
+     * <code>.datadog.cws.dumpsv1.IMDSEvent event = 3;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.IMDSEventOrBuilder getEventOrBuilder();
+  }
+  /**
+   * Protobuf type {@code datadog.cws.dumpsv1.IMDSNode}
+   */
+  public static final class IMDSNode extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.IMDSNode)
+      IMDSNodeOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMDSNode.newBuilder() to construct.
+    private IMDSNode(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private IMDSNode() {
+      matchedRules_ = java.util.Collections.emptyList();
+      imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMDSNode();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_IMDSNode_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_IMDSNode_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.class, com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.Builder.class);
+    }
+
+    public static final int MATCHED_RULES_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule> matchedRules_;
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule> getMatchedRulesList() {
+      return matchedRules_;
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder> 
+        getMatchedRulesOrBuilderList() {
+      return matchedRules_;
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    @java.lang.Override
+    public int getMatchedRulesCount() {
+      return matchedRules_.size();
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.MatchedRule getMatchedRules(int index) {
+      return matchedRules_.get(index);
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder getMatchedRulesOrBuilder(
+        int index) {
+      return matchedRules_.get(index);
+    }
+
+    public static final int IMAGE_TAGS_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringList imageTags_;
+    /**
+     * <code>repeated string image_tags = 2;</code>
+     * @return A list containing the imageTags.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getImageTagsList() {
+      return imageTags_;
+    }
+    /**
+     * <code>repeated string image_tags = 2;</code>
+     * @return The count of imageTags.
+     */
+    public int getImageTagsCount() {
+      return imageTags_.size();
+    }
+    /**
+     * <code>repeated string image_tags = 2;</code>
+     * @param index The index of the element to return.
+     * @return The imageTags at the given index.
+     */
+    public java.lang.String getImageTags(int index) {
+      return imageTags_.get(index);
+    }
+    /**
+     * <code>repeated string image_tags = 2;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the imageTags at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getImageTagsBytes(int index) {
+      return imageTags_.getByteString(index);
+    }
+
+    public static final int EVENT_FIELD_NUMBER = 3;
+    private com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent event_;
+    /**
+     * <code>.datadog.cws.dumpsv1.IMDSEvent event = 3;</code>
+     * @return Whether the event field is set.
+     */
+    @java.lang.Override
+    public boolean hasEvent() {
+      return event_ != null;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.IMDSEvent event = 3;</code>
+     * @return The event.
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent getEvent() {
+      return event_ == null ? com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.getDefaultInstance() : event_;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.IMDSEvent event = 3;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.IMDSEventOrBuilder getEventOrBuilder() {
+      return event_ == null ? com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.getDefaultInstance() : event_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < matchedRules_.size(); i++) {
+        output.writeMessage(1, matchedRules_.get(i));
+      }
+      for (int i = 0; i < imageTags_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, imageTags_.getRaw(i));
+      }
+      if (event_ != null) {
+        output.writeMessage(3, getEvent());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < matchedRules_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, matchedRules_.get(i));
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < imageTags_.size(); i++) {
+          dataSize += computeStringSizeNoTag(imageTags_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getImageTagsList().size();
+      }
+      if (event_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getEvent());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.IMDSNode)) {
+        return super.equals(obj);
+      }
+      com.dd.cws.adv1.pb.SecDumpProto.IMDSNode other = (com.dd.cws.adv1.pb.SecDumpProto.IMDSNode) obj;
+
+      if (!getMatchedRulesList()
+          .equals(other.getMatchedRulesList())) return false;
+      if (!getImageTagsList()
+          .equals(other.getImageTagsList())) return false;
+      if (hasEvent() != other.hasEvent()) return false;
+      if (hasEvent()) {
+        if (!getEvent()
+            .equals(other.getEvent())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getMatchedRulesCount() > 0) {
+        hash = (37 * hash) + MATCHED_RULES_FIELD_NUMBER;
+        hash = (53 * hash) + getMatchedRulesList().hashCode();
+      }
+      if (getImageTagsCount() > 0) {
+        hash = (37 * hash) + IMAGE_TAGS_FIELD_NUMBER;
+        hash = (53 * hash) + getImageTagsList().hashCode();
+      }
+      if (hasEvent()) {
+        hash = (37 * hash) + EVENT_FIELD_NUMBER;
+        hash = (53 * hash) + getEvent().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSNode parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSNode parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSNode parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSNode parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSNode parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSNode parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSNode parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSNode parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSNode parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSNode parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSNode parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSNode parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.IMDSNode prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code datadog.cws.dumpsv1.IMDSNode}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.IMDSNode)
+        com.dd.cws.adv1.pb.SecDumpProto.IMDSNodeOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_IMDSNode_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_IMDSNode_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.class, com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.Builder.class);
+      }
+
+      // Construct using com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        if (matchedRulesBuilder_ == null) {
+          matchedRules_ = java.util.Collections.emptyList();
+        } else {
+          matchedRules_ = null;
+          matchedRulesBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        event_ = null;
+        if (eventBuilder_ != null) {
+          eventBuilder_.dispose();
+          eventBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_IMDSNode_descriptor;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.IMDSNode getDefaultInstanceForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.IMDSNode build() {
+        com.dd.cws.adv1.pb.SecDumpProto.IMDSNode result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.IMDSNode buildPartial() {
+        com.dd.cws.adv1.pb.SecDumpProto.IMDSNode result = new com.dd.cws.adv1.pb.SecDumpProto.IMDSNode(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(com.dd.cws.adv1.pb.SecDumpProto.IMDSNode result) {
+        if (matchedRulesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            matchedRules_ = java.util.Collections.unmodifiableList(matchedRules_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.matchedRules_ = matchedRules_;
+        } else {
+          result.matchedRules_ = matchedRulesBuilder_.build();
+        }
+        if (((bitField0_ & 0x00000002) != 0)) {
+          imageTags_ = imageTags_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.imageTags_ = imageTags_;
+      }
+
+      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.IMDSNode result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.event_ = eventBuilder_ == null
+              ? event_
+              : eventBuilder_.build();
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.IMDSNode) {
+          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.IMDSNode)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.IMDSNode other) {
+        if (other == com.dd.cws.adv1.pb.SecDumpProto.IMDSNode.getDefaultInstance()) return this;
+        if (matchedRulesBuilder_ == null) {
+          if (!other.matchedRules_.isEmpty()) {
+            if (matchedRules_.isEmpty()) {
+              matchedRules_ = other.matchedRules_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureMatchedRulesIsMutable();
+              matchedRules_.addAll(other.matchedRules_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.matchedRules_.isEmpty()) {
+            if (matchedRulesBuilder_.isEmpty()) {
+              matchedRulesBuilder_.dispose();
+              matchedRulesBuilder_ = null;
+              matchedRules_ = other.matchedRules_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              matchedRulesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getMatchedRulesFieldBuilder() : null;
+            } else {
+              matchedRulesBuilder_.addAllMessages(other.matchedRules_);
+            }
+          }
+        }
+        if (!other.imageTags_.isEmpty()) {
+          if (imageTags_.isEmpty()) {
+            imageTags_ = other.imageTags_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureImageTagsIsMutable();
+            imageTags_.addAll(other.imageTags_);
+          }
+          onChanged();
+        }
+        if (other.hasEvent()) {
+          mergeEvent(other.getEvent());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                com.dd.cws.adv1.pb.SecDumpProto.MatchedRule m =
+                    input.readMessage(
+                        com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.parser(),
+                        extensionRegistry);
+                if (matchedRulesBuilder_ == null) {
+                  ensureMatchedRulesIsMutable();
+                  matchedRules_.add(m);
+                } else {
+                  matchedRulesBuilder_.addMessage(m);
+                }
+                break;
+              } // case 10
+              case 18: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureImageTagsIsMutable();
+                imageTags_.add(s);
+                break;
+              } // case 18
+              case 26: {
+                input.readMessage(
+                    getEventFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule> matchedRules_ =
+        java.util.Collections.emptyList();
+      private void ensureMatchedRulesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          matchedRules_ = new java.util.ArrayList<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule>(matchedRules_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.MatchedRule, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder, com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder> matchedRulesBuilder_;
+
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule> getMatchedRulesList() {
+        if (matchedRulesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(matchedRules_);
+        } else {
+          return matchedRulesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public int getMatchedRulesCount() {
+        if (matchedRulesBuilder_ == null) {
+          return matchedRules_.size();
+        } else {
+          return matchedRulesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.MatchedRule getMatchedRules(int index) {
+        if (matchedRulesBuilder_ == null) {
+          return matchedRules_.get(index);
+        } else {
+          return matchedRulesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder setMatchedRules(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule value) {
+        if (matchedRulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMatchedRulesIsMutable();
+          matchedRules_.set(index, value);
+          onChanged();
+        } else {
+          matchedRulesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder setMatchedRules(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder builderForValue) {
+        if (matchedRulesBuilder_ == null) {
+          ensureMatchedRulesIsMutable();
+          matchedRules_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          matchedRulesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder addMatchedRules(com.dd.cws.adv1.pb.SecDumpProto.MatchedRule value) {
+        if (matchedRulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMatchedRulesIsMutable();
+          matchedRules_.add(value);
+          onChanged();
+        } else {
+          matchedRulesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder addMatchedRules(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule value) {
+        if (matchedRulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMatchedRulesIsMutable();
+          matchedRules_.add(index, value);
+          onChanged();
+        } else {
+          matchedRulesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder addMatchedRules(
+          com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder builderForValue) {
+        if (matchedRulesBuilder_ == null) {
+          ensureMatchedRulesIsMutable();
+          matchedRules_.add(builderForValue.build());
+          onChanged();
+        } else {
+          matchedRulesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder addMatchedRules(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder builderForValue) {
+        if (matchedRulesBuilder_ == null) {
+          ensureMatchedRulesIsMutable();
+          matchedRules_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          matchedRulesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder addAllMatchedRules(
+          java.lang.Iterable<? extends com.dd.cws.adv1.pb.SecDumpProto.MatchedRule> values) {
+        if (matchedRulesBuilder_ == null) {
+          ensureMatchedRulesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, matchedRules_);
+          onChanged();
+        } else {
+          matchedRulesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder clearMatchedRules() {
+        if (matchedRulesBuilder_ == null) {
+          matchedRules_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          matchedRulesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder removeMatchedRules(int index) {
+        if (matchedRulesBuilder_ == null) {
+          ensureMatchedRulesIsMutable();
+          matchedRules_.remove(index);
+          onChanged();
+        } else {
+          matchedRulesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder getMatchedRulesBuilder(
+          int index) {
+        return getMatchedRulesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder getMatchedRulesOrBuilder(
+          int index) {
+        if (matchedRulesBuilder_ == null) {
+          return matchedRules_.get(index);  } else {
+          return matchedRulesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder> 
+           getMatchedRulesOrBuilderList() {
+        if (matchedRulesBuilder_ != null) {
+          return matchedRulesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(matchedRules_);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder addMatchedRulesBuilder() {
+        return getMatchedRulesFieldBuilder().addBuilder(
+            com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder addMatchedRulesBuilder(
+          int index) {
+        return getMatchedRulesFieldBuilder().addBuilder(
+            index, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder> 
+           getMatchedRulesBuilderList() {
+        return getMatchedRulesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.MatchedRule, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder, com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder> 
+          getMatchedRulesFieldBuilder() {
+        if (matchedRulesBuilder_ == null) {
+          matchedRulesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.MatchedRule, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder, com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder>(
+                  matchedRules_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          matchedRules_ = null;
+        }
+        return matchedRulesBuilder_;
+      }
+
+      private com.google.protobuf.LazyStringList imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureImageTagsIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          imageTags_ = new com.google.protobuf.LazyStringArrayList(imageTags_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      /**
+       * <code>repeated string image_tags = 2;</code>
+       * @return A list containing the imageTags.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getImageTagsList() {
+        return imageTags_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string image_tags = 2;</code>
+       * @return The count of imageTags.
+       */
+      public int getImageTagsCount() {
+        return imageTags_.size();
+      }
+      /**
+       * <code>repeated string image_tags = 2;</code>
+       * @param index The index of the element to return.
+       * @return The imageTags at the given index.
+       */
+      public java.lang.String getImageTags(int index) {
+        return imageTags_.get(index);
+      }
+      /**
+       * <code>repeated string image_tags = 2;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the imageTags at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getImageTagsBytes(int index) {
+        return imageTags_.getByteString(index);
+      }
+      /**
+       * <code>repeated string image_tags = 2;</code>
+       * @param index The index to set the value at.
+       * @param value The imageTags to set.
+       * @return This builder for chaining.
+       */
+      public Builder setImageTags(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureImageTagsIsMutable();
+        imageTags_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 2;</code>
+       * @param value The imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addImageTags(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureImageTagsIsMutable();
+        imageTags_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 2;</code>
+       * @param values The imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllImageTags(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureImageTagsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, imageTags_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearImageTags() {
+        imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 2;</code>
+       * @param value The bytes of the imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addImageTagsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureImageTagsIsMutable();
+        imageTags_.add(value);
+        onChanged();
+        return this;
+      }
+
+      private com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent event_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent, com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.Builder, com.dd.cws.adv1.pb.SecDumpProto.IMDSEventOrBuilder> eventBuilder_;
+      /**
+       * <code>.datadog.cws.dumpsv1.IMDSEvent event = 3;</code>
+       * @return Whether the event field is set.
+       */
+      public boolean hasEvent() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IMDSEvent event = 3;</code>
+       * @return The event.
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent getEvent() {
+        if (eventBuilder_ == null) {
+          return event_ == null ? com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.getDefaultInstance() : event_;
+        } else {
+          return eventBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IMDSEvent event = 3;</code>
+       */
+      public Builder setEvent(com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent value) {
+        if (eventBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          event_ = value;
+        } else {
+          eventBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IMDSEvent event = 3;</code>
+       */
+      public Builder setEvent(
+          com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.Builder builderForValue) {
+        if (eventBuilder_ == null) {
+          event_ = builderForValue.build();
+        } else {
+          eventBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IMDSEvent event = 3;</code>
+       */
+      public Builder mergeEvent(com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent value) {
+        if (eventBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+            event_ != null &&
+            event_ != com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.getDefaultInstance()) {
+            getEventBuilder().mergeFrom(value);
+          } else {
+            event_ = value;
+          }
+        } else {
+          eventBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IMDSEvent event = 3;</code>
+       */
+      public Builder clearEvent() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        event_ = null;
+        if (eventBuilder_ != null) {
+          eventBuilder_.dispose();
+          eventBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IMDSEvent event = 3;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.Builder getEventBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getEventFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IMDSEvent event = 3;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.IMDSEventOrBuilder getEventOrBuilder() {
+        if (eventBuilder_ != null) {
+          return eventBuilder_.getMessageOrBuilder();
+        } else {
+          return event_ == null ?
+              com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.getDefaultInstance() : event_;
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IMDSEvent event = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent, com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.Builder, com.dd.cws.adv1.pb.SecDumpProto.IMDSEventOrBuilder> 
+          getEventFieldBuilder() {
+        if (eventBuilder_ == null) {
+          eventBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent, com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.Builder, com.dd.cws.adv1.pb.SecDumpProto.IMDSEventOrBuilder>(
+                  getEvent(),
+                  getParentForChildren(),
+                  isClean());
+          event_ = null;
+        }
+        return eventBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.IMDSNode)
+    }
+
+    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.IMDSNode)
+    private static final com.dd.cws.adv1.pb.SecDumpProto.IMDSNode DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.IMDSNode();
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSNode getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<IMDSNode>
+        PARSER = new com.google.protobuf.AbstractParser<IMDSNode>() {
+      @java.lang.Override
+      public IMDSNode parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<IMDSNode> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMDSNode> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.IMDSNode getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface IMDSEventOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.IMDSEvent)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string type = 1;</code>
+     * @return The type.
+     */
+    java.lang.String getType();
+    /**
+     * <code>string type = 1;</code>
+     * @return The bytes for type.
+     */
+    com.google.protobuf.ByteString
+        getTypeBytes();
+
+    /**
+     * <code>string cloud_provider = 2;</code>
+     * @return The cloudProvider.
+     */
+    java.lang.String getCloudProvider();
+    /**
+     * <code>string cloud_provider = 2;</code>
+     * @return The bytes for cloudProvider.
+     */
+    com.google.protobuf.ByteString
+        getCloudProviderBytes();
+
+    /**
+     * <code>string url = 3;</code>
+     * @return The url.
+     */
+    java.lang.String getUrl();
+    /**
+     * <code>string url = 3;</code>
+     * @return The bytes for url.
+     */
+    com.google.protobuf.ByteString
+        getUrlBytes();
+
+    /**
+     * <code>string host = 4;</code>
+     * @return The host.
+     */
+    java.lang.String getHost();
+    /**
+     * <code>string host = 4;</code>
+     * @return The bytes for host.
+     */
+    com.google.protobuf.ByteString
+        getHostBytes();
+
+    /**
+     * <code>string user_agent = 5;</code>
+     * @return The userAgent.
+     */
+    java.lang.String getUserAgent();
+    /**
+     * <code>string user_agent = 5;</code>
+     * @return The bytes for userAgent.
+     */
+    com.google.protobuf.ByteString
+        getUserAgentBytes();
+
+    /**
+     * <code>string server = 6;</code>
+     * @return The server.
+     */
+    java.lang.String getServer();
+    /**
+     * <code>string server = 6;</code>
+     * @return The bytes for server.
+     */
+    com.google.protobuf.ByteString
+        getServerBytes();
+
+    /**
+     * <code>.datadog.cws.dumpsv1.AWSIMDSEvent aws = 7;</code>
+     * @return Whether the aws field is set.
+     */
+    boolean hasAws();
+    /**
+     * <code>.datadog.cws.dumpsv1.AWSIMDSEvent aws = 7;</code>
+     * @return The aws.
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent getAws();
+    /**
+     * <code>.datadog.cws.dumpsv1.AWSIMDSEvent aws = 7;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEventOrBuilder getAwsOrBuilder();
+  }
+  /**
+   * Protobuf type {@code datadog.cws.dumpsv1.IMDSEvent}
+   */
+  public static final class IMDSEvent extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.IMDSEvent)
+      IMDSEventOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IMDSEvent.newBuilder() to construct.
+    private IMDSEvent(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private IMDSEvent() {
+      type_ = "";
+      cloudProvider_ = "";
+      url_ = "";
+      host_ = "";
+      userAgent_ = "";
+      server_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IMDSEvent();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_IMDSEvent_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_IMDSEvent_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.class, com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.Builder.class);
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object type_ = "";
+    /**
+     * <code>string type = 1;</code>
+     * @return The type.
+     */
+    @java.lang.Override
+    public java.lang.String getType() {
+      java.lang.Object ref = type_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        type_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string type = 1;</code>
+     * @return The bytes for type.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTypeBytes() {
+      java.lang.Object ref = type_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        type_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CLOUD_PROVIDER_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object cloudProvider_ = "";
+    /**
+     * <code>string cloud_provider = 2;</code>
+     * @return The cloudProvider.
+     */
+    @java.lang.Override
+    public java.lang.String getCloudProvider() {
+      java.lang.Object ref = cloudProvider_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        cloudProvider_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string cloud_provider = 2;</code>
+     * @return The bytes for cloudProvider.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getCloudProviderBytes() {
+      java.lang.Object ref = cloudProvider_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        cloudProvider_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int URL_FIELD_NUMBER = 3;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object url_ = "";
+    /**
+     * <code>string url = 3;</code>
+     * @return The url.
+     */
+    @java.lang.Override
+    public java.lang.String getUrl() {
+      java.lang.Object ref = url_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        url_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string url = 3;</code>
+     * @return The bytes for url.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUrlBytes() {
+      java.lang.Object ref = url_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        url_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int HOST_FIELD_NUMBER = 4;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object host_ = "";
+    /**
+     * <code>string host = 4;</code>
+     * @return The host.
+     */
+    @java.lang.Override
+    public java.lang.String getHost() {
+      java.lang.Object ref = host_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        host_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string host = 4;</code>
+     * @return The bytes for host.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getHostBytes() {
+      java.lang.Object ref = host_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        host_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int USER_AGENT_FIELD_NUMBER = 5;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object userAgent_ = "";
+    /**
+     * <code>string user_agent = 5;</code>
+     * @return The userAgent.
+     */
+    @java.lang.Override
+    public java.lang.String getUserAgent() {
+      java.lang.Object ref = userAgent_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        userAgent_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string user_agent = 5;</code>
+     * @return The bytes for userAgent.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUserAgentBytes() {
+      java.lang.Object ref = userAgent_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        userAgent_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SERVER_FIELD_NUMBER = 6;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object server_ = "";
+    /**
+     * <code>string server = 6;</code>
+     * @return The server.
+     */
+    @java.lang.Override
+    public java.lang.String getServer() {
+      java.lang.Object ref = server_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        server_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string server = 6;</code>
+     * @return The bytes for server.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getServerBytes() {
+      java.lang.Object ref = server_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        server_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int AWS_FIELD_NUMBER = 7;
+    private com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent aws_;
+    /**
+     * <code>.datadog.cws.dumpsv1.AWSIMDSEvent aws = 7;</code>
+     * @return Whether the aws field is set.
+     */
+    @java.lang.Override
+    public boolean hasAws() {
+      return aws_ != null;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.AWSIMDSEvent aws = 7;</code>
+     * @return The aws.
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent getAws() {
+      return aws_ == null ? com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.getDefaultInstance() : aws_;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.AWSIMDSEvent aws = 7;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEventOrBuilder getAwsOrBuilder() {
+      return aws_ == null ? com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.getDefaultInstance() : aws_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(type_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, type_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(cloudProvider_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, cloudProvider_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(url_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, url_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(host_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, host_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(userAgent_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, userAgent_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(server_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, server_);
+      }
+      if (aws_ != null) {
+        output.writeMessage(7, getAws());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(type_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, type_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(cloudProvider_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, cloudProvider_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(url_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, url_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(host_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, host_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(userAgent_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, userAgent_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(server_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, server_);
+      }
+      if (aws_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(7, getAws());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent)) {
+        return super.equals(obj);
+      }
+      com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent other = (com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent) obj;
+
+      if (!getType()
+          .equals(other.getType())) return false;
+      if (!getCloudProvider()
+          .equals(other.getCloudProvider())) return false;
+      if (!getUrl()
+          .equals(other.getUrl())) return false;
+      if (!getHost()
+          .equals(other.getHost())) return false;
+      if (!getUserAgent()
+          .equals(other.getUserAgent())) return false;
+      if (!getServer()
+          .equals(other.getServer())) return false;
+      if (hasAws() != other.hasAws()) return false;
+      if (hasAws()) {
+        if (!getAws()
+            .equals(other.getAws())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getType().hashCode();
+      hash = (37 * hash) + CLOUD_PROVIDER_FIELD_NUMBER;
+      hash = (53 * hash) + getCloudProvider().hashCode();
+      hash = (37 * hash) + URL_FIELD_NUMBER;
+      hash = (53 * hash) + getUrl().hashCode();
+      hash = (37 * hash) + HOST_FIELD_NUMBER;
+      hash = (53 * hash) + getHost().hashCode();
+      hash = (37 * hash) + USER_AGENT_FIELD_NUMBER;
+      hash = (53 * hash) + getUserAgent().hashCode();
+      hash = (37 * hash) + SERVER_FIELD_NUMBER;
+      hash = (53 * hash) + getServer().hashCode();
+      if (hasAws()) {
+        hash = (37 * hash) + AWS_FIELD_NUMBER;
+        hash = (53 * hash) + getAws().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code datadog.cws.dumpsv1.IMDSEvent}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.IMDSEvent)
+        com.dd.cws.adv1.pb.SecDumpProto.IMDSEventOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_IMDSEvent_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_IMDSEvent_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.class, com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.Builder.class);
+      }
+
+      // Construct using com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        type_ = "";
+        cloudProvider_ = "";
+        url_ = "";
+        host_ = "";
+        userAgent_ = "";
+        server_ = "";
+        aws_ = null;
+        if (awsBuilder_ != null) {
+          awsBuilder_.dispose();
+          awsBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_IMDSEvent_descriptor;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent getDefaultInstanceForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent build() {
+        com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent buildPartial() {
+        com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent result = new com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.type_ = type_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.cloudProvider_ = cloudProvider_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.url_ = url_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.host_ = host_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.userAgent_ = userAgent_;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.server_ = server_;
+        }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.aws_ = awsBuilder_ == null
+              ? aws_
+              : awsBuilder_.build();
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent) {
+          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent other) {
+        if (other == com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent.getDefaultInstance()) return this;
+        if (!other.getType().isEmpty()) {
+          type_ = other.type_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (!other.getCloudProvider().isEmpty()) {
+          cloudProvider_ = other.cloudProvider_;
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        if (!other.getUrl().isEmpty()) {
+          url_ = other.url_;
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        if (!other.getHost().isEmpty()) {
+          host_ = other.host_;
+          bitField0_ |= 0x00000008;
+          onChanged();
+        }
+        if (!other.getUserAgent().isEmpty()) {
+          userAgent_ = other.userAgent_;
+          bitField0_ |= 0x00000010;
+          onChanged();
+        }
+        if (!other.getServer().isEmpty()) {
+          server_ = other.server_;
+          bitField0_ |= 0x00000020;
+          onChanged();
+        }
+        if (other.hasAws()) {
+          mergeAws(other.getAws());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                type_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                cloudProvider_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 26: {
+                url_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              case 34: {
+                host_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
+              case 42: {
+                userAgent_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 42
+              case 50: {
+                server_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 50
+              case 58: {
+                input.readMessage(
+                    getAwsFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000040;
+                break;
+              } // case 58
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object type_ = "";
+      /**
+       * <code>string type = 1;</code>
+       * @return The type.
+       */
+      public java.lang.String getType() {
+        java.lang.Object ref = type_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          type_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string type = 1;</code>
+       * @return The bytes for type.
+       */
+      public com.google.protobuf.ByteString
+          getTypeBytes() {
+        java.lang.Object ref = type_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          type_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string type = 1;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setType(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        type_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string type = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearType() {
+        type_ = getDefaultInstance().getType();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string type = 1;</code>
+       * @param value The bytes for type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        type_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object cloudProvider_ = "";
+      /**
+       * <code>string cloud_provider = 2;</code>
+       * @return The cloudProvider.
+       */
+      public java.lang.String getCloudProvider() {
+        java.lang.Object ref = cloudProvider_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          cloudProvider_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string cloud_provider = 2;</code>
+       * @return The bytes for cloudProvider.
+       */
+      public com.google.protobuf.ByteString
+          getCloudProviderBytes() {
+        java.lang.Object ref = cloudProvider_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          cloudProvider_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string cloud_provider = 2;</code>
+       * @param value The cloudProvider to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCloudProvider(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        cloudProvider_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string cloud_provider = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCloudProvider() {
+        cloudProvider_ = getDefaultInstance().getCloudProvider();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string cloud_provider = 2;</code>
+       * @param value The bytes for cloudProvider to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCloudProviderBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        cloudProvider_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object url_ = "";
+      /**
+       * <code>string url = 3;</code>
+       * @return The url.
+       */
+      public java.lang.String getUrl() {
+        java.lang.Object ref = url_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          url_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string url = 3;</code>
+       * @return The bytes for url.
+       */
+      public com.google.protobuf.ByteString
+          getUrlBytes() {
+        java.lang.Object ref = url_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          url_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string url = 3;</code>
+       * @param value The url to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUrl(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        url_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string url = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUrl() {
+        url_ = getDefaultInstance().getUrl();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string url = 3;</code>
+       * @param value The bytes for url to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUrlBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        url_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object host_ = "";
+      /**
+       * <code>string host = 4;</code>
+       * @return The host.
+       */
+      public java.lang.String getHost() {
+        java.lang.Object ref = host_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          host_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string host = 4;</code>
+       * @return The bytes for host.
+       */
+      public com.google.protobuf.ByteString
+          getHostBytes() {
+        java.lang.Object ref = host_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          host_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string host = 4;</code>
+       * @param value The host to set.
+       * @return This builder for chaining.
+       */
+      public Builder setHost(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        host_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string host = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearHost() {
+        host_ = getDefaultInstance().getHost();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string host = 4;</code>
+       * @param value The bytes for host to set.
+       * @return This builder for chaining.
+       */
+      public Builder setHostBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        host_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object userAgent_ = "";
+      /**
+       * <code>string user_agent = 5;</code>
+       * @return The userAgent.
+       */
+      public java.lang.String getUserAgent() {
+        java.lang.Object ref = userAgent_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          userAgent_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string user_agent = 5;</code>
+       * @return The bytes for userAgent.
+       */
+      public com.google.protobuf.ByteString
+          getUserAgentBytes() {
+        java.lang.Object ref = userAgent_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          userAgent_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string user_agent = 5;</code>
+       * @param value The userAgent to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserAgent(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        userAgent_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string user_agent = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUserAgent() {
+        userAgent_ = getDefaultInstance().getUserAgent();
+        bitField0_ = (bitField0_ & ~0x00000010);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string user_agent = 5;</code>
+       * @param value The bytes for userAgent to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserAgentBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        userAgent_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object server_ = "";
+      /**
+       * <code>string server = 6;</code>
+       * @return The server.
+       */
+      public java.lang.String getServer() {
+        java.lang.Object ref = server_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          server_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string server = 6;</code>
+       * @return The bytes for server.
+       */
+      public com.google.protobuf.ByteString
+          getServerBytes() {
+        java.lang.Object ref = server_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          server_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string server = 6;</code>
+       * @param value The server to set.
+       * @return This builder for chaining.
+       */
+      public Builder setServer(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        server_ = value;
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string server = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearServer() {
+        server_ = getDefaultInstance().getServer();
+        bitField0_ = (bitField0_ & ~0x00000020);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string server = 6;</code>
+       * @param value The bytes for server to set.
+       * @return This builder for chaining.
+       */
+      public Builder setServerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        server_ = value;
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+
+      private com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent aws_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent, com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.Builder, com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEventOrBuilder> awsBuilder_;
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSIMDSEvent aws = 7;</code>
+       * @return Whether the aws field is set.
+       */
+      public boolean hasAws() {
+        return ((bitField0_ & 0x00000040) != 0);
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSIMDSEvent aws = 7;</code>
+       * @return The aws.
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent getAws() {
+        if (awsBuilder_ == null) {
+          return aws_ == null ? com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.getDefaultInstance() : aws_;
+        } else {
+          return awsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSIMDSEvent aws = 7;</code>
+       */
+      public Builder setAws(com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent value) {
+        if (awsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          aws_ = value;
+        } else {
+          awsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSIMDSEvent aws = 7;</code>
+       */
+      public Builder setAws(
+          com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.Builder builderForValue) {
+        if (awsBuilder_ == null) {
+          aws_ = builderForValue.build();
+        } else {
+          awsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSIMDSEvent aws = 7;</code>
+       */
+      public Builder mergeAws(com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent value) {
+        if (awsBuilder_ == null) {
+          if (((bitField0_ & 0x00000040) != 0) &&
+            aws_ != null &&
+            aws_ != com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.getDefaultInstance()) {
+            getAwsBuilder().mergeFrom(value);
+          } else {
+            aws_ = value;
+          }
+        } else {
+          awsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSIMDSEvent aws = 7;</code>
+       */
+      public Builder clearAws() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        aws_ = null;
+        if (awsBuilder_ != null) {
+          awsBuilder_.dispose();
+          awsBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSIMDSEvent aws = 7;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.Builder getAwsBuilder() {
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return getAwsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSIMDSEvent aws = 7;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEventOrBuilder getAwsOrBuilder() {
+        if (awsBuilder_ != null) {
+          return awsBuilder_.getMessageOrBuilder();
+        } else {
+          return aws_ == null ?
+              com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.getDefaultInstance() : aws_;
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSIMDSEvent aws = 7;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent, com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.Builder, com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEventOrBuilder> 
+          getAwsFieldBuilder() {
+        if (awsBuilder_ == null) {
+          awsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent, com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.Builder, com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEventOrBuilder>(
+                  getAws(),
+                  getParentForChildren(),
+                  isClean());
+          aws_ = null;
+        }
+        return awsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.IMDSEvent)
+    }
+
+    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.IMDSEvent)
+    private static final com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent();
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<IMDSEvent>
+        PARSER = new com.google.protobuf.AbstractParser<IMDSEvent>() {
+      @java.lang.Override
+      public IMDSEvent parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<IMDSEvent> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IMDSEvent> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.IMDSEvent getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface AWSIMDSEventOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.AWSIMDSEvent)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bool is_imds_v2 = 1;</code>
+     * @return The isImdsV2.
+     */
+    boolean getIsImdsV2();
+
+    /**
+     * <code>.datadog.cws.dumpsv1.AWSSecurityCredentials security_credentials = 2;</code>
+     * @return Whether the securityCredentials field is set.
+     */
+    boolean hasSecurityCredentials();
+    /**
+     * <code>.datadog.cws.dumpsv1.AWSSecurityCredentials security_credentials = 2;</code>
+     * @return The securityCredentials.
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials getSecurityCredentials();
+    /**
+     * <code>.datadog.cws.dumpsv1.AWSSecurityCredentials security_credentials = 2;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentialsOrBuilder getSecurityCredentialsOrBuilder();
+  }
+  /**
+   * Protobuf type {@code datadog.cws.dumpsv1.AWSIMDSEvent}
+   */
+  public static final class AWSIMDSEvent extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.AWSIMDSEvent)
+      AWSIMDSEventOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use AWSIMDSEvent.newBuilder() to construct.
+    private AWSIMDSEvent(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AWSIMDSEvent() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new AWSIMDSEvent();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.class, com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.Builder.class);
+    }
+
+    public static final int IS_IMDS_V2_FIELD_NUMBER = 1;
+    private boolean isImdsV2_ = false;
+    /**
+     * <code>bool is_imds_v2 = 1;</code>
+     * @return The isImdsV2.
+     */
+    @java.lang.Override
+    public boolean getIsImdsV2() {
+      return isImdsV2_;
+    }
+
+    public static final int SECURITY_CREDENTIALS_FIELD_NUMBER = 2;
+    private com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials securityCredentials_;
+    /**
+     * <code>.datadog.cws.dumpsv1.AWSSecurityCredentials security_credentials = 2;</code>
+     * @return Whether the securityCredentials field is set.
+     */
+    @java.lang.Override
+    public boolean hasSecurityCredentials() {
+      return securityCredentials_ != null;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.AWSSecurityCredentials security_credentials = 2;</code>
+     * @return The securityCredentials.
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials getSecurityCredentials() {
+      return securityCredentials_ == null ? com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.getDefaultInstance() : securityCredentials_;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.AWSSecurityCredentials security_credentials = 2;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentialsOrBuilder getSecurityCredentialsOrBuilder() {
+      return securityCredentials_ == null ? com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.getDefaultInstance() : securityCredentials_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (isImdsV2_ != false) {
+        output.writeBool(1, isImdsV2_);
+      }
+      if (securityCredentials_ != null) {
+        output.writeMessage(2, getSecurityCredentials());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (isImdsV2_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, isImdsV2_);
+      }
+      if (securityCredentials_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getSecurityCredentials());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent)) {
+        return super.equals(obj);
+      }
+      com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent other = (com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent) obj;
+
+      if (getIsImdsV2()
+          != other.getIsImdsV2()) return false;
+      if (hasSecurityCredentials() != other.hasSecurityCredentials()) return false;
+      if (hasSecurityCredentials()) {
+        if (!getSecurityCredentials()
+            .equals(other.getSecurityCredentials())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + IS_IMDS_V2_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsImdsV2());
+      if (hasSecurityCredentials()) {
+        hash = (37 * hash) + SECURITY_CREDENTIALS_FIELD_NUMBER;
+        hash = (53 * hash) + getSecurityCredentials().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code datadog.cws.dumpsv1.AWSIMDSEvent}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.AWSIMDSEvent)
+        com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEventOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.class, com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.Builder.class);
+      }
+
+      // Construct using com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        isImdsV2_ = false;
+        securityCredentials_ = null;
+        if (securityCredentialsBuilder_ != null) {
+          securityCredentialsBuilder_.dispose();
+          securityCredentialsBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_descriptor;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent getDefaultInstanceForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent build() {
+        com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent buildPartial() {
+        com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent result = new com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.isImdsV2_ = isImdsV2_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.securityCredentials_ = securityCredentialsBuilder_ == null
+              ? securityCredentials_
+              : securityCredentialsBuilder_.build();
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent) {
+          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent other) {
+        if (other == com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent.getDefaultInstance()) return this;
+        if (other.getIsImdsV2() != false) {
+          setIsImdsV2(other.getIsImdsV2());
+        }
+        if (other.hasSecurityCredentials()) {
+          mergeSecurityCredentials(other.getSecurityCredentials());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                isImdsV2_ = input.readBool();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              case 18: {
+                input.readMessage(
+                    getSecurityCredentialsFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private boolean isImdsV2_ ;
+      /**
+       * <code>bool is_imds_v2 = 1;</code>
+       * @return The isImdsV2.
+       */
+      @java.lang.Override
+      public boolean getIsImdsV2() {
+        return isImdsV2_;
+      }
+      /**
+       * <code>bool is_imds_v2 = 1;</code>
+       * @param value The isImdsV2 to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsImdsV2(boolean value) {
+        
+        isImdsV2_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool is_imds_v2 = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsImdsV2() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        isImdsV2_ = false;
+        onChanged();
+        return this;
+      }
+
+      private com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials securityCredentials_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials, com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.Builder, com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentialsOrBuilder> securityCredentialsBuilder_;
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSSecurityCredentials security_credentials = 2;</code>
+       * @return Whether the securityCredentials field is set.
+       */
+      public boolean hasSecurityCredentials() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSSecurityCredentials security_credentials = 2;</code>
+       * @return The securityCredentials.
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials getSecurityCredentials() {
+        if (securityCredentialsBuilder_ == null) {
+          return securityCredentials_ == null ? com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.getDefaultInstance() : securityCredentials_;
+        } else {
+          return securityCredentialsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSSecurityCredentials security_credentials = 2;</code>
+       */
+      public Builder setSecurityCredentials(com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials value) {
+        if (securityCredentialsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          securityCredentials_ = value;
+        } else {
+          securityCredentialsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSSecurityCredentials security_credentials = 2;</code>
+       */
+      public Builder setSecurityCredentials(
+          com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.Builder builderForValue) {
+        if (securityCredentialsBuilder_ == null) {
+          securityCredentials_ = builderForValue.build();
+        } else {
+          securityCredentialsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSSecurityCredentials security_credentials = 2;</code>
+       */
+      public Builder mergeSecurityCredentials(com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials value) {
+        if (securityCredentialsBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+            securityCredentials_ != null &&
+            securityCredentials_ != com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.getDefaultInstance()) {
+            getSecurityCredentialsBuilder().mergeFrom(value);
+          } else {
+            securityCredentials_ = value;
+          }
+        } else {
+          securityCredentialsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSSecurityCredentials security_credentials = 2;</code>
+       */
+      public Builder clearSecurityCredentials() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        securityCredentials_ = null;
+        if (securityCredentialsBuilder_ != null) {
+          securityCredentialsBuilder_.dispose();
+          securityCredentialsBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSSecurityCredentials security_credentials = 2;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.Builder getSecurityCredentialsBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getSecurityCredentialsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSSecurityCredentials security_credentials = 2;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentialsOrBuilder getSecurityCredentialsOrBuilder() {
+        if (securityCredentialsBuilder_ != null) {
+          return securityCredentialsBuilder_.getMessageOrBuilder();
+        } else {
+          return securityCredentials_ == null ?
+              com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.getDefaultInstance() : securityCredentials_;
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.AWSSecurityCredentials security_credentials = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials, com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.Builder, com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentialsOrBuilder> 
+          getSecurityCredentialsFieldBuilder() {
+        if (securityCredentialsBuilder_ == null) {
+          securityCredentialsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials, com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.Builder, com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentialsOrBuilder>(
+                  getSecurityCredentials(),
+                  getParentForChildren(),
+                  isClean());
+          securityCredentials_ = null;
+        }
+        return securityCredentialsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.AWSIMDSEvent)
+    }
+
+    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.AWSIMDSEvent)
+    private static final com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent();
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AWSIMDSEvent>
+        PARSER = new com.google.protobuf.AbstractParser<AWSIMDSEvent>() {
+      @java.lang.Override
+      public AWSIMDSEvent parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<AWSIMDSEvent> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AWSIMDSEvent> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.AWSIMDSEvent getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface AWSSecurityCredentialsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.AWSSecurityCredentials)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string code = 1;</code>
+     * @return The code.
+     */
+    java.lang.String getCode();
+    /**
+     * <code>string code = 1;</code>
+     * @return The bytes for code.
+     */
+    com.google.protobuf.ByteString
+        getCodeBytes();
+
+    /**
+     * <code>string type = 2;</code>
+     * @return The type.
+     */
+    java.lang.String getType();
+    /**
+     * <code>string type = 2;</code>
+     * @return The bytes for type.
+     */
+    com.google.protobuf.ByteString
+        getTypeBytes();
+
+    /**
+     * <code>string access_key_id = 3;</code>
+     * @return The accessKeyId.
+     */
+    java.lang.String getAccessKeyId();
+    /**
+     * <code>string access_key_id = 3;</code>
+     * @return The bytes for accessKeyId.
+     */
+    com.google.protobuf.ByteString
+        getAccessKeyIdBytes();
+
+    /**
+     * <code>string last_updated = 4;</code>
+     * @return The lastUpdated.
+     */
+    java.lang.String getLastUpdated();
+    /**
+     * <code>string last_updated = 4;</code>
+     * @return The bytes for lastUpdated.
+     */
+    com.google.protobuf.ByteString
+        getLastUpdatedBytes();
+
+    /**
+     * <code>string expiration_raw = 5;</code>
+     * @return The expirationRaw.
+     */
+    java.lang.String getExpirationRaw();
+    /**
+     * <code>string expiration_raw = 5;</code>
+     * @return The bytes for expirationRaw.
+     */
+    com.google.protobuf.ByteString
+        getExpirationRawBytes();
+  }
+  /**
+   * Protobuf type {@code datadog.cws.dumpsv1.AWSSecurityCredentials}
+   */
+  public static final class AWSSecurityCredentials extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.AWSSecurityCredentials)
+      AWSSecurityCredentialsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use AWSSecurityCredentials.newBuilder() to construct.
+    private AWSSecurityCredentials(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private AWSSecurityCredentials() {
+      code_ = "";
+      type_ = "";
+      accessKeyId_ = "";
+      lastUpdated_ = "";
+      expirationRaw_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new AWSSecurityCredentials();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.class, com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.Builder.class);
+    }
+
+    public static final int CODE_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object code_ = "";
+    /**
+     * <code>string code = 1;</code>
+     * @return The code.
+     */
+    @java.lang.Override
+    public java.lang.String getCode() {
+      java.lang.Object ref = code_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        code_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string code = 1;</code>
+     * @return The bytes for code.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getCodeBytes() {
+      java.lang.Object ref = code_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        code_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object type_ = "";
+    /**
+     * <code>string type = 2;</code>
+     * @return The type.
+     */
+    @java.lang.Override
+    public java.lang.String getType() {
+      java.lang.Object ref = type_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        type_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string type = 2;</code>
+     * @return The bytes for type.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTypeBytes() {
+      java.lang.Object ref = type_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        type_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ACCESS_KEY_ID_FIELD_NUMBER = 3;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object accessKeyId_ = "";
+    /**
+     * <code>string access_key_id = 3;</code>
+     * @return The accessKeyId.
+     */
+    @java.lang.Override
+    public java.lang.String getAccessKeyId() {
+      java.lang.Object ref = accessKeyId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        accessKeyId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string access_key_id = 3;</code>
+     * @return The bytes for accessKeyId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getAccessKeyIdBytes() {
+      java.lang.Object ref = accessKeyId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        accessKeyId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LAST_UPDATED_FIELD_NUMBER = 4;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object lastUpdated_ = "";
+    /**
+     * <code>string last_updated = 4;</code>
+     * @return The lastUpdated.
+     */
+    @java.lang.Override
+    public java.lang.String getLastUpdated() {
+      java.lang.Object ref = lastUpdated_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        lastUpdated_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string last_updated = 4;</code>
+     * @return The bytes for lastUpdated.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getLastUpdatedBytes() {
+      java.lang.Object ref = lastUpdated_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        lastUpdated_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EXPIRATION_RAW_FIELD_NUMBER = 5;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object expirationRaw_ = "";
+    /**
+     * <code>string expiration_raw = 5;</code>
+     * @return The expirationRaw.
+     */
+    @java.lang.Override
+    public java.lang.String getExpirationRaw() {
+      java.lang.Object ref = expirationRaw_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        expirationRaw_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string expiration_raw = 5;</code>
+     * @return The bytes for expirationRaw.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getExpirationRawBytes() {
+      java.lang.Object ref = expirationRaw_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        expirationRaw_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(code_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, code_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(type_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, type_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(accessKeyId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, accessKeyId_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(lastUpdated_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, lastUpdated_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(expirationRaw_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, expirationRaw_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(code_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, code_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(type_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, type_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(accessKeyId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, accessKeyId_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(lastUpdated_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, lastUpdated_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(expirationRaw_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, expirationRaw_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials)) {
+        return super.equals(obj);
+      }
+      com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials other = (com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials) obj;
+
+      if (!getCode()
+          .equals(other.getCode())) return false;
+      if (!getType()
+          .equals(other.getType())) return false;
+      if (!getAccessKeyId()
+          .equals(other.getAccessKeyId())) return false;
+      if (!getLastUpdated()
+          .equals(other.getLastUpdated())) return false;
+      if (!getExpirationRaw()
+          .equals(other.getExpirationRaw())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CODE_FIELD_NUMBER;
+      hash = (53 * hash) + getCode().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getType().hashCode();
+      hash = (37 * hash) + ACCESS_KEY_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getAccessKeyId().hashCode();
+      hash = (37 * hash) + LAST_UPDATED_FIELD_NUMBER;
+      hash = (53 * hash) + getLastUpdated().hashCode();
+      hash = (37 * hash) + EXPIRATION_RAW_FIELD_NUMBER;
+      hash = (53 * hash) + getExpirationRaw().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code datadog.cws.dumpsv1.AWSSecurityCredentials}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.AWSSecurityCredentials)
+        com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentialsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.class, com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.Builder.class);
+      }
+
+      // Construct using com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        code_ = "";
+        type_ = "";
+        accessKeyId_ = "";
+        lastUpdated_ = "";
+        expirationRaw_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_descriptor;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials getDefaultInstanceForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials build() {
+        com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials buildPartial() {
+        com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials result = new com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.code_ = code_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.type_ = type_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.accessKeyId_ = accessKeyId_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.lastUpdated_ = lastUpdated_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.expirationRaw_ = expirationRaw_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials) {
+          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials other) {
+        if (other == com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials.getDefaultInstance()) return this;
+        if (!other.getCode().isEmpty()) {
+          code_ = other.code_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (!other.getType().isEmpty()) {
+          type_ = other.type_;
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        if (!other.getAccessKeyId().isEmpty()) {
+          accessKeyId_ = other.accessKeyId_;
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        if (!other.getLastUpdated().isEmpty()) {
+          lastUpdated_ = other.lastUpdated_;
+          bitField0_ |= 0x00000008;
+          onChanged();
+        }
+        if (!other.getExpirationRaw().isEmpty()) {
+          expirationRaw_ = other.expirationRaw_;
+          bitField0_ |= 0x00000010;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                code_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                type_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 26: {
+                accessKeyId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              case 34: {
+                lastUpdated_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
+              case 42: {
+                expirationRaw_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 42
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object code_ = "";
+      /**
+       * <code>string code = 1;</code>
+       * @return The code.
+       */
+      public java.lang.String getCode() {
+        java.lang.Object ref = code_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          code_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string code = 1;</code>
+       * @return The bytes for code.
+       */
+      public com.google.protobuf.ByteString
+          getCodeBytes() {
+        java.lang.Object ref = code_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          code_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string code = 1;</code>
+       * @param value The code to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCode(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        code_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string code = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCode() {
+        code_ = getDefaultInstance().getCode();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string code = 1;</code>
+       * @param value The bytes for code to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCodeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        code_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object type_ = "";
+      /**
+       * <code>string type = 2;</code>
+       * @return The type.
+       */
+      public java.lang.String getType() {
+        java.lang.Object ref = type_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          type_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string type = 2;</code>
+       * @return The bytes for type.
+       */
+      public com.google.protobuf.ByteString
+          getTypeBytes() {
+        java.lang.Object ref = type_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          type_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string type = 2;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setType(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        type_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string type = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearType() {
+        type_ = getDefaultInstance().getType();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string type = 2;</code>
+       * @param value The bytes for type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        type_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object accessKeyId_ = "";
+      /**
+       * <code>string access_key_id = 3;</code>
+       * @return The accessKeyId.
+       */
+      public java.lang.String getAccessKeyId() {
+        java.lang.Object ref = accessKeyId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          accessKeyId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string access_key_id = 3;</code>
+       * @return The bytes for accessKeyId.
+       */
+      public com.google.protobuf.ByteString
+          getAccessKeyIdBytes() {
+        java.lang.Object ref = accessKeyId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          accessKeyId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string access_key_id = 3;</code>
+       * @param value The accessKeyId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAccessKeyId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        accessKeyId_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string access_key_id = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAccessKeyId() {
+        accessKeyId_ = getDefaultInstance().getAccessKeyId();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string access_key_id = 3;</code>
+       * @param value The bytes for accessKeyId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAccessKeyIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        accessKeyId_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object lastUpdated_ = "";
+      /**
+       * <code>string last_updated = 4;</code>
+       * @return The lastUpdated.
+       */
+      public java.lang.String getLastUpdated() {
+        java.lang.Object ref = lastUpdated_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          lastUpdated_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string last_updated = 4;</code>
+       * @return The bytes for lastUpdated.
+       */
+      public com.google.protobuf.ByteString
+          getLastUpdatedBytes() {
+        java.lang.Object ref = lastUpdated_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          lastUpdated_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string last_updated = 4;</code>
+       * @param value The lastUpdated to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLastUpdated(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        lastUpdated_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string last_updated = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLastUpdated() {
+        lastUpdated_ = getDefaultInstance().getLastUpdated();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string last_updated = 4;</code>
+       * @param value The bytes for lastUpdated to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLastUpdatedBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        lastUpdated_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object expirationRaw_ = "";
+      /**
+       * <code>string expiration_raw = 5;</code>
+       * @return The expirationRaw.
+       */
+      public java.lang.String getExpirationRaw() {
+        java.lang.Object ref = expirationRaw_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          expirationRaw_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string expiration_raw = 5;</code>
+       * @return The bytes for expirationRaw.
+       */
+      public com.google.protobuf.ByteString
+          getExpirationRawBytes() {
+        java.lang.Object ref = expirationRaw_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          expirationRaw_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string expiration_raw = 5;</code>
+       * @param value The expirationRaw to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExpirationRaw(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        expirationRaw_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string expiration_raw = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExpirationRaw() {
+        expirationRaw_ = getDefaultInstance().getExpirationRaw();
+        bitField0_ = (bitField0_ & ~0x00000010);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string expiration_raw = 5;</code>
+       * @param value The bytes for expirationRaw to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExpirationRawBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        expirationRaw_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.AWSSecurityCredentials)
+    }
+
+    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.AWSSecurityCredentials)
+    private static final com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials();
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<AWSSecurityCredentials>
+        PARSER = new com.google.protobuf.AbstractParser<AWSSecurityCredentials>() {
+      @java.lang.Override
+      public AWSSecurityCredentials parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<AWSSecurityCredentials> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<AWSSecurityCredentials> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.AWSSecurityCredentials getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -27691,6 +32566,26 @@ java.lang.String defaultValue) {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_datadog_cws_dumpsv1_DNSInfo_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_datadog_cws_dumpsv1_IMDSNode_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_datadog_cws_dumpsv1_IMDSNode_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_datadog_cws_dumpsv1_IMDSEvent_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_datadog_cws_dumpsv1_IMDSEvent_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_datadog_cws_dumpsv1_FileInfo_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -27766,7 +32661,7 @@ java.lang.String defaultValue) {
       "\010 \001(\0132$.datadog.cws.dumpsv1.ProfileSelec" +
       "tor\032[\n\024ProfileContextsEntry\022\013\n\003key\030\001 \001(\t" +
       "\0222\n\005value\030\002 \001(\0132#.datadog.cws.dumpsv1.Pr" +
-      "ofileContext:\0028\001\"\300\003\n\023ProcessActivityNode" +
+      "ofileContext:\0028\001\"\364\003\n\023ProcessActivityNode" +
       "\0221\n\007process\030\001 \001(\0132 .datadog.cws.dumpsv1." +
       "ProcessInfo\022<\n\017generation_type\030\010 \001(\0162#.d" +
       "atadog.cws.dumpsv1.GenerationType\0227\n\rmat" +
@@ -27777,76 +32672,91 @@ java.lang.String defaultValue) {
       "Node\022/\n\tdns_names\030\005 \003(\0132\034.datadog.cws.du" +
       "mpsv1.DNSNode\0220\n\007sockets\030\006 \003(\0132\037.datadog" +
       ".cws.dumpsv1.SocketNode\022\020\n\010syscalls\030\007 \003(" +
-      "\r\022\022\n\nimage_tags\030\n \003(\tJ\004\010\002\020\003\"\321\003\n\013ProcessI" +
-      "nfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\014\n\004ppid\030\003 " +
-      "\001(\r\022\022\n\006cookie\030\004 \001(\rB\002\030\001\022\021\n\tis_thread\030\005 \001" +
-      "(\010\022+\n\004file\030\006 \001(\0132\035.datadog.cws.dumpsv1.F" +
-      "ileInfo\022\024\n\014container_id\030\007 \001(\t\022\017\n\007span_id" +
-      "\030\010 \001(\004\022\020\n\010trace_id\030\t \001(\004\022\013\n\003tty\030\n \001(\t\022\014\n" +
-      "\004comm\030\013 \001(\t\022\021\n\tfork_time\030\014 \001(\004\022\021\n\texit_t" +
-      "ime\030\r \001(\004\022\021\n\texec_time\030\016 \001(\004\0225\n\013credenti" +
-      "als\030\017 \001(\0132 .datadog.cws.dumpsv1.Credenti" +
-      "als\022\014\n\004args\030\020 \003(\t\022\r\n\005argv0\030\021 \001(\t\022\026\n\016args" +
-      "_truncated\030\022 \001(\010\022\014\n\004envs\030\023 \003(\t\022\026\n\016envs_t" +
-      "runcated\030\024 \001(\010\022\025\n\ris_exec_child\030\025 \001(\010\022\020\n" +
-      "\010cookie64\030\026 \001(\004\"\354\002\n\020FileActivityNode\0227\n\r" +
-      "matched_rules\030\t \003(\0132 .datadog.cws.dumpsv" +
-      "1.MatchedRule\022\022\n\nimage_tags\030\n \003(\t\022\014\n\004nam" +
-      "e\030\001 \001(\t\022\022\n\nis_pattern\030\007 \001(\010\022+\n\004file\030\002 \001(" +
-      "\0132\035.datadog.cws.dumpsv1.FileInfo\022<\n\017gene" +
-      "ration_type\030\010 \001(\0162#.datadog.cws.dumpsv1." +
-      "GenerationType\022\022\n\nfirst_seen\030\004 \001(\004\022+\n\004op" +
-      "en\030\005 \001(\0132\035.datadog.cws.dumpsv1.OpenNode\022" +
-      "7\n\010children\030\006 \003(\0132%.datadog.cws.dumpsv1." +
-      "FileActivityNodeJ\004\010\003\020\004\"7\n\010OpenNode\022\016\n\006re" +
-      "tval\030\001 \001(\022\022\r\n\005flags\030\002 \001(\r\022\014\n\004mode\030\003 \001(\r\"" +
-      "\206\001\n\007DNSNode\0227\n\rmatched_rules\030\002 \003(\0132 .dat" +
-      "adog.cws.dumpsv1.MatchedRule\022\022\n\nimage_ta" +
-      "gs\030\003 \003(\t\022.\n\010requests\030\001 \003(\0132\034.datadog.cws" +
-      ".dumpsv1.DNSInfo\"Q\n\007DNSInfo\022\014\n\004name\030\001 \001(" +
-      "\t\022\014\n\004type\030\002 \001(\r\022\r\n\005class\030\003 \001(\r\022\014\n\004size\030\004" +
-      " \001(\r\022\r\n\005count\030\005 \001(\r\"\351\002\n\010FileInfo\022\013\n\003uid\030" +
-      "\001 \001(\r\022\014\n\004user\030\002 \001(\t\022\013\n\003gid\030\003 \001(\r\022\r\n\005grou" +
-      "p\030\004 \001(\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005ctime\030\006 \001(\004\022\r\n\005" +
-      "mtime\030\007 \001(\004\022\020\n\010mount_id\030\010 \001(\r\022\r\n\005inode\030\t" +
-      " \001(\004\022\026\n\016in_upper_layer\030\n \001(\010\022\014\n\004path\030\013 \001" +
-      "(\t\022\020\n\010basename\030\014 \001(\t\022\022\n\nfilesystem\030\r \001(\t" +
-      "\022\024\n\014package_name\030\016 \001(\t\022\027\n\017package_versio" +
-      "n\030\017 \001(\t\022\032\n\022package_srcversion\030\020 \001(\t\022\016\n\006h" +
-      "ashes\030\021 \003(\t\0222\n\nhash_state\030\022 \001(\0162\036.datado" +
-      "g.cws.dumpsv1.HashState\"\224\002\n\013Credentials\022" +
-      "\013\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004user\030\003 \001(\t\022" +
-      "\r\n\005group\030\004 \001(\t\022\025\n\reffective_uid\030\005 \001(\r\022\025\n" +
-      "\reffective_gid\030\006 \001(\r\022\026\n\016effective_user\030\007" +
-      " \001(\t\022\027\n\017effective_group\030\010 \001(\t\022\016\n\006fs_uid\030" +
-      "\t \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007fs_user\030\013 \001(\t\022\020" +
-      "\n\010fs_group\030\014 \001(\t\022\025\n\rcap_effective\030\r \001(\004\022" +
-      "\025\n\rcap_permitted\030\016 \001(\004\"I\n\nSocketNode\022\016\n\006" +
-      "family\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035.datadog.cws" +
-      ".dumpsv1.BindNode\"q\n\010BindNode\0227\n\rmatched" +
-      "_rules\030\003 \003(\0132 .datadog.cws.dumpsv1.Match" +
-      "edRule\022\022\n\nimage_tags\030\004 \003(\t\022\014\n\004port\030\001 \001(\r" +
-      "\022\n\n\002ip\030\002 \001(\t\"\325\001\n\013MatchedRule\022\017\n\007rule_id\030" +
-      "\001 \001(\t\022\024\n\014rule_version\030\002 \001(\t\022\023\n\013policy_na" +
-      "me\030\003 \001(\t\022\026\n\016policy_version\030\004 \001(\t\022A\n\trule" +
-      "_tags\030\005 \003(\0132..datadog.cws.dumpsv1.Matche" +
-      "dRule.RuleTagsEntry\032/\n\rRuleTagsEntry\022\013\n\003" +
-      "key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"t\n\020event_ty" +
-      "pe_state\022\031\n\021last_anomaly_nano\030\001 \001(\004\022E\n\023e" +
-      "vent_profile_state\030\002 \001(\0162(.datadog.cws.d" +
-      "umpsv1.event_profile_state*\271\001\n\tHashState" +
-      "\022\013\n\007NO_HASH\020\000\022\010\n\004DONE\020\001\022\022\n\016FILE_NOT_FOUN" +
-      "D\020\002\022\035\n\031PATHNAME_RESOLUTION_ERROR\020\003\022\020\n\014FI" +
-      "LE_TOO_BIG\020\004\022\035\n\031EVENT_TYPE_NOT_CONFIGURE" +
-      "D\020\005\022\031\n\025HASH_WAS_RATE_LIMITED\020\006\022\026\n\022UNKNOW" +
-      "N_HASH_ERROR\020\007*8\n\016GenerationType\022\013\n\007UNKN" +
-      "OWN\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPSHOT\020\002*\220\001\n\023eve" +
-      "nt_profile_state\022\016\n\nNO_PROFILE\020\000\022\027\n\023PROF" +
-      "ILE_AT_MAX_SIZE\020\001\022\024\n\020UNSTABLE_PROFILE\020\002\022" +
-      "\022\n\016STABLE_PROFILE\020\003\022\021\n\rAUTO_LEARNING\020\004\022\023" +
-      "\n\017WORKLOAD_WARMUP\020\005BU\n\022com.dd.cws.adv1.p" +
-      "bB\014SecDumpProtoP\000Z/github.com/DataDog/ag" +
-      "ent-payload/v5/cws/dumpsv1b\006proto3"
+      "\r\022\022\n\nimage_tags\030\n \003(\t\0222\n\013imds_events\030\013 \003" +
+      "(\0132\035.datadog.cws.dumpsv1.IMDSNodeJ\004\010\002\020\003\"" +
+      "\321\003\n\013ProcessInfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(" +
+      "\r\022\014\n\004ppid\030\003 \001(\r\022\022\n\006cookie\030\004 \001(\rB\002\030\001\022\021\n\ti" +
+      "s_thread\030\005 \001(\010\022+\n\004file\030\006 \001(\0132\035.datadog.c" +
+      "ws.dumpsv1.FileInfo\022\024\n\014container_id\030\007 \001(" +
+      "\t\022\017\n\007span_id\030\010 \001(\004\022\020\n\010trace_id\030\t \001(\004\022\013\n\003" +
+      "tty\030\n \001(\t\022\014\n\004comm\030\013 \001(\t\022\021\n\tfork_time\030\014 \001" +
+      "(\004\022\021\n\texit_time\030\r \001(\004\022\021\n\texec_time\030\016 \001(\004" +
+      "\0225\n\013credentials\030\017 \001(\0132 .datadog.cws.dump" +
+      "sv1.Credentials\022\014\n\004args\030\020 \003(\t\022\r\n\005argv0\030\021" +
+      " \001(\t\022\026\n\016args_truncated\030\022 \001(\010\022\014\n\004envs\030\023 \003" +
+      "(\t\022\026\n\016envs_truncated\030\024 \001(\010\022\025\n\ris_exec_ch" +
+      "ild\030\025 \001(\010\022\020\n\010cookie64\030\026 \001(\004\"\354\002\n\020FileActi" +
+      "vityNode\0227\n\rmatched_rules\030\t \003(\0132 .datado" +
+      "g.cws.dumpsv1.MatchedRule\022\022\n\nimage_tags\030" +
+      "\n \003(\t\022\014\n\004name\030\001 \001(\t\022\022\n\nis_pattern\030\007 \001(\010\022" +
+      "+\n\004file\030\002 \001(\0132\035.datadog.cws.dumpsv1.File" +
+      "Info\022<\n\017generation_type\030\010 \001(\0162#.datadog." +
+      "cws.dumpsv1.GenerationType\022\022\n\nfirst_seen" +
+      "\030\004 \001(\004\022+\n\004open\030\005 \001(\0132\035.datadog.cws.dumps" +
+      "v1.OpenNode\0227\n\010children\030\006 \003(\0132%.datadog." +
+      "cws.dumpsv1.FileActivityNodeJ\004\010\003\020\004\"7\n\010Op" +
+      "enNode\022\016\n\006retval\030\001 \001(\022\022\r\n\005flags\030\002 \001(\r\022\014\n" +
+      "\004mode\030\003 \001(\r\"\206\001\n\007DNSNode\0227\n\rmatched_rules" +
+      "\030\002 \003(\0132 .datadog.cws.dumpsv1.MatchedRule" +
+      "\022\022\n\nimage_tags\030\003 \003(\t\022.\n\010requests\030\001 \003(\0132\034" +
+      ".datadog.cws.dumpsv1.DNSInfo\"Q\n\007DNSInfo\022" +
+      "\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(\r\022\r\n\005class\030\003 \001" +
+      "(\r\022\014\n\004size\030\004 \001(\r\022\r\n\005count\030\005 \001(\r\"\206\001\n\010IMDS" +
+      "Node\0227\n\rmatched_rules\030\001 \003(\0132 .datadog.cw" +
+      "s.dumpsv1.MatchedRule\022\022\n\nimage_tags\030\002 \003(" +
+      "\t\022-\n\005event\030\003 \001(\0132\036.datadog.cws.dumpsv1.I" +
+      "MDSEvent\"\240\001\n\tIMDSEvent\022\014\n\004type\030\001 \001(\t\022\026\n\016" +
+      "cloud_provider\030\002 \001(\t\022\013\n\003url\030\003 \001(\t\022\014\n\004hos" +
+      "t\030\004 \001(\t\022\022\n\nuser_agent\030\005 \001(\t\022\016\n\006server\030\006 " +
+      "\001(\t\022.\n\003aws\030\007 \001(\0132!.datadog.cws.dumpsv1.A" +
+      "WSIMDSEvent\"m\n\014AWSIMDSEvent\022\022\n\nis_imds_v" +
+      "2\030\001 \001(\010\022I\n\024security_credentials\030\002 \001(\0132+." +
+      "datadog.cws.dumpsv1.AWSSecurityCredentia" +
+      "ls\"y\n\026AWSSecurityCredentials\022\014\n\004code\030\001 \001" +
+      "(\t\022\014\n\004type\030\002 \001(\t\022\025\n\raccess_key_id\030\003 \001(\t\022" +
+      "\024\n\014last_updated\030\004 \001(\t\022\026\n\016expiration_raw\030" +
+      "\005 \001(\t\"\351\002\n\010FileInfo\022\013\n\003uid\030\001 \001(\r\022\014\n\004user\030" +
+      "\002 \001(\t\022\013\n\003gid\030\003 \001(\r\022\r\n\005group\030\004 \001(\t\022\014\n\004mod" +
+      "e\030\005 \001(\r\022\r\n\005ctime\030\006 \001(\004\022\r\n\005mtime\030\007 \001(\004\022\020\n" +
+      "\010mount_id\030\010 \001(\r\022\r\n\005inode\030\t \001(\004\022\026\n\016in_upp" +
+      "er_layer\030\n \001(\010\022\014\n\004path\030\013 \001(\t\022\020\n\010basename" +
+      "\030\014 \001(\t\022\022\n\nfilesystem\030\r \001(\t\022\024\n\014package_na" +
+      "me\030\016 \001(\t\022\027\n\017package_version\030\017 \001(\t\022\032\n\022pac" +
+      "kage_srcversion\030\020 \001(\t\022\016\n\006hashes\030\021 \003(\t\0222\n" +
+      "\nhash_state\030\022 \001(\0162\036.datadog.cws.dumpsv1." +
+      "HashState\"\224\002\n\013Credentials\022\013\n\003uid\030\001 \001(\r\022\013" +
+      "\n\003gid\030\002 \001(\r\022\014\n\004user\030\003 \001(\t\022\r\n\005group\030\004 \001(\t" +
+      "\022\025\n\reffective_uid\030\005 \001(\r\022\025\n\reffective_gid" +
+      "\030\006 \001(\r\022\026\n\016effective_user\030\007 \001(\t\022\027\n\017effect" +
+      "ive_group\030\010 \001(\t\022\016\n\006fs_uid\030\t \001(\r\022\016\n\006fs_gi" +
+      "d\030\n \001(\r\022\017\n\007fs_user\030\013 \001(\t\022\020\n\010fs_group\030\014 \001" +
+      "(\t\022\025\n\rcap_effective\030\r \001(\004\022\025\n\rcap_permitt" +
+      "ed\030\016 \001(\004\"I\n\nSocketNode\022\016\n\006family\030\001 \001(\t\022+" +
+      "\n\004bind\030\002 \003(\0132\035.datadog.cws.dumpsv1.BindN" +
+      "ode\"q\n\010BindNode\0227\n\rmatched_rules\030\003 \003(\0132 " +
+      ".datadog.cws.dumpsv1.MatchedRule\022\022\n\nimag" +
+      "e_tags\030\004 \003(\t\022\014\n\004port\030\001 \001(\r\022\n\n\002ip\030\002 \001(\t\"\325" +
+      "\001\n\013MatchedRule\022\017\n\007rule_id\030\001 \001(\t\022\024\n\014rule_" +
+      "version\030\002 \001(\t\022\023\n\013policy_name\030\003 \001(\t\022\026\n\016po" +
+      "licy_version\030\004 \001(\t\022A\n\trule_tags\030\005 \003(\0132.." +
+      "datadog.cws.dumpsv1.MatchedRule.RuleTags" +
+      "Entry\032/\n\rRuleTagsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005v" +
+      "alue\030\002 \001(\t:\0028\001\"t\n\020event_type_state\022\031\n\021la" +
+      "st_anomaly_nano\030\001 \001(\004\022E\n\023event_profile_s" +
+      "tate\030\002 \001(\0162(.datadog.cws.dumpsv1.event_p" +
+      "rofile_state*\271\001\n\tHashState\022\013\n\007NO_HASH\020\000\022" +
+      "\010\n\004DONE\020\001\022\022\n\016FILE_NOT_FOUND\020\002\022\035\n\031PATHNAM" +
+      "E_RESOLUTION_ERROR\020\003\022\020\n\014FILE_TOO_BIG\020\004\022\035" +
+      "\n\031EVENT_TYPE_NOT_CONFIGURED\020\005\022\031\n\025HASH_WA" +
+      "S_RATE_LIMITED\020\006\022\026\n\022UNKNOWN_HASH_ERROR\020\007" +
+      "*8\n\016GenerationType\022\013\n\007UNKNOWN\020\000\022\013\n\007RUNTI" +
+      "ME\020\001\022\014\n\010SNAPSHOT\020\002*\220\001\n\023event_profile_sta" +
+      "te\022\016\n\nNO_PROFILE\020\000\022\027\n\023PROFILE_AT_MAX_SIZ" +
+      "E\020\001\022\024\n\020UNSTABLE_PROFILE\020\002\022\022\n\016STABLE_PROF" +
+      "ILE\020\003\022\021\n\rAUTO_LEARNING\020\004\022\023\n\017WORKLOAD_WAR" +
+      "MUP\020\005BU\n\022com.dd.cws.adv1.pbB\014SecDumpProt" +
+      "oP\000Z/github.com/DataDog/agent-payload/v5" +
+      "/cws/dumpsv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -27899,7 +32809,7 @@ java.lang.String defaultValue) {
     internal_static_datadog_cws_dumpsv1_ProcessActivityNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_ProcessActivityNode_descriptor,
-        new java.lang.String[] { "Process", "GenerationType", "MatchedRules", "Children", "Files", "DnsNames", "Sockets", "Syscalls", "ImageTags", });
+        new java.lang.String[] { "Process", "GenerationType", "MatchedRules", "Children", "Files", "DnsNames", "Sockets", "Syscalls", "ImageTags", "ImdsEvents", });
     internal_static_datadog_cws_dumpsv1_ProcessInfo_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_datadog_cws_dumpsv1_ProcessInfo_fieldAccessorTable = new
@@ -27930,32 +32840,56 @@ java.lang.String defaultValue) {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_DNSInfo_descriptor,
         new java.lang.String[] { "Name", "Type", "Class_", "Size", "Count", });
-    internal_static_datadog_cws_dumpsv1_FileInfo_descriptor =
+    internal_static_datadog_cws_dumpsv1_IMDSNode_descriptor =
       getDescriptor().getMessageTypes().get(11);
+    internal_static_datadog_cws_dumpsv1_IMDSNode_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_datadog_cws_dumpsv1_IMDSNode_descriptor,
+        new java.lang.String[] { "MatchedRules", "ImageTags", "Event", });
+    internal_static_datadog_cws_dumpsv1_IMDSEvent_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_datadog_cws_dumpsv1_IMDSEvent_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_datadog_cws_dumpsv1_IMDSEvent_descriptor,
+        new java.lang.String[] { "Type", "CloudProvider", "Url", "Host", "UserAgent", "Server", "Aws", });
+    internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_descriptor,
+        new java.lang.String[] { "IsImdsV2", "SecurityCredentials", });
+    internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_descriptor,
+        new java.lang.String[] { "Code", "Type", "AccessKeyId", "LastUpdated", "ExpirationRaw", });
+    internal_static_datadog_cws_dumpsv1_FileInfo_descriptor =
+      getDescriptor().getMessageTypes().get(15);
     internal_static_datadog_cws_dumpsv1_FileInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_FileInfo_descriptor,
         new java.lang.String[] { "Uid", "User", "Gid", "Group", "Mode", "Ctime", "Mtime", "MountId", "Inode", "InUpperLayer", "Path", "Basename", "Filesystem", "PackageName", "PackageVersion", "PackageSrcversion", "Hashes", "HashState", });
     internal_static_datadog_cws_dumpsv1_Credentials_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_datadog_cws_dumpsv1_Credentials_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_Credentials_descriptor,
         new java.lang.String[] { "Uid", "Gid", "User", "Group", "EffectiveUid", "EffectiveGid", "EffectiveUser", "EffectiveGroup", "FsUid", "FsGid", "FsUser", "FsGroup", "CapEffective", "CapPermitted", });
     internal_static_datadog_cws_dumpsv1_SocketNode_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_datadog_cws_dumpsv1_SocketNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_SocketNode_descriptor,
         new java.lang.String[] { "Family", "Bind", });
     internal_static_datadog_cws_dumpsv1_BindNode_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_datadog_cws_dumpsv1_BindNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_BindNode_descriptor,
         new java.lang.String[] { "MatchedRules", "ImageTags", "Port", "Ip", });
     internal_static_datadog_cws_dumpsv1_MatchedRule_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_datadog_cws_dumpsv1_MatchedRule_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_MatchedRule_descriptor,
@@ -27967,7 +32901,7 @@ java.lang.String defaultValue) {
         internal_static_datadog_cws_dumpsv1_MatchedRule_RuleTagsEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_datadog_cws_dumpsv1_event_type_state_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_datadog_cws_dumpsv1_event_type_state_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_event_type_state_descriptor,

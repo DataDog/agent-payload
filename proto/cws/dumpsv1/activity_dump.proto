@@ -73,6 +73,7 @@ message ProcessActivityNode {
     repeated SocketNode sockets = 6;
     repeated uint32 syscalls = 7;
     repeated string image_tags = 10;
+    repeated IMDSNode imds_events = 11;
 }
 
 message ProcessInfo {
@@ -143,6 +144,36 @@ message DNSInfo {
     uint32 class = 3;
     uint32 size = 4;
     uint32 count = 5;
+}
+
+message IMDSNode {
+    repeated MatchedRule matched_rules = 1;
+    repeated string image_tags = 2;
+
+    IMDSEvent event = 3;
+}
+
+message IMDSEvent {
+    string type = 1;
+    string cloud_provider = 2;
+    string url = 3;
+    string host = 4;
+    string user_agent = 5;
+    string server = 6;
+    AWSIMDSEvent aws = 7;
+}
+
+message AWSIMDSEvent {
+    bool is_imds_v2 = 1;
+    AWSSecurityCredentials security_credentials = 2;
+}
+
+message AWSSecurityCredentials {
+    string code = 1;
+    string type = 2;
+    string access_key_id = 3;
+    string last_updated = 4;
+    string expiration_raw = 5;
 }
 
 message FileInfo {
