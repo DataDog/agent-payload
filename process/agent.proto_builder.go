@@ -9154,12 +9154,10 @@ func (x *KafkaAggregationBuilder) SetCount(v uint32) {
 }
 
 type DataStreamsAggregationsBuilder struct {
-	writer                                                  io.Writer
-	buf                                                     bytes.Buffer
-	scratch                                                 []byte
-	dataStreamsAggregations_KafkaProduceAggregationsBuilder DataStreamsAggregations_KafkaProduceAggregationsBuilder
-	dataStreamsAggregations_KafkaFetchAggregationsBuilder   DataStreamsAggregations_KafkaFetchAggregationsBuilder
-	kafkaAggregationBuilder                                 KafkaAggregationBuilder
+	writer                  io.Writer
+	buf                     bytes.Buffer
+	scratch                 []byte
+	kafkaAggregationBuilder KafkaAggregationBuilder
 }
 
 func NewDataStreamsAggregationsBuilder(writer io.Writer) *DataStreamsAggregationsBuilder {
@@ -9171,114 +9169,12 @@ func (x *DataStreamsAggregationsBuilder) Reset(writer io.Writer) {
 	x.buf.Reset()
 	x.writer = writer
 }
-func (x *DataStreamsAggregationsBuilder) SetKafkaProduceAggregations(cb func(w *DataStreamsAggregations_KafkaProduceAggregationsBuilder)) {
-	x.buf.Reset()
-	x.dataStreamsAggregations_KafkaProduceAggregationsBuilder.writer = &x.buf
-	x.dataStreamsAggregations_KafkaProduceAggregationsBuilder.scratch = x.scratch
-	cb(&x.dataStreamsAggregations_KafkaProduceAggregationsBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
-	x.writer.Write(x.scratch)
-	x.writer.Write(x.buf.Bytes())
-}
-func (x *DataStreamsAggregationsBuilder) SetKafkaFetchAggregations(cb func(w *DataStreamsAggregations_KafkaFetchAggregationsBuilder)) {
-	x.buf.Reset()
-	x.dataStreamsAggregations_KafkaFetchAggregationsBuilder.writer = &x.buf
-	x.dataStreamsAggregations_KafkaFetchAggregationsBuilder.scratch = x.scratch
-	cb(&x.dataStreamsAggregations_KafkaFetchAggregationsBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
-	x.writer.Write(x.scratch)
-	x.writer.Write(x.buf.Bytes())
-}
 func (x *DataStreamsAggregationsBuilder) AddKafkaAggregations(cb func(w *KafkaAggregationBuilder)) {
 	x.buf.Reset()
 	x.kafkaAggregationBuilder.writer = &x.buf
 	x.kafkaAggregationBuilder.scratch = x.scratch
 	cb(&x.kafkaAggregationBuilder)
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
-	x.writer.Write(x.scratch)
-	x.writer.Write(x.buf.Bytes())
-}
-
-type DataStreamsAggregations_TopicStatsBuilder struct {
-	writer  io.Writer
-	buf     bytes.Buffer
-	scratch []byte
-}
-
-func NewDataStreamsAggregations_TopicStatsBuilder(writer io.Writer) *DataStreamsAggregations_TopicStatsBuilder {
-	return &DataStreamsAggregations_TopicStatsBuilder{
-		writer: writer,
-	}
-}
-func (x *DataStreamsAggregations_TopicStatsBuilder) Reset(writer io.Writer) {
-	x.buf.Reset()
-	x.writer = writer
-}
-func (x *DataStreamsAggregations_TopicStatsBuilder) SetTopic(v string) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
-	x.scratch = protowire.AppendString(x.scratch, v)
-	x.writer.Write(x.scratch)
-}
-func (x *DataStreamsAggregations_TopicStatsBuilder) SetCount(v uint32) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
-	x.writer.Write(x.scratch)
-}
-
-type DataStreamsAggregations_KafkaProduceAggregationsBuilder struct {
-	writer                                    io.Writer
-	buf                                       bytes.Buffer
-	scratch                                   []byte
-	dataStreamsAggregations_TopicStatsBuilder DataStreamsAggregations_TopicStatsBuilder
-}
-
-func NewDataStreamsAggregations_KafkaProduceAggregationsBuilder(writer io.Writer) *DataStreamsAggregations_KafkaProduceAggregationsBuilder {
-	return &DataStreamsAggregations_KafkaProduceAggregationsBuilder{
-		writer: writer,
-	}
-}
-func (x *DataStreamsAggregations_KafkaProduceAggregationsBuilder) Reset(writer io.Writer) {
-	x.buf.Reset()
-	x.writer = writer
-}
-func (x *DataStreamsAggregations_KafkaProduceAggregationsBuilder) AddStats(cb func(w *DataStreamsAggregations_TopicStatsBuilder)) {
-	x.buf.Reset()
-	x.dataStreamsAggregations_TopicStatsBuilder.writer = &x.buf
-	x.dataStreamsAggregations_TopicStatsBuilder.scratch = x.scratch
-	cb(&x.dataStreamsAggregations_TopicStatsBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
-	x.writer.Write(x.scratch)
-	x.writer.Write(x.buf.Bytes())
-}
-
-type DataStreamsAggregations_KafkaFetchAggregationsBuilder struct {
-	writer                                    io.Writer
-	buf                                       bytes.Buffer
-	scratch                                   []byte
-	dataStreamsAggregations_TopicStatsBuilder DataStreamsAggregations_TopicStatsBuilder
-}
-
-func NewDataStreamsAggregations_KafkaFetchAggregationsBuilder(writer io.Writer) *DataStreamsAggregations_KafkaFetchAggregationsBuilder {
-	return &DataStreamsAggregations_KafkaFetchAggregationsBuilder{
-		writer: writer,
-	}
-}
-func (x *DataStreamsAggregations_KafkaFetchAggregationsBuilder) Reset(writer io.Writer) {
-	x.buf.Reset()
-	x.writer = writer
-}
-func (x *DataStreamsAggregations_KafkaFetchAggregationsBuilder) AddStats(cb func(w *DataStreamsAggregations_TopicStatsBuilder)) {
-	x.buf.Reset()
-	x.dataStreamsAggregations_TopicStatsBuilder.writer = &x.buf
-	x.dataStreamsAggregations_TopicStatsBuilder.scratch = x.scratch
-	cb(&x.dataStreamsAggregations_TopicStatsBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
