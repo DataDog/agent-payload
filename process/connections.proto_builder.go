@@ -1148,10 +1148,10 @@ func (x *Connection_TcpFailuresByErrCodeEntryBuilder) Reset(writer io.Writer) {
 	x.buf.Reset()
 	x.writer = writer
 }
-func (x *Connection_TcpFailuresByErrCodeEntryBuilder) SetKey(v string) {
+func (x *Connection_TcpFailuresByErrCodeEntryBuilder) SetKey(v int32) {
 	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
-	x.scratch = protowire.AppendString(x.scratch, v)
+	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
 func (x *Connection_TcpFailuresByErrCodeEntryBuilder) SetValue(v int32) {
