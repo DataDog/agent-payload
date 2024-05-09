@@ -1576,6 +1576,48 @@ message DataStreamsAggregations {
 	repeated KafkaAggregation kafkaAggregations = 3;
 }
 
+// A list of the supported operations for the Postgres database.
+// Other operations will not be monitored and will not be included in the agent's output.
+enum PostgresOperation {
+	PostgresUnknownOp = 0;
+	PostgresSelectOp = 1;
+	PostgresInsertOp = 2;
+	PostgresUpdateOp = 3;
+	PostgresDeleteOp = 4;
+	PostgresAlterOp = 5;
+	PostgresCreateOp = 6;
+	PostgresDropOp = 7;
+}
+
+// Represents the statistics for a single Postgres operation.
+message PostgresStats {
+	// The name of the table that this PostgresStats represents.
+	string tableName = 1;
+	// The operation that this PostgresStats represents.
+	PostgresOperation operation = 2;
+	// A protobuf encoded sketch of all the latencies for this operation. In nanoseconds.
+	bytes latencies = 3;
+	// If the PostgresStats has a single sample, this field will be the latency (in nanoseconds) of the only sample.
+	double firstLatencySample = 4;
+	// The number of samples in the latencies sketch.
+	uint32 count = 5;
+}
+
+// Represents the statistics for a single Database operation.
+message DatabaseStats {
+	// The idea is to have a single message that can represent the stats for any database.
+	// Each database will have its own message that will be populated by the agent.
+	oneof dbStats {
+		PostgresStats postgres = 1;
+	}
+}
+
+// Represents a list of database aggregations. Each entry in the list can be from a different database (postgres,
+// mysql, etc). The agent will only populate the fields for the database it is configured to monitor.
+message DatabaseAggregations {
+	repeated DatabaseStats aggregations = 1;
+}
+
 message HTTPAggregations {
 	reserved 1;
 	repeated HTTPStats endpointAggregations = 2;

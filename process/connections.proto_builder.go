@@ -994,6 +994,14 @@ func (x *ConnectionBuilder) SetHttp2Aggregations(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *ConnectionBuilder) SetDatabaseAggregations(cb func(b *bytes.Buffer)) {
+	x.buf.Reset()
+	cb(&x.buf)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x19a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type Connection_DnsCountByRcodeEntryBuilder struct {
 	writer  io.Writer
