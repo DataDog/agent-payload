@@ -2,3 +2,8 @@
 # set default line endings to always be unix, even on windows systems, for test data
 #
 *.txt text eol=lf
+
+
+# mark *.proto_builder.go files as auto-generated so they don't clutter a github diff.
+# see https://docs.github.com/en/repositories/working-with-files/managing-files/customizing-how-changed-files-appear-on-github
+**/*.proto_builder.go linguist-generated=true
