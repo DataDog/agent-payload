@@ -1592,7 +1592,7 @@ enum PostgresOperation {
 // Represents the statistics for a single Postgres operation.
 message PostgresStats {
 	// The name of the table that this PostgresStats represents.
-	string table_name = 1;
+	string tableName = 1;
 	// The operation that this PostgresStats represents.
 	PostgresOperation operation = 2;
 	// A protobuf encoded sketch of all the latencies for this operation. In nanoseconds.
@@ -1605,8 +1605,10 @@ message PostgresStats {
 
 // Represents the statistics for a single Database operation.
 message DatabaseStats {
-	oneof db_stats {
-		PostgresStats postgres_stats = 1;
+	// The idea is to have a single message that can represent the stats for any database.
+	// Each database will have its own message that will be populated by the agent.
+	oneof dbStats {
+		PostgresStats postgres = 1;
 	}
 }
 

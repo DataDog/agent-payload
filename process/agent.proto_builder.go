@@ -9195,7 +9195,7 @@ func (x *PostgresStatsBuilder) Reset(writer io.Writer) {
 	x.buf.Reset()
 	x.writer = writer
 }
-func (x *PostgresStatsBuilder) SetTable_name(v string) {
+func (x *PostgresStatsBuilder) SetTableName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -9244,7 +9244,7 @@ func (x *DatabaseStatsBuilder) Reset(writer io.Writer) {
 	x.buf.Reset()
 	x.writer = writer
 }
-func (x *DatabaseStatsBuilder) SetPostgres_stats(cb func(w *PostgresStatsBuilder)) {
+func (x *DatabaseStatsBuilder) SetPostgres(cb func(w *PostgresStatsBuilder)) {
 	x.buf.Reset()
 	x.postgresStatsBuilder.writer = &x.buf
 	x.postgresStatsBuilder.scratch = x.scratch
