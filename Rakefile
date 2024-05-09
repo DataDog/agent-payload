@@ -88,7 +88,7 @@ BASH
       mv v5/process/proto/process/*.go process
 
       # Install protoc-gen-go
-      GOPATH=#{protoc_gen_go_dir} go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+      GOPATH=#{protoc_gen_go_dir} go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.34.1
 
       echo "Generating contlcycle proto"
       PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto
