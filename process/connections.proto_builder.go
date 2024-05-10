@@ -995,12 +995,20 @@ func (x *ConnectionBuilder) SetHttp2Aggregations(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *ConnectionBuilder) SetDatabaseAggregations(cb func(b *bytes.Buffer)) {
+	x.buf.Reset()
+	cb(&x.buf)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x19a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 func (x *ConnectionBuilder) AddTcpFailuresByErrCode(cb func(w *Connection_TcpFailuresByErrCodeEntryBuilder)) {
 	x.buf.Reset()
 	x.connection_TcpFailuresByErrCodeEntryBuilder.writer = &x.buf
 	x.connection_TcpFailuresByErrCodeEntryBuilder.scratch = x.scratch
 	cb(&x.connection_TcpFailuresByErrCodeEntryBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x19a)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a2)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())

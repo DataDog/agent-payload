@@ -105,7 +105,7 @@ message Connections {
 message Connection {
   reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
   // Please update when adding fields
-  // next identifier: 52
+  // next identifier: 53
 
   int32 pid = 1;
   Addr laddr = 5; // Local address
@@ -185,8 +185,11 @@ message Connection {
   // serialized HTTP2Aggregations object summarizing all http2 transactions recorded for this connection, organized by request path
   bytes http2Aggregations = 50;
 
+  // serialized DatabaseAggregations object summarizing all database transactions recorded for this connection.
+  bytes databaseAggregations = 51;
+
   // serialized map of POSIX error codes to the number of times they have been encountered in the context of this connection (ex [110: 3] would mean that the connection has seen 3 ETIMEDOUT errors)
-  map<int32, int32> tcpFailuresByErrCode = 51;
+  map<int32, int32> tcpFailuresByErrCode = 52;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
