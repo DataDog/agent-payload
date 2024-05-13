@@ -1559,6 +1559,24 @@ message Ingress {
 	repeated string tags = 5;
 }
 
+message KafkaStats {
+	uint32 count = 1;
+
+	// a protobuf encoded sketch of all the requests in a KafkaStats, in nanoseconds.
+	// this will be nil if count == 1
+	// To decode:
+	//    use a protobuf library to decode this into a github.com/DataDog/sketches-go/ddsketch/pb/sketchpb.DDSketch
+	// then call github.com/DataDog/sketches-go/ddsketch.FromProto
+	// To encode:
+	//    create a github.com/DataDog/sketches-go/ddsketch.DDSketch
+	//    call ToProto() and then run through a protobuf encoder
+	bytes latencies = 2;
+
+	// if the KafkaStats has a single sample, this field will be the latency (in nanoseconds) of the only sample.
+	// this is purely to avoid the overhead of having single entry sketches.
+	double firstLatencySample = 3;
+}
+
 message KafkaRequestHeader {
 	uint32 request_type = 1; // this is Kafka api key value from the protocol
 	uint32 request_version = 2;
@@ -1567,7 +1585,12 @@ message KafkaRequestHeader {
 message KafkaAggregation {
 	KafkaRequestHeader header = 1;
 	string topic = 2;
-	uint32 count = 3;
+	// The range of Kafka error codes spans from -1 to 119.
+	map<int32, KafkaStats> statsByStatusCode = 4;
+
+	// This approach for tracking Kafka hits is outdated, predating the inclusion of error codes.
+	// It remains here to accommodate older agent versions.
+	uint32 count = 3 [deprecated = true];
 }
 
 message DataStreamsAggregations {
