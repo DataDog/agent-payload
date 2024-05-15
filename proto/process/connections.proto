@@ -189,7 +189,7 @@ message Connection {
   bytes databaseAggregations = 51;
 
   // serialized map of POSIX error codes to the number of times they have been encountered in the context of this connection (ex [110: 3] would mean that the connection has seen 3 ETIMEDOUT errors)
-  map<int32, int32> tcpFailuresByErrCode = 52;
+  map<uint32, uint32> tcpFailuresByErrCode = 52;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
