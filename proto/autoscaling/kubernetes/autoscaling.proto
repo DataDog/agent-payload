@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+option go_package = "github.com/DataDog/agent-payload/v5/autoscaling/kubernetes";
+
+package datadog.autoscaling.kubernetes;
+
+import "google/protobuf/timestamp.proto";
+import "proto/deps/github.com/chrusty/protoc-gen-jsonschema/options.proto";
+
+// Error represents an error message
+message Error {
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  optional int32 code    = 1;
+  string         message = 2;
+}
+
+// WorkloadValuesList represents a list of workload values
+message WorkloadValuesList {
+  repeated WorkloadValues values  = 1;
+}
+
+// WorkloadValues represents the values of a workload
+message WorkloadValues {
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  string                   namespace = 1 [(protoc.gen.jsonschema.field_options).required = true]; // Namespace is the namespace of PodAutoscaler object
+  string                   name      = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Name is the name of the PodAutoscaler object
+
+  Error error = 3; // Error is any global error that prevent the calculation of new values (not specific to horizontal or vertical values)
+
+  WorkloadHorizontalValues horizontal = 4;
+  WorkloadVerticalValues   vertical   = 5;
+}
+
+message WorkloadHorizontalValues {
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  Error error = 1; // Error is the error message if new values cannot be calculated
+  
+  WorkloadHorizontalData manual = 2; // Manual is the manual override values for the workload
+  WorkloadHorizontalData auto   = 3; // Auto is the periodic recommendation values for the workload
+}
+
+message WorkloadHorizontalData {
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  google.protobuf.Timestamp timestamp = 1 [(protoc.gen.jsonschema.field_options).required = true]; // Timestamp is the time the values were generated
+  optional int32            replicas  = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Replicas is the number of replicas the workload should have
+}
+
+message WorkloadVerticalValues {
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  Error error = 1; // Error is the error message if new values cannot be calculated
+
+  WorkloadVerticalData manual = 2; // Manual is the manual override values for the workload
+  WorkloadVerticalData auto   = 3; // Auto is the periodic recommendation values for the workload
+}
+
+message WorkloadVerticalData {
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  google.protobuf.Timestamp   timestamp = 1 [(protoc.gen.jsonschema.field_options).required = true]; // Timestamp is the time the values were generated
+  repeated ContainerResources resources = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Resources is the list of resources for the workload
+}
+
+message ContainerResources {
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  message ResourceList {
+    string name  = 1 [(protoc.gen.jsonschema.field_options).required = true]; // Name is the name of the resource (e.g. "cpu" or "memory")
+    string value = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Value is stored in Kubernetes format (e.g. "1Gi")
+  }
+
+  string                containerName = 1 [(protoc.gen.jsonschema.field_options).required = true]; // ContainerName is the name of the container
+  repeated ResourceList requests      = 2;
+  repeated ResourceList limits        = 3;
+}

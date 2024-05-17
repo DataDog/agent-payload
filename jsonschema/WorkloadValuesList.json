@@ -1,0 +1,199 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/WorkloadValuesList",
+    "definitions": {
+        "ContainerResources": {
+            "required": [
+                "containerName"
+            ],
+            "properties": {
+                "containerName": {
+                    "type": "string",
+                    "description": "ContainerName is the name of the container"
+                },
+                "requests": {
+                    "items": {
+                        "$ref": "#/definitions/ResourceList"
+                    },
+                    "type": "array"
+                },
+                "limits": {
+                    "items": {
+                        "$ref": "#/definitions/ResourceList"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Container Resources"
+        },
+        "Error": {
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Error",
+            "description": "Error represents an error message"
+        },
+        "ResourceList": {
+            "required": [
+                "name",
+                "value"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Name is the name of the resource (e.g. \"cpu\" or \"memory\")"
+                },
+                "value": {
+                    "type": "string",
+                    "description": "Value is stored in Kubernetes format (e.g. \"1Gi\")"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Resource List"
+        },
+        "WorkloadHorizontalData": {
+            "required": [
+                "timestamp",
+                "replicas"
+            ],
+            "properties": {
+                "timestamp": {
+                    "type": "string",
+                    "description": "Timestamp is the time the values were generated",
+                    "format": "date-time"
+                },
+                "replicas": {
+                    "type": "integer",
+                    "description": "Replicas is the number of replicas the workload should have"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Workload Horizontal Data"
+        },
+        "WorkloadHorizontalValues": {
+            "properties": {
+                "error": {
+                    "$ref": "#/definitions/Error",
+                    "additionalProperties": true,
+                    "description": "Error is the error message if new values cannot be calculated"
+                },
+                "manual": {
+                    "$ref": "#/definitions/WorkloadHorizontalData",
+                    "additionalProperties": true,
+                    "description": "Manual is the manual override values for the workload"
+                },
+                "auto": {
+                    "$ref": "#/definitions/WorkloadHorizontalData",
+                    "additionalProperties": true,
+                    "description": "Auto is the periodic recommendation values for the workload"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Workload Horizontal Values"
+        },
+        "WorkloadValues": {
+            "required": [
+                "namespace",
+                "name"
+            ],
+            "properties": {
+                "namespace": {
+                    "type": "string",
+                    "description": "Namespace is the namespace of PodAutoscaler object"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name is the name of the PodAutoscaler object"
+                },
+                "error": {
+                    "$ref": "#/definitions/Error",
+                    "additionalProperties": true,
+                    "description": "Error is any global error that prevent the calculation of new values (not specific to horizontal or vertical values)"
+                },
+                "horizontal": {
+                    "$ref": "#/definitions/WorkloadHorizontalValues",
+                    "additionalProperties": true
+                },
+                "vertical": {
+                    "$ref": "#/definitions/WorkloadVerticalValues",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Workload Values",
+            "description": "WorkloadValues represents the values of a workload"
+        },
+        "WorkloadValuesList": {
+            "properties": {
+                "values": {
+                    "items": {
+                        "$ref": "#/definitions/WorkloadValues"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Workload Values List",
+            "description": "WorkloadValuesList represents a list of workload values"
+        },
+        "WorkloadVerticalData": {
+            "required": [
+                "timestamp",
+                "resources"
+            ],
+            "properties": {
+                "timestamp": {
+                    "type": "string",
+                    "description": "Timestamp is the time the values were generated",
+                    "format": "date-time"
+                },
+                "resources": {
+                    "items": {
+                        "$ref": "#/definitions/ContainerResources"
+                    },
+                    "type": "array",
+                    "description": "Resources is the list of resources for the workload"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Workload Vertical Data"
+        },
+        "WorkloadVerticalValues": {
+            "properties": {
+                "error": {
+                    "$ref": "#/definitions/Error",
+                    "additionalProperties": true,
+                    "description": "Error is the error message if new values cannot be calculated"
+                },
+                "manual": {
+                    "$ref": "#/definitions/WorkloadVerticalData",
+                    "additionalProperties": true,
+                    "description": "Manual is the manual override values for the workload"
+                },
+                "auto": {
+                    "$ref": "#/definitions/WorkloadVerticalData",
+                    "additionalProperties": true,
+                    "description": "Auto is the periodic recommendation values for the workload"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Workload Vertical Values"
+        }
+    }
+}
