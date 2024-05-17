@@ -3404,6 +3404,12 @@ func (x *ContainerBuilder) SetRepoDigest(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *ContainerBuilder) SetSnapshotter(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x122)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type ProcessStatBuilder struct {
 	writer                 io.Writer
