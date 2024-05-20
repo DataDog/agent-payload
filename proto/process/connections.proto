@@ -283,6 +283,7 @@ message AgentConfiguration {
   bool npmEnabled = 1;
   bool usmEnabled = 2;
   bool dsmEnabled = 3;
+  bool ccmEnabled = 4;
 }
 
 

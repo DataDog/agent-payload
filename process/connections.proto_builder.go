@@ -1466,6 +1466,13 @@ func (x *AgentConfigurationBuilder) SetDsmEnabled(v bool) {
 		x.writer.Write(x.scratch)
 	}
 }
+func (x *AgentConfigurationBuilder) SetCcmEnabled(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x20)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
 
 type RouteBuilder struct {
 	writer        io.Writer
