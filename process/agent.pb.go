@@ -12661,11 +12661,14 @@ type KafkaStats struct {
 	// a protobuf encoded sketch of all the requests in a KafkaStats, in nanoseconds.
 	// this will be nil if count == 1
 	// To decode:
-	//    use a protobuf library to decode this into a github.com/DataDog/sketches-go/ddsketch/pb/sketchpb.DDSketch
+	//
+	//	use a protobuf library to decode this into a github.com/DataDog/sketches-go/ddsketch/pb/sketchpb.DDSketch
+	//
 	// then call github.com/DataDog/sketches-go/ddsketch.FromProto
 	// To encode:
-	//    create a github.com/DataDog/sketches-go/ddsketch.DDSketch
-	//    call ToProto() and then run through a protobuf encoder
+	//
+	//	create a github.com/DataDog/sketches-go/ddsketch.DDSketch
+	//	call ToProto() and then run through a protobuf encoder
 	Latencies []byte `protobuf:"bytes,2,opt,name=latencies,proto3" json:"latencies,omitempty"`
 	// if the KafkaStats has a single sample, this field will be the latency (in nanoseconds) of the only sample.
 	// this is purely to avoid the overhead of having single entry sketches.
