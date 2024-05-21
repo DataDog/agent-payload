@@ -9086,6 +9086,41 @@ func (x *IngressBuilder) AddTags(v string) {
 	x.writer.Write(x.scratch)
 }
 
+type KafkaStatsBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewKafkaStatsBuilder(writer io.Writer) *KafkaStatsBuilder {
+	return &KafkaStatsBuilder{
+		writer: writer,
+	}
+}
+func (x *KafkaStatsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *KafkaStatsBuilder) SetCount(v uint32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *KafkaStatsBuilder) SetLatencies(cb func(b *bytes.Buffer)) {
+	x.buf.Reset()
+	cb(&x.buf)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *KafkaStatsBuilder) SetFirstLatencySample(v float64) {
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x19)
+	x.scratch = protowire.AppendFixed64(x.scratch, math.Float64bits(v))
+	x.writer.Write(x.scratch)
+}
+
 type KafkaRequestHeaderBuilder struct {
 	writer  io.Writer
 	buf     bytes.Buffer
@@ -9115,10 +9150,11 @@ func (x *KafkaRequestHeaderBuilder) SetRequest_version(v uint32) {
 }
 
 type KafkaAggregationBuilder struct {
-	writer                    io.Writer
-	buf                       bytes.Buffer
-	scratch                   []byte
-	kafkaRequestHeaderBuilder KafkaRequestHeaderBuilder
+	writer                                         io.Writer
+	buf                                            bytes.Buffer
+	scratch                                        []byte
+	kafkaRequestHeaderBuilder                      KafkaRequestHeaderBuilder
+	kafkaAggregation_StatsByStatusCodeEntryBuilder KafkaAggregation_StatsByStatusCodeEntryBuilder
 }
 
 func NewKafkaAggregationBuilder(writer io.Writer) *KafkaAggregationBuilder {
@@ -9146,11 +9182,54 @@ func (x *KafkaAggregationBuilder) SetTopic(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *KafkaAggregationBuilder) AddStatsByStatusCode(cb func(w *KafkaAggregation_StatsByStatusCodeEntryBuilder)) {
+	x.buf.Reset()
+	x.kafkaAggregation_StatsByStatusCodeEntryBuilder.writer = &x.buf
+	x.kafkaAggregation_StatsByStatusCodeEntryBuilder.scratch = x.scratch
+	cb(&x.kafkaAggregation_StatsByStatusCodeEntryBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 func (x *KafkaAggregationBuilder) SetCount(v uint32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
+}
+
+type KafkaAggregation_StatsByStatusCodeEntryBuilder struct {
+	writer            io.Writer
+	buf               bytes.Buffer
+	scratch           []byte
+	kafkaStatsBuilder KafkaStatsBuilder
+}
+
+func NewKafkaAggregation_StatsByStatusCodeEntryBuilder(writer io.Writer) *KafkaAggregation_StatsByStatusCodeEntryBuilder {
+	return &KafkaAggregation_StatsByStatusCodeEntryBuilder{
+		writer: writer,
+	}
+}
+func (x *KafkaAggregation_StatsByStatusCodeEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *KafkaAggregation_StatsByStatusCodeEntryBuilder) SetKey(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *KafkaAggregation_StatsByStatusCodeEntryBuilder) SetValue(cb func(w *KafkaStatsBuilder)) {
+	x.buf.Reset()
+	x.kafkaStatsBuilder.writer = &x.buf
+	x.kafkaStatsBuilder.scratch = x.scratch
+	cb(&x.kafkaStatsBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
 }
 
 type DataStreamsAggregationsBuilder struct {
