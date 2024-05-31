@@ -4,6 +4,13 @@ proto_library(
     name = "agent_proto",
     srcs = [
         "agent.proto",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+proto_library(
+    name = "connections_proto",
+    srcs = [
         "connections.proto",
     ],
     visibility = ["//visibility:public"],
