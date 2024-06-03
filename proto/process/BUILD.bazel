@@ -4,6 +4,7 @@ proto_library(
     name = "agent_proto",
     srcs = [
         "agent.proto",
+        "connections.proto",
     ],
     visibility = ["//visibility:public"],
 )
