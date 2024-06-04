@@ -261,6 +261,7 @@ message CollectorManifest {
 	int32 groupId = 3;
 	int32 groupSize = 4;
 	repeated Manifest manifests = 5;
+	repeated string tags = 6;
 }
 
 message CollectorManifestCRD {
