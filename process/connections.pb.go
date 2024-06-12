@@ -592,6 +592,7 @@ func (m *CollectorConnections) GetResolvedHostsByName() map[string]*Host {
 	return nil
 }
 
+// please update process/connections.go Aggregate() if you add a field
 type Connections struct {
 	Conns []*Connection        `protobuf:"bytes,1,rep,name=conns,proto3" json:"conns,omitempty"`
 	Dns   map[string]*DNSEntry `protobuf:"bytes,2,rep,name=dns,proto3" json:"dns,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
@@ -1196,6 +1197,7 @@ func (m *ResourceMetadata) GetTagsModified() int64 {
 	return 0
 }
 
+// please update process/connections.go Aggregate() if you add a field
 type ConnectionsTelemetry struct {
 	MonotonicKprobesTriggered          int64 `protobuf:"varint,1,opt,name=monotonicKprobesTriggered,proto3" json:"monotonicKprobesTriggered,omitempty"`
 	MonotonicKprobesMissed             int64 `protobuf:"varint,2,opt,name=monotonicKprobesMissed,proto3" json:"monotonicKprobesMissed,omitempty"`
