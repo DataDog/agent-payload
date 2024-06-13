@@ -1068,6 +1068,8 @@ message ContainerStatus {
 	int32 restartCount = 4;
 	string state = 5;
 	string message = 6;
+	string image = 7;
+	string imageID = 8;
 }
 
 message Manifest {
