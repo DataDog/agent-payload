@@ -1589,7 +1589,7 @@ message KafkaAggregation {
 	KafkaRequestHeader header = 1;
 	string topic = 2;
 	// The range of Kafka error codes spans from -1 to 119.
-	map<int32, KafkaStats> statsByStatusCode = 4;
+	map<int32, KafkaStats> statsByErrorCode = 4;
 
 	// This approach for tracking Kafka hits is outdated, predating the inclusion of error codes.
 	// It remains here to accommodate older agent versions.
