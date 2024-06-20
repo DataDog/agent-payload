@@ -9168,11 +9168,11 @@ func (x *KafkaRequestHeaderBuilder) SetRequest_version(v uint32) {
 }
 
 type KafkaAggregationBuilder struct {
-	writer                                         io.Writer
-	buf                                            bytes.Buffer
-	scratch                                        []byte
-	kafkaRequestHeaderBuilder                      KafkaRequestHeaderBuilder
-	kafkaAggregation_StatsByStatusCodeEntryBuilder KafkaAggregation_StatsByStatusCodeEntryBuilder
+	writer                                        io.Writer
+	buf                                           bytes.Buffer
+	scratch                                       []byte
+	kafkaRequestHeaderBuilder                     KafkaRequestHeaderBuilder
+	kafkaAggregation_StatsByErrorCodeEntryBuilder KafkaAggregation_StatsByErrorCodeEntryBuilder
 }
 
 func NewKafkaAggregationBuilder(writer io.Writer) *KafkaAggregationBuilder {
@@ -9200,11 +9200,11 @@ func (x *KafkaAggregationBuilder) SetTopic(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
-func (x *KafkaAggregationBuilder) AddStatsByStatusCode(cb func(w *KafkaAggregation_StatsByStatusCodeEntryBuilder)) {
+func (x *KafkaAggregationBuilder) AddStatsByErrorCode(cb func(w *KafkaAggregation_StatsByErrorCodeEntryBuilder)) {
 	x.buf.Reset()
-	x.kafkaAggregation_StatsByStatusCodeEntryBuilder.writer = &x.buf
-	x.kafkaAggregation_StatsByStatusCodeEntryBuilder.scratch = x.scratch
-	cb(&x.kafkaAggregation_StatsByStatusCodeEntryBuilder)
+	x.kafkaAggregation_StatsByErrorCodeEntryBuilder.writer = &x.buf
+	x.kafkaAggregation_StatsByErrorCodeEntryBuilder.scratch = x.scratch
+	cb(&x.kafkaAggregation_StatsByErrorCodeEntryBuilder)
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -9217,29 +9217,29 @@ func (x *KafkaAggregationBuilder) SetCount(v uint32) {
 	x.writer.Write(x.scratch)
 }
 
-type KafkaAggregation_StatsByStatusCodeEntryBuilder struct {
+type KafkaAggregation_StatsByErrorCodeEntryBuilder struct {
 	writer            io.Writer
 	buf               bytes.Buffer
 	scratch           []byte
 	kafkaStatsBuilder KafkaStatsBuilder
 }
 
-func NewKafkaAggregation_StatsByStatusCodeEntryBuilder(writer io.Writer) *KafkaAggregation_StatsByStatusCodeEntryBuilder {
-	return &KafkaAggregation_StatsByStatusCodeEntryBuilder{
+func NewKafkaAggregation_StatsByErrorCodeEntryBuilder(writer io.Writer) *KafkaAggregation_StatsByErrorCodeEntryBuilder {
+	return &KafkaAggregation_StatsByErrorCodeEntryBuilder{
 		writer: writer,
 	}
 }
-func (x *KafkaAggregation_StatsByStatusCodeEntryBuilder) Reset(writer io.Writer) {
+func (x *KafkaAggregation_StatsByErrorCodeEntryBuilder) Reset(writer io.Writer) {
 	x.buf.Reset()
 	x.writer = writer
 }
-func (x *KafkaAggregation_StatsByStatusCodeEntryBuilder) SetKey(v int32) {
+func (x *KafkaAggregation_StatsByErrorCodeEntryBuilder) SetKey(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *KafkaAggregation_StatsByStatusCodeEntryBuilder) SetValue(cb func(w *KafkaStatsBuilder)) {
+func (x *KafkaAggregation_StatsByErrorCodeEntryBuilder) SetValue(cb func(w *KafkaStatsBuilder)) {
 	x.buf.Reset()
 	x.kafkaStatsBuilder.writer = &x.buf
 	x.kafkaStatsBuilder.scratch = x.scratch
