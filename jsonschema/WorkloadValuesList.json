@@ -31,7 +31,27 @@
         "Error": {
             "properties": {
                 "code": {
-                    "type": "integer"
+                    "enum": [
+                        "ERROR_UNSPECIFIED",
+                        0,
+                        "ERROR_HEALTH",
+                        10,
+                        "ERROR_INTERNAL",
+                        20,
+                        "ERROR_CONFIG",
+                        30,
+                        "ERROR_NODATA",
+                        40
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Error Code"
                 },
                 "message": {
                     "type": "string"

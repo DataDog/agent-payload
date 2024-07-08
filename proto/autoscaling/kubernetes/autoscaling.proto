@@ -7,12 +7,20 @@ package datadog.autoscaling.kubernetes;
 import "google/protobuf/timestamp.proto";
 import "proto/deps/github.com/chrusty/protoc-gen-jsonschema/options.proto";
 
+enum ErrorCode {
+  ERROR_UNSPECIFIED = 0;
+  ERROR_HEALTH = 10;
+  ERROR_INTERNAL = 20;
+  ERROR_CONFIG = 30;
+  ERROR_NODATA = 40;
+}
+
 // Error represents an error message
 message Error {
   option (protoc.gen.jsonschema.message_options).ignore = true;
 
-  optional int32 code    = 1;
-  string         message = 2;
+  optional ErrorCode code    = 1;
+  string             message = 2;
 }
 
 // WorkloadValuesList represents a list of workload values
@@ -37,7 +45,7 @@ message WorkloadHorizontalValues {
   option (protoc.gen.jsonschema.message_options).ignore = true;
 
   Error error = 1; // Error is the error message if new values cannot be calculated
-  
+
   WorkloadHorizontalData manual = 2; // Manual is the manual override values for the workload
   WorkloadHorizontalData auto   = 3; // Auto is the periodic recommendation values for the workload
 }
