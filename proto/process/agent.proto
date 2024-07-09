@@ -1962,6 +1962,8 @@ message NetworkPolicyPeer {
 	repeated LabelSelectorRequirement podSelector = 1;
 	repeated LabelSelectorRequirement namespaceSelector = 2;
 	NetworkPolicyIPBlock ipBlock = 3;
+	bool hasPodSelector = 4;
+	bool hasNamespaceSelector = 5;
 }
 
 message NetworkPolicyPort {
