@@ -11253,6 +11253,20 @@ func (x *NetworkPolicyPeerBuilder) SetIpBlock(cb func(w *NetworkPolicyIPBlockBui
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *NetworkPolicyPeerBuilder) SetHasPodSelector(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x20)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
+func (x *NetworkPolicyPeerBuilder) SetHasNamespaceSelector(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x28)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
 
 type NetworkPolicyPortBuilder struct {
 	writer  io.Writer
