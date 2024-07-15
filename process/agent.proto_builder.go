@@ -9325,11 +9325,28 @@ func (x *PostgresStatsBuilder) SetCount(v uint32) {
 	x.writer.Write(x.scratch)
 }
 
+type RedisStatsBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewRedisStatsBuilder(writer io.Writer) *RedisStatsBuilder {
+	return &RedisStatsBuilder{
+		writer: writer,
+	}
+}
+func (x *RedisStatsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+
 type DatabaseStatsBuilder struct {
 	writer               io.Writer
 	buf                  bytes.Buffer
 	scratch              []byte
 	postgresStatsBuilder PostgresStatsBuilder
+	redisStatsBuilder    RedisStatsBuilder
 }
 
 func NewDatabaseStatsBuilder(writer io.Writer) *DatabaseStatsBuilder {
@@ -9347,6 +9364,16 @@ func (x *DatabaseStatsBuilder) SetPostgres(cb func(w *PostgresStatsBuilder)) {
 	x.postgresStatsBuilder.scratch = x.scratch
 	cb(&x.postgresStatsBuilder)
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *DatabaseStatsBuilder) SetRedis(cb func(w *RedisStatsBuilder)) {
+	x.buf.Reset()
+	x.redisStatsBuilder.writer = &x.buf
+	x.redisStatsBuilder.scratch = x.scratch
+	cb(&x.redisStatsBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())

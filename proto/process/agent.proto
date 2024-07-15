@@ -1630,12 +1630,16 @@ message PostgresStats {
 	uint32 count = 5;
 }
 
+// Represents the statistics for a single Redis transaction.
+message RedisStats {}
+
 // Represents the statistics for a single Database operation.
 message DatabaseStats {
 	// The idea is to have a single message that can represent the stats for any database.
 	// Each database will have its own message that will be populated by the agent.
 	oneof dbStats {
 		PostgresStats postgres = 1;
+		RedisStats redis = 2;
 	}
 }
 
