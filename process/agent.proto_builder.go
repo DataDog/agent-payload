@@ -487,11 +487,34 @@ func (x *CollectorReqStatusBuilder) SetHostName(v string) {
 	x.writer.Write(x.scratch)
 }
 
+type ECSAgentInfoBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewECSAgentInfoBuilder(writer io.Writer) *ECSAgentInfoBuilder {
+	return &ECSAgentInfoBuilder{
+		writer: writer,
+	}
+}
+func (x *ECSAgentInfoBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ECSAgentInfoBuilder) SetVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
 type CollectorECSTaskBuilder struct {
-	writer         io.Writer
-	buf            bytes.Buffer
-	scratch        []byte
-	eCSTaskBuilder ECSTaskBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	eCSTaskBuilder      ECSTaskBuilder
+	eCSAgentInfoBuilder ECSAgentInfoBuilder
 }
 
 func NewCollectorECSTaskBuilder(writer io.Writer) *CollectorECSTaskBuilder {
@@ -545,6 +568,16 @@ func (x *CollectorECSTaskBuilder) AddTasks(cb func(w *ECSTaskBuilder)) {
 	x.eCSTaskBuilder.scratch = x.scratch
 	cb(&x.eCSTaskBuilder)
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *CollectorECSTaskBuilder) SetAgentInfo(cb func(w *ECSAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.eCSAgentInfoBuilder.writer = &x.buf
+	x.eCSAgentInfoBuilder.scratch = x.scratch
+	cb(&x.eCSAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x42)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
@@ -1163,12 +1196,47 @@ func (x *ECSContainerExitCodeBuilder) SetExitCode(v int32) {
 	x.writer.Write(x.scratch)
 }
 
+type K8sAgentInfoBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewK8sAgentInfoBuilder(writer io.Writer) *K8sAgentInfoBuilder {
+	return &K8sAgentInfoBuilder{
+		writer: writer,
+	}
+}
+func (x *K8sAgentInfoBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *K8sAgentInfoBuilder) SetVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *K8sAgentInfoBuilder) SetInstallMethod(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *K8sAgentInfoBuilder) SetInstallMethodVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
 type CollectorPodBuilder struct {
-	writer      io.Writer
-	buf         bytes.Buffer
-	scratch     []byte
-	podBuilder  PodBuilder
-	hostBuilder HostBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	podBuilder          PodBuilder
+	hostBuilder         HostBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorPodBuilder(writer io.Writer) *CollectorPodBuilder {
@@ -1236,12 +1304,23 @@ func (x *CollectorPodBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorPodBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x4a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorReplicaSetBuilder struct {
-	writer            io.Writer
-	buf               bytes.Buffer
-	scratch           []byte
-	replicaSetBuilder ReplicaSetBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	replicaSetBuilder   ReplicaSetBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorReplicaSetBuilder(writer io.Writer) *CollectorReplicaSetBuilder {
@@ -1293,12 +1372,23 @@ func (x *CollectorReplicaSetBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorReplicaSetBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorDeploymentBuilder struct {
-	writer            io.Writer
-	buf               bytes.Buffer
-	scratch           []byte
-	deploymentBuilder DeploymentBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	deploymentBuilder   DeploymentBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorDeploymentBuilder(writer io.Writer) *CollectorDeploymentBuilder {
@@ -1350,12 +1440,23 @@ func (x *CollectorDeploymentBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorDeploymentBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorServiceBuilder struct {
-	writer         io.Writer
-	buf            bytes.Buffer
-	scratch        []byte
-	serviceBuilder ServiceBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	serviceBuilder      ServiceBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorServiceBuilder(writer io.Writer) *CollectorServiceBuilder {
@@ -1407,6 +1508,16 @@ func (x *CollectorServiceBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorServiceBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorNodeBuilder struct {
 	writer                                     io.Writer
@@ -1414,6 +1525,7 @@ type CollectorNodeBuilder struct {
 	scratch                                    []byte
 	nodeBuilder                                NodeBuilder
 	collectorNode_HostAliasMappingEntryBuilder CollectorNode_HostAliasMappingEntryBuilder
+	k8sAgentInfoBuilder                        K8sAgentInfoBuilder
 }
 
 func NewCollectorNodeBuilder(writer io.Writer) *CollectorNodeBuilder {
@@ -1475,6 +1587,16 @@ func (x *CollectorNodeBuilder) AddHostAliasMapping(cb func(w *CollectorNode_Host
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *CollectorNodeBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x42)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorNode_HostAliasMappingEntryBuilder struct {
 	writer      io.Writer
@@ -1510,10 +1632,11 @@ func (x *CollectorNode_HostAliasMappingEntryBuilder) SetValue(cb func(w *HostBui
 }
 
 type CollectorClusterBuilder struct {
-	writer         io.Writer
-	buf            bytes.Buffer
-	scratch        []byte
-	clusterBuilder ClusterBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	clusterBuilder      ClusterBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorClusterBuilder(writer io.Writer) *CollectorClusterBuilder {
@@ -1565,12 +1688,23 @@ func (x *CollectorClusterBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorClusterBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorManifestBuilder struct {
-	writer          io.Writer
-	buf             bytes.Buffer
-	scratch         []byte
-	manifestBuilder ManifestBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	manifestBuilder     ManifestBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorManifestBuilder(writer io.Writer) *CollectorManifestBuilder {
@@ -1622,12 +1756,23 @@ func (x *CollectorManifestBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorManifestBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorManifestCRDBuilder struct {
 	writer                   io.Writer
 	buf                      bytes.Buffer
 	scratch                  []byte
 	collectorManifestBuilder CollectorManifestBuilder
+	k8sAgentInfoBuilder      K8sAgentInfoBuilder
 }
 
 func NewCollectorManifestCRDBuilder(writer io.Writer) *CollectorManifestCRDBuilder {
@@ -1655,12 +1800,23 @@ func (x *CollectorManifestCRDBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorManifestCRDBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorManifestCRBuilder struct {
 	writer                   io.Writer
 	buf                      bytes.Buffer
 	scratch                  []byte
 	collectorManifestBuilder CollectorManifestBuilder
+	k8sAgentInfoBuilder      K8sAgentInfoBuilder
 }
 
 func NewCollectorManifestCRBuilder(writer io.Writer) *CollectorManifestCRBuilder {
@@ -1688,12 +1844,23 @@ func (x *CollectorManifestCRBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorManifestCRBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorNamespaceBuilder struct {
-	writer           io.Writer
-	buf              bytes.Buffer
-	scratch          []byte
-	namespaceBuilder NamespaceBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	namespaceBuilder    NamespaceBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorNamespaceBuilder(writer io.Writer) *CollectorNamespaceBuilder {
@@ -1745,12 +1912,23 @@ func (x *CollectorNamespaceBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorNamespaceBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorJobBuilder struct {
-	writer     io.Writer
-	buf        bytes.Buffer
-	scratch    []byte
-	jobBuilder JobBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	jobBuilder          JobBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorJobBuilder(writer io.Writer) *CollectorJobBuilder {
@@ -1802,12 +1980,23 @@ func (x *CollectorJobBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorJobBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorCronJobBuilder struct {
-	writer         io.Writer
-	buf            bytes.Buffer
-	scratch        []byte
-	cronJobBuilder CronJobBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	cronJobBuilder      CronJobBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorCronJobBuilder(writer io.Writer) *CollectorCronJobBuilder {
@@ -1859,12 +2048,23 @@ func (x *CollectorCronJobBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorCronJobBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorDaemonSetBuilder struct {
-	writer           io.Writer
-	buf              bytes.Buffer
-	scratch          []byte
-	daemonSetBuilder DaemonSetBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	daemonSetBuilder    DaemonSetBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorDaemonSetBuilder(writer io.Writer) *CollectorDaemonSetBuilder {
@@ -1916,12 +2116,23 @@ func (x *CollectorDaemonSetBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorDaemonSetBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorStatefulSetBuilder struct {
-	writer             io.Writer
-	buf                bytes.Buffer
-	scratch            []byte
-	statefulSetBuilder StatefulSetBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	statefulSetBuilder  StatefulSetBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorStatefulSetBuilder(writer io.Writer) *CollectorStatefulSetBuilder {
@@ -1973,12 +2184,23 @@ func (x *CollectorStatefulSetBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorStatefulSetBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorPersistentVolumeBuilder struct {
 	writer                  io.Writer
 	buf                     bytes.Buffer
 	scratch                 []byte
 	persistentVolumeBuilder PersistentVolumeBuilder
+	k8sAgentInfoBuilder     K8sAgentInfoBuilder
 }
 
 func NewCollectorPersistentVolumeBuilder(writer io.Writer) *CollectorPersistentVolumeBuilder {
@@ -2030,12 +2252,23 @@ func (x *CollectorPersistentVolumeBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorPersistentVolumeBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorPersistentVolumeClaimBuilder struct {
 	writer                       io.Writer
 	buf                          bytes.Buffer
 	scratch                      []byte
 	persistentVolumeClaimBuilder PersistentVolumeClaimBuilder
+	k8sAgentInfoBuilder          K8sAgentInfoBuilder
 }
 
 func NewCollectorPersistentVolumeClaimBuilder(writer io.Writer) *CollectorPersistentVolumeClaimBuilder {
@@ -2087,12 +2320,23 @@ func (x *CollectorPersistentVolumeClaimBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorPersistentVolumeClaimBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorRoleBuilder struct {
-	writer      io.Writer
-	buf         bytes.Buffer
-	scratch     []byte
-	roleBuilder RoleBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	roleBuilder         RoleBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorRoleBuilder(writer io.Writer) *CollectorRoleBuilder {
@@ -2144,12 +2388,23 @@ func (x *CollectorRoleBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorRoleBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorRoleBindingBuilder struct {
-	writer             io.Writer
-	buf                bytes.Buffer
-	scratch            []byte
-	roleBindingBuilder RoleBindingBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	roleBindingBuilder  RoleBindingBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorRoleBindingBuilder(writer io.Writer) *CollectorRoleBindingBuilder {
@@ -2201,12 +2456,23 @@ func (x *CollectorRoleBindingBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorRoleBindingBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorClusterRoleBuilder struct {
-	writer             io.Writer
-	buf                bytes.Buffer
-	scratch            []byte
-	clusterRoleBuilder ClusterRoleBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	clusterRoleBuilder  ClusterRoleBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorClusterRoleBuilder(writer io.Writer) *CollectorClusterRoleBuilder {
@@ -2258,12 +2524,23 @@ func (x *CollectorClusterRoleBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorClusterRoleBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorClusterRoleBindingBuilder struct {
 	writer                    io.Writer
 	buf                       bytes.Buffer
 	scratch                   []byte
 	clusterRoleBindingBuilder ClusterRoleBindingBuilder
+	k8sAgentInfoBuilder       K8sAgentInfoBuilder
 }
 
 func NewCollectorClusterRoleBindingBuilder(writer io.Writer) *CollectorClusterRoleBindingBuilder {
@@ -2315,12 +2592,23 @@ func (x *CollectorClusterRoleBindingBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorClusterRoleBindingBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorServiceAccountBuilder struct {
 	writer                io.Writer
 	buf                   bytes.Buffer
 	scratch               []byte
 	serviceAccountBuilder ServiceAccountBuilder
+	k8sAgentInfoBuilder   K8sAgentInfoBuilder
 }
 
 func NewCollectorServiceAccountBuilder(writer io.Writer) *CollectorServiceAccountBuilder {
@@ -2372,12 +2660,23 @@ func (x *CollectorServiceAccountBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorServiceAccountBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorIngressBuilder struct {
-	writer         io.Writer
-	buf            bytes.Buffer
-	scratch        []byte
-	ingressBuilder IngressBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	ingressBuilder      IngressBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorIngressBuilder(writer io.Writer) *CollectorIngressBuilder {
@@ -2429,12 +2728,23 @@ func (x *CollectorIngressBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorIngressBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorVerticalPodAutoscalerBuilder struct {
 	writer                       io.Writer
 	buf                          bytes.Buffer
 	scratch                      []byte
 	verticalPodAutoscalerBuilder VerticalPodAutoscalerBuilder
+	k8sAgentInfoBuilder          K8sAgentInfoBuilder
 }
 
 func NewCollectorVerticalPodAutoscalerBuilder(writer io.Writer) *CollectorVerticalPodAutoscalerBuilder {
@@ -2486,12 +2796,23 @@ func (x *CollectorVerticalPodAutoscalerBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorVerticalPodAutoscalerBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorHorizontalPodAutoscalerBuilder struct {
 	writer                         io.Writer
 	buf                            bytes.Buffer
 	scratch                        []byte
 	horizontalPodAutoscalerBuilder HorizontalPodAutoscalerBuilder
+	k8sAgentInfoBuilder            K8sAgentInfoBuilder
 }
 
 func NewCollectorHorizontalPodAutoscalerBuilder(writer io.Writer) *CollectorHorizontalPodAutoscalerBuilder {
@@ -2543,12 +2864,23 @@ func (x *CollectorHorizontalPodAutoscalerBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorHorizontalPodAutoscalerBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorNetworkPolicyBuilder struct {
 	writer               io.Writer
 	buf                  bytes.Buffer
 	scratch              []byte
 	networkPolicyBuilder NetworkPolicyBuilder
+	k8sAgentInfoBuilder  K8sAgentInfoBuilder
 }
 
 func NewCollectorNetworkPolicyBuilder(writer io.Writer) *CollectorNetworkPolicyBuilder {
@@ -2600,12 +2932,23 @@ func (x *CollectorNetworkPolicyBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorNetworkPolicyBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorLimitRangeBuilder struct {
-	writer            io.Writer
-	buf               bytes.Buffer
-	scratch           []byte
-	limitRangeBuilder LimitRangeBuilder
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	limitRangeBuilder   LimitRangeBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorLimitRangeBuilder(writer io.Writer) *CollectorLimitRangeBuilder {
@@ -2657,12 +3000,23 @@ func (x *CollectorLimitRangeBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorLimitRangeBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorStorageClassBuilder struct {
 	writer              io.Writer
 	buf                 bytes.Buffer
 	scratch             []byte
 	storageClassBuilder StorageClassBuilder
+	k8sAgentInfoBuilder K8sAgentInfoBuilder
 }
 
 func NewCollectorStorageClassBuilder(writer io.Writer) *CollectorStorageClassBuilder {
@@ -2713,6 +3067,16 @@ func (x *CollectorStorageClassBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
+}
+func (x *CollectorStorageClassBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
+	x.buf.Reset()
+	x.k8sAgentInfoBuilder.writer = &x.buf
+	x.k8sAgentInfoBuilder.scratch = x.scratch
+	cb(&x.k8sAgentInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
 }
 
 type CollectorStatusBuilder struct {
