@@ -1628,6 +1628,8 @@ message PostgresStats {
 	double firstLatencySample = 4;
 	// The number of samples in the latencies sketch.
 	uint32 count = 5;
+	// The name of the database that this Postgres transaction occured in.
+	string databaseName = 6;
 }
 
 // Represents the statistics for a single Redis transaction.

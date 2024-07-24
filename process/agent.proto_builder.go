@@ -9324,6 +9324,12 @@ func (x *PostgresStatsBuilder) SetCount(v uint32) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
+func (x *PostgresStatsBuilder) SetDatabaseName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type RedisStatsBuilder struct {
 	writer  io.Writer
