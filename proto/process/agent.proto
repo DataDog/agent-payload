@@ -123,6 +123,7 @@ message CollectorECSTask {
 	int32 groupSize = 6;
 	repeated ECSTask tasks = 7;
 	ECSAgentInfo agentInfo = 8;
+	repeated string tags = 9;
 }
 
 message ECSTask {
