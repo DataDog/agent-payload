@@ -613,6 +613,7 @@ type ECSTaskBuilder struct {
 	eCSTask_LimitsEntryBuilder                  ECSTask_LimitsEntryBuilder
 	eCSTask_EphemeralStorageMetricsEntryBuilder ECSTask_EphemeralStorageMetricsEntryBuilder
 	eCSContainerBuilder                         ECSContainerBuilder
+	hostBuilder                                 HostBuilder
 }
 
 func NewECSTaskBuilder(writer io.Writer) *ECSTaskBuilder {
@@ -749,6 +750,16 @@ func (x *ECSTaskBuilder) AddContainerInstanceTags(v string) {
 	x.scratch = protowire.AppendVarint(x.scratch, 0x9a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
+}
+func (x *ECSTaskBuilder) SetHost(cb func(w *HostBuilder)) {
+	x.buf.Reset()
+	x.hostBuilder.writer = &x.buf
+	x.hostBuilder.scratch = x.scratch
+	cb(&x.hostBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa2)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
 }
 
 type ECSTask_LimitsEntryBuilder struct {

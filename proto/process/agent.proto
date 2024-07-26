@@ -148,6 +148,7 @@ message ECSTask {
 	repeated string tags = 17;
 	repeated string ecsTags = 18;
 	repeated string containerInstanceTags = 19;
+	Host host = 20; // Used post-resolution
 }
 
 message ECSContainer {
