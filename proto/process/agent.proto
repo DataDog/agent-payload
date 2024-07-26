@@ -124,6 +124,8 @@ message CollectorECSTask {
 	repeated ECSTask tasks = 7;
 	ECSAgentInfo agentInfo = 8;
 	repeated string tags = 9;
+	Host host = 10; // Post-resolved field
+	string hostName = 11;
 }
 
 message ECSTask {
@@ -228,7 +230,6 @@ message CollectorReplicaSet {
 	int32 groupSize = 4;
 	repeated ReplicaSet replicaSets = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorDeployment {
@@ -238,7 +239,6 @@ message CollectorDeployment {
 	int32 groupSize = 4;
 	repeated Deployment deployments = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorService {
@@ -248,7 +248,6 @@ message CollectorService {
 	int32 groupSize = 4;
 	repeated Service services = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorNode {
@@ -259,7 +258,6 @@ message CollectorNode {
 	repeated Node nodes = 5;
 	repeated string tags = 6;
 	map<string, Host> hostAliasMapping = 7;
-	K8sAgentInfo agentInfo = 8;
 }
 
 message CollectorCluster {
@@ -280,19 +278,16 @@ message CollectorManifest {
 	int32 groupSize = 4;
 	repeated Manifest manifests = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorManifestCRD {
 	CollectorManifest manifest = 1;
 	repeated string tags = 2;
-	K8sAgentInfo agentInfo = 3;
 }
 
 message CollectorManifestCR {
 	CollectorManifest manifest = 1;
 	repeated string tags = 2;
-	K8sAgentInfo agentInfo = 3;
 }
 
 message CollectorNamespace {
@@ -302,7 +297,6 @@ message CollectorNamespace {
 	int32 groupSize = 4;
 	repeated Namespace namespaces = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorJob {
@@ -312,7 +306,6 @@ message CollectorJob {
 	int32 groupSize = 4;
 	repeated Job jobs = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorCronJob {
@@ -322,7 +315,6 @@ message CollectorCronJob {
 	int32 groupSize = 4;
 	repeated CronJob cronJobs = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorDaemonSet {
@@ -332,7 +324,6 @@ message CollectorDaemonSet {
 	int32 groupSize = 4;
 	repeated DaemonSet daemonSets = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorStatefulSet {
@@ -342,7 +333,6 @@ message CollectorStatefulSet {
 	int32 groupSize = 4;
 	repeated StatefulSet statefulSets = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorPersistentVolume {
@@ -352,7 +342,6 @@ message CollectorPersistentVolume {
 	int32 groupSize = 4;
 	repeated PersistentVolume persistentVolumes = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorPersistentVolumeClaim {
@@ -362,7 +351,6 @@ message CollectorPersistentVolumeClaim {
 	int32 groupSize = 4;
 	repeated PersistentVolumeClaim persistentVolumeClaims = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorRole {
@@ -372,7 +360,6 @@ message CollectorRole {
 	int32 groupSize = 4;
 	repeated Role roles = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorRoleBinding {
@@ -382,7 +369,6 @@ message CollectorRoleBinding {
 	int32 groupSize = 4;
 	repeated RoleBinding roleBindings = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorClusterRole {
@@ -392,7 +378,6 @@ message CollectorClusterRole {
 	int32 groupSize = 4;
 	repeated ClusterRole clusterRoles = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorClusterRoleBinding {
@@ -402,7 +387,6 @@ message CollectorClusterRoleBinding {
 	int32 groupSize = 4;
 	repeated ClusterRoleBinding clusterRoleBindings = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorServiceAccount {
@@ -412,7 +396,6 @@ message CollectorServiceAccount {
 	int32 groupSize = 4;
 	repeated ServiceAccount serviceAccounts = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorIngress {
@@ -422,7 +405,6 @@ message CollectorIngress {
 	int32 groupSize = 4;
 	repeated Ingress ingresses = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorVerticalPodAutoscaler {
@@ -432,7 +414,6 @@ message CollectorVerticalPodAutoscaler {
 	int32 groupSize = 4;
 	repeated VerticalPodAutoscaler verticalPodAutoscalers = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorHorizontalPodAutoscaler {
@@ -442,7 +423,6 @@ message CollectorHorizontalPodAutoscaler {
 	int32 groupSize = 4;
 	repeated HorizontalPodAutoscaler horizontalPodAutoscalers = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorNetworkPolicy {
@@ -452,7 +432,6 @@ message CollectorNetworkPolicy {
 	int32 groupSize = 4;
 	repeated NetworkPolicy networkPolicies = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorLimitRange {
@@ -462,7 +441,6 @@ message CollectorLimitRange {
     int32 groupSize = 4;
     repeated LimitRange limitRanges = 5;
     repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 message CollectorStorageClass {
@@ -472,7 +450,6 @@ message CollectorStorageClass {
     int32 groupSize = 4;
     repeated StorageClass storageClasses = 5;
     repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 //
