@@ -222,6 +222,7 @@ message CollectorPod {
 	Host host = 7; // Post-resolved field
 	repeated string tags = 8;
 	K8sAgentInfo agentInfo = 9;
+	SystemInfo info = 10;
 }
 
 message CollectorReplicaSet {
