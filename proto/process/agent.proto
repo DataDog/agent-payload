@@ -126,6 +126,7 @@ message CollectorECSTask {
 	repeated string tags = 9;
 	Host host = 10; // Post-resolved field
 	string hostName = 11;
+	SystemInfo info = 12;
 }
 
 message ECSTask {
