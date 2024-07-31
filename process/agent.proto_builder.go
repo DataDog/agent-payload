@@ -1271,6 +1271,7 @@ type CollectorPodBuilder struct {
 	podBuilder          PodBuilder
 	hostBuilder         HostBuilder
 	k8sAgentInfoBuilder K8sAgentInfoBuilder
+	systemInfoBuilder   SystemInfoBuilder
 }
 
 func NewCollectorPodBuilder(writer io.Writer) *CollectorPodBuilder {
@@ -1344,6 +1345,16 @@ func (x *CollectorPodBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
 	x.k8sAgentInfoBuilder.scratch = x.scratch
 	cb(&x.k8sAgentInfoBuilder)
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x4a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *CollectorPodBuilder) SetInfo(cb func(w *SystemInfoBuilder)) {
+	x.buf.Reset()
+	x.systemInfoBuilder.writer = &x.buf
+	x.systemInfoBuilder.scratch = x.scratch
+	cb(&x.systemInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x52)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
