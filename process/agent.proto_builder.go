@@ -516,6 +516,7 @@ type CollectorECSTaskBuilder struct {
 	eCSTaskBuilder      ECSTaskBuilder
 	eCSAgentInfoBuilder ECSAgentInfoBuilder
 	hostBuilder         HostBuilder
+	systemInfoBuilder   SystemInfoBuilder
 }
 
 func NewCollectorECSTaskBuilder(writer io.Writer) *CollectorECSTaskBuilder {
@@ -604,6 +605,16 @@ func (x *CollectorECSTaskBuilder) SetHostName(v string) {
 	x.scratch = protowire.AppendVarint(x.scratch, 0x5a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
+}
+func (x *CollectorECSTaskBuilder) SetInfo(cb func(w *SystemInfoBuilder)) {
+	x.buf.Reset()
+	x.systemInfoBuilder.writer = &x.buf
+	x.systemInfoBuilder.scratch = x.scratch
+	cb(&x.systemInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x62)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
 }
 
 type ECSTaskBuilder struct {
