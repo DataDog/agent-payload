@@ -487,36 +487,13 @@ func (x *CollectorReqStatusBuilder) SetHostName(v string) {
 	x.writer.Write(x.scratch)
 }
 
-type ECSAgentInfoBuilder struct {
-	writer  io.Writer
-	buf     bytes.Buffer
-	scratch []byte
-}
-
-func NewECSAgentInfoBuilder(writer io.Writer) *ECSAgentInfoBuilder {
-	return &ECSAgentInfoBuilder{
-		writer: writer,
-	}
-}
-func (x *ECSAgentInfoBuilder) Reset(writer io.Writer) {
-	x.buf.Reset()
-	x.writer = writer
-}
-func (x *ECSAgentInfoBuilder) SetVersion(v string) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
-	x.scratch = protowire.AppendString(x.scratch, v)
-	x.writer.Write(x.scratch)
-}
-
 type CollectorECSTaskBuilder struct {
-	writer              io.Writer
-	buf                 bytes.Buffer
-	scratch             []byte
-	eCSTaskBuilder      ECSTaskBuilder
-	eCSAgentInfoBuilder ECSAgentInfoBuilder
-	hostBuilder         HostBuilder
-	systemInfoBuilder   SystemInfoBuilder
+	writer            io.Writer
+	buf               bytes.Buffer
+	scratch           []byte
+	eCSTaskBuilder    ECSTaskBuilder
+	hostBuilder       HostBuilder
+	systemInfoBuilder SystemInfoBuilder
 }
 
 func NewCollectorECSTaskBuilder(writer io.Writer) *CollectorECSTaskBuilder {
@@ -574,19 +551,9 @@ func (x *CollectorECSTaskBuilder) AddTasks(cb func(w *ECSTaskBuilder)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
-func (x *CollectorECSTaskBuilder) SetAgentInfo(cb func(w *ECSAgentInfoBuilder)) {
-	x.buf.Reset()
-	x.eCSAgentInfoBuilder.writer = &x.buf
-	x.eCSAgentInfoBuilder.scratch = x.scratch
-	cb(&x.eCSAgentInfoBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x42)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
-	x.writer.Write(x.scratch)
-	x.writer.Write(x.buf.Bytes())
-}
 func (x *CollectorECSTaskBuilder) AddTags(v string) {
 	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x4a)
+	x.scratch = protowire.AppendVarint(x.scratch, 0x42)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
@@ -595,14 +562,14 @@ func (x *CollectorECSTaskBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.hostBuilder.writer = &x.buf
 	x.hostBuilder.scratch = x.scratch
 	cb(&x.hostBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x52)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x4a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorECSTaskBuilder) SetHostName(v string) {
 	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x5a)
+	x.scratch = protowire.AppendVarint(x.scratch, 0x52)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
@@ -611,7 +578,7 @@ func (x *CollectorECSTaskBuilder) SetInfo(cb func(w *SystemInfoBuilder)) {
 	x.systemInfoBuilder.writer = &x.buf
 	x.systemInfoBuilder.scratch = x.scratch
 	cb(&x.systemInfoBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x62)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x5a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
@@ -1276,13 +1243,12 @@ func (x *K8sAgentInfoBuilder) SetInstallMethodVersion(v string) {
 }
 
 type CollectorPodBuilder struct {
-	writer              io.Writer
-	buf                 bytes.Buffer
-	scratch             []byte
-	podBuilder          PodBuilder
-	hostBuilder         HostBuilder
-	k8sAgentInfoBuilder K8sAgentInfoBuilder
-	systemInfoBuilder   SystemInfoBuilder
+	writer            io.Writer
+	buf               bytes.Buffer
+	scratch           []byte
+	podBuilder        PodBuilder
+	hostBuilder       HostBuilder
+	systemInfoBuilder SystemInfoBuilder
 }
 
 func NewCollectorPodBuilder(writer io.Writer) *CollectorPodBuilder {
@@ -1350,22 +1316,12 @@ func (x *CollectorPodBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
-func (x *CollectorPodBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
-	x.buf.Reset()
-	x.k8sAgentInfoBuilder.writer = &x.buf
-	x.k8sAgentInfoBuilder.scratch = x.scratch
-	cb(&x.k8sAgentInfoBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x4a)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
-	x.writer.Write(x.scratch)
-	x.writer.Write(x.buf.Bytes())
-}
 func (x *CollectorPodBuilder) SetInfo(cb func(w *SystemInfoBuilder)) {
 	x.buf.Reset()
 	x.systemInfoBuilder.writer = &x.buf
 	x.systemInfoBuilder.scratch = x.scratch
 	cb(&x.systemInfoBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x52)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x4a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())

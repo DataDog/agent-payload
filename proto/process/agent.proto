@@ -110,10 +110,6 @@ message CollectorReqStatus {
 	string hostName = 2;
 }
 
-message ECSAgentInfo {
-	string version = 1;
-}
-
 message CollectorECSTask {
 	int64 awsAccountID = 1;
 	string clusterName = 2;
@@ -122,11 +118,10 @@ message CollectorECSTask {
 	int32 groupId = 5;
 	int32 groupSize = 6;
 	repeated ECSTask tasks = 7;
-	ECSAgentInfo agentInfo = 8;
-	repeated string tags = 9;
-	Host host = 10; // Post-resolved field
-	string hostName = 11;
-	SystemInfo info = 12;
+	repeated string tags = 8;
+	Host host = 9; // Post-resolved field
+	string hostName = 10;
+	SystemInfo info = 11;
 }
 
 message ECSTask {
@@ -222,8 +217,7 @@ message CollectorPod {
 	repeated Pod pods = 6;
 	Host host = 7; // Post-resolved field
 	repeated string tags = 8;
-	K8sAgentInfo agentInfo = 9;
-	SystemInfo info = 10;
+	SystemInfo info = 9;
 }
 
 message CollectorReplicaSet {
