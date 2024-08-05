@@ -4373,18 +4373,6 @@ func (x *HostBuilder) AddAllTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
-func (x *HostBuilder) SetNumCpus(v int32) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x38)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
-	x.writer.Write(x.scratch)
-}
-func (x *HostBuilder) SetTotalMemory(v int64) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x40)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
-	x.writer.Write(x.scratch)
-}
 func (x *HostBuilder) SetTagIndex(v int32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x48)

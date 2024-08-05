@@ -767,8 +767,7 @@ message Host {
 	int32 orgId = 2;
 	string name = 3;
 	repeated string allTags = 6;
-	int32 numCpus = 7;
-	int64 totalMemory = 8;
+	reserved 7, 8; // Old,
 	int32 tagIndex = 9;
 	int64 tagsModified = 10;
 }
