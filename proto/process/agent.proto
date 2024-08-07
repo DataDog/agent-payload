@@ -202,12 +202,6 @@ message ECSContainerExitCode {
 	int32 exitCode = 3;
 }
 
-message K8sAgentInfo {
-	string version = 1;
-	string installMethod = 2;
-	string installMethodVersion = 3;
-}
-
 message CollectorPod {
 	string hostName = 1;
 	string clusterName = 2;
@@ -264,7 +258,6 @@ message CollectorCluster {
 	int32 groupSize = 4;
 	Cluster cluster = 5;
 	repeated string tags = 6;
-	K8sAgentInfo agentInfo = 7;
 }
 
 // CollectorManifest is the dedicated payload/pipeline for the yaml collection
