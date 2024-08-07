@@ -1208,40 +1208,6 @@ func (x *ECSContainerExitCodeBuilder) SetExitCode(v int32) {
 	x.writer.Write(x.scratch)
 }
 
-type K8sAgentInfoBuilder struct {
-	writer  io.Writer
-	buf     bytes.Buffer
-	scratch []byte
-}
-
-func NewK8sAgentInfoBuilder(writer io.Writer) *K8sAgentInfoBuilder {
-	return &K8sAgentInfoBuilder{
-		writer: writer,
-	}
-}
-func (x *K8sAgentInfoBuilder) Reset(writer io.Writer) {
-	x.buf.Reset()
-	x.writer = writer
-}
-func (x *K8sAgentInfoBuilder) SetVersion(v string) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
-	x.scratch = protowire.AppendString(x.scratch, v)
-	x.writer.Write(x.scratch)
-}
-func (x *K8sAgentInfoBuilder) SetInstallMethod(v string) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
-	x.scratch = protowire.AppendString(x.scratch, v)
-	x.writer.Write(x.scratch)
-}
-func (x *K8sAgentInfoBuilder) SetInstallMethodVersion(v string) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
-	x.scratch = protowire.AppendString(x.scratch, v)
-	x.writer.Write(x.scratch)
-}
-
 type CollectorPodBuilder struct {
 	writer            io.Writer
 	buf               bytes.Buffer
@@ -1600,11 +1566,10 @@ func (x *CollectorNode_HostAliasMappingEntryBuilder) SetValue(cb func(w *HostBui
 }
 
 type CollectorClusterBuilder struct {
-	writer              io.Writer
-	buf                 bytes.Buffer
-	scratch             []byte
-	clusterBuilder      ClusterBuilder
-	k8sAgentInfoBuilder K8sAgentInfoBuilder
+	writer         io.Writer
+	buf            bytes.Buffer
+	scratch        []byte
+	clusterBuilder ClusterBuilder
 }
 
 func NewCollectorClusterBuilder(writer io.Writer) *CollectorClusterBuilder {
@@ -1655,16 +1620,6 @@ func (x *CollectorClusterBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
-}
-func (x *CollectorClusterBuilder) SetAgentInfo(cb func(w *K8sAgentInfoBuilder)) {
-	x.buf.Reset()
-	x.k8sAgentInfoBuilder.writer = &x.buf
-	x.k8sAgentInfoBuilder.scratch = x.scratch
-	cb(&x.k8sAgentInfoBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x3a)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
-	x.writer.Write(x.scratch)
-	x.writer.Write(x.buf.Bytes())
 }
 
 type CollectorManifestBuilder struct {
