@@ -9,6 +9,7 @@ import "proto/deps/github.com/chrusty/protoc-gen-jsonschema/options.proto";
 
 // Error represents an error message
 message Error {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
   option (protoc.gen.jsonschema.message_options).ignore = true;
 
   optional int32 code    = 1;
@@ -17,11 +18,14 @@ message Error {
 
 // WorkloadValuesList represents a list of workload values
 message WorkloadValuesList {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
   repeated WorkloadValues values  = 1;
 }
 
 // WorkloadValues represents the values of a workload
 message WorkloadValues {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
   option (protoc.gen.jsonschema.message_options).ignore = true;
 
   string                   namespace = 1 [(protoc.gen.jsonschema.field_options).required = true]; // Namespace is the namespace of PodAutoscaler object
@@ -34,6 +38,7 @@ message WorkloadValues {
 }
 
 message WorkloadHorizontalValues {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
   option (protoc.gen.jsonschema.message_options).ignore = true;
 
   Error error = 1; // Error is the error message if new values cannot be calculated
@@ -44,12 +49,14 @@ message WorkloadHorizontalValues {
 
 message WorkloadHorizontalData {
   option (protoc.gen.jsonschema.message_options).ignore = true;
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
 
   google.protobuf.Timestamp timestamp = 1 [(protoc.gen.jsonschema.field_options).required = true]; // Timestamp is the time the values were generated
   optional int32            replicas  = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Replicas is the number of replicas the workload should have
 }
 
 message WorkloadVerticalValues {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
   option (protoc.gen.jsonschema.message_options).ignore = true;
 
   Error error = 1; // Error is the error message if new values cannot be calculated
@@ -59,6 +66,7 @@ message WorkloadVerticalValues {
 }
 
 message WorkloadVerticalData {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
   option (protoc.gen.jsonschema.message_options).ignore = true;
 
   google.protobuf.Timestamp   timestamp = 1 [(protoc.gen.jsonschema.field_options).required = true]; // Timestamp is the time the values were generated
@@ -66,9 +74,12 @@ message WorkloadVerticalData {
 }
 
 message ContainerResources {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
   option (protoc.gen.jsonschema.message_options).ignore = true;
 
   message ResourceList {
+    option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
     string name  = 1 [(protoc.gen.jsonschema.field_options).required = true]; // Name is the name of the resource (e.g. "cpu" or "memory")
     string value = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Value is stored in Kubernetes format (e.g. "1Gi")
   }

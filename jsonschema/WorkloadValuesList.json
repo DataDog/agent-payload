@@ -15,16 +15,18 @@
                     "items": {
                         "$ref": "#/definitions/ResourceList"
                     },
+                    "additionalProperties": false,
                     "type": "array"
                 },
                 "limits": {
                     "items": {
                         "$ref": "#/definitions/ResourceList"
                     },
+                    "additionalProperties": false,
                     "type": "array"
                 }
             },
-            "additionalProperties": true,
+            "additionalProperties": false,
             "type": "object",
             "title": "Container Resources"
         },
@@ -37,7 +39,7 @@
                     "type": "string"
                 }
             },
-            "additionalProperties": true,
+            "additionalProperties": false,
             "type": "object",
             "title": "Error",
             "description": "Error represents an error message"
@@ -57,7 +59,7 @@
                     "description": "Value is stored in Kubernetes format (e.g. \"1Gi\")"
                 }
             },
-            "additionalProperties": true,
+            "additionalProperties": false,
             "type": "object",
             "title": "Resource List"
         },
@@ -77,7 +79,7 @@
                     "description": "Replicas is the number of replicas the workload should have"
                 }
             },
-            "additionalProperties": true,
+            "additionalProperties": false,
             "type": "object",
             "title": "Workload Horizontal Data"
         },
@@ -85,21 +87,21 @@
             "properties": {
                 "error": {
                     "$ref": "#/definitions/Error",
-                    "additionalProperties": true,
+                    "additionalProperties": false,
                     "description": "Error is the error message if new values cannot be calculated"
                 },
                 "manual": {
                     "$ref": "#/definitions/WorkloadHorizontalData",
-                    "additionalProperties": true,
+                    "additionalProperties": false,
                     "description": "Manual is the manual override values for the workload"
                 },
                 "auto": {
                     "$ref": "#/definitions/WorkloadHorizontalData",
-                    "additionalProperties": true,
+                    "additionalProperties": false,
                     "description": "Auto is the periodic recommendation values for the workload"
                 }
             },
-            "additionalProperties": true,
+            "additionalProperties": false,
             "type": "object",
             "title": "Workload Horizontal Values"
         },
@@ -119,19 +121,19 @@
                 },
                 "error": {
                     "$ref": "#/definitions/Error",
-                    "additionalProperties": true,
+                    "additionalProperties": false,
                     "description": "Error is any global error that prevent the calculation of new values (not specific to horizontal or vertical values)"
                 },
                 "horizontal": {
                     "$ref": "#/definitions/WorkloadHorizontalValues",
-                    "additionalProperties": true
+                    "additionalProperties": false
                 },
                 "vertical": {
                     "$ref": "#/definitions/WorkloadVerticalValues",
-                    "additionalProperties": true
+                    "additionalProperties": false
                 }
             },
-            "additionalProperties": true,
+            "additionalProperties": false,
             "type": "object",
             "title": "Workload Values",
             "description": "WorkloadValues represents the values of a workload"
@@ -142,10 +144,11 @@
                     "items": {
                         "$ref": "#/definitions/WorkloadValues"
                     },
+                    "additionalProperties": false,
                     "type": "array"
                 }
             },
-            "additionalProperties": true,
+            "additionalProperties": false,
             "type": "object",
             "title": "Workload Values List",
             "description": "WorkloadValuesList represents a list of workload values"
@@ -165,11 +168,12 @@
                     "items": {
                         "$ref": "#/definitions/ContainerResources"
                     },
+                    "additionalProperties": false,
                     "type": "array",
                     "description": "Resources is the list of resources for the workload"
                 }
             },
-            "additionalProperties": true,
+            "additionalProperties": false,
             "type": "object",
             "title": "Workload Vertical Data"
         },
@@ -177,21 +181,21 @@
             "properties": {
                 "error": {
                     "$ref": "#/definitions/Error",
-                    "additionalProperties": true,
+                    "additionalProperties": false,
                     "description": "Error is the error message if new values cannot be calculated"
                 },
                 "manual": {
                     "$ref": "#/definitions/WorkloadVerticalData",
-                    "additionalProperties": true,
+                    "additionalProperties": false,
                     "description": "Manual is the manual override values for the workload"
                 },
                 "auto": {
                     "$ref": "#/definitions/WorkloadVerticalData",
-                    "additionalProperties": true,
+                    "additionalProperties": false,
                     "description": "Auto is the periodic recommendation values for the workload"
                 }
             },
-            "additionalProperties": true,
+            "additionalProperties": false,
             "type": "object",
             "title": "Workload Vertical Values"
         }
