@@ -284,6 +284,7 @@ message AgentConfiguration {
   bool usmEnabled = 2;
   bool dsmEnabled = 3;
   bool ccmEnabled = 4;
+  bool csmEnabled = 5;
 }
 
 
