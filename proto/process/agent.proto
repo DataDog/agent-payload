@@ -1620,6 +1620,7 @@ enum PostgresOperation {
 	PostgresCreateOp = 6;
 	PostgresDropOp = 7;
 	PostgresTruncateOp = 8;
+	PostgresShowOp = 9;
 }
 
 // Represents the statistics for a single Postgres operation.
