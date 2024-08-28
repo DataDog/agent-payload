@@ -9,7 +9,7 @@ package datadog.process_agent;
 message CollectorConnections {
   reserved 1, 4, 7, 9, 13, 32, 33;
   // Please update when adding fields
-  // next identifier:  45
+  // next identifier:  46
 
   string hostName = 2;
   string networkId = 12;
@@ -91,6 +91,8 @@ message CollectorConnections {
   bytes encodedDnsLookups = 37;
 
   map<string, Host> resolvedHostsByName = 40; // Post-resolution field
+
+  string ecsTask = 45;
 }
 
 message Connections {
@@ -113,7 +115,7 @@ message Connections {
 message Connection {
   reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
   // Please update when adding fields
-  // next identifier: 53
+  // next identifier: 54
 
   int32 pid = 1;
   Addr laddr = 5; // Local address
@@ -201,6 +203,8 @@ message Connection {
 
   // serialized map of POSIX error codes to the number of times they have been encountered in the context of this connection (ex [110: 3] would mean that the connection has seen 3 ETIMEDOUT errors)
   map<uint32, uint32> tcpFailuresByErrCode = 52;
+
+  string remoteEcsTask = 53;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
