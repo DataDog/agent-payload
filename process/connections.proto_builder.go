@@ -1190,12 +1190,6 @@ func (x *ResourceMetadataBuilder) SetId(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
-func (x *ResourceMetadataBuilder) SetKey(v uint32) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
-	x.writer.Write(x.scratch)
-}
 func (x *ResourceMetadataBuilder) SetByteKey(cb func(b *bytes.Buffer)) {
 	x.buf.Reset()
 	cb(&x.buf)
