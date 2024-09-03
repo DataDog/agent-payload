@@ -2,11 +2,14 @@
 # Rakefile for agent-payload
 #
 
-protoc_binary="protoc"
-protoc_version="3.5.1"
+# we use an older version of protoc for logs and metrics
+protoc_legacy_version="3.5.1"
+protoc_legacy_binary="/tmp/protoc#{protoc_legacy_version}"
+
+protoc_version="21.12"
+protoc_binary="/tmp/protoc#{protoc_version}"
+
 gogo_dir="/tmp/gogo"
-protoc_binary_2="protoc"
-protoc_version_2="21.12"
 protoc_gen_go_dir="/tmp/protoc-gen-go"
 protoc_jsonschema_version="73d5723"
 
@@ -14,38 +17,36 @@ protoc_jsonschema_version="73d5723"
 namespace :codegen do
 
   task :install_protoc do
+    if `bash -c "protoc --version"` != "libprotoc ${protoc_legacy_version}"
+      sh <<-EOF
+        /bin/bash <<BASH
+        if [ ! -f #{protoc_legacy_binary} ] ; then
+          echo "Downloading protoc #{protoc_legacy_version}"
+          cd /tmp
+          if [ "$(uname -s)" = "Darwin" ] ; then
+            curl -OL https://github.com/google/protobuf/releases/download/v#{protoc_legacy_version}/protoc-#{protoc_legacy_version}-osx-x86_64.zip
+          else
+            curl -OL https://github.com/google/protobuf/releases/download/v#{protoc_legacy_version}/protoc-#{protoc_legacy_version}-linux-x86_64.zip
+          fi
+          unzip protoc-#{protoc_legacy_version}*.zip
+          mv bin/protoc #{protoc_legacy_binary}
+        fi
+BASH
+      EOF
+    end
     if `bash -c "protoc --version"` != "libprotoc ${protoc_version}"
-      protoc_binary="/tmp/protoc#{protoc_version}"
       sh <<-EOF
         /bin/bash <<BASH
         if [ ! -f #{protoc_binary} ] ; then
           echo "Downloading protoc #{protoc_version}"
           cd /tmp
           if [ "$(uname -s)" = "Darwin" ] ; then
-            curl -OL https://github.com/google/protobuf/releases/download/v#{protoc_version}/protoc-#{protoc_version}-osx-x86_64.zip
+            curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v#{protoc_version}/protoc-#{protoc_version}-osx-x86_64.zip
           else
-            curl -OL https://github.com/google/protobuf/releases/download/v#{protoc_version}/protoc-#{protoc_version}-linux-x86_64.zip
+            curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v#{protoc_version}/protoc-#{protoc_version}-linux-x86_64.zip
           fi
           unzip protoc-#{protoc_version}*.zip
           mv bin/protoc #{protoc_binary}
-        fi
-BASH
-      EOF
-    end
-    if `bash -c "protoc --version"` != "libprotoc ${protoc_version_2}"
-      protoc_binary_2="/tmp/protoc#{protoc_version_2}"
-      sh <<-EOF
-        /bin/bash <<BASH
-        if [ ! -f #{protoc_binary_2} ] ; then
-          echo "Downloading protoc #{protoc_version_2}"
-          cd /tmp
-          if [ "$(uname -s)" = "Darwin" ] ; then
-            curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v#{protoc_version_2}/protoc-#{protoc_version_2}-osx-x86_64.zip
-          else
-            curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v#{protoc_version_2}/protoc-#{protoc_version_2}-linux-x86_64.zip
-          fi
-          unzip protoc-#{protoc_version_2}*.zip
-          mv bin/protoc #{protoc_binary_2}
         fi
 BASH
       EOF
@@ -73,19 +74,19 @@ BASH
       popd
 
       echo "Generating logs proto"
-      PATH=/tmp/gogo-bin-v1.3.2 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src --java_out=java proto/logs/agent_logs_payload.proto
+      PATH=/tmp/gogo-bin-v1.3.2 #{protoc_legacy_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src --java_out=java proto/logs/agent_logs_payload.proto
 
       echo "Generating metrics proto (go)"
-      PATH=/tmp/gogo-bin-v1.3.2 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src proto/metrics/agent_payload.proto
+      PATH=/tmp/gogo-bin-v1.3.2 #{protoc_legacy_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src proto/metrics/agent_payload.proto
 
       echo "Generating metrics proto (python)"
-      #{protoc_binary} --proto_path=#{gogo_dir}/src:$GOPATH/src:./proto/metrics --python_out=python agent_payload.proto
+      #{protoc_legacy_binary} --proto_path=#{gogo_dir}/src:$GOPATH/src:./proto/metrics --python_out=python agent_payload.proto
 
       echo "Generating process proto (go)"
-      PATH=/tmp/gogo-bin-v1.3.2 #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofaster_out=$GOPATH/src proto/process/*.proto
+      PATH=/tmp/gogo-bin-v1.3.2 #{protoc_legacy_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofaster_out=$GOPATH/src proto/process/*.proto
 
       GOPATH=#{protoc_gen_go_dir} go install github.com/leeavital/protoc-gen-gostreamer@v0.1.0
-      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:.  --gostreamer_out=$GOPATH/src proto/process/*.proto
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_legacy_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:.  --gostreamer_out=$GOPATH/src proto/process/*.proto
       mv v5/process/proto/process/*.go process
 
       # Install protoc-gen-go
@@ -93,23 +94,23 @@ BASH
       GOPATH=#{protoc_gen_go_dir} go install github.com/chrusty/protoc-gen-jsonschema/cmd/protoc-gen-jsonschema@#{protoc_jsonschema_version}
 
       echo "Generating contlcycle proto"
-      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto
 
       echo "Generating kubernetes autoscaling proto"
-      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema proto/autoscaling/kubernetes/autoscaling.proto
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema proto/autoscaling/kubernetes/autoscaling.proto
 
       echo "Generating contimage proto"
-      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/contimage/contimage.proto
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/contimage/contimage.proto
 
       echo "Generating sbom proto"
-      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto
-      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/sbom/sbom.proto
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary} --proto_path=$GOPATH/src:. --go_out=$GOPATH/src proto/sbom/sbom.proto
 
       # Install protoc-gen-go-vtproto
       GOPATH=#{protoc_gen_go_dir} go install github.com/planetscale/vtprotobuf/cmd/protoc-gen-go-vtproto@v0.5.0
 
       echo "Generating CWS Activity Dumps v1"
-      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary_2} --proto_path=$GOPATH/src:. \
+      PATH=#{protoc_gen_go_dir}/bin #{protoc_binary} --proto_path=$GOPATH/src:. \
         --java_out=java \
         --go_out=$GOPATH/src \
         --go-vtproto_out=$GOPATH/src \
