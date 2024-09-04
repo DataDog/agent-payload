@@ -127,7 +127,7 @@ BASH
       export GO111MODULE=auto
 
       echo "Generating logs proto"
-      PATH=#{toolchain_bin_dir} #{protoc_legacy_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src --java_out=java proto/logs/agent_logs_payload.proto
+      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src --java_out=java proto/logs/agent_logs_payload.proto
 
       echo "Generating metrics proto (go)"
       PATH=#{toolchain_bin_dir} #{protoc_legacy_binary} --proto_path=$GOPATH/src:#{gogo_include}:#{toolchain_legacy_include_dir}:. --gogofast_out=$GOPATH/src proto/metrics/agent_payload.proto

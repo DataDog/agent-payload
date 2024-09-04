@@ -6,7 +6,7 @@ package com.dd.agent.pb;
 /**
  * Protobuf type {@code pb.Log}
  */
-public  final class Log extends
+public final class Log extends
     com.google.protobuf.GeneratedMessageV3 implements
     // @@protoc_insertion_point(message_implements:pb.Log)
     LogOrBuilder {
@@ -18,7 +18,6 @@ private static final long serialVersionUID = 0L;
   private Log() {
     message_ = "";
     status_ = "";
-    timestamp_ = 0L;
     hostname_ = "";
     service_ = "";
     source_ = "";
@@ -26,100 +25,23 @@ private static final long serialVersionUID = 0L;
   }
 
   @java.lang.Override
+  @SuppressWarnings({"unused"})
+  protected java.lang.Object newInstance(
+      UnusedPrivateParameter unused) {
+    return new Log();
+  }
+
+  @java.lang.Override
   public final com.google.protobuf.UnknownFieldSet
   getUnknownFields() {
     return this.unknownFields;
-  }
-  private Log(
-      com.google.protobuf.CodedInputStream input,
-      com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-      throws com.google.protobuf.InvalidProtocolBufferException {
-    this();
-    if (extensionRegistry == null) {
-      throw new java.lang.NullPointerException();
-    }
-    int mutable_bitField0_ = 0;
-    com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-        com.google.protobuf.UnknownFieldSet.newBuilder();
-    try {
-      boolean done = false;
-      while (!done) {
-        int tag = input.readTag();
-        switch (tag) {
-          case 0:
-            done = true;
-            break;
-          default: {
-            if (!parseUnknownFieldProto3(
-                input, unknownFields, extensionRegistry, tag)) {
-              done = true;
-            }
-            break;
-          }
-          case 10: {
-            java.lang.String s = input.readStringRequireUtf8();
-
-            message_ = s;
-            break;
-          }
-          case 18: {
-            java.lang.String s = input.readStringRequireUtf8();
-
-            status_ = s;
-            break;
-          }
-          case 24: {
-
-            timestamp_ = input.readInt64();
-            break;
-          }
-          case 34: {
-            java.lang.String s = input.readStringRequireUtf8();
-
-            hostname_ = s;
-            break;
-          }
-          case 42: {
-            java.lang.String s = input.readStringRequireUtf8();
-
-            service_ = s;
-            break;
-          }
-          case 50: {
-            java.lang.String s = input.readStringRequireUtf8();
-
-            source_ = s;
-            break;
-          }
-          case 58: {
-            java.lang.String s = input.readStringRequireUtf8();
-            if (!((mutable_bitField0_ & 0x00000040) == 0x00000040)) {
-              tags_ = new com.google.protobuf.LazyStringArrayList();
-              mutable_bitField0_ |= 0x00000040;
-            }
-            tags_.add(s);
-            break;
-          }
-        }
-      }
-    } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-      throw e.setUnfinishedMessage(this);
-    } catch (java.io.IOException e) {
-      throw new com.google.protobuf.InvalidProtocolBufferException(
-          e).setUnfinishedMessage(this);
-    } finally {
-      if (((mutable_bitField0_ & 0x00000040) == 0x00000040)) {
-        tags_ = tags_.getUnmodifiableView();
-      }
-      this.unknownFields = unknownFields.build();
-      makeExtensionsImmutable();
-    }
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
     return com.dd.agent.pb.AgentPayload.internal_static_pb_Log_descriptor;
   }
 
+  @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
     return com.dd.agent.pb.AgentPayload.internal_static_pb_Log_fieldAccessorTable
@@ -127,12 +49,14 @@ private static final long serialVersionUID = 0L;
             com.dd.agent.pb.Log.class, com.dd.agent.pb.Log.Builder.class);
   }
 
-  private int bitField0_;
   public static final int MESSAGE_FIELD_NUMBER = 1;
-  private volatile java.lang.Object message_;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object message_ = "";
   /**
    * <code>string message = 1;</code>
+   * @return The message.
    */
+  @java.lang.Override
   public java.lang.String getMessage() {
     java.lang.Object ref = message_;
     if (ref instanceof java.lang.String) {
@@ -147,7 +71,9 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string message = 1;</code>
+   * @return The bytes for message.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getMessageBytes() {
     java.lang.Object ref = message_;
@@ -163,14 +89,17 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int STATUS_FIELD_NUMBER = 2;
-  private volatile java.lang.Object status_;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object status_ = "";
   /**
    * <pre>
    * previously known as "severity"
    * </pre>
    *
    * <code>string status = 2;</code>
+   * @return The status.
    */
+  @java.lang.Override
   public java.lang.String getStatus() {
     java.lang.Object ref = status_;
     if (ref instanceof java.lang.String) {
@@ -189,7 +118,9 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string status = 2;</code>
+   * @return The bytes for status.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getStatusBytes() {
     java.lang.Object ref = status_;
@@ -205,23 +136,28 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int TIMESTAMP_FIELD_NUMBER = 3;
-  private long timestamp_;
+  private long timestamp_ = 0L;
   /**
    * <code>int64 timestamp = 3;</code>
+   * @return The timestamp.
    */
+  @java.lang.Override
   public long getTimestamp() {
     return timestamp_;
   }
 
   public static final int HOSTNAME_FIELD_NUMBER = 4;
-  private volatile java.lang.Object hostname_;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object hostname_ = "";
   /**
    * <pre>
    * from host
    * </pre>
    *
    * <code>string hostname = 4;</code>
+   * @return The hostname.
    */
+  @java.lang.Override
   public java.lang.String getHostname() {
     java.lang.Object ref = hostname_;
     if (ref instanceof java.lang.String) {
@@ -240,7 +176,9 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string hostname = 4;</code>
+   * @return The bytes for hostname.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getHostnameBytes() {
     java.lang.Object ref = hostname_;
@@ -256,14 +194,17 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int SERVICE_FIELD_NUMBER = 5;
-  private volatile java.lang.Object service_;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object service_ = "";
   /**
    * <pre>
    * from config
    * </pre>
    *
    * <code>string service = 5;</code>
+   * @return The service.
    */
+  @java.lang.Override
   public java.lang.String getService() {
     java.lang.Object ref = service_;
     if (ref instanceof java.lang.String) {
@@ -282,7 +223,9 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>string service = 5;</code>
+   * @return The bytes for service.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getServiceBytes() {
     java.lang.Object ref = service_;
@@ -298,10 +241,13 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int SOURCE_FIELD_NUMBER = 6;
-  private volatile java.lang.Object source_;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object source_ = "";
   /**
    * <code>string source = 6;</code>
+   * @return The source.
    */
+  @java.lang.Override
   public java.lang.String getSource() {
     java.lang.Object ref = source_;
     if (ref instanceof java.lang.String) {
@@ -316,7 +262,9 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <code>string source = 6;</code>
+   * @return The bytes for source.
    */
+  @java.lang.Override
   public com.google.protobuf.ByteString
       getSourceBytes() {
     java.lang.Object ref = source_;
@@ -332,6 +280,7 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int TAGS_FIELD_NUMBER = 7;
+  @SuppressWarnings("serial")
   private com.google.protobuf.LazyStringList tags_;
   /**
    * <pre>
@@ -339,6 +288,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>repeated string tags = 7;</code>
+   * @return A list containing the tags.
    */
   public com.google.protobuf.ProtocolStringList
       getTagsList() {
@@ -350,6 +300,7 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>repeated string tags = 7;</code>
+   * @return The count of tags.
    */
   public int getTagsCount() {
     return tags_.size();
@@ -360,6 +311,8 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>repeated string tags = 7;</code>
+   * @param index The index of the element to return.
+   * @return The tags at the given index.
    */
   public java.lang.String getTags(int index) {
     return tags_.get(index);
@@ -370,6 +323,8 @@ private static final long serialVersionUID = 0L;
    * </pre>
    *
    * <code>repeated string tags = 7;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the tags at the given index.
    */
   public com.google.protobuf.ByteString
       getTagsBytes(int index) {
@@ -377,6 +332,7 @@ private static final long serialVersionUID = 0L;
   }
 
   private byte memoizedIsInitialized = -1;
+  @java.lang.Override
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
@@ -386,54 +342,56 @@ private static final long serialVersionUID = 0L;
     return true;
   }
 
+  @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getMessageBytes().isEmpty()) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, message_);
     }
-    if (!getStatusBytes().isEmpty()) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(status_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, status_);
     }
     if (timestamp_ != 0L) {
       output.writeInt64(3, timestamp_);
     }
-    if (!getHostnameBytes().isEmpty()) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(hostname_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, hostname_);
     }
-    if (!getServiceBytes().isEmpty()) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(service_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 5, service_);
     }
-    if (!getSourceBytes().isEmpty()) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(source_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 6, source_);
     }
     for (int i = 0; i < tags_.size(); i++) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 7, tags_.getRaw(i));
     }
-    unknownFields.writeTo(output);
+    getUnknownFields().writeTo(output);
   }
 
+  @java.lang.Override
   public int getSerializedSize() {
     int size = memoizedSize;
     if (size != -1) return size;
 
     size = 0;
-    if (!getMessageBytes().isEmpty()) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, message_);
     }
-    if (!getStatusBytes().isEmpty()) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(status_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, status_);
     }
     if (timestamp_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(3, timestamp_);
     }
-    if (!getHostnameBytes().isEmpty()) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(hostname_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, hostname_);
     }
-    if (!getServiceBytes().isEmpty()) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(service_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, service_);
     }
-    if (!getSourceBytes().isEmpty()) {
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(source_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, source_);
     }
     {
@@ -444,7 +402,7 @@ private static final long serialVersionUID = 0L;
       size += dataSize;
       size += 1 * getTagsList().size();
     }
-    size += unknownFields.getSerializedSize();
+    size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
   }
@@ -459,23 +417,22 @@ private static final long serialVersionUID = 0L;
     }
     com.dd.agent.pb.Log other = (com.dd.agent.pb.Log) obj;
 
-    boolean result = true;
-    result = result && getMessage()
-        .equals(other.getMessage());
-    result = result && getStatus()
-        .equals(other.getStatus());
-    result = result && (getTimestamp()
-        == other.getTimestamp());
-    result = result && getHostname()
-        .equals(other.getHostname());
-    result = result && getService()
-        .equals(other.getService());
-    result = result && getSource()
-        .equals(other.getSource());
-    result = result && getTagsList()
-        .equals(other.getTagsList());
-    result = result && unknownFields.equals(other.unknownFields);
-    return result;
+    if (!getMessage()
+        .equals(other.getMessage())) return false;
+    if (!getStatus()
+        .equals(other.getStatus())) return false;
+    if (getTimestamp()
+        != other.getTimestamp()) return false;
+    if (!getHostname()
+        .equals(other.getHostname())) return false;
+    if (!getService()
+        .equals(other.getService())) return false;
+    if (!getSource()
+        .equals(other.getSource())) return false;
+    if (!getTagsList()
+        .equals(other.getTagsList())) return false;
+    if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+    return true;
   }
 
   @java.lang.Override
@@ -502,7 +459,7 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + TAGS_FIELD_NUMBER;
       hash = (53 * hash) + getTagsList().hashCode();
     }
-    hash = (29 * hash) + unknownFields.hashCode();
+    hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
   }
@@ -577,6 +534,7 @@ private static final long serialVersionUID = 0L;
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
 
+  @java.lang.Override
   public Builder newBuilderForType() { return newBuilder(); }
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
@@ -584,6 +542,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder(com.dd.agent.pb.Log prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
+  @java.lang.Override
   public Builder toBuilder() {
     return this == DEFAULT_INSTANCE
         ? new Builder() : new Builder().mergeFrom(this);
@@ -607,6 +566,7 @@ private static final long serialVersionUID = 0L;
       return com.dd.agent.pb.AgentPayload.internal_static_pb_Log_descriptor;
     }
 
+    @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.dd.agent.pb.AgentPayload.internal_static_pb_Log_fieldAccessorTable
@@ -616,47 +576,41 @@ private static final long serialVersionUID = 0L;
 
     // Construct using com.dd.agent.pb.Log.newBuilder()
     private Builder() {
-      maybeForceBuilderInitialization();
+
     }
 
     private Builder(
         com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       super(parent);
-      maybeForceBuilderInitialization();
+
     }
-    private void maybeForceBuilderInitialization() {
-      if (com.google.protobuf.GeneratedMessageV3
-              .alwaysUseFieldBuilders) {
-      }
-    }
+    @java.lang.Override
     public Builder clear() {
       super.clear();
+      bitField0_ = 0;
       message_ = "";
-
       status_ = "";
-
       timestamp_ = 0L;
-
       hostname_ = "";
-
       service_ = "";
-
       source_ = "";
-
       tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       bitField0_ = (bitField0_ & ~0x00000040);
       return this;
     }
 
+    @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
       return com.dd.agent.pb.AgentPayload.internal_static_pb_Log_descriptor;
     }
 
+    @java.lang.Override
     public com.dd.agent.pb.Log getDefaultInstanceForType() {
       return com.dd.agent.pb.Log.getDefaultInstance();
     }
 
+    @java.lang.Override
     public com.dd.agent.pb.Log build() {
       com.dd.agent.pb.Log result = buildPartial();
       if (!result.isInitialized()) {
@@ -665,52 +619,78 @@ private static final long serialVersionUID = 0L;
       return result;
     }
 
+    @java.lang.Override
     public com.dd.agent.pb.Log buildPartial() {
       com.dd.agent.pb.Log result = new com.dd.agent.pb.Log(this);
-      int from_bitField0_ = bitField0_;
-      int to_bitField0_ = 0;
-      result.message_ = message_;
-      result.status_ = status_;
-      result.timestamp_ = timestamp_;
-      result.hostname_ = hostname_;
-      result.service_ = service_;
-      result.source_ = source_;
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        tags_ = tags_.getUnmodifiableView();
-        bitField0_ = (bitField0_ & ~0x00000040);
-      }
-      result.tags_ = tags_;
-      result.bitField0_ = to_bitField0_;
+      buildPartialRepeatedFields(result);
+      if (bitField0_ != 0) { buildPartial0(result); }
       onBuilt();
       return result;
     }
 
-    public Builder clone() {
-      return (Builder) super.clone();
+    private void buildPartialRepeatedFields(com.dd.agent.pb.Log result) {
+      if (((bitField0_ & 0x00000040) != 0)) {
+        tags_ = tags_.getUnmodifiableView();
+        bitField0_ = (bitField0_ & ~0x00000040);
+      }
+      result.tags_ = tags_;
     }
+
+    private void buildPartial0(com.dd.agent.pb.Log result) {
+      int from_bitField0_ = bitField0_;
+      if (((from_bitField0_ & 0x00000001) != 0)) {
+        result.message_ = message_;
+      }
+      if (((from_bitField0_ & 0x00000002) != 0)) {
+        result.status_ = status_;
+      }
+      if (((from_bitField0_ & 0x00000004) != 0)) {
+        result.timestamp_ = timestamp_;
+      }
+      if (((from_bitField0_ & 0x00000008) != 0)) {
+        result.hostname_ = hostname_;
+      }
+      if (((from_bitField0_ & 0x00000010) != 0)) {
+        result.service_ = service_;
+      }
+      if (((from_bitField0_ & 0x00000020) != 0)) {
+        result.source_ = source_;
+      }
+    }
+
+    @java.lang.Override
+    public Builder clone() {
+      return super.clone();
+    }
+    @java.lang.Override
     public Builder setField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.setField(field, value);
+      return super.setField(field, value);
     }
+    @java.lang.Override
     public Builder clearField(
         com.google.protobuf.Descriptors.FieldDescriptor field) {
-      return (Builder) super.clearField(field);
+      return super.clearField(field);
     }
+    @java.lang.Override
     public Builder clearOneof(
         com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-      return (Builder) super.clearOneof(oneof);
+      return super.clearOneof(oneof);
     }
+    @java.lang.Override
     public Builder setRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         int index, java.lang.Object value) {
-      return (Builder) super.setRepeatedField(field, index, value);
+      return super.setRepeatedField(field, index, value);
     }
+    @java.lang.Override
     public Builder addRepeatedField(
         com.google.protobuf.Descriptors.FieldDescriptor field,
         java.lang.Object value) {
-      return (Builder) super.addRepeatedField(field, value);
+      return super.addRepeatedField(field, value);
     }
+    @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
       if (other instanceof com.dd.agent.pb.Log) {
         return mergeFrom((com.dd.agent.pb.Log)other);
@@ -724,10 +704,12 @@ private static final long serialVersionUID = 0L;
       if (other == com.dd.agent.pb.Log.getDefaultInstance()) return this;
       if (!other.getMessage().isEmpty()) {
         message_ = other.message_;
+        bitField0_ |= 0x00000001;
         onChanged();
       }
       if (!other.getStatus().isEmpty()) {
         status_ = other.status_;
+        bitField0_ |= 0x00000002;
         onChanged();
       }
       if (other.getTimestamp() != 0L) {
@@ -735,14 +717,17 @@ private static final long serialVersionUID = 0L;
       }
       if (!other.getHostname().isEmpty()) {
         hostname_ = other.hostname_;
+        bitField0_ |= 0x00000008;
         onChanged();
       }
       if (!other.getService().isEmpty()) {
         service_ = other.service_;
+        bitField0_ |= 0x00000010;
         onChanged();
       }
       if (!other.getSource().isEmpty()) {
         source_ = other.source_;
+        bitField0_ |= 0x00000020;
         onChanged();
       }
       if (!other.tags_.isEmpty()) {
@@ -755,30 +740,81 @@ private static final long serialVersionUID = 0L;
         }
         onChanged();
       }
-      this.mergeUnknownFields(other.unknownFields);
+      this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
     }
 
+    @java.lang.Override
     public final boolean isInitialized() {
       return true;
     }
 
+    @java.lang.Override
     public Builder mergeFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.dd.agent.pb.Log parsedMessage = null;
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
       try {
-        parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              message_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000001;
+              break;
+            } // case 10
+            case 18: {
+              status_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000002;
+              break;
+            } // case 18
+            case 24: {
+              timestamp_ = input.readInt64();
+              bitField0_ |= 0x00000004;
+              break;
+            } // case 24
+            case 34: {
+              hostname_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000008;
+              break;
+            } // case 34
+            case 42: {
+              service_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000010;
+              break;
+            } // case 42
+            case 50: {
+              source_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000020;
+              break;
+            } // case 50
+            case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+              ensureTagsIsMutable();
+              tags_.add(s);
+              break;
+            } // case 58
+            default: {
+              if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                done = true; // was an endgroup tag
+              }
+              break;
+            } // default:
+          } // switch (tag)
+        } // while (!done)
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.dd.agent.pb.Log) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
-        if (parsedMessage != null) {
-          mergeFrom(parsedMessage);
-        }
-      }
+        onChanged();
+      } // finally
       return this;
     }
     private int bitField0_;
@@ -786,6 +822,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object message_ = "";
     /**
      * <code>string message = 1;</code>
+     * @return The message.
      */
     public java.lang.String getMessage() {
       java.lang.Object ref = message_;
@@ -801,6 +838,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string message = 1;</code>
+     * @return The bytes for message.
      */
     public com.google.protobuf.ByteString
         getMessageBytes() {
@@ -817,37 +855,38 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string message = 1;</code>
+     * @param value The message to set.
+     * @return This builder for chaining.
      */
     public Builder setMessage(
         java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       message_ = value;
+      bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }
     /**
      * <code>string message = 1;</code>
+     * @return This builder for chaining.
      */
     public Builder clearMessage() {
-      
       message_ = getDefaultInstance().getMessage();
+      bitField0_ = (bitField0_ & ~0x00000001);
       onChanged();
       return this;
     }
     /**
      * <code>string message = 1;</code>
+     * @param value The bytes for message to set.
+     * @return This builder for chaining.
      */
     public Builder setMessageBytes(
         com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
       message_ = value;
+      bitField0_ |= 0x00000001;
       onChanged();
       return this;
     }
@@ -859,6 +898,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string status = 2;</code>
+     * @return The status.
      */
     public java.lang.String getStatus() {
       java.lang.Object ref = status_;
@@ -878,6 +918,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string status = 2;</code>
+     * @return The bytes for status.
      */
     public com.google.protobuf.ByteString
         getStatusBytes() {
@@ -898,14 +939,14 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string status = 2;</code>
+     * @param value The status to set.
+     * @return This builder for chaining.
      */
     public Builder setStatus(
         java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       status_ = value;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
@@ -915,10 +956,11 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string status = 2;</code>
+     * @return This builder for chaining.
      */
     public Builder clearStatus() {
-      
       status_ = getDefaultInstance().getStatus();
+      bitField0_ = (bitField0_ & ~0x00000002);
       onChanged();
       return this;
     }
@@ -928,15 +970,15 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string status = 2;</code>
+     * @param value The bytes for status to set.
+     * @return This builder for chaining.
      */
     public Builder setStatusBytes(
         com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
       status_ = value;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
@@ -944,24 +986,30 @@ private static final long serialVersionUID = 0L;
     private long timestamp_ ;
     /**
      * <code>int64 timestamp = 3;</code>
+     * @return The timestamp.
      */
+    @java.lang.Override
     public long getTimestamp() {
       return timestamp_;
     }
     /**
      * <code>int64 timestamp = 3;</code>
+     * @param value The timestamp to set.
+     * @return This builder for chaining.
      */
     public Builder setTimestamp(long value) {
       
       timestamp_ = value;
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
     /**
      * <code>int64 timestamp = 3;</code>
+     * @return This builder for chaining.
      */
     public Builder clearTimestamp() {
-      
+      bitField0_ = (bitField0_ & ~0x00000004);
       timestamp_ = 0L;
       onChanged();
       return this;
@@ -974,6 +1022,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string hostname = 4;</code>
+     * @return The hostname.
      */
     public java.lang.String getHostname() {
       java.lang.Object ref = hostname_;
@@ -993,6 +1042,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string hostname = 4;</code>
+     * @return The bytes for hostname.
      */
     public com.google.protobuf.ByteString
         getHostnameBytes() {
@@ -1013,14 +1063,14 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string hostname = 4;</code>
+     * @param value The hostname to set.
+     * @return This builder for chaining.
      */
     public Builder setHostname(
         java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       hostname_ = value;
+      bitField0_ |= 0x00000008;
       onChanged();
       return this;
     }
@@ -1030,10 +1080,11 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string hostname = 4;</code>
+     * @return This builder for chaining.
      */
     public Builder clearHostname() {
-      
       hostname_ = getDefaultInstance().getHostname();
+      bitField0_ = (bitField0_ & ~0x00000008);
       onChanged();
       return this;
     }
@@ -1043,15 +1094,15 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string hostname = 4;</code>
+     * @param value The bytes for hostname to set.
+     * @return This builder for chaining.
      */
     public Builder setHostnameBytes(
         com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
       hostname_ = value;
+      bitField0_ |= 0x00000008;
       onChanged();
       return this;
     }
@@ -1063,6 +1114,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string service = 5;</code>
+     * @return The service.
      */
     public java.lang.String getService() {
       java.lang.Object ref = service_;
@@ -1082,6 +1134,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string service = 5;</code>
+     * @return The bytes for service.
      */
     public com.google.protobuf.ByteString
         getServiceBytes() {
@@ -1102,14 +1155,14 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string service = 5;</code>
+     * @param value The service to set.
+     * @return This builder for chaining.
      */
     public Builder setService(
         java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       service_ = value;
+      bitField0_ |= 0x00000010;
       onChanged();
       return this;
     }
@@ -1119,10 +1172,11 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string service = 5;</code>
+     * @return This builder for chaining.
      */
     public Builder clearService() {
-      
       service_ = getDefaultInstance().getService();
+      bitField0_ = (bitField0_ & ~0x00000010);
       onChanged();
       return this;
     }
@@ -1132,15 +1186,15 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>string service = 5;</code>
+     * @param value The bytes for service to set.
+     * @return This builder for chaining.
      */
     public Builder setServiceBytes(
         com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
       service_ = value;
+      bitField0_ |= 0x00000010;
       onChanged();
       return this;
     }
@@ -1148,6 +1202,7 @@ private static final long serialVersionUID = 0L;
     private java.lang.Object source_ = "";
     /**
      * <code>string source = 6;</code>
+     * @return The source.
      */
     public java.lang.String getSource() {
       java.lang.Object ref = source_;
@@ -1163,6 +1218,7 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string source = 6;</code>
+     * @return The bytes for source.
      */
     public com.google.protobuf.ByteString
         getSourceBytes() {
@@ -1179,44 +1235,45 @@ private static final long serialVersionUID = 0L;
     }
     /**
      * <code>string source = 6;</code>
+     * @param value The source to set.
+     * @return This builder for chaining.
      */
     public Builder setSource(
         java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      if (value == null) { throw new NullPointerException(); }
       source_ = value;
+      bitField0_ |= 0x00000020;
       onChanged();
       return this;
     }
     /**
      * <code>string source = 6;</code>
+     * @return This builder for chaining.
      */
     public Builder clearSource() {
-      
       source_ = getDefaultInstance().getSource();
+      bitField0_ = (bitField0_ & ~0x00000020);
       onChanged();
       return this;
     }
     /**
      * <code>string source = 6;</code>
+     * @param value The bytes for source to set.
+     * @return This builder for chaining.
      */
     public Builder setSourceBytes(
         com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
       source_ = value;
+      bitField0_ |= 0x00000020;
       onChanged();
       return this;
     }
 
     private com.google.protobuf.LazyStringList tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     private void ensureTagsIsMutable() {
-      if (!((bitField0_ & 0x00000040) == 0x00000040)) {
+      if (!((bitField0_ & 0x00000040) != 0)) {
         tags_ = new com.google.protobuf.LazyStringArrayList(tags_);
         bitField0_ |= 0x00000040;
        }
@@ -1227,6 +1284,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string tags = 7;</code>
+     * @return A list containing the tags.
      */
     public com.google.protobuf.ProtocolStringList
         getTagsList() {
@@ -1238,6 +1296,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string tags = 7;</code>
+     * @return The count of tags.
      */
     public int getTagsCount() {
       return tags_.size();
@@ -1248,6 +1307,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string tags = 7;</code>
+     * @param index The index of the element to return.
+     * @return The tags at the given index.
      */
     public java.lang.String getTags(int index) {
       return tags_.get(index);
@@ -1258,6 +1319,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string tags = 7;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the tags at the given index.
      */
     public com.google.protobuf.ByteString
         getTagsBytes(int index) {
@@ -1269,13 +1332,14 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string tags = 7;</code>
+     * @param index The index to set the value at.
+     * @param value The tags to set.
+     * @return This builder for chaining.
      */
     public Builder setTags(
         int index, java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureTagsIsMutable();
+      if (value == null) { throw new NullPointerException(); }
+      ensureTagsIsMutable();
       tags_.set(index, value);
       onChanged();
       return this;
@@ -1286,13 +1350,13 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string tags = 7;</code>
+     * @param value The tags to add.
+     * @return This builder for chaining.
      */
     public Builder addTags(
         java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureTagsIsMutable();
+      if (value == null) { throw new NullPointerException(); }
+      ensureTagsIsMutable();
       tags_.add(value);
       onChanged();
       return this;
@@ -1303,6 +1367,8 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string tags = 7;</code>
+     * @param values The tags to add.
+     * @return This builder for chaining.
      */
     public Builder addAllTags(
         java.lang.Iterable<java.lang.String> values) {
@@ -1318,6 +1384,7 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string tags = 7;</code>
+     * @return This builder for chaining.
      */
     public Builder clearTags() {
       tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
@@ -1331,23 +1398,25 @@ private static final long serialVersionUID = 0L;
      * </pre>
      *
      * <code>repeated string tags = 7;</code>
+     * @param value The bytes of the tags to add.
+     * @return This builder for chaining.
      */
     public Builder addTagsBytes(
         com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
       ensureTagsIsMutable();
       tags_.add(value);
       onChanged();
       return this;
     }
+    @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
-      return super.setUnknownFieldsProto3(unknownFields);
+      return super.setUnknownFields(unknownFields);
     }
 
+    @java.lang.Override
     public final Builder mergeUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
@@ -1369,11 +1438,23 @@ private static final long serialVersionUID = 0L;
 
   private static final com.google.protobuf.Parser<Log>
       PARSER = new com.google.protobuf.AbstractParser<Log>() {
+    @java.lang.Override
     public Log parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new Log(input, extensionRegistry);
+      Builder builder = newBuilder();
+      try {
+        builder.mergeFrom(input, extensionRegistry);
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(builder.buildPartial());
+      } catch (com.google.protobuf.UninitializedMessageException e) {
+        throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(e)
+            .setUnfinishedMessage(builder.buildPartial());
+      }
+      return builder.buildPartial();
     }
   };
 
@@ -1386,6 +1467,7 @@ private static final long serialVersionUID = 0L;
     return PARSER;
   }
 
+  @java.lang.Override
   public com.dd.agent.pb.Log getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
