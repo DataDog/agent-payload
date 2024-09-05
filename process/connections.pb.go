@@ -312,7 +312,9 @@ func (ProtocolType) EnumDescriptor() ([]byte, []int) {
 }
 
 type CollectorConnections struct {
-	HostName    string        `protobuf:"bytes,2,opt,name=hostName,proto3" json:"hostName,omitempty"`
+	// the detected hostname for the agent that collected these connections
+	HostName string `protobuf:"bytes,2,opt,name=hostName,proto3" json:"hostName,omitempty"`
+	// this "ID" of the network. This is generally set to VPC ID in the major clouds.
 	NetworkId   string        `protobuf:"bytes,12,opt,name=networkId,proto3" json:"networkId,omitempty"`
 	Connections []*Connection `protobuf:"bytes,3,rep,name=connections,proto3" json:"connections,omitempty"`
 	// Message batching metadata
@@ -350,8 +352,13 @@ type CollectorConnections struct {
 	// CO-RE telemetry
 	CORETelemetryByAsset map[string]COREResult `protobuf:"bytes,42,rep,name=CORETelemetryByAsset,proto3" json:"CORETelemetryByAsset,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=datadog.process_agent.COREResult"`
 	// Prebuilt EBPF assets in use
-	PrebuiltEBPFAssets []string            `protobuf:"bytes,44,rep,name=PrebuiltEBPFAssets,proto3" json:"PrebuiltEBPFAssets,omitempty"`
-	Routes             []*Route            `protobuf:"bytes,31,rep,name=routes,proto3" json:"routes,omitempty"`
+	PrebuiltEBPFAssets []string `protobuf:"bytes,44,rep,name=PrebuiltEBPFAssets,proto3" json:"PrebuiltEBPFAssets,omitempty"`
+	// the machine-local routes used for all connections in this payload. At the time of writing, this
+	// captures the subnet of the interface used to send traffic out of machine. This is also AWS only at the time
+	// of writing.
+	// see Connection#routeIdx
+	Routes []*Route `protobuf:"bytes,31,rep,name=routes,proto3" json:"routes,omitempty"`
+	// the next l3 route for all connections in this payload, AWS only.
 	RouteMetadata      []*RouteMetadata    `protobuf:"bytes,34,rep,name=routeMetadata,proto3" json:"routeMetadata,omitempty"`
 	AgentConfiguration *AgentConfiguration `protobuf:"bytes,35,opt,name=agentConfiguration,proto3" json:"agentConfiguration,omitempty"`
 	// encoded dns is a map of (string) ip-> list of domains (DNSEntry)
@@ -600,6 +607,7 @@ func (m *CollectorConnections) GetResolvedHostsByName() map[string]*Host {
 	return nil
 }
 
+// Connections is only used to communicate between the process agent and system-probe.
 type Connections struct {
 	Conns []*Connection        `protobuf:"bytes,1,rep,name=conns,proto3" json:"conns,omitempty"`
 	Dns   map[string]*DNSEntry `protobuf:"bytes,2,rep,name=dns,proto3" json:"dns,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
@@ -1600,6 +1608,9 @@ func (m *AgentConfiguration) GetCsmEnabled() bool {
 	return false
 }
 
+// Route refers to a route out of a host (think `ip route get`).
+// this is used primarily in AWS where we discover the subnet a
+// that a connection was associated with
 type Route struct {
 	Subnet *Subnet `protobuf:"bytes,1,opt,name=subnet,proto3" json:"subnet,omitempty"`
 }
@@ -1688,8 +1699,11 @@ func (m *Subnet) GetAlias() string {
 	return ""
 }
 
+// RouteMetadata
 type RouteMetadata struct {
-	Alias        string   `protobuf:"bytes,1,opt,name=alias,proto3" json:"alias,omitempty"`
+	Alias string `protobuf:"bytes,1,opt,name=alias,proto3" json:"alias,omitempty"`
+	// the tags for the inferred route target (see Connection#routeTargetIdx)
+	// whenever this type is encoded on the wire, use tagsIndex and tagsModified -- not tags.
 	TagIndex     int32    `protobuf:"varint,2,opt,name=tagIndex,proto3" json:"tagIndex,omitempty"`
 	TagsModified int64    `protobuf:"varint,3,opt,name=tagsModified,proto3" json:"tagsModified,omitempty"`
 	Tags         []string `protobuf:"bytes,4,rep,name=tags,proto3" json:"tags,omitempty"`
@@ -1825,10 +1839,19 @@ func (m *IPTranslation) GetReplDstPort() int32 {
 }
 
 type Addr struct {
-	Ip          string `protobuf:"bytes,2,opt,name=ip,proto3" json:"ip,omitempty"`
-	Port        int32  `protobuf:"varint,3,opt,name=port,proto3" json:"port,omitempty"`
+	Ip   string `protobuf:"bytes,2,opt,name=ip,proto3" json:"ip,omitempty"`
+	Port int32  `protobuf:"varint,3,opt,name=port,proto3" json:"port,omitempty"`
+	// the containerID associated with the addr. This value can be used to look up a value in
+	// CollectorConnections#resolvedResources.
+	//
+	// Despite the name, this can be either a containerID or a cloud loadbalancer.
+	//
+	// this will usually be added during resolution, but if the container is on the same host
+	// where the connection was collected this will be set by the agent
 	ContainerId string `protobuf:"bytes,5,opt,name=containerId,proto3" json:"containerId,omitempty"`
-	HostName    string `protobuf:"bytes,7,opt,name=hostName,proto3" json:"hostName,omitempty"`
+	// the host associated with the addr. This value can be used to look up a value in
+	// CollectorConnections#resolvedHostsByName.
+	HostName string `protobuf:"bytes,7,opt,name=hostName,proto3" json:"hostName,omitempty"`
 }
 
 func (m *Addr) Reset()         { *m = Addr{} }
