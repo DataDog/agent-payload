@@ -130,17 +130,17 @@ BASH
       PATH=#{toolchain_bin_dir} #{protoc_legacy_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src --java_out=java proto/logs/agent_logs_payload.proto
 
       echo "Generating metrics proto (go)"
-      PATH=#{toolchain_bin_dir} #{protoc_legacy_binary} --proto_path=$GOPATH/src:#{gogo_include}:#{toolchain_legacy_include_dir}:. --gogofast_out=$GOPATH/src proto/metrics/agent_payload.proto
+      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_include}:#{toolchain_include_dir}:. --gogofast_out=$GOPATH/src proto/metrics/agent_payload.proto
       echo "done"
 
       echo "Generating metrics proto (python)"
       PATH=#{toolchain_bin_dir} #{protoc_legacy_binary} --proto_path=#{toolchain_legacy_include_dir}:#{gogo_include}:./proto/metrics --python_out=python agent_payload.proto
 
       echo "Generating process proto (go)"
-      PATH=#{toolchain_bin_dir} #{protoc_legacy_binary} --proto_path=#{toolchain_legacy_include_dir}:#{gogo_include}:. --gogofaster_out=$GOPATH/src proto/process/*.proto
+      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:#{gogo_include}:. --gogofaster_out=$GOPATH/src proto/process/*.proto
 
       GOPATH=#{toolchain_dir} go install github.com/leeavital/protoc-gen-gostreamer@v0.1.0
-      PATH=#{toolchain_bin_dir} #{protoc_legacy_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:.  --gostreamer_out=$GOPATH/src proto/process/*.proto
+      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:.  --gostreamer_out=$GOPATH/src proto/process/*.proto
       mv v5/process/proto/process/*.go process
 
       # Install protoc-gen-go
