@@ -158,8 +158,8 @@ BASH
       PATH=#{toolchain_bin_dir}  #{protoc_binary} --proto_path=#{toolchain_legacy_include_dir}:. --go_out=$GOPATH/src proto/contimage/contimage.proto
 
       echo "Generating sbom proto"
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_legacy_include_dir}:. --go_out=$GOPATH/src proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto
-      PATH=#{toolchain_bin_dir}  #{protoc_binary} --proto_path=#{toolchain_legacy_include_dir}:. --go_out=$GOPATH/src proto/sbom/sbom.proto
+      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto
+      PATH=#{toolchain_bin_dir}  #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/sbom/sbom.proto
 
       # Install protoc-gen-go-vtproto
       GOPATH=#{toolchain_dir} go install github.com/planetscale/vtprotobuf/cmd/protoc-gen-go-vtproto@v0.5.0
