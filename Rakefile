@@ -149,13 +149,13 @@ BASH
 
 
       echo "Generating contlcycle proto"
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_legacy_include_dir}:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto
+      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto
 
       echo "Generating kubernetes autoscaling proto"
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{toolchain_legacy_include_dir}:. --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema proto/autoscaling/kubernetes/autoscaling.proto
+      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{toolchain_include_dir}:. --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema proto/autoscaling/kubernetes/autoscaling.proto
 
       echo "Generating contimage proto"
-      PATH=#{toolchain_bin_dir}  #{protoc_binary} --proto_path=#{toolchain_legacy_include_dir}:. --go_out=$GOPATH/src proto/contimage/contimage.proto
+      PATH=#{toolchain_bin_dir}  #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/contimage/contimage.proto
 
       echo "Generating sbom proto"
       PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto
