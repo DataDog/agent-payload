@@ -8,10 +8,10 @@ package sbom
 
 import (
 	cyclonedx_v1_4 "github.com/DataDog/agent-payload/v5/cyclonedx_v1_4"
-	duration "github.com/golang/protobuf/ptypes/duration"
-	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	durationpb "google.golang.org/protobuf/types/known/durationpb"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 )
@@ -215,15 +215,15 @@ type SBOMEntity struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Type               SBOMSourceType       `protobuf:"varint,1,opt,name=type,proto3,enum=datadog.sbom.SBOMSourceType" json:"type,omitempty"`
-	Id                 string               `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`                                       // Unique identifier to be able to correlated and "deduplicate" SBOM
-	GeneratedAt        *timestamp.Timestamp `protobuf:"bytes,3,opt,name=generatedAt,proto3,oneof" json:"generatedAt,omitempty"`               // the datetime of the SBOM generation
-	RepoTags           []string             `protobuf:"bytes,4,rep,name=repo_tags,json=repoTags,proto3" json:"repo_tags,omitempty"`           // the tags of the container image
-	InUse              bool                 `protobuf:"varint,5,opt,name=inUse,proto3" json:"inUse,omitempty"`                                // Whether the SBOM concerns a running entity (running container) or an inert entity (image not used by any container)
-	GenerationDuration *duration.Duration   `protobuf:"bytes,6,opt,name=generationDuration,proto3,oneof" json:"generationDuration,omitempty"` // SBOM generation duration (how long it took to generate the SBOM report)
-	DdTags             []string             `protobuf:"bytes,7,rep,name=dd_tags,json=ddTags,proto3" json:"dd_tags,omitempty"`                 // datadog tags that will be added by the agent depending of the SBOMSourceType
-	Heartbeat          bool                 `protobuf:"varint,8,opt,name=heartbeat,proto3" json:"heartbeat,omitempty"`                        // Whether the SBOM is identical to the previously sent one
-	Hash               string               `protobuf:"bytes,9,opt,name=hash,proto3" json:"hash,omitempty"`                                   // Hash of the SBOM
+	Type               SBOMSourceType         `protobuf:"varint,1,opt,name=type,proto3,enum=datadog.sbom.SBOMSourceType" json:"type,omitempty"`
+	Id                 string                 `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`                                       // Unique identifier to be able to correlated and "deduplicate" SBOM
+	GeneratedAt        *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=generatedAt,proto3,oneof" json:"generatedAt,omitempty"`               // the datetime of the SBOM generation
+	RepoTags           []string               `protobuf:"bytes,4,rep,name=repo_tags,json=repoTags,proto3" json:"repo_tags,omitempty"`           // the tags of the container image
+	InUse              bool                   `protobuf:"varint,5,opt,name=inUse,proto3" json:"inUse,omitempty"`                                // Whether the SBOM concerns a running entity (running container) or an inert entity (image not used by any container)
+	GenerationDuration *durationpb.Duration   `protobuf:"bytes,6,opt,name=generationDuration,proto3,oneof" json:"generationDuration,omitempty"` // SBOM generation duration (how long it took to generate the SBOM report)
+	DdTags             []string               `protobuf:"bytes,7,rep,name=dd_tags,json=ddTags,proto3" json:"dd_tags,omitempty"`                 // datadog tags that will be added by the agent depending of the SBOMSourceType
+	Heartbeat          bool                   `protobuf:"varint,8,opt,name=heartbeat,proto3" json:"heartbeat,omitempty"`                        // Whether the SBOM is identical to the previously sent one
+	Hash               string                 `protobuf:"bytes,9,opt,name=hash,proto3" json:"hash,omitempty"`                                   // Hash of the SBOM
 	// Types that are assignable to Sbom:
 	//
 	//	*SBOMEntity_Cyclonedx
@@ -279,7 +279,7 @@ func (x *SBOMEntity) GetId() string {
 	return ""
 }
 
-func (x *SBOMEntity) GetGeneratedAt() *timestamp.Timestamp {
+func (x *SBOMEntity) GetGeneratedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.GeneratedAt
 	}
@@ -300,7 +300,7 @@ func (x *SBOMEntity) GetInUse() bool {
 	return false
 }
 
-func (x *SBOMEntity) GetGenerationDuration() *duration.Duration {
+func (x *SBOMEntity) GetGenerationDuration() *durationpb.Duration {
 	if x != nil {
 		return x.GenerationDuration
 	}
@@ -474,13 +474,13 @@ func file_proto_sbom_sbom_proto_rawDescGZIP() []byte {
 var file_proto_sbom_sbom_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_proto_sbom_sbom_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_proto_sbom_sbom_proto_goTypes = []interface{}{
-	(SBOMSourceType)(0),         // 0: datadog.sbom.SBOMSourceType
-	(SBOMStatus)(0),             // 1: datadog.sbom.SBOMStatus
-	(*SBOMPayload)(nil),         // 2: datadog.sbom.SBOMPayload
-	(*SBOMEntity)(nil),          // 3: datadog.sbom.SBOMEntity
-	(*timestamp.Timestamp)(nil), // 4: google.protobuf.Timestamp
-	(*duration.Duration)(nil),   // 5: google.protobuf.Duration
-	(*cyclonedx_v1_4.Bom)(nil),  // 6: cyclonedx.v1_4.Bom
+	(SBOMSourceType)(0),           // 0: datadog.sbom.SBOMSourceType
+	(SBOMStatus)(0),               // 1: datadog.sbom.SBOMStatus
+	(*SBOMPayload)(nil),           // 2: datadog.sbom.SBOMPayload
+	(*SBOMEntity)(nil),            // 3: datadog.sbom.SBOMEntity
+	(*timestamppb.Timestamp)(nil), // 4: google.protobuf.Timestamp
+	(*durationpb.Duration)(nil),   // 5: google.protobuf.Duration
+	(*cyclonedx_v1_4.Bom)(nil),    // 6: cyclonedx.v1_4.Bom
 }
 var file_proto_sbom_sbom_proto_depIdxs = []int32{
 	3, // 0: datadog.sbom.SBOMPayload.entities:type_name -> datadog.sbom.SBOMEntity

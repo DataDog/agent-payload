@@ -11,8 +11,12 @@ message CollectorConnections {
   // Please update when adding fields
   // next identifier:  46
 
+  // the detected hostname for the agent that collected these connections
   string hostName = 2;
+
+  // this "ID" of the network. This is generally set to VPC ID in the major clouds.
   string networkId = 12;
+
   repeated Connection connections = 3;
 
   // Message batching metadata
@@ -64,8 +68,13 @@ message CollectorConnections {
   // Prebuilt EBPF assets in use
   repeated string PrebuiltEBPFAssets = 44;
 
+  // the machine-local routes used for all connections in this payload. At the time of writing, this
+  // captures the subnet of the interface used to send traffic out of machine. This is also AWS only at the time
+  // of writing.
+  // see Connection#routeIdx
   repeated Route routes = 31;
 
+  // the next l3 route for all connections in this payload, AWS only.
   repeated RouteMetadata routeMetadata = 34; // backend use only
 
   AgentConfiguration agentConfiguration = 35;
@@ -95,6 +104,7 @@ message CollectorConnections {
   string ecsTask = 45;
 }
 
+// Connections is only used to communicate between the process agent and system-probe.
 message Connections {
   repeated Connection conns = 1;
   map<string, DNSEntry> dns  = 2;
@@ -316,6 +326,9 @@ message AgentConfiguration {
 }
 
 
+// Route refers to a route out of a host (think `ip route get`).
+// this is used primarily in AWS where we discover the subnet a
+// that a connection was associated with
 message Route {
   Subnet subnet = 1;
 }
@@ -324,10 +337,16 @@ message Subnet {
   string alias = 1;
 }
 
+
+// RouteMetadata 
 message RouteMetadata {
   string alias = 1;
+
+  // the tags for the inferred route target (see Connection#routeTargetIdx)
+  // whenever this type is encoded on the wire, use tagsIndex and tagsModified -- not tags.
   int32 tagIndex = 2;
   int64 tagsModified = 3;
+
   repeated string tags = 4; // Used only on the backend
 }
 
@@ -343,7 +362,18 @@ message Addr {
 
   string ip = 2;
   int32  port = 3;
-  string containerId = 5; // post-resolution field
+
+  // the containerID associated with the addr. This value can be used to look up a value in
+  // CollectorConnections#resolvedResources.
+  //
+  // Despite the name, this can be either a containerID or a cloud loadbalancer.
+  //
+  // this will usually be added during resolution, but if the container is on the same host
+  // where the connection was collected this will be set by the agent
+  string containerId = 5;
+
+  // the host associated with the addr. This value can be used to look up a value in
+  // CollectorConnections#resolvedHostsByName.
   string hostName = 7; // post-resolution field
 }
 

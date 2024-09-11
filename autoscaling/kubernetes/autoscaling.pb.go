@@ -8,9 +8,9 @@ package kubernetes
 
 import (
 	_ "github.com/chrusty/protoc-gen-jsonschema"
-	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 )
@@ -274,8 +274,8 @@ type WorkloadHorizontalData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Timestamp *timestamp.Timestamp `protobuf:"bytes,1,opt,name=timestamp,proto3" json:"timestamp,omitempty"`      // Timestamp is the time the values were generated
-	Replicas  *int32               `protobuf:"varint,2,opt,name=replicas,proto3,oneof" json:"replicas,omitempty"` // Replicas is the number of replicas the workload should have
+	Timestamp *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=timestamp,proto3" json:"timestamp,omitempty"`      // Timestamp is the time the values were generated
+	Replicas  *int32                 `protobuf:"varint,2,opt,name=replicas,proto3,oneof" json:"replicas,omitempty"` // Replicas is the number of replicas the workload should have
 }
 
 func (x *WorkloadHorizontalData) Reset() {
@@ -310,7 +310,7 @@ func (*WorkloadHorizontalData) Descriptor() ([]byte, []int) {
 	return file_proto_autoscaling_kubernetes_autoscaling_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *WorkloadHorizontalData) GetTimestamp() *timestamp.Timestamp {
+func (x *WorkloadHorizontalData) GetTimestamp() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Timestamp
 	}
@@ -392,8 +392,8 @@ type WorkloadVerticalData struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Timestamp *timestamp.Timestamp  `protobuf:"bytes,1,opt,name=timestamp,proto3" json:"timestamp,omitempty"` // Timestamp is the time the values were generated
-	Resources []*ContainerResources `protobuf:"bytes,2,rep,name=resources,proto3" json:"resources,omitempty"` // Resources is the list of resources for the workload
+	Timestamp *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=timestamp,proto3" json:"timestamp,omitempty"` // Timestamp is the time the values were generated
+	Resources []*ContainerResources  `protobuf:"bytes,2,rep,name=resources,proto3" json:"resources,omitempty"` // Resources is the list of resources for the workload
 }
 
 func (x *WorkloadVerticalData) Reset() {
@@ -428,7 +428,7 @@ func (*WorkloadVerticalData) Descriptor() ([]byte, []int) {
 	return file_proto_autoscaling_kubernetes_autoscaling_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *WorkloadVerticalData) GetTimestamp() *timestamp.Timestamp {
+func (x *WorkloadVerticalData) GetTimestamp() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Timestamp
 	}
@@ -708,7 +708,7 @@ var file_proto_autoscaling_kubernetes_autoscaling_proto_goTypes = []interface{}{
 	(*WorkloadVerticalData)(nil),            // 6: datadog.autoscaling.kubernetes.WorkloadVerticalData
 	(*ContainerResources)(nil),              // 7: datadog.autoscaling.kubernetes.ContainerResources
 	(*ContainerResources_ResourceList)(nil), // 8: datadog.autoscaling.kubernetes.ContainerResources.ResourceList
-	(*timestamp.Timestamp)(nil),             // 9: google.protobuf.Timestamp
+	(*timestamppb.Timestamp)(nil),           // 9: google.protobuf.Timestamp
 }
 var file_proto_autoscaling_kubernetes_autoscaling_proto_depIdxs = []int32{
 	2,  // 0: datadog.autoscaling.kubernetes.WorkloadValuesList.values:type_name -> datadog.autoscaling.kubernetes.WorkloadValues

@@ -7,9 +7,9 @@
 package cyclonedx_v1_4
 
 import (
-	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 )
@@ -1789,7 +1789,7 @@ type IdentifiableAction struct {
 	unknownFields protoimpl.UnknownFields
 
 	// The timestamp in which the action occurred
-	Timestamp *timestamp.Timestamp `protobuf:"bytes,1,opt,name=timestamp,proto3,oneof" json:"timestamp,omitempty"`
+	Timestamp *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=timestamp,proto3,oneof" json:"timestamp,omitempty"`
 	// The name of the individual who performed the action
 	Name *string `protobuf:"bytes,2,opt,name=name,proto3,oneof" json:"name,omitempty"`
 	// The email address of the individual who performed the action
@@ -1828,7 +1828,7 @@ func (*IdentifiableAction) Descriptor() ([]byte, []int) {
 	return file_proto_deps_github_com_CycloneDX_specification_schema_bom_1_4_proto_rawDescGZIP(), []int{9}
 }
 
-func (x *IdentifiableAction) GetTimestamp() *timestamp.Timestamp {
+func (x *IdentifiableAction) GetTimestamp() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Timestamp
 	}
@@ -2186,7 +2186,7 @@ type Metadata struct {
 	unknownFields protoimpl.UnknownFields
 
 	// The date and time (timestamp) when the document was created.
-	Timestamp *timestamp.Timestamp `protobuf:"bytes,1,opt,name=timestamp,proto3,oneof" json:"timestamp,omitempty"`
+	Timestamp *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=timestamp,proto3,oneof" json:"timestamp,omitempty"`
 	// The tool(s) used in the creation of the BOM.
 	Tools []*Tool `protobuf:"bytes,2,rep,name=tools,proto3" json:"tools,omitempty"`
 	// The person(s) who created the BOM. Authors are common in BOMs created through manual processes. BOMs created through automated means may not have authors.
@@ -2235,7 +2235,7 @@ func (*Metadata) Descriptor() ([]byte, []int) {
 	return file_proto_deps_github_com_CycloneDX_specification_schema_bom_1_4_proto_rawDescGZIP(), []int{14}
 }
 
-func (x *Metadata) GetTimestamp() *timestamp.Timestamp {
+func (x *Metadata) GetTimestamp() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Timestamp
 	}
@@ -3237,7 +3237,7 @@ type ReleaseNotes struct {
 	// A short description of the release.
 	Description *string `protobuf:"bytes,5,opt,name=description,proto3,oneof" json:"description,omitempty"`
 	// The date and time (timestamp) when the release note was created.
-	Timestamp *timestamp.Timestamp `protobuf:"bytes,6,opt,name=timestamp,proto3,oneof" json:"timestamp,omitempty"`
+	Timestamp *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=timestamp,proto3,oneof" json:"timestamp,omitempty"`
 	// Optional alternate names the release may be referred to. This may include unofficial terms used by development and marketing teams (e.g. code names).
 	Aliases []string `protobuf:"bytes,7,rep,name=aliases,proto3" json:"aliases,omitempty"`
 	// Optional tags that may aid in search or retrieval of the release note.
@@ -3317,7 +3317,7 @@ func (x *ReleaseNotes) GetDescription() string {
 	return ""
 }
 
-func (x *ReleaseNotes) GetTimestamp() *timestamp.Timestamp {
+func (x *ReleaseNotes) GetTimestamp() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Timestamp
 	}
@@ -3385,11 +3385,11 @@ type Vulnerability struct {
 	// Published advisories of the vulnerability if provided.
 	Advisories []*Advisory `protobuf:"bytes,10,rep,name=advisories,proto3" json:"advisories,omitempty"`
 	// The date and time (timestamp) when the vulnerability record was created in the vulnerability database.
-	Created *timestamp.Timestamp `protobuf:"bytes,11,opt,name=created,proto3,oneof" json:"created,omitempty"`
+	Created *timestamppb.Timestamp `protobuf:"bytes,11,opt,name=created,proto3,oneof" json:"created,omitempty"`
 	// The date and time (timestamp) when the vulnerability record was first published.
-	Published *timestamp.Timestamp `protobuf:"bytes,12,opt,name=published,proto3,oneof" json:"published,omitempty"`
+	Published *timestamppb.Timestamp `protobuf:"bytes,12,opt,name=published,proto3,oneof" json:"published,omitempty"`
 	// The date and time (timestamp) when the vulnerability record was last updated.
-	Updated *timestamp.Timestamp `protobuf:"bytes,13,opt,name=updated,proto3,oneof" json:"updated,omitempty"`
+	Updated *timestamppb.Timestamp `protobuf:"bytes,13,opt,name=updated,proto3,oneof" json:"updated,omitempty"`
 	// Individuals or organizations credited with the discovery of the vulnerability.
 	Credits *VulnerabilityCredits `protobuf:"bytes,14,opt,name=credits,proto3,oneof" json:"credits,omitempty"`
 	// The tool(s) used to identify, confirm, or score the vulnerability.
@@ -3504,21 +3504,21 @@ func (x *Vulnerability) GetAdvisories() []*Advisory {
 	return nil
 }
 
-func (x *Vulnerability) GetCreated() *timestamp.Timestamp {
+func (x *Vulnerability) GetCreated() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Created
 	}
 	return nil
 }
 
-func (x *Vulnerability) GetPublished() *timestamp.Timestamp {
+func (x *Vulnerability) GetPublished() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Published
 	}
 	return nil
 }
 
-func (x *Vulnerability) GetUpdated() *timestamp.Timestamp {
+func (x *Vulnerability) GetUpdated() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Updated
 	}
@@ -4969,7 +4969,7 @@ var file_proto_deps_github_com_CycloneDX_specification_schema_bom_1_4_proto_goTy
 	(*VulnerabilityAnalysis)(nil),         // 47: cyclonedx.v1_4.VulnerabilityAnalysis
 	(*VulnerabilityAffects)(nil),          // 48: cyclonedx.v1_4.VulnerabilityAffects
 	(*VulnerabilityAffectedVersions)(nil), // 49: cyclonedx.v1_4.VulnerabilityAffectedVersions
-	(*timestamp.Timestamp)(nil),           // 50: google.protobuf.Timestamp
+	(*timestamppb.Timestamp)(nil),         // 50: google.protobuf.Timestamp
 }
 var file_proto_deps_github_com_CycloneDX_specification_schema_bom_1_4_proto_depIdxs = []int32{
 	28, // 0: cyclonedx.v1_4.Bom.metadata:type_name -> cyclonedx.v1_4.Metadata

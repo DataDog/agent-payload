@@ -7,9 +7,9 @@
 package contimage
 
 import (
-	timestamp "github.com/golang/protobuf/ptypes/timestamp"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 )
@@ -110,8 +110,8 @@ type ContainerImage struct {
 	RepoDigests []string                              `protobuf:"bytes,8,rep,name=repo_digests,json=repoDigests,proto3" json:"repo_digests,omitempty"`
 	Os          *ContainerImage_OperatingSystem       `protobuf:"bytes,9,opt,name=os,proto3" json:"os,omitempty"`
 	Layers      []*ContainerImage_ContainerImageLayer `protobuf:"bytes,10,rep,name=layers,proto3" json:"layers,omitempty"`
-	BuiltAt     *timestamp.Timestamp                  `protobuf:"bytes,11,opt,name=builtAt,proto3" json:"builtAt,omitempty"`
-	PublishedAt *timestamp.Timestamp                  `protobuf:"bytes,13,opt,name=publishedAt,proto3,oneof" json:"publishedAt,omitempty"`
+	BuiltAt     *timestamppb.Timestamp                `protobuf:"bytes,11,opt,name=builtAt,proto3" json:"builtAt,omitempty"`
+	PublishedAt *timestamppb.Timestamp                `protobuf:"bytes,13,opt,name=publishedAt,proto3,oneof" json:"publishedAt,omitempty"`
 }
 
 func (x *ContainerImage) Reset() {
@@ -223,14 +223,14 @@ func (x *ContainerImage) GetLayers() []*ContainerImage_ContainerImageLayer {
 	return nil
 }
 
-func (x *ContainerImage) GetBuiltAt() *timestamp.Timestamp {
+func (x *ContainerImage) GetBuiltAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.BuiltAt
 	}
 	return nil
 }
 
-func (x *ContainerImage) GetPublishedAt() *timestamp.Timestamp {
+func (x *ContainerImage) GetPublishedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.PublishedAt
 	}
@@ -385,11 +385,11 @@ type ContainerImage_ContainerImageLayer_History struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Created    *timestamp.Timestamp `protobuf:"bytes,1,opt,name=created,proto3" json:"created,omitempty"`
-	CreatedBy  string               `protobuf:"bytes,2,opt,name=createdBy,proto3" json:"createdBy,omitempty"`
-	Author     string               `protobuf:"bytes,3,opt,name=author,proto3" json:"author,omitempty"`
-	Comment    string               `protobuf:"bytes,4,opt,name=comment,proto3" json:"comment,omitempty"`
-	EmptyLayer bool                 `protobuf:"varint,5,opt,name=emptyLayer,proto3" json:"emptyLayer,omitempty"`
+	Created    *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=created,proto3" json:"created,omitempty"`
+	CreatedBy  string                 `protobuf:"bytes,2,opt,name=createdBy,proto3" json:"createdBy,omitempty"`
+	Author     string                 `protobuf:"bytes,3,opt,name=author,proto3" json:"author,omitempty"`
+	Comment    string                 `protobuf:"bytes,4,opt,name=comment,proto3" json:"comment,omitempty"`
+	EmptyLayer bool                   `protobuf:"varint,5,opt,name=emptyLayer,proto3" json:"emptyLayer,omitempty"`
 }
 
 func (x *ContainerImage_ContainerImageLayer_History) Reset() {
@@ -424,7 +424,7 @@ func (*ContainerImage_ContainerImageLayer_History) Descriptor() ([]byte, []int) 
 	return file_proto_contimage_contimage_proto_rawDescGZIP(), []int{1, 1, 0}
 }
 
-func (x *ContainerImage_ContainerImageLayer_History) GetCreated() *timestamp.Timestamp {
+func (x *ContainerImage_ContainerImageLayer_History) GetCreated() *timestamppb.Timestamp {
 	if x != nil {
 		return x.Created
 	}
@@ -567,7 +567,7 @@ var file_proto_contimage_contimage_proto_goTypes = []interface{}{
 	(*ContainerImage_OperatingSystem)(nil),             // 2: datadog.contimage.ContainerImage.OperatingSystem
 	(*ContainerImage_ContainerImageLayer)(nil),         // 3: datadog.contimage.ContainerImage.ContainerImageLayer
 	(*ContainerImage_ContainerImageLayer_History)(nil), // 4: datadog.contimage.ContainerImage.ContainerImageLayer.History
-	(*timestamp.Timestamp)(nil),                        // 5: google.protobuf.Timestamp
+	(*timestamppb.Timestamp)(nil),                      // 5: google.protobuf.Timestamp
 }
 var file_proto_contimage_contimage_proto_depIdxs = []int32{
 	1, // 0: datadog.contimage.ContainerImagePayload.images:type_name -> datadog.contimage.ContainerImage

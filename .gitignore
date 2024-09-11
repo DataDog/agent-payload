@@ -12,3 +12,7 @@
 /.idea/
 
 vendor/
+
+# build time dependencies that are either downloaded or
+# built during codegen
+toolchains/
