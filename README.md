@@ -4,7 +4,7 @@ Payload format description for communication between the Agent and the Datadog b
 
 This repository includes the protocol-buffer IDL used by the agent6 and agent7 to communicate with the Datadog backend.
 Those payloads are only supported by the V2 API endpoints.
-The generated Go, Python and Java implementations are checked into this repository and can be used directly.
+The generated Go, and Java implementations are checked into this repository and can be used directly. Other consumers may copy the `.proto` files into their repository and generate their own bindings.
 
 # Prerequisites
 
@@ -27,7 +27,6 @@ The following implementations are available:
 The metrics payload is defined in [`proto/metrics/agent_payload.proto`](./proto/metrics/agent_payload.proto).
 The following implementations are available:
  * Go (gogofast): [github.com/DataDog/agent-payload/gogen](https://pkg.go.dev/github.com/DataDog/agent-payload/gogen)
- * Python: [`python/agent_payload_pb2.py`](./python/agent_payload_pb2.py)
 
 ## Process
 
