@@ -133,9 +133,6 @@ BASH
       PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_include}:#{toolchain_include_dir}:. --gogofast_out=$GOPATH/src proto/metrics/agent_payload.proto
       echo "done"
 
-      echo "Generating metrics proto (python)"
-      PATH=#{toolchain_bin_dir} #{protoc_legacy_binary} --proto_path=#{toolchain_legacy_include_dir}:#{gogo_include}:./proto/metrics --python_out=python agent_payload.proto
-
       echo "Generating process proto (go)"
       PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:#{gogo_include}:. --gogofaster_out=$GOPATH/src proto/process/*.proto
 
