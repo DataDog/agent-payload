@@ -8,11 +8,6 @@ toolchain_bin_dir=File.join(toolchain_dir, "bin")
 
 # include path for the legacy and main protobuf compilers respectively
 toolchain_include_dir=File.join(toolchain_dir, "include", "proto")
-toolchain_legacy_include_dir=File.join(toolchain_dir, "include", "proto_legacy")
-
-# we use an older version of protoc for logs and metrics
-protoc_legacy_version="3.5.1"
-protoc_legacy_binary=File.join(toolchain_bin_dir, "protoc" + protoc_legacy_version)
 
 protoc_version="21.12"
 protoc_binary=File.join(toolchain_bin_dir, "protoc" + protoc_version)
@@ -29,12 +24,10 @@ protoc_jsonschema_version="73d5723"
 ### /toolchains
 ###     /toolchains/bin -- contains any binaries used for building
 ###         /toolchains/bin/protoc21.12 -- the new protobuf compiler
-###         /toolchains/bin/protoc3.5.1 -- the legacy protobuf compiler
 ###         /toolchains/bin/protoc-gen-go -- the go code generator for protoc
 ###         /toolchains/bin/protoc-gen-XXX -- other protobuf generators (vtproto, java, etc.)
 ###     /toolchains/include -- contains any protobuf library files for common types (like proto.Duration)
 ###         /toolchains/includes/proto -- protobuf libraries bundled with the new protobuf compiler
-###         /toolchains/includes/proto_legacy -- protobuf libraries bundled with the legacy protobuf compiler
 ### =>  /toolchains/gogo -- temp directory used to build the gogo_faster generator
 
 namespace :codegen do
@@ -58,36 +51,7 @@ namespace :codegen do
   end
 
 
-  task 'install_protoc_all' => ['install_protoc', 'install_protoc_legacy']
-
-  task :install_protoc_legacy  do
-    if `bash -c "#{protoc_legacy_binary} --version"` != "libprotoc ${protoc_version}"
-      sh <<-EOF
-        /bin/bash <<BASH
-
-        set -euo pipefail
-        if [ ! -f #{protoc_legacy_binary} ] ; then
-          echo "Downloading protoc #{protoc_legacy_version}"
-          cd /tmp
-          if [ "$(uname -s)" = "Darwin" ] ; then
-            curl -OL https://github.com/google/protobuf/releases/download/v#{protoc_legacy_version}/protoc-#{protoc_legacy_version}-osx-x86_64.zip
-          else
-            curl -OL https://github.com/google/protobuf/releases/download/v#{protoc_legacy_version}/protoc-#{protoc_legacy_version}-linux-x86_64.zip
-          fi
-          mkdir -p #{toolchain_bin_dir}
-          rm -rf include/ # make sure there is no stale include
-          unzip -o protoc-#{protoc_legacy_version}*.zip
-          mv bin/protoc #{protoc_legacy_binary}
-
-          mkdir -p #{toolchain_legacy_include_dir}
-          rm -rf #{toolchain_legacy_include_dir}/**
-          mv include/* #{toolchain_legacy_include_dir}/
-        fi
-BASH
-      EOF
-    end
-  end
-
+  task 'install_protoc_all' => ['install_protoc']
 
   task :install_protoc  do
     if `bash -c "#{protoc_binary} --version"` != "libprotoc ${protoc_version}"
