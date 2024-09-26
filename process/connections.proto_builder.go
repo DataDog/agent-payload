@@ -258,6 +258,12 @@ func (x *CollectorConnectionsBuilder) AddResolvedHostsByName(cb func(w *Collecto
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *CollectorConnectionsBuilder) SetEcsTask(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x16a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorConnections_ResolvedResourcesEntryBuilder struct {
 	writer                  io.Writer
@@ -1012,6 +1018,12 @@ func (x *ConnectionBuilder) AddTcpFailuresByErrCode(cb func(w *Connection_TcpFai
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
+}
+func (x *ConnectionBuilder) SetRemoteEcsTask(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1aa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
 }
 
 type Connection_DnsCountByRcodeEntryBuilder struct {
