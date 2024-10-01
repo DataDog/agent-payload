@@ -2,7 +2,6 @@
 
 # where all toolchains (protobuf compilers, protobuf plugins,etc) are stored
 toolchain_dir=File.join(File.dirname(__FILE__), "toolchains")
-
 # binaries
 toolchain_bin_dir=File.join(toolchain_dir, "bin")
 
@@ -54,94 +53,81 @@ namespace :codegen do
   task 'install_protoc_all' => ['install_protoc']
 
   task :install_protoc  do
-    if `bash -c "#{protoc_binary} --version"` != "libprotoc ${protoc_version}"
-      sh <<-EOF
-        /bin/bash <<BASH
+    protoversion = `bash -c "#{protoc_binary} --version"`.strip
+    if  protoversion == "libprotoc 3.21.12"
+      next # bail out of task
+    end
+    puts "got #{protoversion}"
 
-        set -euo pipefail
-        if [ ! -f #{protoc_binary} ] ; then
-          echo "Downloading protoc #{protoc_version}"
-          cd /tmp
-          if [ "$(uname -s)" = "Darwin" ] ; then
-            curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v#{protoc_version}/protoc-#{protoc_version}-osx-x86_64.zip
-          else
-            curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v#{protoc_version}/protoc-#{protoc_version}-linux-x86_64.zip
-          fi
 
-          mkdir -p #{toolchain_bin_dir}
-          rm -rf include/ # make sure there is no stale include
-          unzip -o protoc-#{protoc_version}*.zip
-          mv bin/protoc #{protoc_binary}
+    puts "Downloading protoc #{protoc_version}"
+    Dir.chdir("/tmp") do
+      if /Darwin/.match(`uname -s`)
+        sh "curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v#{protoc_version}/protoc-#{protoc_version}-osx-x86_64.zip"
+      else
 
-          mkdir -p #{toolchain_include_dir}
-          rm -rf #{toolchain_include_dir}/**
-          mv include/* #{toolchain_include_dir}
-         fi
-BASH
-       EOF
-     end
-   end
+        sh "curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v#{protoc_version}/protoc-#{protoc_version}-linux-x86_64.zip"
+      end
+
+      sh "mkdir -p #{toolchain_bin_dir}"
+      sh "rm -rf include/" # make sure there is no stale include
+      sh "unzip -o protoc-#{protoc_version}*.zip"
+      sh "mv bin/protoc #{protoc_binary}"
+
+      sh "mkdir -p #{toolchain_include_dir}"
+      sh "rm -rf #{toolchain_include_dir}/**"
+      sh "mv include/* #{toolchain_include_dir}"
+    end
+  end
 
   task :protoc => ['install_protoc', 'setup_gogo'] do
 
-    sh <<-EOF
-      /bin/bash <<BASH
-      set -euo pipefail
+    puts "installing go generators"
+    sh "GOPATH=#{toolchain_dir} go install github.com/leeavital/protoc-gen-gostreamer@v0.1.0"
+    sh "GOPATH=#{toolchain_dir} go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.34.1"
+    sh "GOPATH=#{toolchain_dir} go install github.com/chrusty/protoc-gen-jsonschema/cmd/protoc-gen-jsonschema@#{protoc_jsonschema_version}"
+    sh "GOPATH=#{toolchain_dir} go install github.com/planetscale/vtprotobuf/cmd/protoc-gen-go-vtproto@v0.5.0"
 
-      export GO111MODULE=auto
+    puts "Generating logs proto"
+    sh "PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src proto/logs/agent_logs_payload.proto"
 
-      echo "Generating logs proto"
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src proto/logs/agent_logs_payload.proto
+    puts "Generating metrics proto"
+    sh "PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_include}:#{toolchain_include_dir}:. --gogofast_out=$GOPATH/src proto/metrics/agent_payload.proto"
 
-      echo "Generating metrics proto (go)"
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_include}:#{toolchain_include_dir}:. --gogofast_out=$GOPATH/src proto/metrics/agent_payload.proto
-      echo "done"
+    puts "generatoring process proto"
+    sh "PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:#{gogo_include}:. --gogofaster_out=$GOPATH/src proto/process/*.proto"
+    sh "PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:.  --gostreamer_out=$GOPATH/src proto/process/*.proto"
+    sh "mv v5/process/proto/process/*.go process"
 
-      echo "Generating process proto (go)"
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:#{gogo_include}:. --gogofaster_out=$GOPATH/src proto/process/*.proto
+    puts "generating contlcycle proto"
+    sh "PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto"
+    sh "PATH=#{toolchain_bin_dir}  #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/contimage/contimage.proto"
 
-      GOPATH=#{toolchain_dir} go install github.com/leeavital/protoc-gen-gostreamer@v0.1.0
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:.  --gostreamer_out=$GOPATH/src proto/process/*.proto
-      mv v5/process/proto/process/*.go process
+    puts "generating autoscaling proto"
+    sh "PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{toolchain_include_dir}:. --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema proto/autoscaling/kubernetes/autoscaling.proto"
+    sh "PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto"
 
-      # Install protoc-gen-go
-      GOPATH=#{toolchain_dir} go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.34.1
-      GOPATH=#{toolchain_dir} go install github.com/chrusty/protoc-gen-jsonschema/cmd/protoc-gen-jsonschema@#{protoc_jsonschema_version}
+    puts "generatoring sbom proto"
+    sh "PATH=#{toolchain_bin_dir}  #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/sbom/sbom.proto"
 
 
-      echo "Generating contlcycle proto"
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto
 
-      echo "Generating kubernetes autoscaling proto"
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{toolchain_include_dir}:. --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema proto/autoscaling/kubernetes/autoscaling.proto
-
-      echo "Generating contimage proto"
-      PATH=#{toolchain_bin_dir}  #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/contimage/contimage.proto
-
-      echo "Generating sbom proto"
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto
-      PATH=#{toolchain_bin_dir}  #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/sbom/sbom.proto
-
-      # Install protoc-gen-go-vtproto
-      GOPATH=#{toolchain_dir} go install github.com/planetscale/vtprotobuf/cmd/protoc-gen-go-vtproto@v0.5.0
-
-      echo "Generating CWS Activity Dumps v1"
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:. \
-        --java_out=java \
-        --go_out=$GOPATH/src \
-        --go-vtproto_out=$GOPATH/src \
-        --go-vtproto_opt=features=pool+marshal+unmarshal+size \
-        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.SecDump \
-        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessActivityNode \
-        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.FileActivityNode \
-        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.FileInfo \
-        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessInfo \
+    sh <<~EOD.tr("\n", "")
+      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:.
+        --java_out=java
+        --go_out=$GOPATH/src
+        --go-vtproto_out=$GOPATH/src
+        --go-vtproto_opt=features=pool+marshal+unmarshal+size
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.SecDump
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessActivityNode
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.FileActivityNode
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.FileInfo
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessInfo
         proto/cws/dumpsv1/activity_dump.proto
+    EOD
 
-      cp -r v5/* .
-      rm -rf v5
-BASH
-    EOF
+    sh "cp -r v5/* ."
+    sh "rm -rf v5"
   end
 
   desc 'Run all code generators.'
