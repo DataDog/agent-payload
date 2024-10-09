@@ -113,7 +113,7 @@ BASH
       PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto
 
       echo "Generating kubernetes autoscaling proto"
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{toolchain_include_dir}:. --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema proto/autoscaling/kubernetes/autoscaling.proto
+      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{toolchain_include_dir}:proto/deps:. --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema proto/autoscaling/kubernetes/autoscaling.proto
 
       echo "Generating contimage proto"
       PATH=#{toolchain_bin_dir}  #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/contimage/contimage.proto

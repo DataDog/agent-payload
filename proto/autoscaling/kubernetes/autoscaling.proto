@@ -5,7 +5,7 @@ option go_package = "github.com/DataDog/agent-payload/v5/autoscaling/kubernetes"
 package datadog.autoscaling.kubernetes;
 
 import "google/protobuf/timestamp.proto";
-import "proto/deps/github.com/chrusty/protoc-gen-jsonschema/options.proto";
+import "github.com/chrusty/protoc-gen-jsonschema/options.proto";
 
 // Error represents an error message
 message Error {
