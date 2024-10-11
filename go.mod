@@ -8,7 +8,6 @@ require (
 	github.com/DataDog/zstd_0 v0.0.0-20210310093942-586c1286621f
 	github.com/chrusty/protoc-gen-jsonschema v0.0.0-20240212064413-73d5723042b8
 	github.com/gogo/protobuf v1.3.2
-	github.com/golang/protobuf v1.5.0
 	github.com/stretchr/testify v1.6.1
 	google.golang.org/protobuf v1.30.0
 )
