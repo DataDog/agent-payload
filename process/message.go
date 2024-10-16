@@ -119,6 +119,7 @@ const (
 	TypeCollectorNetworkPolicy           = 85
 	TypeCollectorLimitRange              = 86
 	TypeCollectorStorageClass            = 87
+	TypeCollectorPodDisruptionBudget     = 88
 	TypeCollectorECSTask                 = 200
 )
 
@@ -194,6 +195,8 @@ func (m MessageType) String() string {
 		return "storage-class"
 	case TypeCollectorECSTask:
 		return "ecs-task"
+	case TypeCollectorPodDisruptionBudget:
+		return "pod-disruption-budget"
 	default:
 		// otherwise convert the type identifier
 		return strconv.Itoa(int(m))
@@ -296,6 +299,8 @@ func DecodeMessage(data []byte) (Message, error) {
 		m = &CollectorStorageClass{}
 	case TypeCollectorECSTask:
 		m = &CollectorECSTask{}
+	case TypeCollectorPodDisruptionBudget:
+		m = &CollectorPodDisruptionBudget{}
 	default:
 		return Message{}, fmt.Errorf("unhandled message type: %d", header.Type)
 	}
@@ -381,6 +386,9 @@ func DetectMessageType(b MessageBody) (MessageType, error) {
 		t = TypeCollectorStorageClass
 	case *CollectorECSTask:
 		t = TypeCollectorECSTask
+	case *CollectorPodDisruptionBudget:
+		t = TypeCollectorPodDisruptionBudget
+
 	default:
 		return 0, fmt.Errorf("unknown message body type: %s", reflect.TypeOf(b))
 	}

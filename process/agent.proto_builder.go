@@ -1293,6 +1293,63 @@ func (x *CollectorPodBuilder) SetInfo(cb func(w *SystemInfoBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 
+type CollectorPodDisruptionBudgetBuilder struct {
+	writer                     io.Writer
+	buf                        bytes.Buffer
+	scratch                    []byte
+	podDisruptionBudgetBuilder PodDisruptionBudgetBuilder
+}
+
+func NewCollectorPodDisruptionBudgetBuilder(writer io.Writer) *CollectorPodDisruptionBudgetBuilder {
+	return &CollectorPodDisruptionBudgetBuilder{
+		writer: writer,
+	}
+}
+func (x *CollectorPodDisruptionBudgetBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *CollectorPodDisruptionBudgetBuilder) SetClusterName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorPodDisruptionBudgetBuilder) SetClusterId(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorPodDisruptionBudgetBuilder) SetGroupId(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorPodDisruptionBudgetBuilder) AddPodDisruptionBudgets(cb func(w *PodDisruptionBudgetBuilder)) {
+	x.buf.Reset()
+	x.podDisruptionBudgetBuilder.writer = &x.buf
+	x.podDisruptionBudgetBuilder.scratch = x.scratch
+	cb(&x.podDisruptionBudgetBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *CollectorPodDisruptionBudgetBuilder) AddTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorPodDisruptionBudgetBuilder) SetGroupSize(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x30)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
 type CollectorReplicaSetBuilder struct {
 	writer            io.Writer
 	buf               bytes.Buffer
@@ -5877,6 +5934,286 @@ func (x *LabelSelectorRequirementBuilder) SetOperator(v string) {
 func (x *LabelSelectorRequirementBuilder) AddValues(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type PodDisruptionBudgetBuilder struct {
+	writer                           io.Writer
+	buf                              bytes.Buffer
+	scratch                          []byte
+	metadataBuilder                  MetadataBuilder
+	podDisruptionBudgetSpecBuilder   PodDisruptionBudgetSpecBuilder
+	podDisruptionBudgetStatusBuilder PodDisruptionBudgetStatusBuilder
+}
+
+func NewPodDisruptionBudgetBuilder(writer io.Writer) *PodDisruptionBudgetBuilder {
+	return &PodDisruptionBudgetBuilder{
+		writer: writer,
+	}
+}
+func (x *PodDisruptionBudgetBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *PodDisruptionBudgetBuilder) SetMetadata(cb func(w *MetadataBuilder)) {
+	x.buf.Reset()
+	x.metadataBuilder.writer = &x.buf
+	x.metadataBuilder.scratch = x.scratch
+	cb(&x.metadataBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *PodDisruptionBudgetBuilder) SetSpec(cb func(w *PodDisruptionBudgetSpecBuilder)) {
+	x.buf.Reset()
+	x.podDisruptionBudgetSpecBuilder.writer = &x.buf
+	x.podDisruptionBudgetSpecBuilder.scratch = x.scratch
+	cb(&x.podDisruptionBudgetSpecBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *PodDisruptionBudgetBuilder) SetStatus(cb func(w *PodDisruptionBudgetStatusBuilder)) {
+	x.buf.Reset()
+	x.podDisruptionBudgetStatusBuilder.writer = &x.buf
+	x.podDisruptionBudgetStatusBuilder.scratch = x.scratch
+	cb(&x.podDisruptionBudgetStatusBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *PodDisruptionBudgetBuilder) AddTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type PodDisruptionBudgetSpecBuilder struct {
+	writer                          io.Writer
+	buf                             bytes.Buffer
+	scratch                         []byte
+	intOrStringBuilder              IntOrStringBuilder
+	labelSelectorRequirementBuilder LabelSelectorRequirementBuilder
+}
+
+func NewPodDisruptionBudgetSpecBuilder(writer io.Writer) *PodDisruptionBudgetSpecBuilder {
+	return &PodDisruptionBudgetSpecBuilder{
+		writer: writer,
+	}
+}
+func (x *PodDisruptionBudgetSpecBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *PodDisruptionBudgetSpecBuilder) SetMinAvailable(cb func(w *IntOrStringBuilder)) {
+	x.buf.Reset()
+	x.intOrStringBuilder.writer = &x.buf
+	x.intOrStringBuilder.scratch = x.scratch
+	cb(&x.intOrStringBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *PodDisruptionBudgetSpecBuilder) AddSelector(cb func(w *LabelSelectorRequirementBuilder)) {
+	x.buf.Reset()
+	x.labelSelectorRequirementBuilder.writer = &x.buf
+	x.labelSelectorRequirementBuilder.scratch = x.scratch
+	cb(&x.labelSelectorRequirementBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *PodDisruptionBudgetSpecBuilder) SetMaxUnavailable(cb func(w *IntOrStringBuilder)) {
+	x.buf.Reset()
+	x.intOrStringBuilder.writer = &x.buf
+	x.intOrStringBuilder.scratch = x.scratch
+	cb(&x.intOrStringBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *PodDisruptionBudgetSpecBuilder) SetUnhealthyPodEvictionPolicy(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type PodDisruptionBudgetStatusBuilder struct {
+	writer                                              io.Writer
+	buf                                                 bytes.Buffer
+	scratch                                             []byte
+	podDisruptionBudgetStatus_DisruptedPodsEntryBuilder PodDisruptionBudgetStatus_DisruptedPodsEntryBuilder
+	conditionBuilder                                    ConditionBuilder
+}
+
+func NewPodDisruptionBudgetStatusBuilder(writer io.Writer) *PodDisruptionBudgetStatusBuilder {
+	return &PodDisruptionBudgetStatusBuilder{
+		writer: writer,
+	}
+}
+func (x *PodDisruptionBudgetStatusBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *PodDisruptionBudgetStatusBuilder) AddDisruptedPods(cb func(w *PodDisruptionBudgetStatus_DisruptedPodsEntryBuilder)) {
+	x.buf.Reset()
+	x.podDisruptionBudgetStatus_DisruptedPodsEntryBuilder.writer = &x.buf
+	x.podDisruptionBudgetStatus_DisruptedPodsEntryBuilder.scratch = x.scratch
+	cb(&x.podDisruptionBudgetStatus_DisruptedPodsEntryBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *PodDisruptionBudgetStatusBuilder) SetDisruptionsAllowed(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *PodDisruptionBudgetStatusBuilder) SetCurrentHealthy(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *PodDisruptionBudgetStatusBuilder) SetDesiredHealthy(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x20)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *PodDisruptionBudgetStatusBuilder) SetExpectedPods(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x28)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *PodDisruptionBudgetStatusBuilder) AddConditions(cb func(w *ConditionBuilder)) {
+	x.buf.Reset()
+	x.conditionBuilder.writer = &x.buf
+	x.conditionBuilder.scratch = x.scratch
+	cb(&x.conditionBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type PodDisruptionBudgetStatus_DisruptedPodsEntryBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewPodDisruptionBudgetStatus_DisruptedPodsEntryBuilder(writer io.Writer) *PodDisruptionBudgetStatus_DisruptedPodsEntryBuilder {
+	return &PodDisruptionBudgetStatus_DisruptedPodsEntryBuilder{
+		writer: writer,
+	}
+}
+func (x *PodDisruptionBudgetStatus_DisruptedPodsEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *PodDisruptionBudgetStatus_DisruptedPodsEntryBuilder) SetKey(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *PodDisruptionBudgetStatus_DisruptedPodsEntryBuilder) SetValue(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
+type IntOrStringBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewIntOrStringBuilder(writer io.Writer) *IntOrStringBuilder {
+	return &IntOrStringBuilder{
+		writer: writer,
+	}
+}
+func (x *IntOrStringBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *IntOrStringBuilder) SetType(v uint64) {
+	if v != 0 {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8)
+		x.scratch = protowire.AppendVarint(x.scratch, v)
+		x.writer.Write(x.scratch)
+	}
+}
+func (x *IntOrStringBuilder) SetIntVal(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *IntOrStringBuilder) SetStrVal(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type ConditionBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewConditionBuilder(writer io.Writer) *ConditionBuilder {
+	return &ConditionBuilder{
+		writer: writer,
+	}
+}
+func (x *ConditionBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ConditionBuilder) SetType(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ConditionBuilder) SetStatus(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ConditionBuilder) SetLastTransitionTime(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ConditionBuilder) SetReason(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ConditionBuilder) SetMessage(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
