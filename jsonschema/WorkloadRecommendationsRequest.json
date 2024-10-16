@@ -1,0 +1,181 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/WorkloadRecommendationsRequest",
+    "definitions": {
+        "WorkloadRecommendationConstraints": {
+            "required": [
+                "minReplicas",
+                "maxReplicas"
+            ],
+            "properties": {
+                "minReplicas": {
+                    "type": "integer",
+                    "description": "MinReplicas is the minimum number of replicas the workload should have"
+                },
+                "maxReplicas": {
+                    "type": "integer",
+                    "description": "MaxReplicas is the maximum number of replicas the workload should have"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Workload Recommendation Constraints",
+            "description": "WorkloadRecommendationConstraints represents the constraints for a workload"
+        },
+        "WorkloadRecommendationRequest": {
+            "required": [
+                "targetRef",
+                "constraints"
+            ],
+            "properties": {
+                "targetRef": {
+                    "$ref": "#/definitions/WorkloadTargetRef",
+                    "additionalProperties": false,
+                    "description": "TargetRef is the target reference of the workload"
+                },
+                "constraints": {
+                    "$ref": "#/definitions/WorkloadRecommendationConstraints",
+                    "additionalProperties": false
+                },
+                "state": {
+                    "$ref": "#/definitions/WorkloadState",
+                    "additionalProperties": false
+                },
+                "targets": {
+                    "items": {
+                        "$ref": "#/definitions/WorkloadRecommendationTarget"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                },
+                "settings": {
+                    "additionalProperties": {
+                        "oneOf": [
+                            {
+                                "type": "array"
+                            },
+                            {
+                                "type": "boolean"
+                            },
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "object"
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ],
+                        "title": "Value",
+                        "description": "`Value` represents a dynamically typed value which can be either null, a number, a string, a boolean, a recursive struct value, or a list of values. A producer of value is expected to set one of these variants. Absence of any variant indicates an error. The JSON representation for `Value` is JSON value."
+                    },
+                    "type": "object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Workload Recommendation Request",
+            "description": "WorkloadRecommendationRequest represents a recommendation request"
+        },
+        "WorkloadRecommendationTarget": {
+            "required": [
+                "type"
+            ],
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "Type defines the target value type (e.g. CPU, Memory, custom, etc.)"
+                },
+                "targetValue": {
+                    "type": "number",
+                    "description": "TargetValue is the target value of the target"
+                },
+                "lowerBound": {
+                    "type": "number",
+                    "description": "LowerBound is the lower bound of the target"
+                },
+                "upperBound": {
+                    "type": "number",
+                    "description": "UpperBound is the upper bound of the target"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Workload Recommendation Target",
+            "description": "WorkloadRecommendationTarget represents a target value for a workload"
+        },
+        "WorkloadRecommendationsRequest": {
+            "properties": {
+                "requests": {
+                    "items": {
+                        "$ref": "#/definitions/WorkloadRecommendationRequest"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Workload Recommendations Request",
+            "description": "WorkloadValuesList represents a list of workload recommendation requests"
+        },
+        "WorkloadState": {
+            "required": [
+                "desiredReplicas"
+            ],
+            "properties": {
+                "desiredReplicas": {
+                    "type": "integer",
+                    "description": "DesiredReplicas is the current number of desired replicas"
+                },
+                "currentReplicas": {
+                    "type": "integer",
+                    "description": "CurrentReplicas is the number of replicas currently running"
+                },
+                "readyReplicas": {
+                    "type": "integer",
+                    "description": "ReadyReplicas is the number of ready replicas"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Workload State",
+            "description": "WorkloadState represents the state of a workload"
+        },
+        "WorkloadTargetRef": {
+            "required": [
+                "cluster",
+                "namespace",
+                "kind",
+                "name"
+            ],
+            "properties": {
+                "cluster": {
+                    "type": "string",
+                    "description": "Cluster is the name of the cluster"
+                },
+                "namespace": {
+                    "type": "string",
+                    "description": "Namespace is the namespace of PodAutoscaler object"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is K8S object kind"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name is the name of the K8S object"
+                },
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion is the API version of the K8S object"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Workload Target Ref",
+            "description": "WorkloadTargetRef represents the target reference of a workload"
+        }
+    }
+}

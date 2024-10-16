@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+option go_package = "github.com/DataDog/agent-payload/v5/autoscaling/kubernetes";
+
+package datadog.autoscaling.kubernetes;
+
+import "github.com/DataDog/agent-payload/proto/autoscaling/kubernetes/common.proto";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+import "github.com/chrusty/protoc-gen-jsonschema/options.proto";
+
+// WorkloadValuesList represents a list of workload recommendation requests
+message WorkloadRecommendationsRequest {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
+  repeated WorkloadRecommendationRequest requests  = 1;
+}
+
+// WorkloadRecommendationRequest represents a recommendation request
+message WorkloadRecommendationRequest {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  WorkloadTargetRef targetRef = 1 [(protoc.gen.jsonschema.field_options).required = true]; // TargetRef is the target reference of the workload
+
+  WorkloadRecommendationConstraints     constraints = 2 [(protoc.gen.jsonschema.field_options).required = true];
+  WorkloadState                         state       = 3;
+  repeated WorkloadRecommendationTarget targets     = 4;
+  map<string, google.protobuf.Value>    settings    = 5;
+}
+
+// WorkloadRecommendationConstraints represents the constraints for a workload
+message WorkloadRecommendationConstraints {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  int32 minReplicas = 1 [(protoc.gen.jsonschema.field_options).required = true]; // MinReplicas is the minimum number of replicas the workload should have
+  int32 maxReplicas = 2 [(protoc.gen.jsonschema.field_options).required = true]; // MaxReplicas is the maximum number of replicas the workload should have
+}
+
+// WorkloadRecommendationTarget represents a target value for a workload
+message WorkloadRecommendationTarget {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  string type        = 1 [(protoc.gen.jsonschema.field_options).required = true]; // Type defines the target value type (e.g. CPU, Memory, custom, etc.)
+  double targetValue = 2; // TargetValue is the target value of the target
+  double lowerBound   = 3; // LowerBound is the lower bound of the target
+  double upperBound   = 4; // UpperBound is the upper bound of the target
+}
+
+// WorkloadRecommendationsReply represents a list of recommendations
+message WorkloadRecommendationsReply {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
+  Error error = 1; // Error is the error message if new values cannot be calculated
+
+  repeated WorkloadRecommendationReply recommendations = 2; // Recommendations is the list of recommendations
+}
+
+// WorkloadRecommendationReply represents a recommendation reply
+message WorkloadRecommendationReply {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  Error                     error     = 1; // Error is the error message if new values cannot be calculated
+  google.protobuf.Timestamp timestamp = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Timestamp is the time the values were generated
+
+  int32 targetReplicas                                  = 3 [(protoc.gen.jsonschema.field_options).required = true]; // TargetReplicas is the number of replicas the workload should have
+  optional int32 lowerBoundReplicas                     = 4; // LowerBoundReplicas is the number of replicas based on lowerBound input
+  optional int32 upperBoundReplicas                     = 5; // UpperBoundReplicas is the number of replicas based on upperBound input
+  repeated WorkloadRecommendationTarget observedTargets = 6; // ObservedTargets is the list of observed targets (only the targetValue will be set)
+  string reason                                         = 7; // Reason explains recommender decision
+}

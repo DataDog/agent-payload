@@ -113,7 +113,8 @@ BASH
       PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto
 
       echo "Generating kubernetes autoscaling proto"
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{toolchain_include_dir}:proto/deps:. --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema proto/autoscaling/kubernetes/autoscaling.proto
+      # These .proto can be imported by other repositories (not only generated code). To have a consistent import path, we use the GOPATH.
+      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:proto/deps:$GOPATH/src --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema $GOPATH/src/github.com/DataDog/agent-payload/proto/autoscaling/kubernetes/*.proto
 
       echo "Generating contimage proto"
       PATH=#{toolchain_bin_dir}  #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/contimage/contimage.proto

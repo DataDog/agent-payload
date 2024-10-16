@@ -4,17 +4,10 @@ option go_package = "github.com/DataDog/agent-payload/v5/autoscaling/kubernetes"
 
 package datadog.autoscaling.kubernetes;
 
+import "github.com/DataDog/agent-payload/proto/autoscaling/kubernetes/common.proto";
+
 import "google/protobuf/timestamp.proto";
 import "github.com/chrusty/protoc-gen-jsonschema/options.proto";
-
-// Error represents an error message
-message Error {
-  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
-  option (protoc.gen.jsonschema.message_options).ignore = true;
-
-  optional int32 code    = 1;
-  string         message = 2;
-}
 
 // WorkloadValuesList represents a list of workload values
 message WorkloadValuesList {

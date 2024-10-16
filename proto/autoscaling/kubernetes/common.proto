@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option go_package = "github.com/DataDog/agent-payload/v5/autoscaling/kubernetes";
+
+package datadog.autoscaling.kubernetes;
+
+import "github.com/chrusty/protoc-gen-jsonschema/options.proto";
+
+// Error represents an error message
+message Error {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  optional int32 code    = 1;
+  string         message = 2;
+}
+
+// WorkloadTargetRef represents the target reference of a workload
+message WorkloadTargetRef {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  string cluster    = 1 [(protoc.gen.jsonschema.field_options).required = true]; // Cluster is the name of the cluster
+  string namespace  = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Namespace is the namespace of PodAutoscaler object
+  string kind       = 3 [(protoc.gen.jsonschema.field_options).required = true]; // Kind is K8S object kind
+  string name       = 4 [(protoc.gen.jsonschema.field_options).required = true]; // Name is the name of the K8S object
+  string apiVersion = 5; // APIVersion is the API version of the K8S object
+}
+
+// WorkloadState represents the state of a workload
+message WorkloadState {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  int32 desiredReplicas          = 1 [(protoc.gen.jsonschema.field_options).required = true]; // DesiredReplicas is the current number of desired replicas
+  optional int32 currentReplicas = 2; // CurrentReplicas is the number of replicas currently running
+  optional int32 readyReplicas   = 3; // ReadyReplicas is the number of ready replicas
+}
