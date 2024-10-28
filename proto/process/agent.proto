@@ -214,6 +214,15 @@ message CollectorPod {
 	SystemInfo info = 9;
 }
 
+message CollectorPodDisruptionBudget {
+	string clusterName = 1;
+	string clusterId = 2;
+	int32 groupId = 3;
+	repeated PodDisruptionBudget podDisruptionBudgets = 4;
+	repeated string tags = 5;
+	int32 groupSize = 6;
+}
+
 message CollectorReplicaSet {
 	string clusterName = 1;
 	string clusterId = 2;
@@ -1031,6 +1040,50 @@ message LabelSelectorRequirement {
 	// Valid operators are In, NotIn, Exists and DoesNotExist.
 	string operator = 2;
 	repeated string values = 3;
+}
+
+// reference https://github.com/kubernetes/kubernetes/blob/9ffc095f88c74c0f5b69b1c4a645836f0b7c83fc/staging/src/k8s.io/api/policy/v1/generated.proto#L46
+message PodDisruptionBudget {
+	Metadata metadata = 1;
+	PodDisruptionBudgetSpec spec = 2;
+	PodDisruptionBudgetStatus status = 3;
+	repeated string tags = 4;
+}
+
+message PodDisruptionBudgetSpec {
+	IntOrString minAvailable = 1;
+	repeated LabelSelectorRequirement selector = 2;
+	IntOrString maxUnavailable = 3;
+	string unhealthyPodEvictionPolicy = 4;
+}
+
+message PodDisruptionBudgetStatus {
+	map<string, int64> disruptedPods = 1;
+	int32 disruptionsAllowed = 2;
+	int32 currentHealthy = 3;
+	int32 desiredHealthy = 4;
+	int32 expectedPods = 5;
+	repeated Condition conditions = 6;
+}
+
+// https://github.com/kubernetes/apimachinery/blob/a8f449e276fe566efddb149992049c78f0088492/pkg/util/intstr/intstr.go#L41
+message IntOrString {
+	enum Type {
+		Int = 0;
+		String = 1;
+	}
+	Type type = 1;
+	int32 intVal = 2;
+	string strVal = 3;
+}
+
+// reference https://github.com/kubernetes/apimachinery/blob/ea28d546a962e50982945e357ad9869cee15f291/pkg/apis/meta/v1/generated.proto#L171
+message Condition {
+	string type = 1;
+	string status = 2;
+	int64 lastTransitionTime = 3;
+	string reason = 4;
+	string message = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto
