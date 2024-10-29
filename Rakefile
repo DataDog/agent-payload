@@ -33,6 +33,9 @@ protoc_jsonschema_version="73d5723"
 namespace :codegen do
   task :clean do
       sh "rm -rf #{gogo_dir}"
+      if Dir.exist?(toolchain_dir)
+          sh "chmod u+w -R #{toolchain_dir}"
+      end
       sh "rm -rf #{toolchain_dir}"
   end
 
@@ -175,7 +178,7 @@ task :deps do
 end
 
 desc "Run tests"
-task :test do
+task :test => ['codegen:clean'] do
   cmd = "go list ./... | grep -v vendor | xargs go test -v "
   sh cmd
 end
