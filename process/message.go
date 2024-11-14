@@ -214,7 +214,7 @@ type MessageBody interface {
 	ProtoMessage()
 	Reset()
 	String() string
-	Size() int
+	// Size() int
 }
 
 // DecodeMessage decodes raw message bytes into a specific type that satisfies
