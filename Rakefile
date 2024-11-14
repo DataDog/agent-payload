@@ -101,7 +101,7 @@ BASH
       echo "done"
 
       echo "Generating process proto (go)"
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:#{gogo_include}:. --gogofaster_out=$GOPATH/src proto/process/*.proto
+      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/process/*.proto
 
       GOPATH=#{toolchain_dir} go install github.com/leeavital/protoc-gen-gostreamer@v0.1.0
       PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:.  --gostreamer_out=$GOPATH/src proto/process/*.proto
