@@ -1,7 +1,12 @@
 # Rakefile for agent-payload
 
+root_dir = File.dirname(__FILE__)
+
+# where the proto code is first generated as we declare packages with v5
+v5_dir=File.join(root_dir, "v5")
+
 # where all toolchains (protobuf compilers, protobuf plugins,etc) are stored
-toolchain_dir=File.join(File.dirname(__FILE__), "toolchains")
+toolchain_dir=File.join(root_dir, "toolchains")
 
 # binaries
 toolchain_bin_dir=File.join(toolchain_dir, "bin")
@@ -93,6 +98,10 @@ BASH
 
       export GO111MODULE=auto
 
+      # These .proto can be imported by other repositories (not only generated code). To have a consistent import path, we use the GOPATH and we add a /v5/ folder as declared packaged in `go.mod` is ../v5
+      mkdir -p #{v5_dir}
+      ln -sf #{root_dir}/proto #{v5_dir}/proto
+
       echo "Generating logs proto"
       PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=$GOPATH/src:#{gogo_dir}/src:. --gogofast_out=$GOPATH/src proto/logs/agent_logs_payload.proto
 
@@ -111,13 +120,11 @@ BASH
       GOPATH=#{toolchain_dir} go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.34.1
       GOPATH=#{toolchain_dir} go install github.com/chrusty/protoc-gen-jsonschema/cmd/protoc-gen-jsonschema@#{protoc_jsonschema_version}
 
-
       echo "Generating contlcycle proto"
       PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto
 
       echo "Generating kubernetes autoscaling proto"
-      # These .proto can be imported by other repositories (not only generated code). To have a consistent import path, we use the GOPATH.
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:proto/deps:$GOPATH/src --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema $GOPATH/src/github.com/DataDog/agent-payload/proto/autoscaling/kubernetes/*.proto
+      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:proto/deps:$GOPATH/src --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema $GOPATH/src/github.com/DataDog/agent-payload/v5/proto/autoscaling/kubernetes/*.proto
 
       echo "Generating contimage proto"
       PATH=#{toolchain_bin_dir}  #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/contimage/contimage.proto
@@ -142,6 +149,7 @@ BASH
         --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessInfo \
         proto/cws/dumpsv1/activity_dump.proto
 
+      rm -f #{v5_dir}/proto
       cp -r v5/* .
       rm -rf v5
 BASH
