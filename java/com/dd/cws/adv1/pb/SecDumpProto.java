@@ -29482,6 +29482,12 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
      */
     com.google.protobuf.ByteString
         getIpBytes();
+
+    /**
+     * <code>uint32 protocol = 5;</code>
+     * @return The protocol.
+     */
+    int getProtocol();
   }
   /**
    * Protobuf type {@code datadog.cws.dumpsv1.BindNode}
@@ -29653,6 +29659,17 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       }
     }
 
+    public static final int PROTOCOL_FIELD_NUMBER = 5;
+    private int protocol_ = 0;
+    /**
+     * <code>uint32 protocol = 5;</code>
+     * @return The protocol.
+     */
+    @java.lang.Override
+    public int getProtocol() {
+      return protocol_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -29678,6 +29695,9 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       }
       for (int i = 0; i < imageTags_.size(); i++) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, imageTags_.getRaw(i));
+      }
+      if (protocol_ != 0) {
+        output.writeUInt32(5, protocol_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -29707,6 +29727,10 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         size += dataSize;
         size += 1 * getImageTagsList().size();
       }
+      if (protocol_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(5, protocol_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -29730,6 +29754,8 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           != other.getPort()) return false;
       if (!getIp()
           .equals(other.getIp())) return false;
+      if (getProtocol()
+          != other.getProtocol()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -29753,6 +29779,8 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       hash = (53 * hash) + getPort();
       hash = (37 * hash) + IP_FIELD_NUMBER;
       hash = (53 * hash) + getIp().hashCode();
+      hash = (37 * hash) + PROTOCOL_FIELD_NUMBER;
+      hash = (53 * hash) + getProtocol();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -29893,6 +29921,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         bitField0_ = (bitField0_ & ~0x00000002);
         port_ = 0;
         ip_ = "";
+        protocol_ = 0;
         return this;
       }
 
@@ -29949,6 +29978,9 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         }
         if (((from_bitField0_ & 0x00000008) != 0)) {
           result.ip_ = ip_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.protocol_ = protocol_;
         }
       }
 
@@ -30040,6 +30072,9 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           bitField0_ |= 0x00000008;
           onChanged();
         }
+        if (other.getProtocol() != 0) {
+          setProtocol(other.getProtocol());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -30095,6 +30130,11 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
                 imageTags_.add(s);
                 break;
               } // case 34
+              case 40: {
+                protocol_ = input.readUInt32();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 40
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -30556,6 +30596,38 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         checkByteStringIsUtf8(value);
         ip_ = value;
         bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+
+      private int protocol_ ;
+      /**
+       * <code>uint32 protocol = 5;</code>
+       * @return The protocol.
+       */
+      @java.lang.Override
+      public int getProtocol() {
+        return protocol_;
+      }
+      /**
+       * <code>uint32 protocol = 5;</code>
+       * @param value The protocol to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProtocol(int value) {
+        
+        protocol_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 protocol = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProtocol() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        protocol_ = 0;
         onChanged();
         return this;
       }
@@ -32753,30 +32825,31 @@ java.lang.String defaultValue) {
       "roup\030\014 \001(\t\022\025\n\rcap_effective\030\r \001(\004\022\025\n\rcap" +
       "_permitted\030\016 \001(\004\"I\n\nSocketNode\022\016\n\006family" +
       "\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035.datadog.cws.dumps" +
-      "v1.BindNode\"q\n\010BindNode\0227\n\rmatched_rules" +
-      "\030\003 \003(\0132 .datadog.cws.dumpsv1.MatchedRule" +
-      "\022\022\n\nimage_tags\030\004 \003(\t\022\014\n\004port\030\001 \001(\r\022\n\n\002ip" +
-      "\030\002 \001(\t\"\325\001\n\013MatchedRule\022\017\n\007rule_id\030\001 \001(\t\022" +
-      "\024\n\014rule_version\030\002 \001(\t\022\023\n\013policy_name\030\003 \001" +
-      "(\t\022\026\n\016policy_version\030\004 \001(\t\022A\n\trule_tags\030" +
-      "\005 \003(\0132..datadog.cws.dumpsv1.MatchedRule." +
-      "RuleTagsEntry\032/\n\rRuleTagsEntry\022\013\n\003key\030\001 " +
-      "\001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"t\n\020event_type_sta" +
-      "te\022\031\n\021last_anomaly_nano\030\001 \001(\004\022E\n\023event_p" +
-      "rofile_state\030\002 \001(\0162(.datadog.cws.dumpsv1" +
-      ".event_profile_state*\271\001\n\tHashState\022\013\n\007NO" +
-      "_HASH\020\000\022\010\n\004DONE\020\001\022\022\n\016FILE_NOT_FOUND\020\002\022\035\n" +
-      "\031PATHNAME_RESOLUTION_ERROR\020\003\022\020\n\014FILE_TOO" +
-      "_BIG\020\004\022\035\n\031EVENT_TYPE_NOT_CONFIGURED\020\005\022\031\n" +
-      "\025HASH_WAS_RATE_LIMITED\020\006\022\026\n\022UNKNOWN_HASH" +
-      "_ERROR\020\007*8\n\016GenerationType\022\013\n\007UNKNOWN\020\000\022" +
-      "\013\n\007RUNTIME\020\001\022\014\n\010SNAPSHOT\020\002*\220\001\n\023event_pro" +
-      "file_state\022\016\n\nNO_PROFILE\020\000\022\027\n\023PROFILE_AT" +
-      "_MAX_SIZE\020\001\022\024\n\020UNSTABLE_PROFILE\020\002\022\022\n\016STA" +
-      "BLE_PROFILE\020\003\022\021\n\rAUTO_LEARNING\020\004\022\023\n\017WORK" +
-      "LOAD_WARMUP\020\005BU\n\022com.dd.cws.adv1.pbB\014Sec" +
-      "DumpProtoP\000Z/github.com/DataDog/agent-pa" +
-      "yload/v5/cws/dumpsv1b\006proto3"
+      "v1.BindNode\"\203\001\n\010BindNode\0227\n\rmatched_rule" +
+      "s\030\003 \003(\0132 .datadog.cws.dumpsv1.MatchedRul" +
+      "e\022\022\n\nimage_tags\030\004 \003(\t\022\014\n\004port\030\001 \001(\r\022\n\n\002i" +
+      "p\030\002 \001(\t\022\020\n\010protocol\030\005 \001(\r\"\325\001\n\013MatchedRul" +
+      "e\022\017\n\007rule_id\030\001 \001(\t\022\024\n\014rule_version\030\002 \001(\t" +
+      "\022\023\n\013policy_name\030\003 \001(\t\022\026\n\016policy_version\030" +
+      "\004 \001(\t\022A\n\trule_tags\030\005 \003(\0132..datadog.cws.d" +
+      "umpsv1.MatchedRule.RuleTagsEntry\032/\n\rRule" +
+      "TagsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028" +
+      "\001\"t\n\020event_type_state\022\031\n\021last_anomaly_na" +
+      "no\030\001 \001(\004\022E\n\023event_profile_state\030\002 \001(\0162(." +
+      "datadog.cws.dumpsv1.event_profile_state*" +
+      "\271\001\n\tHashState\022\013\n\007NO_HASH\020\000\022\010\n\004DONE\020\001\022\022\n\016" +
+      "FILE_NOT_FOUND\020\002\022\035\n\031PATHNAME_RESOLUTION_" +
+      "ERROR\020\003\022\020\n\014FILE_TOO_BIG\020\004\022\035\n\031EVENT_TYPE_" +
+      "NOT_CONFIGURED\020\005\022\031\n\025HASH_WAS_RATE_LIMITE" +
+      "D\020\006\022\026\n\022UNKNOWN_HASH_ERROR\020\007*8\n\016Generatio" +
+      "nType\022\013\n\007UNKNOWN\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPS" +
+      "HOT\020\002*\220\001\n\023event_profile_state\022\016\n\nNO_PROF" +
+      "ILE\020\000\022\027\n\023PROFILE_AT_MAX_SIZE\020\001\022\024\n\020UNSTAB" +
+      "LE_PROFILE\020\002\022\022\n\016STABLE_PROFILE\020\003\022\021\n\rAUTO" +
+      "_LEARNING\020\004\022\023\n\017WORKLOAD_WARMUP\020\005BU\n\022com." +
+      "dd.cws.adv1.pbB\014SecDumpProtoP\000Z/github.c" +
+      "om/DataDog/agent-payload/v5/cws/dumpsv1b" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -32907,7 +32980,7 @@ java.lang.String defaultValue) {
     internal_static_datadog_cws_dumpsv1_BindNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_BindNode_descriptor,
-        new java.lang.String[] { "MatchedRules", "ImageTags", "Port", "Ip", });
+        new java.lang.String[] { "MatchedRules", "ImageTags", "Port", "Ip", "Protocol", });
     internal_static_datadog_cws_dumpsv1_MatchedRule_descriptor =
       getDescriptor().getMessageTypes().get(19);
     internal_static_datadog_cws_dumpsv1_MatchedRule_fieldAccessorTable = new

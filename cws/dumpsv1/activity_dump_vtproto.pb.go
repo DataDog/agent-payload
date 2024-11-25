@@ -1759,6 +1759,11 @@ func (m *BindNode) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
+	if m.Protocol != 0 {
+		i = encodeVarint(dAtA, i, uint64(m.Protocol))
+		i--
+		dAtA[i] = 0x28
+	}
 	if len(m.ImageTags) > 0 {
 		for iNdEx := len(m.ImageTags) - 1; iNdEx >= 0; iNdEx-- {
 			i -= len(m.ImageTags[iNdEx])
@@ -2867,6 +2872,9 @@ func (m *BindNode) SizeVT() (n int) {
 			l = len(s)
 			n += 1 + l + sov(uint64(l))
 		}
+	}
+	if m.Protocol != 0 {
+		n += 1 + sov(uint64(m.Protocol))
 	}
 	n += len(m.unknownFields)
 	return n
@@ -8215,6 +8223,25 @@ func (m *BindNode) UnmarshalVT(dAtA []byte) error {
 			}
 			m.ImageTags = append(m.ImageTags, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Protocol", wireType)
+			}
+			m.Protocol = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Protocol |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skip(dAtA[iNdEx:])
