@@ -245,6 +245,7 @@ message BindNode {
 
     uint32 port = 1;
     string ip = 2;
+    uint32 protocol = 5;
 }
 
 enum GenerationType {
