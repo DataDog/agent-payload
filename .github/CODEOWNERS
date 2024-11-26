@@ -7,10 +7,10 @@
 *                          @DataDog/agent-shared-components
 metrics/                   @DataDog/agent-shared-components @DataDog/agent-processing-and-routing
 logs/                      @DataDog/agent-shared-components @DataDog/agent-processing-and-routing
-process/                   @DataDog/agent-shared-components @DataDog/container-app @DataDog/processes
+process/                   @DataDog/agent-shared-components @DataDog/container-app @DataDog/container-intake
 process/connections.proto  @DataDog/agent-shared-components @DataDog/Networks @DataDog/ebpf-platform @DataDog/universal-service-monitoring
 contlcycle/                @DataDog/agent-shared-components @DataDog/container-integrations
-contimage/                 @DataDog/agent-shared-components @DataDog/container-integrations
+contimage/                 @DataDog/agent-shared-components @DataDog/container-integrations @DataDog/container-intake
 sbom/                      @DataDog/agent-shared-components @DataDog/container-integrations
 CycloneDX/                 @DataDog/agent-shared-components @DataDog/container-integrations
 cyclonedx_v1_4/            @DataDog/agent-shared-components @DataDog/container-integrations
