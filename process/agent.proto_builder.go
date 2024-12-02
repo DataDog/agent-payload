@@ -172,34 +172,6 @@ func (x *CollectorProcBuilder) SetHintMask(v int32) {
 	x.writer.Write(x.scratch)
 }
 
-type GPUProcessInfoBuilder struct {
-	writer  io.Writer
-	buf     bytes.Buffer
-	scratch []byte
-}
-
-func NewGPUProcessInfoBuilder(writer io.Writer) *GPUProcessInfoBuilder {
-	return &GPUProcessInfoBuilder{
-		writer: writer,
-	}
-}
-func (x *GPUProcessInfoBuilder) Reset(writer io.Writer) {
-	x.buf.Reset()
-	x.writer = writer
-}
-func (x *GPUProcessInfoBuilder) SetGpuInstanceId(v uint32) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
-	x.writer.Write(x.scratch)
-}
-func (x *GPUProcessInfoBuilder) SetComputeInstanceId(v uint32) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
-	x.writer.Write(x.scratch)
-}
-
 type CollectorProcDiscoveryBuilder struct {
 	writer                  io.Writer
 	buf                     bytes.Buffer
@@ -2896,7 +2868,6 @@ type ProcessBuilder struct {
 	containerBuilder       ContainerBuilder
 	iOStatBuilder          IOStatBuilder
 	processNetworksBuilder ProcessNetworksBuilder
-	gPUProcessInfoBuilder  GPUProcessInfoBuilder
 }
 
 func NewProcessBuilder(writer io.Writer) *ProcessBuilder {
@@ -3071,15 +3042,11 @@ func (x *ProcessBuilder) AddProcessContext(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
-func (x *ProcessBuilder) AddGpuStats(cb func(w *GPUProcessInfoBuilder)) {
-	x.buf.Reset()
-	x.gPUProcessInfoBuilder.writer = &x.buf
-	x.gPUProcessInfoBuilder.scratch = x.scratch
-	cb(&x.gPUProcessInfoBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xba)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+func (x *ProcessBuilder) AddTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xba)
+	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
-	x.writer.Write(x.buf.Bytes())
 }
 
 type ProcessDiscoveryBuilder struct {
@@ -4312,40 +4279,6 @@ func (x *SingleCPUStatBuilder) SetName(v string) {
 func (x *SingleCPUStatBuilder) SetTotalPct(v float32) {
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x11)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
-	x.writer.Write(x.scratch)
-}
-
-type GPUInfoBuilder struct {
-	writer  io.Writer
-	buf     bytes.Buffer
-	scratch []byte
-}
-
-func NewGPUInfoBuilder(writer io.Writer) *GPUInfoBuilder {
-	return &GPUInfoBuilder{
-		writer: writer,
-	}
-}
-func (x *GPUInfoBuilder) Reset(writer io.Writer) {
-	x.buf.Reset()
-	x.writer = writer
-}
-func (x *GPUInfoBuilder) SetUuid(v string) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
-	x.scratch = protowire.AppendString(x.scratch, v)
-	x.writer.Write(x.scratch)
-}
-func (x *GPUInfoBuilder) SetArch(v string) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
-	x.scratch = protowire.AppendString(x.scratch, v)
-	x.writer.Write(x.scratch)
-}
-func (x *GPUInfoBuilder) SetName(v string) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
-	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 

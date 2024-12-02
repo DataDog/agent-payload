@@ -49,11 +49,6 @@ message CollectorProc {
 	oneof hints {int32 hintMask = 14;}
 }
 
-message GPUProcessInfo {
-	uint32 gpuInstanceId = 1;
-	uint32 computeInstanceId = 2;
-}
-
 message CollectorProcDiscovery {
 	string hostName = 1;
 	int32  groupId = 2;
@@ -489,7 +484,7 @@ message Process {
 	bytes containerByteKey = 19;
 	ProcessNetworks networks = 21;
 	repeated string processContext = 22;
-	repeated GPUProcessInfo gpuStats = 23;
+	repeated string tags = 23;
 }
 
 message ProcessDiscovery {
@@ -752,12 +747,6 @@ message CPUStat {
 message SingleCPUStat {
 	string name = 1;
 	float  totalPct = 2;
-}
-
-message GPUInfo {
-	string uuid = 1;
-	string arch = 2;
-	string name = 3;
 }
 
 message CPUInfo {
