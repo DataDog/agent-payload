@@ -54,7 +54,7 @@ message CollectorProc {
 message GPUStats {
 	uint64 memoryUsage = 1;
 	uint32 gpuInstanceId = 2;
-	uint32 ComputeInstanceId = 3;
+	uint32 computeInstanceId = 3;
 }
 
 message GPUMetadata {
@@ -762,7 +762,9 @@ message SingleCPUStat {
 }
 
 message GPUInfo {
-	string id = 1;
+	string uuid = 1;
+	string arch = 2;
+	string name = 3;
 }
 
 message CPUInfo {
@@ -790,8 +792,6 @@ message Host {
 	int64 totalMemory = 8;
 	int32 tagIndex = 9;
 	int64 tagsModified = 10;
-
-
 }
 
 
