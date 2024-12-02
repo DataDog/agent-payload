@@ -47,18 +47,11 @@ message CollectorProc {
 	ContainerHostType containerHostType = 12;
 
 	oneof hints {int32 hintMask = 14;}
-
-	repeated GPUStats gpuStats = 15;
 }
 
-message GPUStats {
-	uint64 memoryUsage = 1;
-	uint32 gpuInstanceId = 2;
-	uint32 computeInstanceId = 3;
-}
-
-message GPUMetadata {
-
+message GPUProcessInfo {
+	uint32 gpuInstanceId = 1;
+	uint32 computeInstanceId = 2;
 }
 
 message CollectorProcDiscovery {
@@ -496,6 +489,7 @@ message Process {
 	bytes containerByteKey = 19;
 	ProcessNetworks networks = 21;
 	repeated string processContext = 22;
+	repeated GPUProcessInfo gpuStats = 23;
 }
 
 message ProcessDiscovery {
@@ -710,7 +704,6 @@ message SystemInfo {
 	OSInfo os = 2;
 	repeated CPUInfo cpus = 3;
 	int64 totalMemory = 5;
-	repeated GPUInfo gpus = 6;
 }
 
 message OSInfo {
