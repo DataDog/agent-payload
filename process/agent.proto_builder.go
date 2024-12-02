@@ -3042,6 +3042,12 @@ func (x *ProcessBuilder) AddProcessContext(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *ProcessBuilder) AddTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xba)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type ProcessDiscoveryBuilder struct {
 	writer             io.Writer
