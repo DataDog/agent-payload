@@ -83,6 +83,7 @@ type CollectorProcBuilder struct {
 	hostBuilder       HostBuilder
 	systemInfoBuilder SystemInfoBuilder
 	containerBuilder  ContainerBuilder
+	gPUStatsBuilder   GPUStatsBuilder
 }
 
 func NewCollectorProcBuilder(writer io.Writer) *CollectorProcBuilder {
@@ -170,6 +171,66 @@ func (x *CollectorProcBuilder) SetHintMask(v int32) {
 	x.scratch = protowire.AppendVarint(x.scratch, 0x70)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
+}
+func (x *CollectorProcBuilder) AddGpuStats(cb func(w *GPUStatsBuilder)) {
+	x.buf.Reset()
+	x.gPUStatsBuilder.writer = &x.buf
+	x.gPUStatsBuilder.scratch = x.scratch
+	cb(&x.gPUStatsBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x7a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type GPUStatsBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewGPUStatsBuilder(writer io.Writer) *GPUStatsBuilder {
+	return &GPUStatsBuilder{
+		writer: writer,
+	}
+}
+func (x *GPUStatsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *GPUStatsBuilder) SetMemoryUsage(v uint64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *GPUStatsBuilder) SetGpuInstanceId(v uint32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *GPUStatsBuilder) SetComputeInstanceId(v uint32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
+type GPUMetadataBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewGPUMetadataBuilder(writer io.Writer) *GPUMetadataBuilder {
+	return &GPUMetadataBuilder{
+		writer: writer,
+	}
+}
+func (x *GPUMetadataBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
 }
 
 type CollectorProcDiscoveryBuilder struct {
@@ -3987,6 +4048,7 @@ type SystemInfoBuilder struct {
 	scratch        []byte
 	oSInfoBuilder  OSInfoBuilder
 	cPUInfoBuilder CPUInfoBuilder
+	gPUInfoBuilder GPUInfoBuilder
 }
 
 func NewSystemInfoBuilder(writer io.Writer) *SystemInfoBuilder {
@@ -4029,6 +4091,16 @@ func (x *SystemInfoBuilder) SetTotalMemory(v int64) {
 	x.scratch = protowire.AppendVarint(x.scratch, 0x28)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
+}
+func (x *SystemInfoBuilder) AddGpus(cb func(w *GPUInfoBuilder)) {
+	x.buf.Reset()
+	x.gPUInfoBuilder.writer = &x.buf
+	x.gPUInfoBuilder.scratch = x.scratch
+	cb(&x.gPUInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
 }
 
 type OSInfoBuilder struct {
@@ -4273,6 +4345,28 @@ func (x *SingleCPUStatBuilder) SetName(v string) {
 func (x *SingleCPUStatBuilder) SetTotalPct(v float32) {
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x11)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
+	x.writer.Write(x.scratch)
+}
+
+type GPUInfoBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewGPUInfoBuilder(writer io.Writer) *GPUInfoBuilder {
+	return &GPUInfoBuilder{
+		writer: writer,
+	}
+}
+func (x *GPUInfoBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *GPUInfoBuilder) SetId(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 
