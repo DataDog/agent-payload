@@ -6228,6 +6228,7 @@ type PodBuilder struct {
 	resourceRequirementsBuilder ResourceRequirementsBuilder
 	resourceMetricsBuilder      ResourceMetricsBuilder
 	podConditionBuilder         PodConditionBuilder
+	nodeAffinityBuilder         NodeAffinityBuilder
 }
 
 func NewPodBuilder(writer io.Writer) *PodBuilder {
@@ -6389,6 +6390,16 @@ func (x *PodBuilder) AddConditions(cb func(w *PodConditionBuilder)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *PodBuilder) SetNodeAffinity(cb func(w *NodeAffinityBuilder)) {
+	x.buf.Reset()
+	x.nodeAffinityBuilder.writer = &x.buf
+	x.nodeAffinityBuilder.scratch = x.scratch
+	cb(&x.nodeAffinityBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xaa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type PodConditionBuilder struct {
 	writer  io.Writer
@@ -6505,6 +6516,104 @@ func (x *ContainerStatusBuilder) SetImageID(v string) {
 	x.scratch = protowire.AppendVarint(x.scratch, 0x42)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
+}
+
+type NodeAffinityBuilder struct {
+	writer                         io.Writer
+	buf                            bytes.Buffer
+	scratch                        []byte
+	nodeSelectorBuilder            NodeSelectorBuilder
+	preferredSchedulingTermBuilder PreferredSchedulingTermBuilder
+}
+
+func NewNodeAffinityBuilder(writer io.Writer) *NodeAffinityBuilder {
+	return &NodeAffinityBuilder{
+		writer: writer,
+	}
+}
+func (x *NodeAffinityBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *NodeAffinityBuilder) SetRequiredDuringSchedulingIgnoredDuringExecution(cb func(w *NodeSelectorBuilder)) {
+	x.buf.Reset()
+	x.nodeSelectorBuilder.writer = &x.buf
+	x.nodeSelectorBuilder.scratch = x.scratch
+	cb(&x.nodeSelectorBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *NodeAffinityBuilder) AddPreferredDuringSchedulingIgnoredDuringExecution(cb func(w *PreferredSchedulingTermBuilder)) {
+	x.buf.Reset()
+	x.preferredSchedulingTermBuilder.writer = &x.buf
+	x.preferredSchedulingTermBuilder.scratch = x.scratch
+	cb(&x.preferredSchedulingTermBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type NodeSelectorBuilder struct {
+	writer                  io.Writer
+	buf                     bytes.Buffer
+	scratch                 []byte
+	nodeSelectorTermBuilder NodeSelectorTermBuilder
+}
+
+func NewNodeSelectorBuilder(writer io.Writer) *NodeSelectorBuilder {
+	return &NodeSelectorBuilder{
+		writer: writer,
+	}
+}
+func (x *NodeSelectorBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *NodeSelectorBuilder) AddNodeSelectorTerms(cb func(w *NodeSelectorTermBuilder)) {
+	x.buf.Reset()
+	x.nodeSelectorTermBuilder.writer = &x.buf
+	x.nodeSelectorTermBuilder.scratch = x.scratch
+	cb(&x.nodeSelectorTermBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type PreferredSchedulingTermBuilder struct {
+	writer                  io.Writer
+	buf                     bytes.Buffer
+	scratch                 []byte
+	nodeSelectorTermBuilder NodeSelectorTermBuilder
+}
+
+func NewPreferredSchedulingTermBuilder(writer io.Writer) *PreferredSchedulingTermBuilder {
+	return &PreferredSchedulingTermBuilder{
+		writer: writer,
+	}
+}
+func (x *PreferredSchedulingTermBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *PreferredSchedulingTermBuilder) SetWeight(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *PreferredSchedulingTermBuilder) SetPreference(cb func(w *NodeSelectorTermBuilder)) {
+	x.buf.Reset()
+	x.nodeSelectorTermBuilder.writer = &x.buf
+	x.nodeSelectorTermBuilder.scratch = x.scratch
+	cb(&x.nodeSelectorTermBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
 }
 
 type ManifestBuilder struct {

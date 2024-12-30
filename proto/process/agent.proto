@@ -1109,6 +1109,7 @@ message Pod {
 	int64 startTime = 18;
 	int64 scheduledTime = 19;
 	repeated PodCondition conditions = 20;
+	NodeAffinity nodeAffinity = 21;
 }
 
 message PodCondition {
@@ -1129,6 +1130,20 @@ message ContainerStatus {
 	string message = 6;
 	string image = 7;
 	string imageID = 8;
+}
+
+message NodeAffinity {
+	NodeSelector requiredDuringSchedulingIgnoredDuringExecution = 1;
+	repeated PreferredSchedulingTerm preferredDuringSchedulingIgnoredDuringExecution = 2;
+}
+
+message NodeSelector {
+	repeated NodeSelectorTerm nodeSelectorTerms = 1;
+}
+
+message PreferredSchedulingTerm {
+	int32 weight = 1;
+	NodeSelectorTerm preference = 2;
 }
 
 message Manifest {
@@ -1437,7 +1452,7 @@ message PersistentVolumeStatus {
 	string reason = 3;
 }
 
-message NodeSelectorTerm{
+message NodeSelectorTerm {
 	repeated LabelSelectorRequirement matchExpressions = 1;
 	repeated LabelSelectorRequirement matchFields = 2;
 }
