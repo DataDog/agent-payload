@@ -71,9 +71,11 @@ message ProcessActivityNode {
     repeated FileActivityNode files = 4;
     repeated DNSNode dns_names = 5;
     repeated SocketNode sockets = 6;
-    repeated uint32 syscalls = 7;
+    repeated uint32 syscalls = 7 [deprecated = true];
     repeated string image_tags = 10;
     repeated IMDSNode imds_events = 11;
+    repeated SyscallNode syscall_nodes = 12;
+    repeated NetworkDeviceNode network_devices = 13;
 }
 
 message ProcessInfo {
@@ -144,6 +146,12 @@ message DNSInfo {
     uint32 class = 3;
     uint32 size = 4;
     uint32 count = 5;
+}
+
+message SyscallNode {
+    repeated string image_tags = 1;
+
+    int32 syscall = 2;
 }
 
 message IMDSNode {
@@ -246,6 +254,37 @@ message BindNode {
     uint32 port = 1;
     string ip = 2;
     uint32 protocol = 5;
+}
+
+message NetworkDeviceNode {
+    repeated MatchedRule matched_rules = 1;
+
+    uint32 netns = 2;
+    uint32 ifindex = 3;
+    string ifname = 4;
+
+    repeated FlowNode flow_nodes = 5;
+}
+
+message FlowNode {
+    repeated string image_tags = 1;
+
+    IPPortContext source = 2;
+    IPPortContext destination = 3;
+    uint32 l3_protocol = 4;
+    uint32 l4_protocol = 5;
+    NetworkStats ingress = 6;
+    NetworkStats egress = 7;
+}
+
+message IPPortContext {
+    string ip = 1;
+    uint32 port = 2;
+}
+
+message NetworkStats {
+    uint64 data_size = 1;
+    uint64 packet_count = 2;
 }
 
 enum GenerationType {
