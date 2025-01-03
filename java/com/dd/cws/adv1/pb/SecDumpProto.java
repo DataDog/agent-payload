@@ -8557,21 +8557,27 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         int index);
 
     /**
-     * <code>repeated uint32 syscalls = 7;</code>
+     * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=73
      * @return A list containing the syscalls.
      */
-    java.util.List<java.lang.Integer> getSyscallsList();
+    @java.lang.Deprecated java.util.List<java.lang.Integer> getSyscallsList();
     /**
-     * <code>repeated uint32 syscalls = 7;</code>
+     * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=73
      * @return The count of syscalls.
      */
-    int getSyscallsCount();
+    @java.lang.Deprecated int getSyscallsCount();
     /**
-     * <code>repeated uint32 syscalls = 7;</code>
+     * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=73
      * @param index The index of the element to return.
      * @return The syscalls at the given index.
      */
-    int getSyscalls(int index);
+    @java.lang.Deprecated int getSyscalls(int index);
 
     /**
      * <code>repeated string image_tags = 10;</code>
@@ -8621,6 +8627,54 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
      */
     com.dd.cws.adv1.pb.SecDumpProto.IMDSNodeOrBuilder getImdsEventsOrBuilder(
         int index);
+
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+     */
+    java.util.List<com.dd.cws.adv1.pb.SecDumpProto.SyscallNode> 
+        getSyscallNodesList();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.SyscallNode getSyscallNodes(int index);
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+     */
+    int getSyscallNodesCount();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+     */
+    java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.SyscallNodeOrBuilder> 
+        getSyscallNodesOrBuilderList();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.SyscallNodeOrBuilder getSyscallNodesOrBuilder(
+        int index);
+
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+     */
+    java.util.List<com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode> 
+        getNetworkDevicesList();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode getNetworkDevices(int index);
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+     */
+    int getNetworkDevicesCount();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+     */
+    java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNodeOrBuilder> 
+        getNetworkDevicesOrBuilderList();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNodeOrBuilder getNetworkDevicesOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code datadog.cws.dumpsv1.ProcessActivityNode}
@@ -8644,6 +8698,8 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       syscalls_ = emptyIntList();
       imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       imdsEvents_ = java.util.Collections.emptyList();
+      syscallNodes_ = java.util.Collections.emptyList();
+      networkDevices_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -8924,27 +8980,33 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     @SuppressWarnings("serial")
     private com.google.protobuf.Internal.IntList syscalls_;
     /**
-     * <code>repeated uint32 syscalls = 7;</code>
+     * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=73
      * @return A list containing the syscalls.
      */
     @java.lang.Override
-    public java.util.List<java.lang.Integer>
+    @java.lang.Deprecated public java.util.List<java.lang.Integer>
         getSyscallsList() {
       return syscalls_;
     }
     /**
-     * <code>repeated uint32 syscalls = 7;</code>
+     * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=73
      * @return The count of syscalls.
      */
-    public int getSyscallsCount() {
+    @java.lang.Deprecated public int getSyscallsCount() {
       return syscalls_.size();
     }
     /**
-     * <code>repeated uint32 syscalls = 7;</code>
+     * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
+     * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=73
      * @param index The index of the element to return.
      * @return The syscalls at the given index.
      */
-    public int getSyscalls(int index) {
+    @java.lang.Deprecated public int getSyscalls(int index) {
       return syscalls_.getInt(index);
     }
     private int syscallsMemoizedSerializedSize = -1;
@@ -9026,6 +9088,88 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       return imdsEvents_.get(index);
     }
 
+    public static final int SYSCALL_NODES_FIELD_NUMBER = 12;
+    @SuppressWarnings("serial")
+    private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.SyscallNode> syscallNodes_;
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.SyscallNode> getSyscallNodesList() {
+      return syscallNodes_;
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.SyscallNodeOrBuilder> 
+        getSyscallNodesOrBuilderList() {
+      return syscallNodes_;
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+     */
+    @java.lang.Override
+    public int getSyscallNodesCount() {
+      return syscallNodes_.size();
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.SyscallNode getSyscallNodes(int index) {
+      return syscallNodes_.get(index);
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.SyscallNodeOrBuilder getSyscallNodesOrBuilder(
+        int index) {
+      return syscallNodes_.get(index);
+    }
+
+    public static final int NETWORK_DEVICES_FIELD_NUMBER = 13;
+    @SuppressWarnings("serial")
+    private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode> networkDevices_;
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode> getNetworkDevicesList() {
+      return networkDevices_;
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNodeOrBuilder> 
+        getNetworkDevicesOrBuilderList() {
+      return networkDevices_;
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+     */
+    @java.lang.Override
+    public int getNetworkDevicesCount() {
+      return networkDevices_.size();
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode getNetworkDevices(int index) {
+      return networkDevices_.get(index);
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNodeOrBuilder getNetworkDevicesOrBuilder(
+        int index) {
+      return networkDevices_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -9074,6 +9218,12 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       }
       for (int i = 0; i < imdsEvents_.size(); i++) {
         output.writeMessage(11, imdsEvents_.get(i));
+      }
+      for (int i = 0; i < syscallNodes_.size(); i++) {
+        output.writeMessage(12, syscallNodes_.get(i));
+      }
+      for (int i = 0; i < networkDevices_.size(); i++) {
+        output.writeMessage(13, networkDevices_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -9138,6 +9288,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(11, imdsEvents_.get(i));
       }
+      for (int i = 0; i < syscallNodes_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(12, syscallNodes_.get(i));
+      }
+      for (int i = 0; i < networkDevices_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(13, networkDevices_.get(i));
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -9175,6 +9333,10 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           .equals(other.getImageTagsList())) return false;
       if (!getImdsEventsList()
           .equals(other.getImdsEventsList())) return false;
+      if (!getSyscallNodesList()
+          .equals(other.getSyscallNodesList())) return false;
+      if (!getNetworkDevicesList()
+          .equals(other.getNetworkDevicesList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -9223,6 +9385,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       if (getImdsEventsCount() > 0) {
         hash = (37 * hash) + IMDS_EVENTS_FIELD_NUMBER;
         hash = (53 * hash) + getImdsEventsList().hashCode();
+      }
+      if (getSyscallNodesCount() > 0) {
+        hash = (37 * hash) + SYSCALL_NODES_FIELD_NUMBER;
+        hash = (53 * hash) + getSyscallNodesList().hashCode();
+      }
+      if (getNetworkDevicesCount() > 0) {
+        hash = (37 * hash) + NETWORK_DEVICES_FIELD_NUMBER;
+        hash = (53 * hash) + getNetworkDevicesList().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -9404,6 +9574,20 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           imdsEventsBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000200);
+        if (syscallNodesBuilder_ == null) {
+          syscallNodes_ = java.util.Collections.emptyList();
+        } else {
+          syscallNodes_ = null;
+          syscallNodesBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000400);
+        if (networkDevicesBuilder_ == null) {
+          networkDevices_ = java.util.Collections.emptyList();
+        } else {
+          networkDevices_ = null;
+          networkDevicesBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000800);
         return this;
       }
 
@@ -9500,6 +9684,24 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           result.imdsEvents_ = imdsEvents_;
         } else {
           result.imdsEvents_ = imdsEventsBuilder_.build();
+        }
+        if (syscallNodesBuilder_ == null) {
+          if (((bitField0_ & 0x00000400) != 0)) {
+            syscallNodes_ = java.util.Collections.unmodifiableList(syscallNodes_);
+            bitField0_ = (bitField0_ & ~0x00000400);
+          }
+          result.syscallNodes_ = syscallNodes_;
+        } else {
+          result.syscallNodes_ = syscallNodesBuilder_.build();
+        }
+        if (networkDevicesBuilder_ == null) {
+          if (((bitField0_ & 0x00000800) != 0)) {
+            networkDevices_ = java.util.Collections.unmodifiableList(networkDevices_);
+            bitField0_ = (bitField0_ & ~0x00000800);
+          }
+          result.networkDevices_ = networkDevices_;
+        } else {
+          result.networkDevices_ = networkDevicesBuilder_.build();
         }
       }
 
@@ -9741,6 +9943,58 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
             }
           }
         }
+        if (syscallNodesBuilder_ == null) {
+          if (!other.syscallNodes_.isEmpty()) {
+            if (syscallNodes_.isEmpty()) {
+              syscallNodes_ = other.syscallNodes_;
+              bitField0_ = (bitField0_ & ~0x00000400);
+            } else {
+              ensureSyscallNodesIsMutable();
+              syscallNodes_.addAll(other.syscallNodes_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.syscallNodes_.isEmpty()) {
+            if (syscallNodesBuilder_.isEmpty()) {
+              syscallNodesBuilder_.dispose();
+              syscallNodesBuilder_ = null;
+              syscallNodes_ = other.syscallNodes_;
+              bitField0_ = (bitField0_ & ~0x00000400);
+              syscallNodesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getSyscallNodesFieldBuilder() : null;
+            } else {
+              syscallNodesBuilder_.addAllMessages(other.syscallNodes_);
+            }
+          }
+        }
+        if (networkDevicesBuilder_ == null) {
+          if (!other.networkDevices_.isEmpty()) {
+            if (networkDevices_.isEmpty()) {
+              networkDevices_ = other.networkDevices_;
+              bitField0_ = (bitField0_ & ~0x00000800);
+            } else {
+              ensureNetworkDevicesIsMutable();
+              networkDevices_.addAll(other.networkDevices_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.networkDevices_.isEmpty()) {
+            if (networkDevicesBuilder_.isEmpty()) {
+              networkDevicesBuilder_.dispose();
+              networkDevicesBuilder_ = null;
+              networkDevices_ = other.networkDevices_;
+              bitField0_ = (bitField0_ & ~0x00000800);
+              networkDevicesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getNetworkDevicesFieldBuilder() : null;
+            } else {
+              networkDevicesBuilder_.addAllMessages(other.networkDevices_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -9879,6 +10133,32 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
                 }
                 break;
               } // case 90
+              case 98: {
+                com.dd.cws.adv1.pb.SecDumpProto.SyscallNode m =
+                    input.readMessage(
+                        com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.parser(),
+                        extensionRegistry);
+                if (syscallNodesBuilder_ == null) {
+                  ensureSyscallNodesIsMutable();
+                  syscallNodes_.add(m);
+                } else {
+                  syscallNodesBuilder_.addMessage(m);
+                }
+                break;
+              } // case 98
+              case 106: {
+                com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode m =
+                    input.readMessage(
+                        com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.parser(),
+                        extensionRegistry);
+                if (networkDevicesBuilder_ == null) {
+                  ensureNetworkDevicesIsMutable();
+                  networkDevices_.add(m);
+                } else {
+                  networkDevicesBuilder_.addMessage(m);
+                }
+                break;
+              } // case 106
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -11276,36 +11556,44 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         }
       }
       /**
-       * <code>repeated uint32 syscalls = 7;</code>
+       * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @return A list containing the syscalls.
        */
-      public java.util.List<java.lang.Integer>
+      @java.lang.Deprecated public java.util.List<java.lang.Integer>
           getSyscallsList() {
         return ((bitField0_ & 0x00000080) != 0) ?
                  java.util.Collections.unmodifiableList(syscalls_) : syscalls_;
       }
       /**
-       * <code>repeated uint32 syscalls = 7;</code>
+       * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @return The count of syscalls.
        */
-      public int getSyscallsCount() {
+      @java.lang.Deprecated public int getSyscallsCount() {
         return syscalls_.size();
       }
       /**
-       * <code>repeated uint32 syscalls = 7;</code>
+       * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @param index The index of the element to return.
        * @return The syscalls at the given index.
        */
-      public int getSyscalls(int index) {
+      @java.lang.Deprecated public int getSyscalls(int index) {
         return syscalls_.getInt(index);
       }
       /**
-       * <code>repeated uint32 syscalls = 7;</code>
+       * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @param index The index to set the value at.
        * @param value The syscalls to set.
        * @return This builder for chaining.
        */
-      public Builder setSyscalls(
+      @java.lang.Deprecated public Builder setSyscalls(
           int index, int value) {
         
         ensureSyscallsIsMutable();
@@ -11314,11 +11602,13 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         return this;
       }
       /**
-       * <code>repeated uint32 syscalls = 7;</code>
+       * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @param value The syscalls to add.
        * @return This builder for chaining.
        */
-      public Builder addSyscalls(int value) {
+      @java.lang.Deprecated public Builder addSyscalls(int value) {
         
         ensureSyscallsIsMutable();
         syscalls_.addInt(value);
@@ -11326,11 +11616,13 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         return this;
       }
       /**
-       * <code>repeated uint32 syscalls = 7;</code>
+       * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @param values The syscalls to add.
        * @return This builder for chaining.
        */
-      public Builder addAllSyscalls(
+      @java.lang.Deprecated public Builder addAllSyscalls(
           java.lang.Iterable<? extends java.lang.Integer> values) {
         ensureSyscallsIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -11339,10 +11631,12 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         return this;
       }
       /**
-       * <code>repeated uint32 syscalls = 7;</code>
+       * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
+       * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @return This builder for chaining.
        */
-      public Builder clearSyscalls() {
+      @java.lang.Deprecated public Builder clearSyscalls() {
         syscalls_ = emptyIntList();
         bitField0_ = (bitField0_ & ~0x00000080);
         onChanged();
@@ -11692,6 +11986,486 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         }
         return imdsEventsBuilder_;
       }
+
+      private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.SyscallNode> syscallNodes_ =
+        java.util.Collections.emptyList();
+      private void ensureSyscallNodesIsMutable() {
+        if (!((bitField0_ & 0x00000400) != 0)) {
+          syscallNodes_ = new java.util.ArrayList<com.dd.cws.adv1.pb.SecDumpProto.SyscallNode>(syscallNodes_);
+          bitField0_ |= 0x00000400;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.SyscallNode, com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.SyscallNodeOrBuilder> syscallNodesBuilder_;
+
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.SyscallNode> getSyscallNodesList() {
+        if (syscallNodesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(syscallNodes_);
+        } else {
+          return syscallNodesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public int getSyscallNodesCount() {
+        if (syscallNodesBuilder_ == null) {
+          return syscallNodes_.size();
+        } else {
+          return syscallNodesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.SyscallNode getSyscallNodes(int index) {
+        if (syscallNodesBuilder_ == null) {
+          return syscallNodes_.get(index);
+        } else {
+          return syscallNodesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public Builder setSyscallNodes(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.SyscallNode value) {
+        if (syscallNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSyscallNodesIsMutable();
+          syscallNodes_.set(index, value);
+          onChanged();
+        } else {
+          syscallNodesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public Builder setSyscallNodes(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.Builder builderForValue) {
+        if (syscallNodesBuilder_ == null) {
+          ensureSyscallNodesIsMutable();
+          syscallNodes_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          syscallNodesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public Builder addSyscallNodes(com.dd.cws.adv1.pb.SecDumpProto.SyscallNode value) {
+        if (syscallNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSyscallNodesIsMutable();
+          syscallNodes_.add(value);
+          onChanged();
+        } else {
+          syscallNodesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public Builder addSyscallNodes(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.SyscallNode value) {
+        if (syscallNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSyscallNodesIsMutable();
+          syscallNodes_.add(index, value);
+          onChanged();
+        } else {
+          syscallNodesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public Builder addSyscallNodes(
+          com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.Builder builderForValue) {
+        if (syscallNodesBuilder_ == null) {
+          ensureSyscallNodesIsMutable();
+          syscallNodes_.add(builderForValue.build());
+          onChanged();
+        } else {
+          syscallNodesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public Builder addSyscallNodes(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.Builder builderForValue) {
+        if (syscallNodesBuilder_ == null) {
+          ensureSyscallNodesIsMutable();
+          syscallNodes_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          syscallNodesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public Builder addAllSyscallNodes(
+          java.lang.Iterable<? extends com.dd.cws.adv1.pb.SecDumpProto.SyscallNode> values) {
+        if (syscallNodesBuilder_ == null) {
+          ensureSyscallNodesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, syscallNodes_);
+          onChanged();
+        } else {
+          syscallNodesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public Builder clearSyscallNodes() {
+        if (syscallNodesBuilder_ == null) {
+          syscallNodes_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000400);
+          onChanged();
+        } else {
+          syscallNodesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public Builder removeSyscallNodes(int index) {
+        if (syscallNodesBuilder_ == null) {
+          ensureSyscallNodesIsMutable();
+          syscallNodes_.remove(index);
+          onChanged();
+        } else {
+          syscallNodesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.Builder getSyscallNodesBuilder(
+          int index) {
+        return getSyscallNodesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.SyscallNodeOrBuilder getSyscallNodesOrBuilder(
+          int index) {
+        if (syscallNodesBuilder_ == null) {
+          return syscallNodes_.get(index);  } else {
+          return syscallNodesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.SyscallNodeOrBuilder> 
+           getSyscallNodesOrBuilderList() {
+        if (syscallNodesBuilder_ != null) {
+          return syscallNodesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(syscallNodes_);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.Builder addSyscallNodesBuilder() {
+        return getSyscallNodesFieldBuilder().addBuilder(
+            com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.Builder addSyscallNodesBuilder(
+          int index) {
+        return getSyscallNodesFieldBuilder().addBuilder(
+            index, com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.SyscallNode syscall_nodes = 12;</code>
+       */
+      public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.Builder> 
+           getSyscallNodesBuilderList() {
+        return getSyscallNodesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.SyscallNode, com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.SyscallNodeOrBuilder> 
+          getSyscallNodesFieldBuilder() {
+        if (syscallNodesBuilder_ == null) {
+          syscallNodesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.SyscallNode, com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.SyscallNodeOrBuilder>(
+                  syscallNodes_,
+                  ((bitField0_ & 0x00000400) != 0),
+                  getParentForChildren(),
+                  isClean());
+          syscallNodes_ = null;
+        }
+        return syscallNodesBuilder_;
+      }
+
+      private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode> networkDevices_ =
+        java.util.Collections.emptyList();
+      private void ensureNetworkDevicesIsMutable() {
+        if (!((bitField0_ & 0x00000800) != 0)) {
+          networkDevices_ = new java.util.ArrayList<com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode>(networkDevices_);
+          bitField0_ |= 0x00000800;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode, com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNodeOrBuilder> networkDevicesBuilder_;
+
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode> getNetworkDevicesList() {
+        if (networkDevicesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(networkDevices_);
+        } else {
+          return networkDevicesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public int getNetworkDevicesCount() {
+        if (networkDevicesBuilder_ == null) {
+          return networkDevices_.size();
+        } else {
+          return networkDevicesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode getNetworkDevices(int index) {
+        if (networkDevicesBuilder_ == null) {
+          return networkDevices_.get(index);
+        } else {
+          return networkDevicesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public Builder setNetworkDevices(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode value) {
+        if (networkDevicesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureNetworkDevicesIsMutable();
+          networkDevices_.set(index, value);
+          onChanged();
+        } else {
+          networkDevicesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public Builder setNetworkDevices(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.Builder builderForValue) {
+        if (networkDevicesBuilder_ == null) {
+          ensureNetworkDevicesIsMutable();
+          networkDevices_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          networkDevicesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public Builder addNetworkDevices(com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode value) {
+        if (networkDevicesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureNetworkDevicesIsMutable();
+          networkDevices_.add(value);
+          onChanged();
+        } else {
+          networkDevicesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public Builder addNetworkDevices(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode value) {
+        if (networkDevicesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureNetworkDevicesIsMutable();
+          networkDevices_.add(index, value);
+          onChanged();
+        } else {
+          networkDevicesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public Builder addNetworkDevices(
+          com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.Builder builderForValue) {
+        if (networkDevicesBuilder_ == null) {
+          ensureNetworkDevicesIsMutable();
+          networkDevices_.add(builderForValue.build());
+          onChanged();
+        } else {
+          networkDevicesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public Builder addNetworkDevices(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.Builder builderForValue) {
+        if (networkDevicesBuilder_ == null) {
+          ensureNetworkDevicesIsMutable();
+          networkDevices_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          networkDevicesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public Builder addAllNetworkDevices(
+          java.lang.Iterable<? extends com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode> values) {
+        if (networkDevicesBuilder_ == null) {
+          ensureNetworkDevicesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, networkDevices_);
+          onChanged();
+        } else {
+          networkDevicesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public Builder clearNetworkDevices() {
+        if (networkDevicesBuilder_ == null) {
+          networkDevices_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000800);
+          onChanged();
+        } else {
+          networkDevicesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public Builder removeNetworkDevices(int index) {
+        if (networkDevicesBuilder_ == null) {
+          ensureNetworkDevicesIsMutable();
+          networkDevices_.remove(index);
+          onChanged();
+        } else {
+          networkDevicesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.Builder getNetworkDevicesBuilder(
+          int index) {
+        return getNetworkDevicesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNodeOrBuilder getNetworkDevicesOrBuilder(
+          int index) {
+        if (networkDevicesBuilder_ == null) {
+          return networkDevices_.get(index);  } else {
+          return networkDevicesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNodeOrBuilder> 
+           getNetworkDevicesOrBuilderList() {
+        if (networkDevicesBuilder_ != null) {
+          return networkDevicesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(networkDevices_);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.Builder addNetworkDevicesBuilder() {
+        return getNetworkDevicesFieldBuilder().addBuilder(
+            com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.Builder addNetworkDevicesBuilder(
+          int index) {
+        return getNetworkDevicesFieldBuilder().addBuilder(
+            index, com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.NetworkDeviceNode network_devices = 13;</code>
+       */
+      public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.Builder> 
+           getNetworkDevicesBuilderList() {
+        return getNetworkDevicesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode, com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNodeOrBuilder> 
+          getNetworkDevicesFieldBuilder() {
+        if (networkDevicesBuilder_ == null) {
+          networkDevicesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode, com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNodeOrBuilder>(
+                  networkDevices_,
+                  ((bitField0_ & 0x00000800) != 0),
+                  getParentForChildren(),
+                  isClean());
+          networkDevices_ = null;
+        }
+        return networkDevicesBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -11781,7 +12555,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint32 cookie = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=82
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=84
      * @return The cookie.
      */
     @java.lang.Deprecated int getCookie();
@@ -11822,7 +12596,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint64 span_id = 8 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.span_id is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=89
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=91
      * @return The spanId.
      */
     @java.lang.Deprecated long getSpanId();
@@ -11830,7 +12604,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint64 trace_id = 9 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.trace_id is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=90
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=92
      * @return The traceId.
      */
     @java.lang.Deprecated long getTraceId();
@@ -12062,7 +12836,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint32 cookie = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=82
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=84
      * @return The cookie.
      */
     @java.lang.Override
@@ -12151,7 +12925,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint64 span_id = 8 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.span_id is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=89
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=91
      * @return The spanId.
      */
     @java.lang.Override
@@ -12164,7 +12938,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint64 trace_id = 9 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.trace_id is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=90
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=92
      * @return The traceId.
      */
     @java.lang.Override
@@ -13448,7 +14222,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint32 cookie = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=82
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=84
        * @return The cookie.
        */
       @java.lang.Override
@@ -13458,7 +14232,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint32 cookie = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=82
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=84
        * @param value The cookie to set.
        * @return This builder for chaining.
        */
@@ -13472,7 +14246,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint32 cookie = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=82
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=84
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearCookie() {
@@ -13709,7 +14483,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 span_id = 8 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.span_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=89
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=91
        * @return The spanId.
        */
       @java.lang.Override
@@ -13719,7 +14493,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 span_id = 8 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.span_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=89
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=91
        * @param value The spanId to set.
        * @return This builder for chaining.
        */
@@ -13733,7 +14507,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 span_id = 8 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.span_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=89
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=91
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearSpanId() {
@@ -13747,7 +14521,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 trace_id = 9 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.trace_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=90
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=92
        * @return The traceId.
        */
       @java.lang.Override
@@ -13757,7 +14531,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 trace_id = 9 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.trace_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=90
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=92
        * @param value The traceId to set.
        * @return This builder for chaining.
        */
@@ -13771,7 +14545,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 trace_id = 9 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.trace_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=90
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=92
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearTraceId() {
@@ -19594,6 +20368,695 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
 
     @java.lang.Override
     public com.dd.cws.adv1.pb.SecDumpProto.DNSInfo getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SyscallNodeOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.SyscallNode)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @return A list containing the imageTags.
+     */
+    java.util.List<java.lang.String>
+        getImageTagsList();
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @return The count of imageTags.
+     */
+    int getImageTagsCount();
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @param index The index of the element to return.
+     * @return The imageTags at the given index.
+     */
+    java.lang.String getImageTags(int index);
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the imageTags at the given index.
+     */
+    com.google.protobuf.ByteString
+        getImageTagsBytes(int index);
+
+    /**
+     * <code>int32 syscall = 2;</code>
+     * @return The syscall.
+     */
+    int getSyscall();
+  }
+  /**
+   * Protobuf type {@code datadog.cws.dumpsv1.SyscallNode}
+   */
+  public static final class SyscallNode extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.SyscallNode)
+      SyscallNodeOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SyscallNode.newBuilder() to construct.
+    private SyscallNode(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SyscallNode() {
+      imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SyscallNode();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_SyscallNode_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_SyscallNode_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.class, com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.Builder.class);
+    }
+
+    public static final int IMAGE_TAGS_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringList imageTags_;
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @return A list containing the imageTags.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getImageTagsList() {
+      return imageTags_;
+    }
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @return The count of imageTags.
+     */
+    public int getImageTagsCount() {
+      return imageTags_.size();
+    }
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @param index The index of the element to return.
+     * @return The imageTags at the given index.
+     */
+    public java.lang.String getImageTags(int index) {
+      return imageTags_.get(index);
+    }
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the imageTags at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getImageTagsBytes(int index) {
+      return imageTags_.getByteString(index);
+    }
+
+    public static final int SYSCALL_FIELD_NUMBER = 2;
+    private int syscall_ = 0;
+    /**
+     * <code>int32 syscall = 2;</code>
+     * @return The syscall.
+     */
+    @java.lang.Override
+    public int getSyscall() {
+      return syscall_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < imageTags_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, imageTags_.getRaw(i));
+      }
+      if (syscall_ != 0) {
+        output.writeInt32(2, syscall_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < imageTags_.size(); i++) {
+          dataSize += computeStringSizeNoTag(imageTags_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getImageTagsList().size();
+      }
+      if (syscall_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, syscall_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.SyscallNode)) {
+        return super.equals(obj);
+      }
+      com.dd.cws.adv1.pb.SecDumpProto.SyscallNode other = (com.dd.cws.adv1.pb.SecDumpProto.SyscallNode) obj;
+
+      if (!getImageTagsList()
+          .equals(other.getImageTagsList())) return false;
+      if (getSyscall()
+          != other.getSyscall()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getImageTagsCount() > 0) {
+        hash = (37 * hash) + IMAGE_TAGS_FIELD_NUMBER;
+        hash = (53 * hash) + getImageTagsList().hashCode();
+      }
+      hash = (37 * hash) + SYSCALL_FIELD_NUMBER;
+      hash = (53 * hash) + getSyscall();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.SyscallNode parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.SyscallNode parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.SyscallNode parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.SyscallNode parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.SyscallNode parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.SyscallNode parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.SyscallNode parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.SyscallNode parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.SyscallNode parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.SyscallNode parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.SyscallNode parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.SyscallNode parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.SyscallNode prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code datadog.cws.dumpsv1.SyscallNode}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.SyscallNode)
+        com.dd.cws.adv1.pb.SecDumpProto.SyscallNodeOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_SyscallNode_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_SyscallNode_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.class, com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.Builder.class);
+      }
+
+      // Construct using com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        syscall_ = 0;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_SyscallNode_descriptor;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.SyscallNode getDefaultInstanceForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.SyscallNode build() {
+        com.dd.cws.adv1.pb.SecDumpProto.SyscallNode result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.SyscallNode buildPartial() {
+        com.dd.cws.adv1.pb.SecDumpProto.SyscallNode result = new com.dd.cws.adv1.pb.SecDumpProto.SyscallNode(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(com.dd.cws.adv1.pb.SecDumpProto.SyscallNode result) {
+        if (((bitField0_ & 0x00000001) != 0)) {
+          imageTags_ = imageTags_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.imageTags_ = imageTags_;
+      }
+
+      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.SyscallNode result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.syscall_ = syscall_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.SyscallNode) {
+          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.SyscallNode)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.SyscallNode other) {
+        if (other == com.dd.cws.adv1.pb.SecDumpProto.SyscallNode.getDefaultInstance()) return this;
+        if (!other.imageTags_.isEmpty()) {
+          if (imageTags_.isEmpty()) {
+            imageTags_ = other.imageTags_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureImageTagsIsMutable();
+            imageTags_.addAll(other.imageTags_);
+          }
+          onChanged();
+        }
+        if (other.getSyscall() != 0) {
+          setSyscall(other.getSyscall());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureImageTagsIsMutable();
+                imageTags_.add(s);
+                break;
+              } // case 10
+              case 16: {
+                syscall_ = input.readInt32();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureImageTagsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          imageTags_ = new com.google.protobuf.LazyStringArrayList(imageTags_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @return A list containing the imageTags.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getImageTagsList() {
+        return imageTags_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @return The count of imageTags.
+       */
+      public int getImageTagsCount() {
+        return imageTags_.size();
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @param index The index of the element to return.
+       * @return The imageTags at the given index.
+       */
+      public java.lang.String getImageTags(int index) {
+        return imageTags_.get(index);
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the imageTags at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getImageTagsBytes(int index) {
+        return imageTags_.getByteString(index);
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The imageTags to set.
+       * @return This builder for chaining.
+       */
+      public Builder setImageTags(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureImageTagsIsMutable();
+        imageTags_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @param value The imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addImageTags(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureImageTagsIsMutable();
+        imageTags_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @param values The imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllImageTags(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureImageTagsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, imageTags_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearImageTags() {
+        imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @param value The bytes of the imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addImageTagsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureImageTagsIsMutable();
+        imageTags_.add(value);
+        onChanged();
+        return this;
+      }
+
+      private int syscall_ ;
+      /**
+       * <code>int32 syscall = 2;</code>
+       * @return The syscall.
+       */
+      @java.lang.Override
+      public int getSyscall() {
+        return syscall_;
+      }
+      /**
+       * <code>int32 syscall = 2;</code>
+       * @param value The syscall to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSyscall(int value) {
+        
+        syscall_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 syscall = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSyscall() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        syscall_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.SyscallNode)
+    }
+
+    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.SyscallNode)
+    private static final com.dd.cws.adv1.pb.SecDumpProto.SyscallNode DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.SyscallNode();
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.SyscallNode getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SyscallNode>
+        PARSER = new com.google.protobuf.AbstractParser<SyscallNode>() {
+      @java.lang.Override
+      public SyscallNode parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<SyscallNode> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SyscallNode> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.SyscallNode getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -30695,6 +32158,4182 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
 
   }
 
+  public interface NetworkDeviceNodeOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.NetworkDeviceNode)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    java.util.List<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule> 
+        getMatchedRulesList();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.MatchedRule getMatchedRules(int index);
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    int getMatchedRulesCount();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder> 
+        getMatchedRulesOrBuilderList();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder getMatchedRulesOrBuilder(
+        int index);
+
+    /**
+     * <code>uint32 netns = 2;</code>
+     * @return The netns.
+     */
+    int getNetns();
+
+    /**
+     * <code>uint32 ifindex = 3;</code>
+     * @return The ifindex.
+     */
+    int getIfindex();
+
+    /**
+     * <code>string ifname = 4;</code>
+     * @return The ifname.
+     */
+    java.lang.String getIfname();
+    /**
+     * <code>string ifname = 4;</code>
+     * @return The bytes for ifname.
+     */
+    com.google.protobuf.ByteString
+        getIfnameBytes();
+
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+     */
+    java.util.List<com.dd.cws.adv1.pb.SecDumpProto.FlowNode> 
+        getFlowNodesList();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.FlowNode getFlowNodes(int index);
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+     */
+    int getFlowNodesCount();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+     */
+    java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.FlowNodeOrBuilder> 
+        getFlowNodesOrBuilderList();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.FlowNodeOrBuilder getFlowNodesOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code datadog.cws.dumpsv1.NetworkDeviceNode}
+   */
+  public static final class NetworkDeviceNode extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.NetworkDeviceNode)
+      NetworkDeviceNodeOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use NetworkDeviceNode.newBuilder() to construct.
+    private NetworkDeviceNode(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private NetworkDeviceNode() {
+      matchedRules_ = java.util.Collections.emptyList();
+      ifname_ = "";
+      flowNodes_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new NetworkDeviceNode();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_NetworkDeviceNode_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_NetworkDeviceNode_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.class, com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.Builder.class);
+    }
+
+    public static final int MATCHED_RULES_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule> matchedRules_;
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule> getMatchedRulesList() {
+      return matchedRules_;
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder> 
+        getMatchedRulesOrBuilderList() {
+      return matchedRules_;
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    @java.lang.Override
+    public int getMatchedRulesCount() {
+      return matchedRules_.size();
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.MatchedRule getMatchedRules(int index) {
+      return matchedRules_.get(index);
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder getMatchedRulesOrBuilder(
+        int index) {
+      return matchedRules_.get(index);
+    }
+
+    public static final int NETNS_FIELD_NUMBER = 2;
+    private int netns_ = 0;
+    /**
+     * <code>uint32 netns = 2;</code>
+     * @return The netns.
+     */
+    @java.lang.Override
+    public int getNetns() {
+      return netns_;
+    }
+
+    public static final int IFINDEX_FIELD_NUMBER = 3;
+    private int ifindex_ = 0;
+    /**
+     * <code>uint32 ifindex = 3;</code>
+     * @return The ifindex.
+     */
+    @java.lang.Override
+    public int getIfindex() {
+      return ifindex_;
+    }
+
+    public static final int IFNAME_FIELD_NUMBER = 4;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object ifname_ = "";
+    /**
+     * <code>string ifname = 4;</code>
+     * @return The ifname.
+     */
+    @java.lang.Override
+    public java.lang.String getIfname() {
+      java.lang.Object ref = ifname_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ifname_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ifname = 4;</code>
+     * @return The bytes for ifname.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIfnameBytes() {
+      java.lang.Object ref = ifname_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ifname_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int FLOW_NODES_FIELD_NUMBER = 5;
+    @SuppressWarnings("serial")
+    private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.FlowNode> flowNodes_;
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.FlowNode> getFlowNodesList() {
+      return flowNodes_;
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.FlowNodeOrBuilder> 
+        getFlowNodesOrBuilderList() {
+      return flowNodes_;
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+     */
+    @java.lang.Override
+    public int getFlowNodesCount() {
+      return flowNodes_.size();
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.FlowNode getFlowNodes(int index) {
+      return flowNodes_.get(index);
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.FlowNodeOrBuilder getFlowNodesOrBuilder(
+        int index) {
+      return flowNodes_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < matchedRules_.size(); i++) {
+        output.writeMessage(1, matchedRules_.get(i));
+      }
+      if (netns_ != 0) {
+        output.writeUInt32(2, netns_);
+      }
+      if (ifindex_ != 0) {
+        output.writeUInt32(3, ifindex_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ifname_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, ifname_);
+      }
+      for (int i = 0; i < flowNodes_.size(); i++) {
+        output.writeMessage(5, flowNodes_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < matchedRules_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, matchedRules_.get(i));
+      }
+      if (netns_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(2, netns_);
+      }
+      if (ifindex_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(3, ifindex_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ifname_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, ifname_);
+      }
+      for (int i = 0; i < flowNodes_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, flowNodes_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode)) {
+        return super.equals(obj);
+      }
+      com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode other = (com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode) obj;
+
+      if (!getMatchedRulesList()
+          .equals(other.getMatchedRulesList())) return false;
+      if (getNetns()
+          != other.getNetns()) return false;
+      if (getIfindex()
+          != other.getIfindex()) return false;
+      if (!getIfname()
+          .equals(other.getIfname())) return false;
+      if (!getFlowNodesList()
+          .equals(other.getFlowNodesList())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getMatchedRulesCount() > 0) {
+        hash = (37 * hash) + MATCHED_RULES_FIELD_NUMBER;
+        hash = (53 * hash) + getMatchedRulesList().hashCode();
+      }
+      hash = (37 * hash) + NETNS_FIELD_NUMBER;
+      hash = (53 * hash) + getNetns();
+      hash = (37 * hash) + IFINDEX_FIELD_NUMBER;
+      hash = (53 * hash) + getIfindex();
+      hash = (37 * hash) + IFNAME_FIELD_NUMBER;
+      hash = (53 * hash) + getIfname().hashCode();
+      if (getFlowNodesCount() > 0) {
+        hash = (37 * hash) + FLOW_NODES_FIELD_NUMBER;
+        hash = (53 * hash) + getFlowNodesList().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code datadog.cws.dumpsv1.NetworkDeviceNode}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.NetworkDeviceNode)
+        com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNodeOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_NetworkDeviceNode_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_NetworkDeviceNode_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.class, com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.Builder.class);
+      }
+
+      // Construct using com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        if (matchedRulesBuilder_ == null) {
+          matchedRules_ = java.util.Collections.emptyList();
+        } else {
+          matchedRules_ = null;
+          matchedRulesBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        netns_ = 0;
+        ifindex_ = 0;
+        ifname_ = "";
+        if (flowNodesBuilder_ == null) {
+          flowNodes_ = java.util.Collections.emptyList();
+        } else {
+          flowNodes_ = null;
+          flowNodesBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000010);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_NetworkDeviceNode_descriptor;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode getDefaultInstanceForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode build() {
+        com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode buildPartial() {
+        com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode result = new com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode result) {
+        if (matchedRulesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            matchedRules_ = java.util.Collections.unmodifiableList(matchedRules_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.matchedRules_ = matchedRules_;
+        } else {
+          result.matchedRules_ = matchedRulesBuilder_.build();
+        }
+        if (flowNodesBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) != 0)) {
+            flowNodes_ = java.util.Collections.unmodifiableList(flowNodes_);
+            bitField0_ = (bitField0_ & ~0x00000010);
+          }
+          result.flowNodes_ = flowNodes_;
+        } else {
+          result.flowNodes_ = flowNodesBuilder_.build();
+        }
+      }
+
+      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.netns_ = netns_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.ifindex_ = ifindex_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.ifname_ = ifname_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode) {
+          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode other) {
+        if (other == com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode.getDefaultInstance()) return this;
+        if (matchedRulesBuilder_ == null) {
+          if (!other.matchedRules_.isEmpty()) {
+            if (matchedRules_.isEmpty()) {
+              matchedRules_ = other.matchedRules_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureMatchedRulesIsMutable();
+              matchedRules_.addAll(other.matchedRules_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.matchedRules_.isEmpty()) {
+            if (matchedRulesBuilder_.isEmpty()) {
+              matchedRulesBuilder_.dispose();
+              matchedRulesBuilder_ = null;
+              matchedRules_ = other.matchedRules_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              matchedRulesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getMatchedRulesFieldBuilder() : null;
+            } else {
+              matchedRulesBuilder_.addAllMessages(other.matchedRules_);
+            }
+          }
+        }
+        if (other.getNetns() != 0) {
+          setNetns(other.getNetns());
+        }
+        if (other.getIfindex() != 0) {
+          setIfindex(other.getIfindex());
+        }
+        if (!other.getIfname().isEmpty()) {
+          ifname_ = other.ifname_;
+          bitField0_ |= 0x00000008;
+          onChanged();
+        }
+        if (flowNodesBuilder_ == null) {
+          if (!other.flowNodes_.isEmpty()) {
+            if (flowNodes_.isEmpty()) {
+              flowNodes_ = other.flowNodes_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+            } else {
+              ensureFlowNodesIsMutable();
+              flowNodes_.addAll(other.flowNodes_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.flowNodes_.isEmpty()) {
+            if (flowNodesBuilder_.isEmpty()) {
+              flowNodesBuilder_.dispose();
+              flowNodesBuilder_ = null;
+              flowNodes_ = other.flowNodes_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+              flowNodesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getFlowNodesFieldBuilder() : null;
+            } else {
+              flowNodesBuilder_.addAllMessages(other.flowNodes_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                com.dd.cws.adv1.pb.SecDumpProto.MatchedRule m =
+                    input.readMessage(
+                        com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.parser(),
+                        extensionRegistry);
+                if (matchedRulesBuilder_ == null) {
+                  ensureMatchedRulesIsMutable();
+                  matchedRules_.add(m);
+                } else {
+                  matchedRulesBuilder_.addMessage(m);
+                }
+                break;
+              } // case 10
+              case 16: {
+                netns_ = input.readUInt32();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              case 24: {
+                ifindex_ = input.readUInt32();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
+              case 34: {
+                ifname_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
+              case 42: {
+                com.dd.cws.adv1.pb.SecDumpProto.FlowNode m =
+                    input.readMessage(
+                        com.dd.cws.adv1.pb.SecDumpProto.FlowNode.parser(),
+                        extensionRegistry);
+                if (flowNodesBuilder_ == null) {
+                  ensureFlowNodesIsMutable();
+                  flowNodes_.add(m);
+                } else {
+                  flowNodesBuilder_.addMessage(m);
+                }
+                break;
+              } // case 42
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule> matchedRules_ =
+        java.util.Collections.emptyList();
+      private void ensureMatchedRulesIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          matchedRules_ = new java.util.ArrayList<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule>(matchedRules_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.MatchedRule, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder, com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder> matchedRulesBuilder_;
+
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule> getMatchedRulesList() {
+        if (matchedRulesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(matchedRules_);
+        } else {
+          return matchedRulesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public int getMatchedRulesCount() {
+        if (matchedRulesBuilder_ == null) {
+          return matchedRules_.size();
+        } else {
+          return matchedRulesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.MatchedRule getMatchedRules(int index) {
+        if (matchedRulesBuilder_ == null) {
+          return matchedRules_.get(index);
+        } else {
+          return matchedRulesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder setMatchedRules(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule value) {
+        if (matchedRulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMatchedRulesIsMutable();
+          matchedRules_.set(index, value);
+          onChanged();
+        } else {
+          matchedRulesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder setMatchedRules(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder builderForValue) {
+        if (matchedRulesBuilder_ == null) {
+          ensureMatchedRulesIsMutable();
+          matchedRules_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          matchedRulesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder addMatchedRules(com.dd.cws.adv1.pb.SecDumpProto.MatchedRule value) {
+        if (matchedRulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMatchedRulesIsMutable();
+          matchedRules_.add(value);
+          onChanged();
+        } else {
+          matchedRulesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder addMatchedRules(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule value) {
+        if (matchedRulesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMatchedRulesIsMutable();
+          matchedRules_.add(index, value);
+          onChanged();
+        } else {
+          matchedRulesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder addMatchedRules(
+          com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder builderForValue) {
+        if (matchedRulesBuilder_ == null) {
+          ensureMatchedRulesIsMutable();
+          matchedRules_.add(builderForValue.build());
+          onChanged();
+        } else {
+          matchedRulesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder addMatchedRules(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder builderForValue) {
+        if (matchedRulesBuilder_ == null) {
+          ensureMatchedRulesIsMutable();
+          matchedRules_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          matchedRulesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder addAllMatchedRules(
+          java.lang.Iterable<? extends com.dd.cws.adv1.pb.SecDumpProto.MatchedRule> values) {
+        if (matchedRulesBuilder_ == null) {
+          ensureMatchedRulesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, matchedRules_);
+          onChanged();
+        } else {
+          matchedRulesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder clearMatchedRules() {
+        if (matchedRulesBuilder_ == null) {
+          matchedRules_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          matchedRulesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public Builder removeMatchedRules(int index) {
+        if (matchedRulesBuilder_ == null) {
+          ensureMatchedRulesIsMutable();
+          matchedRules_.remove(index);
+          onChanged();
+        } else {
+          matchedRulesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder getMatchedRulesBuilder(
+          int index) {
+        return getMatchedRulesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder getMatchedRulesOrBuilder(
+          int index) {
+        if (matchedRulesBuilder_ == null) {
+          return matchedRules_.get(index);  } else {
+          return matchedRulesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder> 
+           getMatchedRulesOrBuilderList() {
+        if (matchedRulesBuilder_ != null) {
+          return matchedRulesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(matchedRules_);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder addMatchedRulesBuilder() {
+        return getMatchedRulesFieldBuilder().addBuilder(
+            com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder addMatchedRulesBuilder(
+          int index) {
+        return getMatchedRulesFieldBuilder().addBuilder(
+            index, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.MatchedRule matched_rules = 1;</code>
+       */
+      public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder> 
+           getMatchedRulesBuilderList() {
+        return getMatchedRulesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.MatchedRule, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder, com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder> 
+          getMatchedRulesFieldBuilder() {
+        if (matchedRulesBuilder_ == null) {
+          matchedRulesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.MatchedRule, com.dd.cws.adv1.pb.SecDumpProto.MatchedRule.Builder, com.dd.cws.adv1.pb.SecDumpProto.MatchedRuleOrBuilder>(
+                  matchedRules_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          matchedRules_ = null;
+        }
+        return matchedRulesBuilder_;
+      }
+
+      private int netns_ ;
+      /**
+       * <code>uint32 netns = 2;</code>
+       * @return The netns.
+       */
+      @java.lang.Override
+      public int getNetns() {
+        return netns_;
+      }
+      /**
+       * <code>uint32 netns = 2;</code>
+       * @param value The netns to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNetns(int value) {
+        
+        netns_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 netns = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNetns() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        netns_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int ifindex_ ;
+      /**
+       * <code>uint32 ifindex = 3;</code>
+       * @return The ifindex.
+       */
+      @java.lang.Override
+      public int getIfindex() {
+        return ifindex_;
+      }
+      /**
+       * <code>uint32 ifindex = 3;</code>
+       * @param value The ifindex to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIfindex(int value) {
+        
+        ifindex_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 ifindex = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIfindex() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        ifindex_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object ifname_ = "";
+      /**
+       * <code>string ifname = 4;</code>
+       * @return The ifname.
+       */
+      public java.lang.String getIfname() {
+        java.lang.Object ref = ifname_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ifname_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ifname = 4;</code>
+       * @return The bytes for ifname.
+       */
+      public com.google.protobuf.ByteString
+          getIfnameBytes() {
+        java.lang.Object ref = ifname_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ifname_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ifname = 4;</code>
+       * @param value The ifname to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIfname(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ifname_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ifname = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIfname() {
+        ifname_ = getDefaultInstance().getIfname();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ifname = 4;</code>
+       * @param value The bytes for ifname to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIfnameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ifname_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.FlowNode> flowNodes_ =
+        java.util.Collections.emptyList();
+      private void ensureFlowNodesIsMutable() {
+        if (!((bitField0_ & 0x00000010) != 0)) {
+          flowNodes_ = new java.util.ArrayList<com.dd.cws.adv1.pb.SecDumpProto.FlowNode>(flowNodes_);
+          bitField0_ |= 0x00000010;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.FlowNode, com.dd.cws.adv1.pb.SecDumpProto.FlowNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.FlowNodeOrBuilder> flowNodesBuilder_;
+
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.FlowNode> getFlowNodesList() {
+        if (flowNodesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(flowNodes_);
+        } else {
+          return flowNodesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public int getFlowNodesCount() {
+        if (flowNodesBuilder_ == null) {
+          return flowNodes_.size();
+        } else {
+          return flowNodesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.FlowNode getFlowNodes(int index) {
+        if (flowNodesBuilder_ == null) {
+          return flowNodes_.get(index);
+        } else {
+          return flowNodesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public Builder setFlowNodes(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.FlowNode value) {
+        if (flowNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureFlowNodesIsMutable();
+          flowNodes_.set(index, value);
+          onChanged();
+        } else {
+          flowNodesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public Builder setFlowNodes(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.FlowNode.Builder builderForValue) {
+        if (flowNodesBuilder_ == null) {
+          ensureFlowNodesIsMutable();
+          flowNodes_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          flowNodesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public Builder addFlowNodes(com.dd.cws.adv1.pb.SecDumpProto.FlowNode value) {
+        if (flowNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureFlowNodesIsMutable();
+          flowNodes_.add(value);
+          onChanged();
+        } else {
+          flowNodesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public Builder addFlowNodes(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.FlowNode value) {
+        if (flowNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureFlowNodesIsMutable();
+          flowNodes_.add(index, value);
+          onChanged();
+        } else {
+          flowNodesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public Builder addFlowNodes(
+          com.dd.cws.adv1.pb.SecDumpProto.FlowNode.Builder builderForValue) {
+        if (flowNodesBuilder_ == null) {
+          ensureFlowNodesIsMutable();
+          flowNodes_.add(builderForValue.build());
+          onChanged();
+        } else {
+          flowNodesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public Builder addFlowNodes(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.FlowNode.Builder builderForValue) {
+        if (flowNodesBuilder_ == null) {
+          ensureFlowNodesIsMutable();
+          flowNodes_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          flowNodesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public Builder addAllFlowNodes(
+          java.lang.Iterable<? extends com.dd.cws.adv1.pb.SecDumpProto.FlowNode> values) {
+        if (flowNodesBuilder_ == null) {
+          ensureFlowNodesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, flowNodes_);
+          onChanged();
+        } else {
+          flowNodesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public Builder clearFlowNodes() {
+        if (flowNodesBuilder_ == null) {
+          flowNodes_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+          onChanged();
+        } else {
+          flowNodesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public Builder removeFlowNodes(int index) {
+        if (flowNodesBuilder_ == null) {
+          ensureFlowNodesIsMutable();
+          flowNodes_.remove(index);
+          onChanged();
+        } else {
+          flowNodesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.FlowNode.Builder getFlowNodesBuilder(
+          int index) {
+        return getFlowNodesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.FlowNodeOrBuilder getFlowNodesOrBuilder(
+          int index) {
+        if (flowNodesBuilder_ == null) {
+          return flowNodes_.get(index);  } else {
+          return flowNodesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.FlowNodeOrBuilder> 
+           getFlowNodesOrBuilderList() {
+        if (flowNodesBuilder_ != null) {
+          return flowNodesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(flowNodes_);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.FlowNode.Builder addFlowNodesBuilder() {
+        return getFlowNodesFieldBuilder().addBuilder(
+            com.dd.cws.adv1.pb.SecDumpProto.FlowNode.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.FlowNode.Builder addFlowNodesBuilder(
+          int index) {
+        return getFlowNodesFieldBuilder().addBuilder(
+            index, com.dd.cws.adv1.pb.SecDumpProto.FlowNode.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.FlowNode flow_nodes = 5;</code>
+       */
+      public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.FlowNode.Builder> 
+           getFlowNodesBuilderList() {
+        return getFlowNodesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.FlowNode, com.dd.cws.adv1.pb.SecDumpProto.FlowNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.FlowNodeOrBuilder> 
+          getFlowNodesFieldBuilder() {
+        if (flowNodesBuilder_ == null) {
+          flowNodesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.FlowNode, com.dd.cws.adv1.pb.SecDumpProto.FlowNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.FlowNodeOrBuilder>(
+                  flowNodes_,
+                  ((bitField0_ & 0x00000010) != 0),
+                  getParentForChildren(),
+                  isClean());
+          flowNodes_ = null;
+        }
+        return flowNodesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.NetworkDeviceNode)
+    }
+
+    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.NetworkDeviceNode)
+    private static final com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode();
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<NetworkDeviceNode>
+        PARSER = new com.google.protobuf.AbstractParser<NetworkDeviceNode>() {
+      @java.lang.Override
+      public NetworkDeviceNode parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<NetworkDeviceNode> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<NetworkDeviceNode> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNode getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface FlowNodeOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.FlowNode)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @return A list containing the imageTags.
+     */
+    java.util.List<java.lang.String>
+        getImageTagsList();
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @return The count of imageTags.
+     */
+    int getImageTagsCount();
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @param index The index of the element to return.
+     * @return The imageTags at the given index.
+     */
+    java.lang.String getImageTags(int index);
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the imageTags at the given index.
+     */
+    com.google.protobuf.ByteString
+        getImageTagsBytes(int index);
+
+    /**
+     * <code>.datadog.cws.dumpsv1.IPPortContext source = 2;</code>
+     * @return Whether the source field is set.
+     */
+    boolean hasSource();
+    /**
+     * <code>.datadog.cws.dumpsv1.IPPortContext source = 2;</code>
+     * @return The source.
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.IPPortContext getSource();
+    /**
+     * <code>.datadog.cws.dumpsv1.IPPortContext source = 2;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.IPPortContextOrBuilder getSourceOrBuilder();
+
+    /**
+     * <code>.datadog.cws.dumpsv1.IPPortContext destination = 3;</code>
+     * @return Whether the destination field is set.
+     */
+    boolean hasDestination();
+    /**
+     * <code>.datadog.cws.dumpsv1.IPPortContext destination = 3;</code>
+     * @return The destination.
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.IPPortContext getDestination();
+    /**
+     * <code>.datadog.cws.dumpsv1.IPPortContext destination = 3;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.IPPortContextOrBuilder getDestinationOrBuilder();
+
+    /**
+     * <code>uint32 l3_protocol = 4;</code>
+     * @return The l3Protocol.
+     */
+    int getL3Protocol();
+
+    /**
+     * <code>uint32 l4_protocol = 5;</code>
+     * @return The l4Protocol.
+     */
+    int getL4Protocol();
+
+    /**
+     * <code>.datadog.cws.dumpsv1.NetworkStats ingress = 6;</code>
+     * @return Whether the ingress field is set.
+     */
+    boolean hasIngress();
+    /**
+     * <code>.datadog.cws.dumpsv1.NetworkStats ingress = 6;</code>
+     * @return The ingress.
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.NetworkStats getIngress();
+    /**
+     * <code>.datadog.cws.dumpsv1.NetworkStats ingress = 6;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.NetworkStatsOrBuilder getIngressOrBuilder();
+
+    /**
+     * <code>.datadog.cws.dumpsv1.NetworkStats egress = 7;</code>
+     * @return Whether the egress field is set.
+     */
+    boolean hasEgress();
+    /**
+     * <code>.datadog.cws.dumpsv1.NetworkStats egress = 7;</code>
+     * @return The egress.
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.NetworkStats getEgress();
+    /**
+     * <code>.datadog.cws.dumpsv1.NetworkStats egress = 7;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.NetworkStatsOrBuilder getEgressOrBuilder();
+  }
+  /**
+   * Protobuf type {@code datadog.cws.dumpsv1.FlowNode}
+   */
+  public static final class FlowNode extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.FlowNode)
+      FlowNodeOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use FlowNode.newBuilder() to construct.
+    private FlowNode(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private FlowNode() {
+      imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new FlowNode();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_FlowNode_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_FlowNode_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.dd.cws.adv1.pb.SecDumpProto.FlowNode.class, com.dd.cws.adv1.pb.SecDumpProto.FlowNode.Builder.class);
+    }
+
+    public static final int IMAGE_TAGS_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringList imageTags_;
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @return A list containing the imageTags.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getImageTagsList() {
+      return imageTags_;
+    }
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @return The count of imageTags.
+     */
+    public int getImageTagsCount() {
+      return imageTags_.size();
+    }
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @param index The index of the element to return.
+     * @return The imageTags at the given index.
+     */
+    public java.lang.String getImageTags(int index) {
+      return imageTags_.get(index);
+    }
+    /**
+     * <code>repeated string image_tags = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the imageTags at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getImageTagsBytes(int index) {
+      return imageTags_.getByteString(index);
+    }
+
+    public static final int SOURCE_FIELD_NUMBER = 2;
+    private com.dd.cws.adv1.pb.SecDumpProto.IPPortContext source_;
+    /**
+     * <code>.datadog.cws.dumpsv1.IPPortContext source = 2;</code>
+     * @return Whether the source field is set.
+     */
+    @java.lang.Override
+    public boolean hasSource() {
+      return source_ != null;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.IPPortContext source = 2;</code>
+     * @return The source.
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.IPPortContext getSource() {
+      return source_ == null ? com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.getDefaultInstance() : source_;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.IPPortContext source = 2;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.IPPortContextOrBuilder getSourceOrBuilder() {
+      return source_ == null ? com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.getDefaultInstance() : source_;
+    }
+
+    public static final int DESTINATION_FIELD_NUMBER = 3;
+    private com.dd.cws.adv1.pb.SecDumpProto.IPPortContext destination_;
+    /**
+     * <code>.datadog.cws.dumpsv1.IPPortContext destination = 3;</code>
+     * @return Whether the destination field is set.
+     */
+    @java.lang.Override
+    public boolean hasDestination() {
+      return destination_ != null;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.IPPortContext destination = 3;</code>
+     * @return The destination.
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.IPPortContext getDestination() {
+      return destination_ == null ? com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.getDefaultInstance() : destination_;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.IPPortContext destination = 3;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.IPPortContextOrBuilder getDestinationOrBuilder() {
+      return destination_ == null ? com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.getDefaultInstance() : destination_;
+    }
+
+    public static final int L3_PROTOCOL_FIELD_NUMBER = 4;
+    private int l3Protocol_ = 0;
+    /**
+     * <code>uint32 l3_protocol = 4;</code>
+     * @return The l3Protocol.
+     */
+    @java.lang.Override
+    public int getL3Protocol() {
+      return l3Protocol_;
+    }
+
+    public static final int L4_PROTOCOL_FIELD_NUMBER = 5;
+    private int l4Protocol_ = 0;
+    /**
+     * <code>uint32 l4_protocol = 5;</code>
+     * @return The l4Protocol.
+     */
+    @java.lang.Override
+    public int getL4Protocol() {
+      return l4Protocol_;
+    }
+
+    public static final int INGRESS_FIELD_NUMBER = 6;
+    private com.dd.cws.adv1.pb.SecDumpProto.NetworkStats ingress_;
+    /**
+     * <code>.datadog.cws.dumpsv1.NetworkStats ingress = 6;</code>
+     * @return Whether the ingress field is set.
+     */
+    @java.lang.Override
+    public boolean hasIngress() {
+      return ingress_ != null;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.NetworkStats ingress = 6;</code>
+     * @return The ingress.
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.NetworkStats getIngress() {
+      return ingress_ == null ? com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.getDefaultInstance() : ingress_;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.NetworkStats ingress = 6;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.NetworkStatsOrBuilder getIngressOrBuilder() {
+      return ingress_ == null ? com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.getDefaultInstance() : ingress_;
+    }
+
+    public static final int EGRESS_FIELD_NUMBER = 7;
+    private com.dd.cws.adv1.pb.SecDumpProto.NetworkStats egress_;
+    /**
+     * <code>.datadog.cws.dumpsv1.NetworkStats egress = 7;</code>
+     * @return Whether the egress field is set.
+     */
+    @java.lang.Override
+    public boolean hasEgress() {
+      return egress_ != null;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.NetworkStats egress = 7;</code>
+     * @return The egress.
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.NetworkStats getEgress() {
+      return egress_ == null ? com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.getDefaultInstance() : egress_;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.NetworkStats egress = 7;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.NetworkStatsOrBuilder getEgressOrBuilder() {
+      return egress_ == null ? com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.getDefaultInstance() : egress_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < imageTags_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, imageTags_.getRaw(i));
+      }
+      if (source_ != null) {
+        output.writeMessage(2, getSource());
+      }
+      if (destination_ != null) {
+        output.writeMessage(3, getDestination());
+      }
+      if (l3Protocol_ != 0) {
+        output.writeUInt32(4, l3Protocol_);
+      }
+      if (l4Protocol_ != 0) {
+        output.writeUInt32(5, l4Protocol_);
+      }
+      if (ingress_ != null) {
+        output.writeMessage(6, getIngress());
+      }
+      if (egress_ != null) {
+        output.writeMessage(7, getEgress());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      {
+        int dataSize = 0;
+        for (int i = 0; i < imageTags_.size(); i++) {
+          dataSize += computeStringSizeNoTag(imageTags_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getImageTagsList().size();
+      }
+      if (source_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getSource());
+      }
+      if (destination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getDestination());
+      }
+      if (l3Protocol_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(4, l3Protocol_);
+      }
+      if (l4Protocol_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(5, l4Protocol_);
+      }
+      if (ingress_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, getIngress());
+      }
+      if (egress_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(7, getEgress());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.FlowNode)) {
+        return super.equals(obj);
+      }
+      com.dd.cws.adv1.pb.SecDumpProto.FlowNode other = (com.dd.cws.adv1.pb.SecDumpProto.FlowNode) obj;
+
+      if (!getImageTagsList()
+          .equals(other.getImageTagsList())) return false;
+      if (hasSource() != other.hasSource()) return false;
+      if (hasSource()) {
+        if (!getSource()
+            .equals(other.getSource())) return false;
+      }
+      if (hasDestination() != other.hasDestination()) return false;
+      if (hasDestination()) {
+        if (!getDestination()
+            .equals(other.getDestination())) return false;
+      }
+      if (getL3Protocol()
+          != other.getL3Protocol()) return false;
+      if (getL4Protocol()
+          != other.getL4Protocol()) return false;
+      if (hasIngress() != other.hasIngress()) return false;
+      if (hasIngress()) {
+        if (!getIngress()
+            .equals(other.getIngress())) return false;
+      }
+      if (hasEgress() != other.hasEgress()) return false;
+      if (hasEgress()) {
+        if (!getEgress()
+            .equals(other.getEgress())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getImageTagsCount() > 0) {
+        hash = (37 * hash) + IMAGE_TAGS_FIELD_NUMBER;
+        hash = (53 * hash) + getImageTagsList().hashCode();
+      }
+      if (hasSource()) {
+        hash = (37 * hash) + SOURCE_FIELD_NUMBER;
+        hash = (53 * hash) + getSource().hashCode();
+      }
+      if (hasDestination()) {
+        hash = (37 * hash) + DESTINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getDestination().hashCode();
+      }
+      hash = (37 * hash) + L3_PROTOCOL_FIELD_NUMBER;
+      hash = (53 * hash) + getL3Protocol();
+      hash = (37 * hash) + L4_PROTOCOL_FIELD_NUMBER;
+      hash = (53 * hash) + getL4Protocol();
+      if (hasIngress()) {
+        hash = (37 * hash) + INGRESS_FIELD_NUMBER;
+        hash = (53 * hash) + getIngress().hashCode();
+      }
+      if (hasEgress()) {
+        hash = (37 * hash) + EGRESS_FIELD_NUMBER;
+        hash = (53 * hash) + getEgress().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.FlowNode parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.FlowNode parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.FlowNode parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.FlowNode parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.FlowNode parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.FlowNode parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.FlowNode parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.FlowNode parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.FlowNode parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.FlowNode parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.FlowNode parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.FlowNode parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.FlowNode prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code datadog.cws.dumpsv1.FlowNode}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.FlowNode)
+        com.dd.cws.adv1.pb.SecDumpProto.FlowNodeOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_FlowNode_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_FlowNode_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.dd.cws.adv1.pb.SecDumpProto.FlowNode.class, com.dd.cws.adv1.pb.SecDumpProto.FlowNode.Builder.class);
+      }
+
+      // Construct using com.dd.cws.adv1.pb.SecDumpProto.FlowNode.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        source_ = null;
+        if (sourceBuilder_ != null) {
+          sourceBuilder_.dispose();
+          sourceBuilder_ = null;
+        }
+        destination_ = null;
+        if (destinationBuilder_ != null) {
+          destinationBuilder_.dispose();
+          destinationBuilder_ = null;
+        }
+        l3Protocol_ = 0;
+        l4Protocol_ = 0;
+        ingress_ = null;
+        if (ingressBuilder_ != null) {
+          ingressBuilder_.dispose();
+          ingressBuilder_ = null;
+        }
+        egress_ = null;
+        if (egressBuilder_ != null) {
+          egressBuilder_.dispose();
+          egressBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_FlowNode_descriptor;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.FlowNode getDefaultInstanceForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.FlowNode.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.FlowNode build() {
+        com.dd.cws.adv1.pb.SecDumpProto.FlowNode result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.FlowNode buildPartial() {
+        com.dd.cws.adv1.pb.SecDumpProto.FlowNode result = new com.dd.cws.adv1.pb.SecDumpProto.FlowNode(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(com.dd.cws.adv1.pb.SecDumpProto.FlowNode result) {
+        if (((bitField0_ & 0x00000001) != 0)) {
+          imageTags_ = imageTags_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.imageTags_ = imageTags_;
+      }
+
+      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.FlowNode result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.source_ = sourceBuilder_ == null
+              ? source_
+              : sourceBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.destination_ = destinationBuilder_ == null
+              ? destination_
+              : destinationBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.l3Protocol_ = l3Protocol_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.l4Protocol_ = l4Protocol_;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.ingress_ = ingressBuilder_ == null
+              ? ingress_
+              : ingressBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.egress_ = egressBuilder_ == null
+              ? egress_
+              : egressBuilder_.build();
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.FlowNode) {
+          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.FlowNode)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.FlowNode other) {
+        if (other == com.dd.cws.adv1.pb.SecDumpProto.FlowNode.getDefaultInstance()) return this;
+        if (!other.imageTags_.isEmpty()) {
+          if (imageTags_.isEmpty()) {
+            imageTags_ = other.imageTags_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureImageTagsIsMutable();
+            imageTags_.addAll(other.imageTags_);
+          }
+          onChanged();
+        }
+        if (other.hasSource()) {
+          mergeSource(other.getSource());
+        }
+        if (other.hasDestination()) {
+          mergeDestination(other.getDestination());
+        }
+        if (other.getL3Protocol() != 0) {
+          setL3Protocol(other.getL3Protocol());
+        }
+        if (other.getL4Protocol() != 0) {
+          setL4Protocol(other.getL4Protocol());
+        }
+        if (other.hasIngress()) {
+          mergeIngress(other.getIngress());
+        }
+        if (other.hasEgress()) {
+          mergeEgress(other.getEgress());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureImageTagsIsMutable();
+                imageTags_.add(s);
+                break;
+              } // case 10
+              case 18: {
+                input.readMessage(
+                    getSourceFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 26: {
+                input.readMessage(
+                    getDestinationFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              case 32: {
+                l3Protocol_ = input.readUInt32();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 32
+              case 40: {
+                l4Protocol_ = input.readUInt32();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 40
+              case 50: {
+                input.readMessage(
+                    getIngressFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 50
+              case 58: {
+                input.readMessage(
+                    getEgressFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000040;
+                break;
+              } // case 58
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private com.google.protobuf.LazyStringList imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureImageTagsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          imageTags_ = new com.google.protobuf.LazyStringArrayList(imageTags_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @return A list containing the imageTags.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getImageTagsList() {
+        return imageTags_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @return The count of imageTags.
+       */
+      public int getImageTagsCount() {
+        return imageTags_.size();
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @param index The index of the element to return.
+       * @return The imageTags at the given index.
+       */
+      public java.lang.String getImageTags(int index) {
+        return imageTags_.get(index);
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the imageTags at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getImageTagsBytes(int index) {
+        return imageTags_.getByteString(index);
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The imageTags to set.
+       * @return This builder for chaining.
+       */
+      public Builder setImageTags(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureImageTagsIsMutable();
+        imageTags_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @param value The imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addImageTags(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureImageTagsIsMutable();
+        imageTags_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @param values The imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllImageTags(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureImageTagsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, imageTags_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearImageTags() {
+        imageTags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string image_tags = 1;</code>
+       * @param value The bytes of the imageTags to add.
+       * @return This builder for chaining.
+       */
+      public Builder addImageTagsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureImageTagsIsMutable();
+        imageTags_.add(value);
+        onChanged();
+        return this;
+      }
+
+      private com.dd.cws.adv1.pb.SecDumpProto.IPPortContext source_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.IPPortContext, com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.Builder, com.dd.cws.adv1.pb.SecDumpProto.IPPortContextOrBuilder> sourceBuilder_;
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext source = 2;</code>
+       * @return Whether the source field is set.
+       */
+      public boolean hasSource() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext source = 2;</code>
+       * @return The source.
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.IPPortContext getSource() {
+        if (sourceBuilder_ == null) {
+          return source_ == null ? com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.getDefaultInstance() : source_;
+        } else {
+          return sourceBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext source = 2;</code>
+       */
+      public Builder setSource(com.dd.cws.adv1.pb.SecDumpProto.IPPortContext value) {
+        if (sourceBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          source_ = value;
+        } else {
+          sourceBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext source = 2;</code>
+       */
+      public Builder setSource(
+          com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.Builder builderForValue) {
+        if (sourceBuilder_ == null) {
+          source_ = builderForValue.build();
+        } else {
+          sourceBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext source = 2;</code>
+       */
+      public Builder mergeSource(com.dd.cws.adv1.pb.SecDumpProto.IPPortContext value) {
+        if (sourceBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+            source_ != null &&
+            source_ != com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.getDefaultInstance()) {
+            getSourceBuilder().mergeFrom(value);
+          } else {
+            source_ = value;
+          }
+        } else {
+          sourceBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext source = 2;</code>
+       */
+      public Builder clearSource() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        source_ = null;
+        if (sourceBuilder_ != null) {
+          sourceBuilder_.dispose();
+          sourceBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext source = 2;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.Builder getSourceBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getSourceFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext source = 2;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.IPPortContextOrBuilder getSourceOrBuilder() {
+        if (sourceBuilder_ != null) {
+          return sourceBuilder_.getMessageOrBuilder();
+        } else {
+          return source_ == null ?
+              com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.getDefaultInstance() : source_;
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext source = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.IPPortContext, com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.Builder, com.dd.cws.adv1.pb.SecDumpProto.IPPortContextOrBuilder> 
+          getSourceFieldBuilder() {
+        if (sourceBuilder_ == null) {
+          sourceBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.IPPortContext, com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.Builder, com.dd.cws.adv1.pb.SecDumpProto.IPPortContextOrBuilder>(
+                  getSource(),
+                  getParentForChildren(),
+                  isClean());
+          source_ = null;
+        }
+        return sourceBuilder_;
+      }
+
+      private com.dd.cws.adv1.pb.SecDumpProto.IPPortContext destination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.IPPortContext, com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.Builder, com.dd.cws.adv1.pb.SecDumpProto.IPPortContextOrBuilder> destinationBuilder_;
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext destination = 3;</code>
+       * @return Whether the destination field is set.
+       */
+      public boolean hasDestination() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext destination = 3;</code>
+       * @return The destination.
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.IPPortContext getDestination() {
+        if (destinationBuilder_ == null) {
+          return destination_ == null ? com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.getDefaultInstance() : destination_;
+        } else {
+          return destinationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext destination = 3;</code>
+       */
+      public Builder setDestination(com.dd.cws.adv1.pb.SecDumpProto.IPPortContext value) {
+        if (destinationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          destination_ = value;
+        } else {
+          destinationBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext destination = 3;</code>
+       */
+      public Builder setDestination(
+          com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.Builder builderForValue) {
+        if (destinationBuilder_ == null) {
+          destination_ = builderForValue.build();
+        } else {
+          destinationBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext destination = 3;</code>
+       */
+      public Builder mergeDestination(com.dd.cws.adv1.pb.SecDumpProto.IPPortContext value) {
+        if (destinationBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+            destination_ != null &&
+            destination_ != com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.getDefaultInstance()) {
+            getDestinationBuilder().mergeFrom(value);
+          } else {
+            destination_ = value;
+          }
+        } else {
+          destinationBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext destination = 3;</code>
+       */
+      public Builder clearDestination() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        destination_ = null;
+        if (destinationBuilder_ != null) {
+          destinationBuilder_.dispose();
+          destinationBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext destination = 3;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.Builder getDestinationBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getDestinationFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext destination = 3;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.IPPortContextOrBuilder getDestinationOrBuilder() {
+        if (destinationBuilder_ != null) {
+          return destinationBuilder_.getMessageOrBuilder();
+        } else {
+          return destination_ == null ?
+              com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.getDefaultInstance() : destination_;
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.IPPortContext destination = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.IPPortContext, com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.Builder, com.dd.cws.adv1.pb.SecDumpProto.IPPortContextOrBuilder> 
+          getDestinationFieldBuilder() {
+        if (destinationBuilder_ == null) {
+          destinationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.IPPortContext, com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.Builder, com.dd.cws.adv1.pb.SecDumpProto.IPPortContextOrBuilder>(
+                  getDestination(),
+                  getParentForChildren(),
+                  isClean());
+          destination_ = null;
+        }
+        return destinationBuilder_;
+      }
+
+      private int l3Protocol_ ;
+      /**
+       * <code>uint32 l3_protocol = 4;</code>
+       * @return The l3Protocol.
+       */
+      @java.lang.Override
+      public int getL3Protocol() {
+        return l3Protocol_;
+      }
+      /**
+       * <code>uint32 l3_protocol = 4;</code>
+       * @param value The l3Protocol to set.
+       * @return This builder for chaining.
+       */
+      public Builder setL3Protocol(int value) {
+        
+        l3Protocol_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 l3_protocol = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearL3Protocol() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        l3Protocol_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int l4Protocol_ ;
+      /**
+       * <code>uint32 l4_protocol = 5;</code>
+       * @return The l4Protocol.
+       */
+      @java.lang.Override
+      public int getL4Protocol() {
+        return l4Protocol_;
+      }
+      /**
+       * <code>uint32 l4_protocol = 5;</code>
+       * @param value The l4Protocol to set.
+       * @return This builder for chaining.
+       */
+      public Builder setL4Protocol(int value) {
+        
+        l4Protocol_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 l4_protocol = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearL4Protocol() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        l4Protocol_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.dd.cws.adv1.pb.SecDumpProto.NetworkStats ingress_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.NetworkStats, com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.Builder, com.dd.cws.adv1.pb.SecDumpProto.NetworkStatsOrBuilder> ingressBuilder_;
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats ingress = 6;</code>
+       * @return Whether the ingress field is set.
+       */
+      public boolean hasIngress() {
+        return ((bitField0_ & 0x00000020) != 0);
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats ingress = 6;</code>
+       * @return The ingress.
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkStats getIngress() {
+        if (ingressBuilder_ == null) {
+          return ingress_ == null ? com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.getDefaultInstance() : ingress_;
+        } else {
+          return ingressBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats ingress = 6;</code>
+       */
+      public Builder setIngress(com.dd.cws.adv1.pb.SecDumpProto.NetworkStats value) {
+        if (ingressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ingress_ = value;
+        } else {
+          ingressBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats ingress = 6;</code>
+       */
+      public Builder setIngress(
+          com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.Builder builderForValue) {
+        if (ingressBuilder_ == null) {
+          ingress_ = builderForValue.build();
+        } else {
+          ingressBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats ingress = 6;</code>
+       */
+      public Builder mergeIngress(com.dd.cws.adv1.pb.SecDumpProto.NetworkStats value) {
+        if (ingressBuilder_ == null) {
+          if (((bitField0_ & 0x00000020) != 0) &&
+            ingress_ != null &&
+            ingress_ != com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.getDefaultInstance()) {
+            getIngressBuilder().mergeFrom(value);
+          } else {
+            ingress_ = value;
+          }
+        } else {
+          ingressBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats ingress = 6;</code>
+       */
+      public Builder clearIngress() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        ingress_ = null;
+        if (ingressBuilder_ != null) {
+          ingressBuilder_.dispose();
+          ingressBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats ingress = 6;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.Builder getIngressBuilder() {
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return getIngressFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats ingress = 6;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkStatsOrBuilder getIngressOrBuilder() {
+        if (ingressBuilder_ != null) {
+          return ingressBuilder_.getMessageOrBuilder();
+        } else {
+          return ingress_ == null ?
+              com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.getDefaultInstance() : ingress_;
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats ingress = 6;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.NetworkStats, com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.Builder, com.dd.cws.adv1.pb.SecDumpProto.NetworkStatsOrBuilder> 
+          getIngressFieldBuilder() {
+        if (ingressBuilder_ == null) {
+          ingressBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.NetworkStats, com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.Builder, com.dd.cws.adv1.pb.SecDumpProto.NetworkStatsOrBuilder>(
+                  getIngress(),
+                  getParentForChildren(),
+                  isClean());
+          ingress_ = null;
+        }
+        return ingressBuilder_;
+      }
+
+      private com.dd.cws.adv1.pb.SecDumpProto.NetworkStats egress_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.NetworkStats, com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.Builder, com.dd.cws.adv1.pb.SecDumpProto.NetworkStatsOrBuilder> egressBuilder_;
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats egress = 7;</code>
+       * @return Whether the egress field is set.
+       */
+      public boolean hasEgress() {
+        return ((bitField0_ & 0x00000040) != 0);
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats egress = 7;</code>
+       * @return The egress.
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkStats getEgress() {
+        if (egressBuilder_ == null) {
+          return egress_ == null ? com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.getDefaultInstance() : egress_;
+        } else {
+          return egressBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats egress = 7;</code>
+       */
+      public Builder setEgress(com.dd.cws.adv1.pb.SecDumpProto.NetworkStats value) {
+        if (egressBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          egress_ = value;
+        } else {
+          egressBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats egress = 7;</code>
+       */
+      public Builder setEgress(
+          com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.Builder builderForValue) {
+        if (egressBuilder_ == null) {
+          egress_ = builderForValue.build();
+        } else {
+          egressBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats egress = 7;</code>
+       */
+      public Builder mergeEgress(com.dd.cws.adv1.pb.SecDumpProto.NetworkStats value) {
+        if (egressBuilder_ == null) {
+          if (((bitField0_ & 0x00000040) != 0) &&
+            egress_ != null &&
+            egress_ != com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.getDefaultInstance()) {
+            getEgressBuilder().mergeFrom(value);
+          } else {
+            egress_ = value;
+          }
+        } else {
+          egressBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats egress = 7;</code>
+       */
+      public Builder clearEgress() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        egress_ = null;
+        if (egressBuilder_ != null) {
+          egressBuilder_.dispose();
+          egressBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats egress = 7;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.Builder getEgressBuilder() {
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return getEgressFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats egress = 7;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkStatsOrBuilder getEgressOrBuilder() {
+        if (egressBuilder_ != null) {
+          return egressBuilder_.getMessageOrBuilder();
+        } else {
+          return egress_ == null ?
+              com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.getDefaultInstance() : egress_;
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NetworkStats egress = 7;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.NetworkStats, com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.Builder, com.dd.cws.adv1.pb.SecDumpProto.NetworkStatsOrBuilder> 
+          getEgressFieldBuilder() {
+        if (egressBuilder_ == null) {
+          egressBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.NetworkStats, com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.Builder, com.dd.cws.adv1.pb.SecDumpProto.NetworkStatsOrBuilder>(
+                  getEgress(),
+                  getParentForChildren(),
+                  isClean());
+          egress_ = null;
+        }
+        return egressBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.FlowNode)
+    }
+
+    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.FlowNode)
+    private static final com.dd.cws.adv1.pb.SecDumpProto.FlowNode DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.FlowNode();
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.FlowNode getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<FlowNode>
+        PARSER = new com.google.protobuf.AbstractParser<FlowNode>() {
+      @java.lang.Override
+      public FlowNode parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<FlowNode> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FlowNode> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.FlowNode getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface IPPortContextOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.IPPortContext)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string ip = 1;</code>
+     * @return The ip.
+     */
+    java.lang.String getIp();
+    /**
+     * <code>string ip = 1;</code>
+     * @return The bytes for ip.
+     */
+    com.google.protobuf.ByteString
+        getIpBytes();
+
+    /**
+     * <code>uint32 port = 2;</code>
+     * @return The port.
+     */
+    int getPort();
+  }
+  /**
+   * Protobuf type {@code datadog.cws.dumpsv1.IPPortContext}
+   */
+  public static final class IPPortContext extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.IPPortContext)
+      IPPortContextOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use IPPortContext.newBuilder() to construct.
+    private IPPortContext(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private IPPortContext() {
+      ip_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new IPPortContext();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_IPPortContext_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_IPPortContext_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.class, com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.Builder.class);
+    }
+
+    public static final int IP_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object ip_ = "";
+    /**
+     * <code>string ip = 1;</code>
+     * @return The ip.
+     */
+    @java.lang.Override
+    public java.lang.String getIp() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ip_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ip = 1;</code>
+     * @return The bytes for ip.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getIpBytes() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ip_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PORT_FIELD_NUMBER = 2;
+    private int port_ = 0;
+    /**
+     * <code>uint32 port = 2;</code>
+     * @return The port.
+     */
+    @java.lang.Override
+    public int getPort() {
+      return port_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ip_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ip_);
+      }
+      if (port_ != 0) {
+        output.writeUInt32(2, port_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ip_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ip_);
+      }
+      if (port_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(2, port_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.IPPortContext)) {
+        return super.equals(obj);
+      }
+      com.dd.cws.adv1.pb.SecDumpProto.IPPortContext other = (com.dd.cws.adv1.pb.SecDumpProto.IPPortContext) obj;
+
+      if (!getIp()
+          .equals(other.getIp())) return false;
+      if (getPort()
+          != other.getPort()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + IP_FIELD_NUMBER;
+      hash = (53 * hash) + getIp().hashCode();
+      hash = (37 * hash) + PORT_FIELD_NUMBER;
+      hash = (53 * hash) + getPort();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.IPPortContext parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IPPortContext parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IPPortContext parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IPPortContext parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IPPortContext parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IPPortContext parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IPPortContext parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IPPortContext parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IPPortContext parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IPPortContext parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IPPortContext parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.IPPortContext parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.IPPortContext prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code datadog.cws.dumpsv1.IPPortContext}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.IPPortContext)
+        com.dd.cws.adv1.pb.SecDumpProto.IPPortContextOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_IPPortContext_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_IPPortContext_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.class, com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.Builder.class);
+      }
+
+      // Construct using com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        ip_ = "";
+        port_ = 0;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_IPPortContext_descriptor;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.IPPortContext getDefaultInstanceForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.IPPortContext build() {
+        com.dd.cws.adv1.pb.SecDumpProto.IPPortContext result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.IPPortContext buildPartial() {
+        com.dd.cws.adv1.pb.SecDumpProto.IPPortContext result = new com.dd.cws.adv1.pb.SecDumpProto.IPPortContext(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.IPPortContext result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.ip_ = ip_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.port_ = port_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.IPPortContext) {
+          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.IPPortContext)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.IPPortContext other) {
+        if (other == com.dd.cws.adv1.pb.SecDumpProto.IPPortContext.getDefaultInstance()) return this;
+        if (!other.getIp().isEmpty()) {
+          ip_ = other.ip_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (other.getPort() != 0) {
+          setPort(other.getPort());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                ip_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 16: {
+                port_ = input.readUInt32();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object ip_ = "";
+      /**
+       * <code>string ip = 1;</code>
+       * @return The ip.
+       */
+      public java.lang.String getIp() {
+        java.lang.Object ref = ip_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ip_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ip = 1;</code>
+       * @return The bytes for ip.
+       */
+      public com.google.protobuf.ByteString
+          getIpBytes() {
+        java.lang.Object ref = ip_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ip_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ip = 1;</code>
+       * @param value The ip to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIp(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ip_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ip = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIp() {
+        ip_ = getDefaultInstance().getIp();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ip = 1;</code>
+       * @param value The bytes for ip to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIpBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ip_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private int port_ ;
+      /**
+       * <code>uint32 port = 2;</code>
+       * @return The port.
+       */
+      @java.lang.Override
+      public int getPort() {
+        return port_;
+      }
+      /**
+       * <code>uint32 port = 2;</code>
+       * @param value The port to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPort(int value) {
+        
+        port_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 port = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPort() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        port_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.IPPortContext)
+    }
+
+    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.IPPortContext)
+    private static final com.dd.cws.adv1.pb.SecDumpProto.IPPortContext DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.IPPortContext();
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.IPPortContext getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<IPPortContext>
+        PARSER = new com.google.protobuf.AbstractParser<IPPortContext>() {
+      @java.lang.Override
+      public IPPortContext parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<IPPortContext> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<IPPortContext> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.IPPortContext getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface NetworkStatsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.NetworkStats)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>uint64 data_size = 1;</code>
+     * @return The dataSize.
+     */
+    long getDataSize();
+
+    /**
+     * <code>uint64 packet_count = 2;</code>
+     * @return The packetCount.
+     */
+    long getPacketCount();
+  }
+  /**
+   * Protobuf type {@code datadog.cws.dumpsv1.NetworkStats}
+   */
+  public static final class NetworkStats extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.NetworkStats)
+      NetworkStatsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use NetworkStats.newBuilder() to construct.
+    private NetworkStats(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private NetworkStats() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new NetworkStats();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_NetworkStats_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_NetworkStats_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.class, com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.Builder.class);
+    }
+
+    public static final int DATA_SIZE_FIELD_NUMBER = 1;
+    private long dataSize_ = 0L;
+    /**
+     * <code>uint64 data_size = 1;</code>
+     * @return The dataSize.
+     */
+    @java.lang.Override
+    public long getDataSize() {
+      return dataSize_;
+    }
+
+    public static final int PACKET_COUNT_FIELD_NUMBER = 2;
+    private long packetCount_ = 0L;
+    /**
+     * <code>uint64 packet_count = 2;</code>
+     * @return The packetCount.
+     */
+    @java.lang.Override
+    public long getPacketCount() {
+      return packetCount_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (dataSize_ != 0L) {
+        output.writeUInt64(1, dataSize_);
+      }
+      if (packetCount_ != 0L) {
+        output.writeUInt64(2, packetCount_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (dataSize_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, dataSize_);
+      }
+      if (packetCount_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(2, packetCount_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.NetworkStats)) {
+        return super.equals(obj);
+      }
+      com.dd.cws.adv1.pb.SecDumpProto.NetworkStats other = (com.dd.cws.adv1.pb.SecDumpProto.NetworkStats) obj;
+
+      if (getDataSize()
+          != other.getDataSize()) return false;
+      if (getPacketCount()
+          != other.getPacketCount()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + DATA_SIZE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getDataSize());
+      hash = (37 * hash) + PACKET_COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getPacketCount());
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkStats parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkStats parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkStats parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkStats parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkStats parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkStats parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkStats parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkStats parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkStats parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkStats parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkStats parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkStats parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.NetworkStats prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code datadog.cws.dumpsv1.NetworkStats}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.NetworkStats)
+        com.dd.cws.adv1.pb.SecDumpProto.NetworkStatsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_NetworkStats_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_NetworkStats_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.class, com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.Builder.class);
+      }
+
+      // Construct using com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        dataSize_ = 0L;
+        packetCount_ = 0L;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_NetworkStats_descriptor;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkStats getDefaultInstanceForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkStats build() {
+        com.dd.cws.adv1.pb.SecDumpProto.NetworkStats result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.NetworkStats buildPartial() {
+        com.dd.cws.adv1.pb.SecDumpProto.NetworkStats result = new com.dd.cws.adv1.pb.SecDumpProto.NetworkStats(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.NetworkStats result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.dataSize_ = dataSize_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.packetCount_ = packetCount_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.NetworkStats) {
+          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.NetworkStats)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.NetworkStats other) {
+        if (other == com.dd.cws.adv1.pb.SecDumpProto.NetworkStats.getDefaultInstance()) return this;
+        if (other.getDataSize() != 0L) {
+          setDataSize(other.getDataSize());
+        }
+        if (other.getPacketCount() != 0L) {
+          setPacketCount(other.getPacketCount());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                dataSize_ = input.readUInt64();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              case 16: {
+                packetCount_ = input.readUInt64();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private long dataSize_ ;
+      /**
+       * <code>uint64 data_size = 1;</code>
+       * @return The dataSize.
+       */
+      @java.lang.Override
+      public long getDataSize() {
+        return dataSize_;
+      }
+      /**
+       * <code>uint64 data_size = 1;</code>
+       * @param value The dataSize to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDataSize(long value) {
+        
+        dataSize_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 data_size = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDataSize() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        dataSize_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long packetCount_ ;
+      /**
+       * <code>uint64 packet_count = 2;</code>
+       * @return The packetCount.
+       */
+      @java.lang.Override
+      public long getPacketCount() {
+        return packetCount_;
+      }
+      /**
+       * <code>uint64 packet_count = 2;</code>
+       * @param value The packetCount to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPacketCount(long value) {
+        
+        packetCount_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 packet_count = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPacketCount() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        packetCount_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.NetworkStats)
+    }
+
+    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.NetworkStats)
+    private static final com.dd.cws.adv1.pb.SecDumpProto.NetworkStats DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.NetworkStats();
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.NetworkStats getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<NetworkStats>
+        PARSER = new com.google.protobuf.AbstractParser<NetworkStats>() {
+      @java.lang.Override
+      public NetworkStats parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<NetworkStats> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<NetworkStats> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.NetworkStats getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface MatchedRuleOrBuilder extends
       // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.MatchedRule)
       com.google.protobuf.MessageOrBuilder {
@@ -32658,6 +38297,11 @@ java.lang.String defaultValue) {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_datadog_cws_dumpsv1_DNSInfo_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_datadog_cws_dumpsv1_SyscallNode_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_datadog_cws_dumpsv1_SyscallNode_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_datadog_cws_dumpsv1_IMDSNode_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -32697,6 +38341,26 @@ java.lang.String defaultValue) {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_datadog_cws_dumpsv1_BindNode_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_datadog_cws_dumpsv1_NetworkDeviceNode_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_datadog_cws_dumpsv1_NetworkDeviceNode_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_datadog_cws_dumpsv1_FlowNode_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_datadog_cws_dumpsv1_FlowNode_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_datadog_cws_dumpsv1_IPPortContext_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_datadog_cws_dumpsv1_IPPortContext_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_datadog_cws_dumpsv1_NetworkStats_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_datadog_cws_dumpsv1_NetworkStats_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_datadog_cws_dumpsv1_MatchedRule_descriptor;
   private static final 
@@ -32753,7 +38417,7 @@ java.lang.String defaultValue) {
       "\010 \001(\0132$.datadog.cws.dumpsv1.ProfileSelec" +
       "tor\032[\n\024ProfileContextsEntry\022\013\n\003key\030\001 \001(\t" +
       "\0222\n\005value\030\002 \001(\0132#.datadog.cws.dumpsv1.Pr" +
-      "ofileContext:\0028\001\"\364\003\n\023ProcessActivityNode" +
+      "ofileContext:\0028\001\"\362\004\n\023ProcessActivityNode" +
       "\0221\n\007process\030\001 \001(\0132 .datadog.cws.dumpsv1." +
       "ProcessInfo\022<\n\017generation_type\030\010 \001(\0162#.d" +
       "atadog.cws.dumpsv1.GenerationType\0227\n\rmat" +
@@ -32763,93 +38427,111 @@ java.lang.String defaultValue) {
       "\004 \003(\0132%.datadog.cws.dumpsv1.FileActivity" +
       "Node\022/\n\tdns_names\030\005 \003(\0132\034.datadog.cws.du" +
       "mpsv1.DNSNode\0220\n\007sockets\030\006 \003(\0132\037.datadog" +
-      ".cws.dumpsv1.SocketNode\022\020\n\010syscalls\030\007 \003(" +
-      "\r\022\022\n\nimage_tags\030\n \003(\t\0222\n\013imds_events\030\013 \003" +
-      "(\0132\035.datadog.cws.dumpsv1.IMDSNodeJ\004\010\002\020\003\"" +
-      "\331\003\n\013ProcessInfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(" +
-      "\r\022\014\n\004ppid\030\003 \001(\r\022\022\n\006cookie\030\004 \001(\rB\002\030\001\022\021\n\ti" +
-      "s_thread\030\005 \001(\010\022+\n\004file\030\006 \001(\0132\035.datadog.c" +
-      "ws.dumpsv1.FileInfo\022\024\n\014container_id\030\007 \001(" +
-      "\t\022\023\n\007span_id\030\010 \001(\004B\002\030\001\022\024\n\010trace_id\030\t \001(\004" +
-      "B\002\030\001\022\013\n\003tty\030\n \001(\t\022\014\n\004comm\030\013 \001(\t\022\021\n\tfork_" +
-      "time\030\014 \001(\004\022\021\n\texit_time\030\r \001(\004\022\021\n\texec_ti" +
-      "me\030\016 \001(\004\0225\n\013credentials\030\017 \001(\0132 .datadog." +
-      "cws.dumpsv1.Credentials\022\014\n\004args\030\020 \003(\t\022\r\n" +
-      "\005argv0\030\021 \001(\t\022\026\n\016args_truncated\030\022 \001(\010\022\014\n\004" +
-      "envs\030\023 \003(\t\022\026\n\016envs_truncated\030\024 \001(\010\022\025\n\ris" +
-      "_exec_child\030\025 \001(\010\022\020\n\010cookie64\030\026 \001(\004\"\354\002\n\020" +
-      "FileActivityNode\0227\n\rmatched_rules\030\t \003(\0132" +
-      " .datadog.cws.dumpsv1.MatchedRule\022\022\n\nima" +
-      "ge_tags\030\n \003(\t\022\014\n\004name\030\001 \001(\t\022\022\n\nis_patter" +
-      "n\030\007 \001(\010\022+\n\004file\030\002 \001(\0132\035.datadog.cws.dump" +
-      "sv1.FileInfo\022<\n\017generation_type\030\010 \001(\0162#." +
-      "datadog.cws.dumpsv1.GenerationType\022\022\n\nfi" +
-      "rst_seen\030\004 \001(\004\022+\n\004open\030\005 \001(\0132\035.datadog.c" +
-      "ws.dumpsv1.OpenNode\0227\n\010children\030\006 \003(\0132%." +
-      "datadog.cws.dumpsv1.FileActivityNodeJ\004\010\003" +
-      "\020\004\"7\n\010OpenNode\022\016\n\006retval\030\001 \001(\022\022\r\n\005flags\030" +
-      "\002 \001(\r\022\014\n\004mode\030\003 \001(\r\"\206\001\n\007DNSNode\0227\n\rmatch" +
-      "ed_rules\030\002 \003(\0132 .datadog.cws.dumpsv1.Mat" +
-      "chedRule\022\022\n\nimage_tags\030\003 \003(\t\022.\n\010requests" +
-      "\030\001 \003(\0132\034.datadog.cws.dumpsv1.DNSInfo\"Q\n\007" +
-      "DNSInfo\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(\r\022\r\n\005c" +
-      "lass\030\003 \001(\r\022\014\n\004size\030\004 \001(\r\022\r\n\005count\030\005 \001(\r\"" +
-      "\206\001\n\010IMDSNode\0227\n\rmatched_rules\030\001 \003(\0132 .da" +
-      "tadog.cws.dumpsv1.MatchedRule\022\022\n\nimage_t" +
-      "ags\030\002 \003(\t\022-\n\005event\030\003 \001(\0132\036.datadog.cws.d" +
-      "umpsv1.IMDSEvent\"\240\001\n\tIMDSEvent\022\014\n\004type\030\001" +
-      " \001(\t\022\026\n\016cloud_provider\030\002 \001(\t\022\013\n\003url\030\003 \001(" +
-      "\t\022\014\n\004host\030\004 \001(\t\022\022\n\nuser_agent\030\005 \001(\t\022\016\n\006s" +
-      "erver\030\006 \001(\t\022.\n\003aws\030\007 \001(\0132!.datadog.cws.d" +
-      "umpsv1.AWSIMDSEvent\"m\n\014AWSIMDSEvent\022\022\n\ni" +
-      "s_imds_v2\030\001 \001(\010\022I\n\024security_credentials\030" +
-      "\002 \001(\0132+.datadog.cws.dumpsv1.AWSSecurityC" +
-      "redentials\"y\n\026AWSSecurityCredentials\022\014\n\004" +
-      "code\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\022\025\n\raccess_key_i" +
-      "d\030\003 \001(\t\022\024\n\014last_updated\030\004 \001(\t\022\026\n\016expirat" +
-      "ion_raw\030\005 \001(\t\"\351\002\n\010FileInfo\022\013\n\003uid\030\001 \001(\r\022" +
-      "\014\n\004user\030\002 \001(\t\022\013\n\003gid\030\003 \001(\r\022\r\n\005group\030\004 \001(" +
-      "\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005ctime\030\006 \001(\004\022\r\n\005mtime\030" +
-      "\007 \001(\004\022\020\n\010mount_id\030\010 \001(\r\022\r\n\005inode\030\t \001(\004\022\026" +
-      "\n\016in_upper_layer\030\n \001(\010\022\014\n\004path\030\013 \001(\t\022\020\n\010" +
-      "basename\030\014 \001(\t\022\022\n\nfilesystem\030\r \001(\t\022\024\n\014pa" +
-      "ckage_name\030\016 \001(\t\022\027\n\017package_version\030\017 \001(" +
-      "\t\022\032\n\022package_srcversion\030\020 \001(\t\022\016\n\006hashes\030" +
-      "\021 \003(\t\0222\n\nhash_state\030\022 \001(\0162\036.datadog.cws." +
-      "dumpsv1.HashState\"\224\002\n\013Credentials\022\013\n\003uid" +
-      "\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004user\030\003 \001(\t\022\r\n\005gro" +
-      "up\030\004 \001(\t\022\025\n\reffective_uid\030\005 \001(\r\022\025\n\reffec" +
-      "tive_gid\030\006 \001(\r\022\026\n\016effective_user\030\007 \001(\t\022\027" +
-      "\n\017effective_group\030\010 \001(\t\022\016\n\006fs_uid\030\t \001(\r\022" +
-      "\016\n\006fs_gid\030\n \001(\r\022\017\n\007fs_user\030\013 \001(\t\022\020\n\010fs_g" +
-      "roup\030\014 \001(\t\022\025\n\rcap_effective\030\r \001(\004\022\025\n\rcap" +
-      "_permitted\030\016 \001(\004\"I\n\nSocketNode\022\016\n\006family" +
-      "\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035.datadog.cws.dumps" +
-      "v1.BindNode\"\203\001\n\010BindNode\0227\n\rmatched_rule" +
-      "s\030\003 \003(\0132 .datadog.cws.dumpsv1.MatchedRul" +
-      "e\022\022\n\nimage_tags\030\004 \003(\t\022\014\n\004port\030\001 \001(\r\022\n\n\002i" +
-      "p\030\002 \001(\t\022\020\n\010protocol\030\005 \001(\r\"\325\001\n\013MatchedRul" +
-      "e\022\017\n\007rule_id\030\001 \001(\t\022\024\n\014rule_version\030\002 \001(\t" +
-      "\022\023\n\013policy_name\030\003 \001(\t\022\026\n\016policy_version\030" +
-      "\004 \001(\t\022A\n\trule_tags\030\005 \003(\0132..datadog.cws.d" +
-      "umpsv1.MatchedRule.RuleTagsEntry\032/\n\rRule" +
-      "TagsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028" +
-      "\001\"t\n\020event_type_state\022\031\n\021last_anomaly_na" +
-      "no\030\001 \001(\004\022E\n\023event_profile_state\030\002 \001(\0162(." +
-      "datadog.cws.dumpsv1.event_profile_state*" +
-      "\271\001\n\tHashState\022\013\n\007NO_HASH\020\000\022\010\n\004DONE\020\001\022\022\n\016" +
-      "FILE_NOT_FOUND\020\002\022\035\n\031PATHNAME_RESOLUTION_" +
-      "ERROR\020\003\022\020\n\014FILE_TOO_BIG\020\004\022\035\n\031EVENT_TYPE_" +
-      "NOT_CONFIGURED\020\005\022\031\n\025HASH_WAS_RATE_LIMITE" +
-      "D\020\006\022\026\n\022UNKNOWN_HASH_ERROR\020\007*8\n\016Generatio" +
-      "nType\022\013\n\007UNKNOWN\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPS" +
-      "HOT\020\002*\220\001\n\023event_profile_state\022\016\n\nNO_PROF" +
-      "ILE\020\000\022\027\n\023PROFILE_AT_MAX_SIZE\020\001\022\024\n\020UNSTAB" +
-      "LE_PROFILE\020\002\022\022\n\016STABLE_PROFILE\020\003\022\021\n\rAUTO" +
-      "_LEARNING\020\004\022\023\n\017WORKLOAD_WARMUP\020\005BU\n\022com." +
-      "dd.cws.adv1.pbB\014SecDumpProtoP\000Z/github.c" +
-      "om/DataDog/agent-payload/v5/cws/dumpsv1b" +
-      "\006proto3"
+      ".cws.dumpsv1.SocketNode\022\024\n\010syscalls\030\007 \003(" +
+      "\rB\002\030\001\022\022\n\nimage_tags\030\n \003(\t\0222\n\013imds_events" +
+      "\030\013 \003(\0132\035.datadog.cws.dumpsv1.IMDSNode\0227\n" +
+      "\rsyscall_nodes\030\014 \003(\0132 .datadog.cws.dumps" +
+      "v1.SyscallNode\022?\n\017network_devices\030\r \003(\0132" +
+      "&.datadog.cws.dumpsv1.NetworkDeviceNodeJ" +
+      "\004\010\002\020\003\"\331\003\n\013ProcessInfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003ti" +
+      "d\030\002 \001(\r\022\014\n\004ppid\030\003 \001(\r\022\022\n\006cookie\030\004 \001(\rB\002\030" +
+      "\001\022\021\n\tis_thread\030\005 \001(\010\022+\n\004file\030\006 \001(\0132\035.dat" +
+      "adog.cws.dumpsv1.FileInfo\022\024\n\014container_i" +
+      "d\030\007 \001(\t\022\023\n\007span_id\030\010 \001(\004B\002\030\001\022\024\n\010trace_id" +
+      "\030\t \001(\004B\002\030\001\022\013\n\003tty\030\n \001(\t\022\014\n\004comm\030\013 \001(\t\022\021\n" +
+      "\tfork_time\030\014 \001(\004\022\021\n\texit_time\030\r \001(\004\022\021\n\te" +
+      "xec_time\030\016 \001(\004\0225\n\013credentials\030\017 \001(\0132 .da" +
+      "tadog.cws.dumpsv1.Credentials\022\014\n\004args\030\020 " +
+      "\003(\t\022\r\n\005argv0\030\021 \001(\t\022\026\n\016args_truncated\030\022 \001" +
+      "(\010\022\014\n\004envs\030\023 \003(\t\022\026\n\016envs_truncated\030\024 \001(\010" +
+      "\022\025\n\ris_exec_child\030\025 \001(\010\022\020\n\010cookie64\030\026 \001(" +
+      "\004\"\354\002\n\020FileActivityNode\0227\n\rmatched_rules\030" +
+      "\t \003(\0132 .datadog.cws.dumpsv1.MatchedRule\022" +
+      "\022\n\nimage_tags\030\n \003(\t\022\014\n\004name\030\001 \001(\t\022\022\n\nis_" +
+      "pattern\030\007 \001(\010\022+\n\004file\030\002 \001(\0132\035.datadog.cw" +
+      "s.dumpsv1.FileInfo\022<\n\017generation_type\030\010 " +
+      "\001(\0162#.datadog.cws.dumpsv1.GenerationType" +
+      "\022\022\n\nfirst_seen\030\004 \001(\004\022+\n\004open\030\005 \001(\0132\035.dat" +
+      "adog.cws.dumpsv1.OpenNode\0227\n\010children\030\006 " +
+      "\003(\0132%.datadog.cws.dumpsv1.FileActivityNo" +
+      "deJ\004\010\003\020\004\"7\n\010OpenNode\022\016\n\006retval\030\001 \001(\022\022\r\n\005" +
+      "flags\030\002 \001(\r\022\014\n\004mode\030\003 \001(\r\"\206\001\n\007DNSNode\0227\n" +
+      "\rmatched_rules\030\002 \003(\0132 .datadog.cws.dumps" +
+      "v1.MatchedRule\022\022\n\nimage_tags\030\003 \003(\t\022.\n\010re" +
+      "quests\030\001 \003(\0132\034.datadog.cws.dumpsv1.DNSIn" +
+      "fo\"Q\n\007DNSInfo\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(" +
+      "\r\022\r\n\005class\030\003 \001(\r\022\014\n\004size\030\004 \001(\r\022\r\n\005count\030" +
+      "\005 \001(\r\"2\n\013SyscallNode\022\022\n\nimage_tags\030\001 \003(\t" +
+      "\022\017\n\007syscall\030\002 \001(\005\"\206\001\n\010IMDSNode\0227\n\rmatche" +
+      "d_rules\030\001 \003(\0132 .datadog.cws.dumpsv1.Matc" +
+      "hedRule\022\022\n\nimage_tags\030\002 \003(\t\022-\n\005event\030\003 \001" +
+      "(\0132\036.datadog.cws.dumpsv1.IMDSEvent\"\240\001\n\tI" +
+      "MDSEvent\022\014\n\004type\030\001 \001(\t\022\026\n\016cloud_provider" +
+      "\030\002 \001(\t\022\013\n\003url\030\003 \001(\t\022\014\n\004host\030\004 \001(\t\022\022\n\nuse" +
+      "r_agent\030\005 \001(\t\022\016\n\006server\030\006 \001(\t\022.\n\003aws\030\007 \001" +
+      "(\0132!.datadog.cws.dumpsv1.AWSIMDSEvent\"m\n" +
+      "\014AWSIMDSEvent\022\022\n\nis_imds_v2\030\001 \001(\010\022I\n\024sec" +
+      "urity_credentials\030\002 \001(\0132+.datadog.cws.du" +
+      "mpsv1.AWSSecurityCredentials\"y\n\026AWSSecur" +
+      "ityCredentials\022\014\n\004code\030\001 \001(\t\022\014\n\004type\030\002 \001" +
+      "(\t\022\025\n\raccess_key_id\030\003 \001(\t\022\024\n\014last_update" +
+      "d\030\004 \001(\t\022\026\n\016expiration_raw\030\005 \001(\t\"\351\002\n\010File" +
+      "Info\022\013\n\003uid\030\001 \001(\r\022\014\n\004user\030\002 \001(\t\022\013\n\003gid\030\003" +
+      " \001(\r\022\r\n\005group\030\004 \001(\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005cti" +
+      "me\030\006 \001(\004\022\r\n\005mtime\030\007 \001(\004\022\020\n\010mount_id\030\010 \001(" +
+      "\r\022\r\n\005inode\030\t \001(\004\022\026\n\016in_upper_layer\030\n \001(\010" +
+      "\022\014\n\004path\030\013 \001(\t\022\020\n\010basename\030\014 \001(\t\022\022\n\nfile" +
+      "system\030\r \001(\t\022\024\n\014package_name\030\016 \001(\t\022\027\n\017pa" +
+      "ckage_version\030\017 \001(\t\022\032\n\022package_srcversio" +
+      "n\030\020 \001(\t\022\016\n\006hashes\030\021 \003(\t\0222\n\nhash_state\030\022 " +
+      "\001(\0162\036.datadog.cws.dumpsv1.HashState\"\224\002\n\013" +
+      "Credentials\022\013\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022\014\n" +
+      "\004user\030\003 \001(\t\022\r\n\005group\030\004 \001(\t\022\025\n\reffective_" +
+      "uid\030\005 \001(\r\022\025\n\reffective_gid\030\006 \001(\r\022\026\n\016effe" +
+      "ctive_user\030\007 \001(\t\022\027\n\017effective_group\030\010 \001(" +
+      "\t\022\016\n\006fs_uid\030\t \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007fs_" +
+      "user\030\013 \001(\t\022\020\n\010fs_group\030\014 \001(\t\022\025\n\rcap_effe" +
+      "ctive\030\r \001(\004\022\025\n\rcap_permitted\030\016 \001(\004\"I\n\nSo" +
+      "cketNode\022\016\n\006family\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035" +
+      ".datadog.cws.dumpsv1.BindNode\"\203\001\n\010BindNo" +
+      "de\0227\n\rmatched_rules\030\003 \003(\0132 .datadog.cws." +
+      "dumpsv1.MatchedRule\022\022\n\nimage_tags\030\004 \003(\t\022" +
+      "\014\n\004port\030\001 \001(\r\022\n\n\002ip\030\002 \001(\t\022\020\n\010protocol\030\005 " +
+      "\001(\r\"\257\001\n\021NetworkDeviceNode\0227\n\rmatched_rul" +
+      "es\030\001 \003(\0132 .datadog.cws.dumpsv1.MatchedRu" +
+      "le\022\r\n\005netns\030\002 \001(\r\022\017\n\007ifindex\030\003 \001(\r\022\016\n\006if" +
+      "name\030\004 \001(\t\0221\n\nflow_nodes\030\005 \003(\0132\035.datadog" +
+      ".cws.dumpsv1.FlowNode\"\234\002\n\010FlowNode\022\022\n\nim" +
+      "age_tags\030\001 \003(\t\0222\n\006source\030\002 \001(\0132\".datadog" +
+      ".cws.dumpsv1.IPPortContext\0227\n\013destinatio" +
+      "n\030\003 \001(\0132\".datadog.cws.dumpsv1.IPPortCont" +
+      "ext\022\023\n\013l3_protocol\030\004 \001(\r\022\023\n\013l4_protocol\030" +
+      "\005 \001(\r\0222\n\007ingress\030\006 \001(\0132!.datadog.cws.dum" +
+      "psv1.NetworkStats\0221\n\006egress\030\007 \001(\0132!.data" +
+      "dog.cws.dumpsv1.NetworkStats\")\n\rIPPortCo" +
+      "ntext\022\n\n\002ip\030\001 \001(\t\022\014\n\004port\030\002 \001(\r\"7\n\014Netwo" +
+      "rkStats\022\021\n\tdata_size\030\001 \001(\004\022\024\n\014packet_cou" +
+      "nt\030\002 \001(\004\"\325\001\n\013MatchedRule\022\017\n\007rule_id\030\001 \001(" +
+      "\t\022\024\n\014rule_version\030\002 \001(\t\022\023\n\013policy_name\030\003" +
+      " \001(\t\022\026\n\016policy_version\030\004 \001(\t\022A\n\trule_tag" +
+      "s\030\005 \003(\0132..datadog.cws.dumpsv1.MatchedRul" +
+      "e.RuleTagsEntry\032/\n\rRuleTagsEntry\022\013\n\003key\030" +
+      "\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"t\n\020event_type_s" +
+      "tate\022\031\n\021last_anomaly_nano\030\001 \001(\004\022E\n\023event" +
+      "_profile_state\030\002 \001(\0162(.datadog.cws.dumps" +
+      "v1.event_profile_state*\271\001\n\tHashState\022\013\n\007" +
+      "NO_HASH\020\000\022\010\n\004DONE\020\001\022\022\n\016FILE_NOT_FOUND\020\002\022" +
+      "\035\n\031PATHNAME_RESOLUTION_ERROR\020\003\022\020\n\014FILE_T" +
+      "OO_BIG\020\004\022\035\n\031EVENT_TYPE_NOT_CONFIGURED\020\005\022" +
+      "\031\n\025HASH_WAS_RATE_LIMITED\020\006\022\026\n\022UNKNOWN_HA" +
+      "SH_ERROR\020\007*8\n\016GenerationType\022\013\n\007UNKNOWN\020" +
+      "\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPSHOT\020\002*\220\001\n\023event_p" +
+      "rofile_state\022\016\n\nNO_PROFILE\020\000\022\027\n\023PROFILE_" +
+      "AT_MAX_SIZE\020\001\022\024\n\020UNSTABLE_PROFILE\020\002\022\022\n\016S" +
+      "TABLE_PROFILE\020\003\022\021\n\rAUTO_LEARNING\020\004\022\023\n\017WO" +
+      "RKLOAD_WARMUP\020\005BU\n\022com.dd.cws.adv1.pbB\014S" +
+      "ecDumpProtoP\000Z/github.com/DataDog/agent-" +
+      "payload/v5/cws/dumpsv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -32902,7 +38584,7 @@ java.lang.String defaultValue) {
     internal_static_datadog_cws_dumpsv1_ProcessActivityNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_ProcessActivityNode_descriptor,
-        new java.lang.String[] { "Process", "GenerationType", "MatchedRules", "Children", "Files", "DnsNames", "Sockets", "Syscalls", "ImageTags", "ImdsEvents", });
+        new java.lang.String[] { "Process", "GenerationType", "MatchedRules", "Children", "Files", "DnsNames", "Sockets", "Syscalls", "ImageTags", "ImdsEvents", "SyscallNodes", "NetworkDevices", });
     internal_static_datadog_cws_dumpsv1_ProcessInfo_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_datadog_cws_dumpsv1_ProcessInfo_fieldAccessorTable = new
@@ -32933,56 +38615,86 @@ java.lang.String defaultValue) {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_DNSInfo_descriptor,
         new java.lang.String[] { "Name", "Type", "Class_", "Size", "Count", });
-    internal_static_datadog_cws_dumpsv1_IMDSNode_descriptor =
+    internal_static_datadog_cws_dumpsv1_SyscallNode_descriptor =
       getDescriptor().getMessageTypes().get(11);
+    internal_static_datadog_cws_dumpsv1_SyscallNode_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_datadog_cws_dumpsv1_SyscallNode_descriptor,
+        new java.lang.String[] { "ImageTags", "Syscall", });
+    internal_static_datadog_cws_dumpsv1_IMDSNode_descriptor =
+      getDescriptor().getMessageTypes().get(12);
     internal_static_datadog_cws_dumpsv1_IMDSNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_IMDSNode_descriptor,
         new java.lang.String[] { "MatchedRules", "ImageTags", "Event", });
     internal_static_datadog_cws_dumpsv1_IMDSEvent_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_datadog_cws_dumpsv1_IMDSEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_IMDSEvent_descriptor,
         new java.lang.String[] { "Type", "CloudProvider", "Url", "Host", "UserAgent", "Server", "Aws", });
     internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_descriptor,
         new java.lang.String[] { "IsImdsV2", "SecurityCredentials", });
     internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_descriptor,
         new java.lang.String[] { "Code", "Type", "AccessKeyId", "LastUpdated", "ExpirationRaw", });
     internal_static_datadog_cws_dumpsv1_FileInfo_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_datadog_cws_dumpsv1_FileInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_FileInfo_descriptor,
         new java.lang.String[] { "Uid", "User", "Gid", "Group", "Mode", "Ctime", "Mtime", "MountId", "Inode", "InUpperLayer", "Path", "Basename", "Filesystem", "PackageName", "PackageVersion", "PackageSrcversion", "Hashes", "HashState", });
     internal_static_datadog_cws_dumpsv1_Credentials_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_datadog_cws_dumpsv1_Credentials_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_Credentials_descriptor,
         new java.lang.String[] { "Uid", "Gid", "User", "Group", "EffectiveUid", "EffectiveGid", "EffectiveUser", "EffectiveGroup", "FsUid", "FsGid", "FsUser", "FsGroup", "CapEffective", "CapPermitted", });
     internal_static_datadog_cws_dumpsv1_SocketNode_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_datadog_cws_dumpsv1_SocketNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_SocketNode_descriptor,
         new java.lang.String[] { "Family", "Bind", });
     internal_static_datadog_cws_dumpsv1_BindNode_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_datadog_cws_dumpsv1_BindNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_BindNode_descriptor,
         new java.lang.String[] { "MatchedRules", "ImageTags", "Port", "Ip", "Protocol", });
+    internal_static_datadog_cws_dumpsv1_NetworkDeviceNode_descriptor =
+      getDescriptor().getMessageTypes().get(20);
+    internal_static_datadog_cws_dumpsv1_NetworkDeviceNode_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_datadog_cws_dumpsv1_NetworkDeviceNode_descriptor,
+        new java.lang.String[] { "MatchedRules", "Netns", "Ifindex", "Ifname", "FlowNodes", });
+    internal_static_datadog_cws_dumpsv1_FlowNode_descriptor =
+      getDescriptor().getMessageTypes().get(21);
+    internal_static_datadog_cws_dumpsv1_FlowNode_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_datadog_cws_dumpsv1_FlowNode_descriptor,
+        new java.lang.String[] { "ImageTags", "Source", "Destination", "L3Protocol", "L4Protocol", "Ingress", "Egress", });
+    internal_static_datadog_cws_dumpsv1_IPPortContext_descriptor =
+      getDescriptor().getMessageTypes().get(22);
+    internal_static_datadog_cws_dumpsv1_IPPortContext_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_datadog_cws_dumpsv1_IPPortContext_descriptor,
+        new java.lang.String[] { "Ip", "Port", });
+    internal_static_datadog_cws_dumpsv1_NetworkStats_descriptor =
+      getDescriptor().getMessageTypes().get(23);
+    internal_static_datadog_cws_dumpsv1_NetworkStats_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_datadog_cws_dumpsv1_NetworkStats_descriptor,
+        new java.lang.String[] { "DataSize", "PacketCount", });
     internal_static_datadog_cws_dumpsv1_MatchedRule_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_datadog_cws_dumpsv1_MatchedRule_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_MatchedRule_descriptor,
@@ -32994,7 +38706,7 @@ java.lang.String defaultValue) {
         internal_static_datadog_cws_dumpsv1_MatchedRule_RuleTagsEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_datadog_cws_dumpsv1_event_type_state_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_datadog_cws_dumpsv1_event_type_state_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_event_type_state_descriptor,
