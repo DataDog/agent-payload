@@ -35,6 +35,8 @@ message Metadata {
     uint64 end = 11;
     uint64 size = 12;
     string serialization = 14;
+    string cgroup_id = 15;
+    string cgroup_manager = 16;
 }
 
 message ProfileSelector {
