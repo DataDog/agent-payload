@@ -1,0 +1,11 @@
+load("@rules_proto//proto:defs.bzl", "proto_library")
+
+proto_library(
+    name = "kubernetes_autoscaling_proto",
+    srcs = [
+        "autoscaling.proto",
+        "common.proto",
+        "recommender.proto",
+    ],
+    visibility = ["//visibility:public"],
+)
