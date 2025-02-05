@@ -4,16 +4,16 @@
 
 # All file changes should be reviewed by the maintainer team unless
 # specified otherwise
-*                          @DataDog/agent-shared-components
-metrics/                   @DataDog/agent-shared-components @DataDog/agent-processing-and-routing
-logs/                      @DataDog/agent-shared-components @DataDog/agent-processing-and-routing
-process/                   @DataDog/agent-shared-components @DataDog/container-app @DataDog/container-intake
-process/connections.proto  @DataDog/agent-shared-components @DataDog/Networks @DataDog/ebpf-platform @DataDog/universal-service-monitoring
-contlcycle/                @DataDog/agent-shared-components @DataDog/container-integrations
-contimage/                 @DataDog/agent-shared-components @DataDog/container-integrations @DataDog/container-intake
-sbom/                      @DataDog/agent-shared-components @DataDog/container-integrations
-CycloneDX/                 @DataDog/agent-shared-components @DataDog/container-integrations
-cyclonedx_v1_4/            @DataDog/agent-shared-components @DataDog/container-integrations
-cws/                       @DataDog/agent-shared-components @DataDog/agent-security
-proto/cws/                 @DataDog/agent-shared-components @DataDog/agent-security
+*                          @DataDog/agent-runtimes
+metrics/                   @DataDog/agent-runtimes @DataDog/agent-processing-and-routing
+logs/                      @DataDog/agent-runtimes @DataDog/agent-processing-and-routing
+process/                   @DataDog/agent-runtimes @DataDog/container-app @DataDog/container-intake
+process/connections.proto  @DataDog/agent-runtimes @DataDog/Networks @DataDog/ebpf-platform @DataDog/universal-service-monitoring
+contlcycle/                @DataDog/agent-runtimes @DataDog/container-integrations
+contimage/                 @DataDog/agent-runtimes @DataDog/container-integrations @DataDog/container-intake
+sbom/                      @DataDog/agent-runtimes @DataDog/container-integrations
+CycloneDX/                 @DataDog/agent-runtimes @DataDog/container-integrations
+cyclonedx_v1_4/            @DataDog/agent-runtimes @DataDog/container-integrations
+cws/                       @DataDog/agent-runtimes @DataDog/agent-security
+proto/cws/                 @DataDog/agent-runtimes @DataDog/agent-security
 proto/autoscaling/         @DataDog/container-integrations @DataDog/container-app
