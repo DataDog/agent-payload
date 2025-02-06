@@ -4,11 +4,10 @@ option go_package = "github.com/DataDog/agent-payload/v5/autoscaling/kubernetes"
 
 package datadog.autoscaling.kubernetes;
 
-import "github.com/DataDog/agent-payload/v5/proto/autoscaling/kubernetes/common.proto";
-
-import "google/protobuf/timestamp.proto";
+import "proto/autoscaling/kubernetes/common.proto";
+import "proto/autoscaling/kubernetes/options.proto";
 import "google/protobuf/struct.proto";
-import "github.com/chrusty/protoc-gen-jsonschema/options.proto";
+import "google/protobuf/timestamp.proto";
 
 // WorkloadValuesList represents a list of workload recommendation requests
 message WorkloadRecommendationsRequest {
