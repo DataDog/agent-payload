@@ -9854,6 +9854,45 @@ func (x *RedisStatsBuilder) Reset(writer io.Writer) {
 	x.buf.Reset()
 	x.writer = writer
 }
+func (x *RedisStatsBuilder) SetCommand(v uint64) {
+	if v != 0 {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8)
+		x.scratch = protowire.AppendVarint(x.scratch, v)
+		x.writer.Write(x.scratch)
+	}
+}
+func (x *RedisStatsBuilder) SetKeyName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *RedisStatsBuilder) SetTruncated(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x18)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
+func (x *RedisStatsBuilder) SetLatencies(cb func(b *bytes.Buffer)) {
+	x.buf.Reset()
+	cb(&x.buf)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *RedisStatsBuilder) SetFirstLatencySample(v float64) {
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x29)
+	x.scratch = protowire.AppendFixed64(x.scratch, math.Float64bits(v))
+	x.writer.Write(x.scratch)
+}
+func (x *RedisStatsBuilder) SetCount(v uint32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x30)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
 
 type DatabaseStatsBuilder struct {
 	writer               io.Writer
