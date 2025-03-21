@@ -11,6 +11,7 @@ message ContainerImagePayload {
   string                  version = 1;  // version represents the ContainerImagePayload message version
   string                  host    = 2;  // host contains the hostname
   optional string         source  = 4;  // use to know the source of the message: agent, other
+  optional bool           echo    = 5;  // whether this message is a repeat of an earlier message
   repeated ContainerImage images  = 3;  // Images metadata
 }
 
