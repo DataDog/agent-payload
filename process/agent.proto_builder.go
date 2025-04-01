@@ -4745,6 +4745,12 @@ func (x *MetadataBuilder) AddFinalizers(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *MetadataBuilder) SetDeletionGracePeriodSeconds(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x58)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
 
 type OwnerReferenceBuilder struct {
 	writer  io.Writer

@@ -842,6 +842,7 @@ message Metadata {
 	repeated OwnerReference ownerReferences = 8;
 	string resourceVersion = 9;
 	repeated string finalizers = 10;
+	int64 deletionGracePeriodSeconds = 11;
 }
 
 message OwnerReference {
