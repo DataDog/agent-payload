@@ -23,6 +23,7 @@ type CollectorConnectionsBuilder struct {
 	routeMetadataBuilder                                         RouteMetadataBuilder
 	agentConfigurationBuilder                                    AgentConfigurationBuilder
 	collectorConnections_ResolvedHostsByNameEntryBuilder         CollectorConnections_ResolvedHostsByNameEntryBuilder
+	collectorConnections_ResolvedPublicIpsEntryBuilder           CollectorConnections_ResolvedPublicIpsEntryBuilder
 }
 
 func NewCollectorConnectionsBuilder(writer io.Writer) *CollectorConnectionsBuilder {
@@ -264,6 +265,16 @@ func (x *CollectorConnectionsBuilder) SetEcsTask(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorConnectionsBuilder) AddResolvedPublicIps(cb func(w *CollectorConnections_ResolvedPublicIpsEntryBuilder)) {
+	x.buf.Reset()
+	x.collectorConnections_ResolvedPublicIpsEntryBuilder.writer = &x.buf
+	x.collectorConnections_ResolvedPublicIpsEntryBuilder.scratch = x.scratch
+	cb(&x.collectorConnections_ResolvedPublicIpsEntryBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x172)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type CollectorConnections_ResolvedResourcesEntryBuilder struct {
 	writer                  io.Writer
@@ -443,6 +454,39 @@ func (x *CollectorConnections_ResolvedHostsByNameEntryBuilder) SetValue(cb func(
 	x.hostBuilder.writer = &x.buf
 	x.hostBuilder.scratch = x.scratch
 	cb(&x.hostBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type CollectorConnections_ResolvedPublicIpsEntryBuilder struct {
+	writer                  io.Writer
+	buf                     bytes.Buffer
+	scratch                 []byte
+	publicIpMetadataBuilder PublicIpMetadataBuilder
+}
+
+func NewCollectorConnections_ResolvedPublicIpsEntryBuilder(writer io.Writer) *CollectorConnections_ResolvedPublicIpsEntryBuilder {
+	return &CollectorConnections_ResolvedPublicIpsEntryBuilder{
+		writer: writer,
+	}
+}
+func (x *CollectorConnections_ResolvedPublicIpsEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *CollectorConnections_ResolvedPublicIpsEntryBuilder) SetKey(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorConnections_ResolvedPublicIpsEntryBuilder) SetValue(cb func(w *PublicIpMetadataBuilder)) {
+	x.buf.Reset()
+	x.publicIpMetadataBuilder.writer = &x.buf
+	x.publicIpMetadataBuilder.scratch = x.scratch
+	cb(&x.publicIpMetadataBuilder)
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
@@ -1832,4 +1876,44 @@ func (x *DNSStatsByQueryType_DnsStatsByQueryTypeEntryBuilder) SetValue(cb func(w
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
+}
+
+type PublicIpMetadataBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewPublicIpMetadataBuilder(writer io.Writer) *PublicIpMetadataBuilder {
+	return &PublicIpMetadataBuilder{
+		writer: writer,
+	}
+}
+func (x *PublicIpMetadataBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *PublicIpMetadataBuilder) SetIp(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *PublicIpMetadataBuilder) SetCloudProvider(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *PublicIpMetadataBuilder) SetRegion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *PublicIpMetadataBuilder) AddTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
 }

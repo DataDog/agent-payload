@@ -9,7 +9,7 @@ package datadog.process_agent;
 message CollectorConnections {
   reserved 1, 4, 7, 9, 13, 32, 33;
   // Please update when adding fields
-  // next identifier:  46
+  // next identifier:  47
 
   // the detected hostname for the agent that collected these connections
   string hostName = 2;
@@ -102,6 +102,8 @@ message CollectorConnections {
   map<string, Host> resolvedHostsByName = 40; // Post-resolution field
 
   string ecsTask = 45;
+
+  map<string, PublicIpMetadata> resolvedPublicIps = 46; // Post-resolution field
 }
 
 // Connections is only used to communicate between the process agent and system-probe.
@@ -428,4 +430,11 @@ message DNSStats {
 
 message DNSStatsByQueryType {
   map<int32, DNSStats> dnsStatsByQueryType = 1;
+}
+
+message PublicIpMetadata {
+  string ip = 1;
+  string cloudProvider = 2;
+  string region = 3; 
+  repeated string tags = 4;
 }
