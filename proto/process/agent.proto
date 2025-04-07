@@ -1730,7 +1730,6 @@ message RedisStats {
 	double firstLatencySample = 5;
 	// The number of samples in the latencies sketch.
 	uint32 count = 6;
-	bool isError = 7;
 }
 
 // Represents the statistics for a single Database operation.
