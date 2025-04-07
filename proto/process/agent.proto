@@ -1716,20 +1716,20 @@ enum RedisCommand {
 }
 
 message RedisAggregation {
-	map<bool, RedisStats> errorToStats = 1;
+	RedisCommand command = 1;
+	string keyName = 2;
+	bool truncated = 3;
+	map<bool, RedisStats> errorToStats = 4;
 }
 
 // Represents the statistics for a single Redis transaction.
 message RedisStats {
-	RedisCommand command = 1;
-	string keyName = 2;
-	bool truncated = 3;
 	// A protobuf encoded sketch of all the latencies for this operation. In nanoseconds.
-	bytes latencies = 4;
+	bytes latencies = 1;
 	// If the PostgresStats has a single sample, this field will be the latency (in nanoseconds) of the only sample.
-	double firstLatencySample = 5;
+	double firstLatencySample = 2;
 	// The number of samples in the latencies sketch.
-	uint32 count = 6;
+	uint32 count = 3;
 }
 
 // Represents the statistics for a single Database operation.
