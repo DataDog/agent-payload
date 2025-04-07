@@ -9954,20 +9954,13 @@ func (x *RedisStatsBuilder) SetCount(v uint32) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
-func (x *RedisStatsBuilder) SetIsError(v bool) {
-	if v {
-		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x38)
-		x.scratch = protowire.AppendVarint(x.scratch, 1)
-		x.writer.Write(x.scratch)
-	}
-}
 
 type DatabaseStatsBuilder struct {
-	writer               io.Writer
-	buf                  bytes.Buffer
-	scratch              []byte
-	postgresStatsBuilder PostgresStatsBuilder
-	redisStatsBuilder    RedisStatsBuilder
+	writer                  io.Writer
+	buf                     bytes.Buffer
+	scratch                 []byte
+	postgresStatsBuilder    PostgresStatsBuilder
+	redisAggregationBuilder RedisAggregationBuilder
 }
 
 func NewDatabaseStatsBuilder(writer io.Writer) *DatabaseStatsBuilder {
@@ -9989,12 +9982,12 @@ func (x *DatabaseStatsBuilder) SetPostgres(cb func(w *PostgresStatsBuilder)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
-func (x *DatabaseStatsBuilder) SetRedis(cb func(w *RedisStatsBuilder)) {
+func (x *DatabaseStatsBuilder) SetRedis(cb func(w *RedisAggregationBuilder)) {
 	x.buf.Reset()
-	x.redisStatsBuilder.writer = &x.buf
-	x.redisStatsBuilder.scratch = x.scratch
-	cb(&x.redisStatsBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.redisAggregationBuilder.writer = &x.buf
+	x.redisAggregationBuilder.scratch = x.scratch
+	cb(&x.redisAggregationBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
