@@ -9839,6 +9839,67 @@ func (x *PostgresStatsBuilder) SetCount(v uint32) {
 	x.writer.Write(x.scratch)
 }
 
+type RedisAggregationBuilder struct {
+	writer                                    io.Writer
+	buf                                       bytes.Buffer
+	scratch                                   []byte
+	redisAggregation_ErrorToStatsEntryBuilder RedisAggregation_ErrorToStatsEntryBuilder
+}
+
+func NewRedisAggregationBuilder(writer io.Writer) *RedisAggregationBuilder {
+	return &RedisAggregationBuilder{
+		writer: writer,
+	}
+}
+func (x *RedisAggregationBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *RedisAggregationBuilder) AddErrorToStats(cb func(w *RedisAggregation_ErrorToStatsEntryBuilder)) {
+	x.buf.Reset()
+	x.redisAggregation_ErrorToStatsEntryBuilder.writer = &x.buf
+	x.redisAggregation_ErrorToStatsEntryBuilder.scratch = x.scratch
+	cb(&x.redisAggregation_ErrorToStatsEntryBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type RedisAggregation_ErrorToStatsEntryBuilder struct {
+	writer            io.Writer
+	buf               bytes.Buffer
+	scratch           []byte
+	redisStatsBuilder RedisStatsBuilder
+}
+
+func NewRedisAggregation_ErrorToStatsEntryBuilder(writer io.Writer) *RedisAggregation_ErrorToStatsEntryBuilder {
+	return &RedisAggregation_ErrorToStatsEntryBuilder{
+		writer: writer,
+	}
+}
+func (x *RedisAggregation_ErrorToStatsEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *RedisAggregation_ErrorToStatsEntryBuilder) SetKey(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
+func (x *RedisAggregation_ErrorToStatsEntryBuilder) SetValue(cb func(w *RedisStatsBuilder)) {
+	x.buf.Reset()
+	x.redisStatsBuilder.writer = &x.buf
+	x.redisStatsBuilder.scratch = x.scratch
+	cb(&x.redisStatsBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
 type RedisStatsBuilder struct {
 	writer  io.Writer
 	buf     bytes.Buffer
@@ -9892,6 +9953,13 @@ func (x *RedisStatsBuilder) SetCount(v uint32) {
 	x.scratch = protowire.AppendVarint(x.scratch, 0x30)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
+}
+func (x *RedisStatsBuilder) SetIsError(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x38)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
 }
 
 type DatabaseStatsBuilder struct {

@@ -1715,6 +1715,10 @@ enum RedisCommand {
 	RedisSetCommand = 2;
 }
 
+message RedisAggregation {
+	map<bool, RedisStats> errorToStats = 1;
+}
+
 // Represents the statistics for a single Redis transaction.
 message RedisStats {
 	RedisCommand command = 1;
@@ -1726,6 +1730,7 @@ message RedisStats {
 	double firstLatencySample = 5;
 	// The number of samples in the latencies sketch.
 	uint32 count = 6;
+	bool isError = 7;
 }
 
 // Represents the statistics for a single Database operation.
