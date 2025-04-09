@@ -39,8 +39,8 @@ type MessageVersion uint8
 // Message versioning constants.
 const (
 	MessageV1 MessageVersion = 1
-	MessageV2                = 2
-	MessageV3                = 3
+	MessageV2 MessageVersion = 2
+	MessageV3 MessageVersion = 3
 )
 
 // MessageHeader is attached to all messages at the head of the message. Some
@@ -81,7 +81,7 @@ func unmarshal(enc MessageEncoding, body []byte, m proto.Message) error {
 type MessageType uint8
 
 // Message type constants for MessageType.
-// Note: Ordering my seem unusual, this is just to match the backend where there
+// Note: Ordering may seem unusual, this is just to match the backend where there
 // are additional types that aren't covered here.
 const (
 	TypeCollectorProc                    = 12
@@ -430,8 +430,14 @@ func EncodeMessage(m Message) ([]byte, error) {
 
 		if m.Header.Encoding == MessageEncodingZstd1xPB {
 			p, err = zstd.Compress(nil, pb)
+			if err != nil {
+				return nil, err
+			}
 		} else {
 			p, err = zstd_0.Compress(nil, pb)
+			if err != nil {
+				return nil, err
+			}
 		}
 	default:
 		return nil, fmt.Errorf("unknown message encoding: %d", m.Header.Encoding)

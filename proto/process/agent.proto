@@ -145,6 +145,7 @@ message ECSTask {
 	repeated string ecsTags = 18;
 	repeated string containerInstanceTags = 19;
 	Host host = 20; // Used post-resolution
+	string containerInstanceArn = 21;
 }
 
 message ECSContainer {
@@ -841,6 +842,7 @@ message Metadata {
 	repeated OwnerReference ownerReferences = 8;
 	string resourceVersion = 9;
 	repeated string finalizers = 10;
+	int64 deletionGracePeriodSeconds = 11;
 }
 
 message OwnerReference {

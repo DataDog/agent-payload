@@ -739,6 +739,12 @@ func (x *ECSTaskBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *ECSTaskBuilder) SetContainerInstanceArn(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xaa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type ECSTask_LimitsEntryBuilder struct {
 	writer  io.Writer
@@ -4737,6 +4743,12 @@ func (x *MetadataBuilder) AddFinalizers(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x52)
 	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *MetadataBuilder) SetDeletionGracePeriodSeconds(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x58)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
 
