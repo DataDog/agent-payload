@@ -828,6 +828,21 @@ message Cluster {
 	ResourceMetrics metrics = 13;
 	map<string, int64> extendedResourcesAllocatable = 14;
 	map<string, int64> extendedResourcesCapacity = 15;
+	repeated ClusterNodeInfo nodesInfo = 16;
+}
+
+message ClusterNodeInfo {
+	string name = 1;
+	string region = 2;
+	string instanceType = 3;
+	string operatingSystem = 4;
+	string operatingSystemImage = 5;
+	string architecture = 6;
+	string kernelVersion = 7;
+	string containerRuntimeVersion = 8;
+	string kubeletVersion = 9;
+	map<string, string> resourceAllocatable = 10;
+	map<string, string> resourceCapacity = 11;
 }
 
 // reference https://github.com/kubernetes/apimachinery/blob/2373d029717c4d169463414a6127cd1d0d12680e/pkg/apis/meta/v1/generated.proto#L521
