@@ -1718,9 +1718,13 @@ enum RedisCommand {
 }
 
 message RedisAggregation {
+	// The command for the redis cache.
 	RedisCommand command = 1;
+	// The name of the key which the command was applied to.
 	string keyName = 2;
+	// Indicates whether the key name was truncated due to length limits.
 	bool truncated = 3;
+	// Mapping of whether an error occurred to the associated Redis stats.
 	map<bool, RedisStats> errorToStats = 4;
 }
 

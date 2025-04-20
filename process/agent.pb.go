@@ -13746,9 +13746,13 @@ func (m *PostgresStats) GetCount() uint32 {
 }
 
 type RedisAggregation struct {
-	Command      RedisCommand         `protobuf:"varint,1,opt,name=command,proto3,enum=datadog.process_agent.RedisCommand" json:"command,omitempty"`
-	KeyName      string               `protobuf:"bytes,2,opt,name=keyName,proto3" json:"keyName,omitempty"`
-	Truncated    bool                 `protobuf:"varint,3,opt,name=truncated,proto3" json:"truncated,omitempty"`
+	// The command for the redis cache.
+	Command RedisCommand `protobuf:"varint,1,opt,name=command,proto3,enum=datadog.process_agent.RedisCommand" json:"command,omitempty"`
+	// The name of the key which the command was applied to.
+	KeyName string `protobuf:"bytes,2,opt,name=keyName,proto3" json:"keyName,omitempty"`
+	// Indicates whether the key name was truncated due to length limits.
+	Truncated bool `protobuf:"varint,3,opt,name=truncated,proto3" json:"truncated,omitempty"`
+	// Mapping of whether an error occurred to the associated Redis stats.
 	ErrorToStats map[bool]*RedisStats `protobuf:"bytes,4,rep,name=errorToStats,proto3" json:"errorToStats,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 }
 
