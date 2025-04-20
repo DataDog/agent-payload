@@ -1717,7 +1717,7 @@ enum RedisCommand {
 	RedisSetCommand = 2;
 }
 
-message RedisAggregation {
+message RedisStats {
 	// The command for the redis cache.
 	RedisCommand command = 1;
 	// The name of the key which the command was applied to.
@@ -1725,11 +1725,11 @@ message RedisAggregation {
 	// Indicates whether the key name was truncated due to length limits.
 	bool truncated = 3;
 	// Mapping of whether an error occurred to the associated Redis stats.
-	map<bool, RedisStats> errorToStats = 4;
+	map<bool, RedisStatsEntry> errorToStats = 4;
 }
 
 // Represents the statistics for a single Redis transaction.
-message RedisStats {
+message RedisStatsEntry {
 	// A protobuf encoded sketch of all the latencies for this operation. In nanoseconds.
 	bytes latencies = 1;
 	// If the PostgresStats has a single sample, this field will be the latency (in nanoseconds) of the only sample.
@@ -1740,12 +1740,11 @@ message RedisStats {
 
 // Represents the statistics for a single Database operation.
 message DatabaseStats {
-	reserved 2;
 	// The idea is to have a single message that can represent the stats for any database.
 	// Each database will have its own message that will be populated by the agent.
 	oneof dbStats {
 		PostgresStats postgres = 1;
-		RedisAggregation redis = 3;
+		RedisStats redis = 2;
 	}
 }
 
