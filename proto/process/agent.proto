@@ -435,21 +435,21 @@ message CollectorNetworkPolicy {
 }
 
 message CollectorLimitRange {
-	string clusterName = 1;
-	string clusterId = 2;
-	int32 groupId = 3;
-	int32 groupSize = 4;
-	repeated LimitRange limitRanges = 5;
-	repeated string tags = 6;
+    string clusterName = 1;
+    string clusterId = 2;
+    int32 groupId = 3;
+    int32 groupSize = 4;
+    repeated LimitRange limitRanges = 5;
+    repeated string tags = 6;
 }
 
 message CollectorStorageClass {
-	string clusterName = 1;
-	string clusterId = 2;
-	int32 groupId = 3;
-	int32 groupSize = 4;
-	repeated StorageClass storageClasses = 5;
-	repeated string tags = 6;
+    string clusterName = 1;
+    string clusterId = 2;
+    int32 groupId = 3;
+    int32 groupSize = 4;
+    repeated StorageClass storageClasses = 5;
+    repeated string tags = 6;
 }
 
 //
@@ -779,34 +779,34 @@ message Host {
 
 
 enum OrchestratorResource {
-	OrchestratorResource_UNSPECIFIED = 0;
-	POD = 1;
-	REPLICASET = 2;
-	SERVICE = 3;
-	NODE = 4;
-	CLUSTER = 5;
-	JOB = 6;
-	CRONJOB = 7;
-	DAEMONSET = 8;
-	STATEFULSET = 9;
-	PERSISTENTVOLUME = 10;
-	PERSISTENTVOLUMECLAIM = 11;
-	ROLE = 12;
-	ROLEBINDING = 13;
-	CLUSTERROLE = 14;
-	CLUSTERROLEBINDING = 15;
-	SERVICEACCOUNT = 16;
-	INGRESS = 17;
-	DEPLOYMENT = 18;
-	NAMESPACE = 19;
-	CRD = 20;
-	CR = 21;
-	VERTICALPODAUTOSCALER = 22;
-	HORIZONTALPODAUTOSCALER = 23;
-	NETWORKPOLICY = 24;
-	LIMITRANGE = 25;
-	STORAGECLASS = 26;
-	ECSTASK = 150;
+    OrchestratorResource_UNSPECIFIED = 0;
+    POD = 1;
+    REPLICASET = 2;
+    SERVICE = 3;
+    NODE = 4;
+    CLUSTER = 5;
+    JOB = 6;
+    CRONJOB = 7;
+    DAEMONSET = 8;
+    STATEFULSET = 9;
+    PERSISTENTVOLUME = 10;
+    PERSISTENTVOLUMECLAIM = 11;
+    ROLE = 12;
+    ROLEBINDING = 13;
+    CLUSTERROLE = 14;
+    CLUSTERROLEBINDING = 15;
+    SERVICEACCOUNT = 16;
+    INGRESS = 17;
+    DEPLOYMENT = 18;
+    NAMESPACE = 19;
+    CRD = 20;
+    CR = 21;
+    VERTICALPODAUTOSCALER = 22;
+    HORIZONTALPODAUTOSCALER = 23;
+    NETWORKPOLICY = 24;
+    LIMITRANGE = 25;
+    STORAGECLASS = 26;
+    ECSTASK = 150;
 }
 
 message Cluster {
@@ -1316,11 +1316,11 @@ message DaemonSetStatus {
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L87
 message DaemonSetCondition {
-	string type = 1;
-	string status = 2;
-	int64 lastTransitionTime = 3;
-	string reason = 4;
-	string message = 5;
+  string type = 1;
+  string status = 2;
+  int64 lastTransitionTime = 3;
+  string reason = 4;
+  string message = 5;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/apps/v1/generated.proto#L66
@@ -1403,35 +1403,35 @@ message PersistentVolumeSpec {
 
 // reference https://github.com/kubernetes/api/blob/release-1.27/core/v1/generated.proto#L1722
 message PersistentVolumeSource{
-	GCEPersistentDiskVolumeSource gcePersistentDisk = 1;
-	AWSElasticBlockStoreVolumeSource awsElasticBlockStore = 2;
-	AzureFilePersistentVolumeSource azureFile = 3;
-	AzureDiskVolumeSource azureDisk = 4;
-	CSIVolumeSource csi = 5;
+	 GCEPersistentDiskVolumeSource gcePersistentDisk = 1;
+	 AWSElasticBlockStoreVolumeSource awsElasticBlockStore = 2;
+	 AzureFilePersistentVolumeSource azureFile = 3;
+	 AzureDiskVolumeSource azureDisk = 4;
+	 CSIVolumeSource csi = 5;
 }
 
 // reference https://github.com/kubernetes/api/blob/4bdcbc60ffeee2c04231f11ff114314c1a93ce65/core/v1/generated.proto#L1616
 message GCEPersistentDiskVolumeSource {
-	string pdName = 1;
-	string fsType = 2;
-	int32 partition = 3;
-	bool readOnly = 4;
+	 string pdName = 1;
+	 string fsType = 2;
+	 int32 partition = 3;
+	 bool readOnly = 4;
 }
 
 // reference https://github.com/kubernetes/api/blob/release-1.27/core/v1/generated.proto#L39
 message AWSElasticBlockStoreVolumeSource {
-	string volumeID = 1;
-	string fsType = 2;
-	int32 partition = 3;
-	bool readOnly = 4;
+	 string volumeID = 1;
+	 string fsType = 2;
+	 int32 partition = 3;
+	 bool readOnly = 4;
 }
 
 // reference https://github.com/kubernetes/api/blob/release-1.27/core/v1/generated.proto#L127
 message AzureFilePersistentVolumeSource {
-	string secretName = 1;
-	string shareName = 2;
-	bool readOnly = 3;
-	string secretNamespace = 4;
+	 string secretName = 1;
+	 string shareName = 2;
+	 bool readOnly = 3;
+	 string secretNamespace = 4;
 }
 
 // reference https://github.com/kubernetes/api/blob/release-1.27/core/v1/generated.proto#L100
@@ -2103,43 +2103,43 @@ message NetworkPolicyPort {
 
 // https://github.com/kubernetes/api/blob/v0.23.15/core/v1/types.go#L5800
 message LimitRange {
-	Metadata metadata = 1;
-	LimitRangeSpec spec = 2;
-	repeated string limitTypes = 3;
-	repeated string tags = 4;
+    Metadata metadata = 1;
+    LimitRangeSpec spec = 2;
+    repeated string limitTypes = 3;
+    repeated string tags = 4;
 }
 
 message LimitRangeSpec {
-	repeated LimitRangeItem limits = 1;
+    repeated LimitRangeItem limits = 1;
 }
 
 message LimitRangeItem {
-	string type = 1;
-	map<string, int64> default = 2;
-	map<string, int64> defaultRequest = 3;
-	map<string, int64> max = 4;
-	map<string, int64> min = 5;
-	map<string, int64> maxLimitRequestRatio = 6;
+    string type = 1;
+    map<string, int64> default = 2;
+    map<string, int64> defaultRequest = 3;
+    map<string, int64> max = 4;
+    map<string, int64> min = 5;
+    map<string, int64> maxLimitRequestRatio = 6;
 }
 
 // https://github.com/kubernetes/api/blob/v0.23.15/storage/v1/types.go#L33
 message StorageClass {
-	Metadata metadata = 1;
-	string provisioner = 2;
-	map<string, string> parameters = 3;
-	string reclaimPolicy = 4;
-	repeated string mountOptions = 5;
-	bool allowVolumeExpansion = 6;
-	StorageClassTopologies allowedTopologies = 7;
-	string volumeBindingMode = 8;
-	repeated string tags = 9;
+    Metadata metadata = 1;
+    string provisioner = 2;
+    map<string, string> parameters = 3;
+    string reclaimPolicy = 4;
+    repeated string mountOptions = 5;
+    bool allowVolumeExpansion = 6;
+    StorageClassTopologies allowedTopologies = 7;
+    string volumeBindingMode = 8;
+    repeated string tags = 9;
 }
 
 message StorageClassTopologies {
-	repeated TopologyLabelSelector labelSelectors = 1;
+    repeated TopologyLabelSelector labelSelectors = 1;
 }
 
 message TopologyLabelSelector {
-	string key = 1;
-	repeated string values = 2;
+    string key = 1;
+    repeated string values = 2;
 }
