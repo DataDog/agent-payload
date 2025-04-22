@@ -10073,12 +10073,11 @@ func (x *RedisStats_ErrorToStatsEntryBuilder) Reset(writer io.Writer) {
 	x.buf.Reset()
 	x.writer = writer
 }
-func (x *RedisStats_ErrorToStatsEntryBuilder) SetKey(v bool) {
-	if v {
-		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8)
-		x.scratch = protowire.AppendVarint(x.scratch, 1)
-		x.writer.Write(x.scratch)
-	}
+func (x *RedisStats_ErrorToStatsEntryBuilder) SetKey(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
 }
 func (x *RedisStats_ErrorToStatsEntryBuilder) SetValue(cb func(w *RedisStatsEntryBuilder)) {
 	x.buf.Reset()
