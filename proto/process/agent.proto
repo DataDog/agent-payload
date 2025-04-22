@@ -1436,12 +1436,12 @@ message AzureFilePersistentVolumeSource {
 
 // reference https://github.com/kubernetes/api/blob/release-1.27/core/v1/generated.proto#L100
 message AzureDiskVolumeSource {
-	string diskName = 1;
-	string diskURI = 2;
-	string cachingMode = 3;
-	string fsType = 4;
-	bool readOnly = 5;
-	string kind = 6;
+	 string diskName = 1;
+	 string diskURI = 2;
+	 string cachingMode = 3;
+	 string fsType = 4;
+	 bool readOnly = 5;
+	 string kind = 6;
 }
 
 // reference https://github.com/kubernetes/api/blob/release-1.27/core/v1/generated.proto#L172
