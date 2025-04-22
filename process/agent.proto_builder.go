@@ -1741,6 +1741,18 @@ func (x *CollectorManifestBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorManifestBuilder) SetHostName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorManifestBuilder) SetType(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x40)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
 
 type CollectorManifestCRDBuilder struct {
 	writer                   io.Writer
