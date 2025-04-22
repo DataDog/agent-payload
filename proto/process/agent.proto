@@ -1725,8 +1725,38 @@ message PostgresStats {
 	uint32 count = 5;
 }
 
+// A list of the supported commands for the redis cache.
+enum RedisCommand {
+	RedisUnknownCommand = 0;
+	RedisGetCommand = 1;
+	RedisSetCommand = 2;
+}
+
+enum RedisErrorType {
+	RedisNoError = 0;
+	RedisErrorTypeUnknown = 1;
+}
+
+message RedisStats {
+	// The command for the redis cache.
+	RedisCommand command = 1;
+	// The name of the key which the command was applied to.
+	string keyName = 2;
+	// Indicates whether the key name was truncated due to length limits.
+	bool truncated = 3;
+	// Mapping of error types to the associated Redis stats. Keys should be RedisErrorType values.
+	map<int32, RedisStatsEntry> errorToStats = 4;
+}
+
 // Represents the statistics for a single Redis transaction.
-message RedisStats {}
+message RedisStatsEntry {
+	// A protobuf encoded sketch of all the latencies for this operation. In nanoseconds.
+	bytes latencies = 1;
+	// If the PostgresStats has a single sample, this field will be the latency (in nanoseconds) of the only sample.
+	double firstLatencySample = 2;
+	// The number of samples in the latencies sketch.
+	uint32 count = 3;
+}
 
 // Represents the statistics for a single Database operation.
 message DatabaseStats {
