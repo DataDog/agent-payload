@@ -278,8 +278,6 @@ message CollectorManifest {
 	int32 groupSize = 4;
 	repeated Manifest manifests = 5;
 	repeated string tags = 6;
-	string hostName = 7;
-	int32 type = 8;
 }
 
 message CollectorManifestCRD {
