@@ -124,7 +124,8 @@ BASH
       PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto
 
       echo "Generating kubernetes autoscaling proto"
-      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:proto/deps:$GOPATH/src --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema $GOPATH/src/github.com/DataDog/agent-payload/v5/proto/autoscaling/kubernetes/*.proto
+      curl https://raw.githubusercontent.com/chrusty/protoc-gen-jsonschema/02c3b14c5835c08076f6a1c953c87ef717beda95/options.proto -L -o ./proto/autoscaling/kubernetes/options.proto
+      PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:proto/deps:. --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema proto/autoscaling/kubernetes/*.proto
 
       echo "Generating contimage proto"
       PATH=#{toolchain_bin_dir}  #{protoc_binary} --proto_path=#{toolchain_include_dir}:. --go_out=$GOPATH/src proto/contimage/contimage.proto
