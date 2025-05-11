@@ -27,10 +27,12 @@ func (x *CollectorProcEventBuilder) Reset(writer io.Writer) {
 	x.writer = writer
 }
 func (x *CollectorProcEventBuilder) SetHostname(v string) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
-	x.scratch = protowire.AppendString(x.scratch, v)
-	x.writer.Write(x.scratch)
+	if len(v) > 0 {
+		x.scratch = x.scratch[:0]
+		x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+		x.scratch = protowire.AppendString(x.scratch, v)
+		x.writer.Write(x.scratch)
+	}
 }
 func (x *CollectorProcEventBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.buf.Reset()
@@ -145,10 +147,12 @@ func (x *ProcessEventBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ProcessEventBuilder) SetContainerId(v string) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
-	x.scratch = protowire.AppendString(x.scratch, v)
-	x.writer.Write(x.scratch)
+	if len(v) > 0 {
+		x.scratch = x.scratch[:0]
+		x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+		x.scratch = protowire.AppendString(x.scratch, v)
+		x.writer.Write(x.scratch)
+	}
 }
 func (x *ProcessEventBuilder) SetExec(cb func(w *ProcessExecBuilder)) {
 	x.buf.Reset()
