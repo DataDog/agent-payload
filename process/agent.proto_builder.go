@@ -1298,6 +1298,13 @@ func (x *CollectorPodBuilder) SetInfo(cb func(w *SystemInfoBuilder)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *CollectorPodBuilder) SetIsTerminated(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x50)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
 
 type CollectorPodDisruptionBudgetBuilder struct {
 	writer                     io.Writer
@@ -6851,6 +6858,13 @@ func (x *ManifestBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
+}
+func (x *ManifestBuilder) SetIsTerminated(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x40)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
 }
 
 type NamespaceConditionBuilder struct {

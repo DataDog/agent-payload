@@ -213,6 +213,7 @@ message CollectorPod {
 	Host host = 7; // Post-resolved field
 	repeated string tags = 8;
 	SystemInfo info = 9;
+	bool isTerminated = 10;
 }
 
 message CollectorPodDisruptionBudget {
@@ -1172,6 +1173,7 @@ message Manifest {
 	string contentType = 5;
 	string version = 6;
 	repeated string tags = 7;
+	bool isTerminated = 8;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2054
