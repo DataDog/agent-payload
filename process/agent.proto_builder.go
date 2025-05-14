@@ -3276,12 +3276,12 @@ func (x *ProcessNetworksBuilder) Reset(writer io.Writer) {
 	x.writer = writer
 }
 func (x *ProcessNetworksBuilder) SetConnectionRate(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x9)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xd)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ProcessNetworksBuilder) SetBytesRate(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x11)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x15)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
@@ -3363,7 +3363,7 @@ func (x *ContainerBuilder) SetImage(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerBuilder) SetCpuLimit(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x29)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2d)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
@@ -3394,12 +3394,12 @@ func (x *ContainerBuilder) SetCreated(v int64) {
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerBuilder) SetRbps(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x59)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x5d)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerBuilder) SetWbps(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x61)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x65)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
@@ -3410,37 +3410,37 @@ func (x *ContainerBuilder) SetKey(v uint32) {
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerBuilder) SetNetRcvdPs(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x71)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x75)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerBuilder) SetNetSentPs(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x79)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x7d)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerBuilder) SetNetRcvdBps(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x81)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x85)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerBuilder) SetNetSentBps(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x89)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8d)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerBuilder) SetUserPct(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x91)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x95)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerBuilder) SetSystemPct(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x99)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x9d)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerBuilder) SetTotalPct(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa1)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa5)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
@@ -3515,7 +3515,7 @@ func (x *ContainerBuilder) SetMemUsage(v uint64) {
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerBuilder) SetCpuUsageNs(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xf9)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xfd)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
@@ -3526,7 +3526,7 @@ func (x *ContainerBuilder) SetMemAccounted(v uint64) {
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerBuilder) SetCpuRequest(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x109)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x10d)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
@@ -3666,12 +3666,12 @@ func (x *ProcessStatBuilder) SetContainerHealth(v uint64) {
 	}
 }
 func (x *ProcessStatBuilder) SetContainerRbps(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x81)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x85)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ProcessStatBuilder) SetContainerWbps(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x89)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8d)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
@@ -3682,22 +3682,22 @@ func (x *ProcessStatBuilder) SetContainerKey(v uint32) {
 	x.writer.Write(x.scratch)
 }
 func (x *ProcessStatBuilder) SetContainerNetRcvdPs(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa1)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa5)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ProcessStatBuilder) SetContainerNetSentPs(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa9)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xad)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ProcessStatBuilder) SetContainerNetRcvdBps(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xb1)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xb5)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ProcessStatBuilder) SetContainerNetSentBps(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xb9)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xbd)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
@@ -3858,22 +3858,22 @@ func (x *ContainerStatBuilder) SetId(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerStatBuilder) SetUserPct(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x11)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x15)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerStatBuilder) SetSystemPct(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x19)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1d)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerStatBuilder) SetTotalPct(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x21)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x25)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerStatBuilder) SetCpuLimit(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x29)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x2d)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
@@ -3896,32 +3896,32 @@ func (x *ContainerStatBuilder) SetMemLimit(v uint64) {
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerStatBuilder) SetRbps(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x49)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x4d)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerStatBuilder) SetWbps(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x51)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x55)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerStatBuilder) SetNetRcvdPs(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x59)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x5d)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerStatBuilder) SetNetSentPs(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x61)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x65)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerStatBuilder) SetNetRcvdBps(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x69)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x6d)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerStatBuilder) SetNetSentBps(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x71)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x75)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
@@ -3978,7 +3978,7 @@ func (x *ContainerStatBuilder) SetMemUsage(v uint64) {
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerStatBuilder) SetCpuUsageNs(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xb9)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xbd)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
@@ -3989,7 +3989,7 @@ func (x *ContainerStatBuilder) SetMemAccounted(v uint64) {
 	x.writer.Write(x.scratch)
 }
 func (x *ContainerStatBuilder) SetCpuRequest(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xc9)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xcd)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
@@ -4112,22 +4112,22 @@ func (x *IOStatBuilder) Reset(writer io.Writer) {
 	x.writer = writer
 }
 func (x *IOStatBuilder) SetReadRate(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x9)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xd)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *IOStatBuilder) SetWriteRate(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x11)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x15)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *IOStatBuilder) SetReadBytesRate(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x19)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1d)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *IOStatBuilder) SetWriteBytesRate(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x21)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x25)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
@@ -4219,17 +4219,17 @@ func (x *CPUStatBuilder) SetLastCpu(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *CPUStatBuilder) SetTotalPct(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x11)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x15)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *CPUStatBuilder) SetUserPct(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x19)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1d)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
 func (x *CPUStatBuilder) SetSystemPct(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x21)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x25)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
@@ -4290,7 +4290,7 @@ func (x *SingleCPUStatBuilder) SetName(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *SingleCPUStatBuilder) SetTotalPct(v float32) {
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x11)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x15)
 	x.scratch = protowire.AppendFixed32(x.scratch, math.Float32bits(v))
 	x.writer.Write(x.scratch)
 }
