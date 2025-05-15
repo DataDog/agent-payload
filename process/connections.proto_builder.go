@@ -1532,10 +1532,11 @@ func (x *AgentConfigurationBuilder) SetCsmEnabled(v bool) {
 }
 
 type RouteBuilder struct {
-	writer        io.Writer
-	buf           bytes.Buffer
-	scratch       []byte
-	subnetBuilder SubnetBuilder
+	writer           io.Writer
+	buf              bytes.Buffer
+	scratch          []byte
+	subnetBuilder    SubnetBuilder
+	interfaceBuilder InterfaceBuilder
 }
 
 func NewRouteBuilder(writer io.Writer) *RouteBuilder {
@@ -1556,6 +1557,38 @@ func (x *RouteBuilder) SetSubnet(cb func(w *SubnetBuilder)) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
+}
+func (x *RouteBuilder) SetInterface(cb func(w *InterfaceBuilder)) {
+	x.buf.Reset()
+	x.interfaceBuilder.writer = &x.buf
+	x.interfaceBuilder.scratch = x.scratch
+	cb(&x.interfaceBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type InterfaceBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewInterfaceBuilder(writer io.Writer) *InterfaceBuilder {
+	return &InterfaceBuilder{
+		writer: writer,
+	}
+}
+func (x *InterfaceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *InterfaceBuilder) SetHardwareAddr(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
 }
 
 type SubnetBuilder struct {

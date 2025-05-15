@@ -41,7 +41,7 @@ message CollectorConnections {
   bytes encodedTags = 11;
 
 
-  // This uses the same encoding structure as `encodedTags` but specifically encodes tags for connection-level tags 
+  // This uses the same encoding structure as `encodedTags` but specifically encodes tags for connection-level tags
   // (e.g. Connection#TagIdx)
   bytes encodedConnectionsTags = 38;
 
@@ -226,11 +226,11 @@ message ResourceMetadata {
 
   // backend use only, associates tags with a given ResourceMetadata.
   // when this type is serialized, always use tagIndex to point to an entry
-  // in encodedTags. 
+  // in encodedTags.
   repeated string tags = 4;
 
   // points to an index in CollectorConnections#encodedTags. Use the helpers defined in process/connections.go to access
-  // the tags associated with this resource metadata. 
+  // the tags associated with this resource metadata.
   // `CollectorConnections#GetTags`, `CollectorConnections#UnsafeIterateTags',
   // `CollectorConnections#IterateResourceTags`, `CollectorConnections#GetResourceTags`
   int32 tagIndex = 5;
@@ -333,6 +333,11 @@ message AgentConfiguration {
 // that a connection was associated with
 message Route {
   Subnet subnet = 1;
+  Interface interface = 2;
+}
+
+message Interface {
+  string HardwareAddr = 1;
 }
 
 message Subnet {
@@ -340,7 +345,7 @@ message Subnet {
 }
 
 
-// RouteMetadata 
+// RouteMetadata
 message RouteMetadata {
   string alias = 1;
 
@@ -435,6 +440,6 @@ message DNSStatsByQueryType {
 message PublicIpMetadata {
   string ip = 1;
   string cloudProvider = 2;
-  string region = 3; 
+  string region = 3;
   repeated string tags = 4;
 }
