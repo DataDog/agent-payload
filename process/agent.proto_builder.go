@@ -6884,6 +6884,12 @@ func (x *ManifestBuilder) SetNodeName(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *ManifestBuilder) SetKind(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x5a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type NamespaceConditionBuilder struct {
 	writer  io.Writer
