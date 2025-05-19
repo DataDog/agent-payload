@@ -214,6 +214,7 @@ message CollectorPod {
 	repeated string tags = 8;
 	SystemInfo info = 9;
 	bool isTerminated = 10;
+	string nodeName = 11;
 }
 
 message CollectorPodDisruptionBudget {

@@ -1305,6 +1305,12 @@ func (x *CollectorPodBuilder) SetIsTerminated(v bool) {
 		x.writer.Write(x.scratch)
 	}
 }
+func (x *CollectorPodBuilder) SetNodeName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x5a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorPodDisruptionBudgetBuilder struct {
 	writer                     io.Writer
