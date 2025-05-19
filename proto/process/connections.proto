@@ -127,7 +127,7 @@ message Connections {
 message Connection {
   reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
   // Please update when adding fields
-  // next identifier: 54
+  // next identifier: 55
 
   int32 pid = 1;
   Addr laddr = 5; // Local address
@@ -217,6 +217,7 @@ message Connection {
   map<uint32, uint32> tcpFailuresByErrCode = 52;
 
   string remoteEcsTask = 53;
+  int64 durationNs = 54; // Connection duration in nanoseconds
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
