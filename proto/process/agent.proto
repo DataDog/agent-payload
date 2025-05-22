@@ -1741,6 +1741,29 @@ enum RedisCommand {
 enum RedisErrorType {
 	RedisNoError = 0;
 	RedisErrorTypeUnknown = 1;
+	RedisErrErr = 2;
+	RedisErrWrongType = 3;
+	RedisErrNoAuth = 4;
+	RedisErrNoPerm = 5;
+	RedisErrBusy = 6;
+	RedisErrNoScript = 7;
+	RedisErrLoading = 8;
+	RedisErrReadOnly = 9;
+	RedisErrExecAbort = 10;
+	RedisErrMasterDown = 11;
+	RedisErrMisconf = 12;
+	RedisErrCrossSlot = 13;
+	RedisErrTryAgain = 14;
+	RedisErrAsk = 15;
+	RedisErrMoved = 16;
+	RedisErrClusterDown = 17;
+	RedisErrNoReplicas = 18;
+	RedisErrOom = 19;
+	RedisErrNoQuorum = 20;
+	RedisErrBusyKey = 21;
+	RedisErrUnblocked = 22;
+	RedisErrWrongPass = 23;
+	RedisErrInvalidObj = 24;
 }
 
 message RedisStats {
