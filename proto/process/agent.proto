@@ -1762,13 +1762,8 @@ enum RedisErrorType {
 	RedisErrNoQuorum = 20;
 	RedisErrBusyKey = 21;
 	RedisErrUnblocked = 22;
-	RedisErrUnsupported = 23;
-	RedisErrSyntax = 24;
-	RedisErrClientClosed = 25;
-	RedisErrProxy = 26;
-	RedisErrWrongPass = 27;
-	RedisErrInvalid = 28;
-	RedisErrDeprecated = 29;
+	RedisErrWrongPass = 23;
+	RedisErrInvalidObj = 24;
 }
 
 message RedisStats {
