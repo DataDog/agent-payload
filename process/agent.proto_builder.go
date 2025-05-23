@@ -1697,6 +1697,7 @@ type CollectorManifestBuilder struct {
 	buf             bytes.Buffer
 	scratch         []byte
 	manifestBuilder ManifestBuilder
+	hostBuilder     HostBuilder
 }
 
 func NewCollectorManifestBuilder(writer io.Writer) *CollectorManifestBuilder {
@@ -1753,6 +1754,16 @@ func (x *CollectorManifestBuilder) SetHostName(v string) {
 	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
+}
+func (x *CollectorManifestBuilder) SetHost(cb func(w *HostBuilder)) {
+	x.buf.Reset()
+	x.hostBuilder.writer = &x.buf
+	x.hostBuilder.scratch = x.scratch
+	cb(&x.hostBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x42)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
 }
 
 type CollectorManifestCRDBuilder struct {
@@ -6807,9 +6818,10 @@ func (x *PreferredSchedulingTermBuilder) SetPreference(cb func(w *NodeSelectorTe
 }
 
 type ManifestBuilder struct {
-	writer  io.Writer
-	buf     bytes.Buffer
-	scratch []byte
+	writer      io.Writer
+	buf         bytes.Buffer
+	scratch     []byte
+	hostBuilder HostBuilder
 }
 
 func NewManifestBuilder(writer io.Writer) *ManifestBuilder {
@@ -6889,6 +6901,16 @@ func (x *ManifestBuilder) SetKind(v string) {
 	x.scratch = protowire.AppendVarint(x.scratch, 0x5a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
+}
+func (x *ManifestBuilder) SetHost(cb func(w *HostBuilder)) {
+	x.buf.Reset()
+	x.hostBuilder.writer = &x.buf
+	x.hostBuilder.scratch = x.scratch
+	cb(&x.hostBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x62)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
 }
 
 type NamespaceConditionBuilder struct {
