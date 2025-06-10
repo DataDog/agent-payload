@@ -499,6 +499,52 @@ message CollectorStatus {
 	int32 interval = 2;
 }
 
+enum Language {
+	LANGUAGE_UNKNOWN = 0;
+	LANGUAGE_JAVA = 1;
+	LANGUAGE_NODEJS = 2;
+	LANGUAGE_PYTHON = 3;
+	LANGUAGE_RUBY = 4;
+	LANGUAGE_DOTNET = 5;
+	LANGUAGE_GO = 6;
+	LANGUAGE_CPLUSPLUS = 7;
+	LANGUAGE_PHP = 8;
+}
+
+enum ServiceNameSource {
+	SERVICE_NAME_SOURCE_UNKNOWN = 0;
+	SERVICE_NAME_SOURCE_DD_SERVICE = 1;
+	SERVICE_NAME_SOURCE_COMMAND_LINE = 2;
+	SERVICE_NAME_SOURCE_LARAVEL = 3;
+	SERVICE_NAME_SOURCE_PYTHON = 4;
+	SERVICE_NAME_SOURCE_NODEJS = 5;
+	SERVICE_NAME_SOURCE_GUNICORN = 6;
+	SERVICE_NAME_SOURCE_RAILS = 7;
+	SERVICE_NAME_SOURCE_SPRING = 8;
+	SERVICE_NAME_SOURCE_JBOSS = 9;
+	SERVICE_NAME_SOURCE_TOMCAT = 10;
+	SERVICE_NAME_SOURCE_WEBLOGIC = 11;
+	SERVICE_NAME_SOURCE_WEBSPHERE = 12;
+}
+
+// TracerMetadata as defined in
+// https://github.com/DataDog/libdatadog/blob/99056cf717cfe9/ddcommon/src/tracer_metadata.rs#L7-L29
+message TracerMetadata {
+	uint32 schema_version = 1;
+	string runtime_id = 2;
+	string tracer_language = 3;
+	string tracer_version = 4;
+	string hostname = 5;
+	string service_name = 6;
+	string service_env = 7;
+	string service_version = 8;
+}
+
+message PortInfo {
+	repeated int32 tcp = 1;
+	repeated int32 udp = 2;
+}
+
 message Process {
 	reserved 6;
 
@@ -524,6 +570,16 @@ message Process {
 	ProcessNetworks networks = 21;
 	repeated string processContext = 22;
 	repeated string tags = 23;
+	Language language = 24;
+	repeated ServiceName serviceNames = 25;
+	PortInfo portInfo = 26;
+	bool instrumented = 27;
+	repeated TracerMetadata tracerMetadata = 28;
+}
+
+message ServiceName {
+	string name = 1;
+	ServiceNameSource source = 2;
 }
 
 message ProcessDiscovery {
