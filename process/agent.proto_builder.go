@@ -3239,51 +3239,15 @@ func (x *TracerMetadataBuilder) Reset(writer io.Writer) {
 	x.buf.Reset()
 	x.writer = writer
 }
-func (x *TracerMetadataBuilder) SetSchema_version(v uint32) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
-	x.writer.Write(x.scratch)
-}
 func (x *TracerMetadataBuilder) SetRuntime_id(v string) {
 	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
-	x.scratch = protowire.AppendString(x.scratch, v)
-	x.writer.Write(x.scratch)
-}
-func (x *TracerMetadataBuilder) SetTracer_language(v string) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
-	x.scratch = protowire.AppendString(x.scratch, v)
-	x.writer.Write(x.scratch)
-}
-func (x *TracerMetadataBuilder) SetTracer_version(v string) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
-	x.scratch = protowire.AppendString(x.scratch, v)
-	x.writer.Write(x.scratch)
-}
-func (x *TracerMetadataBuilder) SetHostname(v string) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 func (x *TracerMetadataBuilder) SetService_name(v string) {
 	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
-	x.scratch = protowire.AppendString(x.scratch, v)
-	x.writer.Write(x.scratch)
-}
-func (x *TracerMetadataBuilder) SetService_env(v string) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
-	x.scratch = protowire.AppendString(x.scratch, v)
-	x.writer.Write(x.scratch)
-}
-func (x *TracerMetadataBuilder) SetService_version(v string) {
-	x.scratch = x.scratch[:0]
-	x.scratch = protowire.AppendVarint(x.scratch, 0x42)
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
@@ -3538,7 +3502,7 @@ func (x *ProcessBuilder) SetPortInfo(cb func(w *PortInfoBuilder)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
-func (x *ProcessBuilder) SetInstrumented(v bool) {
+func (x *ProcessBuilder) SetApmInstrumented(v bool) {
 	if v {
 		x.scratch = protowire.AppendVarint(x.scratch[:0], 0xd8)
 		x.scratch = protowire.AppendVarint(x.scratch, 1)
