@@ -573,7 +573,7 @@ message Process {
 	Language language = 24;
 	repeated ServiceName serviceNames = 25;
 	PortInfo portInfo = 26;
-	bool instrumented = 27;
+	bool apmInstrumented = 27;
 	repeated TracerMetadata tracerMetadata = 28;
 }
 
