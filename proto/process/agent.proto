@@ -527,17 +527,11 @@ enum ServiceNameSource {
 	SERVICE_NAME_SOURCE_WEBSPHERE = 12;
 }
 
-// TracerMetadata as defined in
+// Selected fields from TracerMetadata as defined in
 // https://github.com/DataDog/libdatadog/blob/99056cf717cfe9/ddcommon/src/tracer_metadata.rs#L7-L29
 message TracerMetadata {
-	uint32 schema_version = 1;
-	string runtime_id = 2;
-	string tracer_language = 3;
-	string tracer_version = 4;
-	string hostname = 5;
-	string service_name = 6;
-	string service_env = 7;
-	string service_version = 8;
+	string runtime_id = 1;
+	string service_name = 2;
 }
 
 message PortInfo {
