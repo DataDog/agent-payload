@@ -583,6 +583,12 @@ func (x *CollectorECSTaskBuilder) SetInfo(cb func(w *SystemInfoBuilder)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *CollectorECSTaskBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x62)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type ECSTaskBuilder struct {
 	writer                                      io.Writer
@@ -1305,6 +1311,12 @@ func (x *CollectorPodBuilder) SetIsTerminated(v bool) {
 		x.writer.Write(x.scratch)
 	}
 }
+func (x *CollectorPodBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x5a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorPodDisruptionBudgetBuilder struct {
 	writer                     io.Writer
@@ -1362,6 +1374,12 @@ func (x *CollectorPodDisruptionBudgetBuilder) SetGroupSize(v int32) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorPodDisruptionBudgetBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorReplicaSetBuilder struct {
 	writer            io.Writer
@@ -1416,6 +1434,12 @@ func (x *CollectorReplicaSetBuilder) AddReplicaSets(cb func(w *ReplicaSetBuilder
 func (x *CollectorReplicaSetBuilder) AddTags(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorReplicaSetBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
@@ -1476,6 +1500,12 @@ func (x *CollectorDeploymentBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorDeploymentBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorServiceBuilder struct {
 	writer         io.Writer
@@ -1530,6 +1560,12 @@ func (x *CollectorServiceBuilder) AddServices(cb func(w *ServiceBuilder)) {
 func (x *CollectorServiceBuilder) AddTags(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorServiceBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
@@ -1600,6 +1636,12 @@ func (x *CollectorNodeBuilder) AddHostAliasMapping(cb func(w *CollectorNode_Host
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
+}
+func (x *CollectorNodeBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x42)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
 }
 
 type CollectorNode_HostAliasMappingEntryBuilder struct {
@@ -1691,6 +1733,12 @@ func (x *CollectorClusterBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorClusterBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorManifestBuilder struct {
 	writer          io.Writer
@@ -1751,6 +1799,12 @@ func (x *CollectorManifestBuilder) AddTags(v string) {
 func (x *CollectorManifestBuilder) SetHostName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorManifestBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x42)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
@@ -1877,6 +1931,12 @@ func (x *CollectorNamespaceBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorNamespaceBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorJobBuilder struct {
 	writer     io.Writer
@@ -1931,6 +1991,12 @@ func (x *CollectorJobBuilder) AddJobs(cb func(w *JobBuilder)) {
 func (x *CollectorJobBuilder) AddTags(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorJobBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
@@ -1991,6 +2057,12 @@ func (x *CollectorCronJobBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorCronJobBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorDaemonSetBuilder struct {
 	writer           io.Writer
@@ -2045,6 +2117,12 @@ func (x *CollectorDaemonSetBuilder) AddDaemonSets(cb func(w *DaemonSetBuilder)) 
 func (x *CollectorDaemonSetBuilder) AddTags(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorDaemonSetBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
@@ -2105,6 +2183,12 @@ func (x *CollectorStatefulSetBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorStatefulSetBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorPersistentVolumeBuilder struct {
 	writer                  io.Writer
@@ -2159,6 +2243,12 @@ func (x *CollectorPersistentVolumeBuilder) AddPersistentVolumes(cb func(w *Persi
 func (x *CollectorPersistentVolumeBuilder) AddTags(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorPersistentVolumeBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
@@ -2219,6 +2309,12 @@ func (x *CollectorPersistentVolumeClaimBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorPersistentVolumeClaimBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorRoleBuilder struct {
 	writer      io.Writer
@@ -2273,6 +2369,12 @@ func (x *CollectorRoleBuilder) AddRoles(cb func(w *RoleBuilder)) {
 func (x *CollectorRoleBuilder) AddTags(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorRoleBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
@@ -2333,6 +2435,12 @@ func (x *CollectorRoleBindingBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorRoleBindingBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorClusterRoleBuilder struct {
 	writer             io.Writer
@@ -2387,6 +2495,12 @@ func (x *CollectorClusterRoleBuilder) AddClusterRoles(cb func(w *ClusterRoleBuil
 func (x *CollectorClusterRoleBuilder) AddTags(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorClusterRoleBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
@@ -2447,6 +2561,12 @@ func (x *CollectorClusterRoleBindingBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorClusterRoleBindingBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorServiceAccountBuilder struct {
 	writer                io.Writer
@@ -2501,6 +2621,12 @@ func (x *CollectorServiceAccountBuilder) AddServiceAccounts(cb func(w *ServiceAc
 func (x *CollectorServiceAccountBuilder) AddTags(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorServiceAccountBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
@@ -2561,6 +2687,12 @@ func (x *CollectorIngressBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorIngressBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorVerticalPodAutoscalerBuilder struct {
 	writer                       io.Writer
@@ -2615,6 +2747,12 @@ func (x *CollectorVerticalPodAutoscalerBuilder) AddVerticalPodAutoscalers(cb fun
 func (x *CollectorVerticalPodAutoscalerBuilder) AddTags(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorVerticalPodAutoscalerBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
@@ -2675,6 +2813,12 @@ func (x *CollectorHorizontalPodAutoscalerBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorHorizontalPodAutoscalerBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorNetworkPolicyBuilder struct {
 	writer               io.Writer
@@ -2729,6 +2873,12 @@ func (x *CollectorNetworkPolicyBuilder) AddNetworkPolicies(cb func(w *NetworkPol
 func (x *CollectorNetworkPolicyBuilder) AddTags(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorNetworkPolicyBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
@@ -2789,6 +2939,12 @@ func (x *CollectorLimitRangeBuilder) AddTags(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorLimitRangeBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorStorageClassBuilder struct {
 	writer              io.Writer
@@ -2843,6 +2999,12 @@ func (x *CollectorStorageClassBuilder) AddStorageClasses(cb func(w *StorageClass
 func (x *CollectorStorageClassBuilder) AddTags(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorStorageClassBuilder) SetAgentVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }

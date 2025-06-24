@@ -122,6 +122,7 @@ message CollectorECSTask {
 	Host host = 9; // Post-resolved field
 	string hostName = 10;
 	SystemInfo info = 11;
+	string agentVersion = 12;
 }
 
 message ECSTask {
@@ -214,6 +215,7 @@ message CollectorPod {
 	repeated string tags = 8;
 	SystemInfo info = 9;
 	bool isTerminated = 10;
+	string agentVersion = 11;
 }
 
 message CollectorPodDisruptionBudget {
@@ -223,6 +225,7 @@ message CollectorPodDisruptionBudget {
 	repeated PodDisruptionBudget podDisruptionBudgets = 4;
 	repeated string tags = 5;
 	int32 groupSize = 6;
+	string agentVersion = 7;
 }
 
 message CollectorReplicaSet {
@@ -232,6 +235,7 @@ message CollectorReplicaSet {
 	int32 groupSize = 4;
 	repeated ReplicaSet replicaSets = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorDeployment {
@@ -241,6 +245,7 @@ message CollectorDeployment {
 	int32 groupSize = 4;
 	repeated Deployment deployments = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorService {
@@ -250,6 +255,7 @@ message CollectorService {
 	int32 groupSize = 4;
 	repeated Service services = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorNode {
@@ -260,6 +266,7 @@ message CollectorNode {
 	repeated Node nodes = 5;
 	repeated string tags = 6;
 	map<string, Host> hostAliasMapping = 7;
+	string agentVersion = 8;
 }
 
 message CollectorCluster {
@@ -269,6 +276,7 @@ message CollectorCluster {
 	int32 groupSize = 4;
 	Cluster cluster = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 // CollectorManifest is the dedicated payload/pipeline for the yaml collection
@@ -280,6 +288,7 @@ message CollectorManifest {
 	repeated Manifest manifests = 5;
 	repeated string tags = 6;
 	string hostName = 7;
+	string agentVersion = 8;
 }
 
 message CollectorManifestCRD {
@@ -299,6 +308,7 @@ message CollectorNamespace {
 	int32 groupSize = 4;
 	repeated Namespace namespaces = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorJob {
@@ -308,6 +318,7 @@ message CollectorJob {
 	int32 groupSize = 4;
 	repeated Job jobs = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorCronJob {
@@ -317,6 +328,7 @@ message CollectorCronJob {
 	int32 groupSize = 4;
 	repeated CronJob cronJobs = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorDaemonSet {
@@ -326,6 +338,7 @@ message CollectorDaemonSet {
 	int32 groupSize = 4;
 	repeated DaemonSet daemonSets = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorStatefulSet {
@@ -335,6 +348,7 @@ message CollectorStatefulSet {
 	int32 groupSize = 4;
 	repeated StatefulSet statefulSets = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorPersistentVolume {
@@ -344,6 +358,7 @@ message CollectorPersistentVolume {
 	int32 groupSize = 4;
 	repeated PersistentVolume persistentVolumes = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorPersistentVolumeClaim {
@@ -353,6 +368,7 @@ message CollectorPersistentVolumeClaim {
 	int32 groupSize = 4;
 	repeated PersistentVolumeClaim persistentVolumeClaims = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorRole {
@@ -362,6 +378,7 @@ message CollectorRole {
 	int32 groupSize = 4;
 	repeated Role roles = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorRoleBinding {
@@ -371,6 +388,7 @@ message CollectorRoleBinding {
 	int32 groupSize = 4;
 	repeated RoleBinding roleBindings = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorClusterRole {
@@ -380,6 +398,7 @@ message CollectorClusterRole {
 	int32 groupSize = 4;
 	repeated ClusterRole clusterRoles = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorClusterRoleBinding {
@@ -389,6 +408,7 @@ message CollectorClusterRoleBinding {
 	int32 groupSize = 4;
 	repeated ClusterRoleBinding clusterRoleBindings = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorServiceAccount {
@@ -398,6 +418,7 @@ message CollectorServiceAccount {
 	int32 groupSize = 4;
 	repeated ServiceAccount serviceAccounts = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorIngress {
@@ -407,6 +428,7 @@ message CollectorIngress {
 	int32 groupSize = 4;
 	repeated Ingress ingresses = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorVerticalPodAutoscaler {
@@ -416,6 +438,7 @@ message CollectorVerticalPodAutoscaler {
 	int32 groupSize = 4;
 	repeated VerticalPodAutoscaler verticalPodAutoscalers = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorHorizontalPodAutoscaler {
@@ -425,6 +448,7 @@ message CollectorHorizontalPodAutoscaler {
 	int32 groupSize = 4;
 	repeated HorizontalPodAutoscaler horizontalPodAutoscalers = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorNetworkPolicy {
@@ -434,6 +458,7 @@ message CollectorNetworkPolicy {
 	int32 groupSize = 4;
 	repeated NetworkPolicy networkPolicies = 5;
 	repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorLimitRange {
@@ -443,6 +468,7 @@ message CollectorLimitRange {
     int32 groupSize = 4;
     repeated LimitRange limitRanges = 5;
     repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 message CollectorStorageClass {
@@ -452,6 +478,7 @@ message CollectorStorageClass {
     int32 groupSize = 4;
     repeated StorageClass storageClasses = 5;
     repeated string tags = 6;
+	string agentVersion = 7;
 }
 
 //
