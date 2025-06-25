@@ -545,6 +545,16 @@ func (m *ProcessActivityNode) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
+	if m.LastSeen != 0 {
+		i = encodeVarint(dAtA, i, uint64(m.LastSeen))
+		i--
+		dAtA[i] = 0x78
+	}
+	if m.FirstSeen != 0 {
+		i = encodeVarint(dAtA, i, uint64(m.FirstSeen))
+		i--
+		dAtA[i] = 0x70
+	}
 	if len(m.NetworkDevices) > 0 {
 		for iNdEx := len(m.NetworkDevices) - 1; iNdEx >= 0; iNdEx-- {
 			size, err := m.NetworkDevices[iNdEx].MarshalToSizedBufferVT(dAtA[:i])
@@ -2740,6 +2750,12 @@ func (m *ProcessActivityNode) SizeVT() (n int) {
 			l = e.SizeVT()
 			n += 1 + l + sov(uint64(l))
 		}
+	}
+	if m.FirstSeen != 0 {
+		n += 1 + sov(uint64(m.FirstSeen))
+	}
+	if m.LastSeen != 0 {
+		n += 1 + sov(uint64(m.LastSeen))
 	}
 	n += len(m.unknownFields)
 	return n
@@ -5589,6 +5605,44 @@ func (m *ProcessActivityNode) UnmarshalVT(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
+		case 14:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FirstSeen", wireType)
+			}
+			m.FirstSeen = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.FirstSeen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 15:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastSeen", wireType)
+			}
+			m.LastSeen = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.LastSeen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skip(dAtA[iNdEx:])

@@ -8971,6 +8971,18 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
      */
     com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNodeOrBuilder getNetworkDevicesOrBuilder(
         int index);
+
+    /**
+     * <code>uint64 first_seen = 14;</code>
+     * @return The firstSeen.
+     */
+    long getFirstSeen();
+
+    /**
+     * <code>uint64 last_seen = 15;</code>
+     * @return The lastSeen.
+     */
+    long getLastSeen();
   }
   /**
    * Protobuf type {@code datadog.cws.dumpsv1.ProcessActivityNode}
@@ -9466,6 +9478,28 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       return networkDevices_.get(index);
     }
 
+    public static final int FIRST_SEEN_FIELD_NUMBER = 14;
+    private long firstSeen_ = 0L;
+    /**
+     * <code>uint64 first_seen = 14;</code>
+     * @return The firstSeen.
+     */
+    @java.lang.Override
+    public long getFirstSeen() {
+      return firstSeen_;
+    }
+
+    public static final int LAST_SEEN_FIELD_NUMBER = 15;
+    private long lastSeen_ = 0L;
+    /**
+     * <code>uint64 last_seen = 15;</code>
+     * @return The lastSeen.
+     */
+    @java.lang.Override
+    public long getLastSeen() {
+      return lastSeen_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -9520,6 +9554,12 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       }
       for (int i = 0; i < networkDevices_.size(); i++) {
         output.writeMessage(13, networkDevices_.get(i));
+      }
+      if (firstSeen_ != 0L) {
+        output.writeUInt64(14, firstSeen_);
+      }
+      if (lastSeen_ != 0L) {
+        output.writeUInt64(15, lastSeen_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -9592,6 +9632,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(13, networkDevices_.get(i));
       }
+      if (firstSeen_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(14, firstSeen_);
+      }
+      if (lastSeen_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(15, lastSeen_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -9633,6 +9681,10 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           .equals(other.getSyscallNodesList())) return false;
       if (!getNetworkDevicesList()
           .equals(other.getNetworkDevicesList())) return false;
+      if (getFirstSeen()
+          != other.getFirstSeen()) return false;
+      if (getLastSeen()
+          != other.getLastSeen()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -9690,6 +9742,12 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         hash = (37 * hash) + NETWORK_DEVICES_FIELD_NUMBER;
         hash = (53 * hash) + getNetworkDevicesList().hashCode();
       }
+      hash = (37 * hash) + FIRST_SEEN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getFirstSeen());
+      hash = (37 * hash) + LAST_SEEN_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLastSeen());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -9884,6 +9942,8 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           networkDevicesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000800);
+        firstSeen_ = 0L;
+        lastSeen_ = 0L;
         return this;
       }
 
@@ -10010,6 +10070,12 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.generationType_ = generationType_;
+        }
+        if (((from_bitField0_ & 0x00001000) != 0)) {
+          result.firstSeen_ = firstSeen_;
+        }
+        if (((from_bitField0_ & 0x00002000) != 0)) {
+          result.lastSeen_ = lastSeen_;
         }
       }
 
@@ -10291,6 +10357,12 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
             }
           }
         }
+        if (other.getFirstSeen() != 0L) {
+          setFirstSeen(other.getFirstSeen());
+        }
+        if (other.getLastSeen() != 0L) {
+          setLastSeen(other.getLastSeen());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -10455,6 +10527,16 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
                 }
                 break;
               } // case 106
+              case 112: {
+                firstSeen_ = input.readUInt64();
+                bitField0_ |= 0x00001000;
+                break;
+              } // case 112
+              case 120: {
+                lastSeen_ = input.readUInt64();
+                bitField0_ |= 0x00002000;
+                break;
+              } // case 120
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -12762,6 +12844,70 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         }
         return networkDevicesBuilder_;
       }
+
+      private long firstSeen_ ;
+      /**
+       * <code>uint64 first_seen = 14;</code>
+       * @return The firstSeen.
+       */
+      @java.lang.Override
+      public long getFirstSeen() {
+        return firstSeen_;
+      }
+      /**
+       * <code>uint64 first_seen = 14;</code>
+       * @param value The firstSeen to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFirstSeen(long value) {
+        
+        firstSeen_ = value;
+        bitField0_ |= 0x00001000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 first_seen = 14;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFirstSeen() {
+        bitField0_ = (bitField0_ & ~0x00001000);
+        firstSeen_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long lastSeen_ ;
+      /**
+       * <code>uint64 last_seen = 15;</code>
+       * @return The lastSeen.
+       */
+      @java.lang.Override
+      public long getLastSeen() {
+        return lastSeen_;
+      }
+      /**
+       * <code>uint64 last_seen = 15;</code>
+       * @param value The lastSeen to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLastSeen(long value) {
+        
+        lastSeen_ = value;
+        bitField0_ |= 0x00002000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 last_seen = 15;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLastSeen() {
+        bitField0_ = (bitField0_ & ~0x00002000);
+        lastSeen_ = 0L;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -12851,7 +12997,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint32 cookie = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=89
      * @return The cookie.
      */
     @java.lang.Deprecated int getCookie();
@@ -12892,7 +13038,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint64 span_id = 8 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.span_id is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=93
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=96
      * @return The spanId.
      */
     @java.lang.Deprecated long getSpanId();
@@ -12900,7 +13046,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint64 trace_id = 9 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.trace_id is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=94
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=97
      * @return The traceId.
      */
     @java.lang.Deprecated long getTraceId();
@@ -13132,7 +13278,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint32 cookie = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=89
      * @return The cookie.
      */
     @java.lang.Override
@@ -13221,7 +13367,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint64 span_id = 8 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.span_id is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=93
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=96
      * @return The spanId.
      */
     @java.lang.Override
@@ -13234,7 +13380,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint64 trace_id = 9 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.trace_id is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=94
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=97
      * @return The traceId.
      */
     @java.lang.Override
@@ -14518,7 +14664,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint32 cookie = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=89
        * @return The cookie.
        */
       @java.lang.Override
@@ -14528,7 +14674,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint32 cookie = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=89
        * @param value The cookie to set.
        * @return This builder for chaining.
        */
@@ -14542,7 +14688,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint32 cookie = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=89
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearCookie() {
@@ -14779,7 +14925,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 span_id = 8 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.span_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=93
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=96
        * @return The spanId.
        */
       @java.lang.Override
@@ -14789,7 +14935,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 span_id = 8 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.span_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=93
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=96
        * @param value The spanId to set.
        * @return This builder for chaining.
        */
@@ -14803,7 +14949,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 span_id = 8 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.span_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=93
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=96
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearSpanId() {
@@ -14817,7 +14963,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 trace_id = 9 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.trace_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=94
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=97
        * @return The traceId.
        */
       @java.lang.Override
@@ -14827,7 +14973,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 trace_id = 9 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.trace_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=94
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=97
        * @param value The traceId to set.
        * @return This builder for chaining.
        */
@@ -14841,7 +14987,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 trace_id = 9 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.trace_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=94
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=97
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearTraceId() {
@@ -38714,7 +38860,7 @@ java.lang.String defaultValue) {
       "or\030\010 \001(\0132$.datadog.cws.dumpsv1.ProfileSe" +
       "lector\032[\n\024ProfileContextsEntry\022\013\n\003key\030\001 " +
       "\001(\t\0222\n\005value\030\002 \001(\0132#.datadog.cws.dumpsv1" +
-      ".ProfileContext:\0028\001\"\362\004\n\023ProcessActivityN" +
+      ".ProfileContext:\0028\001\"\231\005\n\023ProcessActivityN" +
       "ode\0221\n\007process\030\001 \001(\0132 .datadog.cws.dumps" +
       "v1.ProcessInfo\022<\n\017generation_type\030\010 \001(\0162" +
       "#.datadog.cws.dumpsv1.GenerationType\0227\n\r" +
@@ -38730,105 +38876,106 @@ java.lang.String defaultValue) {
       "\0227\n\rsyscall_nodes\030\014 \003(\0132 .datadog.cws.du" +
       "mpsv1.SyscallNode\022?\n\017network_devices\030\r \003" +
       "(\0132&.datadog.cws.dumpsv1.NetworkDeviceNo" +
-      "deJ\004\010\002\020\003\"\331\003\n\013ProcessInfo\022\013\n\003pid\030\001 \001(\r\022\013\n" +
-      "\003tid\030\002 \001(\r\022\014\n\004ppid\030\003 \001(\r\022\022\n\006cookie\030\004 \001(\r" +
-      "B\002\030\001\022\021\n\tis_thread\030\005 \001(\010\022+\n\004file\030\006 \001(\0132\035." +
-      "datadog.cws.dumpsv1.FileInfo\022\024\n\014containe" +
-      "r_id\030\007 \001(\t\022\023\n\007span_id\030\010 \001(\004B\002\030\001\022\024\n\010trace" +
-      "_id\030\t \001(\004B\002\030\001\022\013\n\003tty\030\n \001(\t\022\014\n\004comm\030\013 \001(\t" +
-      "\022\021\n\tfork_time\030\014 \001(\004\022\021\n\texit_time\030\r \001(\004\022\021" +
-      "\n\texec_time\030\016 \001(\004\0225\n\013credentials\030\017 \001(\0132 " +
-      ".datadog.cws.dumpsv1.Credentials\022\014\n\004args" +
-      "\030\020 \003(\t\022\r\n\005argv0\030\021 \001(\t\022\026\n\016args_truncated\030" +
-      "\022 \001(\010\022\014\n\004envs\030\023 \003(\t\022\026\n\016envs_truncated\030\024 " +
-      "\001(\010\022\025\n\ris_exec_child\030\025 \001(\010\022\020\n\010cookie64\030\026" +
-      " \001(\004\"\354\002\n\020FileActivityNode\0227\n\rmatched_rul" +
-      "es\030\t \003(\0132 .datadog.cws.dumpsv1.MatchedRu" +
-      "le\022\022\n\nimage_tags\030\n \003(\t\022\014\n\004name\030\001 \001(\t\022\022\n\n" +
-      "is_pattern\030\007 \001(\010\022+\n\004file\030\002 \001(\0132\035.datadog" +
-      ".cws.dumpsv1.FileInfo\022<\n\017generation_type" +
-      "\030\010 \001(\0162#.datadog.cws.dumpsv1.GenerationT" +
-      "ype\022\022\n\nfirst_seen\030\004 \001(\004\022+\n\004open\030\005 \001(\0132\035." +
-      "datadog.cws.dumpsv1.OpenNode\0227\n\010children" +
-      "\030\006 \003(\0132%.datadog.cws.dumpsv1.FileActivit" +
-      "yNodeJ\004\010\003\020\004\"7\n\010OpenNode\022\016\n\006retval\030\001 \001(\022\022" +
-      "\r\n\005flags\030\002 \001(\r\022\014\n\004mode\030\003 \001(\r\"\206\001\n\007DNSNode" +
-      "\0227\n\rmatched_rules\030\002 \003(\0132 .datadog.cws.du" +
-      "mpsv1.MatchedRule\022\022\n\nimage_tags\030\003 \003(\t\022.\n" +
-      "\010requests\030\001 \003(\0132\034.datadog.cws.dumpsv1.DN" +
-      "SInfo\"Q\n\007DNSInfo\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002" +
-      " \001(\r\022\r\n\005class\030\003 \001(\r\022\014\n\004size\030\004 \001(\r\022\r\n\005cou" +
-      "nt\030\005 \001(\r\"2\n\013SyscallNode\022\022\n\nimage_tags\030\001 " +
-      "\003(\t\022\017\n\007syscall\030\002 \001(\005\"\206\001\n\010IMDSNode\0227\n\rmat" +
-      "ched_rules\030\001 \003(\0132 .datadog.cws.dumpsv1.M" +
-      "atchedRule\022\022\n\nimage_tags\030\002 \003(\t\022-\n\005event\030" +
-      "\003 \001(\0132\036.datadog.cws.dumpsv1.IMDSEvent\"\240\001" +
-      "\n\tIMDSEvent\022\014\n\004type\030\001 \001(\t\022\026\n\016cloud_provi" +
-      "der\030\002 \001(\t\022\013\n\003url\030\003 \001(\t\022\014\n\004host\030\004 \001(\t\022\022\n\n" +
-      "user_agent\030\005 \001(\t\022\016\n\006server\030\006 \001(\t\022.\n\003aws\030" +
-      "\007 \001(\0132!.datadog.cws.dumpsv1.AWSIMDSEvent" +
-      "\"m\n\014AWSIMDSEvent\022\022\n\nis_imds_v2\030\001 \001(\010\022I\n\024" +
-      "security_credentials\030\002 \001(\0132+.datadog.cws" +
-      ".dumpsv1.AWSSecurityCredentials\"y\n\026AWSSe" +
-      "curityCredentials\022\014\n\004code\030\001 \001(\t\022\014\n\004type\030" +
-      "\002 \001(\t\022\025\n\raccess_key_id\030\003 \001(\t\022\024\n\014last_upd" +
-      "ated\030\004 \001(\t\022\026\n\016expiration_raw\030\005 \001(\t\"\351\002\n\010F" +
-      "ileInfo\022\013\n\003uid\030\001 \001(\r\022\014\n\004user\030\002 \001(\t\022\013\n\003gi" +
-      "d\030\003 \001(\r\022\r\n\005group\030\004 \001(\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005" +
-      "ctime\030\006 \001(\004\022\r\n\005mtime\030\007 \001(\004\022\020\n\010mount_id\030\010" +
-      " \001(\r\022\r\n\005inode\030\t \001(\004\022\026\n\016in_upper_layer\030\n " +
-      "\001(\010\022\014\n\004path\030\013 \001(\t\022\020\n\010basename\030\014 \001(\t\022\022\n\nf" +
-      "ilesystem\030\r \001(\t\022\024\n\014package_name\030\016 \001(\t\022\027\n" +
-      "\017package_version\030\017 \001(\t\022\032\n\022package_srcver" +
-      "sion\030\020 \001(\t\022\016\n\006hashes\030\021 \003(\t\0222\n\nhash_state" +
-      "\030\022 \001(\0162\036.datadog.cws.dumpsv1.HashState\"\224" +
-      "\002\n\013Credentials\022\013\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r" +
-      "\022\014\n\004user\030\003 \001(\t\022\r\n\005group\030\004 \001(\t\022\025\n\reffecti" +
-      "ve_uid\030\005 \001(\r\022\025\n\reffective_gid\030\006 \001(\r\022\026\n\016e" +
-      "ffective_user\030\007 \001(\t\022\027\n\017effective_group\030\010" +
-      " \001(\t\022\016\n\006fs_uid\030\t \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007" +
-      "fs_user\030\013 \001(\t\022\020\n\010fs_group\030\014 \001(\t\022\025\n\rcap_e" +
-      "ffective\030\r \001(\004\022\025\n\rcap_permitted\030\016 \001(\004\"I\n" +
-      "\nSocketNode\022\016\n\006family\030\001 \001(\t\022+\n\004bind\030\002 \003(" +
-      "\0132\035.datadog.cws.dumpsv1.BindNode\"\203\001\n\010Bin" +
-      "dNode\0227\n\rmatched_rules\030\003 \003(\0132 .datadog.c" +
-      "ws.dumpsv1.MatchedRule\022\022\n\nimage_tags\030\004 \003" +
-      "(\t\022\014\n\004port\030\001 \001(\r\022\n\n\002ip\030\002 \001(\t\022\020\n\010protocol" +
-      "\030\005 \001(\r\"\257\001\n\021NetworkDeviceNode\0227\n\rmatched_" +
-      "rules\030\001 \003(\0132 .datadog.cws.dumpsv1.Matche" +
-      "dRule\022\r\n\005netns\030\002 \001(\r\022\017\n\007ifindex\030\003 \001(\r\022\016\n" +
-      "\006ifname\030\004 \001(\t\0221\n\nflow_nodes\030\005 \003(\0132\035.data" +
-      "dog.cws.dumpsv1.FlowNode\"\234\002\n\010FlowNode\022\022\n" +
-      "\nimage_tags\030\001 \003(\t\0222\n\006source\030\002 \001(\0132\".data" +
-      "dog.cws.dumpsv1.IPPortContext\0227\n\013destina" +
-      "tion\030\003 \001(\0132\".datadog.cws.dumpsv1.IPPortC" +
-      "ontext\022\023\n\013l3_protocol\030\004 \001(\r\022\023\n\013l4_protoc" +
-      "ol\030\005 \001(\r\0222\n\007ingress\030\006 \001(\0132!.datadog.cws." +
-      "dumpsv1.NetworkStats\0221\n\006egress\030\007 \001(\0132!.d" +
-      "atadog.cws.dumpsv1.NetworkStats\")\n\rIPPor" +
-      "tContext\022\n\n\002ip\030\001 \001(\t\022\014\n\004port\030\002 \001(\r\"7\n\014Ne" +
-      "tworkStats\022\021\n\tdata_size\030\001 \001(\004\022\024\n\014packet_" +
-      "count\030\002 \001(\004\"\325\001\n\013MatchedRule\022\017\n\007rule_id\030\001" +
-      " \001(\t\022\024\n\014rule_version\030\002 \001(\t\022\023\n\013policy_nam" +
-      "e\030\003 \001(\t\022\026\n\016policy_version\030\004 \001(\t\022A\n\trule_" +
-      "tags\030\005 \003(\0132..datadog.cws.dumpsv1.Matched" +
-      "Rule.RuleTagsEntry\032/\n\rRuleTagsEntry\022\013\n\003k" +
-      "ey\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"t\n\020event_typ" +
-      "e_state\022\031\n\021last_anomaly_nano\030\001 \001(\004\022E\n\023ev" +
-      "ent_profile_state\030\002 \001(\0162(.datadog.cws.du" +
-      "mpsv1.event_profile_state*\271\001\n\tHashState\022" +
-      "\013\n\007NO_HASH\020\000\022\010\n\004DONE\020\001\022\022\n\016FILE_NOT_FOUND" +
-      "\020\002\022\035\n\031PATHNAME_RESOLUTION_ERROR\020\003\022\020\n\014FIL" +
-      "E_TOO_BIG\020\004\022\035\n\031EVENT_TYPE_NOT_CONFIGURED" +
-      "\020\005\022\031\n\025HASH_WAS_RATE_LIMITED\020\006\022\026\n\022UNKNOWN" +
-      "_HASH_ERROR\020\007*8\n\016GenerationType\022\013\n\007UNKNO" +
-      "WN\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPSHOT\020\002*\220\001\n\023even" +
-      "t_profile_state\022\016\n\nNO_PROFILE\020\000\022\027\n\023PROFI" +
-      "LE_AT_MAX_SIZE\020\001\022\024\n\020UNSTABLE_PROFILE\020\002\022\022" +
-      "\n\016STABLE_PROFILE\020\003\022\021\n\rAUTO_LEARNING\020\004\022\023\n" +
-      "\017WORKLOAD_WARMUP\020\005BU\n\022com.dd.cws.adv1.pb" +
-      "B\014SecDumpProtoP\000Z/github.com/DataDog/age" +
-      "nt-payload/v5/cws/dumpsv1b\006proto3"
+      "de\022\022\n\nfirst_seen\030\016 \001(\004\022\021\n\tlast_seen\030\017 \001(" +
+      "\004J\004\010\002\020\003\"\331\003\n\013ProcessInfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003" +
+      "tid\030\002 \001(\r\022\014\n\004ppid\030\003 \001(\r\022\022\n\006cookie\030\004 \001(\rB" +
+      "\002\030\001\022\021\n\tis_thread\030\005 \001(\010\022+\n\004file\030\006 \001(\0132\035.d" +
+      "atadog.cws.dumpsv1.FileInfo\022\024\n\014container" +
+      "_id\030\007 \001(\t\022\023\n\007span_id\030\010 \001(\004B\002\030\001\022\024\n\010trace_" +
+      "id\030\t \001(\004B\002\030\001\022\013\n\003tty\030\n \001(\t\022\014\n\004comm\030\013 \001(\t\022" +
+      "\021\n\tfork_time\030\014 \001(\004\022\021\n\texit_time\030\r \001(\004\022\021\n" +
+      "\texec_time\030\016 \001(\004\0225\n\013credentials\030\017 \001(\0132 ." +
+      "datadog.cws.dumpsv1.Credentials\022\014\n\004args\030" +
+      "\020 \003(\t\022\r\n\005argv0\030\021 \001(\t\022\026\n\016args_truncated\030\022" +
+      " \001(\010\022\014\n\004envs\030\023 \003(\t\022\026\n\016envs_truncated\030\024 \001" +
+      "(\010\022\025\n\ris_exec_child\030\025 \001(\010\022\020\n\010cookie64\030\026 " +
+      "\001(\004\"\354\002\n\020FileActivityNode\0227\n\rmatched_rule" +
+      "s\030\t \003(\0132 .datadog.cws.dumpsv1.MatchedRul" +
+      "e\022\022\n\nimage_tags\030\n \003(\t\022\014\n\004name\030\001 \001(\t\022\022\n\ni" +
+      "s_pattern\030\007 \001(\010\022+\n\004file\030\002 \001(\0132\035.datadog." +
+      "cws.dumpsv1.FileInfo\022<\n\017generation_type\030" +
+      "\010 \001(\0162#.datadog.cws.dumpsv1.GenerationTy" +
+      "pe\022\022\n\nfirst_seen\030\004 \001(\004\022+\n\004open\030\005 \001(\0132\035.d" +
+      "atadog.cws.dumpsv1.OpenNode\0227\n\010children\030" +
+      "\006 \003(\0132%.datadog.cws.dumpsv1.FileActivity" +
+      "NodeJ\004\010\003\020\004\"7\n\010OpenNode\022\016\n\006retval\030\001 \001(\022\022\r" +
+      "\n\005flags\030\002 \001(\r\022\014\n\004mode\030\003 \001(\r\"\206\001\n\007DNSNode\022" +
+      "7\n\rmatched_rules\030\002 \003(\0132 .datadog.cws.dum" +
+      "psv1.MatchedRule\022\022\n\nimage_tags\030\003 \003(\t\022.\n\010" +
+      "requests\030\001 \003(\0132\034.datadog.cws.dumpsv1.DNS" +
+      "Info\"Q\n\007DNSInfo\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 " +
+      "\001(\r\022\r\n\005class\030\003 \001(\r\022\014\n\004size\030\004 \001(\r\022\r\n\005coun" +
+      "t\030\005 \001(\r\"2\n\013SyscallNode\022\022\n\nimage_tags\030\001 \003" +
+      "(\t\022\017\n\007syscall\030\002 \001(\005\"\206\001\n\010IMDSNode\0227\n\rmatc" +
+      "hed_rules\030\001 \003(\0132 .datadog.cws.dumpsv1.Ma" +
+      "tchedRule\022\022\n\nimage_tags\030\002 \003(\t\022-\n\005event\030\003" +
+      " \001(\0132\036.datadog.cws.dumpsv1.IMDSEvent\"\240\001\n" +
+      "\tIMDSEvent\022\014\n\004type\030\001 \001(\t\022\026\n\016cloud_provid" +
+      "er\030\002 \001(\t\022\013\n\003url\030\003 \001(\t\022\014\n\004host\030\004 \001(\t\022\022\n\nu" +
+      "ser_agent\030\005 \001(\t\022\016\n\006server\030\006 \001(\t\022.\n\003aws\030\007" +
+      " \001(\0132!.datadog.cws.dumpsv1.AWSIMDSEvent\"" +
+      "m\n\014AWSIMDSEvent\022\022\n\nis_imds_v2\030\001 \001(\010\022I\n\024s" +
+      "ecurity_credentials\030\002 \001(\0132+.datadog.cws." +
+      "dumpsv1.AWSSecurityCredentials\"y\n\026AWSSec" +
+      "urityCredentials\022\014\n\004code\030\001 \001(\t\022\014\n\004type\030\002" +
+      " \001(\t\022\025\n\raccess_key_id\030\003 \001(\t\022\024\n\014last_upda" +
+      "ted\030\004 \001(\t\022\026\n\016expiration_raw\030\005 \001(\t\"\351\002\n\010Fi" +
+      "leInfo\022\013\n\003uid\030\001 \001(\r\022\014\n\004user\030\002 \001(\t\022\013\n\003gid" +
+      "\030\003 \001(\r\022\r\n\005group\030\004 \001(\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005c" +
+      "time\030\006 \001(\004\022\r\n\005mtime\030\007 \001(\004\022\020\n\010mount_id\030\010 " +
+      "\001(\r\022\r\n\005inode\030\t \001(\004\022\026\n\016in_upper_layer\030\n \001" +
+      "(\010\022\014\n\004path\030\013 \001(\t\022\020\n\010basename\030\014 \001(\t\022\022\n\nfi" +
+      "lesystem\030\r \001(\t\022\024\n\014package_name\030\016 \001(\t\022\027\n\017" +
+      "package_version\030\017 \001(\t\022\032\n\022package_srcvers" +
+      "ion\030\020 \001(\t\022\016\n\006hashes\030\021 \003(\t\0222\n\nhash_state\030" +
+      "\022 \001(\0162\036.datadog.cws.dumpsv1.HashState\"\224\002" +
+      "\n\013Credentials\022\013\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022" +
+      "\014\n\004user\030\003 \001(\t\022\r\n\005group\030\004 \001(\t\022\025\n\reffectiv" +
+      "e_uid\030\005 \001(\r\022\025\n\reffective_gid\030\006 \001(\r\022\026\n\016ef" +
+      "fective_user\030\007 \001(\t\022\027\n\017effective_group\030\010 " +
+      "\001(\t\022\016\n\006fs_uid\030\t \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007f" +
+      "s_user\030\013 \001(\t\022\020\n\010fs_group\030\014 \001(\t\022\025\n\rcap_ef" +
+      "fective\030\r \001(\004\022\025\n\rcap_permitted\030\016 \001(\004\"I\n\n" +
+      "SocketNode\022\016\n\006family\030\001 \001(\t\022+\n\004bind\030\002 \003(\013" +
+      "2\035.datadog.cws.dumpsv1.BindNode\"\203\001\n\010Bind" +
+      "Node\0227\n\rmatched_rules\030\003 \003(\0132 .datadog.cw" +
+      "s.dumpsv1.MatchedRule\022\022\n\nimage_tags\030\004 \003(" +
+      "\t\022\014\n\004port\030\001 \001(\r\022\n\n\002ip\030\002 \001(\t\022\020\n\010protocol\030" +
+      "\005 \001(\r\"\257\001\n\021NetworkDeviceNode\0227\n\rmatched_r" +
+      "ules\030\001 \003(\0132 .datadog.cws.dumpsv1.Matched" +
+      "Rule\022\r\n\005netns\030\002 \001(\r\022\017\n\007ifindex\030\003 \001(\r\022\016\n\006" +
+      "ifname\030\004 \001(\t\0221\n\nflow_nodes\030\005 \003(\0132\035.datad" +
+      "og.cws.dumpsv1.FlowNode\"\234\002\n\010FlowNode\022\022\n\n" +
+      "image_tags\030\001 \003(\t\0222\n\006source\030\002 \001(\0132\".datad" +
+      "og.cws.dumpsv1.IPPortContext\0227\n\013destinat" +
+      "ion\030\003 \001(\0132\".datadog.cws.dumpsv1.IPPortCo" +
+      "ntext\022\023\n\013l3_protocol\030\004 \001(\r\022\023\n\013l4_protoco" +
+      "l\030\005 \001(\r\0222\n\007ingress\030\006 \001(\0132!.datadog.cws.d" +
+      "umpsv1.NetworkStats\0221\n\006egress\030\007 \001(\0132!.da" +
+      "tadog.cws.dumpsv1.NetworkStats\")\n\rIPPort" +
+      "Context\022\n\n\002ip\030\001 \001(\t\022\014\n\004port\030\002 \001(\r\"7\n\014Net" +
+      "workStats\022\021\n\tdata_size\030\001 \001(\004\022\024\n\014packet_c" +
+      "ount\030\002 \001(\004\"\325\001\n\013MatchedRule\022\017\n\007rule_id\030\001 " +
+      "\001(\t\022\024\n\014rule_version\030\002 \001(\t\022\023\n\013policy_name" +
+      "\030\003 \001(\t\022\026\n\016policy_version\030\004 \001(\t\022A\n\trule_t" +
+      "ags\030\005 \003(\0132..datadog.cws.dumpsv1.MatchedR" +
+      "ule.RuleTagsEntry\032/\n\rRuleTagsEntry\022\013\n\003ke" +
+      "y\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"t\n\020event_type" +
+      "_state\022\031\n\021last_anomaly_nano\030\001 \001(\004\022E\n\023eve" +
+      "nt_profile_state\030\002 \001(\0162(.datadog.cws.dum" +
+      "psv1.event_profile_state*\271\001\n\tHashState\022\013" +
+      "\n\007NO_HASH\020\000\022\010\n\004DONE\020\001\022\022\n\016FILE_NOT_FOUND\020" +
+      "\002\022\035\n\031PATHNAME_RESOLUTION_ERROR\020\003\022\020\n\014FILE" +
+      "_TOO_BIG\020\004\022\035\n\031EVENT_TYPE_NOT_CONFIGURED\020" +
+      "\005\022\031\n\025HASH_WAS_RATE_LIMITED\020\006\022\026\n\022UNKNOWN_" +
+      "HASH_ERROR\020\007*8\n\016GenerationType\022\013\n\007UNKNOW" +
+      "N\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPSHOT\020\002*\220\001\n\023event" +
+      "_profile_state\022\016\n\nNO_PROFILE\020\000\022\027\n\023PROFIL" +
+      "E_AT_MAX_SIZE\020\001\022\024\n\020UNSTABLE_PROFILE\020\002\022\022\n" +
+      "\016STABLE_PROFILE\020\003\022\021\n\rAUTO_LEARNING\020\004\022\023\n\017" +
+      "WORKLOAD_WARMUP\020\005BU\n\022com.dd.cws.adv1.pbB" +
+      "\014SecDumpProtoP\000Z/github.com/DataDog/agen" +
+      "t-payload/v5/cws/dumpsv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -38881,7 +39028,7 @@ java.lang.String defaultValue) {
     internal_static_datadog_cws_dumpsv1_ProcessActivityNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_ProcessActivityNode_descriptor,
-        new java.lang.String[] { "Process", "GenerationType", "MatchedRules", "Children", "Files", "DnsNames", "Sockets", "Syscalls", "ImageTags", "ImdsEvents", "SyscallNodes", "NetworkDevices", });
+        new java.lang.String[] { "Process", "GenerationType", "MatchedRules", "Children", "Files", "DnsNames", "Sockets", "Syscalls", "ImageTags", "ImdsEvents", "SyscallNodes", "NetworkDevices", "FirstSeen", "LastSeen", });
     internal_static_datadog_cws_dumpsv1_ProcessInfo_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_datadog_cws_dumpsv1_ProcessInfo_fieldAccessorTable = new

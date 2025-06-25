@@ -78,6 +78,9 @@ message ProcessActivityNode {
     repeated IMDSNode imds_events = 11;
     repeated SyscallNode syscall_nodes = 12;
     repeated NetworkDeviceNode network_devices = 13;
+    
+    uint64 first_seen = 14;
+    uint64 last_seen = 15;
 }
 
 message ProcessInfo {
