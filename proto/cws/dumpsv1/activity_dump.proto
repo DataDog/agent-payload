@@ -52,6 +52,15 @@ message ProfileContext {
     repeated string tags = 5;
 }
 
+message ImageTagTimes {
+    uint64 first_seen = 1;
+    uint64 last_seen  = 2;
+}
+
+message NodeBase {
+    map<string, ImageTagTimes> seen = 1;
+}
+
 message SecurityProfile {
     uint32 status = 1 [deprecated = true];
     string version = 2 [deprecated = true];
@@ -74,10 +83,12 @@ message ProcessActivityNode {
     repeated DNSNode dns_names = 5;
     repeated SocketNode sockets = 6;
     repeated uint32 syscalls = 7 [deprecated = true];
-    repeated string image_tags = 10;
+    repeated string image_tags = 10 [deprecated = true];
+    NodeBase node_base = 14;
     repeated IMDSNode imds_events = 11;
     repeated SyscallNode syscall_nodes = 12;
     repeated NetworkDeviceNode network_devices = 13;
+
 }
 
 message ProcessInfo {
@@ -115,7 +126,8 @@ message ProcessInfo {
 
 message FileActivityNode {
     repeated MatchedRule matched_rules = 9;
-    repeated string image_tags = 10;
+    repeated string image_tags = 10 [deprecated = true];
+    NodeBase node_base = 11;
 
     string name = 1;
     bool is_pattern = 7;
@@ -137,7 +149,8 @@ message OpenNode {
 
 message DNSNode {
     repeated MatchedRule matched_rules = 2;
-    repeated string image_tags = 3;
+    repeated string image_tags = 3 [deprecated = true];
+    NodeBase node_base  = 4;
 
     repeated DNSInfo requests = 1;
 }
@@ -151,14 +164,16 @@ message DNSInfo {
 }
 
 message SyscallNode {
-    repeated string image_tags = 1;
+    repeated string image_tags = 1 [deprecated = true];
+    NodeBase node_base = 3;
 
     int32 syscall = 2;
 }
 
 message IMDSNode {
     repeated MatchedRule matched_rules = 1;
-    repeated string image_tags = 2;
+    repeated string image_tags = 2 [deprecated = true];
+    NodeBase node_base = 4;
 
     IMDSEvent event = 3;
 }
@@ -251,7 +266,9 @@ message SocketNode {
 
 message BindNode {
     repeated MatchedRule matched_rules = 3;
-    repeated string image_tags = 4;
+    repeated string image_tags = 4 [deprecated = true];
+    NodeBase node_base =6;
+    
 
     uint32 port = 1;
     string ip = 2;
@@ -269,7 +286,9 @@ message NetworkDeviceNode {
 }
 
 message FlowNode {
-    repeated string image_tags = 1;
+    repeated string image_tags = 1 [deprecated = true];
+    NodeBase node_base = 8;
+    
 
     IPPortContext source = 2;
     IPPortContext destination = 3;
