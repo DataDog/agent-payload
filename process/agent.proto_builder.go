@@ -7832,6 +7832,12 @@ func (x *CronJobSpecBuilder) AddResourceRequirements(cb func(w *ResourceRequirem
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *CronJobSpecBuilder) SetTimezone(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x42)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CronJobStatusBuilder struct {
 	writer                 io.Writer

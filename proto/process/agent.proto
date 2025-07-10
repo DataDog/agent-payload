@@ -1318,6 +1318,7 @@ message CronJobSpec {
 	int32 successfulJobsHistoryLimit = 5;
 	int32 failedJobsHistoryLimit = 6;
 	repeated ResourceRequirements resourceRequirements = 7;
+	string timezone = 8;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/batch/v1beta1/types.go#L150
