@@ -3281,20 +3281,19 @@ func (x *PortInfoBuilder) AddUdp(v int32) {
 }
 
 type ProcessBuilder struct {
-	writer                 io.Writer
-	buf                    bytes.Buffer
-	scratch                []byte
-	hostBuilder            HostBuilder
-	commandBuilder         CommandBuilder
-	processUserBuilder     ProcessUserBuilder
-	memoryStatBuilder      MemoryStatBuilder
-	cPUStatBuilder         CPUStatBuilder
-	containerBuilder       ContainerBuilder
-	iOStatBuilder          IOStatBuilder
-	processNetworksBuilder ProcessNetworksBuilder
-	serviceNameBuilder     ServiceNameBuilder
-	portInfoBuilder        PortInfoBuilder
-	tracerMetadataBuilder  TracerMetadataBuilder
+	writer                  io.Writer
+	buf                     bytes.Buffer
+	scratch                 []byte
+	hostBuilder             HostBuilder
+	commandBuilder          CommandBuilder
+	processUserBuilder      ProcessUserBuilder
+	memoryStatBuilder       MemoryStatBuilder
+	cPUStatBuilder          CPUStatBuilder
+	containerBuilder        ContainerBuilder
+	iOStatBuilder           IOStatBuilder
+	processNetworksBuilder  ProcessNetworksBuilder
+	portInfoBuilder         PortInfoBuilder
+	serviceDiscoveryBuilder ServiceDiscoveryBuilder
 }
 
 func NewProcessBuilder(writer io.Writer) *ProcessBuilder {
@@ -3482,42 +3481,70 @@ func (x *ProcessBuilder) SetLanguage(v uint64) {
 		x.writer.Write(x.scratch)
 	}
 }
-func (x *ProcessBuilder) AddServiceNames(cb func(w *ServiceNameBuilder)) {
-	x.buf.Reset()
-	x.serviceNameBuilder.writer = &x.buf
-	x.serviceNameBuilder.scratch = x.scratch
-	cb(&x.serviceNameBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xca)
-	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
-	x.writer.Write(x.scratch)
-	x.writer.Write(x.buf.Bytes())
-}
 func (x *ProcessBuilder) SetPortInfo(cb func(w *PortInfoBuilder)) {
 	x.buf.Reset()
 	x.portInfoBuilder.writer = &x.buf
 	x.portInfoBuilder.scratch = x.scratch
 	cb(&x.portInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xca)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ProcessBuilder) SetServiceDiscovery(cb func(w *ServiceDiscoveryBuilder)) {
+	x.buf.Reset()
+	x.serviceDiscoveryBuilder.writer = &x.buf
+	x.serviceDiscoveryBuilder.scratch = x.scratch
+	cb(&x.serviceDiscoveryBuilder)
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xd2)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
-func (x *ProcessBuilder) SetApmInstrumented(v bool) {
-	if v {
-		x.scratch = protowire.AppendVarint(x.scratch[:0], 0xd8)
-		x.scratch = protowire.AppendVarint(x.scratch, 1)
-		x.writer.Write(x.scratch)
+
+type ServiceDiscoveryBuilder struct {
+	writer                io.Writer
+	buf                   bytes.Buffer
+	scratch               []byte
+	serviceNameBuilder    ServiceNameBuilder
+	tracerMetadataBuilder TracerMetadataBuilder
+}
+
+func NewServiceDiscoveryBuilder(writer io.Writer) *ServiceDiscoveryBuilder {
+	return &ServiceDiscoveryBuilder{
+		writer: writer,
 	}
 }
-func (x *ProcessBuilder) AddTracerMetadata(cb func(w *TracerMetadataBuilder)) {
+func (x *ServiceDiscoveryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ServiceDiscoveryBuilder) AddServiceNames(cb func(w *ServiceNameBuilder)) {
+	x.buf.Reset()
+	x.serviceNameBuilder.writer = &x.buf
+	x.serviceNameBuilder.scratch = x.scratch
+	cb(&x.serviceNameBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ServiceDiscoveryBuilder) AddTracerMetadata(cb func(w *TracerMetadataBuilder)) {
 	x.buf.Reset()
 	x.tracerMetadataBuilder.writer = &x.buf
 	x.tracerMetadataBuilder.scratch = x.scratch
 	cb(&x.tracerMetadataBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xe2)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
+}
+func (x *ServiceDiscoveryBuilder) SetApmInstrumentation(v uint64) {
+	if v != 0 {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x18)
+		x.scratch = protowire.AppendVarint(x.scratch, v)
+		x.writer.Write(x.scratch)
+	}
 }
 
 type ServiceNameBuilder struct {

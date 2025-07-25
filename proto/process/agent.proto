@@ -499,15 +499,16 @@ message CollectorStatus {
 	int32 interval = 2;
 }
 
+// From https://github.com/DataDog/datadog-agent/blob/853fdeea6979e371eacda2a7022ba6291f211eec/pkg/languagedetection/languagemodels/language.go#L11-L38
 enum Language {
 	LANGUAGE_UNKNOWN = 0;
 	LANGUAGE_JAVA = 1;
-	LANGUAGE_NODEJS = 2;
+	LANGUAGE_NODE = 2;
 	LANGUAGE_PYTHON = 3;
 	LANGUAGE_RUBY = 4;
 	LANGUAGE_DOTNET = 5;
 	LANGUAGE_GO = 6;
-	LANGUAGE_CPLUSPLUS = 7;
+	LANGUAGE_CPP = 7;
 	LANGUAGE_PHP = 8;
 }
 
@@ -539,6 +540,14 @@ message PortInfo {
 	repeated int32 udp = 2;
 }
 
+// Selected from https://github.com/DataDog/datadog-agent/blob/853fdeea6979e371eacda2a7022ba6291f211eec/pkg/collector/corechecks/servicediscovery/apm/detect.go#L33-L40
+enum ApmInstrumentation {
+	APM_INSTRUMENTATION_UNKNOWN = 0;
+	APM_INSTRUMENTATION_NONE = 1;
+	APM_INSTRUMENTATION_PROVIDED = 2;
+	APM_INSTRUMENTATION_INJECTED = 3;
+}
+
 message Process {
 	reserved 6;
 
@@ -565,10 +574,14 @@ message Process {
 	repeated string processContext = 22;
 	repeated string tags = 23;
 	Language language = 24;
-	repeated ServiceName serviceNames = 25;
-	PortInfo portInfo = 26;
-	bool apmInstrumented = 27;
-	repeated TracerMetadata tracerMetadata = 28;
+	PortInfo portInfo = 25;
+	ServiceDiscovery serviceDiscovery = 26;
+}
+
+message ServiceDiscovery {
+	repeated ServiceName serviceNames = 1;
+	repeated TracerMetadata tracerMetadata = 2;
+	ApmInstrumentation apmInstrumentation = 3;
 }
 
 message ServiceName {
