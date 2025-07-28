@@ -3539,10 +3539,10 @@ func (x *ServiceDiscoveryBuilder) AddTracerMetadata(cb func(w *TracerMetadataBui
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
-func (x *ServiceDiscoveryBuilder) SetApmInstrumentation(v uint64) {
-	if v != 0 {
+func (x *ServiceDiscoveryBuilder) SetApmInstrumentation(v bool) {
+	if v {
 		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x18)
-		x.scratch = protowire.AppendVarint(x.scratch, v)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
 		x.writer.Write(x.scratch)
 	}
 }
