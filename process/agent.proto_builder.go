@@ -3519,7 +3519,7 @@ func (x *ServiceDiscoveryBuilder) Reset(writer io.Writer) {
 	x.buf.Reset()
 	x.writer = writer
 }
-func (x *ServiceDiscoveryBuilder) AddServiceNames(cb func(w *ServiceNameBuilder)) {
+func (x *ServiceDiscoveryBuilder) SetGeneratedServiceName(cb func(w *ServiceNameBuilder)) {
 	x.buf.Reset()
 	x.serviceNameBuilder.writer = &x.buf
 	x.serviceNameBuilder.scratch = x.scratch
@@ -3529,19 +3529,39 @@ func (x *ServiceDiscoveryBuilder) AddServiceNames(cb func(w *ServiceNameBuilder)
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *ServiceDiscoveryBuilder) SetDdServiceName(cb func(w *ServiceNameBuilder)) {
+	x.buf.Reset()
+	x.serviceNameBuilder.writer = &x.buf
+	x.serviceNameBuilder.scratch = x.scratch
+	cb(&x.serviceNameBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ServiceDiscoveryBuilder) AddAdditionalGeneratedNames(cb func(w *ServiceNameBuilder)) {
+	x.buf.Reset()
+	x.serviceNameBuilder.writer = &x.buf
+	x.serviceNameBuilder.scratch = x.scratch
+	cb(&x.serviceNameBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 func (x *ServiceDiscoveryBuilder) AddTracerMetadata(cb func(w *TracerMetadataBuilder)) {
 	x.buf.Reset()
 	x.tracerMetadataBuilder.writer = &x.buf
 	x.tracerMetadataBuilder.scratch = x.scratch
 	cb(&x.tracerMetadataBuilder)
-	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x22)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ServiceDiscoveryBuilder) SetApmInstrumentation(v bool) {
 	if v {
-		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x18)
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x28)
 		x.scratch = protowire.AppendVarint(x.scratch, 1)
 		x.writer.Write(x.scratch)
 	}

@@ -571,9 +571,11 @@ message Process {
 }
 
 message ServiceDiscovery {
-	repeated ServiceName serviceNames = 1;
-	repeated TracerMetadata tracerMetadata = 2;
-	bool apmInstrumentation = 3;
+	ServiceName generatedServiceName = 1;
+	ServiceName ddServiceName = 2;
+	repeated ServiceName additionalGeneratedNames = 3;
+	repeated TracerMetadata tracerMetadata = 4;
+	bool apmInstrumentation = 5;
 }
 
 message ServiceName {
