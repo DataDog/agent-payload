@@ -531,8 +531,8 @@ enum ServiceNameSource {
 // Selected fields from TracerMetadata as defined in
 // https://github.com/DataDog/libdatadog/blob/99056cf717cfe9/ddcommon/src/tracer_metadata.rs#L7-L29
 message TracerMetadata {
-	string runtime_id = 1;
-	string service_name = 2;
+	string runtimeId = 1;
+	string serviceName = 2;
 }
 
 message PortInfo {

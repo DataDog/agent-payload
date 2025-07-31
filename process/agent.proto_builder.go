@@ -3239,13 +3239,13 @@ func (x *TracerMetadataBuilder) Reset(writer io.Writer) {
 	x.buf.Reset()
 	x.writer = writer
 }
-func (x *TracerMetadataBuilder) SetRuntime_id(v string) {
+func (x *TracerMetadataBuilder) SetRuntimeId(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
-func (x *TracerMetadataBuilder) SetService_name(v string) {
+func (x *TracerMetadataBuilder) SetServiceName(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
 	x.scratch = protowire.AppendString(x.scratch, v)
