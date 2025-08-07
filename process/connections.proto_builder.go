@@ -1532,11 +1532,12 @@ func (x *AgentConfigurationBuilder) SetCsmEnabled(v bool) {
 }
 
 type RouteBuilder struct {
-	writer           io.Writer
-	buf              bytes.Buffer
-	scratch          []byte
-	subnetBuilder    SubnetBuilder
-	interfaceBuilder InterfaceBuilder
+	writer                io.Writer
+	buf                   bytes.Buffer
+	scratch               []byte
+	subnetBuilder         SubnetBuilder
+	interfaceBuilder      InterfaceBuilder
+	securityGroupsBuilder SecurityGroupsBuilder
 }
 
 func NewRouteBuilder(writer io.Writer) *RouteBuilder {
@@ -1564,6 +1565,16 @@ func (x *RouteBuilder) SetInterface(cb func(w *InterfaceBuilder)) {
 	x.interfaceBuilder.scratch = x.scratch
 	cb(&x.interfaceBuilder)
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *RouteBuilder) SetSecurityGroups(cb func(w *SecurityGroupsBuilder)) {
+	x.buf.Reset()
+	x.securityGroupsBuilder.writer = &x.buf
+	x.securityGroupsBuilder.scratch = x.scratch
+	cb(&x.securityGroupsBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
@@ -1607,6 +1618,28 @@ func (x *SubnetBuilder) Reset(writer io.Writer) {
 	x.writer = writer
 }
 func (x *SubnetBuilder) SetAlias(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type SecurityGroupsBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewSecurityGroupsBuilder(writer io.Writer) *SecurityGroupsBuilder {
+	return &SecurityGroupsBuilder{
+		writer: writer,
+	}
+}
+func (x *SecurityGroupsBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *SecurityGroupsBuilder) SetID(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
 	x.scratch = protowire.AppendString(x.scratch, v)
