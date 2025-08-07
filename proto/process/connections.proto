@@ -132,7 +132,7 @@ message Connections {
 message Connection {
   reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
   // Please update when adding fields
-  // next identifier: 54
+  // next identifier: 55
 
   int32 pid = 1;
   Addr laddr = 5; // Local address
@@ -222,6 +222,11 @@ message Connection {
   map<uint32, uint32> tcpFailuresByErrCode = 52;
 
   string remoteEcsTask = 53;
+
+  // localContainerTagsIndex is the index of the tags associated with the container that this connection was collected from.
+  // Meant to be used with CollectorConnections#encodedTags.
+  // Handled the built-in race for resolution of container tags in the backend.
+  int32 localContainerTagsIndex = 54;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data

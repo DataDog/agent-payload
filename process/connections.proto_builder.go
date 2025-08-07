@@ -1075,6 +1075,12 @@ func (x *ConnectionBuilder) SetRemoteEcsTask(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *ConnectionBuilder) SetLocalContainerTagsIndex(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1b0)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
 
 type Connection_DnsCountByRcodeEntryBuilder struct {
 	writer  io.Writer
