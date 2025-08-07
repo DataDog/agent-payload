@@ -335,6 +335,7 @@ message AgentConfiguration {
 message Route {
   Subnet subnet = 1;
   Interface interface = 2;
+  SecurityGroups securityGroups = 3;
 }
 
 message Interface {
@@ -345,7 +346,9 @@ message Subnet {
   string alias = 1;
 }
 
-
+message SecurityGroups {
+  string ID = 1;
+}
 // RouteMetadata
 message RouteMetadata {
   string alias = 1;
