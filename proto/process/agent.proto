@@ -294,6 +294,7 @@ message CollectorManifest {
 message CollectorManifestCRD {
 	CollectorManifest manifest = 1;
 	repeated string tags = 2;
+	map<string, string> collectedVersions = 3;
 }
 
 message CollectorManifestCR {

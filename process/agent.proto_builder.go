@@ -1855,10 +1855,11 @@ func (x *CollectorManifestBuilder) SetAgentVersion(cb func(w *AgentVersionBuilde
 }
 
 type CollectorManifestCRDBuilder struct {
-	writer                   io.Writer
-	buf                      bytes.Buffer
-	scratch                  []byte
-	collectorManifestBuilder CollectorManifestBuilder
+	writer                                             io.Writer
+	buf                                                bytes.Buffer
+	scratch                                            []byte
+	collectorManifestBuilder                           CollectorManifestBuilder
+	collectorManifestCRD_CollectedVersionsEntryBuilder CollectorManifestCRD_CollectedVersionsEntryBuilder
 }
 
 func NewCollectorManifestCRDBuilder(writer io.Writer) *CollectorManifestCRDBuilder {
@@ -1881,6 +1882,44 @@ func (x *CollectorManifestCRDBuilder) SetManifest(cb func(w *CollectorManifestBu
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorManifestCRDBuilder) AddTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorManifestCRDBuilder) AddCollectedVersions(cb func(w *CollectorManifestCRD_CollectedVersionsEntryBuilder)) {
+	x.buf.Reset()
+	x.collectorManifestCRD_CollectedVersionsEntryBuilder.writer = &x.buf
+	x.collectorManifestCRD_CollectedVersionsEntryBuilder.scratch = x.scratch
+	cb(&x.collectorManifestCRD_CollectedVersionsEntryBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type CollectorManifestCRD_CollectedVersionsEntryBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewCollectorManifestCRD_CollectedVersionsEntryBuilder(writer io.Writer) *CollectorManifestCRD_CollectedVersionsEntryBuilder {
+	return &CollectorManifestCRD_CollectedVersionsEntryBuilder{
+		writer: writer,
+	}
+}
+func (x *CollectorManifestCRD_CollectedVersionsEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *CollectorManifestCRD_CollectedVersionsEntryBuilder) SetKey(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *CollectorManifestCRD_CollectedVersionsEntryBuilder) SetValue(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
 	x.scratch = protowire.AppendString(x.scratch, v)
