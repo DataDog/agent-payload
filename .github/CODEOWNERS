@@ -8,8 +8,8 @@
 metrics/                    @DataDog/agent-runtimes @DataDog/agent-metric-pipelines
 logs/                       @DataDog/agent-runtimes @DataDog/agent-log-pipelines
 process/                    @DataDog/agent-runtimes @DataDog/container-app @DataDog/container-experiences
-process/connections.*       @DataDog/agent-runtimes @DataDog/Networks @DataDog/ebpf-platform @DataDog/universal-service-monitoring
-proto/process/connections.* @DataDog/agent-runtimes @DataDog/Networks @DataDog/ebpf-platform @DataDog/universal-service-monitoring
+process/connections.*       @DataDog/agent-runtimes @DataDog/cloud-network-monitoring @DataDog/ebpf-platform @DataDog/universal-service-monitoring
+proto/process/connections.* @DataDog/agent-runtimes @DataDog/cloud-network-monitoring @DataDog/ebpf-platform @DataDog/universal-service-monitoring
 contlcycle/                 @DataDog/agent-runtimes @DataDog/container-integrations
 contimage/                  @DataDog/agent-runtimes @DataDog/container-integrations @DataDog/container-experiences
 sbom/                       @DataDog/agent-runtimes @DataDog/container-integrations
