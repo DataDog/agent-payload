@@ -1,0 +1,272 @@
+package process
+
+import (
+	"encoding/binary"
+	"hash/fnv"
+	"math"
+	"slices"
+	"sort"
+	"sync"
+)
+
+// V3TagEncoder is an optimized version of V2TagEncoder - it uses a deterministic index for the same set of tags.
+// V2 had 2 main issues:
+//  - Calling Encode multiple times with the same tags would produce different indexes
+//	- Indexes were not deterministic: same tags in different order would produce different indexes
+// V3 sacrifices encoding performance for smaller buffer size and faster decoding.
+// V3 also guarantees the decoded tags are always sorted, which is useful for many applications.
+type V3TagEncoder struct {
+	// tags are stored as a map of tag name to position in the buffer
+	tags map[string]uint32
+	// order is the list of tags in the order they were added
+	order []string
+	// footer is the encoded footer that contains the tag positions
+	footer []byte
+	// tagPosition is the current position in the buffer where the next tag will be written
+	tagPosition uint32
+
+	// tagSetCache is a cache of previously seen tag sets to avoid re-encoding the same set
+	// The key is a hash of the sorted tags, and the value is the index in the footer
+	// This allows us to return the same index for the same set of tags.
+	tagSetCache map[uint64]int
+
+	// internal buffer for reuse
+	bufInt32 [4]byte
+	bufInt16 [2]byte
+}
+
+var v3FooterPool = sync.Pool{
+	New: func() interface{} {
+		var footer []byte
+		return &footer
+	},
+}
+
+var v3OrderPool = sync.Pool{
+	New: func() interface{} {
+		var order []string
+		return &order
+	},
+}
+
+var v3TagsPool = sync.Pool{
+	New: func() interface{} {
+		tags := make(map[string]uint32)
+		return &tags
+	},
+}
+
+var v3TagSetCachePool = sync.Pool{
+	New: func() interface{} {
+		cache := make(map[uint64]int)
+		return &cache
+	},
+}
+
+// NewV3TagEncoder creates a new V3TagEncoder with pre-allocated buffers and pools for reusing memory to reduce allocations.
+func NewV3TagEncoder() TagEncoder {
+	footer := *v3FooterPool.Get().(*[]byte)
+	order := *v3OrderPool.Get().(*[]string)
+	tags := *v3TagsPool.Get().(*map[string]uint32)
+	cache := *v3TagSetCachePool.Get().(*map[uint64]int)
+
+	return &V3TagEncoder{
+		tags:        tags,
+		order:       order[:0],
+		footer:      footer[:0],
+		tagPosition: v2PreambleLength,
+		tagSetCache: cache,
+		bufInt32:    [4]byte{},
+		bufInt16:    [2]byte{},
+	}
+}
+
+// Buffer returns the encoded buffer with the tags and footer.
+// The buffer format is:
+// - 1 byte version (3 for V3)
+// - 4 bytes footer position (where the footer starts in the buffer)
+// - N tags, each with a 2-byte length followed by the tag bytes
+// - Footer: 2 bytes tag count, followed by 4 bytes per tag (positions
+//   in the buffer where the tag starts)
+func (t *V3TagEncoder) Buffer() []byte {
+	tagsSize := t.tagPosition - v2PreambleLength
+	bufferSize := int(v2PreambleLength+tagsSize) + len(t.footer)
+	buffer := make([]byte, bufferSize)
+	pos := 0
+
+	// Write version
+	buffer[pos] = 3
+	pos++
+
+	// Write footer position
+	binary.LittleEndian.PutUint32(buffer[pos:], t.tagPosition)
+	pos += 4
+
+	// Write tags
+	for _, tag := range t.order {
+		binary.LittleEndian.PutUint16(buffer[pos:], uint16(len(tag)))
+		pos += 2
+		copy(buffer[pos:], tag)
+		pos += len(tag)
+	}
+
+	// Write footer
+	copy(buffer[pos:], t.footer)
+
+	// Return pooled objects
+	v3FooterPool.Put(&t.footer)
+	v3OrderPool.Put(&t.order)
+
+	clear(t.tags)
+	v3TagsPool.Put(&t.tags)
+
+	clear(t.tagSetCache)
+	v3TagSetCachePool.Put(&t.tagSetCache)
+
+	return buffer
+}
+
+// Encode encodes a slice of tags into the V3 format.
+// It returns the index in the buffer where the footer for this set of tags starts.
+// It modifies the input slice in place to deduplicate and sort the tags.
+func (t *V3TagEncoder) Encode(tags []string) int {
+	if len(tags) == 0 {
+		return -1
+	}
+
+	// Sort first to enable deduplication without seen map
+	sort.Strings(tags)
+
+	if len(tags) > math.MaxUint16 {
+		tags = tags[0:math.MaxUint16]
+	}
+
+	// Deduplicate in place after sorting
+	n := 0
+	for i, tag := range tags {
+		if len(tag) > math.MaxUint16 {
+			tags[i] = tag[0:math.MaxUint16]
+		}
+		if i == 0 || tags[i-1] != tag {
+			tags[n] = tags[i]
+			n++
+		}
+	}
+	tags = tags[:n]
+
+	// Assign indices for tags and calculate hash in one loop
+	hasher := fnv.New64a()
+	for _, tag := range tags {
+		tagPos, exists := t.tags[tag]
+		if !exists {
+			// New tag - add to dictionary
+			tagPos = t.tagPosition
+			t.tags[tag] = tagPos
+			t.order = append(t.order, tag)
+			t.tagPosition += 2 + uint32(len(tag)) // 2 bytes length + tag data
+		}
+		// Add tag index to hash
+		binary.LittleEndian.PutUint32(t.bufInt32[:], tagPos)
+		_, _ = hasher.Write(t.bufInt32[:])
+	}
+	hash := hasher.Sum64()
+
+	// Check if we've seen this exact tag set before (deterministic)
+	if existingIndex, exists := t.tagSetCache[hash]; exists {
+		return existingIndex
+	}
+
+	// Build footer entry with sorted tags (like V2, but sorted)
+	footerIndex := len(t.footer)
+
+	// Pre-grow footer to avoid multiple reallocations
+	// We need: 2 bytes (tag count) + 4 bytes per tag (positions)
+	footerSize := 2 + 4*len(tags)
+	t.footer = slices.Grow(t.footer, footerSize)[:len(t.footer)+footerSize]
+	pos := footerIndex
+
+	// Write number of tags
+	binary.LittleEndian.PutUint16(t.footer[pos:], uint16(len(tags)))
+	pos += 2
+
+	// Write tag positions (recalculate from map - guaranteed to exist)
+	for _, tag := range tags {
+		tagPos := t.tags[tag]
+		binary.LittleEndian.PutUint32(t.footer[pos:], tagPos)
+		pos += 4
+	}
+
+	// Cache this tag set for deterministic behavior
+	t.tagSetCache[hash] = footerIndex
+
+	return footerIndex
+}
+
+// decodeV3 decodes the tags from the buffer at the given tag index.
+func decodeV3(buffer []byte, tagIndex int) []string {
+	var tags []string
+	unsafeIterateV3(buffer, tagIndex, func(i, total int, tag []byte) bool {
+		if i == 0 {
+			tags = make([]string, 0, total)
+		}
+		tags = append(tags, string(tag))
+		return true
+	})
+	return tags
+}
+
+// iterateV3 iterates over the tags in the buffer starting from the given tag index.
+// It calls the callback function for each tag found.
+func iterateV3(buffer []byte, tagIndex int, cb func(i, total int, tag string) bool) {
+	unsafeIterateV3(buffer, tagIndex, func(i, total int, tag []byte) bool {
+		return cb(i, total, string(tag))
+	})
+}
+
+// unsafeIterateV3 iterates over the tags in the buffer starting from the given tag index.
+// It calls the callback function for each tag found.
+func unsafeIterateV3(buffer []byte, tagIndex int, cb func(i, total int, tag []byte) bool) {
+	if len(buffer) < lenUint32+1 || tagIndex < 0 {
+		return
+	}
+	footerPosition := binary.LittleEndian.Uint32(buffer[1:])
+
+	idx := int(footerPosition) + tagIndex
+	if idx >= len(buffer) {
+		return
+	}
+	footerBuffer := buffer[idx:]
+	footerIndex := 0
+
+	if len(footerBuffer[footerIndex:]) < lenUint16 {
+		return
+	}
+
+	numTags := int(binary.LittleEndian.Uint16(footerBuffer[footerIndex:]))
+	footerIndex += 2
+
+	for i := 0; i < numTags; i++ {
+		if footerIndex >= len(footerBuffer) || len(footerBuffer[footerIndex:]) < lenUint32 {
+			continue
+		}
+		tagPosition := int(binary.LittleEndian.Uint32(footerBuffer[footerIndex:]))
+
+		if tagPosition >= len(buffer) || len(buffer[tagPosition:]) < lenUint16 {
+			continue
+		}
+		tagLength := int(binary.LittleEndian.Uint16(buffer[tagPosition:]))
+
+		start := tagPosition + 2
+		end := start + tagLength
+
+		if end > len(buffer) {
+			continue
+		}
+
+		if !cb(i, numTags, buffer[start:end]) {
+			return
+		}
+
+		footerIndex += lenUint32
+	}
+}

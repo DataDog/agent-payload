@@ -17,6 +17,7 @@ type TagEncoder interface {
 const (
 	version1 = 1
 	version2 = 2
+	version3 = 3
 )
 
 // Groups of tags are successively encoded in to a single buffer. For each group of tags, the format is:
@@ -92,6 +93,8 @@ func getTags(buffer []byte, tagIndex int) []string {
 		return decodeV1(buffer, tagIndex)
 	case version2:
 		return decodeV2(buffer, tagIndex)
+	case version3:
+		return decodeV3(buffer, tagIndex)
 	default:
 		return nil
 	}
@@ -107,6 +110,8 @@ func iterateTags(buffer []byte, tagIndex int, cb func(i, total int, tag string) 
 		iterateV1(buffer, tagIndex, cb)
 	case version2:
 		iterateV2(buffer, tagIndex, cb)
+	case version3:
+		iterateV3(buffer, tagIndex, cb)
 	default:
 	}
 }
@@ -121,6 +126,8 @@ func unsafeIterateTags(buffer []byte, tagIndex int, cb func(i, total int, tag []
 		unsafeIterateV1(buffer, tagIndex, cb)
 	case version2:
 		unsafeIterateV2(buffer, tagIndex, cb)
+	case version3:
+		unsafeIterateV3(buffer, tagIndex, cb)
 	default:
 	}
 }
