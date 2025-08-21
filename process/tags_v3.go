@@ -90,23 +90,21 @@ func NewV3TagEncoder() TagEncoder {
 // - Footer: 2 bytes tag count, followed by 4 bytes per tag (positions
 //   in the buffer where the tag starts)
 func (t *V3TagEncoder) Buffer() []byte {
-	tagsSize := t.tagPosition - v2PreambleLength
-	bufferSize := int(v2PreambleLength+tagsSize) + len(t.footer)
-	buffer := make([]byte, bufferSize)
+	buffer := make([]byte, int(t.tagPosition)+len(t.footer))
 	pos := 0
 
 	// Write version
-	buffer[pos] = 3
+	buffer[pos] = version3
 	pos++
 
 	// Write footer position
 	binary.LittleEndian.PutUint32(buffer[pos:], t.tagPosition)
-	pos += 4
+	pos += lenUint32
 
 	// Write tags
 	for _, tag := range t.order {
 		binary.LittleEndian.PutUint16(buffer[pos:], uint16(len(tag)))
-		pos += 2
+		pos += lenUint16
 		copy(buffer[pos:], tag)
 		pos += len(tag)
 	}
@@ -164,7 +162,7 @@ func (t *V3TagEncoder) Encode(tags []string) int {
 			tagPos = t.tagPosition
 			t.tags[tag] = tagPos
 			t.order = append(t.order, tag)
-			t.tagPosition += 2 + uint32(len(tag)) // 2 bytes length + tag data
+			t.tagPosition += lenUint16 + uint32(len(tag)) // 2 bytes length + tag data
 		}
 		// Add tag index to hash
 		binary.LittleEndian.PutUint32(t.bufInt32[:], tagPos)
@@ -182,19 +180,19 @@ func (t *V3TagEncoder) Encode(tags []string) int {
 
 	// Pre-grow footer to avoid multiple reallocations
 	// We need: 2 bytes (tag count) + 4 bytes per tag (positions)
-	footerSize := 2 + 4*len(tags)
+	footerSize := lenUint16 + lenUint32*len(tags)
 	t.footer = slices.Grow(t.footer, footerSize)[:len(t.footer)+footerSize]
 	pos := footerIndex
 
 	// Write number of tags
 	binary.LittleEndian.PutUint16(t.footer[pos:], uint16(len(tags)))
-	pos += 2
+	pos += lenUint16
 
 	// Write tag positions (recalculate from map - guaranteed to exist)
 	for _, tag := range tags {
 		tagPos := t.tags[tag]
 		binary.LittleEndian.PutUint32(t.footer[pos:], tagPos)
-		pos += 4
+		pos += lenUint32
 	}
 
 	// Cache this tag set for deterministic behavior
