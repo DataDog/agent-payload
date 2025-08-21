@@ -36,27 +36,6 @@ type V3TagEncoder struct {
 	bufInt16 [2]byte
 }
 
-var v3FooterPool = sync.Pool{
-	New: func() interface{} {
-		var footer []byte
-		return &footer
-	},
-}
-
-var v3OrderPool = sync.Pool{
-	New: func() interface{} {
-		var order []string
-		return &order
-	},
-}
-
-var v3TagsPool = sync.Pool{
-	New: func() interface{} {
-		tags := make(map[string]uint32)
-		return &tags
-	},
-}
-
 var v3TagSetCachePool = sync.Pool{
 	New: func() interface{} {
 		cache := make(map[uint64]int)
@@ -66,9 +45,9 @@ var v3TagSetCachePool = sync.Pool{
 
 // NewV3TagEncoder creates a new V3TagEncoder with pre-allocated buffers and pools for reusing memory to reduce allocations.
 func NewV3TagEncoder() TagEncoder {
-	footer := *v3FooterPool.Get().(*[]byte)
-	order := *v3OrderPool.Get().(*[]string)
-	tags := *v3TagsPool.Get().(*map[string]uint32)
+	footer := *footerPool.Get().(*[]byte)
+	order := *orderPool.Get().(*[]string)
+	tags := *tagsPool.Get().(*map[string]uint32)
 	cache := *v3TagSetCachePool.Get().(*map[uint64]int)
 
 	return &V3TagEncoder{
@@ -115,11 +94,11 @@ func (t *V3TagEncoder) Buffer() []byte {
 	copy(buffer[pos:], t.footer)
 
 	// Return pooled objects
-	v3FooterPool.Put(&t.footer)
-	v3OrderPool.Put(&t.order)
+	footerPool.Put(&t.footer)
+	orderPool.Put(&t.order)
 
 	clear(t.tags)
-	v3TagsPool.Put(&t.tags)
+	tagsPool.Put(&t.tags)
 
 	clear(t.tagSetCache)
 	v3TagSetCachePool.Put(&t.tagSetCache)
