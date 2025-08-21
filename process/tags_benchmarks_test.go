@@ -53,10 +53,10 @@ func BenchmarkTagEncodersAndDecoders(b *testing.B) {
 			name:           "v3",
 			encoderFactory: NewV3TagEncoder,
 		},
-		//{
-		//	name:           "v1",
-		//	encoderFactory: NewTagEncoder,
-		//},
+		{
+			name:           "v1",
+			encoderFactory: NewTagEncoder,
+		},
 	}
 
 	for _, tt := range files {
@@ -136,10 +136,6 @@ func BenchmarkTagEncodersAndDecoders(b *testing.B) {
 				for i := 0; i < b.N; i++ {
 					for _, idx := range indices {
 						decoded = getTags(buffer, idx)
-						// Sort V2 results for fair comparison (V3 returns pre-sorted)
-						//if e.name == "v2" {
-						//	sort.Strings(decoded)
-						//}
 					}
 				}
 				b.ReportMetric(float64(len(buffer)), "bytes")
