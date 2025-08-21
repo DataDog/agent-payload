@@ -101,7 +101,9 @@ func (t *V3TagEncoder) Buffer() []byte {
 	binary.LittleEndian.PutUint32(buffer[pos:], t.tagPosition)
 	pos += lenUint32
 
-	// Write tags
+	// Write tags - each tag is prefixed with its length
+	// so while decoding we can read the tag length first and know exactly how many bytes to read for the tag.
+	// It allows more efficient decoding.
 	for _, tag := range t.order {
 		binary.LittleEndian.PutUint16(buffer[pos:], uint16(len(tag)))
 		pos += lenUint16
