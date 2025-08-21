@@ -15,23 +15,23 @@ func TestUnsafeIterationV3(t *testing.T) {
 	// buff = 3
 	buf := make([]byte, 3)
 	assert.NotPanics(t, func() {
-		unsafeIterateV3(buf, 0, func(i, total int, tag []byte) bool { return true })
+		unsafeIterateV2(buf, 0, func(i, total int, tag []byte) bool { return true })
 	})
 
 	// buff = 1
 	assert.NotPanics(t, func() {
-		unsafeIterateV3(buf[1:], 0, func(i, total int, tag []byte) bool { return true })
+		unsafeIterateV2(buf[1:], 0, func(i, total int, tag []byte) bool { return true })
 	})
 
 	// indx > buff
 	buf = make([]byte, 6)
 	assert.NotPanics(t, func() {
-		unsafeIterateV3(buf, 10, func(i, total int, tag []byte) bool { return true })
+		unsafeIterateV2(buf, 10, func(i, total int, tag []byte) bool { return true })
 	})
 
 	// footerBuffer < 2
 	assert.NotPanics(t, func() {
-		unsafeIterateV3(buf, 5, func(i, total int, tag []byte) bool { return true })
+		unsafeIterateV2(buf, 5, func(i, total int, tag []byte) bool { return true })
 	})
 }
 
@@ -50,7 +50,7 @@ func FuzzIterateV3(f *testing.F) {
 
 func FuzzingIterateV3(t *testing.T, buffer []byte, tagIndex int) {
 	assert.NotPanics(t, func() {
-		unsafeIterateV3(buffer, tagIndex, func(i, total int, tag []byte) bool { return true })
+		unsafeIterateV2(buffer, tagIndex, func(i, total int, tag []byte) bool { return true })
 	})
 
 }

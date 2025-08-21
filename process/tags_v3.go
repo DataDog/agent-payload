@@ -15,6 +15,7 @@ import (
 //	- Indexes were not deterministic: same tags in different order would produce different indexes
 // V3 sacrifices encoding performance for smaller buffer size and faster decoding.
 // V3 also guarantees the decoded tags are always sorted, which is useful for many applications.
+// V3 preserves V2's format, hence, we rely on the same decoding logic as V2.
 type V3TagEncoder struct {
 	// tags are stored as a map of tag name to position in the buffer
 	tags map[string]uint32
@@ -200,73 +201,4 @@ func (t *V3TagEncoder) Encode(tags []string) int {
 	t.tagSetCache[hash] = footerIndex
 
 	return footerIndex
-}
-
-// decodeV3 decodes the tags from the buffer at the given tag index.
-func decodeV3(buffer []byte, tagIndex int) []string {
-	var tags []string
-	unsafeIterateV3(buffer, tagIndex, func(i, total int, tag []byte) bool {
-		if i == 0 {
-			tags = make([]string, 0, total)
-		}
-		tags = append(tags, string(tag))
-		return true
-	})
-	return tags
-}
-
-// iterateV3 iterates over the tags in the buffer starting from the given tag index.
-// It calls the callback function for each tag found.
-func iterateV3(buffer []byte, tagIndex int, cb func(i, total int, tag string) bool) {
-	unsafeIterateV3(buffer, tagIndex, func(i, total int, tag []byte) bool {
-		return cb(i, total, string(tag))
-	})
-}
-
-// unsafeIterateV3 iterates over the tags in the buffer starting from the given tag index.
-// It calls the callback function for each tag found.
-func unsafeIterateV3(buffer []byte, tagIndex int, cb func(i, total int, tag []byte) bool) {
-	if len(buffer) < lenUint32+1 || tagIndex < 0 {
-		return
-	}
-	footerPosition := binary.LittleEndian.Uint32(buffer[1:])
-
-	idx := int(footerPosition) + tagIndex
-	if idx >= len(buffer) {
-		return
-	}
-	footerBuffer := buffer[idx:]
-	footerIndex := 0
-
-	if len(footerBuffer[footerIndex:]) < lenUint16 {
-		return
-	}
-
-	numTags := int(binary.LittleEndian.Uint16(footerBuffer[footerIndex:]))
-	footerIndex += 2
-
-	for i := 0; i < numTags; i++ {
-		if footerIndex >= len(footerBuffer) || len(footerBuffer[footerIndex:]) < lenUint32 {
-			continue
-		}
-		tagPosition := int(binary.LittleEndian.Uint32(footerBuffer[footerIndex:]))
-
-		if tagPosition >= len(buffer) || len(buffer[tagPosition:]) < lenUint16 {
-			continue
-		}
-		tagLength := int(binary.LittleEndian.Uint16(buffer[tagPosition:]))
-
-		start := tagPosition + 2
-		end := start + tagLength
-
-		if end > len(buffer) {
-			continue
-		}
-
-		if !cb(i, numTags, buffer[start:end]) {
-			return
-		}
-
-		footerIndex += lenUint32
-	}
 }

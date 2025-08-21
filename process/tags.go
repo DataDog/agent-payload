@@ -91,10 +91,8 @@ func getTags(buffer []byte, tagIndex int) []string {
 	switch buffer[0] {
 	case version1:
 		return decodeV1(buffer, tagIndex)
-	case version2:
+	case version2, version3:
 		return decodeV2(buffer, tagIndex)
-	case version3:
-		return decodeV3(buffer, tagIndex)
 	default:
 		return nil
 	}
@@ -108,10 +106,8 @@ func iterateTags(buffer []byte, tagIndex int, cb func(i, total int, tag string) 
 	switch buffer[0] {
 	case version1:
 		iterateV1(buffer, tagIndex, cb)
-	case version2:
+	case version2, version3:
 		iterateV2(buffer, tagIndex, cb)
-	case version3:
-		iterateV3(buffer, tagIndex, cb)
 	default:
 	}
 }
@@ -124,10 +120,8 @@ func unsafeIterateTags(buffer []byte, tagIndex int, cb func(i, total int, tag []
 	switch buffer[0] {
 	case version1:
 		unsafeIterateV1(buffer, tagIndex, cb)
-	case version2:
+	case version2, version3:
 		unsafeIterateV2(buffer, tagIndex, cb)
-	case version3:
-		unsafeIterateV3(buffer, tagIndex, cb)
 	default:
 	}
 }
