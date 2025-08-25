@@ -66,3 +66,24 @@ func TestMessageTypeString(t *testing.T) {
 		assert.Equal(t, expected, input.String())
 	}
 }
+
+func TestManifestPayload_NoCgo(t *testing.T) {
+	message := Message{
+		Header: MessageHeader{
+			Version:  MessageV3,
+			Encoding: MessageEncodingZstdPBxNoCgo,
+			Type:     TypeCollectorManifest,
+		},
+		Body: &CollectorManifest{
+			HostName: "test",
+		},
+	}
+
+	encoded, err := EncodeMessage(message)
+	assert.NoError(t, err)
+
+	msg, err := DecodeMessage(encoded)
+	assert.NoError(t, err)
+
+	assert.Equal(t, message, msg)
+}
