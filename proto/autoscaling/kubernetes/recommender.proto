@@ -7,6 +7,7 @@ package datadog.autoscaling.kubernetes;
 import "github.com/DataDog/agent-payload/v5/proto/autoscaling/kubernetes/common.proto";
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
 import "google/protobuf/struct.proto";
 import "github.com/chrusty/protoc-gen-jsonschema/options.proto";
 
@@ -48,6 +49,46 @@ message WorkloadRecommendationTarget {
   double targetValue = 2; // TargetValue is the target value of the target
   double lowerBound   = 3; // LowerBound is the lower bound of the target
   double upperBound   = 4; // UpperBound is the upper bound of the target
+  TimeseriesFormulaRequest formula      = 5; // Formula is the formula to calculate the target value. Must be set when type = "ContainerResource". Otherwise, must be unset.
+}
+
+message TimeseriesFormulaRequest {
+  TimeseriesFormulaRequestSpec spec = 1;
+}
+
+// Mirrors TimeseriesFormulaRequestSpec
+message TimeseriesFormulaRequestSpec {
+  // Optional sampling interval.
+  google.protobuf.Duration interval = 3;
+
+  // Optional formulas to compute.
+  repeated QueryFormula formulas = 4;
+
+  // At least one query required (validation handled in app layer).
+  repeated TimeseriesQuery queries = 5;
+}
+
+message QueryFormula {
+  string formula = 1; // non-empty in app validation
+}
+
+// Discriminated union: only metrics supported for autoscaling.
+message TimeseriesQuery {
+  oneof kind {
+    MetricsTimeseriesQuery metrics = 1;
+  }
+}
+
+message MetricsTimeseriesQuery {
+  MetricsDataSource data_source = 1; // metrics | cloud_cost
+  optional string name = 2;          // e.g., "a", "b"
+  string query = 3;                  // classic Datadog metrics query
+}
+
+enum MetricsDataSource {
+  METRICS_DATA_SOURCE_UNSPECIFIED = 0;
+  METRICS = 1;
+  CLOUD_COST = 2;
 }
 
 // WorkloadRecommendationsReply represents a list of recommendations
