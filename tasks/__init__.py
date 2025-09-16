@@ -1,6 +1,6 @@
 from invoke.collection import Collection
 
-from tasks import (codegen, ci, go)
+from tasks import (codegen, go)
 
 ns = Collection()
 
