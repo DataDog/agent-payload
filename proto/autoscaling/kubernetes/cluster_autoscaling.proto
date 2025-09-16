@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+option go_package = "github.com/DataDog/agent-payload/v5/autoscaling/kubernetes";
+
+package datadog.autoscaling.kubernetes;
+
+import "github.com/DataDog/agent-payload/v5/proto/autoscaling/kubernetes/common.proto";
+
+import "google/protobuf/timestamp.proto";
+import "github.com/chrusty/protoc-gen-jsonschema/options.proto";
+
+// ClusterAutoscalingValuesList represents a list of cluster autoscaling recommendations
+message ClusterAutoscalingValuesList {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
+  repeated ClusterAutoscalingValues values  = 1;
+}
+
+// ClusterAutoscalingValues represents the fields in a cluster autoscaling recommendation
+message ClusterAutoscalingValues {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  string                   name   = 1 [(protoc.gen.jsonschema.field_options).required = true]; // Name is the name of the associated Karpenter NodePool object
+  
+  repeated DomainLabels    labels = 2; // Labels are the domain labels that should be present on the NodePool
+
+  NodePoolSpec             spec   = 3; // Spec defines the NodePool fields
+}
+
+message DomainLabels {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  string name  = 1 [(protoc.gen.jsonschema.field_options).required = true];
+  string value = 2 [(protoc.gen.jsonschema.field_options).required = true];
+}
+
+message NodePoolSpec {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  message Taints {
+    option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+    option (protoc.gen.jsonschema.message_options).ignore = true;
+
+    string key  = 1 [(protoc.gen.jsonschema.field_options).required = true];
+    string value = 2 [(protoc.gen.jsonschema.field_options).required = true];
+    string effect = 3 [(protoc.gen.jsonschema.field_options).required = true];
+  }
+
+  message Requirements {
+    option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+    option (protoc.gen.jsonschema.message_options).ignore = true;
+
+    string key  = 1 [(protoc.gen.jsonschema.field_options).required = true];
+    string operator = 2 [(protoc.gen.jsonschema.field_options).required = true];
+    repeated string values = 3 [(protoc.gen.jsonschema.field_options).required = true];
+  }
+
+  NodeClassRef node_class_ref = 1;
+  repeated Taints taints = 2;
+  repeated Requirements requirements = 3;
+}
+
+message NodeClassRef {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  string group  = 1 [(protoc.gen.jsonschema.field_options).required = true];
+  string kind = 2 [(protoc.gen.jsonschema.field_options).required = true];
+  string name = 3 [(protoc.gen.jsonschema.field_options).required = true];
+}
