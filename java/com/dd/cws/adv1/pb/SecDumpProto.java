@@ -29546,18 +29546,28 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         getPackageVersionBytes();
 
     /**
-     * <code>uint32 package_epoch = 19;</code>
+     * <code>optional uint32 package_epoch = 19;</code>
+     * @return Whether the packageEpoch field is set.
+     */
+    boolean hasPackageEpoch();
+    /**
+     * <code>optional uint32 package_epoch = 19;</code>
      * @return The packageEpoch.
      */
     int getPackageEpoch();
 
     /**
-     * <code>string package_release = 20;</code>
+     * <code>optional string package_release = 20;</code>
+     * @return Whether the packageRelease field is set.
+     */
+    boolean hasPackageRelease();
+    /**
+     * <code>optional string package_release = 20;</code>
      * @return The packageRelease.
      */
     java.lang.String getPackageRelease();
     /**
-     * <code>string package_release = 20;</code>
+     * <code>optional string package_release = 20;</code>
      * @return The bytes for packageRelease.
      */
     com.google.protobuf.ByteString
@@ -29576,18 +29586,28 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         getPackageSrcVersionBytes();
 
     /**
-     * <code>uint32 package_src_epoch = 21;</code>
+     * <code>optional uint32 package_src_epoch = 21;</code>
+     * @return Whether the packageSrcEpoch field is set.
+     */
+    boolean hasPackageSrcEpoch();
+    /**
+     * <code>optional uint32 package_src_epoch = 21;</code>
      * @return The packageSrcEpoch.
      */
     int getPackageSrcEpoch();
 
     /**
-     * <code>string package_src_release = 22;</code>
+     * <code>optional string package_src_release = 22;</code>
+     * @return Whether the packageSrcRelease field is set.
+     */
+    boolean hasPackageSrcRelease();
+    /**
+     * <code>optional string package_src_release = 22;</code>
      * @return The packageSrcRelease.
      */
     java.lang.String getPackageSrcRelease();
     /**
-     * <code>string package_src_release = 22;</code>
+     * <code>optional string package_src_release = 22;</code>
      * @return The bytes for packageSrcRelease.
      */
     com.google.protobuf.ByteString
@@ -29681,6 +29701,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
               com.dd.cws.adv1.pb.SecDumpProto.FileInfo.class, com.dd.cws.adv1.pb.SecDumpProto.FileInfo.Builder.class);
     }
 
+    private int bitField0_;
     public static final int UID_FIELD_NUMBER = 1;
     private int uid_ = 0;
     /**
@@ -30049,7 +30070,15 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     public static final int PACKAGE_EPOCH_FIELD_NUMBER = 19;
     private int packageEpoch_ = 0;
     /**
-     * <code>uint32 package_epoch = 19;</code>
+     * <code>optional uint32 package_epoch = 19;</code>
+     * @return Whether the packageEpoch field is set.
+     */
+    @java.lang.Override
+    public boolean hasPackageEpoch() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>optional uint32 package_epoch = 19;</code>
      * @return The packageEpoch.
      */
     @java.lang.Override
@@ -30061,7 +30090,15 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     @SuppressWarnings("serial")
     private volatile java.lang.Object packageRelease_ = "";
     /**
-     * <code>string package_release = 20;</code>
+     * <code>optional string package_release = 20;</code>
+     * @return Whether the packageRelease field is set.
+     */
+    @java.lang.Override
+    public boolean hasPackageRelease() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>optional string package_release = 20;</code>
      * @return The packageRelease.
      */
     @java.lang.Override
@@ -30078,7 +30115,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       }
     }
     /**
-     * <code>string package_release = 20;</code>
+     * <code>optional string package_release = 20;</code>
      * @return The bytes for packageRelease.
      */
     @java.lang.Override
@@ -30138,7 +30175,15 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     public static final int PACKAGE_SRC_EPOCH_FIELD_NUMBER = 21;
     private int packageSrcEpoch_ = 0;
     /**
-     * <code>uint32 package_src_epoch = 21;</code>
+     * <code>optional uint32 package_src_epoch = 21;</code>
+     * @return Whether the packageSrcEpoch field is set.
+     */
+    @java.lang.Override
+    public boolean hasPackageSrcEpoch() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <code>optional uint32 package_src_epoch = 21;</code>
      * @return The packageSrcEpoch.
      */
     @java.lang.Override
@@ -30150,7 +30195,15 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     @SuppressWarnings("serial")
     private volatile java.lang.Object packageSrcRelease_ = "";
     /**
-     * <code>string package_src_release = 22;</code>
+     * <code>optional string package_src_release = 22;</code>
+     * @return Whether the packageSrcRelease field is set.
+     */
+    @java.lang.Override
+    public boolean hasPackageSrcRelease() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <code>optional string package_src_release = 22;</code>
      * @return The packageSrcRelease.
      */
     @java.lang.Override
@@ -30167,7 +30220,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       }
     }
     /**
-     * <code>string package_src_release = 22;</code>
+     * <code>optional string package_src_release = 22;</code>
      * @return The bytes for packageSrcRelease.
      */
     @java.lang.Override
@@ -30307,16 +30360,16 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       if (hashState_ != com.dd.cws.adv1.pb.SecDumpProto.HashState.NO_HASH.getNumber()) {
         output.writeEnum(18, hashState_);
       }
-      if (packageEpoch_ != 0) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         output.writeUInt32(19, packageEpoch_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(packageRelease_)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 20, packageRelease_);
       }
-      if (packageSrcEpoch_ != 0) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         output.writeUInt32(21, packageSrcEpoch_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(packageSrcRelease_)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 22, packageSrcRelease_);
       }
       getUnknownFields().writeTo(output);
@@ -30396,18 +30449,18 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(18, hashState_);
       }
-      if (packageEpoch_ != 0) {
+      if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(19, packageEpoch_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(packageRelease_)) {
+      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(20, packageRelease_);
       }
-      if (packageSrcEpoch_ != 0) {
+      if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(21, packageSrcEpoch_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(packageSrcRelease_)) {
+      if (((bitField0_ & 0x00000008) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(22, packageSrcRelease_);
       }
       size += getUnknownFields().getSerializedSize();
@@ -30455,16 +30508,28 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           .equals(other.getPackageName())) return false;
       if (!getPackageVersion()
           .equals(other.getPackageVersion())) return false;
-      if (getPackageEpoch()
-          != other.getPackageEpoch()) return false;
-      if (!getPackageRelease()
-          .equals(other.getPackageRelease())) return false;
+      if (hasPackageEpoch() != other.hasPackageEpoch()) return false;
+      if (hasPackageEpoch()) {
+        if (getPackageEpoch()
+            != other.getPackageEpoch()) return false;
+      }
+      if (hasPackageRelease() != other.hasPackageRelease()) return false;
+      if (hasPackageRelease()) {
+        if (!getPackageRelease()
+            .equals(other.getPackageRelease())) return false;
+      }
       if (!getPackageSrcVersion()
           .equals(other.getPackageSrcVersion())) return false;
-      if (getPackageSrcEpoch()
-          != other.getPackageSrcEpoch()) return false;
-      if (!getPackageSrcRelease()
-          .equals(other.getPackageSrcRelease())) return false;
+      if (hasPackageSrcEpoch() != other.hasPackageSrcEpoch()) return false;
+      if (hasPackageSrcEpoch()) {
+        if (getPackageSrcEpoch()
+            != other.getPackageSrcEpoch()) return false;
+      }
+      if (hasPackageSrcRelease() != other.hasPackageSrcRelease()) return false;
+      if (hasPackageSrcRelease()) {
+        if (!getPackageSrcRelease()
+            .equals(other.getPackageSrcRelease())) return false;
+      }
       if (!getHashesList()
           .equals(other.getHashesList())) return false;
       if (hashState_ != other.hashState_) return false;
@@ -30513,16 +30578,24 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       hash = (53 * hash) + getPackageName().hashCode();
       hash = (37 * hash) + PACKAGE_VERSION_FIELD_NUMBER;
       hash = (53 * hash) + getPackageVersion().hashCode();
-      hash = (37 * hash) + PACKAGE_EPOCH_FIELD_NUMBER;
-      hash = (53 * hash) + getPackageEpoch();
-      hash = (37 * hash) + PACKAGE_RELEASE_FIELD_NUMBER;
-      hash = (53 * hash) + getPackageRelease().hashCode();
+      if (hasPackageEpoch()) {
+        hash = (37 * hash) + PACKAGE_EPOCH_FIELD_NUMBER;
+        hash = (53 * hash) + getPackageEpoch();
+      }
+      if (hasPackageRelease()) {
+        hash = (37 * hash) + PACKAGE_RELEASE_FIELD_NUMBER;
+        hash = (53 * hash) + getPackageRelease().hashCode();
+      }
       hash = (37 * hash) + PACKAGE_SRC_VERSION_FIELD_NUMBER;
       hash = (53 * hash) + getPackageSrcVersion().hashCode();
-      hash = (37 * hash) + PACKAGE_SRC_EPOCH_FIELD_NUMBER;
-      hash = (53 * hash) + getPackageSrcEpoch();
-      hash = (37 * hash) + PACKAGE_SRC_RELEASE_FIELD_NUMBER;
-      hash = (53 * hash) + getPackageSrcRelease().hashCode();
+      if (hasPackageSrcEpoch()) {
+        hash = (37 * hash) + PACKAGE_SRC_EPOCH_FIELD_NUMBER;
+        hash = (53 * hash) + getPackageSrcEpoch();
+      }
+      if (hasPackageSrcRelease()) {
+        hash = (37 * hash) + PACKAGE_SRC_RELEASE_FIELD_NUMBER;
+        hash = (53 * hash) + getPackageSrcRelease().hashCode();
+      }
       if (getHashesCount() > 0) {
         hash = (37 * hash) + HASHES_FIELD_NUMBER;
         hash = (53 * hash) + getHashesList().hashCode();
@@ -30768,24 +30841,30 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         if (((from_bitField0_ & 0x00004000) != 0)) {
           result.packageVersion_ = packageVersion_;
         }
+        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00008000) != 0)) {
           result.packageEpoch_ = packageEpoch_;
+          to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00010000) != 0)) {
           result.packageRelease_ = packageRelease_;
+          to_bitField0_ |= 0x00000002;
         }
         if (((from_bitField0_ & 0x00020000) != 0)) {
           result.packageSrcVersion_ = packageSrcVersion_;
         }
         if (((from_bitField0_ & 0x00040000) != 0)) {
           result.packageSrcEpoch_ = packageSrcEpoch_;
+          to_bitField0_ |= 0x00000004;
         }
         if (((from_bitField0_ & 0x00080000) != 0)) {
           result.packageSrcRelease_ = packageSrcRelease_;
+          to_bitField0_ |= 0x00000008;
         }
         if (((from_bitField0_ & 0x00200000) != 0)) {
           result.hashState_ = hashState_;
         }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -30891,10 +30970,10 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           bitField0_ |= 0x00004000;
           onChanged();
         }
-        if (other.getPackageEpoch() != 0) {
+        if (other.hasPackageEpoch()) {
           setPackageEpoch(other.getPackageEpoch());
         }
-        if (!other.getPackageRelease().isEmpty()) {
+        if (other.hasPackageRelease()) {
           packageRelease_ = other.packageRelease_;
           bitField0_ |= 0x00010000;
           onChanged();
@@ -30904,10 +30983,10 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           bitField0_ |= 0x00020000;
           onChanged();
         }
-        if (other.getPackageSrcEpoch() != 0) {
+        if (other.hasPackageSrcEpoch()) {
           setPackageSrcEpoch(other.getPackageSrcEpoch());
         }
-        if (!other.getPackageSrcRelease().isEmpty()) {
+        if (other.hasPackageSrcRelease()) {
           packageSrcRelease_ = other.packageSrcRelease_;
           bitField0_ |= 0x00080000;
           onChanged();
@@ -31853,7 +31932,15 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
 
       private int packageEpoch_ ;
       /**
-       * <code>uint32 package_epoch = 19;</code>
+       * <code>optional uint32 package_epoch = 19;</code>
+       * @return Whether the packageEpoch field is set.
+       */
+      @java.lang.Override
+      public boolean hasPackageEpoch() {
+        return ((bitField0_ & 0x00008000) != 0);
+      }
+      /**
+       * <code>optional uint32 package_epoch = 19;</code>
        * @return The packageEpoch.
        */
       @java.lang.Override
@@ -31861,7 +31948,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         return packageEpoch_;
       }
       /**
-       * <code>uint32 package_epoch = 19;</code>
+       * <code>optional uint32 package_epoch = 19;</code>
        * @param value The packageEpoch to set.
        * @return This builder for chaining.
        */
@@ -31873,7 +31960,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         return this;
       }
       /**
-       * <code>uint32 package_epoch = 19;</code>
+       * <code>optional uint32 package_epoch = 19;</code>
        * @return This builder for chaining.
        */
       public Builder clearPackageEpoch() {
@@ -31885,7 +31972,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
 
       private java.lang.Object packageRelease_ = "";
       /**
-       * <code>string package_release = 20;</code>
+       * <code>optional string package_release = 20;</code>
+       * @return Whether the packageRelease field is set.
+       */
+      public boolean hasPackageRelease() {
+        return ((bitField0_ & 0x00010000) != 0);
+      }
+      /**
+       * <code>optional string package_release = 20;</code>
        * @return The packageRelease.
        */
       public java.lang.String getPackageRelease() {
@@ -31901,7 +31995,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         }
       }
       /**
-       * <code>string package_release = 20;</code>
+       * <code>optional string package_release = 20;</code>
        * @return The bytes for packageRelease.
        */
       public com.google.protobuf.ByteString
@@ -31918,7 +32012,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         }
       }
       /**
-       * <code>string package_release = 20;</code>
+       * <code>optional string package_release = 20;</code>
        * @param value The packageRelease to set.
        * @return This builder for chaining.
        */
@@ -31931,7 +32025,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         return this;
       }
       /**
-       * <code>string package_release = 20;</code>
+       * <code>optional string package_release = 20;</code>
        * @return This builder for chaining.
        */
       public Builder clearPackageRelease() {
@@ -31941,7 +32035,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         return this;
       }
       /**
-       * <code>string package_release = 20;</code>
+       * <code>optional string package_release = 20;</code>
        * @param value The bytes for packageRelease to set.
        * @return This builder for chaining.
        */
@@ -32029,7 +32123,15 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
 
       private int packageSrcEpoch_ ;
       /**
-       * <code>uint32 package_src_epoch = 21;</code>
+       * <code>optional uint32 package_src_epoch = 21;</code>
+       * @return Whether the packageSrcEpoch field is set.
+       */
+      @java.lang.Override
+      public boolean hasPackageSrcEpoch() {
+        return ((bitField0_ & 0x00040000) != 0);
+      }
+      /**
+       * <code>optional uint32 package_src_epoch = 21;</code>
        * @return The packageSrcEpoch.
        */
       @java.lang.Override
@@ -32037,7 +32139,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         return packageSrcEpoch_;
       }
       /**
-       * <code>uint32 package_src_epoch = 21;</code>
+       * <code>optional uint32 package_src_epoch = 21;</code>
        * @param value The packageSrcEpoch to set.
        * @return This builder for chaining.
        */
@@ -32049,7 +32151,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         return this;
       }
       /**
-       * <code>uint32 package_src_epoch = 21;</code>
+       * <code>optional uint32 package_src_epoch = 21;</code>
        * @return This builder for chaining.
        */
       public Builder clearPackageSrcEpoch() {
@@ -32061,7 +32163,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
 
       private java.lang.Object packageSrcRelease_ = "";
       /**
-       * <code>string package_src_release = 22;</code>
+       * <code>optional string package_src_release = 22;</code>
+       * @return Whether the packageSrcRelease field is set.
+       */
+      public boolean hasPackageSrcRelease() {
+        return ((bitField0_ & 0x00080000) != 0);
+      }
+      /**
+       * <code>optional string package_src_release = 22;</code>
        * @return The packageSrcRelease.
        */
       public java.lang.String getPackageSrcRelease() {
@@ -32077,7 +32186,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         }
       }
       /**
-       * <code>string package_src_release = 22;</code>
+       * <code>optional string package_src_release = 22;</code>
        * @return The bytes for packageSrcRelease.
        */
       public com.google.protobuf.ByteString
@@ -32094,7 +32203,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         }
       }
       /**
-       * <code>string package_src_release = 22;</code>
+       * <code>optional string package_src_release = 22;</code>
        * @param value The packageSrcRelease to set.
        * @return This builder for chaining.
        */
@@ -32107,7 +32216,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         return this;
       }
       /**
-       * <code>string package_src_release = 22;</code>
+       * <code>optional string package_src_release = 22;</code>
        * @return This builder for chaining.
        */
       public Builder clearPackageSrcRelease() {
@@ -32117,7 +32226,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         return this;
       }
       /**
-       * <code>string package_src_release = 22;</code>
+       * <code>optional string package_src_release = 22;</code>
        * @param value The bytes for packageSrcRelease to set.
        * @return This builder for chaining.
        */
@@ -43255,68 +43364,70 @@ java.lang.String defaultValue) {
       "\026AWSSecurityCredentials\022\014\n\004code\030\001 \001(\t\022\014\n" +
       "\004type\030\002 \001(\t\022\025\n\raccess_key_id\030\003 \001(\t\022\024\n\014la" +
       "st_updated\030\004 \001(\t\022\026\n\016expiration_raw\030\005 \001(\t" +
-      "\"\322\003\n\010FileInfo\022\013\n\003uid\030\001 \001(\r\022\014\n\004user\030\002 \001(\t" +
+      "\"\272\004\n\010FileInfo\022\013\n\003uid\030\001 \001(\r\022\014\n\004user\030\002 \001(\t" +
       "\022\013\n\003gid\030\003 \001(\r\022\r\n\005group\030\004 \001(\t\022\014\n\004mode\030\005 \001" +
       "(\r\022\r\n\005ctime\030\006 \001(\004\022\r\n\005mtime\030\007 \001(\004\022\020\n\010moun" +
       "t_id\030\010 \001(\r\022\r\n\005inode\030\t \001(\004\022\026\n\016in_upper_la" +
       "yer\030\n \001(\010\022\014\n\004path\030\013 \001(\t\022\020\n\010basename\030\014 \001(" +
       "\t\022\022\n\nfilesystem\030\r \001(\t\022\024\n\014package_name\030\016 " +
-      "\001(\t\022\027\n\017package_version\030\017 \001(\t\022\025\n\rpackage_" +
-      "epoch\030\023 \001(\r\022\027\n\017package_release\030\024 \001(\t\022\033\n\023" +
-      "package_src_version\030\020 \001(\t\022\031\n\021package_src" +
-      "_epoch\030\025 \001(\r\022\033\n\023package_src_release\030\026 \001(" +
-      "\t\022\016\n\006hashes\030\021 \003(\t\0222\n\nhash_state\030\022 \001(\0162\036." +
-      "datadog.cws.dumpsv1.HashState\"\224\002\n\013Creden" +
-      "tials\022\013\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004user\030" +
-      "\003 \001(\t\022\r\n\005group\030\004 \001(\t\022\025\n\reffective_uid\030\005 " +
-      "\001(\r\022\025\n\reffective_gid\030\006 \001(\r\022\026\n\016effective_" +
-      "user\030\007 \001(\t\022\027\n\017effective_group\030\010 \001(\t\022\016\n\006f" +
-      "s_uid\030\t \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007fs_user\030\013" +
-      " \001(\t\022\020\n\010fs_group\030\014 \001(\t\022\025\n\rcap_effective\030" +
-      "\r \001(\004\022\025\n\rcap_permitted\030\016 \001(\004\"I\n\nSocketNo" +
-      "de\022\016\n\006family\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035.datad" +
-      "og.cws.dumpsv1.BindNode\"\271\001\n\010BindNode\0227\n\r" +
-      "matched_rules\030\003 \003(\0132 .datadog.cws.dumpsv" +
-      "1.MatchedRule\022\026\n\nimage_tags\030\004 \003(\tB\002\030\001\0220\n" +
-      "\tnode_base\030\006 \001(\0132\035.datadog.cws.dumpsv1.N" +
-      "odeBase\022\014\n\004port\030\001 \001(\r\022\n\n\002ip\030\002 \001(\t\022\020\n\010pro" +
-      "tocol\030\005 \001(\r\"\257\001\n\021NetworkDeviceNode\0227\n\rmat" +
-      "ched_rules\030\001 \003(\0132 .datadog.cws.dumpsv1.M" +
-      "atchedRule\022\r\n\005netns\030\002 \001(\r\022\017\n\007ifindex\030\003 \001" +
-      "(\r\022\016\n\006ifname\030\004 \001(\t\0221\n\nflow_nodes\030\005 \003(\0132\035" +
-      ".datadog.cws.dumpsv1.FlowNode\"\322\002\n\010FlowNo" +
-      "de\022\026\n\nimage_tags\030\001 \003(\tB\002\030\001\0220\n\tnode_base\030" +
-      "\010 \001(\0132\035.datadog.cws.dumpsv1.NodeBase\0222\n\006" +
-      "source\030\002 \001(\0132\".datadog.cws.dumpsv1.IPPor" +
-      "tContext\0227\n\013destination\030\003 \001(\0132\".datadog." +
-      "cws.dumpsv1.IPPortContext\022\023\n\013l3_protocol" +
-      "\030\004 \001(\r\022\023\n\013l4_protocol\030\005 \001(\r\0222\n\007ingress\030\006" +
-      " \001(\0132!.datadog.cws.dumpsv1.NetworkStats\022" +
-      "1\n\006egress\030\007 \001(\0132!.datadog.cws.dumpsv1.Ne" +
-      "tworkStats\")\n\rIPPortContext\022\n\n\002ip\030\001 \001(\t\022" +
-      "\014\n\004port\030\002 \001(\r\"7\n\014NetworkStats\022\021\n\tdata_si" +
-      "ze\030\001 \001(\004\022\024\n\014packet_count\030\002 \001(\004\"\325\001\n\013Match" +
-      "edRule\022\017\n\007rule_id\030\001 \001(\t\022\024\n\014rule_version\030" +
-      "\002 \001(\t\022\023\n\013policy_name\030\003 \001(\t\022\026\n\016policy_ver" +
-      "sion\030\004 \001(\t\022A\n\trule_tags\030\005 \003(\0132..datadog." +
-      "cws.dumpsv1.MatchedRule.RuleTagsEntry\032/\n" +
-      "\rRuleTagsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001" +
-      "(\t:\0028\001\"t\n\020event_type_state\022\031\n\021last_anoma" +
-      "ly_nano\030\001 \001(\004\022E\n\023event_profile_state\030\002 \001" +
-      "(\0162(.datadog.cws.dumpsv1.event_profile_s" +
-      "tate*\271\001\n\tHashState\022\013\n\007NO_HASH\020\000\022\010\n\004DONE\020" +
-      "\001\022\022\n\016FILE_NOT_FOUND\020\002\022\035\n\031PATHNAME_RESOLU" +
-      "TION_ERROR\020\003\022\020\n\014FILE_TOO_BIG\020\004\022\035\n\031EVENT_" +
-      "TYPE_NOT_CONFIGURED\020\005\022\031\n\025HASH_WAS_RATE_L" +
-      "IMITED\020\006\022\026\n\022UNKNOWN_HASH_ERROR\020\007*8\n\016Gene" +
-      "rationType\022\013\n\007UNKNOWN\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010" +
-      "SNAPSHOT\020\002*\220\001\n\023event_profile_state\022\016\n\nNO" +
-      "_PROFILE\020\000\022\027\n\023PROFILE_AT_MAX_SIZE\020\001\022\024\n\020U" +
-      "NSTABLE_PROFILE\020\002\022\022\n\016STABLE_PROFILE\020\003\022\021\n" +
-      "\rAUTO_LEARNING\020\004\022\023\n\017WORKLOAD_WARMUP\020\005BU\n" +
-      "\022com.dd.cws.adv1.pbB\014SecDumpProtoP\000Z/git" +
-      "hub.com/DataDog/agent-payload/v5/cws/dum" +
-      "psv1b\006proto3"
+      "\001(\t\022\027\n\017package_version\030\017 \001(\t\022\032\n\rpackage_" +
+      "epoch\030\023 \001(\rH\000\210\001\001\022\034\n\017package_release\030\024 \001(" +
+      "\tH\001\210\001\001\022\033\n\023package_src_version\030\020 \001(\t\022\036\n\021p" +
+      "ackage_src_epoch\030\025 \001(\rH\002\210\001\001\022 \n\023package_s" +
+      "rc_release\030\026 \001(\tH\003\210\001\001\022\016\n\006hashes\030\021 \003(\t\0222\n" +
+      "\nhash_state\030\022 \001(\0162\036.datadog.cws.dumpsv1." +
+      "HashStateB\020\n\016_package_epochB\022\n\020_package_" +
+      "releaseB\024\n\022_package_src_epochB\026\n\024_packag" +
+      "e_src_release\"\224\002\n\013Credentials\022\013\n\003uid\030\001 \001" +
+      "(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004user\030\003 \001(\t\022\r\n\005group\030\004" +
+      " \001(\t\022\025\n\reffective_uid\030\005 \001(\r\022\025\n\reffective" +
+      "_gid\030\006 \001(\r\022\026\n\016effective_user\030\007 \001(\t\022\027\n\017ef" +
+      "fective_group\030\010 \001(\t\022\016\n\006fs_uid\030\t \001(\r\022\016\n\006f" +
+      "s_gid\030\n \001(\r\022\017\n\007fs_user\030\013 \001(\t\022\020\n\010fs_group" +
+      "\030\014 \001(\t\022\025\n\rcap_effective\030\r \001(\004\022\025\n\rcap_per" +
+      "mitted\030\016 \001(\004\"I\n\nSocketNode\022\016\n\006family\030\001 \001" +
+      "(\t\022+\n\004bind\030\002 \003(\0132\035.datadog.cws.dumpsv1.B" +
+      "indNode\"\271\001\n\010BindNode\0227\n\rmatched_rules\030\003 " +
+      "\003(\0132 .datadog.cws.dumpsv1.MatchedRule\022\026\n" +
+      "\nimage_tags\030\004 \003(\tB\002\030\001\0220\n\tnode_base\030\006 \001(\013" +
+      "2\035.datadog.cws.dumpsv1.NodeBase\022\014\n\004port\030" +
+      "\001 \001(\r\022\n\n\002ip\030\002 \001(\t\022\020\n\010protocol\030\005 \001(\r\"\257\001\n\021" +
+      "NetworkDeviceNode\0227\n\rmatched_rules\030\001 \003(\013" +
+      "2 .datadog.cws.dumpsv1.MatchedRule\022\r\n\005ne" +
+      "tns\030\002 \001(\r\022\017\n\007ifindex\030\003 \001(\r\022\016\n\006ifname\030\004 \001" +
+      "(\t\0221\n\nflow_nodes\030\005 \003(\0132\035.datadog.cws.dum" +
+      "psv1.FlowNode\"\322\002\n\010FlowNode\022\026\n\nimage_tags" +
+      "\030\001 \003(\tB\002\030\001\0220\n\tnode_base\030\010 \001(\0132\035.datadog." +
+      "cws.dumpsv1.NodeBase\0222\n\006source\030\002 \001(\0132\".d" +
+      "atadog.cws.dumpsv1.IPPortContext\0227\n\013dest" +
+      "ination\030\003 \001(\0132\".datadog.cws.dumpsv1.IPPo" +
+      "rtContext\022\023\n\013l3_protocol\030\004 \001(\r\022\023\n\013l4_pro" +
+      "tocol\030\005 \001(\r\0222\n\007ingress\030\006 \001(\0132!.datadog.c" +
+      "ws.dumpsv1.NetworkStats\0221\n\006egress\030\007 \001(\0132" +
+      "!.datadog.cws.dumpsv1.NetworkStats\")\n\rIP" +
+      "PortContext\022\n\n\002ip\030\001 \001(\t\022\014\n\004port\030\002 \001(\r\"7\n" +
+      "\014NetworkStats\022\021\n\tdata_size\030\001 \001(\004\022\024\n\014pack" +
+      "et_count\030\002 \001(\004\"\325\001\n\013MatchedRule\022\017\n\007rule_i" +
+      "d\030\001 \001(\t\022\024\n\014rule_version\030\002 \001(\t\022\023\n\013policy_" +
+      "name\030\003 \001(\t\022\026\n\016policy_version\030\004 \001(\t\022A\n\tru" +
+      "le_tags\030\005 \003(\0132..datadog.cws.dumpsv1.Matc" +
+      "hedRule.RuleTagsEntry\032/\n\rRuleTagsEntry\022\013" +
+      "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"t\n\020event_" +
+      "type_state\022\031\n\021last_anomaly_nano\030\001 \001(\004\022E\n" +
+      "\023event_profile_state\030\002 \001(\0162(.datadog.cws" +
+      ".dumpsv1.event_profile_state*\271\001\n\tHashSta" +
+      "te\022\013\n\007NO_HASH\020\000\022\010\n\004DONE\020\001\022\022\n\016FILE_NOT_FO" +
+      "UND\020\002\022\035\n\031PATHNAME_RESOLUTION_ERROR\020\003\022\020\n\014" +
+      "FILE_TOO_BIG\020\004\022\035\n\031EVENT_TYPE_NOT_CONFIGU" +
+      "RED\020\005\022\031\n\025HASH_WAS_RATE_LIMITED\020\006\022\026\n\022UNKN" +
+      "OWN_HASH_ERROR\020\007*8\n\016GenerationType\022\013\n\007UN" +
+      "KNOWN\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPSHOT\020\002*\220\001\n\023e" +
+      "vent_profile_state\022\016\n\nNO_PROFILE\020\000\022\027\n\023PR" +
+      "OFILE_AT_MAX_SIZE\020\001\022\024\n\020UNSTABLE_PROFILE\020" +
+      "\002\022\022\n\016STABLE_PROFILE\020\003\022\021\n\rAUTO_LEARNING\020\004" +
+      "\022\023\n\017WORKLOAD_WARMUP\020\005BU\n\022com.dd.cws.adv1" +
+      ".pbB\014SecDumpProtoP\000Z/github.com/DataDog/" +
+      "agent-payload/v5/cws/dumpsv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -43459,7 +43570,7 @@ java.lang.String defaultValue) {
     internal_static_datadog_cws_dumpsv1_FileInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_FileInfo_descriptor,
-        new java.lang.String[] { "Uid", "User", "Gid", "Group", "Mode", "Ctime", "Mtime", "MountId", "Inode", "InUpperLayer", "Path", "Basename", "Filesystem", "PackageName", "PackageVersion", "PackageEpoch", "PackageRelease", "PackageSrcVersion", "PackageSrcEpoch", "PackageSrcRelease", "Hashes", "HashState", });
+        new java.lang.String[] { "Uid", "User", "Gid", "Group", "Mode", "Ctime", "Mtime", "MountId", "Inode", "InUpperLayer", "Path", "Basename", "Filesystem", "PackageName", "PackageVersion", "PackageEpoch", "PackageRelease", "PackageSrcVersion", "PackageSrcEpoch", "PackageSrcRelease", "Hashes", "HashState", "PackageEpoch", "PackageRelease", "PackageSrcEpoch", "PackageSrcRelease", });
     internal_static_datadog_cws_dumpsv1_Credentials_descriptor =
       getDescriptor().getMessageTypes().get(20);
     internal_static_datadog_cws_dumpsv1_Credentials_fieldAccessorTable = new
