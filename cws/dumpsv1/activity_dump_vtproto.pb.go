@@ -1743,6 +1743,38 @@ func (m *FileInfo) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
+	if m.PackageSrcRelease != nil {
+		i -= len(*m.PackageSrcRelease)
+		copy(dAtA[i:], *m.PackageSrcRelease)
+		i = encodeVarint(dAtA, i, uint64(len(*m.PackageSrcRelease)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xb2
+	}
+	if m.PackageSrcEpoch != nil {
+		i = encodeVarint(dAtA, i, uint64(*m.PackageSrcEpoch))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xa8
+	}
+	if m.PackageRelease != nil {
+		i -= len(*m.PackageRelease)
+		copy(dAtA[i:], *m.PackageRelease)
+		i = encodeVarint(dAtA, i, uint64(len(*m.PackageRelease)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xa2
+	}
+	if m.PackageEpoch != nil {
+		i = encodeVarint(dAtA, i, uint64(*m.PackageEpoch))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x98
+	}
 	if m.HashState != 0 {
 		i = encodeVarint(dAtA, i, uint64(m.HashState))
 		i--
@@ -1761,10 +1793,10 @@ func (m *FileInfo) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 			dAtA[i] = 0x8a
 		}
 	}
-	if len(m.PackageSrcversion) > 0 {
-		i -= len(m.PackageSrcversion)
-		copy(dAtA[i:], m.PackageSrcversion)
-		i = encodeVarint(dAtA, i, uint64(len(m.PackageSrcversion)))
+	if len(m.PackageSrcVersion) > 0 {
+		i -= len(m.PackageSrcVersion)
+		copy(dAtA[i:], m.PackageSrcVersion)
+		i = encodeVarint(dAtA, i, uint64(len(m.PackageSrcVersion)))
 		i--
 		dAtA[i] = 0x1
 		i--
@@ -3471,7 +3503,7 @@ func (m *FileInfo) SizeVT() (n int) {
 	if l > 0 {
 		n += 1 + l + sov(uint64(l))
 	}
-	l = len(m.PackageSrcversion)
+	l = len(m.PackageSrcVersion)
 	if l > 0 {
 		n += 2 + l + sov(uint64(l))
 	}
@@ -3483,6 +3515,20 @@ func (m *FileInfo) SizeVT() (n int) {
 	}
 	if m.HashState != 0 {
 		n += 2 + sov(uint64(m.HashState))
+	}
+	if m.PackageEpoch != nil {
+		n += 2 + sov(uint64(*m.PackageEpoch))
+	}
+	if m.PackageRelease != nil {
+		l = len(*m.PackageRelease)
+		n += 2 + l + sov(uint64(l))
+	}
+	if m.PackageSrcEpoch != nil {
+		n += 2 + sov(uint64(*m.PackageSrcEpoch))
+	}
+	if m.PackageSrcRelease != nil {
+		l = len(*m.PackageSrcRelease)
+		n += 2 + l + sov(uint64(l))
 	}
 	n += len(m.unknownFields)
 	return n
@@ -9155,7 +9201,7 @@ func (m *FileInfo) UnmarshalVT(dAtA []byte) error {
 			iNdEx = postIndex
 		case 16:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field PackageSrcversion", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field PackageSrcVersion", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -9183,7 +9229,7 @@ func (m *FileInfo) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.PackageSrcversion = string(dAtA[iNdEx:postIndex])
+			m.PackageSrcVersion = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 17:
 			if wireType != 2 {
@@ -9236,6 +9282,112 @@ func (m *FileInfo) UnmarshalVT(dAtA []byte) error {
 					break
 				}
 			}
+		case 19:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PackageEpoch", wireType)
+			}
+			var v uint32
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.PackageEpoch = &v
+		case 20:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PackageRelease", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLength
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLength
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			s := string(dAtA[iNdEx:postIndex])
+			m.PackageRelease = &s
+			iNdEx = postIndex
+		case 21:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PackageSrcEpoch", wireType)
+			}
+			var v uint32
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.PackageSrcEpoch = &v
+		case 22:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PackageSrcRelease", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLength
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLength
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			s := string(dAtA[iNdEx:postIndex])
+			m.PackageSrcRelease = &s
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skip(dAtA[iNdEx:])

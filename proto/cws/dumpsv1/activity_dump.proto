@@ -229,7 +229,11 @@ message FileInfo {
 
     string package_name = 14;
     string package_version = 15;
-    string package_srcversion = 16;
+    optional uint32 package_epoch = 19;
+    optional string package_release = 20;
+    string package_src_version = 16;
+    optional uint32 package_src_epoch = 21;
+    optional string package_src_release = 22;
 
     repeated string hashes = 17;
     HashState hash_state = 18;
