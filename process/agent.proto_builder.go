@@ -1853,6 +1853,12 @@ func (x *CollectorManifestBuilder) SetAgentVersion(cb func(w *AgentVersionBuilde
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *CollectorManifestBuilder) SetSource(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x4a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorManifestCRDBuilder struct {
 	writer                   io.Writer
