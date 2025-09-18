@@ -22,7 +22,8 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// ClusterAutoscalingValuesList represents a list of cluster autoscaling recommendations
+// ClusterAutoscalingValuesList represents a list of cluster autoscaling recommendations.
+// These recommendations are formatted into Karpenter NodePools to be applied in the customer's environment.
 type ClusterAutoscalingValuesList struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -70,7 +71,7 @@ func (x *ClusterAutoscalingValuesList) GetValues() []*ClusterAutoscalingValues {
 	return nil
 }
 
-// ClusterAutoscalingValues represents the fields in a cluster autoscaling recommendation
+// ClusterAutoscalingValues represents the fields in a cluster autoscaling recommendation.
 type ClusterAutoscalingValues struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -134,6 +135,7 @@ func (x *ClusterAutoscalingValues) GetSpec() *NodePoolSpec {
 	return nil
 }
 
+// DomainLabels represents the set of domain labels that should be present on the NodePool.
 type DomainLabels struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -189,6 +191,7 @@ func (x *DomainLabels) GetValue() string {
 	return ""
 }
 
+// NodePoolSpec represents the Spec of the NodePool that matches the recommendation produced.
 type NodePoolSpec struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -252,14 +255,15 @@ func (x *NodePoolSpec) GetRequirements() []*NodePoolSpec_Requirements {
 	return nil
 }
 
+// NodeClassRef holds a reference to a cloud provider's NodeClass.
 type NodeClassRef struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Group string `protobuf:"bytes,1,opt,name=group,proto3" json:"group,omitempty"`
-	Kind  string `protobuf:"bytes,2,opt,name=kind,proto3" json:"kind,omitempty"`
-	Name  string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Group string `protobuf:"bytes,1,opt,name=group,proto3" json:"group,omitempty"` // Group represents the API group of the NodeClass
+	Kind  string `protobuf:"bytes,2,opt,name=kind,proto3" json:"kind,omitempty"`   // Kind represents the NodeClass resource kind
+	Name  string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`   // Name is the name of the NodeClass
 }
 
 func (x *NodeClassRef) Reset() {
@@ -315,6 +319,7 @@ func (x *NodeClassRef) GetName() string {
 	return ""
 }
 
+// Taints are the minimum set of taints that should be set on the NodePool
 type NodePoolSpec_Taints struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -378,6 +383,7 @@ func (x *NodePoolSpec_Taints) GetEffect() string {
 	return ""
 }
 
+// Requirements specifies a Karpenter NodePool requirement to specify constraints of the NodePool
 type NodePoolSpec_Requirements struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
