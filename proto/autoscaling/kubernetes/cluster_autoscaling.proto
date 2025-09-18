@@ -9,14 +9,15 @@ import "github.com/DataDog/agent-payload/v5/proto/autoscaling/kubernetes/common.
 import "google/protobuf/timestamp.proto";
 import "github.com/chrusty/protoc-gen-jsonschema/options.proto";
 
-// ClusterAutoscalingValuesList represents a list of cluster autoscaling recommendations
+// ClusterAutoscalingValuesList represents a list of cluster autoscaling recommendations.
+// These recommendations are formatted into Karpenter NodePools to be applied in the customer's environment.
 message ClusterAutoscalingValuesList {
   option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
 
   repeated ClusterAutoscalingValues values  = 1;
 }
 
-// ClusterAutoscalingValues represents the fields in a cluster autoscaling recommendation
+// ClusterAutoscalingValues represents the fields in a cluster autoscaling recommendation.
 message ClusterAutoscalingValues {
   option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
   option (protoc.gen.jsonschema.message_options).ignore = true;
@@ -28,6 +29,7 @@ message ClusterAutoscalingValues {
   NodePoolSpec             spec   = 3; // Spec defines the NodePool fields
 }
 
+// DomainLabels represents the set of domain labels that should be present on the NodePool.
 message DomainLabels {
   option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
   option (protoc.gen.jsonschema.message_options).ignore = true;
@@ -36,10 +38,12 @@ message DomainLabels {
   string value = 2 [(protoc.gen.jsonschema.field_options).required = true];
 }
 
+// NodePoolSpec represents the Spec of the NodePool that matches the recommendation produced.
 message NodePoolSpec {
   option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
   option (protoc.gen.jsonschema.message_options).ignore = true;
 
+  // Taints are the minimum set of taints that should be set on the NodePool 
   message Taints {
     option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
     option (protoc.gen.jsonschema.message_options).ignore = true;
@@ -49,6 +53,7 @@ message NodePoolSpec {
     string effect = 3 [(protoc.gen.jsonschema.field_options).required = true];
   }
 
+  // Requirements specifies a Karpenter NodePool requirement to specify constraints of the NodePool
   message Requirements {
     option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
     option (protoc.gen.jsonschema.message_options).ignore = true;
@@ -63,11 +68,12 @@ message NodePoolSpec {
   repeated Requirements requirements = 3;
 }
 
+// NodeClassRef holds a reference to a cloud provider's NodeClass.
 message NodeClassRef {
   option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
   option (protoc.gen.jsonschema.message_options).ignore = true;
 
-  string group  = 1 [(protoc.gen.jsonschema.field_options).required = true];
-  string kind = 2 [(protoc.gen.jsonschema.field_options).required = true];
-  string name = 3 [(protoc.gen.jsonschema.field_options).required = true];
+  string group  = 1 [(protoc.gen.jsonschema.field_options).required = true]; // Group represents the API group of the NodeClass
+  string kind = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Kind represents the NodeClass resource kind
+  string name = 3 [(protoc.gen.jsonschema.field_options).required = true]; // Name is the name of the NodeClass
 }

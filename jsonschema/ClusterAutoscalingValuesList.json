@@ -28,7 +28,7 @@
             "additionalProperties": false,
             "type": "object",
             "title": "Cluster Autoscaling Values",
-            "description": "ClusterAutoscalingValues represents the fields in a cluster autoscaling recommendation"
+            "description": "ClusterAutoscalingValues represents the fields in a cluster autoscaling recommendation."
         },
         "ClusterAutoscalingValuesList": {
             "properties": {
@@ -43,7 +43,7 @@
             "additionalProperties": false,
             "type": "object",
             "title": "Cluster Autoscaling Values List",
-            "description": "ClusterAutoscalingValuesList represents a list of cluster autoscaling recommendations"
+            "description": "ClusterAutoscalingValuesList represents a list of cluster autoscaling recommendations. These recommendations are formatted into Karpenter NodePools to be applied in the customer's environment."
         },
         "DomainLabels": {
             "required": [
@@ -60,7 +60,8 @@
             },
             "additionalProperties": false,
             "type": "object",
-            "title": "Domain Labels"
+            "title": "Domain Labels",
+            "description": "DomainLabels represents the set of domain labels that should be present on the NodePool."
         },
         "NodeClassRef": {
             "required": [
@@ -70,18 +71,22 @@
             ],
             "properties": {
                 "group": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Group represents the API group of the NodeClass"
                 },
                 "kind": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Kind represents the NodeClass resource kind"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Name is the name of the NodeClass"
                 }
             },
             "additionalProperties": false,
             "type": "object",
-            "title": "Node Class Ref"
+            "title": "Node Class Ref",
+            "description": "NodeClassRef holds a reference to a cloud provider's NodeClass."
         },
         "NodePoolSpec": {
             "properties": {
@@ -106,7 +111,8 @@
             },
             "additionalProperties": false,
             "type": "object",
-            "title": "Node Pool Spec"
+            "title": "Node Pool Spec",
+            "description": "NodePoolSpec represents the Spec of the NodePool that matches the recommendation produced."
         },
         "Requirements": {
             "required": [
@@ -130,7 +136,8 @@
             },
             "additionalProperties": false,
             "type": "object",
-            "title": "Requirements"
+            "title": "Requirements",
+            "description": "Requirements specifies a Karpenter NodePool requirement to specify constraints of the NodePool"
         },
         "Taints": {
             "required": [
@@ -151,7 +158,8 @@
             },
             "additionalProperties": false,
             "type": "object",
-            "title": "Taints"
+            "title": "Taints",
+            "description": "Taints are the minimum set of taints that should be set on the NodePool"
         }
     }
 }
