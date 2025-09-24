@@ -19,10 +19,20 @@
                     "type": "array",
                     "description": "Labels are the domain labels that should be present on the NodePool"
                 },
-                "spec": {
-                    "$ref": "#/definitions/NodePoolSpec",
+                "taints": {
+                    "items": {
+                        "$ref": "#/definitions/Taints"
+                    },
                     "additionalProperties": false,
-                    "description": "Spec defines the NodePool fields"
+                    "type": "array",
+                    "description": "Taints are the domain taints that should be present on the NodePool"
+                },
+                "recommended_instance_types": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "RecommendedInstanceTypes are the list of instance types that the NodePool should be restricted to"
                 }
             },
             "additionalProperties": false,
@@ -62,82 +72,6 @@
             "type": "object",
             "title": "Domain Labels",
             "description": "DomainLabels represents the set of domain labels that should be present on the NodePool."
-        },
-        "NodeClassRef": {
-            "required": [
-                "group",
-                "kind",
-                "name"
-            ],
-            "properties": {
-                "group": {
-                    "type": "string",
-                    "description": "Group represents the API group of the NodeClass"
-                },
-                "kind": {
-                    "type": "string",
-                    "description": "Kind represents the NodeClass resource kind"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "Name is the name of the NodeClass"
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Node Class Ref",
-            "description": "NodeClassRef holds a reference to a cloud provider's NodeClass."
-        },
-        "NodePoolSpec": {
-            "properties": {
-                "node_class_ref": {
-                    "$ref": "#/definitions/NodeClassRef",
-                    "additionalProperties": false
-                },
-                "taints": {
-                    "items": {
-                        "$ref": "#/definitions/Taints"
-                    },
-                    "additionalProperties": false,
-                    "type": "array"
-                },
-                "requirements": {
-                    "items": {
-                        "$ref": "#/definitions/Requirements"
-                    },
-                    "additionalProperties": false,
-                    "type": "array"
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Node Pool Spec",
-            "description": "NodePoolSpec represents the Spec of the NodePool that matches the recommendation produced."
-        },
-        "Requirements": {
-            "required": [
-                "key",
-                "operator",
-                "values"
-            ],
-            "properties": {
-                "key": {
-                    "type": "string"
-                },
-                "operator": {
-                    "type": "string"
-                },
-                "values": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Requirements",
-            "description": "Requirements specifies a Karpenter NodePool requirement to specify constraints of the NodePool"
         },
         "Taints": {
             "required": [
