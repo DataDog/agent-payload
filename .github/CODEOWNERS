@@ -17,4 +17,4 @@ CycloneDX/                  @DataDog/agent-runtimes @DataDog/container-integrati
 cyclonedx_v1_4/             @DataDog/agent-runtimes @DataDog/container-integrations
 cws/                        @DataDog/agent-runtimes @DataDog/agent-security
 proto/cws/                  @DataDog/agent-runtimes @DataDog/agent-security
-proto/autoscaling/          @DataDog/container-integrations @DataDog/container-app
+proto/autoscaling/          @DataDog/container-autoscaling
