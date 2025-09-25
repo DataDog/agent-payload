@@ -568,6 +568,7 @@ message Process {
 	Language language = 24;
 	PortInfo portInfo = 25;
 	ServiceDiscovery serviceDiscovery = 26;
+	bool isInjected = 27;
 }
 
 message ServiceDiscovery {
