@@ -528,6 +528,12 @@ enum ServiceNameSource {
 	SERVICE_NAME_SOURCE_WEBSPHERE = 12;
 }
 
+enum InjectionState {
+	INJECTION_UNKNOWN = 0;
+	INJECTION_INJECTED = 1;
+	INJECTION_NOT_INJECTED = 2;
+}
+
 // Selected fields from TracerMetadata as defined in
 // https://github.com/DataDog/libdatadog/blob/99056cf717cfe9/ddcommon/src/tracer_metadata.rs#L7-L29
 message TracerMetadata {
@@ -568,7 +574,7 @@ message Process {
 	Language language = 24;
 	PortInfo portInfo = 25;
 	ServiceDiscovery serviceDiscovery = 26;
-	bool isInjected = 27;
+	InjectionState injectionState = 27;
 }
 
 message ServiceDiscovery {

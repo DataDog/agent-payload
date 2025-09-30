@@ -3501,10 +3501,10 @@ func (x *ProcessBuilder) SetServiceDiscovery(cb func(w *ServiceDiscoveryBuilder)
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
-func (x *ProcessBuilder) SetIsInjected(v bool) {
-	if v {
+func (x *ProcessBuilder) SetInjectionState(v uint64) {
+	if v != 0 {
 		x.scratch = protowire.AppendVarint(x.scratch[:0], 0xd8)
-		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.scratch = protowire.AppendVarint(x.scratch, v)
 		x.writer.Write(x.scratch)
 	}
 }
