@@ -1920,6 +1920,39 @@ func (x *CollectorManifestCRBuilder) AddTags(v string) {
 	x.writer.Write(x.scratch)
 }
 
+type CollectorKubeletConfigurationBuilder struct {
+	writer                   io.Writer
+	buf                      bytes.Buffer
+	scratch                  []byte
+	collectorManifestBuilder CollectorManifestBuilder
+}
+
+func NewCollectorKubeletConfigurationBuilder(writer io.Writer) *CollectorKubeletConfigurationBuilder {
+	return &CollectorKubeletConfigurationBuilder{
+		writer: writer,
+	}
+}
+func (x *CollectorKubeletConfigurationBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *CollectorKubeletConfigurationBuilder) SetManifest(cb func(w *CollectorManifestBuilder)) {
+	x.buf.Reset()
+	x.collectorManifestBuilder.writer = &x.buf
+	x.collectorManifestBuilder.scratch = x.scratch
+	cb(&x.collectorManifestBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *CollectorKubeletConfigurationBuilder) AddTags(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
 type CollectorNamespaceBuilder struct {
 	writer              io.Writer
 	buf                 bytes.Buffer

@@ -301,6 +301,11 @@ message CollectorManifestCR {
 	repeated string tags = 2;
 }
 
+message CollectorKubeletConfiguration {
+	CollectorManifest manifest = 1;
+	repeated string tags = 2;
+}
+
 message CollectorNamespace {
 	string clusterName = 1;
 	string clusterId = 2;
