@@ -4,7 +4,8 @@
     "definitions": {
         "ClusterAutoscalingValues": {
             "required": [
-                "name"
+                "name",
+                "recommended_instance_types"
             ],
             "properties": {
                 "name": {
@@ -33,6 +34,15 @@
                     },
                     "type": "array",
                     "description": "RecommendedInstanceTypes are the list of instance types that the NodePool should be restricted to"
+                },
+                "target_ref": {
+                    "$ref": "#/definitions/TargetRef",
+                    "additionalProperties": false,
+                    "description": "TargetRef points to the associated NodePool (if exists) that the recommendation was created from"
+                },
+                "target_hash": {
+                    "type": "string",
+                    "description": "TargetHash is a hash of the original NodePool (if exists) at the time the recommendation was generated"
                 }
             },
             "additionalProperties": false,
@@ -94,6 +104,23 @@
             "type": "object",
             "title": "Taints",
             "description": "Taints are the minimum set of taints that should be set on the NodePool"
+        },
+        "TargetRef": {
+            "properties": {
+                "group": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                },
+                "kind": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Target Ref",
+            "description": "TargetRef defines the GVK of a target Kubernetes object"
         }
     }
 }
