@@ -26,7 +26,7 @@ message ClusterAutoscalingValues {
   repeated DomainLabels    labels                     = 2; // Labels are the domain labels that should be present on the NodePool
   repeated Taints          taints                     = 3; // Taints are the domain taints that should be present on the NodePool
   repeated string          recommended_instance_types = 4 [(protoc.gen.jsonschema.field_options).required = true]; // RecommendedInstanceTypes are the list of instance types that the NodePool should be restricted to
-  TargetRef                target_ref                 = 5; // TargetRef points to the associated NodePool (if exists) that the recommendation was created from
+  string                   target_name                = 5; // TargetName refers to the associated NodePool (if exists) that the recommendation was created from
   string                   target_hash                = 6; // TargetHash is a hash of the original NodePool (if exists) at the time the recommendation was generated
 }
 
@@ -49,13 +49,3 @@ message Taints {
   string effect = 3 [(protoc.gen.jsonschema.field_options).required = true];
 }
 
-// TargetRef defines the GVK of a target Kubernetes object
-message TargetRef {
-  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
-  option (protoc.gen.jsonschema.message_options).ignore = true;
-
-  string group   = 1;
-  string version = 2;
-  string kind    = 3;
-  string name    = 4;
-}

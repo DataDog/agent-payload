@@ -35,10 +35,9 @@
                     "type": "array",
                     "description": "RecommendedInstanceTypes are the list of instance types that the NodePool should be restricted to"
                 },
-                "target_ref": {
-                    "$ref": "#/definitions/TargetRef",
-                    "additionalProperties": false,
-                    "description": "TargetRef points to the associated NodePool (if exists) that the recommendation was created from"
+                "target_name": {
+                    "type": "string",
+                    "description": "TargetName refers to the associated NodePool (if exists) that the recommendation was created from"
                 },
                 "target_hash": {
                     "type": "string",
@@ -104,26 +103,6 @@
             "type": "object",
             "title": "Taints",
             "description": "Taints are the minimum set of taints that should be set on the NodePool"
-        },
-        "TargetRef": {
-            "properties": {
-                "group": {
-                    "type": "string"
-                },
-                "version": {
-                    "type": "string"
-                },
-                "kind": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Target Ref",
-            "description": "TargetRef defines the GVK of a target Kubernetes object"
         }
     }
 }
