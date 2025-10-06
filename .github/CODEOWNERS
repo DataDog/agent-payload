@@ -16,7 +16,7 @@ proto/contlcycle/           @DataDog/container-integrations
 contimage/                  @DataDog/container-integrations @DataDog/container-experiences
 proto/contimage/            @DataDog/container-integrations @DataDog/container-experiences
 sbom/                       @DataDog/container-integrations
-proto/sbom/                  @DataDog/container-integrations
+proto/sbom/                 @DataDog/container-integrations
 CycloneDX/                  @DataDog/container-integrations
 cyclonedx_v1_4/             @DataDog/container-integrations
 cws/                        @DataDog/agent-security
