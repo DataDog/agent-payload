@@ -15,7 +15,10 @@ jobs:
       uses: actions/setup-python@v6
       with:
         python-version-file: "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/.python-version"
-        pip-install: -r "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/requirements.txt"
+    - name: "Install invoke"
+        run: |
+          pip --version
+          pip install -r "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/requirements.txt"
     - name: Install go
       uses: actions/setup-go@v3
       with:
@@ -44,7 +47,10 @@ jobs:
       uses: actions/setup-python@v6
       with:
         python-version-file: "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/.python-version"
-        pip-install: -r "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/requirements.txt"
+    - name: "Install invoke"
+        run: |
+          pip --version
+          pip install -r "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/requirements.txt"
     - name: Install go
       uses: actions/setup-go@v3
       with:
