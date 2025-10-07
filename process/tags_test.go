@@ -5,18 +5,40 @@ import (
 	"fmt"
 	"io/ioutil"
 	"math"
+	"sort"
 	"strings"
 	"testing"
 
-	"github.com/stretchr/testify/suite"
-
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 )
 
 type TagSerdeTestSuite struct {
 	suite.Suite
-	encoder TagEncoder
+	encoder            TagEncoder
+	shouldApplySorting bool
+	shouldApplyDedup   bool
+}
+
+func applyModifiers(tags []string, shouldApplySorting, shouldApplyDedup bool) []string {
+	if len(tags) == 0 {
+		return tags
+	}
+	if shouldApplyDedup {
+		deduped := make(map[string]struct{}, len(tags))
+		for _, tag := range tags {
+			deduped[tag] = struct{}{}
+		}
+		tags = make([]string, 0, len(deduped))
+		for tag := range deduped {
+			tags = append(tags, tag)
+		}
+	}
+	if shouldApplySorting {
+		sort.Strings(tags)
+	}
+	return tags
 }
 
 func TestV1TagEncoder(t *testing.T) {
@@ -32,11 +54,16 @@ func (suite *TagSerdeTestSuite) TestTagSerde() {
 
 	buf := suite.encoder.Buffer()
 
-	assert.Equal(suite.T(), []string{"one", "two", "three"}, getTags(buf, a))
-	assert.Empty(suite.T(), getTags(buf, b))
-	assert.Equal(suite.T(), []string{"four", "five"}, getTags(buf, c))
-	assert.Equal(suite.T(), []string{"six"}, getTags(buf, d))
-	assert.Equal(suite.T(), []string{"seven", "eight", "nine", "ten"}, getTags(buf, e))
+	cases := map[int][]string{
+		a: {"one", "two", "three"},
+		b: nil,
+		c: {"four", "five"},
+		d: {"six"},
+		e: {"seven", "eight", "nine", "ten"},
+	}
+	for idx, tags := range cases {
+		assert.Equal(suite.T(), applyModifiers(tags, suite.shouldApplySorting, suite.shouldApplyDedup), getTags(buf, idx), fmt.Sprintf("for index %d", idx))
+	}
 }
 
 func (suite *TagSerdeTestSuite) TestUnicodeTags() {
@@ -62,31 +89,33 @@ func (suite *TagSerdeTestSuite) TestTagSerdeRealTags() {
 	}
 
 	for i, tagIndex := range tagIndices {
-		assert.Equal(suite.T(), allTags[i], getTags(encoder.Buffer(), tagIndex))
+		buffer := encoder.Buffer()
+		expected := applyModifiers(allTags[i], suite.shouldApplySorting, suite.shouldApplyDedup)
+		assert.Equal(suite.T(), expected, getTags(buffer, tagIndex))
 
 		var iterated []string
-		iterateTags(encoder.Buffer(), tagIndex, func(i, total int, tag string) bool {
+		iterateTags(buffer, tagIndex, func(i, total int, tag string) bool {
 			iterated = append(iterated, tag)
 			return true
 		})
-		assert.Equal(suite.T(), allTags[i], iterated)
+		assert.Equal(suite.T(), expected, iterated)
 
 		var unsafeIterated []string
-		unsafeIterateTags(encoder.Buffer(), tagIndex, func(i, total int, tag []byte) bool {
+		unsafeIterateTags(buffer, tagIndex, func(i, total int, tag []byte) bool {
 			unsafeIterated = append(unsafeIterated, string(tag))
 			return true
 		})
-		assert.Equal(suite.T(), allTags[i], unsafeIterated)
+		assert.Equal(suite.T(), expected, unsafeIterated)
 
 		iterated = nil
-		iterateTags(encoder.Buffer(), tagIndex, func(i, total int, tag string) bool {
+		iterateTags(buffer, tagIndex, func(i, total int, tag string) bool {
 			if i == total-1 {
 				return false
 			}
 			iterated = append(iterated, tag)
 			return true
 		})
-		assert.Equal(suite.T(), allTags[i][0:len(allTags[i])-1], iterated)
+		assert.Equal(suite.T(), expected[:len(expected)-1], iterated)
 
 	}
 }

@@ -10267,6 +10267,30 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
      */
     com.dd.cws.adv1.pb.SecDumpProto.NetworkDeviceNodeOrBuilder getNetworkDevicesOrBuilder(
         int index);
+
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+     */
+    java.util.List<com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode> 
+        getCapabilityNodesList();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode getCapabilityNodes(int index);
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+     */
+    int getCapabilityNodesCount();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+     */
+    java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.CapabilityNodeOrBuilder> 
+        getCapabilityNodesOrBuilderList();
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.CapabilityNodeOrBuilder getCapabilityNodesOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code datadog.cws.dumpsv1.ProcessActivityNode}
@@ -10292,6 +10316,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       imdsEvents_ = java.util.Collections.emptyList();
       syscallNodes_ = java.util.Collections.emptyList();
       networkDevices_ = java.util.Collections.emptyList();
+      capabilityNodes_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -10796,6 +10821,47 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       return networkDevices_.get(index);
     }
 
+    public static final int CAPABILITY_NODES_FIELD_NUMBER = 15;
+    @SuppressWarnings("serial")
+    private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode> capabilityNodes_;
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode> getCapabilityNodesList() {
+      return capabilityNodes_;
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.CapabilityNodeOrBuilder> 
+        getCapabilityNodesOrBuilderList() {
+      return capabilityNodes_;
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+     */
+    @java.lang.Override
+    public int getCapabilityNodesCount() {
+      return capabilityNodes_.size();
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode getCapabilityNodes(int index) {
+      return capabilityNodes_.get(index);
+    }
+    /**
+     * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.CapabilityNodeOrBuilder getCapabilityNodesOrBuilder(
+        int index) {
+      return capabilityNodes_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -10853,6 +10919,9 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       }
       if (nodeBase_ != null) {
         output.writeMessage(14, getNodeBase());
+      }
+      for (int i = 0; i < capabilityNodes_.size(); i++) {
+        output.writeMessage(15, capabilityNodes_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -10929,6 +10998,10 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(14, getNodeBase());
       }
+      for (int i = 0; i < capabilityNodes_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(15, capabilityNodes_.get(i));
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -10975,6 +11048,8 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           .equals(other.getSyscallNodesList())) return false;
       if (!getNetworkDevicesList()
           .equals(other.getNetworkDevicesList())) return false;
+      if (!getCapabilityNodesList()
+          .equals(other.getCapabilityNodesList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -11035,6 +11110,10 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       if (getNetworkDevicesCount() > 0) {
         hash = (37 * hash) + NETWORK_DEVICES_FIELD_NUMBER;
         hash = (53 * hash) + getNetworkDevicesList().hashCode();
+      }
+      if (getCapabilityNodesCount() > 0) {
+        hash = (37 * hash) + CAPABILITY_NODES_FIELD_NUMBER;
+        hash = (53 * hash) + getCapabilityNodesList().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -11235,6 +11314,13 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           networkDevicesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00001000);
+        if (capabilityNodesBuilder_ == null) {
+          capabilityNodes_ = java.util.Collections.emptyList();
+        } else {
+          capabilityNodes_ = null;
+          capabilityNodesBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00002000);
         return this;
       }
 
@@ -11349,6 +11435,15 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           result.networkDevices_ = networkDevices_;
         } else {
           result.networkDevices_ = networkDevicesBuilder_.build();
+        }
+        if (capabilityNodesBuilder_ == null) {
+          if (((bitField0_ & 0x00002000) != 0)) {
+            capabilityNodes_ = java.util.Collections.unmodifiableList(capabilityNodes_);
+            bitField0_ = (bitField0_ & ~0x00002000);
+          }
+          result.capabilityNodes_ = capabilityNodes_;
+        } else {
+          result.capabilityNodes_ = capabilityNodesBuilder_.build();
         }
       }
 
@@ -11650,6 +11745,32 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
             }
           }
         }
+        if (capabilityNodesBuilder_ == null) {
+          if (!other.capabilityNodes_.isEmpty()) {
+            if (capabilityNodes_.isEmpty()) {
+              capabilityNodes_ = other.capabilityNodes_;
+              bitField0_ = (bitField0_ & ~0x00002000);
+            } else {
+              ensureCapabilityNodesIsMutable();
+              capabilityNodes_.addAll(other.capabilityNodes_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.capabilityNodes_.isEmpty()) {
+            if (capabilityNodesBuilder_.isEmpty()) {
+              capabilityNodesBuilder_.dispose();
+              capabilityNodesBuilder_ = null;
+              capabilityNodes_ = other.capabilityNodes_;
+              bitField0_ = (bitField0_ & ~0x00002000);
+              capabilityNodesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getCapabilityNodesFieldBuilder() : null;
+            } else {
+              capabilityNodesBuilder_.addAllMessages(other.capabilityNodes_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -11821,6 +11942,19 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
                 bitField0_ |= 0x00000200;
                 break;
               } // case 114
+              case 122: {
+                com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode m =
+                    input.readMessage(
+                        com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.parser(),
+                        extensionRegistry);
+                if (capabilityNodesBuilder_ == null) {
+                  ensureCapabilityNodesIsMutable();
+                  capabilityNodes_.add(m);
+                } else {
+                  capabilityNodesBuilder_.addMessage(m);
+                }
+                break;
+              } // case 122
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -14264,6 +14398,246 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           networkDevices_ = null;
         }
         return networkDevicesBuilder_;
+      }
+
+      private java.util.List<com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode> capabilityNodes_ =
+        java.util.Collections.emptyList();
+      private void ensureCapabilityNodesIsMutable() {
+        if (!((bitField0_ & 0x00002000) != 0)) {
+          capabilityNodes_ = new java.util.ArrayList<com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode>(capabilityNodes_);
+          bitField0_ |= 0x00002000;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode, com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.CapabilityNodeOrBuilder> capabilityNodesBuilder_;
+
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode> getCapabilityNodesList() {
+        if (capabilityNodesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(capabilityNodes_);
+        } else {
+          return capabilityNodesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public int getCapabilityNodesCount() {
+        if (capabilityNodesBuilder_ == null) {
+          return capabilityNodes_.size();
+        } else {
+          return capabilityNodesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode getCapabilityNodes(int index) {
+        if (capabilityNodesBuilder_ == null) {
+          return capabilityNodes_.get(index);
+        } else {
+          return capabilityNodesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public Builder setCapabilityNodes(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode value) {
+        if (capabilityNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCapabilityNodesIsMutable();
+          capabilityNodes_.set(index, value);
+          onChanged();
+        } else {
+          capabilityNodesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public Builder setCapabilityNodes(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.Builder builderForValue) {
+        if (capabilityNodesBuilder_ == null) {
+          ensureCapabilityNodesIsMutable();
+          capabilityNodes_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          capabilityNodesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public Builder addCapabilityNodes(com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode value) {
+        if (capabilityNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCapabilityNodesIsMutable();
+          capabilityNodes_.add(value);
+          onChanged();
+        } else {
+          capabilityNodesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public Builder addCapabilityNodes(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode value) {
+        if (capabilityNodesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureCapabilityNodesIsMutable();
+          capabilityNodes_.add(index, value);
+          onChanged();
+        } else {
+          capabilityNodesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public Builder addCapabilityNodes(
+          com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.Builder builderForValue) {
+        if (capabilityNodesBuilder_ == null) {
+          ensureCapabilityNodesIsMutable();
+          capabilityNodes_.add(builderForValue.build());
+          onChanged();
+        } else {
+          capabilityNodesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public Builder addCapabilityNodes(
+          int index, com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.Builder builderForValue) {
+        if (capabilityNodesBuilder_ == null) {
+          ensureCapabilityNodesIsMutable();
+          capabilityNodes_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          capabilityNodesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public Builder addAllCapabilityNodes(
+          java.lang.Iterable<? extends com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode> values) {
+        if (capabilityNodesBuilder_ == null) {
+          ensureCapabilityNodesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, capabilityNodes_);
+          onChanged();
+        } else {
+          capabilityNodesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public Builder clearCapabilityNodes() {
+        if (capabilityNodesBuilder_ == null) {
+          capabilityNodes_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00002000);
+          onChanged();
+        } else {
+          capabilityNodesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public Builder removeCapabilityNodes(int index) {
+        if (capabilityNodesBuilder_ == null) {
+          ensureCapabilityNodesIsMutable();
+          capabilityNodes_.remove(index);
+          onChanged();
+        } else {
+          capabilityNodesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.Builder getCapabilityNodesBuilder(
+          int index) {
+        return getCapabilityNodesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.CapabilityNodeOrBuilder getCapabilityNodesOrBuilder(
+          int index) {
+        if (capabilityNodesBuilder_ == null) {
+          return capabilityNodes_.get(index);  } else {
+          return capabilityNodesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public java.util.List<? extends com.dd.cws.adv1.pb.SecDumpProto.CapabilityNodeOrBuilder> 
+           getCapabilityNodesOrBuilderList() {
+        if (capabilityNodesBuilder_ != null) {
+          return capabilityNodesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(capabilityNodes_);
+        }
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.Builder addCapabilityNodesBuilder() {
+        return getCapabilityNodesFieldBuilder().addBuilder(
+            com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.Builder addCapabilityNodesBuilder(
+          int index) {
+        return getCapabilityNodesFieldBuilder().addBuilder(
+            index, com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .datadog.cws.dumpsv1.CapabilityNode capability_nodes = 15;</code>
+       */
+      public java.util.List<com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.Builder> 
+           getCapabilityNodesBuilderList() {
+        return getCapabilityNodesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode, com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.CapabilityNodeOrBuilder> 
+          getCapabilityNodesFieldBuilder() {
+        if (capabilityNodesBuilder_ == null) {
+          capabilityNodesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode, com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.Builder, com.dd.cws.adv1.pb.SecDumpProto.CapabilityNodeOrBuilder>(
+                  capabilityNodes_,
+                  ((bitField0_ & 0x00002000) != 0),
+                  getParentForChildren(),
+                  isClean());
+          capabilityNodes_ = null;
+        }
+        return capabilityNodesBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -23551,6 +23925,755 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
 
   }
 
+  public interface CapabilityNodeOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.CapabilityNode)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.datadog.cws.dumpsv1.NodeBase node_base = 1;</code>
+     * @return Whether the nodeBase field is set.
+     */
+    boolean hasNodeBase();
+    /**
+     * <code>.datadog.cws.dumpsv1.NodeBase node_base = 1;</code>
+     * @return The nodeBase.
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.NodeBase getNodeBase();
+    /**
+     * <code>.datadog.cws.dumpsv1.NodeBase node_base = 1;</code>
+     */
+    com.dd.cws.adv1.pb.SecDumpProto.NodeBaseOrBuilder getNodeBaseOrBuilder();
+
+    /**
+     * <code>uint64 capability = 2;</code>
+     * @return The capability.
+     */
+    long getCapability();
+
+    /**
+     * <code>bool is_capable = 3;</code>
+     * @return The isCapable.
+     */
+    boolean getIsCapable();
+  }
+  /**
+   * Protobuf type {@code datadog.cws.dumpsv1.CapabilityNode}
+   */
+  public static final class CapabilityNode extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.CapabilityNode)
+      CapabilityNodeOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use CapabilityNode.newBuilder() to construct.
+    private CapabilityNode(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private CapabilityNode() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new CapabilityNode();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_CapabilityNode_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_CapabilityNode_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.class, com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.Builder.class);
+    }
+
+    public static final int NODE_BASE_FIELD_NUMBER = 1;
+    private com.dd.cws.adv1.pb.SecDumpProto.NodeBase nodeBase_;
+    /**
+     * <code>.datadog.cws.dumpsv1.NodeBase node_base = 1;</code>
+     * @return Whether the nodeBase field is set.
+     */
+    @java.lang.Override
+    public boolean hasNodeBase() {
+      return nodeBase_ != null;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.NodeBase node_base = 1;</code>
+     * @return The nodeBase.
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.NodeBase getNodeBase() {
+      return nodeBase_ == null ? com.dd.cws.adv1.pb.SecDumpProto.NodeBase.getDefaultInstance() : nodeBase_;
+    }
+    /**
+     * <code>.datadog.cws.dumpsv1.NodeBase node_base = 1;</code>
+     */
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.NodeBaseOrBuilder getNodeBaseOrBuilder() {
+      return nodeBase_ == null ? com.dd.cws.adv1.pb.SecDumpProto.NodeBase.getDefaultInstance() : nodeBase_;
+    }
+
+    public static final int CAPABILITY_FIELD_NUMBER = 2;
+    private long capability_ = 0L;
+    /**
+     * <code>uint64 capability = 2;</code>
+     * @return The capability.
+     */
+    @java.lang.Override
+    public long getCapability() {
+      return capability_;
+    }
+
+    public static final int IS_CAPABLE_FIELD_NUMBER = 3;
+    private boolean isCapable_ = false;
+    /**
+     * <code>bool is_capable = 3;</code>
+     * @return The isCapable.
+     */
+    @java.lang.Override
+    public boolean getIsCapable() {
+      return isCapable_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (nodeBase_ != null) {
+        output.writeMessage(1, getNodeBase());
+      }
+      if (capability_ != 0L) {
+        output.writeUInt64(2, capability_);
+      }
+      if (isCapable_ != false) {
+        output.writeBool(3, isCapable_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (nodeBase_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getNodeBase());
+      }
+      if (capability_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(2, capability_);
+      }
+      if (isCapable_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, isCapable_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode)) {
+        return super.equals(obj);
+      }
+      com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode other = (com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode) obj;
+
+      if (hasNodeBase() != other.hasNodeBase()) return false;
+      if (hasNodeBase()) {
+        if (!getNodeBase()
+            .equals(other.getNodeBase())) return false;
+      }
+      if (getCapability()
+          != other.getCapability()) return false;
+      if (getIsCapable()
+          != other.getIsCapable()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasNodeBase()) {
+        hash = (37 * hash) + NODE_BASE_FIELD_NUMBER;
+        hash = (53 * hash) + getNodeBase().hashCode();
+      }
+      hash = (37 * hash) + CAPABILITY_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getCapability());
+      hash = (37 * hash) + IS_CAPABLE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getIsCapable());
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code datadog.cws.dumpsv1.CapabilityNode}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.CapabilityNode)
+        com.dd.cws.adv1.pb.SecDumpProto.CapabilityNodeOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_CapabilityNode_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_CapabilityNode_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.class, com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.Builder.class);
+      }
+
+      // Construct using com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        nodeBase_ = null;
+        if (nodeBaseBuilder_ != null) {
+          nodeBaseBuilder_.dispose();
+          nodeBaseBuilder_ = null;
+        }
+        capability_ = 0L;
+        isCapable_ = false;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_CapabilityNode_descriptor;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode getDefaultInstanceForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode build() {
+        com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode buildPartial() {
+        com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode result = new com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.nodeBase_ = nodeBaseBuilder_ == null
+              ? nodeBase_
+              : nodeBaseBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.capability_ = capability_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.isCapable_ = isCapable_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode) {
+          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode other) {
+        if (other == com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode.getDefaultInstance()) return this;
+        if (other.hasNodeBase()) {
+          mergeNodeBase(other.getNodeBase());
+        }
+        if (other.getCapability() != 0L) {
+          setCapability(other.getCapability());
+        }
+        if (other.getIsCapable() != false) {
+          setIsCapable(other.getIsCapable());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                input.readMessage(
+                    getNodeBaseFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 16: {
+                capability_ = input.readUInt64();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              case 24: {
+                isCapable_ = input.readBool();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 24
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private com.dd.cws.adv1.pb.SecDumpProto.NodeBase nodeBase_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.NodeBase, com.dd.cws.adv1.pb.SecDumpProto.NodeBase.Builder, com.dd.cws.adv1.pb.SecDumpProto.NodeBaseOrBuilder> nodeBaseBuilder_;
+      /**
+       * <code>.datadog.cws.dumpsv1.NodeBase node_base = 1;</code>
+       * @return Whether the nodeBase field is set.
+       */
+      public boolean hasNodeBase() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NodeBase node_base = 1;</code>
+       * @return The nodeBase.
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.NodeBase getNodeBase() {
+        if (nodeBaseBuilder_ == null) {
+          return nodeBase_ == null ? com.dd.cws.adv1.pb.SecDumpProto.NodeBase.getDefaultInstance() : nodeBase_;
+        } else {
+          return nodeBaseBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NodeBase node_base = 1;</code>
+       */
+      public Builder setNodeBase(com.dd.cws.adv1.pb.SecDumpProto.NodeBase value) {
+        if (nodeBaseBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          nodeBase_ = value;
+        } else {
+          nodeBaseBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NodeBase node_base = 1;</code>
+       */
+      public Builder setNodeBase(
+          com.dd.cws.adv1.pb.SecDumpProto.NodeBase.Builder builderForValue) {
+        if (nodeBaseBuilder_ == null) {
+          nodeBase_ = builderForValue.build();
+        } else {
+          nodeBaseBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NodeBase node_base = 1;</code>
+       */
+      public Builder mergeNodeBase(com.dd.cws.adv1.pb.SecDumpProto.NodeBase value) {
+        if (nodeBaseBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0) &&
+            nodeBase_ != null &&
+            nodeBase_ != com.dd.cws.adv1.pb.SecDumpProto.NodeBase.getDefaultInstance()) {
+            getNodeBaseBuilder().mergeFrom(value);
+          } else {
+            nodeBase_ = value;
+          }
+        } else {
+          nodeBaseBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NodeBase node_base = 1;</code>
+       */
+      public Builder clearNodeBase() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        nodeBase_ = null;
+        if (nodeBaseBuilder_ != null) {
+          nodeBaseBuilder_.dispose();
+          nodeBaseBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NodeBase node_base = 1;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.NodeBase.Builder getNodeBaseBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getNodeBaseFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NodeBase node_base = 1;</code>
+       */
+      public com.dd.cws.adv1.pb.SecDumpProto.NodeBaseOrBuilder getNodeBaseOrBuilder() {
+        if (nodeBaseBuilder_ != null) {
+          return nodeBaseBuilder_.getMessageOrBuilder();
+        } else {
+          return nodeBase_ == null ?
+              com.dd.cws.adv1.pb.SecDumpProto.NodeBase.getDefaultInstance() : nodeBase_;
+        }
+      }
+      /**
+       * <code>.datadog.cws.dumpsv1.NodeBase node_base = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.dd.cws.adv1.pb.SecDumpProto.NodeBase, com.dd.cws.adv1.pb.SecDumpProto.NodeBase.Builder, com.dd.cws.adv1.pb.SecDumpProto.NodeBaseOrBuilder> 
+          getNodeBaseFieldBuilder() {
+        if (nodeBaseBuilder_ == null) {
+          nodeBaseBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.NodeBase, com.dd.cws.adv1.pb.SecDumpProto.NodeBase.Builder, com.dd.cws.adv1.pb.SecDumpProto.NodeBaseOrBuilder>(
+                  getNodeBase(),
+                  getParentForChildren(),
+                  isClean());
+          nodeBase_ = null;
+        }
+        return nodeBaseBuilder_;
+      }
+
+      private long capability_ ;
+      /**
+       * <code>uint64 capability = 2;</code>
+       * @return The capability.
+       */
+      @java.lang.Override
+      public long getCapability() {
+        return capability_;
+      }
+      /**
+       * <code>uint64 capability = 2;</code>
+       * @param value The capability to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCapability(long value) {
+        
+        capability_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 capability = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCapability() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        capability_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private boolean isCapable_ ;
+      /**
+       * <code>bool is_capable = 3;</code>
+       * @return The isCapable.
+       */
+      @java.lang.Override
+      public boolean getIsCapable() {
+        return isCapable_;
+      }
+      /**
+       * <code>bool is_capable = 3;</code>
+       * @param value The isCapable to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIsCapable(boolean value) {
+        
+        isCapable_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool is_capable = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIsCapable() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        isCapable_ = false;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.CapabilityNode)
+    }
+
+    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.CapabilityNode)
+    private static final com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode();
+    }
+
+    public static com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<CapabilityNode>
+        PARSER = new com.google.protobuf.AbstractParser<CapabilityNode>() {
+      @java.lang.Override
+      public CapabilityNode parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<CapabilityNode> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CapabilityNode> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.dd.cws.adv1.pb.SecDumpProto.CapabilityNode getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface IMDSNodeOrBuilder extends
       // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.IMDSNode)
       com.google.protobuf.MessageOrBuilder {
@@ -23582,7 +24705,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=181
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated java.util.List<java.lang.String>
@@ -23590,14 +24713,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=181
      * @return The count of imageTags.
      */
     @java.lang.Deprecated int getImageTagsCount();
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=181
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -23605,7 +24728,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=181
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -23731,7 +24854,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=181
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -23741,7 +24864,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=181
      * @return The count of imageTags.
      */
     @java.lang.Deprecated public int getImageTagsCount() {
@@ -23750,7 +24873,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=181
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -23760,7 +24883,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=181
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -24555,7 +25678,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=181
        * @return A list containing the imageTags.
        */
       @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -24565,7 +25688,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=181
        * @return The count of imageTags.
        */
       @java.lang.Deprecated public int getImageTagsCount() {
@@ -24574,7 +25697,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=181
        * @param index The index of the element to return.
        * @return The imageTags at the given index.
        */
@@ -24584,7 +25707,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=181
        * @param index The index of the value to return.
        * @return The bytes of the imageTags at the given index.
        */
@@ -24595,7 +25718,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=181
        * @param index The index to set the value at.
        * @param value The imageTags to set.
        * @return This builder for chaining.
@@ -24611,7 +25734,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=181
        * @param value The imageTags to add.
        * @return This builder for chaining.
        */
@@ -24626,7 +25749,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=181
        * @param values The imageTags to add.
        * @return This builder for chaining.
        */
@@ -24641,7 +25764,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=181
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearImageTags() {
@@ -24653,7 +25776,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=174
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=181
        * @param value The bytes of the imageTags to add.
        * @return This builder for chaining.
        */
@@ -28423,16 +29546,72 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         getPackageVersionBytes();
 
     /**
-     * <code>string package_srcversion = 16;</code>
-     * @return The packageSrcversion.
+     * <code>optional uint32 package_epoch = 19;</code>
+     * @return Whether the packageEpoch field is set.
      */
-    java.lang.String getPackageSrcversion();
+    boolean hasPackageEpoch();
     /**
-     * <code>string package_srcversion = 16;</code>
-     * @return The bytes for packageSrcversion.
+     * <code>optional uint32 package_epoch = 19;</code>
+     * @return The packageEpoch.
+     */
+    int getPackageEpoch();
+
+    /**
+     * <code>optional string package_release = 20;</code>
+     * @return Whether the packageRelease field is set.
+     */
+    boolean hasPackageRelease();
+    /**
+     * <code>optional string package_release = 20;</code>
+     * @return The packageRelease.
+     */
+    java.lang.String getPackageRelease();
+    /**
+     * <code>optional string package_release = 20;</code>
+     * @return The bytes for packageRelease.
      */
     com.google.protobuf.ByteString
-        getPackageSrcversionBytes();
+        getPackageReleaseBytes();
+
+    /**
+     * <code>string package_src_version = 16;</code>
+     * @return The packageSrcVersion.
+     */
+    java.lang.String getPackageSrcVersion();
+    /**
+     * <code>string package_src_version = 16;</code>
+     * @return The bytes for packageSrcVersion.
+     */
+    com.google.protobuf.ByteString
+        getPackageSrcVersionBytes();
+
+    /**
+     * <code>optional uint32 package_src_epoch = 21;</code>
+     * @return Whether the packageSrcEpoch field is set.
+     */
+    boolean hasPackageSrcEpoch();
+    /**
+     * <code>optional uint32 package_src_epoch = 21;</code>
+     * @return The packageSrcEpoch.
+     */
+    int getPackageSrcEpoch();
+
+    /**
+     * <code>optional string package_src_release = 22;</code>
+     * @return Whether the packageSrcRelease field is set.
+     */
+    boolean hasPackageSrcRelease();
+    /**
+     * <code>optional string package_src_release = 22;</code>
+     * @return The packageSrcRelease.
+     */
+    java.lang.String getPackageSrcRelease();
+    /**
+     * <code>optional string package_src_release = 22;</code>
+     * @return The bytes for packageSrcRelease.
+     */
+    com.google.protobuf.ByteString
+        getPackageSrcReleaseBytes();
 
     /**
      * <code>repeated string hashes = 17;</code>
@@ -28490,7 +29669,9 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       filesystem_ = "";
       packageName_ = "";
       packageVersion_ = "";
-      packageSrcversion_ = "";
+      packageRelease_ = "";
+      packageSrcVersion_ = "";
+      packageSrcRelease_ = "";
       hashes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       hashState_ = 0;
     }
@@ -28520,6 +29701,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
               com.dd.cws.adv1.pb.SecDumpProto.FileInfo.class, com.dd.cws.adv1.pb.SecDumpProto.FileInfo.Builder.class);
     }
 
+    private int bitField0_;
     public static final int UID_FIELD_NUMBER = 1;
     private int uid_ = 0;
     /**
@@ -28885,39 +30067,171 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       }
     }
 
-    public static final int PACKAGE_SRCVERSION_FIELD_NUMBER = 16;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object packageSrcversion_ = "";
+    public static final int PACKAGE_EPOCH_FIELD_NUMBER = 19;
+    private int packageEpoch_ = 0;
     /**
-     * <code>string package_srcversion = 16;</code>
-     * @return The packageSrcversion.
+     * <code>optional uint32 package_epoch = 19;</code>
+     * @return Whether the packageEpoch field is set.
      */
     @java.lang.Override
-    public java.lang.String getPackageSrcversion() {
-      java.lang.Object ref = packageSrcversion_;
+    public boolean hasPackageEpoch() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>optional uint32 package_epoch = 19;</code>
+     * @return The packageEpoch.
+     */
+    @java.lang.Override
+    public int getPackageEpoch() {
+      return packageEpoch_;
+    }
+
+    public static final int PACKAGE_RELEASE_FIELD_NUMBER = 20;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object packageRelease_ = "";
+    /**
+     * <code>optional string package_release = 20;</code>
+     * @return Whether the packageRelease field is set.
+     */
+    @java.lang.Override
+    public boolean hasPackageRelease() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>optional string package_release = 20;</code>
+     * @return The packageRelease.
+     */
+    @java.lang.Override
+    public java.lang.String getPackageRelease() {
+      java.lang.Object ref = packageRelease_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        packageSrcversion_ = s;
+        packageRelease_ = s;
         return s;
       }
     }
     /**
-     * <code>string package_srcversion = 16;</code>
-     * @return The bytes for packageSrcversion.
+     * <code>optional string package_release = 20;</code>
+     * @return The bytes for packageRelease.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getPackageSrcversionBytes() {
-      java.lang.Object ref = packageSrcversion_;
+        getPackageReleaseBytes() {
+      java.lang.Object ref = packageRelease_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        packageSrcversion_ = b;
+        packageRelease_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PACKAGE_SRC_VERSION_FIELD_NUMBER = 16;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object packageSrcVersion_ = "";
+    /**
+     * <code>string package_src_version = 16;</code>
+     * @return The packageSrcVersion.
+     */
+    @java.lang.Override
+    public java.lang.String getPackageSrcVersion() {
+      java.lang.Object ref = packageSrcVersion_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        packageSrcVersion_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string package_src_version = 16;</code>
+     * @return The bytes for packageSrcVersion.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPackageSrcVersionBytes() {
+      java.lang.Object ref = packageSrcVersion_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        packageSrcVersion_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PACKAGE_SRC_EPOCH_FIELD_NUMBER = 21;
+    private int packageSrcEpoch_ = 0;
+    /**
+     * <code>optional uint32 package_src_epoch = 21;</code>
+     * @return Whether the packageSrcEpoch field is set.
+     */
+    @java.lang.Override
+    public boolean hasPackageSrcEpoch() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <code>optional uint32 package_src_epoch = 21;</code>
+     * @return The packageSrcEpoch.
+     */
+    @java.lang.Override
+    public int getPackageSrcEpoch() {
+      return packageSrcEpoch_;
+    }
+
+    public static final int PACKAGE_SRC_RELEASE_FIELD_NUMBER = 22;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object packageSrcRelease_ = "";
+    /**
+     * <code>optional string package_src_release = 22;</code>
+     * @return Whether the packageSrcRelease field is set.
+     */
+    @java.lang.Override
+    public boolean hasPackageSrcRelease() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <code>optional string package_src_release = 22;</code>
+     * @return The packageSrcRelease.
+     */
+    @java.lang.Override
+    public java.lang.String getPackageSrcRelease() {
+      java.lang.Object ref = packageSrcRelease_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        packageSrcRelease_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string package_src_release = 22;</code>
+     * @return The bytes for packageSrcRelease.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPackageSrcReleaseBytes() {
+      java.lang.Object ref = packageSrcRelease_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        packageSrcRelease_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -29037,14 +30351,26 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(packageVersion_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 15, packageVersion_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(packageSrcversion_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 16, packageSrcversion_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(packageSrcVersion_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 16, packageSrcVersion_);
       }
       for (int i = 0; i < hashes_.size(); i++) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 17, hashes_.getRaw(i));
       }
       if (hashState_ != com.dd.cws.adv1.pb.SecDumpProto.HashState.NO_HASH.getNumber()) {
         output.writeEnum(18, hashState_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeUInt32(19, packageEpoch_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 20, packageRelease_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeUInt32(21, packageSrcEpoch_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 22, packageSrcRelease_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -29108,8 +30434,8 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(packageVersion_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(15, packageVersion_);
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(packageSrcversion_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(16, packageSrcversion_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(packageSrcVersion_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(16, packageSrcVersion_);
       }
       {
         int dataSize = 0;
@@ -29122,6 +30448,20 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       if (hashState_ != com.dd.cws.adv1.pb.SecDumpProto.HashState.NO_HASH.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(18, hashState_);
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(19, packageEpoch_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(20, packageRelease_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(21, packageSrcEpoch_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(22, packageSrcRelease_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -29168,8 +30508,28 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           .equals(other.getPackageName())) return false;
       if (!getPackageVersion()
           .equals(other.getPackageVersion())) return false;
-      if (!getPackageSrcversion()
-          .equals(other.getPackageSrcversion())) return false;
+      if (hasPackageEpoch() != other.hasPackageEpoch()) return false;
+      if (hasPackageEpoch()) {
+        if (getPackageEpoch()
+            != other.getPackageEpoch()) return false;
+      }
+      if (hasPackageRelease() != other.hasPackageRelease()) return false;
+      if (hasPackageRelease()) {
+        if (!getPackageRelease()
+            .equals(other.getPackageRelease())) return false;
+      }
+      if (!getPackageSrcVersion()
+          .equals(other.getPackageSrcVersion())) return false;
+      if (hasPackageSrcEpoch() != other.hasPackageSrcEpoch()) return false;
+      if (hasPackageSrcEpoch()) {
+        if (getPackageSrcEpoch()
+            != other.getPackageSrcEpoch()) return false;
+      }
+      if (hasPackageSrcRelease() != other.hasPackageSrcRelease()) return false;
+      if (hasPackageSrcRelease()) {
+        if (!getPackageSrcRelease()
+            .equals(other.getPackageSrcRelease())) return false;
+      }
       if (!getHashesList()
           .equals(other.getHashesList())) return false;
       if (hashState_ != other.hashState_) return false;
@@ -29218,8 +30578,24 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       hash = (53 * hash) + getPackageName().hashCode();
       hash = (37 * hash) + PACKAGE_VERSION_FIELD_NUMBER;
       hash = (53 * hash) + getPackageVersion().hashCode();
-      hash = (37 * hash) + PACKAGE_SRCVERSION_FIELD_NUMBER;
-      hash = (53 * hash) + getPackageSrcversion().hashCode();
+      if (hasPackageEpoch()) {
+        hash = (37 * hash) + PACKAGE_EPOCH_FIELD_NUMBER;
+        hash = (53 * hash) + getPackageEpoch();
+      }
+      if (hasPackageRelease()) {
+        hash = (37 * hash) + PACKAGE_RELEASE_FIELD_NUMBER;
+        hash = (53 * hash) + getPackageRelease().hashCode();
+      }
+      hash = (37 * hash) + PACKAGE_SRC_VERSION_FIELD_NUMBER;
+      hash = (53 * hash) + getPackageSrcVersion().hashCode();
+      if (hasPackageSrcEpoch()) {
+        hash = (37 * hash) + PACKAGE_SRC_EPOCH_FIELD_NUMBER;
+        hash = (53 * hash) + getPackageSrcEpoch();
+      }
+      if (hasPackageSrcRelease()) {
+        hash = (37 * hash) + PACKAGE_SRC_RELEASE_FIELD_NUMBER;
+        hash = (53 * hash) + getPackageSrcRelease().hashCode();
+      }
       if (getHashesCount() > 0) {
         hash = (37 * hash) + HASHES_FIELD_NUMBER;
         hash = (53 * hash) + getHashesList().hashCode();
@@ -29370,9 +30746,13 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         filesystem_ = "";
         packageName_ = "";
         packageVersion_ = "";
-        packageSrcversion_ = "";
+        packageEpoch_ = 0;
+        packageRelease_ = "";
+        packageSrcVersion_ = "";
+        packageSrcEpoch_ = 0;
+        packageSrcRelease_ = "";
         hashes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00010000);
+        bitField0_ = (bitField0_ & ~0x00100000);
         hashState_ = 0;
         return this;
       }
@@ -29407,9 +30787,9 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       }
 
       private void buildPartialRepeatedFields(com.dd.cws.adv1.pb.SecDumpProto.FileInfo result) {
-        if (((bitField0_ & 0x00010000) != 0)) {
+        if (((bitField0_ & 0x00100000) != 0)) {
           hashes_ = hashes_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00010000);
+          bitField0_ = (bitField0_ & ~0x00100000);
         }
         result.hashes_ = hashes_;
       }
@@ -29461,12 +30841,30 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         if (((from_bitField0_ & 0x00004000) != 0)) {
           result.packageVersion_ = packageVersion_;
         }
+        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00008000) != 0)) {
-          result.packageSrcversion_ = packageSrcversion_;
+          result.packageEpoch_ = packageEpoch_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00010000) != 0)) {
+          result.packageRelease_ = packageRelease_;
+          to_bitField0_ |= 0x00000002;
         }
         if (((from_bitField0_ & 0x00020000) != 0)) {
+          result.packageSrcVersion_ = packageSrcVersion_;
+        }
+        if (((from_bitField0_ & 0x00040000) != 0)) {
+          result.packageSrcEpoch_ = packageSrcEpoch_;
+          to_bitField0_ |= 0x00000004;
+        }
+        if (((from_bitField0_ & 0x00080000) != 0)) {
+          result.packageSrcRelease_ = packageSrcRelease_;
+          to_bitField0_ |= 0x00000008;
+        }
+        if (((from_bitField0_ & 0x00200000) != 0)) {
           result.hashState_ = hashState_;
         }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -29572,15 +30970,31 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           bitField0_ |= 0x00004000;
           onChanged();
         }
-        if (!other.getPackageSrcversion().isEmpty()) {
-          packageSrcversion_ = other.packageSrcversion_;
-          bitField0_ |= 0x00008000;
+        if (other.hasPackageEpoch()) {
+          setPackageEpoch(other.getPackageEpoch());
+        }
+        if (other.hasPackageRelease()) {
+          packageRelease_ = other.packageRelease_;
+          bitField0_ |= 0x00010000;
+          onChanged();
+        }
+        if (!other.getPackageSrcVersion().isEmpty()) {
+          packageSrcVersion_ = other.packageSrcVersion_;
+          bitField0_ |= 0x00020000;
+          onChanged();
+        }
+        if (other.hasPackageSrcEpoch()) {
+          setPackageSrcEpoch(other.getPackageSrcEpoch());
+        }
+        if (other.hasPackageSrcRelease()) {
+          packageSrcRelease_ = other.packageSrcRelease_;
+          bitField0_ |= 0x00080000;
           onChanged();
         }
         if (!other.hashes_.isEmpty()) {
           if (hashes_.isEmpty()) {
             hashes_ = other.hashes_;
-            bitField0_ = (bitField0_ & ~0x00010000);
+            bitField0_ = (bitField0_ & ~0x00100000);
           } else {
             ensureHashesIsMutable();
             hashes_.addAll(other.hashes_);
@@ -29692,8 +31106,8 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
                 break;
               } // case 122
               case 130: {
-                packageSrcversion_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00008000;
+                packageSrcVersion_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00020000;
                 break;
               } // case 130
               case 138: {
@@ -29704,9 +31118,29 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
               } // case 138
               case 144: {
                 hashState_ = input.readEnum();
-                bitField0_ |= 0x00020000;
+                bitField0_ |= 0x00200000;
                 break;
               } // case 144
+              case 152: {
+                packageEpoch_ = input.readUInt32();
+                bitField0_ |= 0x00008000;
+                break;
+              } // case 152
+              case 162: {
+                packageRelease_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00010000;
+                break;
+              } // case 162
+              case 168: {
+                packageSrcEpoch_ = input.readUInt32();
+                bitField0_ |= 0x00040000;
+                break;
+              } // case 168
+              case 178: {
+                packageSrcRelease_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00080000;
+                break;
+              } // case 178
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -30496,83 +31930,321 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         return this;
       }
 
-      private java.lang.Object packageSrcversion_ = "";
+      private int packageEpoch_ ;
       /**
-       * <code>string package_srcversion = 16;</code>
-       * @return The packageSrcversion.
+       * <code>optional uint32 package_epoch = 19;</code>
+       * @return Whether the packageEpoch field is set.
        */
-      public java.lang.String getPackageSrcversion() {
-        java.lang.Object ref = packageSrcversion_;
+      @java.lang.Override
+      public boolean hasPackageEpoch() {
+        return ((bitField0_ & 0x00008000) != 0);
+      }
+      /**
+       * <code>optional uint32 package_epoch = 19;</code>
+       * @return The packageEpoch.
+       */
+      @java.lang.Override
+      public int getPackageEpoch() {
+        return packageEpoch_;
+      }
+      /**
+       * <code>optional uint32 package_epoch = 19;</code>
+       * @param value The packageEpoch to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPackageEpoch(int value) {
+        
+        packageEpoch_ = value;
+        bitField0_ |= 0x00008000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 package_epoch = 19;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPackageEpoch() {
+        bitField0_ = (bitField0_ & ~0x00008000);
+        packageEpoch_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object packageRelease_ = "";
+      /**
+       * <code>optional string package_release = 20;</code>
+       * @return Whether the packageRelease field is set.
+       */
+      public boolean hasPackageRelease() {
+        return ((bitField0_ & 0x00010000) != 0);
+      }
+      /**
+       * <code>optional string package_release = 20;</code>
+       * @return The packageRelease.
+       */
+      public java.lang.String getPackageRelease() {
+        java.lang.Object ref = packageRelease_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          packageSrcversion_ = s;
+          packageRelease_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>string package_srcversion = 16;</code>
-       * @return The bytes for packageSrcversion.
+       * <code>optional string package_release = 20;</code>
+       * @return The bytes for packageRelease.
        */
       public com.google.protobuf.ByteString
-          getPackageSrcversionBytes() {
-        java.lang.Object ref = packageSrcversion_;
+          getPackageReleaseBytes() {
+        java.lang.Object ref = packageRelease_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          packageSrcversion_ = b;
+          packageRelease_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>string package_srcversion = 16;</code>
-       * @param value The packageSrcversion to set.
+       * <code>optional string package_release = 20;</code>
+       * @param value The packageRelease to set.
        * @return This builder for chaining.
        */
-      public Builder setPackageSrcversion(
+      public Builder setPackageRelease(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        packageSrcversion_ = value;
-        bitField0_ |= 0x00008000;
+        packageRelease_ = value;
+        bitField0_ |= 0x00010000;
         onChanged();
         return this;
       }
       /**
-       * <code>string package_srcversion = 16;</code>
+       * <code>optional string package_release = 20;</code>
        * @return This builder for chaining.
        */
-      public Builder clearPackageSrcversion() {
-        packageSrcversion_ = getDefaultInstance().getPackageSrcversion();
-        bitField0_ = (bitField0_ & ~0x00008000);
+      public Builder clearPackageRelease() {
+        packageRelease_ = getDefaultInstance().getPackageRelease();
+        bitField0_ = (bitField0_ & ~0x00010000);
         onChanged();
         return this;
       }
       /**
-       * <code>string package_srcversion = 16;</code>
-       * @param value The bytes for packageSrcversion to set.
+       * <code>optional string package_release = 20;</code>
+       * @param value The bytes for packageRelease to set.
        * @return This builder for chaining.
        */
-      public Builder setPackageSrcversionBytes(
+      public Builder setPackageReleaseBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        packageSrcversion_ = value;
-        bitField0_ |= 0x00008000;
+        packageRelease_ = value;
+        bitField0_ |= 0x00010000;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object packageSrcVersion_ = "";
+      /**
+       * <code>string package_src_version = 16;</code>
+       * @return The packageSrcVersion.
+       */
+      public java.lang.String getPackageSrcVersion() {
+        java.lang.Object ref = packageSrcVersion_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          packageSrcVersion_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string package_src_version = 16;</code>
+       * @return The bytes for packageSrcVersion.
+       */
+      public com.google.protobuf.ByteString
+          getPackageSrcVersionBytes() {
+        java.lang.Object ref = packageSrcVersion_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          packageSrcVersion_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string package_src_version = 16;</code>
+       * @param value The packageSrcVersion to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPackageSrcVersion(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        packageSrcVersion_ = value;
+        bitField0_ |= 0x00020000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string package_src_version = 16;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPackageSrcVersion() {
+        packageSrcVersion_ = getDefaultInstance().getPackageSrcVersion();
+        bitField0_ = (bitField0_ & ~0x00020000);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string package_src_version = 16;</code>
+       * @param value The bytes for packageSrcVersion to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPackageSrcVersionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        packageSrcVersion_ = value;
+        bitField0_ |= 0x00020000;
+        onChanged();
+        return this;
+      }
+
+      private int packageSrcEpoch_ ;
+      /**
+       * <code>optional uint32 package_src_epoch = 21;</code>
+       * @return Whether the packageSrcEpoch field is set.
+       */
+      @java.lang.Override
+      public boolean hasPackageSrcEpoch() {
+        return ((bitField0_ & 0x00040000) != 0);
+      }
+      /**
+       * <code>optional uint32 package_src_epoch = 21;</code>
+       * @return The packageSrcEpoch.
+       */
+      @java.lang.Override
+      public int getPackageSrcEpoch() {
+        return packageSrcEpoch_;
+      }
+      /**
+       * <code>optional uint32 package_src_epoch = 21;</code>
+       * @param value The packageSrcEpoch to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPackageSrcEpoch(int value) {
+        
+        packageSrcEpoch_ = value;
+        bitField0_ |= 0x00040000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 package_src_epoch = 21;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPackageSrcEpoch() {
+        bitField0_ = (bitField0_ & ~0x00040000);
+        packageSrcEpoch_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object packageSrcRelease_ = "";
+      /**
+       * <code>optional string package_src_release = 22;</code>
+       * @return Whether the packageSrcRelease field is set.
+       */
+      public boolean hasPackageSrcRelease() {
+        return ((bitField0_ & 0x00080000) != 0);
+      }
+      /**
+       * <code>optional string package_src_release = 22;</code>
+       * @return The packageSrcRelease.
+       */
+      public java.lang.String getPackageSrcRelease() {
+        java.lang.Object ref = packageSrcRelease_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          packageSrcRelease_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string package_src_release = 22;</code>
+       * @return The bytes for packageSrcRelease.
+       */
+      public com.google.protobuf.ByteString
+          getPackageSrcReleaseBytes() {
+        java.lang.Object ref = packageSrcRelease_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          packageSrcRelease_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string package_src_release = 22;</code>
+       * @param value The packageSrcRelease to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPackageSrcRelease(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        packageSrcRelease_ = value;
+        bitField0_ |= 0x00080000;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string package_src_release = 22;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPackageSrcRelease() {
+        packageSrcRelease_ = getDefaultInstance().getPackageSrcRelease();
+        bitField0_ = (bitField0_ & ~0x00080000);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string package_src_release = 22;</code>
+       * @param value The bytes for packageSrcRelease to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPackageSrcReleaseBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        packageSrcRelease_ = value;
+        bitField0_ |= 0x00080000;
         onChanged();
         return this;
       }
 
       private com.google.protobuf.LazyStringList hashes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureHashesIsMutable() {
-        if (!((bitField0_ & 0x00010000) != 0)) {
+        if (!((bitField0_ & 0x00100000) != 0)) {
           hashes_ = new com.google.protobuf.LazyStringArrayList(hashes_);
-          bitField0_ |= 0x00010000;
+          bitField0_ |= 0x00100000;
          }
       }
       /**
@@ -30653,7 +32325,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
        */
       public Builder clearHashes() {
         hashes_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00010000);
+        bitField0_ = (bitField0_ & ~0x00100000);
         onChanged();
         return this;
       }
@@ -30687,7 +32359,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
        */
       public Builder setHashStateValue(int value) {
         hashState_ = value;
-        bitField0_ |= 0x00020000;
+        bitField0_ |= 0x00200000;
         onChanged();
         return this;
       }
@@ -30709,7 +32381,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00020000;
+        bitField0_ |= 0x00200000;
         hashState_ = value.getNumber();
         onChanged();
         return this;
@@ -30719,7 +32391,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
        * @return This builder for chaining.
        */
       public Builder clearHashState() {
-        bitField0_ = (bitField0_ & ~0x00020000);
+        bitField0_ = (bitField0_ & ~0x00200000);
         hashState_ = 0;
         onChanged();
         return this;
@@ -33625,7 +35297,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=279
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated java.util.List<java.lang.String>
@@ -33633,14 +35305,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=279
      * @return The count of imageTags.
      */
     @java.lang.Deprecated int getImageTagsCount();
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=279
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -33648,7 +35320,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=279
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -33784,7 +35456,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=279
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -33794,7 +35466,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=279
      * @return The count of imageTags.
      */
     @java.lang.Deprecated public int getImageTagsCount() {
@@ -33803,7 +35475,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=279
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -33813,7 +35485,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=279
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -34677,7 +36349,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=279
        * @return A list containing the imageTags.
        */
       @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -34687,7 +36359,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=279
        * @return The count of imageTags.
        */
       @java.lang.Deprecated public int getImageTagsCount() {
@@ -34696,7 +36368,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=279
        * @param index The index of the element to return.
        * @return The imageTags at the given index.
        */
@@ -34706,7 +36378,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=279
        * @param index The index of the value to return.
        * @return The bytes of the imageTags at the given index.
        */
@@ -34717,7 +36389,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=279
        * @param index The index to set the value at.
        * @param value The imageTags to set.
        * @return This builder for chaining.
@@ -34733,7 +36405,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=279
        * @param value The imageTags to add.
        * @return This builder for chaining.
        */
@@ -34748,7 +36420,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=279
        * @param values The imageTags to add.
        * @return This builder for chaining.
        */
@@ -34763,7 +36435,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=279
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearImageTags() {
@@ -34775,7 +36447,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=268
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=279
        * @param value The bytes of the imageTags to add.
        * @return This builder for chaining.
        */
@@ -36565,7 +38237,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=299
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated java.util.List<java.lang.String>
@@ -36573,14 +38245,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=299
      * @return The count of imageTags.
      */
     @java.lang.Deprecated int getImageTagsCount();
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=299
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -36588,7 +38260,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=299
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -36729,7 +38401,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=299
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -36739,7 +38411,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=299
      * @return The count of imageTags.
      */
     @java.lang.Deprecated public int getImageTagsCount() {
@@ -36748,7 +38420,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=299
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -36758,7 +38430,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=299
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -37499,7 +39171,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=299
        * @return A list containing the imageTags.
        */
       @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -37509,7 +39181,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=299
        * @return The count of imageTags.
        */
       @java.lang.Deprecated public int getImageTagsCount() {
@@ -37518,7 +39190,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=299
        * @param index The index of the element to return.
        * @return The imageTags at the given index.
        */
@@ -37528,7 +39200,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=299
        * @param index The index of the value to return.
        * @return The bytes of the imageTags at the given index.
        */
@@ -37539,7 +39211,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=299
        * @param index The index to set the value at.
        * @param value The imageTags to set.
        * @return This builder for chaining.
@@ -37555,7 +39227,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=299
        * @param value The imageTags to add.
        * @return This builder for chaining.
        */
@@ -37570,7 +39242,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=299
        * @param values The imageTags to add.
        * @return This builder for chaining.
        */
@@ -37585,7 +39257,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=299
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearImageTags() {
@@ -37597,7 +39269,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=288
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=299
        * @param value The bytes of the imageTags to add.
        * @return This builder for chaining.
        */
@@ -41496,6 +43168,11 @@ java.lang.String defaultValue) {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_datadog_cws_dumpsv1_SyscallNode_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_datadog_cws_dumpsv1_CapabilityNode_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_datadog_cws_dumpsv1_CapabilityNode_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_datadog_cws_dumpsv1_IMDSNode_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -41617,7 +43294,7 @@ java.lang.String defaultValue) {
       "elector\030\010 \001(\0132$.datadog.cws.dumpsv1.Prof" +
       "ileSelector\032[\n\024ProfileContextsEntry\022\013\n\003k" +
       "ey\030\001 \001(\t\0222\n\005value\030\002 \001(\0132#.datadog.cws.du" +
-      "mpsv1.ProfileContext:\0028\001\"\250\005\n\023ProcessActi" +
+      "mpsv1.ProfileContext:\0028\001\"\347\005\n\023ProcessActi" +
       "vityNode\0221\n\007process\030\001 \001(\0132 .datadog.cws." +
       "dumpsv1.ProcessInfo\022<\n\017generation_type\030\010" +
       " \001(\0162#.datadog.cws.dumpsv1.GenerationTyp" +
@@ -41634,114 +43311,123 @@ java.lang.String defaultValue) {
       "ws.dumpsv1.IMDSNode\0227\n\rsyscall_nodes\030\014 \003" +
       "(\0132 .datadog.cws.dumpsv1.SyscallNode\022?\n\017" +
       "network_devices\030\r \003(\0132&.datadog.cws.dump" +
-      "sv1.NetworkDeviceNodeJ\004\010\002\020\003\"\331\003\n\013ProcessI" +
-      "nfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\014\n\004ppid\030\003 " +
-      "\001(\r\022\022\n\006cookie\030\004 \001(\rB\002\030\001\022\021\n\tis_thread\030\005 \001" +
-      "(\010\022+\n\004file\030\006 \001(\0132\035.datadog.cws.dumpsv1.F" +
-      "ileInfo\022\024\n\014container_id\030\007 \001(\t\022\023\n\007span_id" +
-      "\030\010 \001(\004B\002\030\001\022\024\n\010trace_id\030\t \001(\004B\002\030\001\022\013\n\003tty\030" +
-      "\n \001(\t\022\014\n\004comm\030\013 \001(\t\022\021\n\tfork_time\030\014 \001(\004\022\021" +
-      "\n\texit_time\030\r \001(\004\022\021\n\texec_time\030\016 \001(\004\0225\n\013" +
-      "credentials\030\017 \001(\0132 .datadog.cws.dumpsv1." +
-      "Credentials\022\014\n\004args\030\020 \003(\t\022\r\n\005argv0\030\021 \001(\t" +
-      "\022\026\n\016args_truncated\030\022 \001(\010\022\014\n\004envs\030\023 \003(\t\022\026" +
-      "\n\016envs_truncated\030\024 \001(\010\022\025\n\ris_exec_child\030" +
-      "\025 \001(\010\022\020\n\010cookie64\030\026 \001(\004\"\242\003\n\020FileActivity" +
-      "Node\0227\n\rmatched_rules\030\t \003(\0132 .datadog.cw" +
-      "s.dumpsv1.MatchedRule\022\026\n\nimage_tags\030\n \003(" +
-      "\tB\002\030\001\0220\n\tnode_base\030\013 \001(\0132\035.datadog.cws.d" +
-      "umpsv1.NodeBase\022\014\n\004name\030\001 \001(\t\022\022\n\nis_patt" +
-      "ern\030\007 \001(\010\022+\n\004file\030\002 \001(\0132\035.datadog.cws.du" +
-      "mpsv1.FileInfo\022<\n\017generation_type\030\010 \001(\0162" +
-      "#.datadog.cws.dumpsv1.GenerationType\022\022\n\n" +
-      "first_seen\030\004 \001(\004\022+\n\004open\030\005 \001(\0132\035.datadog" +
-      ".cws.dumpsv1.OpenNode\0227\n\010children\030\006 \003(\0132" +
-      "%.datadog.cws.dumpsv1.FileActivityNodeJ\004" +
-      "\010\003\020\004\"7\n\010OpenNode\022\016\n\006retval\030\001 \001(\022\022\r\n\005flag" +
-      "s\030\002 \001(\r\022\014\n\004mode\030\003 \001(\r\"\274\001\n\007DNSNode\0227\n\rmat" +
-      "ched_rules\030\002 \003(\0132 .datadog.cws.dumpsv1.M" +
-      "atchedRule\022\026\n\nimage_tags\030\003 \003(\tB\002\030\001\0220\n\tno" +
-      "de_base\030\004 \001(\0132\035.datadog.cws.dumpsv1.Node" +
-      "Base\022.\n\010requests\030\001 \003(\0132\034.datadog.cws.dum" +
-      "psv1.DNSInfo\"Q\n\007DNSInfo\022\014\n\004name\030\001 \001(\t\022\014\n" +
-      "\004type\030\002 \001(\r\022\r\n\005class\030\003 \001(\r\022\014\n\004size\030\004 \001(\r" +
-      "\022\r\n\005count\030\005 \001(\r\"h\n\013SyscallNode\022\026\n\nimage_" +
-      "tags\030\001 \003(\tB\002\030\001\0220\n\tnode_base\030\003 \001(\0132\035.data" +
-      "dog.cws.dumpsv1.NodeBase\022\017\n\007syscall\030\002 \001(" +
-      "\005\"\274\001\n\010IMDSNode\0227\n\rmatched_rules\030\001 \003(\0132 ." +
-      "datadog.cws.dumpsv1.MatchedRule\022\026\n\nimage" +
-      "_tags\030\002 \003(\tB\002\030\001\0220\n\tnode_base\030\004 \001(\0132\035.dat" +
-      "adog.cws.dumpsv1.NodeBase\022-\n\005event\030\003 \001(\013" +
-      "2\036.datadog.cws.dumpsv1.IMDSEvent\"\240\001\n\tIMD" +
-      "SEvent\022\014\n\004type\030\001 \001(\t\022\026\n\016cloud_provider\030\002" +
-      " \001(\t\022\013\n\003url\030\003 \001(\t\022\014\n\004host\030\004 \001(\t\022\022\n\nuser_" +
-      "agent\030\005 \001(\t\022\016\n\006server\030\006 \001(\t\022.\n\003aws\030\007 \001(\013" +
-      "2!.datadog.cws.dumpsv1.AWSIMDSEvent\"m\n\014A" +
-      "WSIMDSEvent\022\022\n\nis_imds_v2\030\001 \001(\010\022I\n\024secur" +
-      "ity_credentials\030\002 \001(\0132+.datadog.cws.dump" +
-      "sv1.AWSSecurityCredentials\"y\n\026AWSSecurit" +
-      "yCredentials\022\014\n\004code\030\001 \001(\t\022\014\n\004type\030\002 \001(\t" +
-      "\022\025\n\raccess_key_id\030\003 \001(\t\022\024\n\014last_updated\030" +
-      "\004 \001(\t\022\026\n\016expiration_raw\030\005 \001(\t\"\351\002\n\010FileIn" +
-      "fo\022\013\n\003uid\030\001 \001(\r\022\014\n\004user\030\002 \001(\t\022\013\n\003gid\030\003 \001" +
-      "(\r\022\r\n\005group\030\004 \001(\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005ctime" +
-      "\030\006 \001(\004\022\r\n\005mtime\030\007 \001(\004\022\020\n\010mount_id\030\010 \001(\r\022" +
-      "\r\n\005inode\030\t \001(\004\022\026\n\016in_upper_layer\030\n \001(\010\022\014" +
-      "\n\004path\030\013 \001(\t\022\020\n\010basename\030\014 \001(\t\022\022\n\nfilesy" +
-      "stem\030\r \001(\t\022\024\n\014package_name\030\016 \001(\t\022\027\n\017pack" +
-      "age_version\030\017 \001(\t\022\032\n\022package_srcversion\030" +
-      "\020 \001(\t\022\016\n\006hashes\030\021 \003(\t\0222\n\nhash_state\030\022 \001(" +
-      "\0162\036.datadog.cws.dumpsv1.HashState\"\224\002\n\013Cr" +
-      "edentials\022\013\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004u" +
-      "ser\030\003 \001(\t\022\r\n\005group\030\004 \001(\t\022\025\n\reffective_ui" +
-      "d\030\005 \001(\r\022\025\n\reffective_gid\030\006 \001(\r\022\026\n\016effect" +
-      "ive_user\030\007 \001(\t\022\027\n\017effective_group\030\010 \001(\t\022" +
-      "\016\n\006fs_uid\030\t \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007fs_us" +
-      "er\030\013 \001(\t\022\020\n\010fs_group\030\014 \001(\t\022\025\n\rcap_effect" +
-      "ive\030\r \001(\004\022\025\n\rcap_permitted\030\016 \001(\004\"I\n\nSock" +
-      "etNode\022\016\n\006family\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035.d" +
-      "atadog.cws.dumpsv1.BindNode\"\271\001\n\010BindNode" +
-      "\0227\n\rmatched_rules\030\003 \003(\0132 .datadog.cws.du" +
-      "mpsv1.MatchedRule\022\026\n\nimage_tags\030\004 \003(\tB\002\030" +
-      "\001\0220\n\tnode_base\030\006 \001(\0132\035.datadog.cws.dumps" +
-      "v1.NodeBase\022\014\n\004port\030\001 \001(\r\022\n\n\002ip\030\002 \001(\t\022\020\n" +
-      "\010protocol\030\005 \001(\r\"\257\001\n\021NetworkDeviceNode\0227\n" +
-      "\rmatched_rules\030\001 \003(\0132 .datadog.cws.dumps" +
-      "v1.MatchedRule\022\r\n\005netns\030\002 \001(\r\022\017\n\007ifindex" +
-      "\030\003 \001(\r\022\016\n\006ifname\030\004 \001(\t\0221\n\nflow_nodes\030\005 \003" +
-      "(\0132\035.datadog.cws.dumpsv1.FlowNode\"\322\002\n\010Fl" +
-      "owNode\022\026\n\nimage_tags\030\001 \003(\tB\002\030\001\0220\n\tnode_b" +
-      "ase\030\010 \001(\0132\035.datadog.cws.dumpsv1.NodeBase" +
-      "\0222\n\006source\030\002 \001(\0132\".datadog.cws.dumpsv1.I" +
-      "PPortContext\0227\n\013destination\030\003 \001(\0132\".data" +
-      "dog.cws.dumpsv1.IPPortContext\022\023\n\013l3_prot" +
-      "ocol\030\004 \001(\r\022\023\n\013l4_protocol\030\005 \001(\r\0222\n\007ingre" +
-      "ss\030\006 \001(\0132!.datadog.cws.dumpsv1.NetworkSt" +
-      "ats\0221\n\006egress\030\007 \001(\0132!.datadog.cws.dumpsv" +
-      "1.NetworkStats\")\n\rIPPortContext\022\n\n\002ip\030\001 " +
-      "\001(\t\022\014\n\004port\030\002 \001(\r\"7\n\014NetworkStats\022\021\n\tdat" +
-      "a_size\030\001 \001(\004\022\024\n\014packet_count\030\002 \001(\004\"\325\001\n\013M" +
-      "atchedRule\022\017\n\007rule_id\030\001 \001(\t\022\024\n\014rule_vers" +
-      "ion\030\002 \001(\t\022\023\n\013policy_name\030\003 \001(\t\022\026\n\016policy" +
-      "_version\030\004 \001(\t\022A\n\trule_tags\030\005 \003(\0132..data" +
-      "dog.cws.dumpsv1.MatchedRule.RuleTagsEntr" +
-      "y\032/\n\rRuleTagsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value" +
-      "\030\002 \001(\t:\0028\001\"t\n\020event_type_state\022\031\n\021last_a" +
-      "nomaly_nano\030\001 \001(\004\022E\n\023event_profile_state" +
-      "\030\002 \001(\0162(.datadog.cws.dumpsv1.event_profi" +
-      "le_state*\271\001\n\tHashState\022\013\n\007NO_HASH\020\000\022\010\n\004D" +
-      "ONE\020\001\022\022\n\016FILE_NOT_FOUND\020\002\022\035\n\031PATHNAME_RE" +
-      "SOLUTION_ERROR\020\003\022\020\n\014FILE_TOO_BIG\020\004\022\035\n\031EV" +
-      "ENT_TYPE_NOT_CONFIGURED\020\005\022\031\n\025HASH_WAS_RA" +
-      "TE_LIMITED\020\006\022\026\n\022UNKNOWN_HASH_ERROR\020\007*8\n\016" +
-      "GenerationType\022\013\n\007UNKNOWN\020\000\022\013\n\007RUNTIME\020\001" +
-      "\022\014\n\010SNAPSHOT\020\002*\220\001\n\023event_profile_state\022\016" +
-      "\n\nNO_PROFILE\020\000\022\027\n\023PROFILE_AT_MAX_SIZE\020\001\022" +
-      "\024\n\020UNSTABLE_PROFILE\020\002\022\022\n\016STABLE_PROFILE\020" +
-      "\003\022\021\n\rAUTO_LEARNING\020\004\022\023\n\017WORKLOAD_WARMUP\020" +
-      "\005BU\n\022com.dd.cws.adv1.pbB\014SecDumpProtoP\000Z" +
-      "/github.com/DataDog/agent-payload/v5/cws" +
-      "/dumpsv1b\006proto3"
+      "sv1.NetworkDeviceNode\022=\n\020capability_node" +
+      "s\030\017 \003(\0132#.datadog.cws.dumpsv1.Capability" +
+      "NodeJ\004\010\002\020\003\"\331\003\n\013ProcessInfo\022\013\n\003pid\030\001 \001(\r\022" +
+      "\013\n\003tid\030\002 \001(\r\022\014\n\004ppid\030\003 \001(\r\022\022\n\006cookie\030\004 \001" +
+      "(\rB\002\030\001\022\021\n\tis_thread\030\005 \001(\010\022+\n\004file\030\006 \001(\0132" +
+      "\035.datadog.cws.dumpsv1.FileInfo\022\024\n\014contai" +
+      "ner_id\030\007 \001(\t\022\023\n\007span_id\030\010 \001(\004B\002\030\001\022\024\n\010tra" +
+      "ce_id\030\t \001(\004B\002\030\001\022\013\n\003tty\030\n \001(\t\022\014\n\004comm\030\013 \001" +
+      "(\t\022\021\n\tfork_time\030\014 \001(\004\022\021\n\texit_time\030\r \001(\004" +
+      "\022\021\n\texec_time\030\016 \001(\004\0225\n\013credentials\030\017 \001(\013" +
+      "2 .datadog.cws.dumpsv1.Credentials\022\014\n\004ar" +
+      "gs\030\020 \003(\t\022\r\n\005argv0\030\021 \001(\t\022\026\n\016args_truncate" +
+      "d\030\022 \001(\010\022\014\n\004envs\030\023 \003(\t\022\026\n\016envs_truncated\030" +
+      "\024 \001(\010\022\025\n\ris_exec_child\030\025 \001(\010\022\020\n\010cookie64" +
+      "\030\026 \001(\004\"\242\003\n\020FileActivityNode\0227\n\rmatched_r" +
+      "ules\030\t \003(\0132 .datadog.cws.dumpsv1.Matched" +
+      "Rule\022\026\n\nimage_tags\030\n \003(\tB\002\030\001\0220\n\tnode_bas" +
+      "e\030\013 \001(\0132\035.datadog.cws.dumpsv1.NodeBase\022\014" +
+      "\n\004name\030\001 \001(\t\022\022\n\nis_pattern\030\007 \001(\010\022+\n\004file" +
+      "\030\002 \001(\0132\035.datadog.cws.dumpsv1.FileInfo\022<\n" +
+      "\017generation_type\030\010 \001(\0162#.datadog.cws.dum" +
+      "psv1.GenerationType\022\022\n\nfirst_seen\030\004 \001(\004\022" +
+      "+\n\004open\030\005 \001(\0132\035.datadog.cws.dumpsv1.Open" +
+      "Node\0227\n\010children\030\006 \003(\0132%.datadog.cws.dum" +
+      "psv1.FileActivityNodeJ\004\010\003\020\004\"7\n\010OpenNode\022" +
+      "\016\n\006retval\030\001 \001(\022\022\r\n\005flags\030\002 \001(\r\022\014\n\004mode\030\003" +
+      " \001(\r\"\274\001\n\007DNSNode\0227\n\rmatched_rules\030\002 \003(\0132" +
+      " .datadog.cws.dumpsv1.MatchedRule\022\026\n\nima" +
+      "ge_tags\030\003 \003(\tB\002\030\001\0220\n\tnode_base\030\004 \001(\0132\035.d" +
+      "atadog.cws.dumpsv1.NodeBase\022.\n\010requests\030" +
+      "\001 \003(\0132\034.datadog.cws.dumpsv1.DNSInfo\"Q\n\007D" +
+      "NSInfo\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(\r\022\r\n\005cl" +
+      "ass\030\003 \001(\r\022\014\n\004size\030\004 \001(\r\022\r\n\005count\030\005 \001(\r\"h" +
+      "\n\013SyscallNode\022\026\n\nimage_tags\030\001 \003(\tB\002\030\001\0220\n" +
+      "\tnode_base\030\003 \001(\0132\035.datadog.cws.dumpsv1.N" +
+      "odeBase\022\017\n\007syscall\030\002 \001(\005\"j\n\016CapabilityNo" +
+      "de\0220\n\tnode_base\030\001 \001(\0132\035.datadog.cws.dump" +
+      "sv1.NodeBase\022\022\n\ncapability\030\002 \001(\004\022\022\n\nis_c" +
+      "apable\030\003 \001(\010\"\274\001\n\010IMDSNode\0227\n\rmatched_rul" +
+      "es\030\001 \003(\0132 .datadog.cws.dumpsv1.MatchedRu" +
+      "le\022\026\n\nimage_tags\030\002 \003(\tB\002\030\001\0220\n\tnode_base\030" +
+      "\004 \001(\0132\035.datadog.cws.dumpsv1.NodeBase\022-\n\005" +
+      "event\030\003 \001(\0132\036.datadog.cws.dumpsv1.IMDSEv" +
+      "ent\"\240\001\n\tIMDSEvent\022\014\n\004type\030\001 \001(\t\022\026\n\016cloud" +
+      "_provider\030\002 \001(\t\022\013\n\003url\030\003 \001(\t\022\014\n\004host\030\004 \001" +
+      "(\t\022\022\n\nuser_agent\030\005 \001(\t\022\016\n\006server\030\006 \001(\t\022." +
+      "\n\003aws\030\007 \001(\0132!.datadog.cws.dumpsv1.AWSIMD" +
+      "SEvent\"m\n\014AWSIMDSEvent\022\022\n\nis_imds_v2\030\001 \001" +
+      "(\010\022I\n\024security_credentials\030\002 \001(\0132+.datad" +
+      "og.cws.dumpsv1.AWSSecurityCredentials\"y\n" +
+      "\026AWSSecurityCredentials\022\014\n\004code\030\001 \001(\t\022\014\n" +
+      "\004type\030\002 \001(\t\022\025\n\raccess_key_id\030\003 \001(\t\022\024\n\014la" +
+      "st_updated\030\004 \001(\t\022\026\n\016expiration_raw\030\005 \001(\t" +
+      "\"\272\004\n\010FileInfo\022\013\n\003uid\030\001 \001(\r\022\014\n\004user\030\002 \001(\t" +
+      "\022\013\n\003gid\030\003 \001(\r\022\r\n\005group\030\004 \001(\t\022\014\n\004mode\030\005 \001" +
+      "(\r\022\r\n\005ctime\030\006 \001(\004\022\r\n\005mtime\030\007 \001(\004\022\020\n\010moun" +
+      "t_id\030\010 \001(\r\022\r\n\005inode\030\t \001(\004\022\026\n\016in_upper_la" +
+      "yer\030\n \001(\010\022\014\n\004path\030\013 \001(\t\022\020\n\010basename\030\014 \001(" +
+      "\t\022\022\n\nfilesystem\030\r \001(\t\022\024\n\014package_name\030\016 " +
+      "\001(\t\022\027\n\017package_version\030\017 \001(\t\022\032\n\rpackage_" +
+      "epoch\030\023 \001(\rH\000\210\001\001\022\034\n\017package_release\030\024 \001(" +
+      "\tH\001\210\001\001\022\033\n\023package_src_version\030\020 \001(\t\022\036\n\021p" +
+      "ackage_src_epoch\030\025 \001(\rH\002\210\001\001\022 \n\023package_s" +
+      "rc_release\030\026 \001(\tH\003\210\001\001\022\016\n\006hashes\030\021 \003(\t\0222\n" +
+      "\nhash_state\030\022 \001(\0162\036.datadog.cws.dumpsv1." +
+      "HashStateB\020\n\016_package_epochB\022\n\020_package_" +
+      "releaseB\024\n\022_package_src_epochB\026\n\024_packag" +
+      "e_src_release\"\224\002\n\013Credentials\022\013\n\003uid\030\001 \001" +
+      "(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004user\030\003 \001(\t\022\r\n\005group\030\004" +
+      " \001(\t\022\025\n\reffective_uid\030\005 \001(\r\022\025\n\reffective" +
+      "_gid\030\006 \001(\r\022\026\n\016effective_user\030\007 \001(\t\022\027\n\017ef" +
+      "fective_group\030\010 \001(\t\022\016\n\006fs_uid\030\t \001(\r\022\016\n\006f" +
+      "s_gid\030\n \001(\r\022\017\n\007fs_user\030\013 \001(\t\022\020\n\010fs_group" +
+      "\030\014 \001(\t\022\025\n\rcap_effective\030\r \001(\004\022\025\n\rcap_per" +
+      "mitted\030\016 \001(\004\"I\n\nSocketNode\022\016\n\006family\030\001 \001" +
+      "(\t\022+\n\004bind\030\002 \003(\0132\035.datadog.cws.dumpsv1.B" +
+      "indNode\"\271\001\n\010BindNode\0227\n\rmatched_rules\030\003 " +
+      "\003(\0132 .datadog.cws.dumpsv1.MatchedRule\022\026\n" +
+      "\nimage_tags\030\004 \003(\tB\002\030\001\0220\n\tnode_base\030\006 \001(\013" +
+      "2\035.datadog.cws.dumpsv1.NodeBase\022\014\n\004port\030" +
+      "\001 \001(\r\022\n\n\002ip\030\002 \001(\t\022\020\n\010protocol\030\005 \001(\r\"\257\001\n\021" +
+      "NetworkDeviceNode\0227\n\rmatched_rules\030\001 \003(\013" +
+      "2 .datadog.cws.dumpsv1.MatchedRule\022\r\n\005ne" +
+      "tns\030\002 \001(\r\022\017\n\007ifindex\030\003 \001(\r\022\016\n\006ifname\030\004 \001" +
+      "(\t\0221\n\nflow_nodes\030\005 \003(\0132\035.datadog.cws.dum" +
+      "psv1.FlowNode\"\322\002\n\010FlowNode\022\026\n\nimage_tags" +
+      "\030\001 \003(\tB\002\030\001\0220\n\tnode_base\030\010 \001(\0132\035.datadog." +
+      "cws.dumpsv1.NodeBase\0222\n\006source\030\002 \001(\0132\".d" +
+      "atadog.cws.dumpsv1.IPPortContext\0227\n\013dest" +
+      "ination\030\003 \001(\0132\".datadog.cws.dumpsv1.IPPo" +
+      "rtContext\022\023\n\013l3_protocol\030\004 \001(\r\022\023\n\013l4_pro" +
+      "tocol\030\005 \001(\r\0222\n\007ingress\030\006 \001(\0132!.datadog.c" +
+      "ws.dumpsv1.NetworkStats\0221\n\006egress\030\007 \001(\0132" +
+      "!.datadog.cws.dumpsv1.NetworkStats\")\n\rIP" +
+      "PortContext\022\n\n\002ip\030\001 \001(\t\022\014\n\004port\030\002 \001(\r\"7\n" +
+      "\014NetworkStats\022\021\n\tdata_size\030\001 \001(\004\022\024\n\014pack" +
+      "et_count\030\002 \001(\004\"\325\001\n\013MatchedRule\022\017\n\007rule_i" +
+      "d\030\001 \001(\t\022\024\n\014rule_version\030\002 \001(\t\022\023\n\013policy_" +
+      "name\030\003 \001(\t\022\026\n\016policy_version\030\004 \001(\t\022A\n\tru" +
+      "le_tags\030\005 \003(\0132..datadog.cws.dumpsv1.Matc" +
+      "hedRule.RuleTagsEntry\032/\n\rRuleTagsEntry\022\013" +
+      "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"t\n\020event_" +
+      "type_state\022\031\n\021last_anomaly_nano\030\001 \001(\004\022E\n" +
+      "\023event_profile_state\030\002 \001(\0162(.datadog.cws" +
+      ".dumpsv1.event_profile_state*\271\001\n\tHashSta" +
+      "te\022\013\n\007NO_HASH\020\000\022\010\n\004DONE\020\001\022\022\n\016FILE_NOT_FO" +
+      "UND\020\002\022\035\n\031PATHNAME_RESOLUTION_ERROR\020\003\022\020\n\014" +
+      "FILE_TOO_BIG\020\004\022\035\n\031EVENT_TYPE_NOT_CONFIGU" +
+      "RED\020\005\022\031\n\025HASH_WAS_RATE_LIMITED\020\006\022\026\n\022UNKN" +
+      "OWN_HASH_ERROR\020\007*8\n\016GenerationType\022\013\n\007UN" +
+      "KNOWN\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPSHOT\020\002*\220\001\n\023e" +
+      "vent_profile_state\022\016\n\nNO_PROFILE\020\000\022\027\n\023PR" +
+      "OFILE_AT_MAX_SIZE\020\001\022\024\n\020UNSTABLE_PROFILE\020" +
+      "\002\022\022\n\016STABLE_PROFILE\020\003\022\021\n\rAUTO_LEARNING\020\004" +
+      "\022\023\n\017WORKLOAD_WARMUP\020\005BU\n\022com.dd.cws.adv1" +
+      ".pbB\014SecDumpProtoP\000Z/github.com/DataDog/" +
+      "agent-payload/v5/cws/dumpsv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -41812,7 +43498,7 @@ java.lang.String defaultValue) {
     internal_static_datadog_cws_dumpsv1_ProcessActivityNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_ProcessActivityNode_descriptor,
-        new java.lang.String[] { "Process", "GenerationType", "MatchedRules", "Children", "Files", "DnsNames", "Sockets", "Syscalls", "ImageTags", "NodeBase", "ImdsEvents", "SyscallNodes", "NetworkDevices", });
+        new java.lang.String[] { "Process", "GenerationType", "MatchedRules", "Children", "Files", "DnsNames", "Sockets", "Syscalls", "ImageTags", "NodeBase", "ImdsEvents", "SyscallNodes", "NetworkDevices", "CapabilityNodes", });
     internal_static_datadog_cws_dumpsv1_ProcessInfo_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_datadog_cws_dumpsv1_ProcessInfo_fieldAccessorTable = new
@@ -41849,80 +43535,86 @@ java.lang.String defaultValue) {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_SyscallNode_descriptor,
         new java.lang.String[] { "ImageTags", "NodeBase", "Syscall", });
-    internal_static_datadog_cws_dumpsv1_IMDSNode_descriptor =
+    internal_static_datadog_cws_dumpsv1_CapabilityNode_descriptor =
       getDescriptor().getMessageTypes().get(14);
+    internal_static_datadog_cws_dumpsv1_CapabilityNode_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_datadog_cws_dumpsv1_CapabilityNode_descriptor,
+        new java.lang.String[] { "NodeBase", "Capability", "IsCapable", });
+    internal_static_datadog_cws_dumpsv1_IMDSNode_descriptor =
+      getDescriptor().getMessageTypes().get(15);
     internal_static_datadog_cws_dumpsv1_IMDSNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_IMDSNode_descriptor,
         new java.lang.String[] { "MatchedRules", "ImageTags", "NodeBase", "Event", });
     internal_static_datadog_cws_dumpsv1_IMDSEvent_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_datadog_cws_dumpsv1_IMDSEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_IMDSEvent_descriptor,
         new java.lang.String[] { "Type", "CloudProvider", "Url", "Host", "UserAgent", "Server", "Aws", });
     internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_AWSIMDSEvent_descriptor,
         new java.lang.String[] { "IsImdsV2", "SecurityCredentials", });
     internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_AWSSecurityCredentials_descriptor,
         new java.lang.String[] { "Code", "Type", "AccessKeyId", "LastUpdated", "ExpirationRaw", });
     internal_static_datadog_cws_dumpsv1_FileInfo_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_datadog_cws_dumpsv1_FileInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_FileInfo_descriptor,
-        new java.lang.String[] { "Uid", "User", "Gid", "Group", "Mode", "Ctime", "Mtime", "MountId", "Inode", "InUpperLayer", "Path", "Basename", "Filesystem", "PackageName", "PackageVersion", "PackageSrcversion", "Hashes", "HashState", });
+        new java.lang.String[] { "Uid", "User", "Gid", "Group", "Mode", "Ctime", "Mtime", "MountId", "Inode", "InUpperLayer", "Path", "Basename", "Filesystem", "PackageName", "PackageVersion", "PackageEpoch", "PackageRelease", "PackageSrcVersion", "PackageSrcEpoch", "PackageSrcRelease", "Hashes", "HashState", "PackageEpoch", "PackageRelease", "PackageSrcEpoch", "PackageSrcRelease", });
     internal_static_datadog_cws_dumpsv1_Credentials_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(20);
     internal_static_datadog_cws_dumpsv1_Credentials_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_Credentials_descriptor,
         new java.lang.String[] { "Uid", "Gid", "User", "Group", "EffectiveUid", "EffectiveGid", "EffectiveUser", "EffectiveGroup", "FsUid", "FsGid", "FsUser", "FsGroup", "CapEffective", "CapPermitted", });
     internal_static_datadog_cws_dumpsv1_SocketNode_descriptor =
-      getDescriptor().getMessageTypes().get(20);
+      getDescriptor().getMessageTypes().get(21);
     internal_static_datadog_cws_dumpsv1_SocketNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_SocketNode_descriptor,
         new java.lang.String[] { "Family", "Bind", });
     internal_static_datadog_cws_dumpsv1_BindNode_descriptor =
-      getDescriptor().getMessageTypes().get(21);
+      getDescriptor().getMessageTypes().get(22);
     internal_static_datadog_cws_dumpsv1_BindNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_BindNode_descriptor,
         new java.lang.String[] { "MatchedRules", "ImageTags", "NodeBase", "Port", "Ip", "Protocol", });
     internal_static_datadog_cws_dumpsv1_NetworkDeviceNode_descriptor =
-      getDescriptor().getMessageTypes().get(22);
+      getDescriptor().getMessageTypes().get(23);
     internal_static_datadog_cws_dumpsv1_NetworkDeviceNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_NetworkDeviceNode_descriptor,
         new java.lang.String[] { "MatchedRules", "Netns", "Ifindex", "Ifname", "FlowNodes", });
     internal_static_datadog_cws_dumpsv1_FlowNode_descriptor =
-      getDescriptor().getMessageTypes().get(23);
+      getDescriptor().getMessageTypes().get(24);
     internal_static_datadog_cws_dumpsv1_FlowNode_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_FlowNode_descriptor,
         new java.lang.String[] { "ImageTags", "NodeBase", "Source", "Destination", "L3Protocol", "L4Protocol", "Ingress", "Egress", });
     internal_static_datadog_cws_dumpsv1_IPPortContext_descriptor =
-      getDescriptor().getMessageTypes().get(24);
+      getDescriptor().getMessageTypes().get(25);
     internal_static_datadog_cws_dumpsv1_IPPortContext_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_IPPortContext_descriptor,
         new java.lang.String[] { "Ip", "Port", });
     internal_static_datadog_cws_dumpsv1_NetworkStats_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(26);
     internal_static_datadog_cws_dumpsv1_NetworkStats_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_NetworkStats_descriptor,
         new java.lang.String[] { "DataSize", "PacketCount", });
     internal_static_datadog_cws_dumpsv1_MatchedRule_descriptor =
-      getDescriptor().getMessageTypes().get(26);
+      getDescriptor().getMessageTypes().get(27);
     internal_static_datadog_cws_dumpsv1_MatchedRule_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_MatchedRule_descriptor,
@@ -41934,7 +43626,7 @@ java.lang.String defaultValue) {
         internal_static_datadog_cws_dumpsv1_MatchedRule_RuleTagsEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_datadog_cws_dumpsv1_event_type_state_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(28);
     internal_static_datadog_cws_dumpsv1_event_type_state_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_event_type_state_descriptor,

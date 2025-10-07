@@ -88,7 +88,7 @@ message ProcessActivityNode {
     repeated IMDSNode imds_events = 11;
     repeated SyscallNode syscall_nodes = 12;
     repeated NetworkDeviceNode network_devices = 13;
-
+    repeated CapabilityNode capability_nodes = 15;
 }
 
 message ProcessInfo {
@@ -170,6 +170,13 @@ message SyscallNode {
     int32 syscall = 2;
 }
 
+message CapabilityNode {
+    NodeBase node_base = 1;
+
+    uint64 capability = 2;
+    bool is_capable = 3;
+}
+
 message IMDSNode {
     repeated MatchedRule matched_rules = 1;
     repeated string image_tags = 2 [deprecated = true];
@@ -222,7 +229,11 @@ message FileInfo {
 
     string package_name = 14;
     string package_version = 15;
-    string package_srcversion = 16;
+    optional uint32 package_epoch = 19;
+    optional string package_release = 20;
+    string package_src_version = 16;
+    optional uint32 package_src_epoch = 21;
+    optional string package_src_release = 22;
 
     repeated string hashes = 17;
     HashState hash_state = 18;

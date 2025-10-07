@@ -643,6 +643,18 @@ func (m *ProcessActivityNode) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
+	if len(m.CapabilityNodes) > 0 {
+		for iNdEx := len(m.CapabilityNodes) - 1; iNdEx >= 0; iNdEx-- {
+			size, err := m.CapabilityNodes[iNdEx].MarshalToSizedBufferVT(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarint(dAtA, i, uint64(size))
+			i--
+			dAtA[i] = 0x7a
+		}
+	}
 	if m.NodeBase != nil {
 		size, err := m.NodeBase.MarshalToSizedBufferVT(dAtA[:i])
 		if err != nil {
@@ -1363,6 +1375,64 @@ func (m *SyscallNode) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *CapabilityNode) MarshalVT() (dAtA []byte, err error) {
+	if m == nil {
+		return nil, nil
+	}
+	size := m.SizeVT()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBufferVT(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CapabilityNode) MarshalToVT(dAtA []byte) (int, error) {
+	size := m.SizeVT()
+	return m.MarshalToSizedBufferVT(dAtA[:size])
+}
+
+func (m *CapabilityNode) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
+	if m == nil {
+		return 0, nil
+	}
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.unknownFields != nil {
+		i -= len(m.unknownFields)
+		copy(dAtA[i:], m.unknownFields)
+	}
+	if m.IsCapable {
+		i--
+		if m.IsCapable {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x18
+	}
+	if m.Capability != 0 {
+		i = encodeVarint(dAtA, i, uint64(m.Capability))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.NodeBase != nil {
+		size, err := m.NodeBase.MarshalToSizedBufferVT(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarint(dAtA, i, uint64(size))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func (m *IMDSNode) MarshalVT() (dAtA []byte, err error) {
 	if m == nil {
 		return nil, nil
@@ -1673,6 +1743,38 @@ func (m *FileInfo) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
+	if m.PackageSrcRelease != nil {
+		i -= len(*m.PackageSrcRelease)
+		copy(dAtA[i:], *m.PackageSrcRelease)
+		i = encodeVarint(dAtA, i, uint64(len(*m.PackageSrcRelease)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xb2
+	}
+	if m.PackageSrcEpoch != nil {
+		i = encodeVarint(dAtA, i, uint64(*m.PackageSrcEpoch))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xa8
+	}
+	if m.PackageRelease != nil {
+		i -= len(*m.PackageRelease)
+		copy(dAtA[i:], *m.PackageRelease)
+		i = encodeVarint(dAtA, i, uint64(len(*m.PackageRelease)))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xa2
+	}
+	if m.PackageEpoch != nil {
+		i = encodeVarint(dAtA, i, uint64(*m.PackageEpoch))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x98
+	}
 	if m.HashState != 0 {
 		i = encodeVarint(dAtA, i, uint64(m.HashState))
 		i--
@@ -1691,10 +1793,10 @@ func (m *FileInfo) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 			dAtA[i] = 0x8a
 		}
 	}
-	if len(m.PackageSrcversion) > 0 {
-		i -= len(m.PackageSrcversion)
-		copy(dAtA[i:], m.PackageSrcversion)
-		i = encodeVarint(dAtA, i, uint64(len(m.PackageSrcversion)))
+	if len(m.PackageSrcVersion) > 0 {
+		i -= len(m.PackageSrcVersion)
+		copy(dAtA[i:], m.PackageSrcVersion)
+		i = encodeVarint(dAtA, i, uint64(len(m.PackageSrcVersion)))
 		i--
 		dAtA[i] = 0x1
 		i--
@@ -2512,6 +2614,10 @@ func (m *ProcessActivityNode) ResetVT() {
 		mm.Reset()
 	}
 	f9 := m.NetworkDevices[:0]
+	for _, mm := range m.CapabilityNodes {
+		mm.Reset()
+	}
+	f10 := m.CapabilityNodes[:0]
 	m.Reset()
 	m.Children = f0
 	m.Files = f1
@@ -2523,6 +2629,7 @@ func (m *ProcessActivityNode) ResetVT() {
 	m.ImdsEvents = f7
 	m.SyscallNodes = f8
 	m.NetworkDevices = f9
+	m.CapabilityNodes = f10
 }
 func (m *ProcessActivityNode) ReturnToVTPool() {
 	if m != nil {
@@ -2952,6 +3059,12 @@ func (m *ProcessActivityNode) SizeVT() (n int) {
 		l = m.NodeBase.SizeVT()
 		n += 1 + l + sov(uint64(l))
 	}
+	if len(m.CapabilityNodes) > 0 {
+		for _, e := range m.CapabilityNodes {
+			l = e.SizeVT()
+			n += 1 + l + sov(uint64(l))
+		}
+	}
 	n += len(m.unknownFields)
 	return n
 }
@@ -3197,6 +3310,26 @@ func (m *SyscallNode) SizeVT() (n int) {
 	return n
 }
 
+func (m *CapabilityNode) SizeVT() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.NodeBase != nil {
+		l = m.NodeBase.SizeVT()
+		n += 1 + l + sov(uint64(l))
+	}
+	if m.Capability != 0 {
+		n += 1 + sov(uint64(m.Capability))
+	}
+	if m.IsCapable {
+		n += 2
+	}
+	n += len(m.unknownFields)
+	return n
+}
+
 func (m *IMDSNode) SizeVT() (n int) {
 	if m == nil {
 		return 0
@@ -3370,7 +3503,7 @@ func (m *FileInfo) SizeVT() (n int) {
 	if l > 0 {
 		n += 1 + l + sov(uint64(l))
 	}
-	l = len(m.PackageSrcversion)
+	l = len(m.PackageSrcVersion)
 	if l > 0 {
 		n += 2 + l + sov(uint64(l))
 	}
@@ -3382,6 +3515,20 @@ func (m *FileInfo) SizeVT() (n int) {
 	}
 	if m.HashState != 0 {
 		n += 2 + sov(uint64(m.HashState))
+	}
+	if m.PackageEpoch != nil {
+		n += 2 + sov(uint64(*m.PackageEpoch))
+	}
+	if m.PackageRelease != nil {
+		l = len(*m.PackageRelease)
+		n += 2 + l + sov(uint64(l))
+	}
+	if m.PackageSrcEpoch != nil {
+		n += 2 + sov(uint64(*m.PackageSrcEpoch))
+	}
+	if m.PackageSrcRelease != nil {
+		l = len(*m.PackageSrcRelease)
+		n += 2 + l + sov(uint64(l))
 	}
 	n += len(m.unknownFields)
 	return n
@@ -6129,6 +6276,47 @@ func (m *ProcessActivityNode) UnmarshalVT(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
+		case 15:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CapabilityNodes", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLength
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLength
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if len(m.CapabilityNodes) == cap(m.CapabilityNodes) {
+				m.CapabilityNodes = append(m.CapabilityNodes, &CapabilityNode{})
+			} else {
+				m.CapabilityNodes = m.CapabilityNodes[:len(m.CapabilityNodes)+1]
+				if m.CapabilityNodes[len(m.CapabilityNodes)-1] == nil {
+					m.CapabilityNodes[len(m.CapabilityNodes)-1] = &CapabilityNode{}
+				}
+			}
+			if err := m.CapabilityNodes[len(m.CapabilityNodes)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skip(dAtA[iNdEx:])
@@ -7693,6 +7881,132 @@ func (m *SyscallNode) UnmarshalVT(dAtA []byte) error {
 	}
 	return nil
 }
+func (m *CapabilityNode) UnmarshalVT(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflow
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CapabilityNode: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CapabilityNode: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NodeBase", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLength
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLength
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.NodeBase == nil {
+				m.NodeBase = &NodeBase{}
+			}
+			if err := m.NodeBase.UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Capability", wireType)
+			}
+			m.Capability = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Capability |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IsCapable", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.IsCapable = bool(v != 0)
+		default:
+			iNdEx = preIndex
+			skippy, err := skip(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLength
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.unknownFields = append(m.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func (m *IMDSNode) UnmarshalVT(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -8887,7 +9201,7 @@ func (m *FileInfo) UnmarshalVT(dAtA []byte) error {
 			iNdEx = postIndex
 		case 16:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field PackageSrcversion", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field PackageSrcVersion", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -8915,7 +9229,7 @@ func (m *FileInfo) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.PackageSrcversion = string(dAtA[iNdEx:postIndex])
+			m.PackageSrcVersion = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 17:
 			if wireType != 2 {
@@ -8968,6 +9282,112 @@ func (m *FileInfo) UnmarshalVT(dAtA []byte) error {
 					break
 				}
 			}
+		case 19:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PackageEpoch", wireType)
+			}
+			var v uint32
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.PackageEpoch = &v
+		case 20:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PackageRelease", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLength
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLength
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			s := string(dAtA[iNdEx:postIndex])
+			m.PackageRelease = &s
+			iNdEx = postIndex
+		case 21:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PackageSrcEpoch", wireType)
+			}
+			var v uint32
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.PackageSrcEpoch = &v
+		case 22:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PackageSrcRelease", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLength
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLength
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			s := string(dAtA[iNdEx:postIndex])
+			m.PackageSrcRelease = &s
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skip(dAtA[iNdEx:])
