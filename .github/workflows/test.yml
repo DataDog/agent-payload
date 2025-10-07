@@ -2,7 +2,7 @@ name: Test
 on: [push, pull_request]
 jobs:
   test:
-    name: "rake test"
+    name: "invoke test"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -11,20 +11,21 @@ jobs:
     - uses: actions/checkout@v3
       with:
         path: go/src/github.com/DataDog/agent-payload
-    - name: "Install ruby"
-      uses: ruby/setup-ruby@v1
+    - name: "Install python"
+      uses: actions/setup-python@v6
       with:
-        ruby-version: head
+        python-version-file: ".python-version"
+        pip-install: -r requirements.txt
     - name: Install go
       uses: actions/setup-go@v3
       with:
         go-version-file: "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/go.mod"
-    - run: rake test
+    - run: inv test
       env:
         GOPATH: "/home/runner/work/agent-payload/agent-payload/go"
 
   codegen:
-    name: "rake codegen"
+    name: "invoke codegen"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -33,15 +34,16 @@ jobs:
     - uses: actions/checkout@v3
       with:
         path: go/src/github.com/DataDog/agent-payload
-    - name: "Install ruby"
-      uses: ruby/setup-ruby@v1
+    - name: "Install python"
+      uses: actions/setup-python@v6
       with:
-        ruby-version: head
+        python-version-file: ".python-version"
+        pip-install: -r requirements.txt
     - name: Install go
       uses: actions/setup-go@v3
       with:
         go-version-file: "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/go.mod"
-    - run: rake codegen
+    - run: inv codegen
       env:
         GOPATH: "/home/runner/work/agent-payload/agent-payload/go"
     - name: Check for diffs
