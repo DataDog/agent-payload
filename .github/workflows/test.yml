@@ -20,6 +20,10 @@ jobs:
       uses: actions/setup-go@v3
       with:
         go-version-file: "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/go.mod"
+    # see: https://github.com/actions/actions-runner-controller/issues/2540
+    - name: Fix Path Variable
+      run: |
+        echo "/home/runner/.local/bin" >> $GITHUB_PATH
     - run: inv test
       env:
         GOPATH: "/home/runner/work/agent-payload/agent-payload/go"
@@ -43,6 +47,10 @@ jobs:
       uses: actions/setup-go@v3
       with:
         go-version-file: "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/go.mod"
+    # see: https://github.com/actions/actions-runner-controller/issues/2540
+    - name: Fix Path Variable
+      run: |
+        echo "/home/runner/.local/bin" >> $GITHUB_PATH
     - run: inv codegen
       env:
         GOPATH: "/home/runner/work/agent-payload/agent-payload/go"
