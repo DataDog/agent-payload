@@ -1,9 +1,11 @@
 import os
 
-from invoke.tasks import task
 from invoke.context import Context
+from invoke.exceptions import Exit
+from invoke.tasks import task
 
-root_dir = os.path.dirname(os.path.abspath(__file__))
+# need to get this parentdir
+root_dir = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)),".."))
 
 # where the proto code is first generated as we declare packages with v5
 v5_dir=os.path.join(root_dir, "v5")
@@ -46,23 +48,10 @@ def clean(ctx: Context):
     ctx.run(f"rm -rf {toolchain_dir}")
 
 
-@task(pre=["install_protoc_all"])
-def setup_gogo(ctx: Context):
-    og_dir = os.getcwd()
-    if os.path.exists(gogo_dir):
-        with open("#{gogo_dir}/src/github.com/gogo"):
-            ctx.run(f"git clone https://github.com/gogo/protobuf.git {gogo_dir}/src/github.com/gogo/protobuf")
-    else:
-        print(f"gogo already cloned into {gogo_dir}")
-
-    os.chdir(f"{gogo_dir}/src/github.com/gogo/protobuf")
-    ctx.run(f"git checkout {gogo_tag}")
-    ctx.run(f"PATH=$PATH:/tmp GOBIN={toolchain_bin_dir} GOPATH={gogo_dir} make clean install")
-    os.chdir(og_dir)
-
 @task
 def install_protoc(ctx: Context):
-    if ctx.run(f'bash -c "{protoc_binary} --version"').result != f"libprotoc {protoc_version}":
+    res = ctx.run(f'bash -c "{protoc_binary} --version"', warn=True)
+    if res.exited > 0 or res.stdout != f"libprotoc {protoc_version}":
         ctx.run(f"""
         /bin/bash <<BASH
 
@@ -88,11 +77,26 @@ def install_protoc(ctx: Context):
 BASH
         """)
 
-@task(pre=["install_protoc"])
+
+@task(pre=[install_protoc])
 def install_protoc_all(ctx: Context):
     pass
 
-@task(pre=["install_protoc", "setup_gogo"])
+
+@task(pre=[install_protoc_all])
+def setup_gogo(ctx: Context):
+    if not os.path.exists(gogo_dir):
+        ctx.run(f"mkdir -p {gogo_dir}/src/github.com/gogo")
+        ctx.run(f"git clone https://github.com/gogo/protobuf.git {gogo_dir}/src/github.com/gogo/protobuf")
+    else:
+        print(f"gogo already cloned into {gogo_dir}")
+
+    with ctx.cd(f"{gogo_dir}/src/github.com/gogo/protobuf"):
+        ctx.run(f"git checkout {gogo_tag}")
+        ctx.run(f"PATH=$PATH:/tmp GOBIN={toolchain_bin_dir} GOPATH={gogo_dir} make clean install")
+
+
+@task(pre=[install_protoc, setup_gogo])
 def protoc(ctx: Context):
     ctx.run(f"""
         /bin/bash <<BASH
@@ -157,6 +161,73 @@ def protoc(ctx: Context):
 BASH
     """)
 
-@task(pre=["protoc"])
+
+@task(pre=[install_protoc, setup_gogo])
+def protoc(ctx: Context):
+    ctx.run(f"""
+        /bin/bash <<BASH
+        set -euo pipefail
+
+        export GO111MODULE=auto
+
+# These .proto can be imported by other repositories (not only generated code). To have a consistent import path, we use the GOPATH and we add a /v5/ folder as declared packaged in `go.mod` is ../v5
+        mkdir -p {v5_dir}
+        ln -sf {root_dir}/proto {v5_dir}/proto
+
+        echo "Generating logs proto"
+        PATH={toolchain_bin_dir} {protoc_binary} --proto_path=$GOPATH/src:{gogo_dir}/src:. --gogofast_out=$GOPATH/src proto/logs/agent_logs_payload.proto
+
+        echo "Generating metrics proto (go)"
+        PATH={toolchain_bin_dir} {protoc_binary} --proto_path=$GOPATH/src:{gogo_include}:{toolchain_include_dir}:. --gogofast_out=$GOPATH/src proto/metrics/agent_payload.proto
+        echo "done"
+
+        echo "Generating process proto (go)"
+        PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:{gogo_include}:. --gogofaster_out=$GOPATH/src proto/process/*.proto
+
+        GOPATH={toolchain_dir} go install github.com/DataDog/protoc-gen-gostreamer@v0.2.0
+        PATH={toolchain_bin_dir} {protoc_binary} --proto_path=$GOPATH/src:{gogo_dir}/src:.  --gostreamer_out=$GOPATH/src proto/process/*.proto
+        mv v5/process/proto/process/*.go process
+
+# Install protoc-gen-go
+        GOPATH={toolchain_dir} go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.34.1
+        GOPATH={toolchain_dir} go install github.com/chrusty/protoc-gen-jsonschema/cmd/protoc-gen-jsonschema@{protoc_jsonschema_version}
+
+        echo "Generating contlcycle proto"
+        PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto
+
+        echo "Generating kubernetes autoscaling proto"
+        PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:proto/deps:$GOPATH/src --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema $GOPATH/src/github.com/DataDog/agent-payload/v5/proto/autoscaling/kubernetes/*.proto
+
+        echo "Generating contimage proto"
+        PATH={toolchain_bin_dir}  {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/contimage/contimage.proto
+
+        echo "Generating sbom proto"
+        PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto
+        PATH={toolchain_bin_dir}  {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/sbom/sbom.proto
+
+# Install protoc-gen-go-vtproto
+        GOPATH={toolchain_dir} go install github.com/planetscale/vtprotobuf/cmd/protoc-gen-go-vtproto@v0.5.0
+
+        echo "Generating CWS Activity Dumps v1"
+        PATH={toolchain_bin_dir} {protoc_binary} --proto_path=$GOPATH/src:. \
+        --java_out=java \
+        --go_out=$GOPATH/src \
+        --go-vtproto_out=$GOPATH/src \
+        --go-vtproto_opt=features=pool+marshal+unmarshal+size \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.SecDump \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessActivityNode \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.FileActivityNode \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.FileInfo \
+        --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessInfo \
+        proto/cws/dumpsv1/activity_dump.proto
+
+        rm -f {v5_dir}/proto
+        cp -r v5/* .
+        rm -rf v5
+BASH
+    """)
+
+
+@task(pre=[protoc])
 def all(ctx: Context):
     pass
