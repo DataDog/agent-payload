@@ -16,7 +16,7 @@ jobs:
       with:
         python-version-file: "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/.python-version"
     - name: "Install invoke"
-        run: |
+      run: |
           pip --version
           pip install -r "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/requirements.txt"
     - name: Install go
@@ -48,7 +48,7 @@ jobs:
       with:
         python-version-file: "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/.python-version"
     - name: "Install invoke"
-        run: |
+      run: |
           pip --version
           pip install -r "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/requirements.txt"
     - name: Install go
