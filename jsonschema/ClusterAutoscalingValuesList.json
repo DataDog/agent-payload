@@ -66,8 +66,7 @@
         },
         "DomainLabels": {
             "required": [
-                "name",
-                "value"
+                "name"
             ],
             "properties": {
                 "name": {
@@ -85,7 +84,6 @@
         "Taints": {
             "required": [
                 "key",
-                "value",
                 "effect"
             ],
             "properties": {

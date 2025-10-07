@@ -36,7 +36,7 @@ message DomainLabels {
   option (protoc.gen.jsonschema.message_options).ignore = true;
 
   string name  = 1 [(protoc.gen.jsonschema.field_options).required = true];
-  string value = 2 [(protoc.gen.jsonschema.field_options).required = true];
+  string value = 2;
 }
 
 // Taints are the minimum set of taints that should be set on the NodePool 
@@ -45,7 +45,6 @@ message Taints {
   option (protoc.gen.jsonschema.message_options).ignore = true;
 
   string key    = 1 [(protoc.gen.jsonschema.field_options).required = true];
-  string value  = 2 [(protoc.gen.jsonschema.field_options).required = true];
+  string value  = 2;
   string effect = 3 [(protoc.gen.jsonschema.field_options).required = true];
 }
-
