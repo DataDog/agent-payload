@@ -16,3 +16,6 @@ vendor/
 # build time dependencies that are either downloaded or
 # built during codegen
 toolchains/
+
+# python virtualenv for invoke tasks
+venv/
