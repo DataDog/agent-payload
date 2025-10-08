@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+option go_package = "github.com/DataDog/agent-payload/v5/autoscaling/kubernetes";
+
+package datadog.autoscaling.kubernetes;
+
+import "github.com/DataDog/agent-payload/v5/proto/autoscaling/kubernetes/common.proto";
+
+import "google/protobuf/timestamp.proto";
+import "github.com/chrusty/protoc-gen-jsonschema/options.proto";
+
+// ClusterAutoscalingValuesList represents a list of cluster autoscaling recommendations.
+// These recommendations are formatted into Karpenter NodePools to be applied in the customer's environment.
+message ClusterAutoscalingValuesList {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
+  repeated ClusterAutoscalingValues values = 1;
+}
+
+// ClusterAutoscalingValues represents the fields in a cluster autoscaling recommendation.
+message ClusterAutoscalingValues {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  string                   name                       = 1 [(protoc.gen.jsonschema.field_options).required = true]; // Name is the name of the associated Karpenter NodePool object
+  repeated DomainLabels    labels                     = 2; // Labels are the domain labels that should be present on the NodePool
+  repeated Taints          taints                     = 3; // Taints are the domain taints that should be present on the NodePool
+  repeated string          recommended_instance_types = 4 [(protoc.gen.jsonschema.field_options).required = true]; // RecommendedInstanceTypes are the list of instance types that the NodePool should be restricted to
+  string                   target_name                = 5; // TargetName refers to the associated NodePool (if exists) that the recommendation was created from
+  string                   target_hash                = 6; // TargetHash is a hash of the original NodePool (if exists) at the time the recommendation was generated
+}
+
+// DomainLabels represents the set of domain labels that should be present on the NodePool.
+message DomainLabels {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  string name  = 1 [(protoc.gen.jsonschema.field_options).required = true];
+  string value = 2;
+}
+
+// Taints are the minimum set of taints that should be set on the NodePool 
+message Taints {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  string key    = 1 [(protoc.gen.jsonschema.field_options).required = true];
+  string value  = 2;
+  string effect = 3 [(protoc.gen.jsonschema.field_options).required = true];
+}
