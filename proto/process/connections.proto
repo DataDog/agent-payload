@@ -345,6 +345,7 @@ message AgentConfiguration {
 message Route {
   Subnet subnet = 1;
   Interface interface = 2;
+  repeated SecurityGroups securityGroups = 3;
 }
 
 message Interface {
@@ -453,4 +454,8 @@ message PublicIpMetadata {
   string cloudProvider = 2;
   string region = 3;
   repeated string tags = 4;
+}
+
+message SecurityGroups {
+  string ID = 1;
 }
