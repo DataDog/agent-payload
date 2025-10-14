@@ -162,7 +162,7 @@ BASH
 end
 
 task :gimme do
-    go_version = "1.22.0"
+    go_version = "1.24.0"
 
     if (`which gimme`; $?.success?)
       sh "gimme #{go_version}"
