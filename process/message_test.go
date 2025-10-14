@@ -1,3 +1,5 @@
+//go:build cgo
+
 package process
 
 import (
@@ -64,5 +66,51 @@ func TestMessageTypeString(t *testing.T) {
 	}
 	for input, expected := range cases {
 		assert.Equal(t, expected, input.String())
+	}
+}
+
+func TestManifestPayloadAllEncodings_CGO(t *testing.T) {
+	testCases := []struct {
+		name     string
+		encoding MessageEncoding
+	}{
+		{"Protobuf", MessageEncodingProtobuf},
+		{"JSON", MessageEncodingJSON},
+		{"ZstdPB", MessageEncodingZstdPB},
+		{"Zstd1xPB", MessageEncodingZstd1xPB},
+		{"ZstdPBxNoCgo", MessageEncodingZstdPBxNoCgo},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			message := Message{
+				Header: MessageHeader{
+					Version:  MessageV3,
+					Encoding: tc.encoding,
+					Type:     TypeCollectorManifest,
+				},
+				Body: &CollectorManifest{
+					HostName: "test",
+				},
+			}
+
+			encoded, err := EncodeMessage(message)
+			assert.NoError(t, err)
+
+			msg, err := DecodeMessage(encoded)
+			assert.NoError(t, err)
+
+			// For JSON encoding, compare the essential fields since JSON marshaling
+			// can change nil slices to empty slices
+			if tc.encoding == MessageEncodingJSON {
+				assert.Equal(t, message.Header, msg.Header)
+				originalBody := message.Body.(*CollectorManifest)
+				decodedBody := msg.Body.(*CollectorManifest)
+				assert.Equal(t, originalBody.HostName, decodedBody.HostName)
+				assert.Equal(t, originalBody.GroupSize, decodedBody.GroupSize)
+			} else {
+				assert.Equal(t, message, msg)
+			}
+		})
 	}
 }
