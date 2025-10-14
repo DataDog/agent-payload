@@ -281,7 +281,7 @@ message CollectorCluster {
 
 // OriginCollector is the origin of the collector
 enum OriginCollector {
-  collectorUnknown = 0;
+	collectorUnknown = 0;
 	datadogAgent = 1;
 	datadogExporter = 2;
 }
