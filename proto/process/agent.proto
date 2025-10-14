@@ -279,6 +279,13 @@ message CollectorCluster {
 	AgentVersion agentVersion = 7;
 }
 
+// OriginCollector is the origin of the collector
+enum OriginCollector {
+  collectorUnknown = 0;
+	datadogAgent = 1;
+	datadogExporter = 2;
+}
+
 // CollectorManifest is the dedicated payload/pipeline for the yaml collection
 message CollectorManifest {
 	string clusterName = 1;
@@ -289,6 +296,7 @@ message CollectorManifest {
 	repeated string tags = 6;
 	string hostName = 7;
 	AgentVersion agentVersion = 8;
+	OriginCollector originCollector = 9;
 }
 
 message CollectorManifestCRD {
