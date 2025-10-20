@@ -1241,6 +1241,7 @@ message Pod {
 	int64 scheduledTime = 19;
 	repeated PodCondition conditions = 20;
 	NodeAffinity nodeAffinity = 21;
+	repeated ContainerSpec containers = 22;
 }
 
 message PodCondition {
@@ -1261,6 +1262,73 @@ message ContainerStatus {
 	string message = 6;
 	string image = 7;
 	string imageID = 8;
+}
+
+message ContainerPort {
+	int32 containerPort = 1;
+	string protocol = 2;
+	int32 hostPort = 3;
+	string name = 4;
+	string hostIP = 5;
+}
+
+message EnvVarSource {
+	string fieldPath = 1;
+	string secretKeyRef = 2;
+	string configMapKeyRef = 3;
+}
+
+message VolumeMount {
+	string name = 1;
+	string mountPath = 2;
+	string subPath = 3;
+	bool readOnly = 4;
+	string mountPropagation = 5;
+	string subPathExpr = 6;
+}
+
+message Probe {
+	ProbeHandler handler = 1;
+	int32 initialDelaySeconds = 2;
+	int32 timeoutSeconds = 3;
+	int32 periodSeconds = 4;
+	int32 successThreshold = 5;
+	int32 failureThreshold = 6;
+}
+
+message ProbeHandler {
+	string exec = 1;
+	string httpGet = 2;
+	string tcpSocket = 3;
+}
+
+message SecurityContext {
+	bool privileged = 1;
+	int64 runAsUser = 2;
+	int64 runAsGroup = 3;
+	bool runAsNonRoot = 4;
+	bool readOnlyRootFilesystem = 5;
+	bool allowPrivilegeEscalation = 6;
+	repeated string capabilities = 7;
+	string seccompProfile = 8;
+}
+
+message ContainerSpec {
+	string name = 1;
+	string image = 2;
+	repeated ContainerPort ports = 3;
+	repeated string command = 4;
+	repeated string args = 5;
+	string workingDir = 6;
+	ResourceRequirements resources = 8;
+	repeated VolumeMount volumeMounts = 9;
+	string imagePullPolicy = 10;
+	SecurityContext securityContext = 11;
+	Probe livenessProbe = 12;
+	Probe readinessProbe = 13;
+	Probe startupProbe = 14;
+	string terminationMessagePath = 15;
+	string terminationMessagePolicy = 16;
 }
 
 message NodeAffinity {
