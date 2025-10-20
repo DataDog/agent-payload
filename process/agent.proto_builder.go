@@ -6961,6 +6961,7 @@ type PodBuilder struct {
 	resourceMetricsBuilder      ResourceMetricsBuilder
 	podConditionBuilder         PodConditionBuilder
 	nodeAffinityBuilder         NodeAffinityBuilder
+	containerSpecBuilder        ContainerSpecBuilder
 }
 
 func NewPodBuilder(writer io.Writer) *PodBuilder {
@@ -7132,6 +7133,16 @@ func (x *PodBuilder) SetNodeAffinity(cb func(w *NodeAffinityBuilder)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *PodBuilder) AddContainers(cb func(w *ContainerSpecBuilder)) {
+	x.buf.Reset()
+	x.containerSpecBuilder.writer = &x.buf
+	x.containerSpecBuilder.scratch = x.scratch
+	cb(&x.containerSpecBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xb2)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type PodConditionBuilder struct {
 	writer  io.Writer
@@ -7246,6 +7257,437 @@ func (x *ContainerStatusBuilder) SetImage(v string) {
 func (x *ContainerStatusBuilder) SetImageID(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x42)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type ContainerPortBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewContainerPortBuilder(writer io.Writer) *ContainerPortBuilder {
+	return &ContainerPortBuilder{
+		writer: writer,
+	}
+}
+func (x *ContainerPortBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ContainerPortBuilder) SetContainerPort(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ContainerPortBuilder) SetProtocol(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ContainerPortBuilder) SetHostPort(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ContainerPortBuilder) SetName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ContainerPortBuilder) SetHostIP(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type EnvVarSourceBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewEnvVarSourceBuilder(writer io.Writer) *EnvVarSourceBuilder {
+	return &EnvVarSourceBuilder{
+		writer: writer,
+	}
+}
+func (x *EnvVarSourceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *EnvVarSourceBuilder) SetFieldPath(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *EnvVarSourceBuilder) SetSecretKeyRef(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *EnvVarSourceBuilder) SetConfigMapKeyRef(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type VolumeMountBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewVolumeMountBuilder(writer io.Writer) *VolumeMountBuilder {
+	return &VolumeMountBuilder{
+		writer: writer,
+	}
+}
+func (x *VolumeMountBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *VolumeMountBuilder) SetName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *VolumeMountBuilder) SetMountPath(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *VolumeMountBuilder) SetSubPath(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *VolumeMountBuilder) SetReadOnly(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x20)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
+func (x *VolumeMountBuilder) SetMountPropagation(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *VolumeMountBuilder) SetSubPathExpr(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type ProbeBuilder struct {
+	writer              io.Writer
+	buf                 bytes.Buffer
+	scratch             []byte
+	probeHandlerBuilder ProbeHandlerBuilder
+}
+
+func NewProbeBuilder(writer io.Writer) *ProbeBuilder {
+	return &ProbeBuilder{
+		writer: writer,
+	}
+}
+func (x *ProbeBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ProbeBuilder) SetHandler(cb func(w *ProbeHandlerBuilder)) {
+	x.buf.Reset()
+	x.probeHandlerBuilder.writer = &x.buf
+	x.probeHandlerBuilder.scratch = x.scratch
+	cb(&x.probeHandlerBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ProbeBuilder) SetInitialDelaySeconds(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ProbeBuilder) SetTimeoutSeconds(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ProbeBuilder) SetPeriodSeconds(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x20)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ProbeBuilder) SetSuccessThreshold(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x28)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ProbeBuilder) SetFailureThreshold(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x30)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
+type ProbeHandlerBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewProbeHandlerBuilder(writer io.Writer) *ProbeHandlerBuilder {
+	return &ProbeHandlerBuilder{
+		writer: writer,
+	}
+}
+func (x *ProbeHandlerBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ProbeHandlerBuilder) SetExec(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ProbeHandlerBuilder) SetHttpGet(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ProbeHandlerBuilder) SetTcpSocket(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type SecurityContextBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewSecurityContextBuilder(writer io.Writer) *SecurityContextBuilder {
+	return &SecurityContextBuilder{
+		writer: writer,
+	}
+}
+func (x *SecurityContextBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *SecurityContextBuilder) SetPrivileged(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
+func (x *SecurityContextBuilder) SetRunAsUser(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *SecurityContextBuilder) SetRunAsGroup(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *SecurityContextBuilder) SetRunAsNonRoot(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x20)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
+func (x *SecurityContextBuilder) SetReadOnlyRootFilesystem(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x28)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
+func (x *SecurityContextBuilder) SetAllowPrivilegeEscalation(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x30)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
+func (x *SecurityContextBuilder) AddCapabilities(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *SecurityContextBuilder) SetSeccompProfile(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x42)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type ContainerSpecBuilder struct {
+	writer                      io.Writer
+	buf                         bytes.Buffer
+	scratch                     []byte
+	containerPortBuilder        ContainerPortBuilder
+	resourceRequirementsBuilder ResourceRequirementsBuilder
+	volumeMountBuilder          VolumeMountBuilder
+	securityContextBuilder      SecurityContextBuilder
+	probeBuilder                ProbeBuilder
+}
+
+func NewContainerSpecBuilder(writer io.Writer) *ContainerSpecBuilder {
+	return &ContainerSpecBuilder{
+		writer: writer,
+	}
+}
+func (x *ContainerSpecBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ContainerSpecBuilder) SetName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ContainerSpecBuilder) SetImage(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ContainerSpecBuilder) AddPorts(cb func(w *ContainerPortBuilder)) {
+	x.buf.Reset()
+	x.containerPortBuilder.writer = &x.buf
+	x.containerPortBuilder.scratch = x.scratch
+	cb(&x.containerPortBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ContainerSpecBuilder) AddCommand(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ContainerSpecBuilder) AddArgs(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ContainerSpecBuilder) SetWorkingDir(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ContainerSpecBuilder) SetResources(cb func(w *ResourceRequirementsBuilder)) {
+	x.buf.Reset()
+	x.resourceRequirementsBuilder.writer = &x.buf
+	x.resourceRequirementsBuilder.scratch = x.scratch
+	cb(&x.resourceRequirementsBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x42)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ContainerSpecBuilder) AddVolumeMounts(cb func(w *VolumeMountBuilder)) {
+	x.buf.Reset()
+	x.volumeMountBuilder.writer = &x.buf
+	x.volumeMountBuilder.scratch = x.scratch
+	cb(&x.volumeMountBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x4a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ContainerSpecBuilder) SetImagePullPolicy(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x52)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ContainerSpecBuilder) SetSecurityContext(cb func(w *SecurityContextBuilder)) {
+	x.buf.Reset()
+	x.securityContextBuilder.writer = &x.buf
+	x.securityContextBuilder.scratch = x.scratch
+	cb(&x.securityContextBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x5a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ContainerSpecBuilder) SetLivenessProbe(cb func(w *ProbeBuilder)) {
+	x.buf.Reset()
+	x.probeBuilder.writer = &x.buf
+	x.probeBuilder.scratch = x.scratch
+	cb(&x.probeBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x62)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ContainerSpecBuilder) SetReadinessProbe(cb func(w *ProbeBuilder)) {
+	x.buf.Reset()
+	x.probeBuilder.writer = &x.buf
+	x.probeBuilder.scratch = x.scratch
+	cb(&x.probeBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x6a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ContainerSpecBuilder) SetStartupProbe(cb func(w *ProbeBuilder)) {
+	x.buf.Reset()
+	x.probeBuilder.writer = &x.buf
+	x.probeBuilder.scratch = x.scratch
+	cb(&x.probeBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x72)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ContainerSpecBuilder) SetTerminationMessagePath(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x7a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ContainerSpecBuilder) SetTerminationMessagePolicy(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x82)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
