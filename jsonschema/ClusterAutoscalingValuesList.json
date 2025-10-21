@@ -66,10 +66,10 @@
         },
         "DomainLabels": {
             "required": [
-                "name"
+                "key"
             ],
             "properties": {
-                "name": {
+                "key": {
                     "type": "string"
                 },
                 "value": {
