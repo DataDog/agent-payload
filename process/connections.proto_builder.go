@@ -751,6 +751,40 @@ func (x *Connections_CORETelemetryByAssetEntryBuilder) SetValue(v uint64) {
 	}
 }
 
+type SpanBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewSpanBuilder(writer io.Writer) *SpanBuilder {
+	return &SpanBuilder{
+		writer: writer,
+	}
+}
+func (x *SpanBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *SpanBuilder) SetTraceID(v uint64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *SpanBuilder) SetTraceID_high(v uint64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *SpanBuilder) SetSpanID(v uint64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x18)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
 type ConnectionBuilder struct {
 	writer                                                   io.Writer
 	buf                                                      bytes.Buffer
@@ -763,6 +797,7 @@ type ConnectionBuilder struct {
 	connection_DnsStatsByDomainByQueryTypeEntryBuilder       Connection_DnsStatsByDomainByQueryTypeEntryBuilder
 	connection_DnsStatsByDomainOffsetByQueryTypeEntryBuilder Connection_DnsStatsByDomainOffsetByQueryTypeEntryBuilder
 	connection_TcpFailuresByErrCodeEntryBuilder              Connection_TcpFailuresByErrCodeEntryBuilder
+	spanBuilder                                              SpanBuilder
 }
 
 func NewConnectionBuilder(writer io.Writer) *ConnectionBuilder {
@@ -1080,6 +1115,16 @@ func (x *ConnectionBuilder) SetLocalContainerTagsIndex(v int32) {
 	x.scratch = protowire.AppendVarint(x.scratch, 0x1b0)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
+}
+func (x *ConnectionBuilder) AddSpans(cb func(w *SpanBuilder)) {
+	x.buf.Reset()
+	x.spanBuilder.writer = &x.buf
+	x.spanBuilder.scratch = x.scratch
+	cb(&x.spanBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1ba)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
 }
 
 type Connection_DnsCountByRcodeEntryBuilder struct {

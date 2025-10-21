@@ -128,11 +128,16 @@ message Connections {
   repeated string PrebuiltEBPFAssets = 12;
 }
 
+message Span {
+  uint64 traceID = 1;                         // Required.
+  uint64 traceID_high = 2;                    // Optional. The high 64 bits of a referenced trace id.
+  uint64 spanID = 3;                          // Required.
+}
 
 message Connection {
   reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
   // Please update when adding fields
-  // next identifier: 55
+  // next identifier: 56
 
   int32 pid = 1;
   Addr laddr = 5; // Local address
@@ -227,6 +232,8 @@ message Connection {
   // Meant to be used with CollectorConnections#encodedTags.
   // Handled the built-in race for resolution of container tags in the backend.
   int32 localContainerTagsIndex = 54;
+
+  repeated Span spans = 55;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
