@@ -234,7 +234,7 @@ message Connection {
   int32 localContainerTagsIndex = 54;
 
   repeated Span spans = 55;
-  uint16 spanOverflowCount = 56;
+  uint32 spanOverflowCount = 56;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
