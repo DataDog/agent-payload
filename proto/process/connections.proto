@@ -137,7 +137,7 @@ message Span {
 message Connection {
   reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
   // Please update when adding fields
-  // next identifier: 56
+  // next identifier: 57
 
   int32 pid = 1;
   Addr laddr = 5; // Local address
@@ -234,6 +234,7 @@ message Connection {
   int32 localContainerTagsIndex = 54;
 
   repeated Span spans = 55;
+  uint16 spanOverflowCount = 56;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
