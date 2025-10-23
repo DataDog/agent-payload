@@ -1845,10 +1845,19 @@ message PostgresStats {
 }
 
 // A list of the supported commands for the redis cache.
+// Top 10 most commonly used commands for monitoring.
 enum RedisCommand {
 	RedisUnknownCommand = 0;
 	RedisGetCommand = 1;
 	RedisSetCommand = 2;
+	RedisPingCommand = 3;
+	RedisDelCommand = 4;
+	RedisIncrCommand = 5;
+	RedisExpireCommand = 6;
+	RedisExistsCommand = 7;
+	RedisHGetCommand = 8;
+	RedisHSetCommand = 9;
+	RedisLPushCommand = 10;
 }
 
 enum RedisErrorType {
