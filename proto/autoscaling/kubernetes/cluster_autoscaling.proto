@@ -35,7 +35,7 @@ message DomainLabels {
   option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
   option (protoc.gen.jsonschema.message_options).ignore = true;
 
-  string name  = 1 [(protoc.gen.jsonschema.field_options).required = true];
+  string key   = 1 [(protoc.gen.jsonschema.field_options).required = true];
   string value = 2;
 }
 
