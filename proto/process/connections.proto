@@ -233,7 +233,9 @@ message Connection {
   // Handled the built-in race for resolution of container tags in the backend.
   int32 localContainerTagsIndex = 54;
 
+  // Traces and spans associated with the connection
   repeated Span spans = 55;
+  // The number of spans that were omitted because the agent did not have capacity
   uint32 spanOverflowCount = 56;
 }
 

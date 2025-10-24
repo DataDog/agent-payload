@@ -901,9 +901,11 @@ type Connection struct {
 	// localContainerTagsIndex is the index of the tags associated with the container that this connection was collected from.
 	// Meant to be used with CollectorConnections#encodedTags.
 	// Handled the built-in race for resolution of container tags in the backend.
-	LocalContainerTagsIndex int32   `protobuf:"varint,54,opt,name=localContainerTagsIndex,proto3" json:"localContainerTagsIndex,omitempty"`
-	Spans                   []*Span `protobuf:"bytes,55,rep,name=spans,proto3" json:"spans,omitempty"`
-	SpanOverflowCount       uint32  `protobuf:"varint,56,opt,name=spanOverflowCount,proto3" json:"spanOverflowCount,omitempty"`
+	LocalContainerTagsIndex int32 `protobuf:"varint,54,opt,name=localContainerTagsIndex,proto3" json:"localContainerTagsIndex,omitempty"`
+	// Traces and spans associated with the connection
+	Spans []*Span `protobuf:"bytes,55,rep,name=spans,proto3" json:"spans,omitempty"`
+	// The number of spans that were omitted because the agent did not have capacity
+	SpanOverflowCount uint32 `protobuf:"varint,56,opt,name=spanOverflowCount,proto3" json:"spanOverflowCount,omitempty"`
 }
 
 func (m *Connection) Reset()         { *m = Connection{} }
