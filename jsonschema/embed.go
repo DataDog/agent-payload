@@ -7,3 +7,6 @@ import (
 
 //go:embed WorkloadValuesList.json
 var KubernetesAutoscalingWorkloadValuesList []byte
+
+//go:embed ClusterAutoscalingValuesList.json
+var KubernetesAutoscalingClusterAutoscalingValuesList []byte
