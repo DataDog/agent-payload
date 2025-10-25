@@ -5,7 +5,13 @@ proto_library(
     srcs = [
         "autoscaling.proto",
         "common.proto",
+        "options.proto",
         "recommender.proto",
     ],
     visibility = ["//visibility:public"],
+    deps = [
+        "@com_google_protobuf//:descriptor_proto",
+        "@com_google_protobuf//:struct_proto",
+        "@com_google_protobuf//:timestamp_proto",
+    ]
 )
