@@ -283,7 +283,7 @@ message CollectorCluster {
 enum OriginCollector {
 	collectorUnknown = 0;
 	datadogAgent = 1;
-	datadogExporter = 2;
+	otelDatadogExporter = 2;
 }
 
 // CollectorManifest is the dedicated payload/pipeline for the yaml collection
