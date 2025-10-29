@@ -227,6 +227,9 @@ message Connection {
   // Meant to be used with CollectorConnections#encodedTags.
   // Handled the built-in race for resolution of container tags in the backend.
   int32 localContainerTagsIndex = 54;
+
+  // Indicates that this connection is from system-probe
+  bool systemProbeConn = 55;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
