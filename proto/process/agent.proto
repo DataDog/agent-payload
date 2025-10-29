@@ -593,6 +593,17 @@ message ServiceDiscovery {
 	repeated ServiceName additionalGeneratedNames = 3;
 	repeated TracerMetadata tracerMetadata = 4;
 	bool apmInstrumentation = 5;
+	repeated Resource resources = 6;
+}
+
+message Resource {
+	oneof resource {
+		LogResource logs = 1;
+	}
+}
+
+message LogResource {
+	string path = 1;
 }
 
 message ServiceName {
