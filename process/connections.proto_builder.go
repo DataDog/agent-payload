@@ -1081,6 +1081,13 @@ func (x *ConnectionBuilder) SetLocalContainerTagsIndex(v int32) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
+func (x *ConnectionBuilder) SetSystemProbeConn(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1b8)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
 
 type Connection_DnsCountByRcodeEntryBuilder struct {
 	writer  io.Writer
