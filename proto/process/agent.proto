@@ -297,6 +297,7 @@ message CollectorManifest {
 	string hostName = 7;
 	AgentVersion agentVersion = 8;
 	OriginCollector originCollector = 9;
+	SystemInfo systemInfo = 10;
 }
 
 message CollectorManifestCRD {
@@ -496,7 +497,7 @@ message CollectorStorageClass {
 message AgentVersion {
 	int64 Major = 1;
 	int64 Minor = 2;
-	int64 Patch = 3;	
+	int64 Patch = 3;
 	string Pre = 4;
 	string Meta = 5;
 	string Commit = 6;
