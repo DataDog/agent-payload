@@ -15,6 +15,7 @@ enum ContainerHostType {
 	notSpecified = 0;
 	fargateECS = 1;
 	fargateEKS = 2;
+	sidecar = 3;
 }
 
 message ResCollector {
