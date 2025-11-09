@@ -4,10 +4,9 @@ option go_package = "github.com/DataDog/agent-payload/v5/autoscaling/kubernetes"
 
 package datadog.autoscaling.kubernetes;
 
-import "github.com/DataDog/agent-payload/v5/proto/autoscaling/kubernetes/common.proto";
-
+import "proto/autoscaling/kubernetes/common.proto";
+import "proto/autoscaling/kubernetes/options.proto";
 import "google/protobuf/timestamp.proto";
-import "github.com/chrusty/protoc-gen-jsonschema/options.proto";
 
 // WorkloadValuesList represents a list of workload values
 message WorkloadValuesList {
@@ -35,7 +34,7 @@ message WorkloadHorizontalValues {
   option (protoc.gen.jsonschema.message_options).ignore = true;
 
   Error error = 1; // Error is the error message if new values cannot be calculated
-  
+
   WorkloadHorizontalData manual = 2; // Manual is the manual override values for the workload
   WorkloadHorizontalData auto   = 3; // Auto is the periodic recommendation values for the workload
 }
