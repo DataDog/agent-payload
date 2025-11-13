@@ -281,6 +281,12 @@ func (x *CollectorConnectionsBuilder) SetHostTagsIndex(v int32) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
+func (x *CollectorConnectionsBuilder) AddResolvConfs(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x182)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type CollectorConnections_ResolvedResourcesEntryBuilder struct {
 	writer                  io.Writer
@@ -624,6 +630,12 @@ func (x *ConnectionsBuilder) AddCORETelemetryByAsset(cb func(w *Connections_CORE
 func (x *ConnectionsBuilder) AddPrebuiltEBPFAssets(v string) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x62)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ConnectionsBuilder) AddResolvConfs(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x6a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
@@ -1087,6 +1099,12 @@ func (x *ConnectionBuilder) SetSystemProbeConn(v bool) {
 		x.scratch = protowire.AppendVarint(x.scratch, 1)
 		x.writer.Write(x.scratch)
 	}
+}
+func (x *ConnectionBuilder) SetResolvConfIdx(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1c0)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
 }
 
 type Connection_DnsCountByRcodeEntryBuilder struct {
