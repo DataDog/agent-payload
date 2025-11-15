@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/TimeseriesQuery",
+    "definitions": {
+        "MetricsTimeseriesQuery": {
+            "properties": {
+                "data_source": {
+                    "enum": [
+                        "METRICS_DATA_SOURCE_UNSPECIFIED",
+                        0,
+                        "METRICS",
+                        1,
+                        "CLOUD_COST",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Metrics Data Source"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "e.g., \"a\", \"b\""
+                },
+                "query": {
+                    "type": "string",
+                    "description": "classic Datadog metrics query"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metrics Timeseries Query"
+        },
+        "TimeseriesQuery": {
+            "properties": {
+                "metrics": {
+                    "$ref": "#/definitions/MetricsTimeseriesQuery",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Timeseries Query",
+            "description": "Discriminated union: only metrics supported for autoscaling."
+        }
+    }
+}

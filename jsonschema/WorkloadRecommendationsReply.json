@@ -16,6 +16,102 @@
             "title": "Error",
             "description": "Error represents an error message"
         },
+        "MetricsTimeseriesQuery": {
+            "properties": {
+                "data_source": {
+                    "enum": [
+                        "METRICS_DATA_SOURCE_UNSPECIFIED",
+                        0,
+                        "METRICS",
+                        1,
+                        "CLOUD_COST",
+                        2
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Metrics Data Source"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "e.g., \"a\", \"b\""
+                },
+                "query": {
+                    "type": "string",
+                    "description": "classic Datadog metrics query"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metrics Timeseries Query"
+        },
+        "QueryFormula": {
+            "properties": {
+                "formula": {
+                    "type": "string",
+                    "description": "non-empty in app validation"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Query Formula"
+        },
+        "TimeseriesFormulaRequest": {
+            "properties": {
+                "spec": {
+                    "$ref": "#/definitions/TimeseriesFormulaRequestSpec",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Timeseries Formula Request"
+        },
+        "TimeseriesFormulaRequestSpec": {
+            "properties": {
+                "interval": {
+                    "pattern": "^([0-9]+\\.?[0-9]*|\\.[0-9]+)s$",
+                    "type": "string",
+                    "description": "Optional sampling interval.",
+                    "format": "regex"
+                },
+                "formulas": {
+                    "items": {
+                        "$ref": "#/definitions/QueryFormula"
+                    },
+                    "type": "array",
+                    "description": "Optional formulas to compute."
+                },
+                "queries": {
+                    "items": {
+                        "$ref": "#/definitions/TimeseriesQuery"
+                    },
+                    "type": "array",
+                    "description": "At least one query required (validation handled in app layer)."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Timeseries Formula Request Spec",
+            "description": "Mirrors TimeseriesFormulaRequestSpec"
+        },
+        "TimeseriesQuery": {
+            "properties": {
+                "metrics": {
+                    "$ref": "#/definitions/MetricsTimeseriesQuery",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Timeseries Query",
+            "description": "Discriminated union: only metrics supported for autoscaling."
+        },
         "WorkloadRecommendationReply": {
             "required": [
                 "timestamp",
@@ -82,6 +178,11 @@
                 "upperBound": {
                     "type": "number",
                     "description": "UpperBound is the upper bound of the target"
+                },
+                "formula": {
+                    "$ref": "#/definitions/TimeseriesFormulaRequest",
+                    "additionalProperties": false,
+                    "description": "Formula is the formula to calculate the target value. Must be set when type = \"ContainerResource\". Otherwise, must be unset."
                 }
             },
             "additionalProperties": false,
