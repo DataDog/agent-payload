@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.34.1
 // 	protoc        v3.21.12
-// source: github.com/DataDog/agent-payload/v5/proto/autoscaling/kubernetes/common.proto
+// source: proto/autoscaling/kubernetes/common.proto
 
 package kubernetes
 
@@ -34,7 +34,7 @@ type Error struct {
 func (x *Error) Reset() {
 	*x = Error{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_msgTypes[0]
+		mi := &file_proto_autoscaling_kubernetes_common_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -47,7 +47,7 @@ func (x *Error) String() string {
 func (*Error) ProtoMessage() {}
 
 func (x *Error) ProtoReflect() protoreflect.Message {
-	mi := &file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_msgTypes[0]
+	mi := &file_proto_autoscaling_kubernetes_common_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -60,7 +60,7 @@ func (x *Error) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Error.ProtoReflect.Descriptor instead.
 func (*Error) Descriptor() ([]byte, []int) {
-	return file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_rawDescGZIP(), []int{0}
+	return file_proto_autoscaling_kubernetes_common_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *Error) GetCode() int32 {
@@ -93,7 +93,7 @@ type WorkloadTargetRef struct {
 func (x *WorkloadTargetRef) Reset() {
 	*x = WorkloadTargetRef{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_msgTypes[1]
+		mi := &file_proto_autoscaling_kubernetes_common_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -106,7 +106,7 @@ func (x *WorkloadTargetRef) String() string {
 func (*WorkloadTargetRef) ProtoMessage() {}
 
 func (x *WorkloadTargetRef) ProtoReflect() protoreflect.Message {
-	mi := &file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_msgTypes[1]
+	mi := &file_proto_autoscaling_kubernetes_common_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -119,7 +119,7 @@ func (x *WorkloadTargetRef) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WorkloadTargetRef.ProtoReflect.Descriptor instead.
 func (*WorkloadTargetRef) Descriptor() ([]byte, []int) {
-	return file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_rawDescGZIP(), []int{1}
+	return file_proto_autoscaling_kubernetes_common_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *WorkloadTargetRef) GetCluster() string {
@@ -171,7 +171,7 @@ type WorkloadState struct {
 func (x *WorkloadState) Reset() {
 	*x = WorkloadState{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_msgTypes[2]
+		mi := &file_proto_autoscaling_kubernetes_common_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -184,7 +184,7 @@ func (x *WorkloadState) String() string {
 func (*WorkloadState) ProtoMessage() {}
 
 func (x *WorkloadState) ProtoReflect() protoreflect.Message {
-	mi := &file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_msgTypes[2]
+	mi := &file_proto_autoscaling_kubernetes_common_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -197,7 +197,7 @@ func (x *WorkloadState) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WorkloadState.ProtoReflect.Descriptor instead.
 func (*WorkloadState) Descriptor() ([]byte, []int) {
-	return file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_rawDescGZIP(), []int{2}
+	return file_proto_autoscaling_kubernetes_common_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *WorkloadState) GetDesiredReplicas() int32 {
@@ -221,19 +221,16 @@ func (x *WorkloadState) GetReadyReplicas() int32 {
 	return 0
 }
 
-var File_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto protoreflect.FileDescriptor
+var File_proto_autoscaling_kubernetes_common_proto protoreflect.FileDescriptor
 
-var file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_rawDesc = []byte{
-	0x0a, 0x4d, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x44, 0x61, 0x74,
-	0x61, 0x44, 0x6f, 0x67, 0x2f, 0x61, 0x67, 0x65, 0x6e, 0x74, 0x2d, 0x70, 0x61, 0x79, 0x6c, 0x6f,
-	0x61, 0x64, 0x2f, 0x76, 0x35, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x61, 0x75, 0x74, 0x6f,
-	0x73, 0x63, 0x61, 0x6c, 0x69, 0x6e, 0x67, 0x2f, 0x6b, 0x75, 0x62, 0x65, 0x72, 0x6e, 0x65, 0x74,
-	0x65, 0x73, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12,
-	0x1e, 0x64, 0x61, 0x74, 0x61, 0x64, 0x6f, 0x67, 0x2e, 0x61, 0x75, 0x74, 0x6f, 0x73, 0x63, 0x61,
-	0x6c, 0x69, 0x6e, 0x67, 0x2e, 0x6b, 0x75, 0x62, 0x65, 0x72, 0x6e, 0x65, 0x74, 0x65, 0x73, 0x1a,
-	0x36, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x63, 0x68, 0x72, 0x75,
-	0x73, 0x74, 0x79, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x63, 0x2d, 0x67, 0x65, 0x6e, 0x2d, 0x6a,
-	0x73, 0x6f, 0x6e, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x2f, 0x6f, 0x70, 0x74, 0x69, 0x6f, 0x6e,
+var file_proto_autoscaling_kubernetes_common_proto_rawDesc = []byte{
+	0x0a, 0x29, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x61, 0x75, 0x74, 0x6f, 0x73, 0x63, 0x61, 0x6c,
+	0x69, 0x6e, 0x67, 0x2f, 0x6b, 0x75, 0x62, 0x65, 0x72, 0x6e, 0x65, 0x74, 0x65, 0x73, 0x2f, 0x63,
+	0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x1e, 0x64, 0x61, 0x74,
+	0x61, 0x64, 0x6f, 0x67, 0x2e, 0x61, 0x75, 0x74, 0x6f, 0x73, 0x63, 0x61, 0x6c, 0x69, 0x6e, 0x67,
+	0x2e, 0x6b, 0x75, 0x62, 0x65, 0x72, 0x6e, 0x65, 0x74, 0x65, 0x73, 0x1a, 0x2a, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2f, 0x61, 0x75, 0x74, 0x6f, 0x73, 0x63, 0x61, 0x6c, 0x69, 0x6e, 0x67, 0x2f, 0x6b,
+	0x75, 0x62, 0x65, 0x72, 0x6e, 0x65, 0x74, 0x65, 0x73, 0x2f, 0x6f, 0x70, 0x74, 0x69, 0x6f, 0x6e,
 	0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x4c, 0x0a, 0x05, 0x45, 0x72, 0x72, 0x6f, 0x72,
 	0x12, 0x17, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x48, 0x00,
 	0x52, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x88, 0x01, 0x01, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73,
@@ -272,24 +269,24 @@ var file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common
 }
 
 var (
-	file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_rawDescOnce sync.Once
-	file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_rawDescData = file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_rawDesc
+	file_proto_autoscaling_kubernetes_common_proto_rawDescOnce sync.Once
+	file_proto_autoscaling_kubernetes_common_proto_rawDescData = file_proto_autoscaling_kubernetes_common_proto_rawDesc
 )
 
-func file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_rawDescGZIP() []byte {
-	file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_rawDescOnce.Do(func() {
-		file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_rawDescData = protoimpl.X.CompressGZIP(file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_rawDescData)
+func file_proto_autoscaling_kubernetes_common_proto_rawDescGZIP() []byte {
+	file_proto_autoscaling_kubernetes_common_proto_rawDescOnce.Do(func() {
+		file_proto_autoscaling_kubernetes_common_proto_rawDescData = protoimpl.X.CompressGZIP(file_proto_autoscaling_kubernetes_common_proto_rawDescData)
 	})
-	return file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_rawDescData
+	return file_proto_autoscaling_kubernetes_common_proto_rawDescData
 }
 
-var file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_goTypes = []interface{}{
+var file_proto_autoscaling_kubernetes_common_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_proto_autoscaling_kubernetes_common_proto_goTypes = []interface{}{
 	(*Error)(nil),             // 0: datadog.autoscaling.kubernetes.Error
 	(*WorkloadTargetRef)(nil), // 1: datadog.autoscaling.kubernetes.WorkloadTargetRef
 	(*WorkloadState)(nil),     // 2: datadog.autoscaling.kubernetes.WorkloadState
 }
-var file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_depIdxs = []int32{
+var file_proto_autoscaling_kubernetes_common_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -297,15 +294,13 @@ var file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() {
-	file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_init()
-}
-func file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_init() {
-	if File_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto != nil {
+func init() { file_proto_autoscaling_kubernetes_common_proto_init() }
+func file_proto_autoscaling_kubernetes_common_proto_init() {
+	if File_proto_autoscaling_kubernetes_common_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_autoscaling_kubernetes_common_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Error); i {
 			case 0:
 				return &v.state
@@ -317,7 +312,7 @@ func file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_commo
 				return nil
 			}
 		}
-		file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_autoscaling_kubernetes_common_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WorkloadTargetRef); i {
 			case 0:
 				return &v.state
@@ -329,7 +324,7 @@ func file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_commo
 				return nil
 			}
 		}
-		file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_autoscaling_kubernetes_common_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*WorkloadState); i {
 			case 0:
 				return &v.state
@@ -342,24 +337,24 @@ func file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_commo
 			}
 		}
 	}
-	file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_msgTypes[0].OneofWrappers = []interface{}{}
-	file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_msgTypes[2].OneofWrappers = []interface{}{}
+	file_proto_autoscaling_kubernetes_common_proto_msgTypes[0].OneofWrappers = []interface{}{}
+	file_proto_autoscaling_kubernetes_common_proto_msgTypes[2].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_rawDesc,
+			RawDescriptor: file_proto_autoscaling_kubernetes_common_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_goTypes,
-		DependencyIndexes: file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_depIdxs,
-		MessageInfos:      file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_msgTypes,
+		GoTypes:           file_proto_autoscaling_kubernetes_common_proto_goTypes,
+		DependencyIndexes: file_proto_autoscaling_kubernetes_common_proto_depIdxs,
+		MessageInfos:      file_proto_autoscaling_kubernetes_common_proto_msgTypes,
 	}.Build()
-	File_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto = out.File
-	file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_rawDesc = nil
-	file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_goTypes = nil
-	file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_common_proto_depIdxs = nil
+	File_proto_autoscaling_kubernetes_common_proto = out.File
+	file_proto_autoscaling_kubernetes_common_proto_rawDesc = nil
+	file_proto_autoscaling_kubernetes_common_proto_goTypes = nil
+	file_proto_autoscaling_kubernetes_common_proto_depIdxs = nil
 }
