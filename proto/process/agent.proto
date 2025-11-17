@@ -15,6 +15,7 @@ enum ContainerHostType {
 	notSpecified = 0;
 	fargateECS = 1;
 	fargateEKS = 2;
+	sidecar = 3;
 }
 
 message ResCollector {
@@ -279,6 +280,13 @@ message CollectorCluster {
 	AgentVersion agentVersion = 7;
 }
 
+// OriginCollector is the origin of the collector
+enum OriginCollector {
+	collectorUnknown = 0;
+	datadogAgent = 1;
+	datadogExporter = 2;
+}
+
 // CollectorManifest is the dedicated payload/pipeline for the yaml collection
 message CollectorManifest {
 	string clusterName = 1;
@@ -289,6 +297,8 @@ message CollectorManifest {
 	repeated string tags = 6;
 	string hostName = 7;
 	AgentVersion agentVersion = 8;
+	OriginCollector originCollector = 9;
+	SystemInfo systemInfo = 10;
 }
 
 message CollectorManifestCRD {
@@ -488,7 +498,7 @@ message CollectorStorageClass {
 message AgentVersion {
 	int64 Major = 1;
 	int64 Minor = 2;
-	int64 Patch = 3;	
+	int64 Patch = 3;
 	string Pre = 4;
 	string Meta = 5;
 	string Commit = 6;
@@ -1837,10 +1847,19 @@ message PostgresStats {
 }
 
 // A list of the supported commands for the redis cache.
+// Top 10 most commonly used commands for monitoring.
 enum RedisCommand {
 	RedisUnknownCommand = 0;
 	RedisGetCommand = 1;
 	RedisSetCommand = 2;
+	RedisPingCommand = 3;
+	RedisDelCommand = 4;
+	RedisIncrCommand = 5;
+	RedisExpireCommand = 6;
+	RedisExistsCommand = 7;
+	RedisHGetCommand = 8;
+	RedisHSetCommand = 9;
+	RedisLPushCommand = 10;
 }
 
 enum RedisErrorType {

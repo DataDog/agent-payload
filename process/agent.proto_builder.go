@@ -1786,6 +1786,7 @@ type CollectorManifestBuilder struct {
 	scratch             []byte
 	manifestBuilder     ManifestBuilder
 	agentVersionBuilder AgentVersionBuilder
+	systemInfoBuilder   SystemInfoBuilder
 }
 
 func NewCollectorManifestBuilder(writer io.Writer) *CollectorManifestBuilder {
@@ -1849,6 +1850,23 @@ func (x *CollectorManifestBuilder) SetAgentVersion(cb func(w *AgentVersionBuilde
 	x.agentVersionBuilder.scratch = x.scratch
 	cb(&x.agentVersionBuilder)
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x42)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *CollectorManifestBuilder) SetOriginCollector(v uint64) {
+	if v != 0 {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x48)
+		x.scratch = protowire.AppendVarint(x.scratch, v)
+		x.writer.Write(x.scratch)
+	}
+}
+func (x *CollectorManifestBuilder) SetSystemInfo(cb func(w *SystemInfoBuilder)) {
+	x.buf.Reset()
+	x.systemInfoBuilder.writer = &x.buf
+	x.systemInfoBuilder.scratch = x.scratch
+	cb(&x.systemInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x52)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())

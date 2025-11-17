@@ -9,7 +9,7 @@ package datadog.process_agent;
 message CollectorConnections {
   reserved 1, 4, 7, 9, 13, 32, 33;
   // Please update when adding fields
-  // next identifier:  48
+  // next identifier:  49
 
   // the detected hostname for the agent that collected these connections
   string hostName = 2;
@@ -109,6 +109,9 @@ message CollectorConnections {
   // Meant to be used with CollectorConnections#encodedTags.
   // Handled the built-in race for resolution of host tags in the backend.
   int32 hostTagsIndex = 47;
+
+  // resolvConfs stores resolv.conf data corresponding to Connection.resolvConfIdx
+  repeated string resolvConfs = 48;
 }
 
 // Connections is only used to communicate between the process agent and system-probe.
@@ -126,13 +129,14 @@ message Connections {
   KernelHeaderFetchResult kernelHeaderFetchResult = 10;
   map<string, COREResult> CORETelemetryByAsset = 11;
   repeated string PrebuiltEBPFAssets = 12;
+  repeated string resolvConfs = 13;
 }
 
 
 message Connection {
   reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
   // Please update when adding fields
-  // next identifier: 55
+  // next identifier: 57
 
   int32 pid = 1;
   Addr laddr = 5; // Local address
@@ -227,6 +231,12 @@ message Connection {
   // Meant to be used with CollectorConnections#encodedTags.
   // Handled the built-in race for resolution of container tags in the backend.
   int32 localContainerTagsIndex = 54;
+
+  // Indicates that this connection is from system-probe
+  bool systemProbeConn = 55;
+
+  // resolvConfIdx is the index in resolvConfs corresponding to this connection's resolv.conf (if there is one)
+  int32 resolvConfIdx = 56;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
