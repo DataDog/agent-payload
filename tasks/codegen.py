@@ -29,7 +29,7 @@ gogo_bin = os.path.join(toolchain_bin_dir, f"gogo-bin-{gogo_tag}")
 protoc_jsonschema_version="73d5723"
 
 ### toolchains is meant to store a cache of all binary dependencies needed to build the agent-payload.
-### this rakefile will download those dependencies on the fly if needed.
+### this invoke task will download those dependencies on the fly if needed.
 ### the structure of toolchains is as follows:
 ### /toolchains
 ###     /toolchains/bin -- contains any binaries used for building
