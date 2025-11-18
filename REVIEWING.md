@@ -6,7 +6,7 @@ This is a _work in progress_ and additions to this list are welcome.
 
 ## Practicalities
 
-If any of the `.proto` files are changed, then the corresponding Go code should be regenerated in the same PR (`GOPATH=$(go env GOPATH) rake codegen`).
+If any of the `.proto` files are changed, then the corresponding Go code should be regenerated in the same PR (`GOPATH=$(go env GOPATH) inv codegen.all`).
 
 Tests should be run locally before making a PR, and should pass in CI before a PR is merged.
 

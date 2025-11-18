@@ -6,10 +6,23 @@ This repository includes the protocol-buffer IDL used by the agent6 and agent7 t
 Those payloads are only supported by the V2 API endpoints.
 The generated Go, and Java implementations are checked into this repository and can be used directly. Other consumers may copy the `.proto` files into their repository and generate their own bindings.
 
+# Use
+
+* Create a virtualenv for your python runtime
+* Install invoke from the requirements.txt
+* Run the `codegen.all` task
+
+```
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+inv codegen.all
+```
+
 # Prerequisites
 
 You will need
- * Ruby (any version will do)
+ * Python (3+, CI builds with 3.12)
  * Go (at least the version in `go.mod`)
  * A checkout of this repository within a GOPATH (so, at `$GOPATH/src/github.com/DataDog/agent-payload`)
 
@@ -45,8 +58,8 @@ The following implementations are available:
 
 After updating the IDL you must:
 
-- Regenerate the code: `rake codegen`, rake will use gimme to run the rake command with the current defined go version
-- If you have indentation/newlines changes, run `rake codegen` with the same Go version as defined in `go.mod`
+- Regenerate the code: `inv codegen.all`, invoke will use gimme to run the task command with the current defined go version
+- If you have indentation/newlines changes, run `inv codegen.all` with the same Go version as defined in `go.mod`
 - Create a new tag with the updated version of the payload
 
 # Publishing Changes
