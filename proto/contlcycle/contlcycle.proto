@@ -10,6 +10,7 @@ message EventsPayload {
     string host = 2; // host contains the hostname
     ObjectKind objectKind = 3; // objectKind represents the object kind (container, pod)
     repeated Event events = 4; // events contains all the event details
+    string clusterId = 5;
 }
 
 // Event contains the details about a container lifecycle event
