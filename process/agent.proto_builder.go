@@ -3533,6 +3533,7 @@ type ServiceDiscoveryBuilder struct {
 	scratch               []byte
 	serviceNameBuilder    ServiceNameBuilder
 	tracerMetadataBuilder TracerMetadataBuilder
+	resourceBuilder       ResourceBuilder
 }
 
 func NewServiceDiscoveryBuilder(writer io.Writer) *ServiceDiscoveryBuilder {
@@ -3590,6 +3591,65 @@ func (x *ServiceDiscoveryBuilder) SetApmInstrumentation(v bool) {
 		x.scratch = protowire.AppendVarint(x.scratch, 1)
 		x.writer.Write(x.scratch)
 	}
+}
+func (x *ServiceDiscoveryBuilder) AddResources(cb func(w *ResourceBuilder)) {
+	x.buf.Reset()
+	x.resourceBuilder.writer = &x.buf
+	x.resourceBuilder.scratch = x.scratch
+	cb(&x.resourceBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x32)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type ResourceBuilder struct {
+	writer             io.Writer
+	buf                bytes.Buffer
+	scratch            []byte
+	logResourceBuilder LogResourceBuilder
+}
+
+func NewResourceBuilder(writer io.Writer) *ResourceBuilder {
+	return &ResourceBuilder{
+		writer: writer,
+	}
+}
+func (x *ResourceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ResourceBuilder) SetLogs(cb func(w *LogResourceBuilder)) {
+	x.buf.Reset()
+	x.logResourceBuilder.writer = &x.buf
+	x.logResourceBuilder.scratch = x.scratch
+	cb(&x.logResourceBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type LogResourceBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewLogResourceBuilder(writer io.Writer) *LogResourceBuilder {
+	return &LogResourceBuilder{
+		writer: writer,
+	}
+}
+func (x *LogResourceBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *LogResourceBuilder) SetPath(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
 }
 
 type ServiceNameBuilder struct {
