@@ -28,7 +28,7 @@ message ClusterAutoscalingValues {
   repeated string          recommended_instance_types = 4 [(protoc.gen.jsonschema.field_options).required = true]; // RecommendedInstanceTypes are the list of instance types that the NodePool should be restricted to
   string                   target_name                = 5; // TargetName refers to the associated NodePool (if exists) that the recommendation was created from
   string                   target_hash                = 6; // TargetHash is a hash of the original NodePool (if exists) at the time the recommendation was generated
-  optional int32                    target_weight              = 7; // TargetWeight is the weight of the original NodePool (if exists) at the time the recommendation was generated
+  optional int32           target_weight              = 7; // TargetWeight is the weight of the original NodePool (if exists) at the time the recommendation was generated
 }
 
 // DomainLabels represents the set of domain labels that should be present on the NodePool.
