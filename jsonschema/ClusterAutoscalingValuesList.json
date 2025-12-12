@@ -42,10 +42,6 @@
                 "target_hash": {
                     "type": "string",
                     "description": "TargetHash is a hash of the original NodePool (if exists) at the time the recommendation was generated"
-                },
-                "target_weight": {
-                    "type": "integer",
-                    "description": "TargetWeight is the weight of the original NodePool (if exists) at the time the recommendation was generated"
                 }
             },
             "additionalProperties": false,
