@@ -7,8 +7,8 @@ metrics/                    @DataDog/agent-metric-pipelines
 proto/metrics/              @DataDog/agent-metric-pipelines
 logs/                       @DataDog/agent-log-pipelines
 proto/logs/                 @DataDog/agent-log-pipelines
-process/                    @DataDog/container-app @DataDog/container-experiences
-proto/process/              @DataDog/container-app @DataDog/container-experiences
+process/                    @DataDog/kubernetes-experiences @DataDog/container-experiences
+proto/process/              @DataDog/kubernetes-experiences @DataDog/container-experiences
 process/connections.*       @DataDog/cloud-network-monitoring @DataDog/ebpf-platform @DataDog/universal-service-monitoring
 proto/process/connections.* @DataDog/cloud-network-monitoring @DataDog/ebpf-platform @DataDog/universal-service-monitoring
 contlcycle/                 @DataDog/container-integrations
