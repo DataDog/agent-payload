@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+option go_package = "github.com/DataDog/agent-payload/v5/kubeactions";
+
+package datadog.kubeactions;
+
+import "google/protobuf/timestamp.proto";
+import "github.com/chrusty/protoc-gen-jsonschema/options.proto";
+
+// KubeActionsList represents a list of Kubernetes actions to execute
+message KubeActionsList {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
+  repeated KubeAction actions = 1 [(protoc.gen.jsonschema.field_options).required = true];
+}
+
+// KubeAction represents a single Kubernetes action to execute
+message KubeAction {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  string action_type = 1 [(protoc.gen.jsonschema.field_options).required = true]; // ActionType is the type of action to perform (e.g., "delete_pod", "restart_deployment")
+  KubeResource resource = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Resource is the Kubernetes resource to act on
+  map<string, string> parameters = 3; // Parameters are additional parameters for the action
+  google.protobuf.Timestamp timestamp = 4; // Timestamp is when the action was created
+}
+
+// KubeResource represents a Kubernetes resource to act on
+message KubeResource {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  string api_version = 1; // APIVersion is the API version of the resource (e.g., "v1", "apps/v1")
+  string kind = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Kind is the resource kind (e.g., "Pod", "Deployment", "Node")
+  string namespace = 3; // Namespace is the namespace (empty for cluster-scoped resources like Node)
+  string name = 4 [(protoc.gen.jsonschema.field_options).required = true]; // Name is the resource name
+}
+
+// KubeActionResult represents the result of executing a Kubernetes action
+// This is used for reporting back to the backend (future use)
+message KubeActionResult {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  string action_id = 1 [(protoc.gen.jsonschema.field_options).required = true]; // ActionID is the metadata.id from remote config
+  int64 version = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Version is the metadata.version from remote config
+  string status = 3 [(protoc.gen.jsonschema.field_options).required = true]; // Status is the execution status ("success", "failed", "skipped")
+  string message = 4; // Message is an error message or additional info
+  google.protobuf.Timestamp executed_at = 5; // ExecutedAt is when the action was executed
+}
