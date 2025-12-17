@@ -1,0 +1,85 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/KubeActionsList",
+    "definitions": {
+        "KubeAction": {
+            "required": [
+                "action_type",
+                "resource"
+            ],
+            "properties": {
+                "action_type": {
+                    "type": "string",
+                    "description": "ActionType is the type of action to perform (e.g., \"delete_pod\", \"restart_deployment\")"
+                },
+                "resource": {
+                    "$ref": "#/definitions/KubeResource",
+                    "additionalProperties": false,
+                    "description": "Resource is the Kubernetes resource to act on"
+                },
+                "parameters": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "type": "object",
+                    "description": "Parameters are additional parameters for the action"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "Timestamp is when the action was created",
+                    "format": "date-time"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Kube Action",
+            "description": "KubeAction represents a single Kubernetes action to execute"
+        },
+        "KubeActionsList": {
+            "required": [
+                "actions"
+            ],
+            "properties": {
+                "actions": {
+                    "items": {
+                        "$ref": "#/definitions/KubeAction"
+                    },
+                    "additionalProperties": false,
+                    "type": "array"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Kube Actions List",
+            "description": "KubeActionsList represents a list of Kubernetes actions to execute"
+        },
+        "KubeResource": {
+            "required": [
+                "kind",
+                "name"
+            ],
+            "properties": {
+                "api_version": {
+                    "type": "string",
+                    "description": "APIVersion is the API version of the resource (e.g., \"v1\", \"apps/v1\")"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is the resource kind (e.g., \"Pod\", \"Deployment\", \"Node\")"
+                },
+                "namespace": {
+                    "type": "string",
+                    "description": "Namespace is the namespace (empty for cluster-scoped resources like Node)"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name is the resource name"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Kube Resource",
+            "description": "KubeResource represents a Kubernetes resource to act on"
+        }
+    }
+}
