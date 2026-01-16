@@ -5,28 +5,30 @@ from invoke.exceptions import Exit
 from invoke.tasks import task
 
 # need to get this parentdir
-root_dir = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)),".."))
+root_dir = os.path.normpath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+)
 
 # where the proto code is first generated as we declare packages with v5
-v5_dir=os.path.join(root_dir, "v5")
+v5_dir = os.path.join(root_dir, "v5")
 
 # where all toolchains (protobuf compilers, protobuf plugins,etc) are stored
-toolchain_dir=os.path.join(root_dir, "toolchains")
+toolchain_dir = os.path.join(root_dir, "toolchains")
 
 # binaries
-toolchain_bin_dir=os.path.join(toolchain_dir, "bin")
+toolchain_bin_dir = os.path.join(toolchain_dir, "bin")
 
 # include path for the legacy and main protobuf compilers respectively
-toolchain_include_dir=os.path.join(toolchain_dir, "include", "proto")
+toolchain_include_dir = os.path.join(toolchain_dir, "include", "proto")
 
-protoc_version="21.12"
-protoc_binary=os.path.join(toolchain_bin_dir, "protoc" + protoc_version)
+protoc_version = "21.12"
+protoc_binary = os.path.join(toolchain_bin_dir, "protoc" + protoc_version)
 
 gogo_tag = "v1.3.2"
-gogo_dir=os.path.join(toolchain_dir,  "gogo")
+gogo_dir = os.path.join(toolchain_dir, "gogo")
 gogo_include = f"{toolchain_dir}/gogo/src:{toolchain_dir}/gogo/src/github.com/gogo/protobuf/protobuf"
 gogo_bin = os.path.join(toolchain_bin_dir, f"gogo-bin-{gogo_tag}")
-protoc_jsonschema_version="73d5723"
+protoc_jsonschema_version = "73d5723"
 
 ### toolchains is meant to store a cache of all binary dependencies needed to build the agent-payload.
 ### this invoke task will download those dependencies on the fly if needed.
@@ -39,6 +41,7 @@ protoc_jsonschema_version="73d5723"
 ###     /toolchains/include -- contains any protobuf library files for common types (like proto.Duration)
 ###         /toolchains/includes/proto -- protobuf libraries bundled with the new protobuf compiler
 ### =>  /toolchains/gogo -- temp directory used to build the gogo_faster generator
+
 
 @task
 def clean(ctx: Context):
@@ -87,13 +90,17 @@ def install_protoc_all(ctx: Context):
 def setup_gogo(ctx: Context):
     if not os.path.exists(gogo_dir):
         ctx.run(f"mkdir -p {gogo_dir}/src/github.com/gogo")
-        ctx.run(f"git clone https://github.com/gogo/protobuf.git {gogo_dir}/src/github.com/gogo/protobuf")
+        ctx.run(
+            f"git clone https://github.com/gogo/protobuf.git {gogo_dir}/src/github.com/gogo/protobuf"
+        )
     else:
         print(f"gogo already cloned into {gogo_dir}")
 
     with ctx.cd(f"{gogo_dir}/src/github.com/gogo/protobuf"):
         ctx.run(f"git checkout {gogo_tag}")
-        ctx.run(f"PATH=$PATH:/tmp GOBIN={toolchain_bin_dir} GOPATH={gogo_dir} make clean install")
+        ctx.run(
+            f"PATH=$PATH:/tmp GOBIN={toolchain_bin_dir} GOPATH={gogo_dir} make clean install"
+        )
 
 
 @task(pre=[install_protoc, setup_gogo])
