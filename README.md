@@ -54,6 +54,12 @@ The following implementations are available:
  * Go (vtproto): [github.com/DataDog/agent-payload/v5/cws/dumpsv1](https://pkg.go.dev/github.com/DataDog/agent-payload/v5/cws/dumpsv1)
  * Java: [`java/com/dd/cws/adv1/pb/SecDumpProto.java`](./java/com/dd/cws/adv1/pb/SecDumpProto.java)
 
+## Agent Health
+
+The Agent Health payloads are defined in [`proto/healthplatform/healthplatform.proto`](./proto/healthplatform/healthplatform.proto).
+The following implementation is available:
+* Go (protoc-gen-go): [github.com/DataDog/agent-payload/healthplatform]
+
 # Updating Proto Definitions
 
 After updating the IDL you must:
