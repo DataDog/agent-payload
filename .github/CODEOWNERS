@@ -24,3 +24,5 @@ proto/cws/                  @DataDog/agent-security
 autoscaling/                @DataDog/container-autoscaling
 proto/autoscaling/          @DataDog/container-autoscaling
 jsonschema/                 @DataDog/container-autoscaling
+healthplatform/             @DataDog/agent-health
+proto/healthplatform/       @DataDog/agent-health
