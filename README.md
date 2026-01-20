@@ -58,7 +58,7 @@ The following implementations are available:
 
 The Agent Health payloads are defined in [`proto/healthplatform/healthplatform.proto`](./proto/healthplatform/healthplatform.proto).
 The following implementation is available:
-* Go (protoc-gen-go): [github.com/DataDog/agent-payload/healthplatform]
+* Go (protoc-gen-go): [github.com/DataDog/agent-payload/healthplatform](https://pkg.go.dev/github.com/DataDog/agent-payload/v5/healthplatform)
 
 # Updating Proto Definitions
 
