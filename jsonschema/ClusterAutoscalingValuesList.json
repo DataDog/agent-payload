@@ -42,6 +42,13 @@
                 "target_hash": {
                     "type": "string",
                     "description": "TargetHash is a hash of the original NodePool (if exists) at the time the recommendation was generated"
+                },
+                "capacity_type": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "CapacityType is the list of instance capacity types allowed for this NodePool"
                 }
             },
             "additionalProperties": false,
