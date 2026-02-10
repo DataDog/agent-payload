@@ -2,314 +2,78 @@ syntax = "proto3";
 
 package datadoghq.api.metrics.v3;
 
-// Payload is the top-level message for Datadog Metrics API v3.
-//
-// This protocol uses a columnar, dictionary-compressed format designed to minimize wire size
-// for large batches of metrics. Key optimizations:
-// - Dictionary compression: Strings (names, tags, etc.) stored once and referenced by index
-// - Delta encoding: Arrays of references store differences, not absolute values
-// - Columnar layout: Data organized by field across all series, not per-series
-// - Base-1 indexing: Index 0 reserved to represent null/empty values
-//
-// The Metadata field allows adding tags/resources to already-serialized MetricData without
-// deserialization, enabling efficient metric enrichment in proxy/gateway systems.
 message Payload {
   reserved 1; // for compatibility with agentpayload.MetricPayload.series
-
-  // Global metadata applied to all metrics in this payload.
-  // Optional: can be nil if no global metadata is needed.
   Metadata metadata = 2;
-
-  // The actual metric data in columnar, dictionary-compressed format.
-  // Required: must contain at least the dictionary and per-series arrays.
   MetricData metricData = 3;
 }
 
-// Metadata provides a way to add tags and resources to an already-serialized payload
-// without deserializing and modifying the MetricData. This allows intermediate systems
-// to enrich metrics with additional context (e.g., cluster info, host tags) by simply
-// populating this message and leaving the serialized MetricData unchanged.
 message Metadata {
-  // Additional tags to apply to all metrics in this payload, formatted as "key:value" strings.
-  // Wire format: Each string is length-prefixed (varint length + UTF-8 bytes).
-  // These tags are merged with any tags in MetricData dictionaries during processing.
   repeated string tags = 1;
-
-  // Additional resources as alternating [Type, Name] pairs.
-  // MUST contain an even number of elements: [Type1, Name1, Type2, Name2, ...].
-  // Wire format: Each string is length-prefixed (varint length + UTF-8 bytes).
-  // These resources are merged with any resources in MetricData dictionaries during processing.
-  repeated string resources = 2;
+  repeated string resources = 2; // even number of elements, [Type, Name] pairs
 }
 
-// MetricData contains metrics in a columnar, dictionary-compressed format optimized for wire size.
-// The design separates dictionaries (storing unique strings once) from references (pointing to dict entries).
-// All dictionary indexes are BASE-1: index 0 implicitly represents an empty/null value.
-//
-// Encoding flow:
-// 1. Build dictionaries for all unique strings (names, tags, resources, etc.)
-// 2. For each time series, store references to dictionary entries
-// 3. Delta-encode reference arrays to reduce size
-// 4. Store all data points with delta-encoded timestamps
-//
-// Decoding flow:
-// 1. Parse all dictionary fields first
-// 2. Decode delta-encoded arrays by applying cumulative sums
-// 3. For each time series, look up dictionary entries using decoded references
-// 4. Reconstruct data points using decoded timestamps and values
 message MetricData {
-  // ============================================================================
-  // DICTIONARIES: Store unique strings once, referenced by base-1 indexes
-  // ============================================================================
+  // Dictionaries
+  // All dictionary indexes are base-1, zero implicitly represents an empty value.
+  bytes dictNameStr = 1;                // varint length + value
+  bytes dictTagStr = 2;                 // varint length + value
+  repeated sint64 dictTagsets = 3;      // length, delta encoded set of indexes into dictTagsStr 
 
-  // Dictionary of metric names.
-  // Wire format: Concatenated varint-prefixed UTF-8 strings [len1, str1, len2, str2, ...].
-  // Encoding: For each unique name, write varint(byte_length) then UTF-8 bytes.
-  // Decoding: Read varint length, then read that many bytes as UTF-8 string. Repeat until end.
-  // Indexing: First string is index 1, second is index 2, etc. Index 0 = empty.
-  bytes dictNameStr = 1;
+  bytes dictResourceStr = 4;            // varint length + value
+  repeated int64 dictResourceLen = 5;   // number of elements in Type and Name arrays
+  repeated sint64 dictResourceType = 6; // delta encoded set of indexes into dictResourceStr
+  repeated sint64 dictResourceName = 7; // delta encoded set of indexes into dictResourceStr
 
-  // Dictionary of tag strings (individual "key:value" strings).
-  // Wire format: Concatenated varint-prefixed UTF-8 strings [len1, str1, len2, str2, ...].
-  // Encoding: For each unique tag string, write varint(byte_length) then UTF-8 bytes.
-  // Decoding: Read varint length, then read that many bytes as UTF-8 string. Repeat until end.
-  // Indexing: First string is index 1, second is index 2, etc. Index 0 = empty.
-  bytes dictTagStr = 2;
+  bytes dictSourceTypeName = 8;         // varint length + value
+  repeated int32 dictOriginInfo = 9;    // (product, category, service) tuples
+  bytes dictUnitStr = 25;                // varint length + value
 
-  // Dictionary of tagsets (sets of tag string indexes).
-  // Format: [length, idx1, idx2, ...] repeated for each tagset.
-  // Wire format: Zigzag-encoded sint64 values, delta-encoded WITHIN each tagset.
-  // Encoding:
-  //   1. For tagset N: write length (number of tag indexes in this set)
-  //   2. Write each tag index (reference to dictTagStr, base-1), sorted in ascending order
-  //   3. Delta encode WITHIN this tagset: store differences between consecutive tag indexes
-  //   4. Apply zigzag encoding to handle negative deltas efficiently
-  //   5. Repeat for next tagset (delta encoding resets for each tagset)
-  // Decoding:
-  //   1. Decode zigzag values
-  //   2. Read length L, then read and decode L delta-encoded indexes for tagset 1 (using cumulative sum, starting from 0)
-  //   3. Read next length M, reset accumulator to 0, decode M delta-encoded indexes for tagset 2
-  //   4. Continue until end of array
-  // Indexing: First tagset is index 1, second is index 2, etc. Index 0 = empty tagset.
-  // Special: Negative index -N references tagset N (allows tagset reuse/prefixing).
-  // Example: Tagset [3, 5, 7] encodes as [3, 3, 2, 2] (length=3, then 3, 5-3=2, 7-5=2).
-  repeated sint64 dictTagsets = 3;
-
-  // Dictionary of resource strings (types and names).
-  // Wire format: Concatenated varint-prefixed UTF-8 strings [len1, str1, len2, str2, ...].
-  // Encoding: For each unique resource string, write varint(byte_length) then UTF-8 bytes.
-  // Decoding: Read varint length, then read that many bytes as UTF-8 string. Repeat until end.
-  // Indexing: First string is index 1, second is index 2, etc. Index 0 = empty.
-  bytes dictResourceStr = 4;
-
-  // Dictionary of resource sets: number of Type+Name pairs in each resource set.
-  // Wire format: Varint-encoded int64 values, NOT delta-encoded.
-  // Encoding: For each unique resource set, write the count of Type+Name pairs.
-  // Decoding: Read each int64 value directly.
-  // Indexing: First count is for resource set 1, second for set 2, etc. Index 0 = empty.
-  // Relationship: If dictResourceLen[i] = N, then resource set (i+1) has N pairs,
-  //   consuming N elements from dictResourceType and N from dictResourceName.
-  repeated int64 dictResourceLen = 5;
-
-  // Dictionary of resource types (indexes into dictResourceStr).
-  // Wire format: Zigzag-encoded sint64 values, delta-encoded WITHIN each resource set.
-  // Encoding: For each resource set in order, write indexes of Type strings (base-1 into dictResourceStr).
-  //   Delta encode within each resource set, then zigzag encode. Delta encoding resets between resource sets.
-  // Decoding: Decode zigzag. Partition by dictResourceLen. Within each resource set, apply cumulative sum starting from 0.
-  // Layout: [type1_set1, type2_set1, ..., type1_set2, type2_set2, ...]
-  // Example: Resource set with types [5, 8] encodes as [5, 3] (5, then 8-5=3).
-  repeated sint64 dictResourceType = 6;
-
-  // Dictionary of resource names (indexes into dictResourceStr).
-  // Wire format: Zigzag-encoded sint64 values, delta-encoded WITHIN each resource set.
-  // Encoding: For each resource set in order, write indexes of Name strings (base-1 into dictResourceStr).
-  //   Delta encode within each resource set, then zigzag encode. Delta encoding resets between resource sets.
-  // Decoding: Decode zigzag. Partition by dictResourceLen. Within each resource set, apply cumulative sum starting from 0.
-  // Layout: [name1_set1, name2_set1, ..., name1_set2, name2_set2, ...]
-  // Resource set N has pairs: [(dictResourceType[i], dictResourceName[i]) for i in range for set N]
-  // Example: Resource set with names [10, 15] encodes as [10, 5] (10, then 15-10=5).
-  repeated sint64 dictResourceName = 7;
-
-  // Dictionary of source type names.
-  // Wire format: Concatenated varint-prefixed UTF-8 strings [len1, str1, len2, str2, ...].
-  // Encoding: For each unique source type name, write varint(byte_length) then UTF-8 bytes.
-  // Decoding: Read varint length, then read that many bytes as UTF-8 string. Repeat until end.
-  // Indexing: First string is index 1, second is index 2, etc. Index 0 = empty.
-  bytes dictSourceTypeName = 8;
-
-  // Dictionary of origin info tuples (product, category, service).
-  // Wire format: Varint-encoded int32 values, NOT delta-encoded.
-  // Encoding: For each unique origin, write three consecutive int32 values: product, category, service.
-  // Decoding: Read int32 values in groups of three.
-  // Indexing: First tuple (indices 0-2) is origin set 1, second tuple (3-5) is origin set 2, etc.
-  //   Origin index N references tuple starting at array index (N-1)*3. Index 0 = no origin.
-  repeated int32 dictOriginInfo = 9;
-
-  // Dictionary of unit strings (e.g., "bytes", "seconds").
-  // Wire format: Concatenated varint-prefixed UTF-8 strings [len1, str1, len2, str2, ...].
-  // Encoding: For each unique unit, write varint(byte_length) then UTF-8 bytes.
-  // Decoding: Read varint length, then read that many bytes as UTF-8 string. Repeat until end.
-  // Indexing: First string is index 1, second is index 2, etc. Index 0 = empty/no unit.
-  bytes dictUnitStr = 25;
-
-  // ============================================================================
-  // PER-SERIES ARRAYS: One entry per time series
-  // All arrays must have the same length (number of time series in this payload).
-  // ============================================================================
-
-  // Composite type field combining metric type, value type, and flags.
-  // Wire format: Varint-encoded uint64 values, NOT delta-encoded.
-  // Encoding: For each series, compute: type = (metricType & 0xF) | (valueType & 0xF0) | (metricFlags & 0xF00)
-  //   metricType: 0=UNUSED, 1=Count, 2=Rate, 3=Gauge, 4=Sketch
-  //   valueType: 0x00=Zero, 0x10=Sint64, 0x20=Float32, 0x30=Float64
-  //   metricFlags: 0x100=flagNoIndex, 0x200=flagHasUnit
-  // Decoding: Extract each component: metricType = type & 0xF, valueType = type & 0xF0, flags = type & 0xF00
-  repeated uint64 types = 10;
-
-  // References to metric names (base-1 indexes into dictNameStr).
-  // Wire format: Zigzag-encoded sint64 values, delta-encoded across entire array.
-  // Encoding: Write name index for each series, delta encode entire array, zigzag encode.
-  // Decoding: Decode zigzag, apply cumulative sum to get original indexes.
-  repeated sint64 nameRefs = 11;
-
-  // References to tagsets (base-1 indexes into dictTagsets).
-  // Wire format: Zigzag-encoded sint64 values, delta-encoded across entire array.
-  // Encoding: Write tagset index for each series, delta encode entire array, zigzag encode.
-  // Decoding: Decode zigzag, apply cumulative sum. Index 0 = no tags.
-  repeated sint64 tagsetRefs = 12;
-
-  // References to resource sets (base-1 indexes into dictResourceLen).
-  // Wire format: Zigzag-encoded sint64 values, delta-encoded across entire array.
-  // Encoding: Write resource set index for each series, delta encode entire array, zigzag encode.
-  // Decoding: Decode zigzag, apply cumulative sum. Index 0 = no resources.
-  repeated sint64 resourcesRefs = 13;
-
-  // Time interval in seconds for each series.
-  // Wire format: Varint-encoded uint64 values, NOT delta-encoded.
-  // Encoding: Write interval in seconds for each series.
-  // Decoding: Read each uint64 value directly.
-  // Semantics: For rate metrics, this is the time period over which the rate is calculated.
+  // One entry per time series
+  repeated uint64 types = 10;           // type = metricType | valueType | metricFlags
+  repeated sint64 nameRefs = 11;        // index into dictNameStr, entire array is delta encoded
+  repeated sint64 tagsetRefs = 12;      // index into dictTagsets, entire array is delta encoded
+  repeated sint64 resourcesRefs = 13;   // index into dictResourceLen, entire array is delta encoded
   repeated uint64 intervals = 14;
-
-  // Number of data points in each time series.
-  // Wire format: Varint-encoded uint64 values, NOT delta-encoded.
-  // Encoding: Write point count for each series.
-  // Decoding: Read each uint64 value directly.
-  // Usage: Series i consumes numPoints[i] entries from timestamps and value arrays.
   repeated uint64 numPoints = 15;
+  repeated sint64 sourceTypeNameRefs = 23;  // index into dictSourceTypeName, entire array is delta encoded
+  repeated sint64 originInfoRefs = 24;      // index into dictOriginInfo, entire array is delta encoded
+  repeated sint64 unitRefs = 26;            // index into dictUnitStr, value present if flagHasUnit is set, entire array is delta encoded
 
-  // References to source type names (base-1 indexes into dictSourceTypeName).
-  // Wire format: Zigzag-encoded sint64 values, delta-encoded across entire array.
-  // Encoding: Write source type name index for each series, delta encode entire array, zigzag encode.
-  // Decoding: Decode zigzag, apply cumulative sum. Index 0 = no source type.
-  repeated sint64 sourceTypeNameRefs = 23;
-
-  // References to origin info (base-1 indexes into origin tuples in dictOriginInfo).
-  // Wire format: Zigzag-encoded sint64 values, delta-encoded across entire array.
-  // Encoding: Write origin index for each series, delta encode entire array, zigzag encode.
-  // Decoding: Decode zigzag, apply cumulative sum. Index N references dictOriginInfo[(N-1)*3..(N-1)*3+2].
-  repeated sint64 originInfoRefs = 24;
-
-  // References to unit strings (base-1 indexes into dictUnitStr).
-  // Wire format: Zigzag-encoded sint64 values, delta-encoded across entire array.
-  // Encoding: Write unit index for each series (0 if no unit), delta encode entire array, zigzag encode.
-  //   The flagHasUnit flag in types field indicates whether the series has a unit (non-zero ref).
-  // Decoding: Decode zigzag, apply cumulative sum. Index 0 = no unit.
-  //   Array must have same length as number of series.
-  repeated sint64 unitRefs = 26;
-
-  // ============================================================================
-  // DATA POINTS: Flattened arrays of all data points for all series
-  // ============================================================================
-
-  // Timestamps for all data points across all series, in Unix epoch seconds.
-  // Wire format: Zigzag-encoded sint64 values, delta-encoded across entire array.
-  // Encoding: For each series in order, write timestamps for all its points.
-  //   Delta encode entire array (across all series), zigzag encode.
-  // Decoding: Decode zigzag, apply cumulative sum. Partition by numPoints[i] for each series.
-  // Layout: [ts1_s1, ts2_s1, ..., ts1_s2, ts2_s2, ...] where series i has numPoints[i] timestamps.
-  repeated sint64 timestamps = 16;
-
-  // Integer values for data points (when valueType == Sint64 or valueType == Zero).
-  // Wire format: Zigzag-encoded sint64 values, NOT delta-encoded.
-  // Encoding: For series with valueType == 0x10 (Sint64), write values for each point.
-  //   For valueType == 0x00 (Zero), no values are written (implicitly zero).
-  //   For Sketch metrics, this also stores the Count summary field.
-  // Decoding: Read values in order, partitioning by numPoints[i] for relevant series.
-  repeated sint64 valsSint64 = 17;
-
-  // Float32 values for data points (when valueType == Float32).
-  // Wire format: Fixed32 little-endian float values, NOT delta-encoded.
-  // Encoding: For series with valueType == 0x20, write float32 values for each point.
-  // Decoding: Read values in order, partitioning by numPoints[i] for relevant series.
-  repeated float valsFloat32 = 18;
-
-  // Float64 values for data points (when valueType == Float64).
-  // Wire format: Fixed64 little-endian double values, NOT delta-encoded.
-  // Encoding: For series with valueType == 0x30, write float64 values for each point.
-  // Decoding: Read values in order, partitioning by numPoints[i] for relevant series.
-  repeated double valsFloat64 = 19;
-
-  // Number of histogram bins for each sketch metric data point.
-  // Wire format: Varint-encoded uint64 values, NOT delta-encoded.
-  // Encoding: Only for series with metricType == 4 (Sketch). For each sketch point, write bin count.
-  // Decoding: Read values in order. Only present for Sketch metrics.
-  // Usage: Point i of a sketch has sketchNumBins[i] bins, consuming that many entries from sketchBinKeys/Cnts.
+  // each metric has numPoints values in this section
+  repeated sint64 timestamps = 16;      // entire array delta encoded
+  repeated sint64 valsSint64 = 17;      // or
+  repeated float valsFloat32 = 18;      // or
+  repeated double valsFloat64 = 19;     // based on valueType
   repeated uint64 sketchNumBins = 20;
-
-  // Histogram bin keys (DDSketch store indexes) for sketch metrics.
-  // Wire format: Zigzag-encoded sint32 values, delta-encoded WITHIN each sketch point.
-  // Encoding: For each sketch point, write bin keys sorted in ascending order.
-  //   Delta encode within each sketch point's bins. Delta encoding resets for each sketch point.
-  // Decoding: Decode zigzag. Partition by sketchNumBins[i] for each sketch point.
-  //   Within each sketch point, apply cumulative sum starting from 0.
-  repeated sint32 sketchBinKeys = 21;
-
-  // Histogram bin counts for sketch metrics.
-  // Wire format: Varint-encoded uint32 values, NOT delta-encoded.
-  // Encoding: For each sketch point, write bin counts corresponding to sketchBinKeys.
-  // Decoding: Read values in order, partitioning by sketchNumBins[i] for each sketch point.
+  repeated sint32 sketchBinKeys = 21;   // per-metric sequence is delta encoded
   repeated uint32 sketchBinCnts = 22;
-
-  // Sketch summary statistics encoding:
-  // - Count: Stored in valsSint64
-  // - Sum, Min, Max: Stored as three consecutive values in vals* array (based on valueType)
-  // - Avg: Not stored; reconstructed as Sum/Count during processing
+  // sketch summary Sum, Min, Max are encoded as three consecutive elements in one of vals using valueType
+  // sketch summary Cnt is always encoded in valInt64
+  // sketch summary Avg is reconstructed as Sum/Cnt in the intake
 }
 
-// metricType defines the semantic meaning of the metric.
-// Encoded in the lower 4 bits (0x0F) of the types field in MetricData.
-// Extract with: metricType = types[i] & 0x0F
 enum metricType {
-  UNUSED = 0;   // Not a valid metric type
-  Count = 1;    // Monotonically increasing counter
-  Rate = 2;     // Rate of change per second (requires interval field)
-  Gauge = 3;    // Point-in-time value that can increase or decrease
-  Sketch = 4;   // DDSketch histogram distribution (requires sketch fields)
+  UNUSED = 0;
+  Count = 1;
+  Rate = 2;
+  Gauge = 3;
+  Sketch = 4;
 }
 
-// valueType defines how numeric values are stored in the value arrays.
-// Encoded in bits 4-7 (0xF0) of the types field in MetricData.
-// Extract with: valueType = types[i] & 0xF0
 enum valueType {
-  Zero    = 0x00;  // Value is zero; not stored explicitly in any vals* array (saves space)
-  Sint64  = 0x10;  // Values stored in valsSint64 (signed 64-bit integers)
-  Float32 = 0x20;  // Values stored in valsFloat32 (32-bit floats)
-  Float64 = 0x30;  // Values stored in valsFloat64 (64-bit doubles)
+  Zero    = 0x00;  // value is zero, not stored explicitly
+  Sint64  = 0x10;  // value is stored in valsSint64
+  Float32 = 0x20;  // value is stored in valsFloat32
+  Float64 = 0x30;  // value is stored in valsFloat64
 }
 
-// metricFlags contains boolean flags for optional metric properties.
-// Encoded in bits 8+ (0xF00+) of the types field in MetricData.
-// Multiple flags can be combined with bitwise OR.
-// Extract with: flags = types[i] & 0xF00 (or higher bits for future flags)
 enum metricFlags {
   flagNone    = 0;
-  // Metric should not be indexed for queries.
-  // Equivalent to origin metric type == agent_hidden in API v2.
-  // Used for high-cardinality metrics that should only be stored, not searched.
-  flagNoIndex = 0x100;
-  // Time series has a unit specified in unitRefs array.
-  // When set, a corresponding entry exists in unitRefs for this series.
-  // When not set, unitRefs has no entry for this series.
-  flagHasUnit = 0x200;
+  flagNoIndex = 0x100; // metric should not be indexed (equivalent to origin metric type == agent_hidden in v2)
+  flagHasUnit = 0x200; // timeseries has a unit in the unitRefs column
+}
+
+message Response {
+  string error = 1;
 }
