@@ -89,6 +89,8 @@ message HealthReport {
     HostInfo host = 4;
     // Issues is a map of check IDs to their issues
     map<string, Issue> issues = 5;
+    // Service is the service that detected the issue (datadog-agent, cluster-agent, backend service)
+    string service = 6;
 }
 
 // JSONAPIMeta represents metadata in JSON:API format
