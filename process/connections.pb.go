@@ -863,6 +863,9 @@ type Connection struct {
 	SystemProbeConn bool `protobuf:"varint,55,opt,name=systemProbeConn,proto3" json:"systemProbeConn,omitempty"`
 	// resolvConfIdx is the index in resolvConfs corresponding to this connection's resolv.conf (if there is one)
 	ResolvConfIdx int32 `protobuf:"varint,56,opt,name=resolvConfIdx,proto3" json:"resolvConfIdx,omitempty"`
+	// remoteServiceTagsIdx is the index of the tags associated with the remote/destination service for same-host connections.
+	// Meant to be used with CollectorConnections#encodedTags.
+	RemoteServiceTagsIdx int32 `protobuf:"varint,57,opt,name=remoteServiceTagsIdx,proto3" json:"remoteServiceTagsIdx,omitempty"`
 }
 
 func (m *Connection) Reset()         { *m = Connection{} }
@@ -1209,6 +1212,13 @@ func (m *Connection) GetSystemProbeConn() bool {
 func (m *Connection) GetResolvConfIdx() int32 {
 	if m != nil {
 		return m.ResolvConfIdx
+	}
+	return 0
+}
+
+func (m *Connection) GetRemoteServiceTagsIdx() int32 {
+	if m != nil {
+		return m.RemoteServiceTagsIdx
 	}
 	return 0
 }
@@ -3236,6 +3246,13 @@ func (m *Connection) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.RemoteServiceTagsIdx != 0 {
+		i = encodeVarintConnections(dAtA, i, uint64(m.RemoteServiceTagsIdx))
+		i--
+		dAtA[i] = 0x3
+		i--
+		dAtA[i] = 0xc8
+	}
 	if m.ResolvConfIdx != 0 {
 		i = encodeVarintConnections(dAtA, i, uint64(m.ResolvConfIdx))
 		i--
@@ -4966,6 +4983,9 @@ func (m *Connection) Size() (n int) {
 	}
 	if m.ResolvConfIdx != 0 {
 		n += 2 + sovConnections(uint64(m.ResolvConfIdx))
+	}
+	if m.RemoteServiceTagsIdx != 0 {
+		n += 2 + sovConnections(uint64(m.RemoteServiceTagsIdx))
 	}
 	return n
 }
@@ -9379,6 +9399,25 @@ func (m *Connection) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 				m.ResolvConfIdx |= int32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 57:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RemoteServiceTagsIdx", wireType)
+			}
+			m.RemoteServiceTagsIdx = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowConnections
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.RemoteServiceTagsIdx |= int32(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}

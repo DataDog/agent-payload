@@ -237,6 +237,10 @@ message Connection {
 
   // resolvConfIdx is the index in resolvConfs corresponding to this connection's resolv.conf (if there is one)
   int32 resolvConfIdx = 56;
+
+  // remoteServiceTagsIdx is the index of the tags associated with the remote/destination service for same-host connections.
+  // Meant to be used with CollectorConnections#encodedTags.
+  int32 remoteServiceTagsIdx = 57;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
