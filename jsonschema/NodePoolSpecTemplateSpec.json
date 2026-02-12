@@ -1,0 +1,203 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/NodePoolSpecTemplateSpec",
+    "definitions": {
+        "NodePoolSpecTemplateSpec": {
+            "properties": {
+                "expire_after": {
+                    "type": "string",
+                    "description": "ExpireAfter is the duration the controller will wait before terminating a node, measured from when the node is created. This is useful to implement features like eventually consistent node upgrade, memory leak protection, and disruption testing."
+                },
+                "node_class_ref": {
+                    "$ref": "#/definitions/NodePoolSpecTemplateSpecNodeClassRef",
+                    "additionalProperties": true,
+                    "description": "NodeClassRef is a reference to an object that defines provider specific configuration"
+                },
+                "requirements": {
+                    "items": {
+                        "$ref": "#/definitions/NodePoolSpecTemplateSpecRequirements"
+                    },
+                    "type": "array",
+                    "description": "Requirements are layered with GetLabels and applied to every node."
+                },
+                "startup_taints": {
+                    "items": {
+                        "$ref": "#/definitions/NodePoolSpecTemplateSpecStartupTaints"
+                    },
+                    "type": "array",
+                    "description": "StartupTaints are taints that are applied to nodes upon startup which are expected to be removed automatically within a short period of time, typically by a DaemonSet that tolerates the taint. These are commonly used by daemonsets to allow initialization and enforce startup ordering. StartupTaints are ignored for provisioning purposes in that pods are not required to tolerate a StartupTaint in order to have nodes provisioned for them."
+                },
+                "taints": {
+                    "items": {
+                        "$ref": "#/definitions/NodePoolSpecTemplateSpecTaints"
+                    },
+                    "type": "array",
+                    "description": "Taints will be applied to the NodeClaim's node."
+                },
+                "termination_grace_period": {
+                    "type": "string",
+                    "description": "TerminationGracePeriod is the maximum duration the controller will wait before forcefully deleting the pods on a node, measured from when deletion is first initiated. Warning: this feature takes precedence over a Pod's terminationGracePeriodSeconds value, and bypasses any blocked PDBs or the karpenter.sh/do-not-disrupt annotation. This field is intended to be used by cluster administrators to enforce that nodes can be cycled within a given time period. When set, drifted nodes will begin draining even if there are pods blocking eviction. Draining will respect PDBs and the do-not-disrupt annotation until the TGP is reached. Karpenter will preemptively delete pods so their terminationGracePeriodSeconds align with the node's terminationGracePeriod. If a pod would be terminated without being granted its full terminationGracePeriodSeconds prior to the node timeout, that pod will be deleted at T = node timeout - pod terminationGracePeriodSeconds. The feature can also be used to allow maximum time limits for long-running jobs which can delay node termination with preStop hooks. If left undefined, the controller will wait indefinitely for pods to be drained."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Node Pool Spec Template Spec",
+            "description": "NodeClaimTemplateSpec describes the desired state of the NodeClaim in the Nodepool NodeClaimTemplateSpec is used in the NodePool's NodeClaimTemplate, with the resource requests omitted since users are not able to set resource requests in the NodePool."
+        },
+        "NodePoolSpecTemplateSpecNodeClassRef": {
+            "properties": {
+                "group": {
+                    "type": "string",
+                    "description": "API version of the referent"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds\""
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Node Pool Spec Template Spec Node Class Ref",
+            "description": "NodeClassRef is a reference to an object that defines provider specific configuration"
+        },
+        "NodePoolSpecTemplateSpecRequirements": {
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "description": "The label key that the selector applies to."
+                },
+                "min_values": {
+                    "type": "integer",
+                    "description": "This field is ALPHA and can be dropped or replaced at any time MinValues is the minimum number of unique values required to define the flexibility of the specific requirement."
+                },
+                "operator": {
+                    "enum": [
+                        "NodePoolSpecTemplateSpecRequirementsOperator_UNSPECIFIED",
+                        0,
+                        "NodePoolSpecTemplateSpecRequirementsOperator_IN",
+                        1,
+                        "NodePoolSpecTemplateSpecRequirementsOperator_NOTIN",
+                        2,
+                        "NodePoolSpecTemplateSpecRequirementsOperator_EXISTS",
+                        3,
+                        "NodePoolSpecTemplateSpecRequirementsOperator_DOESNOTEXIST",
+                        4,
+                        "NodePoolSpecTemplateSpecRequirementsOperator_GT",
+                        5,
+                        "NodePoolSpecTemplateSpecRequirementsOperator_LT",
+                        6
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Node Pool Spec Template Spec Requirements Operator",
+                    "description": "Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt."
+                },
+                "values": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Node Pool Spec Template Spec Requirements",
+            "description": "A node selector requirement with min values is a selector that contains values, a key, an operator that relates the key and values and minValues that represent the requirement to have at least that many values."
+        },
+        "NodePoolSpecTemplateSpecStartupTaints": {
+            "properties": {
+                "effect": {
+                    "enum": [
+                        "NodePoolSpecTemplateSpecStartupTaintsEffect_UNSPECIFIED",
+                        0,
+                        "NodePoolSpecTemplateSpecStartupTaintsEffect_NOSCHEDULE",
+                        1,
+                        "NodePoolSpecTemplateSpecStartupTaintsEffect_PREFERNOSCHEDULE",
+                        2,
+                        "NodePoolSpecTemplateSpecStartupTaintsEffect_NOEXECUTE",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Node Pool Spec Template Spec Startup Taints Effect",
+                    "description": "Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute."
+                },
+                "key": {
+                    "type": "string",
+                    "description": "Required. The taint key to be applied to a node."
+                },
+                "time_added": {
+                    "type": "string",
+                    "description": "TimeAdded represents the time at which the taint was added."
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The taint value corresponding to the taint key."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Node Pool Spec Template Spec Startup Taints",
+            "description": "The node this Taint is attached to has the \"effect\" on any pod that does not tolerate the Taint."
+        },
+        "NodePoolSpecTemplateSpecTaints": {
+            "properties": {
+                "effect": {
+                    "enum": [
+                        "NodePoolSpecTemplateSpecTaintsEffect_UNSPECIFIED",
+                        0,
+                        "NodePoolSpecTemplateSpecTaintsEffect_NOSCHEDULE",
+                        1,
+                        "NodePoolSpecTemplateSpecTaintsEffect_PREFERNOSCHEDULE",
+                        2,
+                        "NodePoolSpecTemplateSpecTaintsEffect_NOEXECUTE",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Node Pool Spec Template Spec Taints Effect",
+                    "description": "Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute."
+                },
+                "key": {
+                    "type": "string",
+                    "description": "Required. The taint key to be applied to a node."
+                },
+                "time_added": {
+                    "type": "string",
+                    "description": "TimeAdded represents the time at which the taint was added."
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The taint value corresponding to the taint key."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Node Pool Spec Template Spec Taints",
+            "description": "The node this Taint is attached to has the \"effect\" on any pod that does not tolerate the Taint."
+        }
+    }
+}

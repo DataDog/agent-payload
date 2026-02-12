@@ -1,0 +1,48 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/NodePoolSpecTemplateSpecStartupTaints",
+    "definitions": {
+        "NodePoolSpecTemplateSpecStartupTaints": {
+            "properties": {
+                "effect": {
+                    "enum": [
+                        "NodePoolSpecTemplateSpecStartupTaintsEffect_UNSPECIFIED",
+                        0,
+                        "NodePoolSpecTemplateSpecStartupTaintsEffect_NOSCHEDULE",
+                        1,
+                        "NodePoolSpecTemplateSpecStartupTaintsEffect_PREFERNOSCHEDULE",
+                        2,
+                        "NodePoolSpecTemplateSpecStartupTaintsEffect_NOEXECUTE",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Node Pool Spec Template Spec Startup Taints Effect",
+                    "description": "Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute."
+                },
+                "key": {
+                    "type": "string",
+                    "description": "Required. The taint key to be applied to a node."
+                },
+                "time_added": {
+                    "type": "string",
+                    "description": "TimeAdded represents the time at which the taint was added."
+                },
+                "value": {
+                    "type": "string",
+                    "description": "The taint value corresponding to the taint key."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Node Pool Spec Template Spec Startup Taints",
+            "description": "The node this Taint is attached to has the \"effect\" on any pod that does not tolerate the Taint."
+        }
+    }
+}

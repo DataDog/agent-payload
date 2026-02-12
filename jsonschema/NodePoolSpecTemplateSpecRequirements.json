@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/NodePoolSpecTemplateSpecRequirements",
+    "definitions": {
+        "NodePoolSpecTemplateSpecRequirements": {
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "description": "The label key that the selector applies to."
+                },
+                "min_values": {
+                    "type": "integer",
+                    "description": "This field is ALPHA and can be dropped or replaced at any time MinValues is the minimum number of unique values required to define the flexibility of the specific requirement."
+                },
+                "operator": {
+                    "enum": [
+                        "NodePoolSpecTemplateSpecRequirementsOperator_UNSPECIFIED",
+                        0,
+                        "NodePoolSpecTemplateSpecRequirementsOperator_IN",
+                        1,
+                        "NodePoolSpecTemplateSpecRequirementsOperator_NOTIN",
+                        2,
+                        "NodePoolSpecTemplateSpecRequirementsOperator_EXISTS",
+                        3,
+                        "NodePoolSpecTemplateSpecRequirementsOperator_DOESNOTEXIST",
+                        4,
+                        "NodePoolSpecTemplateSpecRequirementsOperator_GT",
+                        5,
+                        "NodePoolSpecTemplateSpecRequirementsOperator_LT",
+                        6
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Node Pool Spec Template Spec Requirements Operator",
+                    "description": "Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt."
+                },
+                "values": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch."
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Node Pool Spec Template Spec Requirements",
+            "description": "A node selector requirement with min values is a selector that contains values, a key, an operator that relates the key and values and minValues that represent the requirement to have at least that many values."
+        }
+    }
+}

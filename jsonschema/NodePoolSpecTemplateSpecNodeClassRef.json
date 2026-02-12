@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/NodePoolSpecTemplateSpecNodeClassRef",
+    "definitions": {
+        "NodePoolSpecTemplateSpecNodeClassRef": {
+            "properties": {
+                "group": {
+                    "type": "string",
+                    "description": "API version of the referent"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds\""
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Node Pool Spec Template Spec Node Class Ref",
+            "description": "NodeClassRef is a reference to an object that defines provider specific configuration"
+        }
+    }
+}
