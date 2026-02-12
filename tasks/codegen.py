@@ -165,13 +165,13 @@ def protoc(ctx: Context):
 # Install protoc-gen-go-grpc
         GOPATH={toolchain_dir} go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1
 
-        echo "Generating stateful encoding proto"
+        echo "Generating logs stateful encoding proto"
         PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:. \
         --go_out=$GOPATH/src \
         --go-grpc_out=$GOPATH/src \
         --go-vtproto_out=$GOPATH/src \
         --go-vtproto_opt=features=marshal+unmarshal+size \
-        proto/stateful/stateful_encoding.proto
+        proto/logsstateful/stateful_encoding.proto
 
         rm -f {v5_dir}/proto
         cp -r v5/* .

@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v3.21.12
-// source: proto/stateful/stateful_encoding.proto
+// source: proto/logsstateful/stateful_encoding.proto
 
 package statefulpb
 
@@ -111,5 +111,5 @@ var StatefulLogsService_ServiceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 	},
-	Metadata: "proto/stateful/stateful_encoding.proto",
+	Metadata: "proto/logsstateful/stateful_encoding.proto",
 }
