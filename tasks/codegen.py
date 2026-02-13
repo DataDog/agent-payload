@@ -162,6 +162,17 @@ def protoc(ctx: Context):
         --go-vtproto_opt=pool=github.com/DataDog/agent-payload/v5/cws/dumpsv1.ProcessInfo \
         proto/cws/dumpsv1/activity_dump.proto
 
+# Install protoc-gen-go-grpc
+        GOPATH={toolchain_dir} go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1
+
+        echo "Generating logs stateful encoding proto"
+        PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:. \
+        --go_out=$GOPATH/src \
+        --go-grpc_out=$GOPATH/src \
+        --go-vtproto_out=$GOPATH/src \
+        --go-vtproto_opt=features=marshal+unmarshal+size \
+        proto/logsstateful/stateful_encoding.proto
+
         rm -f {v5_dir}/proto
         cp -r v5/* .
         rm -rf v5

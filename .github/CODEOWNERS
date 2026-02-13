@@ -26,3 +26,5 @@ proto/autoscaling/          @DataDog/container-autoscaling
 jsonschema/                 @DataDog/container-autoscaling
 healthplatform/             @DataDog/agent-health
 proto/healthplatform/       @DataDog/agent-health
+statefulpb/                 @DataDog/agent-log-pipelines @DataDog/event-platform-intake
+proto/logsstateful/         @DataDog/agent-log-pipelines @DataDog/event-platform-intake
