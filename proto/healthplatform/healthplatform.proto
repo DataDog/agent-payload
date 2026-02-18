@@ -6,6 +6,14 @@ option go_package = "github.com/DataDog/agent-payload/v5/healthplatform";
 
 import "google/protobuf/struct.proto";
 
+// IssueState represents the lifecycle state of an issue
+enum IssueState {
+    ISSUE_STATE_UNSPECIFIED = 0;
+    ISSUE_STATE_NEW = 1;
+    ISSUE_STATE_ONGOING = 2;
+    ISSUE_STATE_RESOLVED = 3;
+}
+
 // Issue represents an individual issue to be reported
 message Issue {
     // ID is the unique identifier for the issue
@@ -33,6 +41,8 @@ message Issue {
     Remediation remediation = 11;
     // Tags are additional labels for the issue
     repeated string tags = 12;
+    // PersistedIssue tracks the lifecycle state of the issue
+    PersistedIssue persisted_issue = 13;
 }
 
 // Remediation represents remediation steps for an issue
@@ -123,5 +133,17 @@ message IssueReport {
     // Tags are optional additional labels for filtering and categorization
     // These are appended to the default tags from the registry
     repeated string tags = 3;
+}
+
+// PersistedIssue tracks the lifecycle state of a single issue
+message PersistedIssue {
+    // State is the current lifecycle state
+    IssueState state = 1;
+    // FirstSeen is the timestamp when the issue was first detected
+    string first_seen = 2;
+    // LastSeen is the timestamp when the issue was last observed
+    string last_seen = 3;
+    // ResolvedAt is the timestamp when the issue was resolved
+    optional string resolved_at = 4;
 }
 
