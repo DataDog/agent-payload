@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/RestartDeploymentParams",
+    "definitions": {
+        "RestartDeploymentParams": {
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Restart Deployment Params",
+            "description": "RestartDeploymentParams contains parameters for the restart_deployment action. Restarts a deployment by updating the restart annotation on the pod template."
+        }
+    }
+}
