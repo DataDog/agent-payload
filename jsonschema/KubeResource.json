@@ -1,0 +1,38 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/KubeResource",
+    "definitions": {
+        "KubeResource": {
+            "required": [
+                "kind",
+                "resource_id"
+            ],
+            "properties": {
+                "api_version": {
+                    "type": "string",
+                    "description": "APIVersion is the API version of the resource (e.g., \"v1\", \"apps/v1\")"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is the resource kind (e.g., \"Pod\", \"Deployment\", \"Node\")"
+                },
+                "namespace": {
+                    "type": "string",
+                    "description": "Namespace is the namespace (empty for cluster-scoped resources like Node) - optional, for logging"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name is the resource name - optional, for logging"
+                },
+                "resource_id": {
+                    "type": "string",
+                    "description": "ResourceID is the orchestrator resource ID - required, used for unique identification"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Kube Resource",
+            "description": "KubeResource represents a Kubernetes resource to act on"
+        }
+    }
+}

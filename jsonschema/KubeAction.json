@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "$ref": "#/definitions/KubeActionsList",
+    "$ref": "#/definitions/KubeAction",
     "definitions": {
         "DeletePodParams": {
             "properties": {
@@ -49,24 +49,6 @@
             "type": "object",
             "title": "Kube Action",
             "description": "KubeAction represents a single Kubernetes action to execute. Uses oneof to enforce that exactly one action type with its specific parameters is provided. This design ensures strict parameter validation per action type while remaining extensible. To add a new action: 1) Create a new *Params message, 2) Add it to the oneof block."
-        },
-        "KubeActionsList": {
-            "required": [
-                "actions"
-            ],
-            "properties": {
-                "actions": {
-                    "items": {
-                        "$ref": "#/definitions/KubeAction"
-                    },
-                    "additionalProperties": false,
-                    "type": "array"
-                }
-            },
-            "additionalProperties": false,
-            "type": "object",
-            "title": "Kube Actions List",
-            "description": "KubeActionsList represents a list of Kubernetes actions to execute"
         },
         "KubeResource": {
             "required": [

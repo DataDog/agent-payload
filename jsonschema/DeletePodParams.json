@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/DeletePodParams",
+    "definitions": {
+        "DeletePodParams": {
+            "properties": {
+                "grace_period_seconds": {
+                    "type": "string",
+                    "description": "GracePeriodSeconds is the duration in seconds before the pod should be deleted. If not specified, the pod's default termination grace period is used. Set to 0 for immediate deletion (force delete)."
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Delete Pod Params",
+            "description": "DeletePodParams contains parameters for the delete_pod action. Deletes a pod from the cluster with an optional grace period."
+        }
+    }
+}
