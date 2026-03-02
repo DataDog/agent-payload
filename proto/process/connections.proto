@@ -346,6 +346,7 @@ message AgentConfiguration {
   bool dsmEnabled = 3;
   bool ccmEnabled = 4;
   bool csmEnabled = 5;
+  bool eudmEnabled = 6;
 }
 
 
