@@ -136,7 +136,7 @@ message Connections {
 message Connection {
   reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
   // Please update when adding fields
-  // next identifier: 57
+  // next identifier: 63
 
   int32 pid = 1;
   Addr laddr = 5; // Local address
@@ -237,6 +237,15 @@ message Connection {
 
   // resolvConfIdx is the index in resolvConfs corresponding to this connection's resolv.conf (if there is one)
   int32 resolvConfIdx = 56;
+
+  // TCP congestion signal counters (relative since last check)
+  uint32 lastTcpRtoCount      = 57; // RTO loss events
+  uint32 lastTcpRecoveryCount = 58; // Fast-recovery events
+  uint32 lastTcpProbe0Count   = 59; // Zero-window probe events
+  uint32 lastTcpDeliveredCe   = 60; // ECN CE-marked segments delivered
+  uint32 lastTcpReordSeen     = 61; // Reordering events detected
+  // TCP connection properties
+  bool   tcpEcnNegotiated     = 62; // Whether ECN was negotiated
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
