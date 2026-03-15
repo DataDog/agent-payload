@@ -1106,6 +1106,12 @@ func (x *ConnectionBuilder) SetResolvConfIdx(v int32) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
+func (x *ConnectionBuilder) SetRemoteServiceTagsIdx(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1c8)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
 
 type Connection_DnsCountByRcodeEntryBuilder struct {
 	writer  io.Writer
