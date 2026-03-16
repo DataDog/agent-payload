@@ -239,15 +239,15 @@ message Connection {
   int32 resolvConfIdx = 56;
 
   // TCP congestion signal counters relative to last check
-  uint32 lastTcpRtoCount      = 57;
+  uint32 lastTcpRtoCount = 57;
   uint32 lastTcpRecoveryCount = 58;
-  uint32 lastTcpReordSeen     = 59;
-  uint32 lastTcpRcvOooPack    = 60;
-  uint32 lastTcpDeliveredCe   = 61;
-  uint32 lastTcpProbe0Count   = 62;
+  uint32 lastTcpReordSeen = 59;
+  uint32 lastTcpRcvOooPack = 60;
+  uint32 lastTcpDeliveredCe = 61;
+  uint32 lastTcpProbe0Count = 62;
 
   // Indicates whether ECN was negotiated for this connection.
-  bool   tcpEcnNegotiated     = 63;
+  bool tcpEcnNegotiated = 63;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
