@@ -1149,6 +1149,12 @@ func (x *ConnectionBuilder) SetTcpEcnNegotiated(v bool) {
 		x.writer.Write(x.scratch)
 	}
 }
+func (x *ConnectionBuilder) SetRemoteServiceTagsIdx(v int32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x200)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
 
 type Connection_DnsCountByRcodeEntryBuilder struct {
 	writer  io.Writer
