@@ -136,7 +136,7 @@ message Connections {
 message Connection {
   reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
   // Please update when adding fields
-  // next identifier: 58
+  // next identifier: 65
 
   int32 pid = 1;
   Addr laddr = 5; // Local address
@@ -238,9 +238,20 @@ message Connection {
   // resolvConfIdx is the index in resolvConfs corresponding to this connection's resolv.conf (if there is one)
   int32 resolvConfIdx = 56;
 
+  // TCP congestion signal counters relative to last check
+  uint32 lastTcpRtoCount = 57;
+  uint32 lastTcpRecoveryCount = 58;
+  uint32 lastTcpReordSeen = 59;
+  uint32 lastTcpRcvOooPack = 60;
+  uint32 lastTcpDeliveredCe = 61;
+  uint32 lastTcpProbe0Count = 62;
+
+  // Indicates whether ECN was negotiated for this connection.
+  bool tcpEcnNegotiated = 63;
+
   // remoteServiceTagsIdx is the index of the tags associated with the remote/destination service for same-host connections.
   // Meant to be used with CollectorConnections#encodedTags.
-  int32 remoteServiceTagsIdx = 57;
+  int32 remoteServiceTagsIdx = 64;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
