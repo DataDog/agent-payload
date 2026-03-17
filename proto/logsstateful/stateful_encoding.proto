@@ -59,6 +59,9 @@ message Log {
   // Other tags on agent payload: `status`, `source`
   // All tags are joined together sent as a single tagset
   TagSet tags = 4;
+
+  // Optional UUID used to track logs when dual-sent via HTTP and gRPC
+  optional string uuid = 5;
 }
 
 message StructuredLog {
