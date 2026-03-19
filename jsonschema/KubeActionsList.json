@@ -18,7 +18,8 @@
             "required": [
                 "resource",
                 "timestamp",
-                "action_id"
+                "action_id",
+                "requested_by"
             ],
             "properties": {
                 "resource": {
@@ -34,6 +35,10 @@
                 "action_id": {
                     "type": "string",
                     "description": "ActionID is the unique identifier for this action, used for tracking across Event Platform. This is different from the RC metadata.id which is tied to the RC config lifecycle."
+                },
+                "requested_by": {
+                    "type": "string",
+                    "description": "RequestedBy is the account identifier (email) of the user who requested this action. Required for audit trail."
                 },
                 "delete_pod": {
                     "$ref": "#/definitions/DeletePodParams",
@@ -71,6 +76,8 @@
         "KubeResource": {
             "required": [
                 "kind",
+                "namespace",
+                "name",
                 "resource_id"
             ],
             "properties": {
@@ -80,19 +87,19 @@
                 },
                 "kind": {
                     "type": "string",
-                    "description": "Kind is the resource kind (e.g., \"Pod\", \"Deployment\", \"Node\")"
+                    "description": "Kind is the resource kind (e.g., \"Pod\", \"Deployment\")"
                 },
                 "namespace": {
                     "type": "string",
-                    "description": "Namespace is the namespace (empty for cluster-scoped resources like Node) - optional, for logging"
+                    "description": "Namespace is the Kubernetes namespace"
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name is the resource name - optional, for logging"
+                    "description": "Name is the resource name"
                 },
                 "resource_id": {
                     "type": "string",
-                    "description": "ResourceID is the orchestrator resource ID - required, used for unique identification"
+                    "description": "ResourceID is the orchestrator resource ID - used for UID safety check"
                 }
             },
             "additionalProperties": false,

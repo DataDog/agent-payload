@@ -31,6 +31,10 @@ message KubeAction {
   // This is different from the RC metadata.id which is tied to the RC config lifecycle.
   string action_id = 3 [(protoc.gen.jsonschema.field_options).required = true];
 
+  // RequestedBy is the account identifier (email) of the user who requested this action.
+  // Required for audit trail.
+  string requested_by = 4 [(protoc.gen.jsonschema.field_options).required = true];
+
   // Exactly one action type must be specified. Each action type has its own
   // strictly defined parameters - no arbitrary parameters allowed.
   oneof action {
@@ -69,10 +73,10 @@ message KubeResource {
   option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
 
   string api_version = 1; // APIVersion is the API version of the resource (e.g., "v1", "apps/v1")
-  string kind = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Kind is the resource kind (e.g., "Pod", "Deployment", "Node")
-  string namespace = 3; // Namespace is the namespace (empty for cluster-scoped resources like Node) - optional, for logging
-  string name = 4; // Name is the resource name - optional, for logging
-  string resource_id = 5 [(protoc.gen.jsonschema.field_options).required = true]; // ResourceID is the orchestrator resource ID - required, used for unique identification
+  string kind = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Kind is the resource kind (e.g., "Pod", "Deployment")
+  string namespace = 3 [(protoc.gen.jsonschema.field_options).required = true]; // Namespace is the Kubernetes namespace
+  string name = 4 [(protoc.gen.jsonschema.field_options).required = true]; // Name is the resource name
+  string resource_id = 5 [(protoc.gen.jsonschema.field_options).required = true]; // ResourceID is the orchestrator resource ID - used for UID safety check
 }
 
 // KubeActionResult represents the result of executing a Kubernetes action

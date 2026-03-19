@@ -5,6 +5,8 @@
         "KubeResource": {
             "required": [
                 "kind",
+                "namespace",
+                "name",
                 "resource_id"
             ],
             "properties": {
@@ -14,19 +16,19 @@
                 },
                 "kind": {
                     "type": "string",
-                    "description": "Kind is the resource kind (e.g., \"Pod\", \"Deployment\", \"Node\")"
+                    "description": "Kind is the resource kind (e.g., \"Pod\", \"Deployment\")"
                 },
                 "namespace": {
                     "type": "string",
-                    "description": "Namespace is the namespace (empty for cluster-scoped resources like Node) - optional, for logging"
+                    "description": "Namespace is the Kubernetes namespace"
                 },
                 "name": {
                     "type": "string",
-                    "description": "Name is the resource name - optional, for logging"
+                    "description": "Name is the resource name"
                 },
                 "resource_id": {
                     "type": "string",
-                    "description": "ResourceID is the orchestrator resource ID - required, used for unique identification"
+                    "description": "ResourceID is the orchestrator resource ID - used for UID safety check"
                 }
             },
             "additionalProperties": false,
