@@ -756,6 +756,12 @@ func (x *ECSTaskBuilder) SetContainerInstanceArn(v string) {
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
+func (x *ECSTaskBuilder) SetDaemonName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xb2)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type ECSTask_LimitsEntryBuilder struct {
 	writer  io.Writer
