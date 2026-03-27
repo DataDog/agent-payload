@@ -1,0 +1,114 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/WorkloadRecommendationsReply",
+    "definitions": {
+        "Error": {
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Error",
+            "description": "Error represents an error message"
+        },
+        "WorkloadRecommendationReply": {
+            "required": [
+                "timestamp",
+                "targetReplicas"
+            ],
+            "properties": {
+                "error": {
+                    "$ref": "#/definitions/Error",
+                    "additionalProperties": false,
+                    "description": "Error is the error message if new values cannot be calculated"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "Timestamp is the time the values were generated",
+                    "format": "date-time"
+                },
+                "targetReplicas": {
+                    "type": "integer",
+                    "description": "TargetReplicas is the number of replicas the workload should have"
+                },
+                "lowerBoundReplicas": {
+                    "type": "integer",
+                    "description": "LowerBoundReplicas is the number of replicas based on lowerBound input"
+                },
+                "upperBoundReplicas": {
+                    "type": "integer",
+                    "description": "UpperBoundReplicas is the number of replicas based on upperBound input"
+                },
+                "observedTargets": {
+                    "items": {
+                        "$ref": "#/definitions/WorkloadRecommendationTarget"
+                    },
+                    "additionalProperties": false,
+                    "type": "array",
+                    "description": "ObservedTargets is the list of observed targets (only the targetValue will be set)"
+                },
+                "reason": {
+                    "type": "string",
+                    "description": "Reason explains recommender decision"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Workload Recommendation Reply",
+            "description": "WorkloadRecommendationReply represents a recommendation reply"
+        },
+        "WorkloadRecommendationTarget": {
+            "required": [
+                "type"
+            ],
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "Type defines the target value type (e.g. CPU, Memory, custom, etc.)"
+                },
+                "targetValue": {
+                    "type": "number",
+                    "description": "TargetValue is the target value of the target"
+                },
+                "lowerBound": {
+                    "type": "number",
+                    "description": "LowerBound is the lower bound of the target"
+                },
+                "upperBound": {
+                    "type": "number",
+                    "description": "UpperBound is the upper bound of the target"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Workload Recommendation Target",
+            "description": "WorkloadRecommendationTarget represents a target value for a workload"
+        },
+        "WorkloadRecommendationsReply": {
+            "properties": {
+                "error": {
+                    "$ref": "#/definitions/Error",
+                    "additionalProperties": false,
+                    "description": "Error is the error message if new values cannot be calculated"
+                },
+                "recommendations": {
+                    "items": {
+                        "$ref": "#/definitions/WorkloadRecommendationReply"
+                    },
+                    "additionalProperties": false,
+                    "type": "array",
+                    "description": "Recommendations is the list of recommendations"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Workload Recommendations Reply",
+            "description": "WorkloadRecommendationsReply represents a list of recommendations"
+        }
+    }
+}
