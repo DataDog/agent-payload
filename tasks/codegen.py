@@ -108,6 +108,7 @@ def protoc(ctx: Context):
     ctx.run(f"""
         /bin/bash <<BASH
         set -euo pipefail
+        set -vx
 
         export GO111MODULE=auto
 
@@ -126,6 +127,13 @@ def protoc(ctx: Context):
         PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:{gogo_include}:. --gogofaster_out=$GOPATH/src proto/process/*.proto
 
         GOPATH={toolchain_dir} go install github.com/DataDog/protoc-gen-gostreamer@v0.2.0
+
+        echo "----------------------------------"
+        GOPATH={toolchain_dir} which protoc-gen-gostreamer
+        echo "----------------------------------"
+        GOPATH={toolchain_dir} go env
+        echo "----------------------------------"
+
         PATH={toolchain_bin_dir} {protoc_binary} --proto_path=$GOPATH/src:{gogo_dir}/src:.  --gostreamer_out=$GOPATH/src proto/process/*.proto
         mv v5/process/proto/process/*.go process
 
