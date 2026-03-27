@@ -106,9 +106,8 @@ def setup_gogo(ctx: Context):
 @task(pre=[install_protoc, setup_gogo])
 def protoc(ctx: Context):
     ctx.run(f"""
-        /usr/bin/env bash <<BASH
+        /bin/bash <<BASH
         set -euo pipefail
-        set -vx
 
         export GO111MODULE=auto
 
@@ -126,20 +125,13 @@ def protoc(ctx: Context):
         echo "Generating process proto (go)"
         PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:{gogo_include}:. --gogofaster_out=$GOPATH/src proto/process/*.proto
 
-        GOPATH={toolchain_dir} go install github.com/DataDog/protoc-gen-gostreamer@v0.2.0
-
-        echo "----------------------------------"
-        GOPATH={toolchain_dir} which protoc-gen-gostreamer
-        echo "----------------------------------"
-        GOPATH={toolchain_dir} go env
-        echo "----------------------------------"
-
+        GOPATH={toolchain_dir} GOBIN={toolchain_bin_dir} go install github.com/DataDog/protoc-gen-gostreamer@v0.2.0
         PATH={toolchain_bin_dir} {protoc_binary} --proto_path=$GOPATH/src:{gogo_dir}/src:.  --gostreamer_out=$GOPATH/src proto/process/*.proto
         mv v5/process/proto/process/*.go process
 
 # Install protoc-gen-go
-        GOPATH={toolchain_dir} go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.34.1
-        GOPATH={toolchain_dir} go install github.com/chrusty/protoc-gen-jsonschema/cmd/protoc-gen-jsonschema@{protoc_jsonschema_version}
+        GOPATH={toolchain_dir} GOBIN={toolchain_bin_dir} go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.34.1
+        GOPATH={toolchain_dir} GOBIN={toolchain_bin_dir} go install github.com/chrusty/protoc-gen-jsonschema/cmd/protoc-gen-jsonschema@{protoc_jsonschema_version}
 
         echo "Generating contlcycle proto"
         PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto
@@ -155,10 +147,10 @@ def protoc(ctx: Context):
         PATH={toolchain_bin_dir}  {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/sbom/sbom.proto
 
         echo "Generating kubeactions proto"
-        #PATH=#{toolchain_bin_dir} #{protoc_binary} --proto_path=#{toolchain_include_dir}:proto/deps:$GOPATH/src --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema $GOPATH/src/github.com/DataDog/agent-payload/v5/proto/kubeactions/*.proto
+        PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:proto/deps:$GOPATH/src --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema $GOPATH/src/github.com/DataDog/agent-payload/v5/proto/kubeactions/*.proto
 
 # Install protoc-gen-go-vtproto
-        GOPATH={toolchain_dir} go install github.com/planetscale/vtprotobuf/cmd/protoc-gen-go-vtproto@v0.5.0
+        GOPATH={toolchain_dir} GOBIN={toolchain_bin_dir} go install github.com/planetscale/vtprotobuf/cmd/protoc-gen-go-vtproto@v0.5.0
 
         echo "Generating CWS Activity Dumps v1"
         PATH={toolchain_bin_dir} {protoc_binary} --proto_path=$GOPATH/src:. \
@@ -174,7 +166,7 @@ def protoc(ctx: Context):
         proto/cws/dumpsv1/activity_dump.proto
 
 # Install protoc-gen-go-grpc
-        GOPATH={toolchain_dir} go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1
+        GOPATH={toolchain_dir} GOBIN={toolchain_bin_dir} go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.5.1
 
         echo "Generating logs stateful encoding proto"
         PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:. \
