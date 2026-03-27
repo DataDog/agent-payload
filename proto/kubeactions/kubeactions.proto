@@ -40,8 +40,8 @@ message KubeAction {
   oneof action {
     DeletePodParams delete_pod = 10;
     RestartDeploymentParams restart_deployment = 11;
+    PatchDeploymentParams patch_deployment = 12;
     // Future actions can be added here:
-    // ScaleDeploymentParams scale_deployment = 12;
     // DrainNodeParams drain_node = 13;
     // CordonNodeParams cordon_node = 14;
   }
@@ -66,6 +66,16 @@ message RestartDeploymentParams {
   // Currently no additional parameters needed for restart.
   // This message exists for forward compatibility - parameters can be added later
   // without breaking the schema (e.g., rollout_strategy, max_unavailable).
+}
+
+// PatchDeploymentParams contains parameters for the patch_deployment action.
+// Applies a strategic merge patch to a deployment.
+message PatchDeploymentParams {
+  // Patch is the raw JSON strategic merge patch to apply to the deployment.
+  // The patch is applied as-is using the Kubernetes strategic merge patch strategy.
+  // Example: {"spec": {"replicas": 3}} to scale, or
+  //          {"spec": {"template": {"spec": {"containers": [{"name": "app", "image": "app:v2"}]}}}} to update an image.
+  bytes patch = 1 [(protoc.gen.jsonschema.field_options).required = true];
 }
 
 // KubeResource represents a Kubernetes resource to act on
