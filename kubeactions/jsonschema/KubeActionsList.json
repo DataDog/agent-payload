@@ -46,8 +46,12 @@
                 },
                 "restart_deployment": {
                     "$ref": "#/definitions/RestartDeploymentParams",
+                    "additionalProperties": false
+                },
+                "patch_deployment": {
+                    "$ref": "#/definitions/PatchDeploymentParams",
                     "additionalProperties": false,
-                    "description": "Future actions can be added here: ScaleDeploymentParams scale_deployment = 12; DrainNodeParams drain_node = 13; CordonNodeParams cordon_node = 14;"
+                    "description": "Future actions can be added here: DrainNodeParams drain_node = 13; CordonNodeParams cordon_node = 14;"
                 }
             },
             "additionalProperties": false,
@@ -106,6 +110,23 @@
             "type": "object",
             "title": "Kube Resource",
             "description": "KubeResource represents a Kubernetes resource to act on"
+        },
+        "PatchDeploymentParams": {
+            "required": [
+                "patch"
+            ],
+            "properties": {
+                "patch": {
+                    "type": "string",
+                    "description": "Patch is the raw JSON strategic merge patch to apply to the deployment. The patch is applied as-is using the Kubernetes strategic merge patch strategy. Example: {\"spec\": {\"replicas\": 3}} to scale, or          {\"spec\": {\"template\": {\"spec\": {\"containers\": [{\"name\": \"app\", \"image\": \"app:v2\"}]}}}} to update an image.",
+                    "format": "binary",
+                    "binaryEncoding": "base64"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Patch Deployment Params",
+            "description": "PatchDeploymentParams contains parameters for the patch_deployment action. Applies a strategic merge patch to a deployment."
         },
         "RestartDeploymentParams": {
             "additionalProperties": false,
