@@ -106,7 +106,7 @@ def setup_gogo(ctx: Context):
 @task(pre=[install_protoc, setup_gogo])
 def protoc(ctx: Context):
     ctx.run(f"""
-        /bin/bash <<BASH
+        /usr/bin/env bash <<BASH
         set -euo pipefail
         set -vx
 
