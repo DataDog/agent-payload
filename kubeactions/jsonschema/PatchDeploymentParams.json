@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/PatchDeploymentParams",
+    "definitions": {
+        "PatchDeploymentParams": {
+            "required": [
+                "patch"
+            ],
+            "properties": {
+                "patch": {
+                    "type": "string",
+                    "description": "Patch is the raw JSON strategic merge patch to apply to the deployment. The patch is applied as-is using the Kubernetes strategic merge patch strategy. Example: {\"spec\": {\"replicas\": 3}} to scale, or          {\"spec\": {\"template\": {\"spec\": {\"containers\": [{\"name\": \"app\", \"image\": \"app:v2\"}]}}}} to update an image.",
+                    "format": "binary",
+                    "binaryEncoding": "base64"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Patch Deployment Params",
+            "description": "PatchDeploymentParams contains parameters for the patch_deployment action. Applies a strategic merge patch to a deployment."
+        }
+    }
+}

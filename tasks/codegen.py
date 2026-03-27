@@ -146,6 +146,9 @@ def protoc(ctx: Context):
         PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto
         PATH={toolchain_bin_dir}  {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/sbom/sbom.proto
 
+        echo "Generating kubeactions proto"
+        PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:proto/deps:$GOPATH/src --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:kubeactions/jsonschema $GOPATH/src/github.com/DataDog/agent-payload/v5/proto/kubeactions/*.proto
+
 # Install protoc-gen-go-vtproto
         GOPATH={toolchain_dir} GOBIN={toolchain_bin_dir} go install github.com/planetscale/vtprotobuf/cmd/protoc-gen-go-vtproto@v0.5.0
 

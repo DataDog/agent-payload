@@ -1,0 +1,120 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/KubeAction",
+    "definitions": {
+        "DeletePodParams": {
+            "properties": {
+                "grace_period_seconds": {
+                    "type": "string",
+                    "description": "GracePeriodSeconds is the duration in seconds before the pod should be deleted. If not specified, the pod's default termination grace period is used. Set to 0 for immediate deletion (force delete)."
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Delete Pod Params",
+            "description": "DeletePodParams contains parameters for the delete_pod action. Deletes a pod from the cluster with an optional grace period."
+        },
+        "KubeAction": {
+            "required": [
+                "resource",
+                "timestamp",
+                "action_id",
+                "requested_by"
+            ],
+            "properties": {
+                "resource": {
+                    "$ref": "#/definitions/KubeResource",
+                    "additionalProperties": false,
+                    "description": "Resource is the Kubernetes resource to act on (required for all actions)"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "description": "Timestamp is when the action was created (required for all actions)",
+                    "format": "date-time"
+                },
+                "action_id": {
+                    "type": "string",
+                    "description": "ActionID is the unique identifier for this action, used for tracking across Event Platform. This is different from the RC metadata.id which is tied to the RC config lifecycle."
+                },
+                "requested_by": {
+                    "type": "string",
+                    "description": "RequestedBy is the account identifier (email) of the user who requested this action. Required for audit trail."
+                },
+                "delete_pod": {
+                    "$ref": "#/definitions/DeletePodParams",
+                    "additionalProperties": false
+                },
+                "restart_deployment": {
+                    "$ref": "#/definitions/RestartDeploymentParams",
+                    "additionalProperties": false
+                },
+                "patch_deployment": {
+                    "$ref": "#/definitions/PatchDeploymentParams",
+                    "additionalProperties": false,
+                    "description": "Future actions can be added here: DrainNodeParams drain_node = 13; CordonNodeParams cordon_node = 14;"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Kube Action",
+            "description": "KubeAction represents a single Kubernetes action to execute. Uses oneof to enforce that exactly one action type with its specific parameters is provided. This design ensures strict parameter validation per action type while remaining extensible. To add a new action: 1) Create a new *Params message, 2) Add it to the oneof block."
+        },
+        "KubeResource": {
+            "required": [
+                "kind",
+                "namespace",
+                "name",
+                "resource_id"
+            ],
+            "properties": {
+                "api_version": {
+                    "type": "string",
+                    "description": "APIVersion is the API version of the resource (e.g., \"v1\", \"apps/v1\")"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is the resource kind (e.g., \"Pod\", \"Deployment\")"
+                },
+                "namespace": {
+                    "type": "string",
+                    "description": "Namespace is the Kubernetes namespace"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name is the resource name"
+                },
+                "resource_id": {
+                    "type": "string",
+                    "description": "ResourceID is the orchestrator resource ID - used for UID safety check"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Kube Resource",
+            "description": "KubeResource represents a Kubernetes resource to act on"
+        },
+        "PatchDeploymentParams": {
+            "required": [
+                "patch"
+            ],
+            "properties": {
+                "patch": {
+                    "type": "string",
+                    "description": "Patch is the raw JSON strategic merge patch to apply to the deployment. The patch is applied as-is using the Kubernetes strategic merge patch strategy. Example: {\"spec\": {\"replicas\": 3}} to scale, or          {\"spec\": {\"template\": {\"spec\": {\"containers\": [{\"name\": \"app\", \"image\": \"app:v2\"}]}}}} to update an image.",
+                    "format": "binary",
+                    "binaryEncoding": "base64"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Patch Deployment Params",
+            "description": "PatchDeploymentParams contains parameters for the patch_deployment action. Applies a strategic merge patch to a deployment."
+        },
+        "RestartDeploymentParams": {
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Restart Deployment Params",
+            "description": "RestartDeploymentParams contains parameters for the restart_deployment action. Restarts a deployment by updating the restart annotation on the pod template."
+        }
+    }
+}

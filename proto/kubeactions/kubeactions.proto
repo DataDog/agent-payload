@@ -1,0 +1,104 @@
+syntax = "proto3";
+
+option go_package = "github.com/DataDog/agent-payload/v5/kubeactions";
+
+package datadog.kubeactions;
+
+import "google/protobuf/timestamp.proto";
+import "github.com/chrusty/protoc-gen-jsonschema/options.proto";
+
+// KubeActionsList represents a list of Kubernetes actions to execute
+message KubeActionsList {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
+  repeated KubeAction actions = 1 [(protoc.gen.jsonschema.field_options).required = true];
+}
+
+// KubeAction represents a single Kubernetes action to execute.
+// Uses oneof to enforce that exactly one action type with its specific parameters is provided.
+// This design ensures strict parameter validation per action type while remaining extensible.
+// To add a new action: 1) Create a new *Params message, 2) Add it to the oneof block.
+message KubeAction {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
+  // Resource is the Kubernetes resource to act on (required for all actions)
+  KubeResource resource = 1 [(protoc.gen.jsonschema.field_options).required = true];
+
+  // Timestamp is when the action was created (required for all actions)
+  google.protobuf.Timestamp timestamp = 2 [(protoc.gen.jsonschema.field_options).required = true];
+
+  // ActionID is the unique identifier for this action, used for tracking across Event Platform.
+  // This is different from the RC metadata.id which is tied to the RC config lifecycle.
+  string action_id = 3 [(protoc.gen.jsonschema.field_options).required = true];
+
+  // RequestedBy is the account identifier (email) of the user who requested this action.
+  // Required for audit trail.
+  string requested_by = 4 [(protoc.gen.jsonschema.field_options).required = true];
+
+  // Exactly one action type must be specified. Each action type has its own
+  // strictly defined parameters - no arbitrary parameters allowed.
+  oneof action {
+    DeletePodParams delete_pod = 10;
+    RestartDeploymentParams restart_deployment = 11;
+    PatchDeploymentParams patch_deployment = 12;
+    // Future actions can be added here:
+    // DrainNodeParams drain_node = 13;
+    // CordonNodeParams cordon_node = 14;
+  }
+}
+
+// DeletePodParams contains parameters for the delete_pod action.
+// Deletes a pod from the cluster with an optional grace period.
+message DeletePodParams {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
+  // GracePeriodSeconds is the duration in seconds before the pod should be deleted.
+  // If not specified, the pod's default termination grace period is used.
+  // Set to 0 for immediate deletion (force delete).
+  optional int64 grace_period_seconds = 1;
+}
+
+// RestartDeploymentParams contains parameters for the restart_deployment action.
+// Restarts a deployment by updating the restart annotation on the pod template.
+message RestartDeploymentParams {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
+  // Currently no additional parameters needed for restart.
+  // This message exists for forward compatibility - parameters can be added later
+  // without breaking the schema (e.g., rollout_strategy, max_unavailable).
+}
+
+// PatchDeploymentParams contains parameters for the patch_deployment action.
+// Applies a strategic merge patch to a deployment.
+message PatchDeploymentParams {
+  // Patch is the raw JSON strategic merge patch to apply to the deployment.
+  // The patch is applied as-is using the Kubernetes strategic merge patch strategy.
+  // Example: {"spec": {"replicas": 3}} to scale, or
+  //          {"spec": {"template": {"spec": {"containers": [{"name": "app", "image": "app:v2"}]}}}} to update an image.
+  bytes patch = 1 [(protoc.gen.jsonschema.field_options).required = true];
+}
+
+// KubeResource represents a Kubernetes resource to act on
+message KubeResource {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
+  string api_version = 1; // APIVersion is the API version of the resource (e.g., "v1", "apps/v1")
+  string kind = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Kind is the resource kind (e.g., "Pod", "Deployment")
+  string namespace = 3 [(protoc.gen.jsonschema.field_options).required = true]; // Namespace is the Kubernetes namespace
+  string name = 4 [(protoc.gen.jsonschema.field_options).required = true]; // Name is the resource name
+  string resource_id = 5 [(protoc.gen.jsonschema.field_options).required = true]; // ResourceID is the orchestrator resource ID - used for UID safety check
+}
+
+// KubeActionResult represents the result of executing a Kubernetes action
+// This is used for reporting back to the backend via Event Platform
+message KubeActionResult {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+  option (protoc.gen.jsonschema.message_options).ignore = true;
+
+  string action_id = 1 [(protoc.gen.jsonschema.field_options).required = true]; // ActionID is the metadata.id from remote config
+  int64 version = 2 [(protoc.gen.jsonschema.field_options).required = true]; // Version is the metadata.version from remote config
+  string action_type = 3 [(protoc.gen.jsonschema.field_options).required = true]; // ActionType is the type of action that was executed
+  string status = 4 [(protoc.gen.jsonschema.field_options).required = true]; // Status is the execution status ("success", "failed", "skipped")
+  string message = 5; // Message is an error message or additional info
+  google.protobuf.Timestamp executed_at = 6; // ExecutedAt is when the action was executed
+}
