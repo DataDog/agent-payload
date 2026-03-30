@@ -69,13 +69,20 @@ message RestartDeploymentParams {
 }
 
 // PatchDeploymentParams contains parameters for the patch_deployment action.
-// Applies a strategic merge patch to a deployment.
+// Applies a patch to a deployment using the specified strategy.
 message PatchDeploymentParams {
-  // Patch is the raw JSON strategic merge patch to apply to the deployment.
-  // The patch is applied as-is using the Kubernetes strategic merge patch strategy.
+  // Patch is the raw JSON patch to apply to the deployment.
   // Example: {"spec": {"replicas": 3}} to scale, or
   //          {"spec": {"template": {"spec": {"containers": [{"name": "app", "image": "app:v2"}]}}}} to update an image.
   bytes patch = 1 [(protoc.gen.jsonschema.field_options).required = true];
+
+  // PatchStrategy specifies the Kubernetes patch strategy to use.
+  // Supported values:
+  //   "strategic-merge" (default) - Strategic merge patch, understands K8s resource structure (e.g. merges lists by key)
+  //   "merge" - RFC 7386 JSON merge patch, simple merge that replaces arrays entirely
+  //   "json" - RFC 6902 JSON patch, explicit add/remove/replace operations at specific paths
+  // If not specified, defaults to "strategic-merge".
+  string patch_strategy = 2;
 }
 
 // KubeResource represents a Kubernetes resource to act on
