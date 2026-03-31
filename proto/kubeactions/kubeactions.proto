@@ -5,6 +5,7 @@ option go_package = "github.com/DataDog/agent-payload/v5/kubeactions";
 package datadog.kubeactions;
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
 import "github.com/chrusty/protoc-gen-jsonschema/options.proto";
 
 // KubeActionsList represents a list of Kubernetes actions to execute
@@ -71,10 +72,11 @@ message RestartDeploymentParams {
 // PatchDeploymentParams contains parameters for the patch_deployment action.
 // Applies a patch to a deployment using the specified strategy.
 message PatchDeploymentParams {
-  // Patch is the raw JSON patch to apply to the deployment.
-  // Example: {"spec": {"replicas": 3}} to scale, or
-  //          {"spec": {"template": {"spec": {"containers": [{"name": "app", "image": "app:v2"}]}}}} to update an image.
-  bytes patch = 1 [(protoc.gen.jsonschema.field_options).required = true];
+  // Patch is the JSON patch to apply to the deployment. Accepts any valid JSON structure:
+  //   - For strategic-merge and merge: a JSON object, e.g. {"spec": {"replicas": 3}}
+  //   - For json (RFC 6902): a JSON array, e.g. [{"op": "replace", "path": "/spec/replicas", "value": 3}]
+  // Uses google.protobuf.Value so protojson deserializes nested JSON natively (no base64).
+  google.protobuf.Value patch = 1 [(protoc.gen.jsonschema.field_options).required = true];
 
   // PatchStrategy specifies the Kubernetes patch strategy to use.
   // Supported values:
