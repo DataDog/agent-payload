@@ -99,10 +99,25 @@
             ],
             "properties": {
                 "patch": {
-                    "type": "string",
-                    "description": "Patch is the raw JSON patch to apply to the deployment. Example: {\"spec\": {\"replicas\": 3}} to scale, or          {\"spec\": {\"template\": {\"spec\": {\"containers\": [{\"name\": \"app\", \"image\": \"app:v2\"}]}}}} to update an image.",
-                    "format": "binary",
-                    "binaryEncoding": "base64"
+                    "oneOf": [
+                        {
+                            "type": "array"
+                        },
+                        {
+                            "type": "boolean"
+                        },
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "title": "Value",
+                    "description": "`Value` represents a dynamically typed value which can be either null, a number, a string, a boolean, a recursive struct value, or a list of values. A producer of value is expected to set one of these variants. Absence of any variant indicates an error. The JSON representation for `Value` is JSON value."
                 },
                 "patch_strategy": {
                     "type": "string",
