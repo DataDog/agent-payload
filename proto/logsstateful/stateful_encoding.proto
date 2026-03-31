@@ -67,7 +67,16 @@ message Log {
 message StructuredLog {
   uint64 pattern_id = 1;
   repeated DynamicValue dynamic_values = 2;
+
+  // JSON structured log fields. Example:
+  // Input log: {"msg":"Evicted 1 tags","agent":"core","time":"2026-03-31","level":"INFO"}
+  // Converts to: 
+  //     json_context {"agent":"core","level":"INFO","time":"2026-03-31"}
+  //     json_message_key "msg"
+  //     pattern_id 123 (points to "Evicted {} tags")
+  //     dynamic_values [1]
   bytes json_context = 3;
+  DynamicValue json_message_key = 4;
 }
 
 message DynamicValue {
