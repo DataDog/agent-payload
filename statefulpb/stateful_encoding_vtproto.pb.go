@@ -434,6 +434,23 @@ func (m *StructuredLog) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
+	if len(m.JsonContextValues) > 0 {
+		for iNdEx := len(m.JsonContextValues) - 1; iNdEx >= 0; iNdEx-- {
+			size, err := m.JsonContextValues[iNdEx].MarshalToSizedBufferVT(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarint(dAtA, i, uint64(size))
+			i--
+			dAtA[i] = 0x32
+		}
+	}
+	if m.JsonContextSchemaId != 0 {
+		i = encodeVarint(dAtA, i, uint64(m.JsonContextSchemaId))
+		i--
+		dAtA[i] = 0x28
+	}
 	if m.JsonMessageKey != nil {
 		size, err := m.JsonMessageKey.MarshalToSizedBufferVT(dAtA[:i])
 		if err != nil {
@@ -1087,6 +1104,15 @@ func (m *StructuredLog) SizeVT() (n int) {
 	if m.JsonMessageKey != nil {
 		l = m.JsonMessageKey.SizeVT()
 		n += 1 + l + sov(uint64(l))
+	}
+	if m.JsonContextSchemaId != 0 {
+		n += 1 + sov(uint64(m.JsonContextSchemaId))
+	}
+	if len(m.JsonContextValues) > 0 {
+		for _, e := range m.JsonContextValues {
+			l = e.SizeVT()
+			n += 1 + l + sov(uint64(l))
+		}
 	}
 	n += len(m.unknownFields)
 	return n
@@ -2314,6 +2340,59 @@ func (m *StructuredLog) UnmarshalVT(dAtA []byte) error {
 				m.JsonMessageKey = &DynamicValue{}
 			}
 			if err := m.JsonMessageKey.UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field JsonContextSchemaId", wireType)
+			}
+			m.JsonContextSchemaId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.JsonContextSchemaId |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field JsonContextValues", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLength
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLength
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.JsonContextValues = append(m.JsonContextValues, &DynamicValue{})
+			if err := m.JsonContextValues[len(m.JsonContextValues)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
