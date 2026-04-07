@@ -53,15 +53,17 @@ message Log {
     StructuredLog structured = 2;
     string raw = 3;
   }
-  // TODO: right now we are assuming logs are attached per tag - in the future we may have common tags in the stream
-  // state and auto-populate them downstream.
-  // Required tags: `service`, `hostname`,
-  // Other tags on agent payload: `status`, `source`
-  // All tags are joined together sent as a single tagset
+  // Tags identifying the log source (hostname, service, ddsource, container tags).
+  // Excludes status which varies per log — status is sent separately to improve delta encoding.
+  // All tags are joined together and sent as a single tagset.
   TagSet tags = 4;
 
   // Optional UUID used to track logs when dual-sent via HTTP and gRPC
   optional string uuid = 5;
+
+  // Log severity level (e.g. "info", "warn", "error"). Sent separately from tags because
+  // status changes per log while other tags remain stable, which would defeat delta encoding.
+  DynamicValue status = 6;
 }
 
 message StructuredLog {
