@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/GetResourceParams",
+    "definitions": {
+        "GetResourceParams": {
+            "properties": {
+                "output_format": {
+                    "type": "string",
+                    "description": "OutputFormat specifies the desired output format for the resource. Supported values:   \"json\" (default) - Output the resource as a JSON object   \"yaml\" - Output the resource as a YAML string If not specified, defaults to \"json\"."
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Get Resource Params",
+            "description": "GetResourceParams contains parameters for a get_resource action."
+        }
+    }
+}
