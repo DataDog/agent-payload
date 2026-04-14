@@ -358,6 +358,7 @@ message AgentConfiguration {
   bool ccmEnabled = 4;
   bool csmEnabled = 5;
   bool eudmEnabled = 6;
+  bool discoveryServiceMapEnabled = 7;
 }
 
 
