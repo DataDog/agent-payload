@@ -43,9 +43,7 @@ message KubeAction {
     RestartDeploymentParams restart_deployment = 11;
     PatchDeploymentParams patch_deployment = 12;
     GetResourceParams get_resource = 13;
-    // Future actions can be added here:
-    // DrainNodeParams drain_node = 14;
-    // CordonNodeParams cordon_node = 15;
+    RollbackDeploymentParams rollback_deployment = 14;
   }
 }
 
@@ -98,6 +96,16 @@ message GetResourceParams {
   //   "yaml" - Output the resource as a YAML string
   // If not specified, defaults to "json".
   string output_format = 1;
+}
+
+// RollbackDeploymentParams contains parameters for the rollback_deployment action.
+// Rolls back a deployment by reverting to a previous replicaset.
+message RollbackDeploymentParams {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
+  // TargetRevision is the revision number of the ReplicaSet to roll back to.
+  // If not specified, rolls back to the previous revision.
+  optional int64 target_revision = 1;
 }
 
 // KubeResource represents a Kubernetes resource to act on

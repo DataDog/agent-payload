@@ -66,8 +66,11 @@
                 },
                 "get_resource": {
                     "$ref": "#/definitions/GetResourceParams",
-                    "additionalProperties": false,
-                    "description": "Future actions can be added here: DrainNodeParams drain_node = 14; CordonNodeParams cordon_node = 15;"
+                    "additionalProperties": false
+                },
+                "rollback_deployment": {
+                    "$ref": "#/definitions/RollbackDeploymentParams",
+                    "additionalProperties": false
                 }
             },
             "additionalProperties": false,
@@ -150,6 +153,18 @@
             "type": "object",
             "title": "Restart Deployment Params",
             "description": "RestartDeploymentParams contains parameters for the restart_deployment action. Restarts a deployment by updating the restart annotation on the pod template."
+        },
+        "RollbackDeploymentParams": {
+            "properties": {
+                "target_revision": {
+                    "type": "string",
+                    "description": "TargetRevision is the revision number of the ReplicaSet to roll back to. If not specified, rolls back to the previous revision."
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Rollback Deployment Params",
+            "description": "RollbackDeploymentParams contains parameters for the rollback_deployment action. Rolls back a deployment by reverting to a previous replicaset."
         }
     }
 }
