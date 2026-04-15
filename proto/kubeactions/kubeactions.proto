@@ -42,9 +42,10 @@ message KubeAction {
     DeletePodParams delete_pod = 10;
     RestartDeploymentParams restart_deployment = 11;
     PatchDeploymentParams patch_deployment = 12;
+    RollbackDeploymentParams rollback_deployment = 13;
     // Future actions can be added here:
-    // DrainNodeParams drain_node = 13;
-    // CordonNodeParams cordon_node = 14;
+    // DrainNodeParams drain_node = 14;
+    // CordonNodeParams cordon_node = 15;
   }
 }
 
@@ -85,6 +86,16 @@ message PatchDeploymentParams {
   //   "json" - RFC 6902 JSON patch, explicit add/remove/replace operations at specific paths
   // If not specified, defaults to "strategic-merge".
   string patch_strategy = 2;
+}
+
+// RollbackDeploymentParams contains parameters for the rollback_deployment action.
+// Rolls back a deployment by reverting to a previous replicaset.
+message RollbackDeploymentParams {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
+  // TargetRevision is the revision number of the ReplicaSet to roll back to.
+  // If not specified, rolls back to the previous revision.
+  optional int64 target_revision = 1;
 }
 
 // KubeResource represents a Kubernetes resource to act on

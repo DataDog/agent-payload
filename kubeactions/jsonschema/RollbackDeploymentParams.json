@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/RollbackDeploymentParams",
+    "definitions": {
+        "RollbackDeploymentParams": {
+            "properties": {
+                "target_revision": {
+                    "type": "string",
+                    "description": "TargetRevision is the revision number of the ReplicaSet to roll back to. If not specified, rolls back to the previous revision."
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Rollback Deployment Params",
+            "description": "RollbackDeploymentParams contains parameters for the rollback_deployment action. Rolls back a deployment by reverting to a previous replicaset."
+        }
+    }
+}
