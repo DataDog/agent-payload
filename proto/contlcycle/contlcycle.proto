@@ -64,3 +64,100 @@ enum ObjectKind {
     Pod = 1;
     Task = 2;
 }
+
+// =============================== New proto =============================== // 
+
+// LifecycleEventsPayload is the payload for the lifecycle events.
+message LifecycleEventsPayload {
+    string version = 1;   // version represents the LifecycleEventsPayload message version
+    string host = 2;      // host contains the hostname
+    string clusterId = 3; // clusterId contains the cluster ID
+    repeated LifecycleEvent events = 4; // events contains all the lifecycle event details
+}
+
+// LifecycleEvent contains the lifecycle event details.
+message LifecycleEvent {
+    oneof typedEvent {
+        LifecycleContainerEvent container = 1;
+        LifecyclePodEvent pod = 2;
+        LifecycleTaskEvent task = 3;
+    }
+}
+
+// =============================== Container events =============================== // 
+
+// LifecycleContainerEvent contains container lifecycle event metadata.
+message LifecycleContainerEvent {
+    string containerID = 1; // containerID contains the container ID
+    string source = 2;      // source contains the container source (docker, containerd, etc.)
+
+    // Owner contains information about what a container belongs to
+    message Owner {
+        ObjectKind ownerType = 1; // ownerType represents the owner type (pod, etc.)
+        string ownerUID = 2;      // ownerUID contains the owner UID
+    }
+    optional Owner owner = 3; // owner contains the information about who this container belongs to
+
+    oneof typedContainerEvent {
+        LifecycleContainerEvent_Delete delete = 4; // delete contains the container delete event data
+    }
+}
+
+// LifecycleContainerEvent_Delete contains container deletion event data.
+message LifecycleContainerEvent_Delete {
+    optional int32 exitCode = 1;      // exitCode contains the exit code of the container
+    optional int64 exitTimestamp = 2; // exitTimestamp contains the exit timestamp of the container
+}
+
+// =============================== Pod events =============================== // 
+
+// LifecyclePodEvent contains pod lifecycle event metadata.
+message LifecyclePodEvent {
+    string podUID = 1; // podUID contains the pod UID
+    string source = 2; // source contains the pod source (kubelet)
+
+    oneof typedPodEvent {
+        LifecyclePodEvent_Delete delete = 3;                   // delete contains the pod delete event data
+        LifecyclePodEvent_ConditionUpdate conditionUpdate = 4; // conditionUpdate contains the condition update event data
+    }
+}
+
+// LifecyclePodEvent_Delete contains pod deletion event data.
+message LifecyclePodEvent_Delete {
+    optional int64 exitTimestamp = 1; // exitTimestamp contains the exit timestamp of the pod
+}
+
+// LifecyclePodEvent_ConditionUpdate contains pod condition update event data.
+message LifecyclePodEvent_ConditionUpdate {
+    optional PodCondition priorCondition = 1; // priorCondition contains the prior condition, absent if this is the first observation
+    PodCondition newCondition = 2;            // newCondition contains the new condition
+}
+
+// PodCondition represents the state of a pod condition.
+// Reference: https://github.com/kubernetes/api/blob/9c98ac1a4c3ffe027f07c16908bf50b80574ae94/core/v1/generated.proto#L3936
+message PodCondition {
+    optional string type = 1;               // type is the type of the condition
+    optional string status = 2;             // status is the status of the condition (True, False, Unknown)
+    optional int64 lastProbeTime = 3;       // lastProbeTime is the last time we probed the condition (Unix ms)
+    optional int64 lastTransitionTime = 4;  // lastTransitionTime is the last time the condition transitioned (Unix ms)
+    optional string reason = 5;             // reason is a CamelCase word for the condition's last transition
+    optional string message = 6;            // message is a human-readable description of the last transition
+    optional int64 observedGeneration = 7;  // observedGeneration is the .metadata.generation this condition was set based upon
+}
+
+// =============================== Task events =============================== // 
+
+// LifecycleTaskEvent contains task lifecycle event metadata.
+message LifecycleTaskEvent {
+    string taskARN = 1; // taskARN contains the task ARN
+    string source = 2;  // source contains the task source
+
+    oneof typedTaskEvent {
+        LifecycleTaskEvent_Delete delete = 3; // delete contains the task delete event data
+    }
+}
+
+// LifecycleTaskEvent_Delete contains task deletion event data.
+message LifecycleTaskEvent_Delete {
+    optional int64 exitTimestamp = 1; // exitTimestamp contains the exit timestamp of the task
+}
