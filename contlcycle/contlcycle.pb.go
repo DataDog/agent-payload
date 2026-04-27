@@ -544,6 +544,753 @@ func (x *TaskEvent) GetExitTimestamp() int64 {
 	return 0
 }
 
+// LifecycleEventsPayload is the payload for the lifecycle events.
+type LifecycleEventsPayload struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Version   string            `protobuf:"bytes,1,opt,name=version,proto3" json:"version,omitempty"`     // version represents the LifecycleEventsPayload message version
+	Host      string            `protobuf:"bytes,2,opt,name=host,proto3" json:"host,omitempty"`           // host contains the hostname
+	ClusterId string            `protobuf:"bytes,3,opt,name=clusterId,proto3" json:"clusterId,omitempty"` // clusterId contains the cluster ID
+	Events    []*LifecycleEvent `protobuf:"bytes,4,rep,name=events,proto3" json:"events,omitempty"`       // events contains all the lifecycle event details
+}
+
+func (x *LifecycleEventsPayload) Reset() {
+	*x = LifecycleEventsPayload{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LifecycleEventsPayload) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LifecycleEventsPayload) ProtoMessage() {}
+
+func (x *LifecycleEventsPayload) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LifecycleEventsPayload.ProtoReflect.Descriptor instead.
+func (*LifecycleEventsPayload) Descriptor() ([]byte, []int) {
+	return file_proto_contlcycle_contlcycle_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *LifecycleEventsPayload) GetVersion() string {
+	if x != nil {
+		return x.Version
+	}
+	return ""
+}
+
+func (x *LifecycleEventsPayload) GetHost() string {
+	if x != nil {
+		return x.Host
+	}
+	return ""
+}
+
+func (x *LifecycleEventsPayload) GetClusterId() string {
+	if x != nil {
+		return x.ClusterId
+	}
+	return ""
+}
+
+func (x *LifecycleEventsPayload) GetEvents() []*LifecycleEvent {
+	if x != nil {
+		return x.Events
+	}
+	return nil
+}
+
+// LifecycleEvent contains the lifecycle event details.
+type LifecycleEvent struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Types that are assignable to TypedEvent:
+	//
+	//	*LifecycleEvent_Container
+	//	*LifecycleEvent_Pod
+	//	*LifecycleEvent_Task
+	TypedEvent isLifecycleEvent_TypedEvent `protobuf_oneof:"typedEvent"`
+}
+
+func (x *LifecycleEvent) Reset() {
+	*x = LifecycleEvent{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LifecycleEvent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LifecycleEvent) ProtoMessage() {}
+
+func (x *LifecycleEvent) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LifecycleEvent.ProtoReflect.Descriptor instead.
+func (*LifecycleEvent) Descriptor() ([]byte, []int) {
+	return file_proto_contlcycle_contlcycle_proto_rawDescGZIP(), []int{6}
+}
+
+func (m *LifecycleEvent) GetTypedEvent() isLifecycleEvent_TypedEvent {
+	if m != nil {
+		return m.TypedEvent
+	}
+	return nil
+}
+
+func (x *LifecycleEvent) GetContainer() *LifecycleContainerEvent {
+	if x, ok := x.GetTypedEvent().(*LifecycleEvent_Container); ok {
+		return x.Container
+	}
+	return nil
+}
+
+func (x *LifecycleEvent) GetPod() *LifecyclePodEvent {
+	if x, ok := x.GetTypedEvent().(*LifecycleEvent_Pod); ok {
+		return x.Pod
+	}
+	return nil
+}
+
+func (x *LifecycleEvent) GetTask() *LifecycleTaskEvent {
+	if x, ok := x.GetTypedEvent().(*LifecycleEvent_Task); ok {
+		return x.Task
+	}
+	return nil
+}
+
+type isLifecycleEvent_TypedEvent interface {
+	isLifecycleEvent_TypedEvent()
+}
+
+type LifecycleEvent_Container struct {
+	Container *LifecycleContainerEvent `protobuf:"bytes,1,opt,name=container,proto3,oneof"`
+}
+
+type LifecycleEvent_Pod struct {
+	Pod *LifecyclePodEvent `protobuf:"bytes,2,opt,name=pod,proto3,oneof"`
+}
+
+type LifecycleEvent_Task struct {
+	Task *LifecycleTaskEvent `protobuf:"bytes,3,opt,name=task,proto3,oneof"`
+}
+
+func (*LifecycleEvent_Container) isLifecycleEvent_TypedEvent() {}
+
+func (*LifecycleEvent_Pod) isLifecycleEvent_TypedEvent() {}
+
+func (*LifecycleEvent_Task) isLifecycleEvent_TypedEvent() {}
+
+// LifecycleContainerEvent contains container lifecycle event metadata.
+type LifecycleContainerEvent struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ContainerID string                         `protobuf:"bytes,1,opt,name=containerID,proto3" json:"containerID,omitempty"` // containerID contains the container ID
+	Source      string                         `protobuf:"bytes,2,opt,name=source,proto3" json:"source,omitempty"`           // source contains the container source (docker, containerd, etc.)
+	Owner       *LifecycleContainerEvent_Owner `protobuf:"bytes,3,opt,name=owner,proto3,oneof" json:"owner,omitempty"`       // owner contains the information about who this container belongs to
+	// Types that are assignable to TypedContainerEvent:
+	//
+	//	*LifecycleContainerEvent_Delete
+	TypedContainerEvent isLifecycleContainerEvent_TypedContainerEvent `protobuf_oneof:"typedContainerEvent"`
+}
+
+func (x *LifecycleContainerEvent) Reset() {
+	*x = LifecycleContainerEvent{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LifecycleContainerEvent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LifecycleContainerEvent) ProtoMessage() {}
+
+func (x *LifecycleContainerEvent) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LifecycleContainerEvent.ProtoReflect.Descriptor instead.
+func (*LifecycleContainerEvent) Descriptor() ([]byte, []int) {
+	return file_proto_contlcycle_contlcycle_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *LifecycleContainerEvent) GetContainerID() string {
+	if x != nil {
+		return x.ContainerID
+	}
+	return ""
+}
+
+func (x *LifecycleContainerEvent) GetSource() string {
+	if x != nil {
+		return x.Source
+	}
+	return ""
+}
+
+func (x *LifecycleContainerEvent) GetOwner() *LifecycleContainerEvent_Owner {
+	if x != nil {
+		return x.Owner
+	}
+	return nil
+}
+
+func (m *LifecycleContainerEvent) GetTypedContainerEvent() isLifecycleContainerEvent_TypedContainerEvent {
+	if m != nil {
+		return m.TypedContainerEvent
+	}
+	return nil
+}
+
+func (x *LifecycleContainerEvent) GetDelete() *LifecycleContainerEvent_Delete {
+	if x, ok := x.GetTypedContainerEvent().(*LifecycleContainerEvent_Delete); ok {
+		return x.Delete
+	}
+	return nil
+}
+
+type isLifecycleContainerEvent_TypedContainerEvent interface {
+	isLifecycleContainerEvent_TypedContainerEvent()
+}
+
+type LifecycleContainerEvent_Delete struct {
+	Delete *LifecycleContainerEvent_Delete `protobuf:"bytes,4,opt,name=delete,proto3,oneof"` // delete contains the container delete event data
+}
+
+func (*LifecycleContainerEvent_Delete) isLifecycleContainerEvent_TypedContainerEvent() {}
+
+// LifecycleContainerEvent_Delete contains container deletion event data.
+type LifecycleContainerEvent_Delete struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ExitCode      *int32 `protobuf:"varint,1,opt,name=exitCode,proto3,oneof" json:"exitCode,omitempty"`           // exitCode contains the exit code of the container
+	ExitTimestamp *int64 `protobuf:"varint,2,opt,name=exitTimestamp,proto3,oneof" json:"exitTimestamp,omitempty"` // exitTimestamp contains the exit timestamp of the container
+}
+
+func (x *LifecycleContainerEvent_Delete) Reset() {
+	*x = LifecycleContainerEvent_Delete{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LifecycleContainerEvent_Delete) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LifecycleContainerEvent_Delete) ProtoMessage() {}
+
+func (x *LifecycleContainerEvent_Delete) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LifecycleContainerEvent_Delete.ProtoReflect.Descriptor instead.
+func (*LifecycleContainerEvent_Delete) Descriptor() ([]byte, []int) {
+	return file_proto_contlcycle_contlcycle_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *LifecycleContainerEvent_Delete) GetExitCode() int32 {
+	if x != nil && x.ExitCode != nil {
+		return *x.ExitCode
+	}
+	return 0
+}
+
+func (x *LifecycleContainerEvent_Delete) GetExitTimestamp() int64 {
+	if x != nil && x.ExitTimestamp != nil {
+		return *x.ExitTimestamp
+	}
+	return 0
+}
+
+// LifecyclePodEvent contains pod lifecycle event metadata.
+type LifecyclePodEvent struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	PodUID string `protobuf:"bytes,1,opt,name=podUID,proto3" json:"podUID,omitempty"` // podUID contains the pod UID
+	Source string `protobuf:"bytes,2,opt,name=source,proto3" json:"source,omitempty"` // source contains the pod source (kubelet)
+	// Types that are assignable to TypedPodEvent:
+	//
+	//	*LifecyclePodEvent_Delete
+	//	*LifecyclePodEvent_ConditionUpdate
+	TypedPodEvent isLifecyclePodEvent_TypedPodEvent `protobuf_oneof:"typedPodEvent"`
+}
+
+func (x *LifecyclePodEvent) Reset() {
+	*x = LifecyclePodEvent{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LifecyclePodEvent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LifecyclePodEvent) ProtoMessage() {}
+
+func (x *LifecyclePodEvent) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LifecyclePodEvent.ProtoReflect.Descriptor instead.
+func (*LifecyclePodEvent) Descriptor() ([]byte, []int) {
+	return file_proto_contlcycle_contlcycle_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *LifecyclePodEvent) GetPodUID() string {
+	if x != nil {
+		return x.PodUID
+	}
+	return ""
+}
+
+func (x *LifecyclePodEvent) GetSource() string {
+	if x != nil {
+		return x.Source
+	}
+	return ""
+}
+
+func (m *LifecyclePodEvent) GetTypedPodEvent() isLifecyclePodEvent_TypedPodEvent {
+	if m != nil {
+		return m.TypedPodEvent
+	}
+	return nil
+}
+
+func (x *LifecyclePodEvent) GetDelete() *LifecyclePodEvent_Delete {
+	if x, ok := x.GetTypedPodEvent().(*LifecyclePodEvent_Delete); ok {
+		return x.Delete
+	}
+	return nil
+}
+
+func (x *LifecyclePodEvent) GetConditionUpdate() *LifecyclePodEvent_ConditionUpdate {
+	if x, ok := x.GetTypedPodEvent().(*LifecyclePodEvent_ConditionUpdate); ok {
+		return x.ConditionUpdate
+	}
+	return nil
+}
+
+type isLifecyclePodEvent_TypedPodEvent interface {
+	isLifecyclePodEvent_TypedPodEvent()
+}
+
+type LifecyclePodEvent_Delete struct {
+	Delete *LifecyclePodEvent_Delete `protobuf:"bytes,3,opt,name=delete,proto3,oneof"` // delete contains the pod delete event data
+}
+
+type LifecyclePodEvent_ConditionUpdate struct {
+	ConditionUpdate *LifecyclePodEvent_ConditionUpdate `protobuf:"bytes,4,opt,name=conditionUpdate,proto3,oneof"` // conditionUpdate contains the condition update event data
+}
+
+func (*LifecyclePodEvent_Delete) isLifecyclePodEvent_TypedPodEvent() {}
+
+func (*LifecyclePodEvent_ConditionUpdate) isLifecyclePodEvent_TypedPodEvent() {}
+
+// LifecyclePodEvent_Delete contains pod deletion event data.
+type LifecyclePodEvent_Delete struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ExitTimestamp *int64 `protobuf:"varint,1,opt,name=exitTimestamp,proto3,oneof" json:"exitTimestamp,omitempty"` // exitTimestamp contains the exit timestamp of the pod
+}
+
+func (x *LifecyclePodEvent_Delete) Reset() {
+	*x = LifecyclePodEvent_Delete{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LifecyclePodEvent_Delete) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LifecyclePodEvent_Delete) ProtoMessage() {}
+
+func (x *LifecyclePodEvent_Delete) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LifecyclePodEvent_Delete.ProtoReflect.Descriptor instead.
+func (*LifecyclePodEvent_Delete) Descriptor() ([]byte, []int) {
+	return file_proto_contlcycle_contlcycle_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *LifecyclePodEvent_Delete) GetExitTimestamp() int64 {
+	if x != nil && x.ExitTimestamp != nil {
+		return *x.ExitTimestamp
+	}
+	return 0
+}
+
+// LifecyclePodEvent_ConditionUpdate contains pod condition update event data.
+type LifecyclePodEvent_ConditionUpdate struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	PriorCondition *PodCondition `protobuf:"bytes,1,opt,name=priorCondition,proto3,oneof" json:"priorCondition,omitempty"` // priorCondition contains the prior condition, absent if this is the first observation
+	NewCondition   *PodCondition `protobuf:"bytes,2,opt,name=newCondition,proto3" json:"newCondition,omitempty"`           // newCondition contains the new condition
+}
+
+func (x *LifecyclePodEvent_ConditionUpdate) Reset() {
+	*x = LifecyclePodEvent_ConditionUpdate{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LifecyclePodEvent_ConditionUpdate) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LifecyclePodEvent_ConditionUpdate) ProtoMessage() {}
+
+func (x *LifecyclePodEvent_ConditionUpdate) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LifecyclePodEvent_ConditionUpdate.ProtoReflect.Descriptor instead.
+func (*LifecyclePodEvent_ConditionUpdate) Descriptor() ([]byte, []int) {
+	return file_proto_contlcycle_contlcycle_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *LifecyclePodEvent_ConditionUpdate) GetPriorCondition() *PodCondition {
+	if x != nil {
+		return x.PriorCondition
+	}
+	return nil
+}
+
+func (x *LifecyclePodEvent_ConditionUpdate) GetNewCondition() *PodCondition {
+	if x != nil {
+		return x.NewCondition
+	}
+	return nil
+}
+
+// PodCondition represents the state of a pod condition.
+// Reference: https://github.com/kubernetes/api/blob/9c98ac1a4c3ffe027f07c16908bf50b80574ae94/core/v1/generated.proto#L3936
+type PodCondition struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Type               *string `protobuf:"bytes,1,opt,name=type,proto3,oneof" json:"type,omitempty"`                              // type is the type of the condition
+	Status             *string `protobuf:"bytes,2,opt,name=status,proto3,oneof" json:"status,omitempty"`                          // status is the status of the condition (True, False, Unknown)
+	LastProbeTime      *int64  `protobuf:"varint,3,opt,name=lastProbeTime,proto3,oneof" json:"lastProbeTime,omitempty"`           // lastProbeTime is the last time we probed the condition (Unix ms)
+	LastTransitionTime *int64  `protobuf:"varint,4,opt,name=lastTransitionTime,proto3,oneof" json:"lastTransitionTime,omitempty"` // lastTransitionTime is the last time the condition transitioned (Unix ms)
+	Reason             *string `protobuf:"bytes,5,opt,name=reason,proto3,oneof" json:"reason,omitempty"`                          // reason is a CamelCase word for the condition's last transition
+	Message            *string `protobuf:"bytes,6,opt,name=message,proto3,oneof" json:"message,omitempty"`                        // message is a human-readable description of the last transition
+	ObservedGeneration *int64  `protobuf:"varint,7,opt,name=observedGeneration,proto3,oneof" json:"observedGeneration,omitempty"` // observedGeneration is the .metadata.generation this condition was set based upon
+}
+
+func (x *PodCondition) Reset() {
+	*x = PodCondition{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PodCondition) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PodCondition) ProtoMessage() {}
+
+func (x *PodCondition) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PodCondition.ProtoReflect.Descriptor instead.
+func (*PodCondition) Descriptor() ([]byte, []int) {
+	return file_proto_contlcycle_contlcycle_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *PodCondition) GetType() string {
+	if x != nil && x.Type != nil {
+		return *x.Type
+	}
+	return ""
+}
+
+func (x *PodCondition) GetStatus() string {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return ""
+}
+
+func (x *PodCondition) GetLastProbeTime() int64 {
+	if x != nil && x.LastProbeTime != nil {
+		return *x.LastProbeTime
+	}
+	return 0
+}
+
+func (x *PodCondition) GetLastTransitionTime() int64 {
+	if x != nil && x.LastTransitionTime != nil {
+		return *x.LastTransitionTime
+	}
+	return 0
+}
+
+func (x *PodCondition) GetReason() string {
+	if x != nil && x.Reason != nil {
+		return *x.Reason
+	}
+	return ""
+}
+
+func (x *PodCondition) GetMessage() string {
+	if x != nil && x.Message != nil {
+		return *x.Message
+	}
+	return ""
+}
+
+func (x *PodCondition) GetObservedGeneration() int64 {
+	if x != nil && x.ObservedGeneration != nil {
+		return *x.ObservedGeneration
+	}
+	return 0
+}
+
+// LifecycleTaskEvent contains task lifecycle event metadata.
+type LifecycleTaskEvent struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TaskARN string `protobuf:"bytes,1,opt,name=taskARN,proto3" json:"taskARN,omitempty"` // taskARN contains the task ARN
+	Source  string `protobuf:"bytes,2,opt,name=source,proto3" json:"source,omitempty"`   // source contains the task source
+	// Types that are assignable to TypedTaskEvent:
+	//
+	//	*LifecycleTaskEvent_Delete
+	TypedTaskEvent isLifecycleTaskEvent_TypedTaskEvent `protobuf_oneof:"typedTaskEvent"`
+}
+
+func (x *LifecycleTaskEvent) Reset() {
+	*x = LifecycleTaskEvent{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LifecycleTaskEvent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LifecycleTaskEvent) ProtoMessage() {}
+
+func (x *LifecycleTaskEvent) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LifecycleTaskEvent.ProtoReflect.Descriptor instead.
+func (*LifecycleTaskEvent) Descriptor() ([]byte, []int) {
+	return file_proto_contlcycle_contlcycle_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *LifecycleTaskEvent) GetTaskARN() string {
+	if x != nil {
+		return x.TaskARN
+	}
+	return ""
+}
+
+func (x *LifecycleTaskEvent) GetSource() string {
+	if x != nil {
+		return x.Source
+	}
+	return ""
+}
+
+func (m *LifecycleTaskEvent) GetTypedTaskEvent() isLifecycleTaskEvent_TypedTaskEvent {
+	if m != nil {
+		return m.TypedTaskEvent
+	}
+	return nil
+}
+
+func (x *LifecycleTaskEvent) GetDelete() *LifecycleTaskEvent_Delete {
+	if x, ok := x.GetTypedTaskEvent().(*LifecycleTaskEvent_Delete); ok {
+		return x.Delete
+	}
+	return nil
+}
+
+type isLifecycleTaskEvent_TypedTaskEvent interface {
+	isLifecycleTaskEvent_TypedTaskEvent()
+}
+
+type LifecycleTaskEvent_Delete struct {
+	Delete *LifecycleTaskEvent_Delete `protobuf:"bytes,3,opt,name=delete,proto3,oneof"` // delete contains the task delete event data
+}
+
+func (*LifecycleTaskEvent_Delete) isLifecycleTaskEvent_TypedTaskEvent() {}
+
+// LifecycleTaskEvent_Delete contains task deletion event data.
+type LifecycleTaskEvent_Delete struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ExitTimestamp *int64 `protobuf:"varint,1,opt,name=exitTimestamp,proto3,oneof" json:"exitTimestamp,omitempty"` // exitTimestamp contains the exit timestamp of the task
+}
+
+func (x *LifecycleTaskEvent_Delete) Reset() {
+	*x = LifecycleTaskEvent_Delete{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LifecycleTaskEvent_Delete) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LifecycleTaskEvent_Delete) ProtoMessage() {}
+
+func (x *LifecycleTaskEvent_Delete) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LifecycleTaskEvent_Delete.ProtoReflect.Descriptor instead.
+func (*LifecycleTaskEvent_Delete) Descriptor() ([]byte, []int) {
+	return file_proto_contlcycle_contlcycle_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *LifecycleTaskEvent_Delete) GetExitTimestamp() int64 {
+	if x != nil && x.ExitTimestamp != nil {
+		return *x.ExitTimestamp
+	}
+	return 0
+}
+
 // Owner contains information about what a container belongs to
 type ContainerEvent_Owner struct {
 	state         protoimpl.MessageState
@@ -557,7 +1304,7 @@ type ContainerEvent_Owner struct {
 func (x *ContainerEvent_Owner) Reset() {
 	*x = ContainerEvent_Owner{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[5]
+		mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -570,7 +1317,7 @@ func (x *ContainerEvent_Owner) String() string {
 func (*ContainerEvent_Owner) ProtoMessage() {}
 
 func (x *ContainerEvent_Owner) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[5]
+	mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -594,6 +1341,62 @@ func (x *ContainerEvent_Owner) GetOwnerType() ObjectKind {
 }
 
 func (x *ContainerEvent_Owner) GetOwnerUID() string {
+	if x != nil {
+		return x.OwnerUID
+	}
+	return ""
+}
+
+// Owner contains information about what a container belongs to
+type LifecycleContainerEvent_Owner struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	OwnerType ObjectKind `protobuf:"varint,1,opt,name=ownerType,proto3,enum=datadog.contlcycle.ObjectKind" json:"ownerType,omitempty"` // ownerType represents the owner type (pod, etc.)
+	OwnerUID  string     `protobuf:"bytes,2,opt,name=ownerUID,proto3" json:"ownerUID,omitempty"`                                       // ownerUID contains the owner UID
+}
+
+func (x *LifecycleContainerEvent_Owner) Reset() {
+	*x = LifecycleContainerEvent_Owner{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LifecycleContainerEvent_Owner) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LifecycleContainerEvent_Owner) ProtoMessage() {}
+
+func (x *LifecycleContainerEvent_Owner) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_contlcycle_contlcycle_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LifecycleContainerEvent_Owner.ProtoReflect.Descriptor instead.
+func (*LifecycleContainerEvent_Owner) Descriptor() ([]byte, []int) {
+	return file_proto_contlcycle_contlcycle_proto_rawDescGZIP(), []int{7, 0}
+}
+
+func (x *LifecycleContainerEvent_Owner) GetOwnerType() ObjectKind {
+	if x != nil {
+		return x.OwnerType
+	}
+	return ObjectKind_Container
+}
+
+func (x *LifecycleContainerEvent_Owner) GetOwnerUID() string {
 	if x != nil {
 		return x.OwnerUID
 	}
@@ -675,14 +1478,145 @@ var file_proto_contlcycle_contlcycle_proto_rawDesc = []byte{
 	0x65, 0x12, 0x29, 0x0a, 0x0d, 0x65, 0x78, 0x69, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61,
 	0x6d, 0x70, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x48, 0x00, 0x52, 0x0d, 0x65, 0x78, 0x69, 0x74,
 	0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x88, 0x01, 0x01, 0x42, 0x10, 0x0a, 0x0e,
-	0x5f, 0x65, 0x78, 0x69, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x2a, 0x2e,
-	0x0a, 0x0a, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x4b, 0x69, 0x6e, 0x64, 0x12, 0x0d, 0x0a, 0x09,
-	0x43, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x65, 0x72, 0x10, 0x00, 0x12, 0x07, 0x0a, 0x03, 0x50,
-	0x6f, 0x64, 0x10, 0x01, 0x12, 0x08, 0x0a, 0x04, 0x54, 0x61, 0x73, 0x6b, 0x10, 0x02, 0x42, 0x30,
-	0x5a, 0x2e, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x44, 0x61, 0x74,
-	0x61, 0x44, 0x6f, 0x67, 0x2f, 0x61, 0x67, 0x65, 0x6e, 0x74, 0x2d, 0x70, 0x61, 0x79, 0x6c, 0x6f,
-	0x61, 0x64, 0x2f, 0x76, 0x35, 0x2f, 0x63, 0x6f, 0x6e, 0x74, 0x6c, 0x63, 0x79, 0x63, 0x6c, 0x65,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x5f, 0x65, 0x78, 0x69, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x22, 0xa0,
+	0x01, 0x0a, 0x16, 0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x45, 0x76, 0x65, 0x6e,
+	0x74, 0x73, 0x50, 0x61, 0x79, 0x6c, 0x6f, 0x61, 0x64, 0x12, 0x18, 0x0a, 0x07, 0x76, 0x65, 0x72,
+	0x73, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x76, 0x65, 0x72, 0x73,
+	0x69, 0x6f, 0x6e, 0x12, 0x12, 0x0a, 0x04, 0x68, 0x6f, 0x73, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x04, 0x68, 0x6f, 0x73, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x63, 0x6c, 0x75, 0x73, 0x74,
+	0x65, 0x72, 0x49, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x63, 0x6c, 0x75, 0x73,
+	0x74, 0x65, 0x72, 0x49, 0x64, 0x12, 0x3a, 0x0a, 0x06, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x73, 0x18,
+	0x04, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x22, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x64, 0x6f, 0x67, 0x2e,
+	0x63, 0x6f, 0x6e, 0x74, 0x6c, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x2e, 0x4c, 0x69, 0x66, 0x65, 0x63,
+	0x79, 0x63, 0x6c, 0x65, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x06, 0x65, 0x76, 0x65, 0x6e, 0x74,
+	0x73, 0x22, 0xe4, 0x01, 0x0a, 0x0e, 0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x45,
+	0x76, 0x65, 0x6e, 0x74, 0x12, 0x4b, 0x0a, 0x09, 0x63, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x65,
+	0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2b, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x64, 0x6f,
+	0x67, 0x2e, 0x63, 0x6f, 0x6e, 0x74, 0x6c, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x2e, 0x4c, 0x69, 0x66,
+	0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x65, 0x72, 0x45,
+	0x76, 0x65, 0x6e, 0x74, 0x48, 0x00, 0x52, 0x09, 0x63, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x65,
+	0x72, 0x12, 0x39, 0x0a, 0x03, 0x70, 0x6f, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x25,
+	0x2e, 0x64, 0x61, 0x74, 0x61, 0x64, 0x6f, 0x67, 0x2e, 0x63, 0x6f, 0x6e, 0x74, 0x6c, 0x63, 0x79,
+	0x63, 0x6c, 0x65, 0x2e, 0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x50, 0x6f, 0x64,
+	0x45, 0x76, 0x65, 0x6e, 0x74, 0x48, 0x00, 0x52, 0x03, 0x70, 0x6f, 0x64, 0x12, 0x3c, 0x0a, 0x04,
+	0x74, 0x61, 0x73, 0x6b, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x64, 0x61, 0x74,
+	0x61, 0x64, 0x6f, 0x67, 0x2e, 0x63, 0x6f, 0x6e, 0x74, 0x6c, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x2e,
+	0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x54, 0x61, 0x73, 0x6b, 0x45, 0x76, 0x65,
+	0x6e, 0x74, 0x48, 0x00, 0x52, 0x04, 0x74, 0x61, 0x73, 0x6b, 0x42, 0x0c, 0x0a, 0x0a, 0x74, 0x79,
+	0x70, 0x65, 0x64, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x22, 0xf3, 0x02, 0x0a, 0x17, 0x4c, 0x69, 0x66,
+	0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x65, 0x72, 0x45,
+	0x76, 0x65, 0x6e, 0x74, 0x12, 0x20, 0x0a, 0x0b, 0x63, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x65,
+	0x72, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x63, 0x6f, 0x6e, 0x74, 0x61,
+	0x69, 0x6e, 0x65, 0x72, 0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x12, 0x4c,
+	0x0a, 0x05, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x31, 0x2e,
+	0x64, 0x61, 0x74, 0x61, 0x64, 0x6f, 0x67, 0x2e, 0x63, 0x6f, 0x6e, 0x74, 0x6c, 0x63, 0x79, 0x63,
+	0x6c, 0x65, 0x2e, 0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x43, 0x6f, 0x6e, 0x74,
+	0x61, 0x69, 0x6e, 0x65, 0x72, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x2e, 0x4f, 0x77, 0x6e, 0x65, 0x72,
+	0x48, 0x01, 0x52, 0x05, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x88, 0x01, 0x01, 0x12, 0x4c, 0x0a, 0x06,
+	0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x32, 0x2e, 0x64,
+	0x61, 0x74, 0x61, 0x64, 0x6f, 0x67, 0x2e, 0x63, 0x6f, 0x6e, 0x74, 0x6c, 0x63, 0x79, 0x63, 0x6c,
+	0x65, 0x2e, 0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x61,
+	0x69, 0x6e, 0x65, 0x72, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x5f, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
+	0x48, 0x00, 0x52, 0x06, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x1a, 0x61, 0x0a, 0x05, 0x4f, 0x77,
+	0x6e, 0x65, 0x72, 0x12, 0x3c, 0x0a, 0x09, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x54, 0x79, 0x70, 0x65,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x1e, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x64, 0x6f, 0x67,
+	0x2e, 0x63, 0x6f, 0x6e, 0x74, 0x6c, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x2e, 0x4f, 0x62, 0x6a, 0x65,
+	0x63, 0x74, 0x4b, 0x69, 0x6e, 0x64, 0x52, 0x09, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x54, 0x79, 0x70,
+	0x65, 0x12, 0x1a, 0x0a, 0x08, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x55, 0x49, 0x44, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x08, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x55, 0x49, 0x44, 0x42, 0x15, 0x0a,
+	0x13, 0x74, 0x79, 0x70, 0x65, 0x64, 0x43, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x65, 0x72, 0x45,
+	0x76, 0x65, 0x6e, 0x74, 0x42, 0x08, 0x0a, 0x06, 0x5f, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x22, 0x8b,
+	0x01, 0x0a, 0x1e, 0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x43, 0x6f, 0x6e, 0x74,
+	0x61, 0x69, 0x6e, 0x65, 0x72, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x5f, 0x44, 0x65, 0x6c, 0x65, 0x74,
+	0x65, 0x12, 0x1f, 0x0a, 0x08, 0x65, 0x78, 0x69, 0x74, 0x43, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x05, 0x48, 0x00, 0x52, 0x08, 0x65, 0x78, 0x69, 0x74, 0x43, 0x6f, 0x64, 0x65, 0x88,
+	0x01, 0x01, 0x12, 0x29, 0x0a, 0x0d, 0x65, 0x78, 0x69, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74,
+	0x61, 0x6d, 0x70, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x48, 0x01, 0x52, 0x0d, 0x65, 0x78, 0x69,
+	0x74, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x88, 0x01, 0x01, 0x42, 0x0b, 0x0a,
+	0x09, 0x5f, 0x65, 0x78, 0x69, 0x74, 0x43, 0x6f, 0x64, 0x65, 0x42, 0x10, 0x0a, 0x0e, 0x5f, 0x65,
+	0x78, 0x69, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x22, 0xff, 0x01, 0x0a,
+	0x11, 0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x50, 0x6f, 0x64, 0x45, 0x76, 0x65,
+	0x6e, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x70, 0x6f, 0x64, 0x55, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x06, 0x70, 0x6f, 0x64, 0x55, 0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x6f,
+	0x75, 0x72, 0x63, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x6f, 0x75, 0x72,
+	0x63, 0x65, 0x12, 0x46, 0x0a, 0x06, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x2c, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x64, 0x6f, 0x67, 0x2e, 0x63, 0x6f, 0x6e,
+	0x74, 0x6c, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x2e, 0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c,
+	0x65, 0x50, 0x6f, 0x64, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x5f, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
+	0x48, 0x00, 0x52, 0x06, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x12, 0x61, 0x0a, 0x0f, 0x63, 0x6f,
+	0x6e, 0x64, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x18, 0x04, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x35, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x64, 0x6f, 0x67, 0x2e, 0x63, 0x6f,
+	0x6e, 0x74, 0x6c, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x2e, 0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63,
+	0x6c, 0x65, 0x50, 0x6f, 0x64, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x5f, 0x43, 0x6f, 0x6e, 0x64, 0x69,
+	0x74, 0x69, 0x6f, 0x6e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x48, 0x00, 0x52, 0x0f, 0x63, 0x6f,
+	0x6e, 0x64, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x42, 0x0f, 0x0a,
+	0x0d, 0x74, 0x79, 0x70, 0x65, 0x64, 0x50, 0x6f, 0x64, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x22, 0x57,
+	0x0a, 0x18, 0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x50, 0x6f, 0x64, 0x45, 0x76,
+	0x65, 0x6e, 0x74, 0x5f, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x12, 0x29, 0x0a, 0x0d, 0x65, 0x78,
+	0x69, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x03, 0x48, 0x00, 0x52, 0x0d, 0x65, 0x78, 0x69, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61,
+	0x6d, 0x70, 0x88, 0x01, 0x01, 0x42, 0x10, 0x0a, 0x0e, 0x5f, 0x65, 0x78, 0x69, 0x74, 0x54, 0x69,
+	0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x22, 0xcb, 0x01, 0x0a, 0x21, 0x4c, 0x69, 0x66, 0x65,
+	0x63, 0x79, 0x63, 0x6c, 0x65, 0x50, 0x6f, 0x64, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x5f, 0x43, 0x6f,
+	0x6e, 0x64, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x4d, 0x0a,
+	0x0e, 0x70, 0x72, 0x69, 0x6f, 0x72, 0x43, 0x6f, 0x6e, 0x64, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x64, 0x6f, 0x67, 0x2e,
+	0x63, 0x6f, 0x6e, 0x74, 0x6c, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x2e, 0x50, 0x6f, 0x64, 0x43, 0x6f,
+	0x6e, 0x64, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x48, 0x00, 0x52, 0x0e, 0x70, 0x72, 0x69, 0x6f, 0x72,
+	0x43, 0x6f, 0x6e, 0x64, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x88, 0x01, 0x01, 0x12, 0x44, 0x0a, 0x0c,
+	0x6e, 0x65, 0x77, 0x43, 0x6f, 0x6e, 0x64, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x20, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x64, 0x6f, 0x67, 0x2e, 0x63, 0x6f, 0x6e,
+	0x74, 0x6c, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x2e, 0x50, 0x6f, 0x64, 0x43, 0x6f, 0x6e, 0x64, 0x69,
+	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0c, 0x6e, 0x65, 0x77, 0x43, 0x6f, 0x6e, 0x64, 0x69, 0x74, 0x69,
+	0x6f, 0x6e, 0x42, 0x11, 0x0a, 0x0f, 0x5f, 0x70, 0x72, 0x69, 0x6f, 0x72, 0x43, 0x6f, 0x6e, 0x64,
+	0x69, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x80, 0x03, 0x0a, 0x0c, 0x50, 0x6f, 0x64, 0x43, 0x6f, 0x6e,
+	0x64, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x17, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x88, 0x01, 0x01, 0x12,
+	0x1b, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x48,
+	0x01, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x88, 0x01, 0x01, 0x12, 0x29, 0x0a, 0x0d,
+	0x6c, 0x61, 0x73, 0x74, 0x50, 0x72, 0x6f, 0x62, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x03, 0x48, 0x02, 0x52, 0x0d, 0x6c, 0x61, 0x73, 0x74, 0x50, 0x72, 0x6f, 0x62, 0x65,
+	0x54, 0x69, 0x6d, 0x65, 0x88, 0x01, 0x01, 0x12, 0x33, 0x0a, 0x12, 0x6c, 0x61, 0x73, 0x74, 0x54,
+	0x72, 0x61, 0x6e, 0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69, 0x6d, 0x65, 0x18, 0x04, 0x20,
+	0x01, 0x28, 0x03, 0x48, 0x03, 0x52, 0x12, 0x6c, 0x61, 0x73, 0x74, 0x54, 0x72, 0x61, 0x6e, 0x73,
+	0x69, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69, 0x6d, 0x65, 0x88, 0x01, 0x01, 0x12, 0x1b, 0x0a, 0x06,
+	0x72, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x48, 0x04, 0x52, 0x06,
+	0x72, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x88, 0x01, 0x01, 0x12, 0x1d, 0x0a, 0x07, 0x6d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x48, 0x05, 0x52, 0x07, 0x6d, 0x65,
+	0x73, 0x73, 0x61, 0x67, 0x65, 0x88, 0x01, 0x01, 0x12, 0x33, 0x0a, 0x12, 0x6f, 0x62, 0x73, 0x65,
+	0x72, 0x76, 0x65, 0x64, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x07,
+	0x20, 0x01, 0x28, 0x03, 0x48, 0x06, 0x52, 0x12, 0x6f, 0x62, 0x73, 0x65, 0x72, 0x76, 0x65, 0x64,
+	0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x88, 0x01, 0x01, 0x42, 0x07, 0x0a,
+	0x05, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x42, 0x09, 0x0a, 0x07, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x75,
+	0x73, 0x42, 0x10, 0x0a, 0x0e, 0x5f, 0x6c, 0x61, 0x73, 0x74, 0x50, 0x72, 0x6f, 0x62, 0x65, 0x54,
+	0x69, 0x6d, 0x65, 0x42, 0x15, 0x0a, 0x13, 0x5f, 0x6c, 0x61, 0x73, 0x74, 0x54, 0x72, 0x61, 0x6e,
+	0x73, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69, 0x6d, 0x65, 0x42, 0x09, 0x0a, 0x07, 0x5f, 0x72,
+	0x65, 0x61, 0x73, 0x6f, 0x6e, 0x42, 0x0a, 0x0a, 0x08, 0x5f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67,
+	0x65, 0x42, 0x15, 0x0a, 0x13, 0x5f, 0x6f, 0x62, 0x73, 0x65, 0x72, 0x76, 0x65, 0x64, 0x47, 0x65,
+	0x6e, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0xa1, 0x01, 0x0a, 0x12, 0x4c, 0x69, 0x66,
+	0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x54, 0x61, 0x73, 0x6b, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x12,
+	0x18, 0x0a, 0x07, 0x74, 0x61, 0x73, 0x6b, 0x41, 0x52, 0x4e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x07, 0x74, 0x61, 0x73, 0x6b, 0x41, 0x52, 0x4e, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x6f, 0x75,
+	0x72, 0x63, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x6f, 0x75, 0x72, 0x63,
+	0x65, 0x12, 0x47, 0x0a, 0x06, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x2d, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x64, 0x6f, 0x67, 0x2e, 0x63, 0x6f, 0x6e, 0x74,
+	0x6c, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x2e, 0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65,
+	0x54, 0x61, 0x73, 0x6b, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x5f, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
+	0x48, 0x00, 0x52, 0x06, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x42, 0x10, 0x0a, 0x0e, 0x74, 0x79,
+	0x70, 0x65, 0x64, 0x54, 0x61, 0x73, 0x6b, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x22, 0x58, 0x0a, 0x19,
+	0x4c, 0x69, 0x66, 0x65, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x54, 0x61, 0x73, 0x6b, 0x45, 0x76, 0x65,
+	0x6e, 0x74, 0x5f, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x12, 0x29, 0x0a, 0x0d, 0x65, 0x78, 0x69,
+	0x74, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03,
+	0x48, 0x00, 0x52, 0x0d, 0x65, 0x78, 0x69, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d,
+	0x70, 0x88, 0x01, 0x01, 0x42, 0x10, 0x0a, 0x0e, 0x5f, 0x65, 0x78, 0x69, 0x74, 0x54, 0x69, 0x6d,
+	0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x2a, 0x2e, 0x0a, 0x0a, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74,
+	0x4b, 0x69, 0x6e, 0x64, 0x12, 0x0d, 0x0a, 0x09, 0x43, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x65,
+	0x72, 0x10, 0x00, 0x12, 0x07, 0x0a, 0x03, 0x50, 0x6f, 0x64, 0x10, 0x01, 0x12, 0x08, 0x0a, 0x04,
+	0x54, 0x61, 0x73, 0x6b, 0x10, 0x02, 0x42, 0x30, 0x5a, 0x2e, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62,
+	0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x44, 0x61, 0x74, 0x61, 0x44, 0x6f, 0x67, 0x2f, 0x61, 0x67, 0x65,
+	0x6e, 0x74, 0x2d, 0x70, 0x61, 0x79, 0x6c, 0x6f, 0x61, 0x64, 0x2f, 0x76, 0x35, 0x2f, 0x63, 0x6f,
+	0x6e, 0x74, 0x6c, 0x63, 0x79, 0x63, 0x6c, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -698,31 +1632,54 @@ func file_proto_contlcycle_contlcycle_proto_rawDescGZIP() []byte {
 }
 
 var file_proto_contlcycle_contlcycle_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_proto_contlcycle_contlcycle_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_proto_contlcycle_contlcycle_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
 var file_proto_contlcycle_contlcycle_proto_goTypes = []interface{}{
-	(ObjectKind)(0),              // 0: datadog.contlcycle.ObjectKind
-	(Event_EventType)(0),         // 1: datadog.contlcycle.Event.EventType
-	(*EventsPayload)(nil),        // 2: datadog.contlcycle.EventsPayload
-	(*Event)(nil),                // 3: datadog.contlcycle.Event
-	(*ContainerEvent)(nil),       // 4: datadog.contlcycle.ContainerEvent
-	(*PodEvent)(nil),             // 5: datadog.contlcycle.PodEvent
-	(*TaskEvent)(nil),            // 6: datadog.contlcycle.TaskEvent
-	(*ContainerEvent_Owner)(nil), // 7: datadog.contlcycle.ContainerEvent.Owner
+	(ObjectKind)(0),                           // 0: datadog.contlcycle.ObjectKind
+	(Event_EventType)(0),                      // 1: datadog.contlcycle.Event.EventType
+	(*EventsPayload)(nil),                     // 2: datadog.contlcycle.EventsPayload
+	(*Event)(nil),                             // 3: datadog.contlcycle.Event
+	(*ContainerEvent)(nil),                    // 4: datadog.contlcycle.ContainerEvent
+	(*PodEvent)(nil),                          // 5: datadog.contlcycle.PodEvent
+	(*TaskEvent)(nil),                         // 6: datadog.contlcycle.TaskEvent
+	(*LifecycleEventsPayload)(nil),            // 7: datadog.contlcycle.LifecycleEventsPayload
+	(*LifecycleEvent)(nil),                    // 8: datadog.contlcycle.LifecycleEvent
+	(*LifecycleContainerEvent)(nil),           // 9: datadog.contlcycle.LifecycleContainerEvent
+	(*LifecycleContainerEvent_Delete)(nil),    // 10: datadog.contlcycle.LifecycleContainerEvent_Delete
+	(*LifecyclePodEvent)(nil),                 // 11: datadog.contlcycle.LifecyclePodEvent
+	(*LifecyclePodEvent_Delete)(nil),          // 12: datadog.contlcycle.LifecyclePodEvent_Delete
+	(*LifecyclePodEvent_ConditionUpdate)(nil), // 13: datadog.contlcycle.LifecyclePodEvent_ConditionUpdate
+	(*PodCondition)(nil),                      // 14: datadog.contlcycle.PodCondition
+	(*LifecycleTaskEvent)(nil),                // 15: datadog.contlcycle.LifecycleTaskEvent
+	(*LifecycleTaskEvent_Delete)(nil),         // 16: datadog.contlcycle.LifecycleTaskEvent_Delete
+	(*ContainerEvent_Owner)(nil),              // 17: datadog.contlcycle.ContainerEvent.Owner
+	(*LifecycleContainerEvent_Owner)(nil),     // 18: datadog.contlcycle.LifecycleContainerEvent.Owner
 }
 var file_proto_contlcycle_contlcycle_proto_depIdxs = []int32{
-	0, // 0: datadog.contlcycle.EventsPayload.objectKind:type_name -> datadog.contlcycle.ObjectKind
-	3, // 1: datadog.contlcycle.EventsPayload.events:type_name -> datadog.contlcycle.Event
-	1, // 2: datadog.contlcycle.Event.eventType:type_name -> datadog.contlcycle.Event.EventType
-	4, // 3: datadog.contlcycle.Event.container:type_name -> datadog.contlcycle.ContainerEvent
-	5, // 4: datadog.contlcycle.Event.pod:type_name -> datadog.contlcycle.PodEvent
-	6, // 5: datadog.contlcycle.Event.task:type_name -> datadog.contlcycle.TaskEvent
-	7, // 6: datadog.contlcycle.ContainerEvent.owner:type_name -> datadog.contlcycle.ContainerEvent.Owner
-	0, // 7: datadog.contlcycle.ContainerEvent.Owner.ownerType:type_name -> datadog.contlcycle.ObjectKind
-	8, // [8:8] is the sub-list for method output_type
-	8, // [8:8] is the sub-list for method input_type
-	8, // [8:8] is the sub-list for extension type_name
-	8, // [8:8] is the sub-list for extension extendee
-	0, // [0:8] is the sub-list for field type_name
+	0,  // 0: datadog.contlcycle.EventsPayload.objectKind:type_name -> datadog.contlcycle.ObjectKind
+	3,  // 1: datadog.contlcycle.EventsPayload.events:type_name -> datadog.contlcycle.Event
+	1,  // 2: datadog.contlcycle.Event.eventType:type_name -> datadog.contlcycle.Event.EventType
+	4,  // 3: datadog.contlcycle.Event.container:type_name -> datadog.contlcycle.ContainerEvent
+	5,  // 4: datadog.contlcycle.Event.pod:type_name -> datadog.contlcycle.PodEvent
+	6,  // 5: datadog.contlcycle.Event.task:type_name -> datadog.contlcycle.TaskEvent
+	17, // 6: datadog.contlcycle.ContainerEvent.owner:type_name -> datadog.contlcycle.ContainerEvent.Owner
+	8,  // 7: datadog.contlcycle.LifecycleEventsPayload.events:type_name -> datadog.contlcycle.LifecycleEvent
+	9,  // 8: datadog.contlcycle.LifecycleEvent.container:type_name -> datadog.contlcycle.LifecycleContainerEvent
+	11, // 9: datadog.contlcycle.LifecycleEvent.pod:type_name -> datadog.contlcycle.LifecyclePodEvent
+	15, // 10: datadog.contlcycle.LifecycleEvent.task:type_name -> datadog.contlcycle.LifecycleTaskEvent
+	18, // 11: datadog.contlcycle.LifecycleContainerEvent.owner:type_name -> datadog.contlcycle.LifecycleContainerEvent.Owner
+	10, // 12: datadog.contlcycle.LifecycleContainerEvent.delete:type_name -> datadog.contlcycle.LifecycleContainerEvent_Delete
+	12, // 13: datadog.contlcycle.LifecyclePodEvent.delete:type_name -> datadog.contlcycle.LifecyclePodEvent_Delete
+	13, // 14: datadog.contlcycle.LifecyclePodEvent.conditionUpdate:type_name -> datadog.contlcycle.LifecyclePodEvent_ConditionUpdate
+	14, // 15: datadog.contlcycle.LifecyclePodEvent_ConditionUpdate.priorCondition:type_name -> datadog.contlcycle.PodCondition
+	14, // 16: datadog.contlcycle.LifecyclePodEvent_ConditionUpdate.newCondition:type_name -> datadog.contlcycle.PodCondition
+	16, // 17: datadog.contlcycle.LifecycleTaskEvent.delete:type_name -> datadog.contlcycle.LifecycleTaskEvent_Delete
+	0,  // 18: datadog.contlcycle.ContainerEvent.Owner.ownerType:type_name -> datadog.contlcycle.ObjectKind
+	0,  // 19: datadog.contlcycle.LifecycleContainerEvent.Owner.ownerType:type_name -> datadog.contlcycle.ObjectKind
+	20, // [20:20] is the sub-list for method output_type
+	20, // [20:20] is the sub-list for method input_type
+	20, // [20:20] is the sub-list for extension type_name
+	20, // [20:20] is the sub-list for extension extendee
+	0,  // [0:20] is the sub-list for field type_name
 }
 
 func init() { file_proto_contlcycle_contlcycle_proto_init() }
@@ -792,7 +1749,139 @@ func file_proto_contlcycle_contlcycle_proto_init() {
 			}
 		}
 		file_proto_contlcycle_contlcycle_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LifecycleEventsPayload); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_contlcycle_contlcycle_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LifecycleEvent); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_contlcycle_contlcycle_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LifecycleContainerEvent); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_contlcycle_contlcycle_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LifecycleContainerEvent_Delete); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_contlcycle_contlcycle_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LifecyclePodEvent); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_contlcycle_contlcycle_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LifecyclePodEvent_Delete); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_contlcycle_contlcycle_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LifecyclePodEvent_ConditionUpdate); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_contlcycle_contlcycle_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PodCondition); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_contlcycle_contlcycle_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LifecycleTaskEvent); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_contlcycle_contlcycle_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LifecycleTaskEvent_Delete); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_contlcycle_contlcycle_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ContainerEvent_Owner); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_contlcycle_contlcycle_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LifecycleContainerEvent_Owner); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -815,13 +1904,33 @@ func file_proto_contlcycle_contlcycle_proto_init() {
 	}
 	file_proto_contlcycle_contlcycle_proto_msgTypes[3].OneofWrappers = []interface{}{}
 	file_proto_contlcycle_contlcycle_proto_msgTypes[4].OneofWrappers = []interface{}{}
+	file_proto_contlcycle_contlcycle_proto_msgTypes[6].OneofWrappers = []interface{}{
+		(*LifecycleEvent_Container)(nil),
+		(*LifecycleEvent_Pod)(nil),
+		(*LifecycleEvent_Task)(nil),
+	}
+	file_proto_contlcycle_contlcycle_proto_msgTypes[7].OneofWrappers = []interface{}{
+		(*LifecycleContainerEvent_Delete)(nil),
+	}
+	file_proto_contlcycle_contlcycle_proto_msgTypes[8].OneofWrappers = []interface{}{}
+	file_proto_contlcycle_contlcycle_proto_msgTypes[9].OneofWrappers = []interface{}{
+		(*LifecyclePodEvent_Delete)(nil),
+		(*LifecyclePodEvent_ConditionUpdate)(nil),
+	}
+	file_proto_contlcycle_contlcycle_proto_msgTypes[10].OneofWrappers = []interface{}{}
+	file_proto_contlcycle_contlcycle_proto_msgTypes[11].OneofWrappers = []interface{}{}
+	file_proto_contlcycle_contlcycle_proto_msgTypes[12].OneofWrappers = []interface{}{}
+	file_proto_contlcycle_contlcycle_proto_msgTypes[13].OneofWrappers = []interface{}{
+		(*LifecycleTaskEvent_Delete)(nil),
+	}
+	file_proto_contlcycle_contlcycle_proto_msgTypes[14].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_proto_contlcycle_contlcycle_proto_rawDesc,
 			NumEnums:      2,
-			NumMessages:   6,
+			NumMessages:   17,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
