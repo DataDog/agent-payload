@@ -15404,6 +15404,11 @@ type HTTPStats_Data struct {
 	// if the HTTPStats has a single sample, this field will be the latency (in nanoseconds) of the only sample.
 	// this is purely to avoid the overhead of having single entry sketches.
 	FirstLatencySample float64 `protobuf:"fixed64,4,opt,name=firstLatencySample,proto3" json:"firstLatencySample,omitempty"`
+	// average latency in nanoseconds across all requests in this bucket.
+	// Populated by discovery service map mode in lieu of DDSketches and
+	// firstLatencySample, since discovery mode does not retain a sketch
+	// or per-request samples.
+	AvgLatency float64 `protobuf:"fixed64,5,opt,name=avgLatency,proto3" json:"avgLatency,omitempty"`
 }
 
 func (m *HTTPStats_Data) Reset()         { *m = HTTPStats_Data{} }
@@ -15456,6 +15461,13 @@ func (m *HTTPStats_Data) GetLatencies() []byte {
 func (m *HTTPStats_Data) GetFirstLatencySample() float64 {
 	if m != nil {
 		return m.FirstLatencySample
+	}
+	return 0
+}
+
+func (m *HTTPStats_Data) GetAvgLatency() float64 {
+	if m != nil {
+		return m.AvgLatency
 	}
 	return 0
 }
@@ -32140,6 +32152,12 @@ func (m *HTTPStats_Data) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.AvgLatency != 0 {
+		i -= 8
+		encoding_binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.AvgLatency))))
+		i--
+		dAtA[i] = 0x29
+	}
 	if m.FirstLatencySample != 0 {
 		i -= 8
 		encoding_binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.FirstLatencySample))))
@@ -40554,6 +40572,9 @@ func (m *HTTPStats_Data) Size() (n int) {
 		n += 1 + l + sovAgent(uint64(l))
 	}
 	if m.FirstLatencySample != 0 {
+		n += 9
+	}
+	if m.AvgLatency != 0 {
 		n += 9
 	}
 	return n
@@ -81434,6 +81455,17 @@ func (m *HTTPStats_Data) Unmarshal(dAtA []byte) error {
 			v = uint64(encoding_binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 			iNdEx += 8
 			m.FirstLatencySample = float64(math.Float64frombits(v))
+		case 5:
+			if wireType != 1 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AvgLatency", wireType)
+			}
+			var v uint64
+			if (iNdEx + 8) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint64(encoding_binary.LittleEndian.Uint64(dAtA[iNdEx:]))
+			iNdEx += 8
+			m.AvgLatency = float64(math.Float64frombits(v))
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAgent(dAtA[iNdEx:])

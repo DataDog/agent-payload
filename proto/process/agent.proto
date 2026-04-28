@@ -1983,6 +1983,12 @@ message HTTPStats {
 		// if the HTTPStats has a single sample, this field will be the latency (in nanoseconds) of the only sample.
 		// this is purely to avoid the overhead of having single entry sketches.
 		double firstLatencySample = 4;
+
+		// average latency in nanoseconds across all requests in this bucket.
+		// Populated by discovery service map mode in lieu of DDSketches and
+		// firstLatencySample, since discovery mode does not retain a sketch
+		// or per-request samples.
+		double avgLatency = 5;
 	}
 }
 

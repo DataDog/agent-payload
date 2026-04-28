@@ -11037,6 +11037,11 @@ func (x *HTTPStats_DataBuilder) SetFirstLatencySample(v float64) {
 	x.scratch = protowire.AppendFixed64(x.scratch, math.Float64bits(v))
 	x.writer.Write(x.scratch)
 }
+func (x *HTTPStats_DataBuilder) SetAvgLatency(v float64) {
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x29)
+	x.scratch = protowire.AppendFixed64(x.scratch, math.Float64bits(v))
+	x.writer.Write(x.scratch)
+}
 
 type DNSDatabaseEntryBuilder struct {
 	writer  io.Writer
