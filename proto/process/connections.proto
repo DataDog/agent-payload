@@ -136,7 +136,7 @@ message Connections {
 message Connection {
   reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
   // Please update when adding fields
-  // next identifier: 64
+  // next identifier: 65
 
   int32 pid = 1;
   Addr laddr = 5; // Local address
@@ -248,6 +248,10 @@ message Connection {
 
   // Indicates whether ECN was negotiated for this connection.
   bool tcpEcnNegotiated = 63;
+
+  // remoteServiceTagsIdx is the index of the tags associated with the remote/destination service for same-host connections.
+  // Meant to be used with CollectorConnections#encodedTags.
+  int32 remoteServiceTagsIdx = 64;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
