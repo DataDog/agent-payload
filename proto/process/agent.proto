@@ -1984,11 +1984,12 @@ message HTTPStats {
 		// this is purely to avoid the overhead of having single entry sketches.
 		double firstLatencySample = 4;
 
-		// average latency in nanoseconds across all requests in this bucket.
-		// Populated by discovery service map mode in lieu of DDSketches and
-		// firstLatencySample, since discovery mode does not retain a sketch
-		// or per-request samples.
-		double avgLatency = 5;
+		// running sum of per-request latencies (in nanoseconds) over the flush
+		// window. Populated by discovery service map mode in lieu of DDSketches
+		// and firstLatencySample. The mean is computed at the backend as
+		// latencySum / count; shipping the raw sum (instead of a precomputed
+		// mean) preserves correct cross-host aggregation.
+		double latencySum = 5;
 	}
 }
 

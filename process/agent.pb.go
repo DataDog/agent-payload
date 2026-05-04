@@ -15404,11 +15404,12 @@ type HTTPStats_Data struct {
 	// if the HTTPStats has a single sample, this field will be the latency (in nanoseconds) of the only sample.
 	// this is purely to avoid the overhead of having single entry sketches.
 	FirstLatencySample float64 `protobuf:"fixed64,4,opt,name=firstLatencySample,proto3" json:"firstLatencySample,omitempty"`
-	// average latency in nanoseconds across all requests in this bucket.
-	// Populated by discovery service map mode in lieu of DDSketches and
-	// firstLatencySample, since discovery mode does not retain a sketch
-	// or per-request samples.
-	AvgLatency float64 `protobuf:"fixed64,5,opt,name=avgLatency,proto3" json:"avgLatency,omitempty"`
+	// running sum of per-request latencies (in nanoseconds) over the flush
+	// window. Populated by discovery service map mode in lieu of DDSketches
+	// and firstLatencySample. The mean is computed at the backend as
+	// latencySum / count; shipping the raw sum (instead of a precomputed
+	// mean) preserves correct cross-host aggregation.
+	LatencySum float64 `protobuf:"fixed64,5,opt,name=latencySum,proto3" json:"latencySum,omitempty"`
 }
 
 func (m *HTTPStats_Data) Reset()         { *m = HTTPStats_Data{} }
@@ -15465,9 +15466,9 @@ func (m *HTTPStats_Data) GetFirstLatencySample() float64 {
 	return 0
 }
 
-func (m *HTTPStats_Data) GetAvgLatency() float64 {
+func (m *HTTPStats_Data) GetLatencySum() float64 {
 	if m != nil {
-		return m.AvgLatency
+		return m.LatencySum
 	}
 	return 0
 }
@@ -32152,9 +32153,9 @@ func (m *HTTPStats_Data) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.AvgLatency != 0 {
+	if m.LatencySum != 0 {
 		i -= 8
-		encoding_binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.AvgLatency))))
+		encoding_binary.LittleEndian.PutUint64(dAtA[i:], uint64(math.Float64bits(float64(m.LatencySum))))
 		i--
 		dAtA[i] = 0x29
 	}
@@ -40574,7 +40575,7 @@ func (m *HTTPStats_Data) Size() (n int) {
 	if m.FirstLatencySample != 0 {
 		n += 9
 	}
-	if m.AvgLatency != 0 {
+	if m.LatencySum != 0 {
 		n += 9
 	}
 	return n
@@ -81457,7 +81458,7 @@ func (m *HTTPStats_Data) Unmarshal(dAtA []byte) error {
 			m.FirstLatencySample = float64(math.Float64frombits(v))
 		case 5:
 			if wireType != 1 {
-				return fmt.Errorf("proto: wrong wireType = %d for field AvgLatency", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field LatencySum", wireType)
 			}
 			var v uint64
 			if (iNdEx + 8) > l {
@@ -81465,7 +81466,7 @@ func (m *HTTPStats_Data) Unmarshal(dAtA []byte) error {
 			}
 			v = uint64(encoding_binary.LittleEndian.Uint64(dAtA[iNdEx:]))
 			iNdEx += 8
-			m.AvgLatency = float64(math.Float64frombits(v))
+			m.LatencySum = float64(math.Float64frombits(v))
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAgent(dAtA[iNdEx:])
