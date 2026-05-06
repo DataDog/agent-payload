@@ -18,6 +18,7 @@ message Event {
     enum EventType {
         Delete = 0;
         ConditionUpdate = 1; // ConditionUpdate represents a condition update event; inspect the typedEvent for condition data
+        Create = 2;          // Create represents a creation event; inspect the typedEvent for creation data
     }
     EventType eventType = 1; // eventType represents the event's type
     oneof typedEvent {
@@ -52,6 +53,7 @@ message PodEvent {
     string source = 2; // source contains the pod source (kubelet)
     optional int64 exitTimestamp = 3; // exitTimestamp contains the exit timestamp of the pod; populated when eventType == Delete
     optional PodConditionUpdate conditionUpdate = 4; // conditionUpdate contains condition update data; populated when eventType == ConditionUpdate
+    optional int64 creationTimestamp = 5; // creationTimestamp contains the pod creation timestamp (Unix ms); populated when eventType == Create
 }
 
 // TaskEvent contains task event metadata
