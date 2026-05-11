@@ -3532,6 +3532,17 @@ func (x *ProcessBuilder) SetInjectionState(v uint64) {
 		x.writer.Write(x.scratch)
 	}
 }
+func (x *ProcessBuilder) SetZombieChildrenCount(v uint32) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xe0)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ProcessBuilder) SetZombieNetRate(v float64) {
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xe9)
+	x.scratch = protowire.AppendFixed64(x.scratch, math.Float64bits(v))
+	x.writer.Write(x.scratch)
+}
 
 type ServiceDiscoveryBuilder struct {
 	writer                io.Writer
