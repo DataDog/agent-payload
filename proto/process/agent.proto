@@ -1984,6 +1984,13 @@ message HTTPStats {
 		// if the HTTPStats has a single sample, this field will be the latency (in nanoseconds) of the only sample.
 		// this is purely to avoid the overhead of having single entry sketches.
 		double firstLatencySample = 4;
+
+		// running sum of per-request latencies (in nanoseconds) over the flush
+		// window. Populated by discovery service map mode in lieu of DDSketches
+		// and firstLatencySample. The mean is computed at the backend as
+		// latencySum / count; shipping the raw sum (instead of a precomputed
+		// mean) preserves correct cross-host aggregation.
+		double latencySum = 5;
 	}
 }
 
