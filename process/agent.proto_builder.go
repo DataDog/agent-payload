@@ -659,9 +659,6 @@ func (x *CollectorECSTaskBuilder) AddTasks(cb func(w *ECSTaskBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorECSTaskBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x42)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -874,27 +871,18 @@ func (x *ECSTaskBuilder) AddContainers(cb func(w *ECSContainerBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ECSTaskBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 func (x *ECSTaskBuilder) AddEcsTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x92)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 func (x *ECSTaskBuilder) AddContainerInstanceTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x9a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -1196,9 +1184,6 @@ func (x *ECSContainerBuilder) SetHealth(cb func(w *ECSContainerHealthBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ECSContainerBuilder) AddLabels(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa2)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -1316,18 +1301,12 @@ func (x *ECSContainerNetworkBuilder) SetNetworkMode(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *ECSContainerNetworkBuilder) AddIpv4Addresses(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 func (x *ECSContainerNetworkBuilder) AddIpv6Addresses(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -1593,9 +1572,6 @@ func (x *CollectorPodBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorPodBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x42)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -1685,9 +1661,6 @@ func (x *CollectorPodDisruptionBudgetBuilder) AddPodDisruptionBudgets(cb func(w 
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorPodDisruptionBudgetBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -1777,9 +1750,6 @@ func (x *CollectorReplicaSetBuilder) AddReplicaSets(cb func(w *ReplicaSetBuilder
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorReplicaSetBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -1860,9 +1830,6 @@ func (x *CollectorDeploymentBuilder) AddDeployments(cb func(w *DeploymentBuilder
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorDeploymentBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -1943,9 +1910,6 @@ func (x *CollectorServiceBuilder) AddServices(cb func(w *ServiceBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorServiceBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -2027,9 +1991,6 @@ func (x *CollectorNodeBuilder) AddNodes(cb func(w *NodeBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorNodeBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -2156,9 +2117,6 @@ func (x *CollectorClusterBuilder) SetCluster(cb func(w *ClusterBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorClusterBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -2240,9 +2198,6 @@ func (x *CollectorManifestBuilder) AddManifests(cb func(w *ManifestBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorManifestBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -2313,9 +2268,6 @@ func (x *CollectorManifestCRDBuilder) SetManifest(cb func(w *CollectorManifestBu
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorManifestCRDBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -2349,9 +2301,6 @@ func (x *CollectorManifestCRBuilder) SetManifest(cb func(w *CollectorManifestBui
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorManifestCRBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -2422,9 +2371,6 @@ func (x *CollectorNamespaceBuilder) AddNamespaces(cb func(w *NamespaceBuilder)) 
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorNamespaceBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -2505,9 +2451,6 @@ func (x *CollectorJobBuilder) AddJobs(cb func(w *JobBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorJobBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -2588,9 +2531,6 @@ func (x *CollectorCronJobBuilder) AddCronJobs(cb func(w *CronJobBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorCronJobBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -2671,9 +2611,6 @@ func (x *CollectorDaemonSetBuilder) AddDaemonSets(cb func(w *DaemonSetBuilder)) 
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorDaemonSetBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -2754,9 +2691,6 @@ func (x *CollectorStatefulSetBuilder) AddStatefulSets(cb func(w *StatefulSetBuil
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorStatefulSetBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -2837,9 +2771,6 @@ func (x *CollectorPersistentVolumeBuilder) AddPersistentVolumes(cb func(w *Persi
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorPersistentVolumeBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -2920,9 +2851,6 @@ func (x *CollectorPersistentVolumeClaimBuilder) AddPersistentVolumeClaims(cb fun
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorPersistentVolumeClaimBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -3003,9 +2931,6 @@ func (x *CollectorRoleBuilder) AddRoles(cb func(w *RoleBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorRoleBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -3086,9 +3011,6 @@ func (x *CollectorRoleBindingBuilder) AddRoleBindings(cb func(w *RoleBindingBuil
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorRoleBindingBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -3169,9 +3091,6 @@ func (x *CollectorClusterRoleBuilder) AddClusterRoles(cb func(w *ClusterRoleBuil
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorClusterRoleBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -3252,9 +3171,6 @@ func (x *CollectorClusterRoleBindingBuilder) AddClusterRoleBindings(cb func(w *C
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorClusterRoleBindingBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -3335,9 +3251,6 @@ func (x *CollectorServiceAccountBuilder) AddServiceAccounts(cb func(w *ServiceAc
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorServiceAccountBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -3418,9 +3331,6 @@ func (x *CollectorIngressBuilder) AddIngresses(cb func(w *IngressBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorIngressBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -3501,9 +3411,6 @@ func (x *CollectorVerticalPodAutoscalerBuilder) AddVerticalPodAutoscalers(cb fun
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorVerticalPodAutoscalerBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -3584,9 +3491,6 @@ func (x *CollectorHorizontalPodAutoscalerBuilder) AddHorizontalPodAutoscalers(cb
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorHorizontalPodAutoscalerBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -3667,9 +3571,6 @@ func (x *CollectorNetworkPolicyBuilder) AddNetworkPolicies(cb func(w *NetworkPol
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorNetworkPolicyBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -3750,9 +3651,6 @@ func (x *CollectorLimitRangeBuilder) AddLimitRanges(cb func(w *LimitRangeBuilder
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorLimitRangeBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -3833,9 +3731,6 @@ func (x *CollectorStorageClassBuilder) AddStorageClasses(cb func(w *StorageClass
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorStorageClassBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -4006,18 +3901,12 @@ func (x *PortInfoBuilder) Reset(writer io.Writer) {
 	x.writer = writer
 }
 func (x *PortInfoBuilder) AddTcp(v int32) {
-	if v == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
 func (x *PortInfoBuilder) AddUdp(v int32) {
-	if v == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -4241,18 +4130,12 @@ func (x *ProcessBuilder) SetNetworks(cb func(w *ProcessNetworksBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ProcessBuilder) AddProcessContext(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xb2)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 func (x *ProcessBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xba)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -4560,9 +4443,6 @@ func (x *CommandBuilder) Reset(writer io.Writer) {
 	x.writer = writer
 }
 func (x *CommandBuilder) AddArgs(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -5009,9 +4889,6 @@ func (x *ContainerBuilder) SetByteKey(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ContainerBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xd2)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -6226,9 +6103,6 @@ func (x *HostBuilder) SetName(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *HostBuilder) AddAllTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -6394,9 +6268,6 @@ func (x *ClusterBuilder) SetCreationTimestamp(v int64) {
 	x.writer.Write(x.scratch)
 }
 func (x *ClusterBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x62)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -6828,18 +6699,12 @@ func (x *MetadataBuilder) SetDeletionTimestamp(v int64) {
 	x.writer.Write(x.scratch)
 }
 func (x *MetadataBuilder) AddLabels(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 func (x *MetadataBuilder) AddAnnotations(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -6865,9 +6730,6 @@ func (x *MetadataBuilder) SetResourceVersion(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *MetadataBuilder) AddFinalizers(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x52)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -7131,9 +6993,6 @@ func (x *NodeBuilder) SetPodCIDR(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *NodeBuilder) AddPodCIDRs(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -7179,18 +7038,12 @@ func (x *NodeBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *NodeBuilder) AddRoles(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x42)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 func (x *NodeBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x4a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -7548,9 +7401,6 @@ func (x *ContainerImageBuilder) Reset(writer io.Writer) {
 	x.writer = writer
 }
 func (x *ContainerImageBuilder) AddNames(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -7675,9 +7525,6 @@ func (x *ServiceSpecBuilder) SetType(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *ServiceSpecBuilder) AddExternalIPs(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -7702,9 +7549,6 @@ func (x *ServiceSpecBuilder) SetLoadBalancerIP(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *ServiceSpecBuilder) AddLoadBalancerSourceRanges(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x42)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -7781,9 +7625,6 @@ func (x *ServiceStatusBuilder) Reset(writer io.Writer) {
 	x.writer = writer
 }
 func (x *ServiceStatusBuilder) AddLoadBalancerIngress(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -7851,9 +7692,6 @@ func (x *ServiceBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ServiceBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -8100,9 +7938,6 @@ func (x *DeploymentBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *DeploymentBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x7a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -8297,9 +8132,6 @@ func (x *ReplicaSetBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ReplicaSetBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x4a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -8360,9 +8192,6 @@ func (x *LabelSelectorRequirementBuilder) SetOperator(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *LabelSelectorRequirementBuilder) AddValues(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -8418,9 +8247,6 @@ func (x *PodDisruptionBudgetBuilder) SetStatus(cb func(w *PodDisruptionBudgetSta
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *PodDisruptionBudgetBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -8822,9 +8648,6 @@ func (x *PodBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *PodBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x5a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -9248,9 +9071,6 @@ func (x *ManifestBuilder) SetVersion(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *ManifestBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -9420,9 +9240,6 @@ func (x *NamespaceBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *NamespaceBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -9905,9 +9722,6 @@ func (x *JobBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *JobBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -10118,9 +9932,6 @@ func (x *CronJobBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CronJobBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -10403,9 +10214,6 @@ func (x *DaemonSetBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *DaemonSetBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -10690,9 +10498,6 @@ func (x *StatefulSetBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *StatefulSetBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -10779,9 +10584,6 @@ func (x *PersistentVolumeBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *PersistentVolumeBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -10827,9 +10629,6 @@ func (x *PersistentVolumeSpecBuilder) SetPersistentVolumeType(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *PersistentVolumeSpecBuilder) AddAccessModes(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -10864,9 +10663,6 @@ func (x *PersistentVolumeSpecBuilder) SetStorageClassName(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *PersistentVolumeSpecBuilder) AddMountOptions(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x3a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -11550,9 +11346,6 @@ func (x *PersistentVolumeClaimBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *PersistentVolumeClaimBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -11586,9 +11379,6 @@ func (x *PersistentVolumeClaimStatusBuilder) SetPhase(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *PersistentVolumeClaimStatusBuilder) AddAccessModes(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -11668,9 +11458,6 @@ func (x *PersistentVolumeClaimSpecBuilder) Reset(writer io.Writer) {
 	x.writer = writer
 }
 func (x *PersistentVolumeClaimSpecBuilder) AddAccessModes(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -11863,45 +11650,30 @@ func (x *PolicyRuleBuilder) Reset(writer io.Writer) {
 	x.writer = writer
 }
 func (x *PolicyRuleBuilder) AddVerbs(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 func (x *PolicyRuleBuilder) AddApiGroups(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 func (x *PolicyRuleBuilder) AddResources(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 func (x *PolicyRuleBuilder) AddResourceNames(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 func (x *PolicyRuleBuilder) AddNonResourceURLs(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -12009,9 +11781,6 @@ func (x *RoleBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *RoleBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -12078,9 +11847,6 @@ func (x *RoleBindingBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *RoleBindingBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -12148,9 +11914,6 @@ func (x *ClusterRoleBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ClusterRoleBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -12227,9 +11990,6 @@ func (x *ClusterRoleBindingBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ClusterRoleBindingBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -12304,9 +12064,6 @@ func (x *ServiceAccountBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ServiceAccountBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -12410,9 +12167,6 @@ func (x *IngressTLSBuilder) Reset(writer io.Writer) {
 	x.writer = writer
 }
 func (x *IngressTLSBuilder) AddHosts(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -12742,9 +12496,6 @@ func (x *IngressBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *IngressBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -13427,9 +13178,6 @@ func (x *DNSDatabaseEntryBuilder) Reset(writer io.Writer) {
 	x.writer = writer
 }
 func (x *DNSDatabaseEntryBuilder) AddNameOffsets(v int32) {
-	if v == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x8)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -13557,9 +13305,6 @@ func (x *VerticalPodAutoscalerBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *VerticalPodAutoscalerBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -13773,9 +13518,6 @@ func (x *ContainerResourcePolicyBuilder) SetMaxAllowed(cb func(w *ResourceListBu
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ContainerResourcePolicyBuilder) AddControlledResource(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -14026,9 +13768,6 @@ func (x *HorizontalPodAutoscalerBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *HorizontalPodAutoscalerBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -15076,9 +14815,6 @@ func (x *NetworkPolicyBuilder) SetYaml(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *NetworkPolicyBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -15134,9 +14870,6 @@ func (x *NetworkPolicySpecBuilder) AddEgress(cb func(w *NetworkPolicyEgressRuleB
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *NetworkPolicySpecBuilder) AddPolicyTypes(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -15168,9 +14901,6 @@ func (x *NetworkPolicyIPBlockBuilder) SetCidr(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *NetworkPolicyIPBlockBuilder) AddExcept(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -15398,18 +15128,12 @@ func (x *LimitRangeBuilder) SetSpec(cb func(w *LimitRangeSpecBuilder)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *LimitRangeBuilder) AddLimitTypes(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 func (x *LimitRangeBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -15750,9 +15474,6 @@ func (x *StorageClassBuilder) SetReclaimPolicy(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *StorageClassBuilder) AddMountOptions(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x2a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -15786,9 +15507,6 @@ func (x *StorageClassBuilder) SetVolumeBindingMode(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *StorageClassBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x4a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -15881,9 +15599,6 @@ func (x *TopologyLabelSelectorBuilder) SetKey(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *TopologyLabelSelectorBuilder) AddValues(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
 	x.scratch = protowire.AppendString(x.scratch, v)

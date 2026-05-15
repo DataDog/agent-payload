@@ -216,9 +216,6 @@ func (x *CollectorConnectionsBuilder) AddCORETelemetryByAsset(cb func(w *Collect
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorConnectionsBuilder) AddPrebuiltEBPFAssets(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x162)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -266,9 +263,6 @@ func (x *CollectorConnectionsBuilder) SetEncodedDNS(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *CollectorConnectionsBuilder) AddDomains(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xf2)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -335,9 +329,6 @@ func (x *CollectorConnectionsBuilder) SetHostTagsIndex(v int32) {
 	x.writer.Write(x.scratch)
 }
 func (x *CollectorConnectionsBuilder) AddResolvConfs(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x182)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -643,9 +634,6 @@ func (x *ConnectionsBuilder) SetConnTelemetry(cb func(w *ConnectionsTelemetryBui
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ConnectionsBuilder) AddDomains(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -682,9 +670,6 @@ func (x *ConnectionsBuilder) SetAgentConfiguration(cb func(w *AgentConfiguration
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ConnectionsBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x42)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -719,18 +704,12 @@ func (x *ConnectionsBuilder) AddCORETelemetryByAsset(cb func(w *Connections_CORE
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ConnectionsBuilder) AddPrebuiltEBPFAssets(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x62)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 func (x *ConnectionsBuilder) AddResolvConfs(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x6a)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -1202,9 +1181,6 @@ func (x *ConnectionBuilder) SetHttpAggregations(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ConnectionBuilder) AddTags(v uint32) {
-	if v == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x160)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
@@ -1599,9 +1575,6 @@ func (x *ResourceMetadataBuilder) SetByteKey(cb func(b *bytes.Buffer)) {
 	x.writer.Write(x.buf.Bytes())
 }
 func (x *ResourceMetadataBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -2108,9 +2081,6 @@ func (x *RouteMetadataBuilder) SetTagsModified(v int64) {
 	x.writer.Write(x.scratch)
 }
 func (x *RouteMetadataBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -2237,9 +2207,6 @@ func (x *ProtocolStackBuilder) Reset(writer io.Writer) {
 	x.writer = writer
 }
 func (x *ProtocolStackBuilder) AddStack(v uint64) {
-	if v == 0 {
-		return
-	}
 	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8)
 	x.scratch = protowire.AppendVarint(x.scratch, v)
 	x.writer.Write(x.scratch)
@@ -2261,9 +2228,6 @@ func (x *DNSEntryBuilder) Reset(writer io.Writer) {
 	x.writer = writer
 }
 func (x *DNSEntryBuilder) AddNames(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
 	x.scratch = protowire.AppendString(x.scratch, v)
@@ -2464,9 +2428,6 @@ func (x *PublicIpMetadataBuilder) SetRegion(v string) {
 	x.writer.Write(x.scratch)
 }
 func (x *PublicIpMetadataBuilder) AddTags(v string) {
-	if v == "" {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
 	x.scratch = protowire.AppendString(x.scratch, v)
