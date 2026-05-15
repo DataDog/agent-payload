@@ -586,6 +586,8 @@ message Process {
 	PortInfo portInfo = 25;
 	ServiceDiscovery serviceDiscovery = 26;
 	InjectionState injectionState = 27;
+	uint32 zombieChildrenCount = 28;
+	double zombieNetRate = 29;
 }
 
 message ServiceDiscovery {
