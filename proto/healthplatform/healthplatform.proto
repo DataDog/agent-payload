@@ -6,13 +6,6 @@ option go_package = "github.com/DataDog/agent-payload/v5/healthplatform";
 
 import "google/protobuf/struct.proto";
 
-// IssueCategory represents the category of an issue
-enum IssueCategory {
-    ISSUE_CATEGORY_OVERVIEW = 0;
-    ISSUE_CATEGORY_CONFIGURATION = 1;
-    ISSUE_CATEGORY_INTEGRATIONS = 2;
-}
-
 // IssueSeverity represents the severity/impact level of an issue
 enum IssueSeverity {
     ISSUE_SEVERITY_LOW = 0;
@@ -38,8 +31,8 @@ message Issue {
     string title = 3;
     // Description is the detailed description of the issue
     string description = 4;
-    // Category indicates the category on fleet UI
-    IssueCategory category = 5;
+    // Category indicates the category of the issue (e.g., permissions, connectivity, etc.)
+    string category = 5;
     // Location indicates where the issue occurred (e.g., core agent, log agent, etc.)
     string location = 6;
     // Severity indicates the impact level of the issue
