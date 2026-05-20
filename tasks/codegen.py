@@ -133,6 +133,9 @@ def protoc(ctx: Context):
         GOPATH={toolchain_dir} GOBIN={toolchain_bin_dir} go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.34.1
         GOPATH={toolchain_dir} GOBIN={toolchain_bin_dir} go install github.com/chrusty/protoc-gen-jsonschema/cmd/protoc-gen-jsonschema@{protoc_jsonschema_version}
 
+        echo "Generating healthplatform proto"
+        PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/healthplatform/healthplatform.proto
+
         echo "Generating contlcycle proto"
         PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto
 
