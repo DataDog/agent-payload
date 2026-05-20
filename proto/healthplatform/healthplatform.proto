@@ -8,9 +8,10 @@ import "google/protobuf/struct.proto";
 
 // IssueSeverity represents the severity/impact level of an issue
 enum IssueSeverity {
-    ISSUE_SEVERITY_LOW = 0;
-    ISSUE_SEVERITY_MEDIUM = 1;
-    ISSUE_SEVERITY_HIGH = 2;
+    ISSUE_SEVERITY_UNSPECIFIED = 0;
+    ISSUE_SEVERITY_LOW = 1;
+    ISSUE_SEVERITY_MEDIUM = 2;
+    ISSUE_SEVERITY_HIGH = 3;
 }
 
 // IssueState represents the lifecycle state of an issue
