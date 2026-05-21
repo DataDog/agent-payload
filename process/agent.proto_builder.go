@@ -5075,6 +5075,7 @@ type ClusterBuilder struct {
 	cluster_ExtendedResourcesAllocatableEntryBuilder Cluster_ExtendedResourcesAllocatableEntryBuilder
 	cluster_ExtendedResourcesCapacityEntryBuilder    Cluster_ExtendedResourcesCapacityEntryBuilder
 	clusterNodeInfoBuilder                           ClusterNodeInfoBuilder
+	autoscalingInfoBuilder                           AutoscalingInfoBuilder
 }
 
 func NewClusterBuilder(writer io.Writer) *ClusterBuilder {
@@ -5205,6 +5206,28 @@ func (x *ClusterBuilder) AddNodesInfo(cb func(w *ClusterNodeInfoBuilder)) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
+}
+func (x *ClusterBuilder) SetAutoscaling(cb func(w *AutoscalingInfoBuilder)) {
+	x.buf.Reset()
+	x.autoscalingInfoBuilder.writer = &x.buf
+	x.autoscalingInfoBuilder.scratch = x.scratch
+	cb(&x.autoscalingInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *ClusterBuilder) SetClusterInfoGeneratedAtUnixNano(v int64) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x90)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+func (x *ClusterBuilder) SetArn(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x9a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
 }
 
 type Cluster_KubeletVersionsEntryBuilder struct {
@@ -5410,6 +5433,25 @@ func (x *ClusterNodeInfoBuilder) AddResourceCapacity(cb func(w *ClusterNodeInfo_
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *ClusterNodeInfoBuilder) SetNodeManager(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x62)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ClusterNodeInfoBuilder) SetNodeManagerName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x6a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ClusterNodeInfoBuilder) SetNodeManagerManagedByDatadog(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x70)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
 
 type ClusterNodeInfo_ResourceAllocatableEntryBuilder struct {
 	writer  io.Writer
@@ -5465,6 +5507,173 @@ func (x *ClusterNodeInfo_ResourceCapacityEntryBuilder) SetValue(v string) {
 	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
 	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
+}
+
+type AutoscalingInfoBuilder struct {
+	writer                       io.Writer
+	buf                          bytes.Buffer
+	scratch                      []byte
+	clusterAutoscalerInfoBuilder ClusterAutoscalerInfoBuilder
+	karpenterInfoBuilder         KarpenterInfoBuilder
+	eKSAutoModeInfoBuilder       EKSAutoModeInfoBuilder
+}
+
+func NewAutoscalingInfoBuilder(writer io.Writer) *AutoscalingInfoBuilder {
+	return &AutoscalingInfoBuilder{
+		writer: writer,
+	}
+}
+func (x *AutoscalingInfoBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *AutoscalingInfoBuilder) SetClusterAutoscaler(cb func(w *ClusterAutoscalerInfoBuilder)) {
+	x.buf.Reset()
+	x.clusterAutoscalerInfoBuilder.writer = &x.buf
+	x.clusterAutoscalerInfoBuilder.scratch = x.scratch
+	cb(&x.clusterAutoscalerInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0xa)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *AutoscalingInfoBuilder) SetKarpenter(cb func(w *KarpenterInfoBuilder)) {
+	x.buf.Reset()
+	x.karpenterInfoBuilder.writer = &x.buf
+	x.karpenterInfoBuilder.scratch = x.scratch
+	cb(&x.karpenterInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x12)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+func (x *AutoscalingInfoBuilder) SetEksAutoMode(cb func(w *EKSAutoModeInfoBuilder)) {
+	x.buf.Reset()
+	x.eKSAutoModeInfoBuilder.writer = &x.buf
+	x.eKSAutoModeInfoBuilder.scratch = x.scratch
+	cb(&x.eKSAutoModeInfoBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x1a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type ClusterAutoscalerInfoBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewClusterAutoscalerInfoBuilder(writer io.Writer) *ClusterAutoscalerInfoBuilder {
+	return &ClusterAutoscalerInfoBuilder{
+		writer: writer,
+	}
+}
+func (x *ClusterAutoscalerInfoBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *ClusterAutoscalerInfoBuilder) SetPresent(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
+func (x *ClusterAutoscalerInfoBuilder) SetNamespace(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ClusterAutoscalerInfoBuilder) SetName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *ClusterAutoscalerInfoBuilder) SetVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type KarpenterInfoBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewKarpenterInfoBuilder(writer io.Writer) *KarpenterInfoBuilder {
+	return &KarpenterInfoBuilder{
+		writer: writer,
+	}
+}
+func (x *KarpenterInfoBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *KarpenterInfoBuilder) SetPresent(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
+func (x *KarpenterInfoBuilder) SetNamespace(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *KarpenterInfoBuilder) SetName(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x1a)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *KarpenterInfoBuilder) SetVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x22)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *KarpenterInfoBuilder) SetManagedByDatadog(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x28)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
+}
+func (x *KarpenterInfoBuilder) SetInstallerVersion(v string) {
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x32)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+
+type EKSAutoModeInfoBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewEKSAutoModeInfoBuilder(writer io.Writer) *EKSAutoModeInfoBuilder {
+	return &EKSAutoModeInfoBuilder{
+		writer: writer,
+	}
+}
+func (x *EKSAutoModeInfoBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *EKSAutoModeInfoBuilder) SetEnabled(v bool) {
+	if v {
+		x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8)
+		x.scratch = protowire.AppendVarint(x.scratch, 1)
+		x.writer.Write(x.scratch)
+	}
 }
 
 type MetadataBuilder struct {
