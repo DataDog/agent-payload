@@ -6,6 +6,14 @@ option go_package = "github.com/DataDog/agent-payload/v5/healthplatform";
 
 import "google/protobuf/struct.proto";
 
+// IssueSeverity represents the severity/impact level of an issue
+enum IssueSeverity {
+    ISSUE_SEVERITY_UNSPECIFIED = 0;
+    ISSUE_SEVERITY_LOW = 1;
+    ISSUE_SEVERITY_MEDIUM = 2;
+    ISSUE_SEVERITY_HIGH = 3;
+}
+
 // IssueState represents the lifecycle state of an issue
 enum IssueState {
     ISSUE_STATE_UNSPECIFIED = 0;
@@ -24,12 +32,12 @@ message Issue {
     string title = 3;
     // Description is the detailed description of the issue
     string description = 4;
-    // Category indicates the type/category of the issue (e.g., permissions, connectivity, etc.)
+    // Category indicates the category of the issue (e.g., permissions, connectivity, etc.)
     string category = 5;
     // Location indicates where the issue occurred (e.g., core agent, log agent, etc.)
     string location = 6;
     // Severity indicates the impact level of the issue
-    string severity = 7;
+    IssueSeverity severity = 7;
     // DetectedAt is the timestamp when the issue was detected
     string detected_at = 8;
     // Source is the sub-agent or product that reported the issue
