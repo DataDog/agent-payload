@@ -7687,24 +7687,21 @@ type Cluster struct {
 	// sum of all nodes capacities and allocatables.
 	// Using smallest possible quantity levels.
 	// For memory it is bytes, for CPU it is millicore.
-	PodCapacity                  uint32             `protobuf:"varint,4,opt,name=podCapacity,proto3" json:"podCapacity,omitempty"`
-	PodAllocatable               uint32             `protobuf:"varint,5,opt,name=podAllocatable,proto3" json:"podAllocatable,omitempty"`
-	MemoryAllocatable            uint64             `protobuf:"varint,6,opt,name=memoryAllocatable,proto3" json:"memoryAllocatable,omitempty"`
-	MemoryCapacity               uint64             `protobuf:"varint,7,opt,name=memoryCapacity,proto3" json:"memoryCapacity,omitempty"`
-	CpuAllocatable               uint64             `protobuf:"varint,8,opt,name=cpuAllocatable,proto3" json:"cpuAllocatable,omitempty"`
-	CpuCapacity                  uint64             `protobuf:"varint,9,opt,name=cpuCapacity,proto3" json:"cpuCapacity,omitempty"`
-	ResourceVersion              string             `protobuf:"bytes,10,opt,name=resourceVersion,proto3" json:"resourceVersion,omitempty"`
-	CreationTimestamp            int64              `protobuf:"varint,11,opt,name=creationTimestamp,proto3" json:"creationTimestamp,omitempty"`
-	Tags                         []string           `protobuf:"bytes,12,rep,name=tags,proto3" json:"tags,omitempty"`
-	Metrics                      *ResourceMetrics   `protobuf:"bytes,13,opt,name=metrics,proto3" json:"metrics,omitempty"`
-	ExtendedResourcesAllocatable map[string]int64   `protobuf:"bytes,14,rep,name=extendedResourcesAllocatable,proto3" json:"extendedResourcesAllocatable,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
-	ExtendedResourcesCapacity    map[string]int64   `protobuf:"bytes,15,rep,name=extendedResourcesCapacity,proto3" json:"extendedResourcesCapacity,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
-	NodesInfo                    []*ClusterNodeInfo `protobuf:"bytes,16,rep,name=nodesInfo,proto3" json:"nodesInfo,omitempty"`
-	// Cluster-wide information populated from the dd-cluster-info ConfigMap
-	// written by `kubectl datadog autoscaling cluster install`. Optional —
-	// fields are unset when the ConfigMap is absent from the cluster.
-	Autoscaling                    *AutoscalingInfo `protobuf:"bytes,17,opt,name=autoscaling,proto3" json:"autoscaling,omitempty"`
-	ClusterInfoGeneratedAtUnixNano int64            `protobuf:"varint,18,opt,name=clusterInfoGeneratedAtUnixNano,proto3" json:"clusterInfoGeneratedAtUnixNano,omitempty"`
+	PodCapacity                    uint32             `protobuf:"varint,4,opt,name=podCapacity,proto3" json:"podCapacity,omitempty"`
+	PodAllocatable                 uint32             `protobuf:"varint,5,opt,name=podAllocatable,proto3" json:"podAllocatable,omitempty"`
+	MemoryAllocatable              uint64             `protobuf:"varint,6,opt,name=memoryAllocatable,proto3" json:"memoryAllocatable,omitempty"`
+	MemoryCapacity                 uint64             `protobuf:"varint,7,opt,name=memoryCapacity,proto3" json:"memoryCapacity,omitempty"`
+	CpuAllocatable                 uint64             `protobuf:"varint,8,opt,name=cpuAllocatable,proto3" json:"cpuAllocatable,omitempty"`
+	CpuCapacity                    uint64             `protobuf:"varint,9,opt,name=cpuCapacity,proto3" json:"cpuCapacity,omitempty"`
+	ResourceVersion                string             `protobuf:"bytes,10,opt,name=resourceVersion,proto3" json:"resourceVersion,omitempty"`
+	CreationTimestamp              int64              `protobuf:"varint,11,opt,name=creationTimestamp,proto3" json:"creationTimestamp,omitempty"`
+	Tags                           []string           `protobuf:"bytes,12,rep,name=tags,proto3" json:"tags,omitempty"`
+	Metrics                        *ResourceMetrics   `protobuf:"bytes,13,opt,name=metrics,proto3" json:"metrics,omitempty"`
+	ExtendedResourcesAllocatable   map[string]int64   `protobuf:"bytes,14,rep,name=extendedResourcesAllocatable,proto3" json:"extendedResourcesAllocatable,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	ExtendedResourcesCapacity      map[string]int64   `protobuf:"bytes,15,rep,name=extendedResourcesCapacity,proto3" json:"extendedResourcesCapacity,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	NodesInfo                      []*ClusterNodeInfo `protobuf:"bytes,16,rep,name=nodesInfo,proto3" json:"nodesInfo,omitempty"`
+	Autoscaling                    *AutoscalingInfo   `protobuf:"bytes,17,opt,name=autoscaling,proto3" json:"autoscaling,omitempty"`
+	ClusterInfoGeneratedAtUnixNano int64              `protobuf:"varint,18,opt,name=clusterInfoGeneratedAtUnixNano,proto3" json:"clusterInfoGeneratedAtUnixNano,omitempty"`
 	// Types that are valid to be assigned to CloudResourceId:
 	//
 	//	*Cluster_Arn
@@ -7904,23 +7901,20 @@ func (*Cluster) XXX_OneofWrappers() []interface{} {
 }
 
 type ClusterNodeInfo struct {
-	Name                    string            `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Region                  string            `protobuf:"bytes,2,opt,name=region,proto3" json:"region,omitempty"`
-	InstanceType            string            `protobuf:"bytes,3,opt,name=instanceType,proto3" json:"instanceType,omitempty"`
-	OperatingSystem         string            `protobuf:"bytes,4,opt,name=operatingSystem,proto3" json:"operatingSystem,omitempty"`
-	OperatingSystemImage    string            `protobuf:"bytes,5,opt,name=operatingSystemImage,proto3" json:"operatingSystemImage,omitempty"`
-	Architecture            string            `protobuf:"bytes,6,opt,name=architecture,proto3" json:"architecture,omitempty"`
-	KernelVersion           string            `protobuf:"bytes,7,opt,name=kernelVersion,proto3" json:"kernelVersion,omitempty"`
-	ContainerRuntimeVersion string            `protobuf:"bytes,8,opt,name=containerRuntimeVersion,proto3" json:"containerRuntimeVersion,omitempty"`
-	KubeletVersion          string            `protobuf:"bytes,9,opt,name=kubeletVersion,proto3" json:"kubeletVersion,omitempty"`
-	ResourceAllocatable     map[string]string `protobuf:"bytes,10,rep,name=resourceAllocatable,proto3" json:"resourceAllocatable,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	ResourceCapacity        map[string]string `protobuf:"bytes,11,rep,name=resourceCapacity,proto3" json:"resourceCapacity,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	// Node management info populated from the dd-cluster-info ConfigMap.
-	// Empty when the ConfigMap is absent or when the node was added after
-	// the snapshot was taken.
-	NodeManager                 string `protobuf:"bytes,12,opt,name=nodeManager,proto3" json:"nodeManager,omitempty"`
-	NodeManagerName             string `protobuf:"bytes,13,opt,name=nodeManagerName,proto3" json:"nodeManagerName,omitempty"`
-	NodeManagerManagedByDatadog bool   `protobuf:"varint,14,opt,name=nodeManagerManagedByDatadog,proto3" json:"nodeManagerManagedByDatadog,omitempty"`
+	Name                        string            `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Region                      string            `protobuf:"bytes,2,opt,name=region,proto3" json:"region,omitempty"`
+	InstanceType                string            `protobuf:"bytes,3,opt,name=instanceType,proto3" json:"instanceType,omitempty"`
+	OperatingSystem             string            `protobuf:"bytes,4,opt,name=operatingSystem,proto3" json:"operatingSystem,omitempty"`
+	OperatingSystemImage        string            `protobuf:"bytes,5,opt,name=operatingSystemImage,proto3" json:"operatingSystemImage,omitempty"`
+	Architecture                string            `protobuf:"bytes,6,opt,name=architecture,proto3" json:"architecture,omitempty"`
+	KernelVersion               string            `protobuf:"bytes,7,opt,name=kernelVersion,proto3" json:"kernelVersion,omitempty"`
+	ContainerRuntimeVersion     string            `protobuf:"bytes,8,opt,name=containerRuntimeVersion,proto3" json:"containerRuntimeVersion,omitempty"`
+	KubeletVersion              string            `protobuf:"bytes,9,opt,name=kubeletVersion,proto3" json:"kubeletVersion,omitempty"`
+	ResourceAllocatable         map[string]string `protobuf:"bytes,10,rep,name=resourceAllocatable,proto3" json:"resourceAllocatable,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	ResourceCapacity            map[string]string `protobuf:"bytes,11,rep,name=resourceCapacity,proto3" json:"resourceCapacity,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	NodeManager                 string            `protobuf:"bytes,12,opt,name=nodeManager,proto3" json:"nodeManager,omitempty"`
+	NodeManagerName             string            `protobuf:"bytes,13,opt,name=nodeManagerName,proto3" json:"nodeManagerName,omitempty"`
+	NodeManagerManagedByDatadog bool              `protobuf:"varint,14,opt,name=nodeManagerManagedByDatadog,proto3" json:"nodeManagerManagedByDatadog,omitempty"`
 }
 
 func (m *ClusterNodeInfo) Reset()         { *m = ClusterNodeInfo{} }
@@ -8055,7 +8049,6 @@ func (m *ClusterNodeInfo) GetNodeManagerManagedByDatadog() bool {
 }
 
 // AutoscalingInfo describes the autoscaling solutions detected on the cluster.
-// Populated from the dd-cluster-info ConfigMap.
 type AutoscalingInfo struct {
 	ClusterAutoscaler *ClusterAutoscalerInfo `protobuf:"bytes,1,opt,name=clusterAutoscaler,proto3" json:"clusterAutoscaler,omitempty"`
 	Karpenter         *KarpenterInfo         `protobuf:"bytes,2,opt,name=karpenter,proto3" json:"karpenter,omitempty"`

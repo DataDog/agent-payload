@@ -958,9 +958,6 @@ message Cluster {
 	map<string, int64> extendedResourcesAllocatable = 14;
 	map<string, int64> extendedResourcesCapacity = 15;
 	repeated ClusterNodeInfo nodesInfo = 16;
-	// Cluster-wide information populated from the dd-cluster-info ConfigMap
-	// written by `kubectl datadog autoscaling cluster install`. Optional —
-	// fields are unset when the ConfigMap is absent from the cluster.
 	AutoscalingInfo autoscaling = 17;
 	int64 clusterInfoGeneratedAtUnixNano = 18;
 	oneof cloudResourceId {
@@ -980,16 +977,12 @@ message ClusterNodeInfo {
 	string kubeletVersion = 9;
 	map<string, string> resourceAllocatable = 10;
 	map<string, string> resourceCapacity = 11;
-	// Node management info populated from the dd-cluster-info ConfigMap.
-	// Empty when the ConfigMap is absent or when the node was added after
-	// the snapshot was taken.
 	string nodeManager = 12;             // "fargate" | "karpenter" | "eksManagedNodeGroup" | "asg" | "standalone" | "unknown"
 	string nodeManagerName = 13;         // managing entity name (NodePool, ASG, Fargate profile, ...)
 	bool nodeManagerManagedByDatadog = 14;
 }
 
 // AutoscalingInfo describes the autoscaling solutions detected on the cluster.
-// Populated from the dd-cluster-info ConfigMap.
 message AutoscalingInfo {
 	ClusterAutoscalerInfo clusterAutoscaler = 1;
 	KarpenterInfo karpenter = 2;
