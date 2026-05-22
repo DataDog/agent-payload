@@ -125,7 +125,7 @@ def protoc(ctx: Context):
         echo "Generating process proto (go)"
         PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:{gogo_include}:. --gogofaster_out=$GOPATH/src proto/process/*.proto
 
-        GOPATH={toolchain_dir} GOBIN={toolchain_bin_dir} go install github.com/DataDog/protoc-gen-gostreamer@v0.2.0
+        GOPATH={toolchain_dir} GOBIN={toolchain_bin_dir} go install github.com/DataDog/protoc-gen-gostreamer@d7e51e0
         PATH={toolchain_bin_dir} {protoc_binary} --proto_path=$GOPATH/src:{gogo_dir}/src:.  --gostreamer_out=$GOPATH/src proto/process/*.proto
         mv v5/process/proto/process/*.go process
 
