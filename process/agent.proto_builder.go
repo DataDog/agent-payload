@@ -185,9 +185,6 @@ func (x *CollectorProcBuilder) SetContainerHostType(v uint64) {
 	x.writer.Write(x.scratch)
 }
 func (x *CollectorProcBuilder) SetHintMask(v int32) {
-	if v == 0 {
-		return
-	}
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x70)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
