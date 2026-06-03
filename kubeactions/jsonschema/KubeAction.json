@@ -15,12 +15,6 @@
             "description": "DeletePodParams contains parameters for the delete_pod action. Deletes a pod from the cluster with an optional grace period."
         },
         "GetResourceParams": {
-            "properties": {
-                "output_format": {
-                    "type": "string",
-                    "description": "OutputFormat specifies the desired output format for the resource. Supported values:   \"json\" (default) - Output the resource as a JSON object   \"yaml\" - Output the resource as a YAML string If not specified, defaults to \"json\"."
-                }
-            },
             "additionalProperties": false,
             "type": "object",
             "title": "Get Resource Params",

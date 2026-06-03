@@ -89,13 +89,6 @@ message PatchDeploymentParams {
 // GetResourceParams contains parameters for a get_resource action.
 message GetResourceParams {
   option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
-
-  // OutputFormat specifies the desired output format for the resource.
-  // Supported values:
-  //   "json" (default) - Output the resource as a JSON object
-  //   "yaml" - Output the resource as a YAML string
-  // If not specified, defaults to "json".
-  string output_format = 1;
 }
 
 // RollbackDeploymentParams contains parameters for the rollback_deployment action.
