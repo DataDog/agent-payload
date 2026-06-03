@@ -3,6 +3,8 @@ load("@rules_proto//proto:defs.bzl", "proto_library")
 proto_library(
     name = "healthplatform_proto",
     srcs = ["healthplatform.proto"],
+    strip_import_prefix = "/proto",
+    import_prefix = "datadog",
     deps = ["@protobuf//:struct_proto"],
     visibility = ["//visibility:public"],
 )
