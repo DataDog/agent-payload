@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package datadoghq.api.metrics.v3;
 
+option go_package = "github.com/DataDog/agent-payload/v5/metricsv3";
+
 message Payload {
   reserved 1; // for compatibility with agentpayload.MetricPayload.series
   Metadata metadata = 2;
