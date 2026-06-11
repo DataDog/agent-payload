@@ -5,6 +5,6 @@ proto_library(
     srcs = ["healthplatform.proto"],
     strip_import_prefix = "/proto",
     import_prefix = "datadog",
-    deps = ["@protobuf//:struct_proto"],
+    deps = ["@com_google_protobuf//:struct_proto"],
     visibility = ["//visibility:public"],
 )
