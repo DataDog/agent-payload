@@ -44,6 +44,7 @@ message KubeAction {
     PatchDeploymentParams patch_deployment = 12;
     GetResourceParams get_resource = 13;
     RollbackDeploymentParams rollback_deployment = 14;
+    ExecCommandParams exec_command = 15;
   }
 }
 
@@ -99,6 +100,38 @@ message RollbackDeploymentParams {
   // TargetRevision is the revision number of the ReplicaSet to roll back to.
   // If not specified, rolls back to the previous revision.
   optional int64 target_revision = 1;
+}
+
+// ExecCommandParams contains parameters for the exec_command action.
+// Runs a restricted shell program inside a container via the injected rshell binary.
+// The policy fields below (allowed_commands, allowed_paths, mode, timeout_ms) are the
+// backend's REQUESTED policy. The Cluster Agent narrows them (effective policy =
+// payload ∩ dca-local config ∩ agent absolute max) and never widens them.
+// Output (stdout/stderr) and the process exit code are reported via Event Platform.
+message ExecCommandParams {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
+  // Container is the target container within the pod (required).
+  string container = 1 [(protoc.gen.jsonschema.field_options).required = true];
+
+  // Script is the rshell program, passed via `-c`. Full shell parsing applies
+  // (pipes, redirections, globs). Subject to rshell's 5 MiB script limit.
+  string script = 2 [(protoc.gen.jsonschema.field_options).required = true];
+
+  // AllowedCommands is the requested namespaced command allow-list
+  // (e.g. "rshell:cat", "rshell:grep"). Empty means default-deny.
+  repeated string allowed_commands = 3;
+
+  // AllowedPaths is the requested set of filesystem sandbox roots (rshell -p).
+  repeated string allowed_paths = 4;
+
+  // Mode is "read-only" (default) or "remediation". remediation enables file-target
+  // output redirections within AllowedPaths and is only honored when both the agent
+  // absolute max and the dca-local config permit it.
+  string mode = 5;
+
+  // TimeoutMs bounds total execution time in milliseconds. Clamped to the agent max.
+  uint32 timeout_ms = 6;
 }
 
 // KubeResource represents a Kubernetes resource to act on

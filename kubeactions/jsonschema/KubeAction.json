@@ -14,6 +14,48 @@
             "title": "Delete Pod Params",
             "description": "DeletePodParams contains parameters for the delete_pod action. Deletes a pod from the cluster with an optional grace period."
         },
+        "ExecCommandParams": {
+            "required": [
+                "container",
+                "script"
+            ],
+            "properties": {
+                "container": {
+                    "type": "string",
+                    "description": "Container is the target container within the pod (required)."
+                },
+                "script": {
+                    "type": "string",
+                    "description": "Script is the rshell program, passed via `-c`. Full shell parsing applies (pipes, redirections, globs). Subject to rshell's 5 MiB script limit."
+                },
+                "allowed_commands": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "AllowedCommands is the requested namespaced command allow-list (e.g. \"rshell:cat\", \"rshell:grep\"). Empty means default-deny."
+                },
+                "allowed_paths": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "AllowedPaths is the requested set of filesystem sandbox roots (rshell -p)."
+                },
+                "mode": {
+                    "type": "string",
+                    "description": "Mode is \"read-only\" (default) or \"remediation\". remediation enables file-target output redirections within AllowedPaths and is only honored when both the agent absolute max and the dca-local config permit it."
+                },
+                "timeout_ms": {
+                    "type": "integer",
+                    "description": "TimeoutMs bounds total execution time in milliseconds. Clamped to the agent max."
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Exec Command Params",
+            "description": "ExecCommandParams contains parameters for the exec_command action. Runs a restricted shell program inside a container via the injected rshell binary. The policy fields below (allowed_commands, allowed_paths, mode, timeout_ms) are the backend's REQUESTED policy. The Cluster Agent narrows them (effective policy = payload ∩ dca-local config ∩ agent absolute max) and never widens them. Output (stdout/stderr) and the process exit code are reported via Event Platform."
+        },
         "GetResourceParams": {
             "additionalProperties": false,
             "type": "object",
@@ -64,6 +106,10 @@
                 },
                 "rollback_deployment": {
                     "$ref": "#/definitions/RollbackDeploymentParams",
+                    "additionalProperties": false
+                },
+                "exec_command": {
+                    "$ref": "#/definitions/ExecCommandParams",
                     "additionalProperties": false
                 }
             },
