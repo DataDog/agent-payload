@@ -14,12 +14,16 @@ enum IssueSeverity {
     ISSUE_SEVERITY_HIGH = 3;
 }
 
-// IssueState represents the lifecycle state of an issue
+// IssueState represents the lifecycle state of an issue.
+// ACTIVE and RESOLVED are the canonical values going forward.
+// The earlier values (UNSPECIFIED, NEW, ONGOING) are kept for wire compatibility
+// but are deprecated — consumers should treat them as ACTIVE.
 enum IssueState {
-    ISSUE_STATE_UNSPECIFIED = 0;
-    ISSUE_STATE_NEW = 1;
-    ISSUE_STATE_ONGOING = 2;
-    ISSUE_STATE_RESOLVED = 3;
+    ISSUE_STATE_UNSPECIFIED = 0 [deprecated = true];
+    ISSUE_STATE_NEW         = 1 [deprecated = true];
+    ISSUE_STATE_ONGOING     = 2 [deprecated = true];
+    ISSUE_STATE_RESOLVED    = 3;
+    ISSUE_STATE_ACTIVE      = 4;
 }
 
 // Issue represents an individual issue to be reported
