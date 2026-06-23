@@ -9031,10 +9031,11 @@ func (x *PreferredSchedulingTermBuilder) SetPreference(cb func(w *NodeSelectorTe
 }
 
 type ManifestBuilder struct {
-	writer      io.Writer
-	buf         bytes.Buffer
-	scratch     []byte
-	hostBuilder HostBuilder
+	writer                               io.Writer
+	buf                                  bytes.Buffer
+	scratch                              []byte
+	hostBuilder                          HostBuilder
+	manifest_ExtraAttributesEntryBuilder Manifest_ExtraAttributesEntryBuilder
 }
 
 func NewManifestBuilder(writer io.Writer) *ManifestBuilder {
@@ -9152,6 +9153,50 @@ func (x *ManifestBuilder) SetHost(cb func(w *HostBuilder)) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
+}
+func (x *ManifestBuilder) AddExtraAttributes(cb func(w *Manifest_ExtraAttributesEntryBuilder)) {
+	x.buf.Reset()
+	x.manifest_ExtraAttributesEntryBuilder.writer = &x.buf
+	x.manifest_ExtraAttributesEntryBuilder.scratch = x.scratch
+	cb(&x.manifest_ExtraAttributesEntryBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x6a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
+
+type Manifest_ExtraAttributesEntryBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewManifest_ExtraAttributesEntryBuilder(writer io.Writer) *Manifest_ExtraAttributesEntryBuilder {
+	return &Manifest_ExtraAttributesEntryBuilder{
+		writer: writer,
+	}
+}
+func (x *Manifest_ExtraAttributesEntryBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *Manifest_ExtraAttributesEntryBuilder) SetKey(v string) {
+	if v == "" {
+		return
+	}
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0xa)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
+func (x *Manifest_ExtraAttributesEntryBuilder) SetValue(v string) {
+	if v == "" {
+		return
+	}
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
 }
 
 type NamespaceConditionBuilder struct {
