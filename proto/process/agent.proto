@@ -1307,6 +1307,7 @@ message Manifest {
 	string nodeName = 10;
 	string kind = 11;
 	Host host = 12; // Post-resolved field
+	map<string, string> extraAttributes = 13;
 }
 
 // reference https://github.com/kubernetes/kubernetes/blob/cb19b56831d54d1d31249949318ef0b07bf00df9/staging/src/k8s.io/api/core/v1/generated.proto#L2054
