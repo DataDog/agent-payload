@@ -936,6 +936,7 @@ enum OrchestratorResource {
     K8S_POD_DISRUPTION_BUDGET = 27;
     K8S_ENDPOINTSLICE = 28;
     KUBELETCONFIGURATION = 29;
+    CONFIGMAP = 30;
     ECSTASK = 150;
 }
 
