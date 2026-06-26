@@ -1,10 +1,10 @@
-load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@com_google_protobuf//bazel:proto_library.bzl", "proto_library")
 
 proto_library(
     name = "healthplatform_proto",
     srcs = ["healthplatform.proto"],
     strip_import_prefix = "/proto",
     import_prefix = "datadog",
-    deps = ["@protobuf//:struct_proto"],
+    deps = ["@com_google_protobuf//:struct_proto"],
     visibility = ["//visibility:public"],
 )
