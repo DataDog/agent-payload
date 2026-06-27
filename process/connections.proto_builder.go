@@ -1573,6 +1573,15 @@ func (x *NetworkPathBuilder) SetHasTest(v bool) {
 	x.scratch = protowire.AppendVarint(x.scratch, 1)
 	x.writer.Write(x.scratch)
 }
+func (x *NetworkPathBuilder) SetTestIdentity(v string) {
+	if v == "" {
+		return
+	}
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type ResourceMetadataBuilder struct {
 	writer  io.Writer

@@ -261,6 +261,9 @@ message NetworkPath {
   // Indicates whether this connection maps to a dynamic Network Path test that
   // the Agent should maintain.
   bool hasTest = 1;
+
+  // Stable derived identity for the scheduled Network Path test.
+  string testIdentity = 2;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
