@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package datadog.agentdiscovery;
+
+option go_package = "github.com/DataDog/agent-payload/v5/agentdiscovery";
+
+message AgentDiscoveryPayloadBatch {
+  repeated AgentDiscoveryPayload payloads = 1;
+}
+
+message AgentDiscoveryPayload {
+  string integration = 1;
+  string service_id = 2;
+  string runtime = 3;
+  repeated AgentDiscoveryConfig configs = 4;
+}
+
+message AgentDiscoveryConfig {
+  string type = 1;
+  string path = 2;
+  bytes content = 3;
+  bool truncated = 4;
+}
