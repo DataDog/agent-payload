@@ -64,6 +64,9 @@ message Log {
   // Log severity level (e.g. "info", "warn", "error"). Sent separately from tags because
   // status changes per log while other tags remain stable, which would defeat delta encoding.
   DynamicValue status = 6;
+
+  // Service is sent separately becaues sometimes service is a top level field on the log json AND also in ddtags, and sometimes it's just the top level field.
+  DynamicValue service = 7;
 }
 
 message StructuredLog {
