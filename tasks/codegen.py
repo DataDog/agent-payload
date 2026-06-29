@@ -148,6 +148,9 @@ def protoc(ctx: Context):
         echo "Generating contimage proto"
         PATH={toolchain_bin_dir}  {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/contimage/contimage.proto
 
+        echo "Generating agentdiscovery proto"
+        PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/agentdiscovery/agentdiscovery.proto
+
         echo "Generating sbom proto"
         PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/deps/github.com/CycloneDX/specification/schema/bom-1.4.proto
         PATH={toolchain_bin_dir}  {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/sbom/sbom.proto
