@@ -70,6 +70,7 @@ message SecurityProfile {
     repeated ProcessActivityNode tree = 6;
     map<string, ProfileContext> profile_contexts = 7;
     ProfileSelector selector = 8;
+    bool disabled = 9;
 }
 
 message ProcessActivityNode {
