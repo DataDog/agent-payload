@@ -25,7 +25,7 @@ autoscaling/                @DataDog/container-autoscaling
 proto/autoscaling/          @DataDog/container-autoscaling
 jsonschema/                 @DataDog/container-autoscaling
 kubeactions/                @DataDog/container-integrations
-healthplatform/             @DataDog/agent-health
-proto/healthplatform/       @DataDog/agent-health
+healthplatform/             @DataDog/fleet-remediation
+proto/healthplatform/       @DataDog/fleet-remediation
 statefulpb/                 @DataDog/agent-log-pipelines @DataDog/event-platform-intake
 proto/logsstateful/         @DataDog/agent-log-pipelines @DataDog/event-platform-intake
