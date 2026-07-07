@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package datadog.agentdiscovery;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/DataDog/agent-payload/v5/agentdiscovery";
+
+message AgentDiscoveryPayloadBatch {
+  repeated AgentDiscoveryPayload payloads = 1;
+  string host_id = 2;
+}
+
+message AgentDiscoveryPayload {
+  string integration = 1;
+  string runtime = 2;
+  repeated AgentDiscoveryConfigFile config_files = 3;
+  repeated AgentDiscoveryEnvVar env_vars = 4;
+  string runtime_id = 5;
+  google.protobuf.Timestamp ingestion_timestamp = 6;
+}
+
+message AgentDiscoveryConfigFile {
+  string path = 1;
+  bytes content = 2;
+  bool truncated = 3;
+  AgentDiscoveryConfigFilePayloadFormat payload_format = 4;
+}
+
+enum AgentDiscoveryConfigFilePayloadFormat {
+  PAYLOAD_FORMAT_UNKNOWN = 0;
+  PAYLOAD_FORMAT_JSON = 1;
+  PAYLOAD_FORMAT_YAML = 2;
+  PAYLOAD_FORMAT_TOML = 3;
+  PAYLOAD_FORMAT_INI = 4;
+  PAYLOAD_FORMAT_XML = 5;
+  PAYLOAD_FORMAT_PROPERTIES = 6;
+  PAYLOAD_FORMAT_HCL = 7;
+  PAYLOAD_FORMAT_REDIS_CONF = 8;
+}
+
+message AgentDiscoveryEnvVar {
+  string name = 1;
+  string value = 2;
+}
