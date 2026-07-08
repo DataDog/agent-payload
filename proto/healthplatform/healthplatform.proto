@@ -55,6 +55,8 @@ message Issue {
     repeated string tags = 12;
     // PersistedIssue tracks the lifecycle state of the issue
     PersistedIssue persisted_issue = 13;
+    // IssueType snake_case version of issue name
+    string IssueType = 14;
 }
 
 // Remediation represents remediation steps for an issue
