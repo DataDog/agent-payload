@@ -17,8 +17,9 @@ message EventsPayload {
 message Event {
     enum EventType {
         Delete = 0;
+        ConditionUpdate = 1;
     }
-    EventType eventType = 1; // eventType represents the event's type (deletion)
+    EventType eventType = 1; // eventType represents the event's type
     oneof typedEvent {
         ContainerEvent container = 2;
         PodEvent pod = 3;
@@ -49,7 +50,8 @@ message ContainerEvent {
 message PodEvent {
     string podUID = 1; // podUID contains the pod UID
     string source = 2; // source contains the pod source (kubelet)
-    optional int64 exitTimestamp = 3; // exitTimestamp contains the exit timestamp of the pod
+    optional int64 exitTimestamp = 3; // exitTimestamp contains the exit timestamp of the pod; populated when eventType == Delete
+    optional PodConditionUpdate conditionUpdate = 4; // conditionUpdate contains condition update data; populated when eventType == ConditionUpdate
 }
 
 // TaskEvent contains task event metadata
@@ -63,4 +65,22 @@ enum ObjectKind {
     Container = 0;
     Pod = 1;
     Task = 2;
+}
+
+// PodConditionUpdate contains pod condition update event data.
+message PodConditionUpdate {
+    optional PodCondition priorCondition = 1; // priorCondition contains the prior condition; absent if this is the first observation
+    PodCondition newCondition = 2;            // newCondition contains the new condition
+}
+
+// PodCondition represents the state of a pod condition.
+// Reference: https://github.com/kubernetes/api/blob/9c98ac1a4c3ffe027f07c16908bf50b80574ae94/core/v1/generated.proto#L3936
+message PodCondition {
+    optional string type = 1;              // type is the type of the condition
+    optional string status = 2;            // status is the status of the condition (True, False, Unknown)
+    optional int64 lastProbeTime = 3;      // lastProbeTime is the last time we probed the condition (Unix ms)
+    optional int64 lastTransitionTime = 4; // lastTransitionTime is the last time the condition transitioned (Unix ms)
+    optional string reason = 5;            // reason is a CamelCase word for the condition's last transition
+    optional string message = 6;           // message is a human-readable description of the last transition
+    optional int64 observedGeneration = 7; // observedGeneration is the .metadata.generation this condition was set based upon
 }
