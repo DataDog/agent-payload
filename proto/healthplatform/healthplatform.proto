@@ -56,7 +56,7 @@ message Issue {
     // PersistedIssue tracks the lifecycle state of the issue
     PersistedIssue persisted_issue = 13;
     // IssueType snake_case version of issue name
-    string IssueType = 14;
+    string issue_type = 14;
 }
 
 // Remediation represents remediation steps for an issue
