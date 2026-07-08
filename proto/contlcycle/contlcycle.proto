@@ -17,7 +17,8 @@ message EventsPayload {
 message Event {
     enum EventType {
         Delete = 0;
-        ConditionUpdate = 1;
+        Create = 1;
+        ConditionUpdate = 2;
     }
     EventType eventType = 1; // eventType represents the event's type
     oneof typedEvent {
@@ -51,7 +52,8 @@ message PodEvent {
     string podUID = 1; // podUID contains the pod UID
     string source = 2; // source contains the pod source (kubelet)
     optional int64 exitTimestamp = 3; // exitTimestamp contains the exit timestamp of the pod; populated when eventType == Delete
-    optional PodConditionUpdate conditionUpdate = 4; // conditionUpdate contains condition update data; populated when eventType == ConditionUpdate
+    optional int64 creationTimestamp = 4; // creationTimestamp contains the pod creation timestamp (Unix ms); populated when eventType == Create
+    optional PodConditionUpdate conditionUpdate = 5; // conditionUpdate contains condition update data; populated when eventType == ConditionUpdate
 }
 
 // TaskEvent contains task event metadata
