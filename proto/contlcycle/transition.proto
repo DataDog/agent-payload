@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+option go_package = "github.com/DataDog/agent-payload/v5/contlcycle";
+
+package datadog.contlcycle;
+
+// StateTransition represents a Kubernetes pod status transition
+message StateTransition {
+    PodStatusField field = 1;
+    optional PodStatusValue lastObservedState = 2;
+    PodStatusValue newState = 3;
+    int64 transitionTimestamp = 4;
+    Precision precision = 5;
+    MissedIntermediate missedIntermediate = 6;
+}
+
+// PodStatusField identifies the Kubernetes pod status field that changed
+enum PodStatusField {
+    POD_STATUS_FIELD_UNSPECIFIED = 0;
+    PHASE = 1;                      // .status.phase                                (pod-level)
+    CONDITION = 2;                  // .status.conditions[*]                        (pod-level)
+    CONTAINER_STATE = 3;            // .status.containerStatuses[*].state
+    INIT_CONTAINER_STATE = 4;       // .status.initContainerStatuses[*].state
+    EPHEMERAL_CONTAINER_STATE = 5;  // .status.ephemeralContainerStatuses[*].state
+}
+
+// Precision represents the precision of the transition timestamp 
+enum Precision {
+    APPROXIMATE = 0;
+    EXACT = 1;
+}
+
+// MissedIntermediate represents whether the intermediate state was possibly missed between kubelet polls
+enum MissedIntermediate {
+    UNKNOWABLE = 0;
+    PROVEN = 1;
+}
+
+// PodStatusValue represents the value of a Kubernetes pod status field
+message PodStatusValue {
+    oneof value {
+        string phase = 1;                       // PHASE
+        ConditionValue condition = 2;           // CONDITION
+        ContainerStateValue containerState = 3; // *_CONTAINER_STATE
+    }
+}
+
+// ConditionValue represents the value of a Kubernetes pod condition
+message ConditionValue {
+    string type = 1;             // Ready, Initialized, ContainersReady, PodScheduled, ...
+    string status = 2;           // True / False / Unknown
+    optional string reason = 3;
+    optional string message = 4;
+}
+
+// ContainerStateValue represents the value of a Kubernetes container state
+message ContainerStateValue {
+    ContainerStateKind kind = 1;
+    optional string reason = 2;  // ContainerCreating, CrashLoopBackOff, Completed, Error, OOMKilled, ...
+    optional int32 exitCode = 3; // TERMINATED only
+    optional int32 signal = 4;   // TERMINATED only
+}
+
+// ContainerStateKind represents the kind of a Kubernetes container state
+enum ContainerStateKind {
+    CONTAINER_STATE_KIND_UNSPECIFIED = 0;
+    WAITING = 1;
+    RUNNING = 2;
+    TERMINATED = 3;
+}
