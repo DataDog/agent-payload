@@ -52,7 +52,7 @@ message ContainerEvent {
     optional Owner owner = 5; // owner contains the information about who this container belongs to
 
     optional string containerName = 6;
-    optional StateTransition transition = 7;
+    optional ContainerStateTransition transition = 7;
 }
 
 // PodEvent contains pod event metadata
@@ -61,7 +61,7 @@ message PodEvent {
     string source = 2; // source contains the pod source (kubelet)
     optional int64 exitTimestamp = 3; // exitTimestamp contains the exit timestamp of the pod
     optional int64 creationTimestamp = 4; // creationTimestamp contains the creation timestamp of the pod
-    optional StateTransition transition = 5;
+    optional PodStateTransition transition = 5;
 }
 
 // TaskEvent contains task event metadata
