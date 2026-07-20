@@ -140,7 +140,7 @@ def protoc(ctx: Context):
         PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/healthplatform/healthplatform.proto
 
         echo "Generating contlcycle proto"
-        PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/contlcycle/contlcycle.proto
+        PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:. --go_out=$GOPATH/src proto/contlcycle/*.proto
 
         echo "Generating kubernetes autoscaling proto"
         PATH={toolchain_bin_dir} {protoc_binary} --proto_path={toolchain_include_dir}:proto/deps:$GOPATH/src --go_out=$GOPATH/src --jsonschema_out=type_names_with_no_package:jsonschema $GOPATH/src/github.com/DataDog/agent-payload/v5/proto/autoscaling/kubernetes/*.proto

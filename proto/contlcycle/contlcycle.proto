@@ -4,6 +4,8 @@ option go_package = "github.com/DataDog/agent-payload/v5/contlcycle";
 
 package datadog.contlcycle;
 
+import "proto/contlcycle/transition.proto";
+
 // EventsPayload represents the main container lifecycle event payload
 message EventsPayload {
     string version = 1; // version represents the EventsPayload message version
@@ -16,9 +18,11 @@ message EventsPayload {
 // Event contains the details about a container lifecycle event
 message Event {
     enum EventType {
-        Delete = 0;
+        Delete = 0;      // existing termination path
+        Transition = 1;  // a Kubernetes pod or container status change
+        Create = 2;      // creation path, mirroring Delete
     }
-    EventType eventType = 1; // eventType represents the event's type (deletion)
+    EventType eventType = 1; // eventType represents the event's type
     oneof typedEvent {
         ContainerEvent container = 2;
         PodEvent pod = 3;
@@ -36,6 +40,9 @@ message ContainerEvent {
     oneof optionalExitTimestamp {
         int64 exitTimestamp = 4; // exitTimestamp contains the exit timestamp of the container
     }
+    oneof optionalCreationTimestamp {
+        int64 creationTimestamp = 8; // creationTimestamp contains the creation timestamp of the container
+    }
 
     // Owner contains information about what a container belongs to
     message Owner {
@@ -43,6 +50,9 @@ message ContainerEvent {
         string ownerUID = 2; // ownerUID contains the owner UID
     }
     optional Owner owner = 5; // owner contains the information about who this container belongs to
+
+    optional string containerName = 6;
+    optional ContainerStateTransition transition = 7;
 }
 
 // PodEvent contains pod event metadata
@@ -50,6 +60,8 @@ message PodEvent {
     string podUID = 1; // podUID contains the pod UID
     string source = 2; // source contains the pod source (kubelet)
     optional int64 exitTimestamp = 3; // exitTimestamp contains the exit timestamp of the pod
+    optional int64 creationTimestamp = 4; // creationTimestamp contains the creation timestamp of the pod
+    optional PodStateTransition transition = 5;
 }
 
 // TaskEvent contains task event metadata

@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+option go_package = "github.com/DataDog/agent-payload/v5/contlcycle";
+
+package datadog.contlcycle;
+
+// PodStatusField identifies the Kubernetes pod status field that changed
+enum PodStatusField {
+    POD_STATUS_FIELD_UNSPECIFIED = 0;
+    POD_STATUS_FIELD_PHASE = 1;      // .status.phase
+    POD_STATUS_FIELD_CONDITION = 2;  // .status.conditions[*]
+}
+
+// ContainerKind identifies which container slot a ContainerStateTransition applies to
+enum ContainerKind {
+    CONTAINER_KIND_UNSPECIFIED = 0;
+    CONTAINER_KIND_REGULAR = 1;    // .status.containerStatuses[*]
+    CONTAINER_KIND_INIT = 2;       // .status.initContainerStatuses[*]
+    CONTAINER_KIND_EPHEMERAL = 3;  // .status.ephemeralContainerStatuses[*]
+}
+
+// Precision represents the precision of the transition timestamp
+enum Precision {
+    PRECISION_APPROXIMATE = 0;
+    PRECISION_EXACT = 1;
+}
+
+// MissedIntermediate represents whether the intermediate state was possibly missed between kubelet polls
+enum MissedIntermediate {
+    MISSED_INTERMEDIATE_UNKNOWABLE = 0;
+    MISSED_INTERMEDIATE_PROVEN = 1;
+}
+
+// ContainerStateKind represents the kind of a Kubernetes container state
+enum ContainerStateKind {
+    CONTAINER_STATE_KIND_UNSPECIFIED = 0;
+    CONTAINER_STATE_KIND_WAITING = 1;
+    CONTAINER_STATE_KIND_RUNNING = 2;
+    CONTAINER_STATE_KIND_TERMINATED = 3;
+}
+
+// ConditionValue represents the value of a Kubernetes pod condition
+message ConditionValue {
+    string type = 1;             // Ready, Initialized, ContainersReady, PodScheduled, ...
+    string status = 2;           // True / False / Unknown
+    optional string reason = 3;
+    optional string message = 4;
+}
+
+// ContainerStateValue represents the value of a Kubernetes container state
+message ContainerStateValue {
+    ContainerStateKind kind = 1;
+    optional string reason = 2;  // ContainerCreating, CrashLoopBackOff, Completed, Error, OOMKilled, ...
+    optional int32 exitCode = 3; // TERMINATED only
+    optional int32 signal = 4;   // TERMINATED only
+}
+
+// PodStatusValue represents the value of a Kubernetes pod-level status field
+message PodStatusValue {
+    oneof value {
+        string phase = 1;            // POD_STATUS_FIELD_PHASE
+        ConditionValue condition = 2; // POD_STATUS_FIELD_CONDITION
+    }
+}
+
+// PodStateTransition represents a Kubernetes pod-level status transition (phase or condition)
+message PodStateTransition {
+    PodStatusField field = 1;
+    optional PodStatusValue lastObservedState = 2;
+    PodStatusValue newState = 3;
+    int64 transitionTimestamp = 4;
+    Precision precision = 5;
+    MissedIntermediate missedIntermediate = 6;
+}
+
+// ContainerStateTransition represents a Kubernetes container-level state transition
+message ContainerStateTransition {
+    ContainerKind containerKind = 1;
+    optional ContainerStateValue lastObservedState = 2;
+    ContainerStateValue newState = 3;
+    int64 transitionTimestamp = 4;
+    Precision precision = 5;
+    MissedIntermediate missedIntermediate = 6;
+}
