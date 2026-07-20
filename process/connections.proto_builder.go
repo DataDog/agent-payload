@@ -867,6 +867,7 @@ type ConnectionBuilder struct {
 	connection_DnsStatsByDomainByQueryTypeEntryBuilder       Connection_DnsStatsByDomainByQueryTypeEntryBuilder
 	connection_DnsStatsByDomainOffsetByQueryTypeEntryBuilder Connection_DnsStatsByDomainOffsetByQueryTypeEntryBuilder
 	connection_TcpFailuresByErrCodeEntryBuilder              Connection_TcpFailuresByErrCodeEntryBuilder
+	networkPathBuilder                                       NetworkPathBuilder
 }
 
 func NewConnectionBuilder(writer io.Writer) *ConnectionBuilder {
@@ -1362,6 +1363,16 @@ func (x *ConnectionBuilder) SetRemoteServiceTagsIdx(v int32) {
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
 	x.writer.Write(x.scratch)
 }
+func (x *ConnectionBuilder) SetNetworkPath(cb func(w *NetworkPathBuilder)) {
+	x.buf.Reset()
+	x.networkPathBuilder.writer = &x.buf
+	x.networkPathBuilder.scratch = x.scratch
+	cb(&x.networkPathBuilder)
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x20a)
+	x.scratch = protowire.AppendVarint(x.scratch, uint64(x.buf.Len()))
+	x.writer.Write(x.scratch)
+	x.writer.Write(x.buf.Bytes())
+}
 
 type Connection_DnsCountByRcodeEntryBuilder struct {
 	writer  io.Writer
@@ -1536,6 +1547,39 @@ func (x *Connection_TcpFailuresByErrCodeEntryBuilder) SetValue(v uint32) {
 	x.scratch = x.scratch[:0]
 	x.scratch = protowire.AppendVarint(x.scratch, 0x10)
 	x.scratch = protowire.AppendVarint(x.scratch, uint64(v))
+	x.writer.Write(x.scratch)
+}
+
+type NetworkPathBuilder struct {
+	writer  io.Writer
+	buf     bytes.Buffer
+	scratch []byte
+}
+
+func NewNetworkPathBuilder(writer io.Writer) *NetworkPathBuilder {
+	return &NetworkPathBuilder{
+		writer: writer,
+	}
+}
+func (x *NetworkPathBuilder) Reset(writer io.Writer) {
+	x.buf.Reset()
+	x.writer = writer
+}
+func (x *NetworkPathBuilder) SetHasTest(v bool) {
+	if !v {
+		return
+	}
+	x.scratch = protowire.AppendVarint(x.scratch[:0], 0x8)
+	x.scratch = protowire.AppendVarint(x.scratch, 1)
+	x.writer.Write(x.scratch)
+}
+func (x *NetworkPathBuilder) SetTestIdentity(v string) {
+	if v == "" {
+		return
+	}
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x12)
+	x.scratch = protowire.AppendString(x.scratch, v)
 	x.writer.Write(x.scratch)
 }
 

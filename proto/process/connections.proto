@@ -136,7 +136,7 @@ message Connections {
 message Connection {
   reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
   // Please update when adding fields
-  // next identifier: 65
+  // next identifier: 66
 
   int32 pid = 1;
   Addr laddr = 5; // Local address
@@ -252,6 +252,18 @@ message Connection {
   // remoteServiceTagsIdx is the index of the tags associated with the remote/destination service for same-host connections.
   // Meant to be used with CollectorConnections#encodedTags.
   int32 remoteServiceTagsIdx = 64;
+
+  // Network Path metadata for this connection.
+  NetworkPath networkPath = 65;
+}
+
+message NetworkPath {
+  // Indicates whether this connection maps to a dynamic Network Path test that
+  // the Agent should maintain.
+  bool hasTest = 1;
+
+  // Stable derived identity for the scheduled Network Path test.
+  string testIdentity = 2;
 }
 
 // ResourceMetadata only holds enough information to identify a resource in connection data
