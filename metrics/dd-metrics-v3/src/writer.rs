@@ -574,6 +574,13 @@ impl V3Writer {
             return 0;
         }
 
+        // Canonicalize by sorting the tag ids before interning. A tag set is an
+        // unordered collection, and its on-wire dictionary form is sorted, so callers
+        // that supply the same tags in different orders must resolve to the same ref
+        // and a single dictionary entry. Sorting here (rather than only in
+        // `encode_tagset`) makes the interner key match that canonical form.
+        self.tag_ids.sort_unstable();
+
         let (id, is_new) = self.tagset_interner.get_or_insert(&self.tag_ids);
         if is_new {
             self.encode_tagset();
@@ -588,11 +595,9 @@ impl V3Writer {
 
         let start = self.dict_tagsets.len();
 
-        // Add all tag IDs
+        // `tag_ids` is already sorted by `intern_tagset` (its canonical form), so we
+        // only need to delta-encode here.
         self.dict_tagsets.extend_from_slice(&self.tag_ids);
-
-        // Sort and delta-encode the tagset portion
-        self.dict_tagsets[start..].sort_unstable();
         delta_encode(&mut self.dict_tagsets[start..]);
     }
 
@@ -1484,5 +1489,35 @@ mod tests {
                 bin_counts_len: 1,
             })
         );
+    }
+
+    #[test]
+    fn test_tagset_dedup_is_order_independent() {
+        let mut writer = V3Writer::new();
+
+        {
+            let mut m1 = writer.write(V3MetricType::Count, "metric1");
+            m1.set_tags(["a", "b"].iter());
+            m1.add_point(1000, 1.0).unwrap();
+            m1.close();
+        }
+
+        {
+            let mut m2 = writer.write(V3MetricType::Count, "metric2");
+            m2.set_tags(["b", "a"].iter());
+            m2.add_point(1000, 1.0).unwrap();
+            m2.close();
+        }
+
+        let data = writer.into_columns();
+
+        // Both metrics carry the same logical tag set, so they must resolve to the
+        // same tagset ref. `tags` is delta-encoded, so the second entry's delta must
+        // be zero.
+        assert_eq!(data.tags, alloc::vec![1, 0]);
+
+        // The dictionary must contain exactly one tag set entry: a length prefix of 2
+        // followed by two delta-encoded tag ids.
+        assert_eq!(data.dict_tagsets, alloc::vec![2, 1, 1]);
     }
 }
