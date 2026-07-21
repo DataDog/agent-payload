@@ -1,0 +1,30 @@
+[package]
+name = "dd-metrics-v3"
+version = "0.1.0"
+description = "V3 columnar protobuf codec for Datadog metrics"
+homepage = "https://github.com/DataDog/agent-payload/tree/master/metrics/dd-metrics-v3"
+repository = "https://github.com/DataDog/agent-payload"
+edition = "2021"
+rust-version = "1.82.0"
+license = "BSD-3-Clause"
+authors = ["Datadog Inc. <info@datadoghq.com>"]
+autobenches = false
+
+[lib]
+bench = false
+
+[dependencies]
+# no `default-features` to keep it `no_std`.
+foldhash = { version = "0.2", default-features = false }
+hashbrown = { version = "0.16", default-features = false }
+
+[dev-dependencies]
+bolero = "0.13"
+prost = "0.14"
+
+[build-dependencies]
+prost-build = { version = "0.14", optional = true }
+
+[features]
+# Regenerates `tests/pb/mod.rs` from `../../proto/metrics/intake_v3.proto`.
+generate-protobuf = ["dep:prost-build"]

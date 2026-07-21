@@ -19,3 +19,6 @@ toolchains/
 
 # python virtualenv for invoke tasks
 venv/
+
+# rust build artifacts
+target/
