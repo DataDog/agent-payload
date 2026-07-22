@@ -3,34 +3,11 @@
 package process
 
 import (
-	"io/ioutil"
 	"testing"
 
+	"github.com/gogo/protobuf/proto"
 	"github.com/stretchr/testify/assert"
 )
-
-// TestDecodeZstd05Payload ensures backward compatibility with our intake
-func TestDecodeZstd05Payload(t *testing.T) {
-	file := "testdata/test_zstd.0.5.dump"
-	expected := Message{
-		Header: MessageHeader{
-			Version:  MessageV3,
-			Encoding: MessageEncodingZstdPB,
-			Type:     TypeCollectorProc,
-		},
-		Body: &CollectorProc{
-			HostName: "test",
-		},
-	}
-
-	raw, err := ioutil.ReadFile(file)
-	assert.NoError(t, err)
-
-	msg, err := DecodeMessage(raw)
-	assert.NoError(t, err)
-
-	assert.Equal(t, expected, msg)
-}
 
 func TestMessageTypeString(t *testing.T) {
 	cases := map[MessageType]string{
@@ -76,7 +53,6 @@ func TestManifestPayloadAllEncodings_CGO(t *testing.T) {
 	}{
 		{"Protobuf", MessageEncodingProtobuf},
 		{"JSON", MessageEncodingJSON},
-		{"ZstdPB", MessageEncodingZstdPB},
 		{"Zstd1xPB", MessageEncodingZstd1xPB},
 		{"ZstdPBxNoCgo", MessageEncodingZstdPBxNoCgo},
 	}
@@ -113,4 +89,37 @@ func TestManifestPayloadAllEncodings_CGO(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestUnsupportedEncodings_CGO(t *testing.T) {
+	message := Message{
+		Header: MessageHeader{
+			Version:  MessageV3,
+			Encoding: MessageEncodingZstdPB,
+			Type:     TypeCollectorManifest,
+		},
+		Body: &CollectorManifest{
+			HostName: "test",
+		},
+	}
+
+	t.Run("ZstdPB_EncodingError", func(t *testing.T) {
+		_, err := EncodeMessage(message)
+		assert.Error(t, err)
+		assert.Contains(t, err.Error(), "unsupported encoding")
+	})
+
+	t.Run("ZstdPB_DecodingError", func(t *testing.T) {
+		bodyBytes, err := proto.Marshal(message.Body)
+		assert.NoError(t, err)
+
+		headerBytes, err := encodeHeader(message.Header)
+		assert.NoError(t, err)
+
+		fakeMessage := append(headerBytes, bodyBytes...)
+
+		_, err = DecodeMessage(fakeMessage)
+		assert.Error(t, err)
+		assert.Contains(t, err.Error(), "unsupported encoding")
+	})
 }

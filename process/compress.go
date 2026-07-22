@@ -7,7 +7,6 @@ import (
 	"fmt"
 
 	"github.com/DataDog/zstd"
-	"github.com/DataDog/zstd_0"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/gogo/protobuf/proto"
@@ -33,7 +32,7 @@ func unmarshal(enc MessageEncoding, body []byte, m proto.Message) error {
 			}
 			d, err = decoder.DecodeAll(body, nil)
 		} else {
-			d, err = zstd_0.Decompress(nil, body)
+			return fmt.Errorf("unsupported encoding: MessageEncodingZstdPB is no longer supported")
 		}
 		if err != nil {
 			return err
@@ -93,10 +92,7 @@ func EncodeMessage(m Message) ([]byte, error) {
 				return nil, err
 			}
 		} else {
-			p, err = zstd_0.Compress(nil, pb)
-			if err != nil {
-				return nil, err
-			}
+			return nil, fmt.Errorf("unsupported encoding: MessageEncodingZstdPB is no longer supported")
 		}
 	default:
 		return nil, fmt.Errorf("unknown message encoding: %d", m.Header.Encoding)
