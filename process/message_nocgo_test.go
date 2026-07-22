@@ -58,7 +58,6 @@ func TestUnsupportedEncodings_NoCGO(t *testing.T) {
 		name     string
 		encoding MessageEncoding
 	}{
-		{"ZstdPB", MessageEncodingZstdPB},
 		{"Zstd1xPB", MessageEncodingZstd1xPB},
 	}
 

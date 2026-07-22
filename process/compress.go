@@ -19,20 +19,18 @@ func unmarshal(enc MessageEncoding, body []byte, m proto.Message) error {
 		return proto.Unmarshal(body, m)
 	case MessageEncodingJSON:
 		return jsonpb.Unmarshal(bytes.NewReader(body), m)
-	case MessageEncodingZstdPB, MessageEncodingZstd1xPB, MessageEncodingZstdPBxNoCgo:
+	case MessageEncodingZstd1xPB, MessageEncodingZstdPBxNoCgo:
 		var d []byte
 		var err error
 		if enc == MessageEncodingZstd1xPB {
 			d, err = zstd.Decompress(nil, body)
-		} else if enc == MessageEncodingZstdPBxNoCgo {
+		} else {
 			var decoder *nocgozstd.Decoder
 			decoder, err = nocgozstd.NewReader(nil)
 			if err != nil {
 				return err
 			}
 			d, err = decoder.DecodeAll(body, nil)
-		} else {
-			return fmt.Errorf("unsupported encoding: MessageEncodingZstdPB is no longer supported")
 		}
 		if err != nil {
 			return err
@@ -69,7 +67,7 @@ func EncodeMessage(m Message) ([]byte, error) {
 			return nil, err
 		}
 		p = []byte(s)
-	case MessageEncodingZstdPB, MessageEncodingZstd1xPB, MessageEncodingZstdPBxNoCgo:
+	case MessageEncodingZstd1xPB, MessageEncodingZstdPBxNoCgo:
 		pb, err := proto.Marshal(m.Body)
 		if err != nil {
 			return nil, err
@@ -80,7 +78,7 @@ func EncodeMessage(m Message) ([]byte, error) {
 			if err != nil {
 				return nil, err
 			}
-		} else if m.Header.Encoding == MessageEncodingZstdPBxNoCgo {
+		} else {
 			var encoder *nocgozstd.Encoder
 			encoder, err = nocgozstd.NewWriter(nil, nocgozstd.WithEncoderLevel(nocgozstd.SpeedDefault))
 			if err != nil {
@@ -91,8 +89,6 @@ func EncodeMessage(m Message) ([]byte, error) {
 			if err != nil {
 				return nil, err
 			}
-		} else {
-			return nil, fmt.Errorf("unsupported encoding: MessageEncodingZstdPB is no longer supported")
 		}
 	default:
 		return nil, fmt.Errorf("unknown message encoding: %d", m.Header.Encoding)

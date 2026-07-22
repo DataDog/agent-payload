@@ -91,11 +91,16 @@ func TestManifestPayloadAllEncodings_CGO(t *testing.T) {
 	}
 }
 
-func TestUnsupportedEncodings_CGO(t *testing.T) {
+// TestRemovedZstdPBEncoding ensures the retired MessageEncodingZstdPB wire
+// value (2, formerly backed by the abandoned zstd_0 module) is rejected as
+// an unknown encoding rather than silently accepted.
+func TestRemovedZstdPBEncoding(t *testing.T) {
+	const removedZstdPBEncoding MessageEncoding = 2
+
 	message := Message{
 		Header: MessageHeader{
 			Version:  MessageV3,
-			Encoding: MessageEncodingZstdPB,
+			Encoding: removedZstdPBEncoding,
 			Type:     TypeCollectorManifest,
 		},
 		Body: &CollectorManifest{
@@ -103,13 +108,13 @@ func TestUnsupportedEncodings_CGO(t *testing.T) {
 		},
 	}
 
-	t.Run("ZstdPB_EncodingError", func(t *testing.T) {
+	t.Run("EncodingError", func(t *testing.T) {
 		_, err := EncodeMessage(message)
 		assert.Error(t, err)
-		assert.Contains(t, err.Error(), "unsupported encoding")
+		assert.Contains(t, err.Error(), "unknown message encoding")
 	})
 
-	t.Run("ZstdPB_DecodingError", func(t *testing.T) {
+	t.Run("DecodingError", func(t *testing.T) {
 		bodyBytes, err := proto.Marshal(message.Body)
 		assert.NoError(t, err)
 
@@ -120,6 +125,6 @@ func TestUnsupportedEncodings_CGO(t *testing.T) {
 
 		_, err = DecodeMessage(fakeMessage)
 		assert.Error(t, err)
-		assert.Contains(t, err.Error(), "unsupported encoding")
+		assert.Contains(t, err.Error(), "unknown message encoding")
 	})
 }
