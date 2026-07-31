@@ -394,7 +394,7 @@ type ContainerResources struct {
 	ContainerName string                             `protobuf:"bytes,1,opt,name=containerName,proto3" json:"containerName,omitempty"` // ContainerName is the name of the container
 	Requests      []*ContainerResources_ResourceList `protobuf:"bytes,2,rep,name=requests,proto3" json:"requests,omitempty"`
 	Limits        []*ContainerResources_ResourceList `protobuf:"bytes,3,rep,name=limits,proto3" json:"limits,omitempty"`
-	Gomemlimit    string                             `protobuf:"bytes,4,opt,name=gomemlimit,proto3" json:"gomemlimit,omitempty"` // Gomemlimit is the GOMEMLIMIT environment variable value for the container
+	Runtime       *ContainerRuntimeValues            `protobuf:"bytes,4,opt,name=runtime,proto3" json:"runtime,omitempty"` // Runtime holds extensible runtime configuration for the container
 }
 
 func (x *ContainerResources) Reset() {
@@ -450,7 +450,55 @@ func (x *ContainerResources) GetLimits() []*ContainerResources_ResourceList {
 	return nil
 }
 
-func (x *ContainerResources) GetGomemlimit() string {
+func (x *ContainerResources) GetRuntime() *ContainerRuntimeValues {
+	if x != nil {
+		return x.Runtime
+	}
+	return nil
+}
+
+// ContainerRuntimeValues holds runtime configuration values for a container
+type ContainerRuntimeValues struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Gomemlimit string `protobuf:"bytes,1,opt,name=gomemlimit,proto3" json:"gomemlimit,omitempty"` // Gomemlimit is the GOMEMLIMIT environment variable value for the container
+}
+
+func (x *ContainerRuntimeValues) Reset() {
+	*x = ContainerRuntimeValues{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autoscaling_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ContainerRuntimeValues) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ContainerRuntimeValues) ProtoMessage() {}
+
+func (x *ContainerRuntimeValues) ProtoReflect() protoreflect.Message {
+	mi := &file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autoscaling_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ContainerRuntimeValues.ProtoReflect.Descriptor instead.
+func (*ContainerRuntimeValues) Descriptor() ([]byte, []int) {
+	return file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autoscaling_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *ContainerRuntimeValues) GetGomemlimit() string {
 	if x != nil {
 		return x.Gomemlimit
 	}
@@ -469,7 +517,7 @@ type ContainerResources_ResourceList struct {
 func (x *ContainerResources_ResourceList) Reset() {
 	*x = ContainerResources_ResourceList{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autoscaling_proto_msgTypes[7]
+		mi := &file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autoscaling_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -482,7 +530,7 @@ func (x *ContainerResources_ResourceList) String() string {
 func (*ContainerResources_ResourceList) ProtoMessage() {}
 
 func (x *ContainerResources_ResourceList) ProtoReflect() protoreflect.Message {
-	mi := &file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autoscaling_proto_msgTypes[7]
+	mi := &file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autoscaling_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -612,7 +660,7 @@ var file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autosc
 	0x62, 0x65, 0x72, 0x6e, 0x65, 0x74, 0x65, 0x73, 0x2e, 0x43, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e,
 	0x65, 0x72, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x42, 0x05, 0xaa, 0x46, 0x02,
 	0x10, 0x01, 0x52, 0x09, 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x3a, 0x07, 0xba,
-	0x46, 0x04, 0x08, 0x01, 0x20, 0x01, 0x22, 0xef, 0x02, 0x0a, 0x12, 0x43, 0x6f, 0x6e, 0x74, 0x61,
+	0x46, 0x04, 0x08, 0x01, 0x20, 0x01, 0x22, 0xa1, 0x03, 0x0a, 0x12, 0x43, 0x6f, 0x6e, 0x74, 0x61,
 	0x69, 0x6e, 0x65, 0x72, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x12, 0x2b, 0x0a,
 	0x0d, 0x63, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x65, 0x72, 0x4e, 0x61, 0x6d, 0x65, 0x18, 0x01,
 	0x20, 0x01, 0x28, 0x09, 0x42, 0x05, 0xaa, 0x46, 0x02, 0x10, 0x01, 0x52, 0x0d, 0x63, 0x6f, 0x6e,
@@ -628,18 +676,26 @@ var file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autosc
 	0x62, 0x65, 0x72, 0x6e, 0x65, 0x74, 0x65, 0x73, 0x2e, 0x43, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e,
 	0x65, 0x72, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73, 0x2e, 0x52, 0x65, 0x73, 0x6f,
 	0x75, 0x72, 0x63, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x06, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x73,
-	0x12, 0x1e, 0x0a, 0x0a, 0x67, 0x6f, 0x6d, 0x65, 0x6d, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x18, 0x04,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x67, 0x6f, 0x6d, 0x65, 0x6d, 0x6c, 0x69, 0x6d, 0x69, 0x74,
-	0x1a, 0x4d, 0x0a, 0x0c, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x4c, 0x69, 0x73, 0x74,
-	0x12, 0x19, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x05,
-	0xaa, 0x46, 0x02, 0x10, 0x01, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1b, 0x0a, 0x05, 0x76,
-	0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42, 0x05, 0xaa, 0x46, 0x02, 0x10,
-	0x01, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x05, 0xba, 0x46, 0x02, 0x20, 0x01, 0x3a,
-	0x07, 0xba, 0x46, 0x04, 0x08, 0x01, 0x20, 0x01, 0x42, 0x3c, 0x5a, 0x3a, 0x67, 0x69, 0x74, 0x68,
-	0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x44, 0x61, 0x74, 0x61, 0x44, 0x6f, 0x67, 0x2f, 0x61,
-	0x67, 0x65, 0x6e, 0x74, 0x2d, 0x70, 0x61, 0x79, 0x6c, 0x6f, 0x61, 0x64, 0x2f, 0x76, 0x35, 0x2f,
-	0x61, 0x75, 0x74, 0x6f, 0x73, 0x63, 0x61, 0x6c, 0x69, 0x6e, 0x67, 0x2f, 0x6b, 0x75, 0x62, 0x65,
-	0x72, 0x6e, 0x65, 0x74, 0x65, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x12, 0x50, 0x0a, 0x07, 0x72, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x36, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x64, 0x6f, 0x67, 0x2e, 0x61, 0x75, 0x74, 0x6f,
+	0x73, 0x63, 0x61, 0x6c, 0x69, 0x6e, 0x67, 0x2e, 0x6b, 0x75, 0x62, 0x65, 0x72, 0x6e, 0x65, 0x74,
+	0x65, 0x73, 0x2e, 0x43, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x65, 0x72, 0x52, 0x75, 0x6e, 0x74,
+	0x69, 0x6d, 0x65, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x52, 0x07, 0x72, 0x75, 0x6e, 0x74, 0x69,
+	0x6d, 0x65, 0x1a, 0x4d, 0x0a, 0x0c, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x4c, 0x69,
+	0x73, 0x74, 0x12, 0x19, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x42, 0x05, 0xaa, 0x46, 0x02, 0x10, 0x01, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1b, 0x0a,
+	0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42, 0x05, 0xaa, 0x46,
+	0x02, 0x10, 0x01, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x3a, 0x05, 0xba, 0x46, 0x02, 0x20,
+	0x01, 0x3a, 0x07, 0xba, 0x46, 0x04, 0x08, 0x01, 0x20, 0x01, 0x22, 0x3f, 0x0a, 0x16, 0x43, 0x6f,
+	0x6e, 0x74, 0x61, 0x69, 0x6e, 0x65, 0x72, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x56, 0x61,
+	0x6c, 0x75, 0x65, 0x73, 0x12, 0x1e, 0x0a, 0x0a, 0x67, 0x6f, 0x6d, 0x65, 0x6d, 0x6c, 0x69, 0x6d,
+	0x69, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x67, 0x6f, 0x6d, 0x65, 0x6d, 0x6c,
+	0x69, 0x6d, 0x69, 0x74, 0x3a, 0x05, 0xba, 0x46, 0x02, 0x20, 0x01, 0x42, 0x3c, 0x5a, 0x3a, 0x67,
+	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x44, 0x61, 0x74, 0x61, 0x44, 0x6f,
+	0x67, 0x2f, 0x61, 0x67, 0x65, 0x6e, 0x74, 0x2d, 0x70, 0x61, 0x79, 0x6c, 0x6f, 0x61, 0x64, 0x2f,
+	0x76, 0x35, 0x2f, 0x61, 0x75, 0x74, 0x6f, 0x73, 0x63, 0x61, 0x6c, 0x69, 0x6e, 0x67, 0x2f, 0x6b,
+	0x75, 0x62, 0x65, 0x72, 0x6e, 0x65, 0x74, 0x65, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -654,7 +710,7 @@ func file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autos
 	return file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autoscaling_proto_rawDescData
 }
 
-var file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autoscaling_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autoscaling_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autoscaling_proto_goTypes = []interface{}{
 	(*WorkloadValuesList)(nil),              // 0: datadog.autoscaling.kubernetes.WorkloadValuesList
 	(*WorkloadValues)(nil),                  // 1: datadog.autoscaling.kubernetes.WorkloadValues
@@ -663,31 +719,33 @@ var file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autosc
 	(*WorkloadVerticalValues)(nil),          // 4: datadog.autoscaling.kubernetes.WorkloadVerticalValues
 	(*WorkloadVerticalData)(nil),            // 5: datadog.autoscaling.kubernetes.WorkloadVerticalData
 	(*ContainerResources)(nil),              // 6: datadog.autoscaling.kubernetes.ContainerResources
-	(*ContainerResources_ResourceList)(nil), // 7: datadog.autoscaling.kubernetes.ContainerResources.ResourceList
-	(*Error)(nil),                           // 8: datadog.autoscaling.kubernetes.Error
-	(*timestamppb.Timestamp)(nil),           // 9: google.protobuf.Timestamp
+	(*ContainerRuntimeValues)(nil),          // 7: datadog.autoscaling.kubernetes.ContainerRuntimeValues
+	(*ContainerResources_ResourceList)(nil), // 8: datadog.autoscaling.kubernetes.ContainerResources.ResourceList
+	(*Error)(nil),                           // 9: datadog.autoscaling.kubernetes.Error
+	(*timestamppb.Timestamp)(nil),           // 10: google.protobuf.Timestamp
 }
 var file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autoscaling_proto_depIdxs = []int32{
 	1,  // 0: datadog.autoscaling.kubernetes.WorkloadValuesList.values:type_name -> datadog.autoscaling.kubernetes.WorkloadValues
-	8,  // 1: datadog.autoscaling.kubernetes.WorkloadValues.error:type_name -> datadog.autoscaling.kubernetes.Error
+	9,  // 1: datadog.autoscaling.kubernetes.WorkloadValues.error:type_name -> datadog.autoscaling.kubernetes.Error
 	2,  // 2: datadog.autoscaling.kubernetes.WorkloadValues.horizontal:type_name -> datadog.autoscaling.kubernetes.WorkloadHorizontalValues
 	4,  // 3: datadog.autoscaling.kubernetes.WorkloadValues.vertical:type_name -> datadog.autoscaling.kubernetes.WorkloadVerticalValues
-	8,  // 4: datadog.autoscaling.kubernetes.WorkloadHorizontalValues.error:type_name -> datadog.autoscaling.kubernetes.Error
+	9,  // 4: datadog.autoscaling.kubernetes.WorkloadHorizontalValues.error:type_name -> datadog.autoscaling.kubernetes.Error
 	3,  // 5: datadog.autoscaling.kubernetes.WorkloadHorizontalValues.manual:type_name -> datadog.autoscaling.kubernetes.WorkloadHorizontalData
 	3,  // 6: datadog.autoscaling.kubernetes.WorkloadHorizontalValues.auto:type_name -> datadog.autoscaling.kubernetes.WorkloadHorizontalData
-	9,  // 7: datadog.autoscaling.kubernetes.WorkloadHorizontalData.timestamp:type_name -> google.protobuf.Timestamp
-	8,  // 8: datadog.autoscaling.kubernetes.WorkloadVerticalValues.error:type_name -> datadog.autoscaling.kubernetes.Error
+	10, // 7: datadog.autoscaling.kubernetes.WorkloadHorizontalData.timestamp:type_name -> google.protobuf.Timestamp
+	9,  // 8: datadog.autoscaling.kubernetes.WorkloadVerticalValues.error:type_name -> datadog.autoscaling.kubernetes.Error
 	5,  // 9: datadog.autoscaling.kubernetes.WorkloadVerticalValues.manual:type_name -> datadog.autoscaling.kubernetes.WorkloadVerticalData
 	5,  // 10: datadog.autoscaling.kubernetes.WorkloadVerticalValues.auto:type_name -> datadog.autoscaling.kubernetes.WorkloadVerticalData
-	9,  // 11: datadog.autoscaling.kubernetes.WorkloadVerticalData.timestamp:type_name -> google.protobuf.Timestamp
+	10, // 11: datadog.autoscaling.kubernetes.WorkloadVerticalData.timestamp:type_name -> google.protobuf.Timestamp
 	6,  // 12: datadog.autoscaling.kubernetes.WorkloadVerticalData.resources:type_name -> datadog.autoscaling.kubernetes.ContainerResources
-	7,  // 13: datadog.autoscaling.kubernetes.ContainerResources.requests:type_name -> datadog.autoscaling.kubernetes.ContainerResources.ResourceList
-	7,  // 14: datadog.autoscaling.kubernetes.ContainerResources.limits:type_name -> datadog.autoscaling.kubernetes.ContainerResources.ResourceList
-	15, // [15:15] is the sub-list for method output_type
-	15, // [15:15] is the sub-list for method input_type
-	15, // [15:15] is the sub-list for extension type_name
-	15, // [15:15] is the sub-list for extension extendee
-	0,  // [0:15] is the sub-list for field type_name
+	8,  // 13: datadog.autoscaling.kubernetes.ContainerResources.requests:type_name -> datadog.autoscaling.kubernetes.ContainerResources.ResourceList
+	8,  // 14: datadog.autoscaling.kubernetes.ContainerResources.limits:type_name -> datadog.autoscaling.kubernetes.ContainerResources.ResourceList
+	7,  // 15: datadog.autoscaling.kubernetes.ContainerResources.runtime:type_name -> datadog.autoscaling.kubernetes.ContainerRuntimeValues
+	16, // [16:16] is the sub-list for method output_type
+	16, // [16:16] is the sub-list for method input_type
+	16, // [16:16] is the sub-list for extension type_name
+	16, // [16:16] is the sub-list for extension extendee
+	0,  // [0:16] is the sub-list for field type_name
 }
 
 func init() {
@@ -784,6 +842,18 @@ func file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autos
 			}
 		}
 		file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autoscaling_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ContainerRuntimeValues); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autoscaling_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ContainerResources_ResourceList); i {
 			case 0:
 				return &v.state
@@ -803,7 +873,7 @@ func file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autos
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_github_com_DataDog_agent_payload_v5_proto_autoscaling_kubernetes_autoscaling_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

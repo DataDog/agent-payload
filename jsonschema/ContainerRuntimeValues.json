@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/ContainerRuntimeValues",
+    "definitions": {
+        "ContainerRuntimeValues": {
+            "properties": {
+                "gomemlimit": {
+                    "type": "string",
+                    "description": "Gomemlimit is the GOMEMLIMIT environment variable value for the container"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object",
+            "title": "Container Runtime Values",
+            "description": "ContainerRuntimeValues holds runtime configuration values for a container"
+        }
+    }
+}

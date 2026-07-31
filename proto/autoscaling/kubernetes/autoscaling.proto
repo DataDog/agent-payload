@@ -80,5 +80,12 @@ message ContainerResources {
   string                containerName = 1 [(protoc.gen.jsonschema.field_options).required = true]; // ContainerName is the name of the container
   repeated ResourceList requests      = 2;
   repeated ResourceList limits        = 3;
-  string                gomemlimit    = 4; // Gomemlimit is the GOMEMLIMIT environment variable value for the container
+  ContainerRuntimeValues runtime      = 4; // Runtime holds extensible runtime configuration for the container
+}
+
+// ContainerRuntimeValues holds runtime configuration values for a container
+message ContainerRuntimeValues {
+  option (protoc.gen.jsonschema.message_options).disallow_additional_properties = true;
+
+  string gomemlimit = 1; // Gomemlimit is the GOMEMLIMIT environment variable value for the container
 }
