@@ -21,7 +21,7 @@ type MessageEncoding uint8
 const (
 	MessageEncodingProtobuf     MessageEncoding = 0
 	MessageEncodingJSON         MessageEncoding = 1
-	MessageEncodingZstdPB       MessageEncoding = 2
+	_                           MessageEncoding = 2 // Formerly MessageEncodingZstdPB (zstd_0), no longer supported
 	_                           MessageEncoding = 3 // This is unused
 	MessageEncodingZstd1xPB     MessageEncoding = 4
 	MessageEncodingZstdPBxNoCgo MessageEncoding = 5
