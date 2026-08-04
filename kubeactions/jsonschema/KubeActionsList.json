@@ -25,7 +25,8 @@
                 "resource",
                 "timestamp",
                 "action_id",
-                "requested_by"
+                "requested_by",
+                "user_uuid"
             ],
             "properties": {
                 "resource": {
@@ -45,6 +46,10 @@
                 "requested_by": {
                     "type": "string",
                     "description": "RequestedBy is the account identifier (email) of the user who requested this action. Required for audit trail."
+                },
+                "user_uuid": {
+                    "type": "string",
+                    "description": "UserUUID is the user ID of the requestor"
                 },
                 "delete_pod": {
                     "$ref": "#/definitions/DeletePodParams",
