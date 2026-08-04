@@ -46,6 +46,10 @@
                     "type": "string",
                     "description": "RequestedBy is the account identifier (email) of the user who requested this action. Required for audit trail."
                 },
+                "user_uuid": {
+                    "type": "string",
+                    "description": "UserUUID is the unique opaque identifier for the user performing the action. Optional for backward compatibility: senders on older payload versions may omit this field."
+                },
                 "delete_pod": {
                     "$ref": "#/definitions/DeletePodParams",
                     "additionalProperties": false
