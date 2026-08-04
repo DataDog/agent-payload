@@ -36,8 +36,9 @@ message KubeAction {
   // Required for audit trail.
   string requested_by = 4 [(protoc.gen.jsonschema.field_options).required = true];
 
-  // UserUUID is the user ID of the requestor
-  string user_uuid = 5 [(protoc.gen.jsonschema.field_options).required = true];
+  // UserUUID is the unique opaque identifier for the user performing the action.
+  // Optional for backward compatibility: senders on older payload versions may omit this field.
+  string user_uuid = 5;
 
   // Exactly one action type must be specified. Each action type has its own
   // strictly defined parameters - no arbitrary parameters allowed.

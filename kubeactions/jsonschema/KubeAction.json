@@ -25,8 +25,7 @@
                 "resource",
                 "timestamp",
                 "action_id",
-                "requested_by",
-                "user_uuid"
+                "requested_by"
             ],
             "properties": {
                 "resource": {
@@ -49,7 +48,7 @@
                 },
                 "user_uuid": {
                     "type": "string",
-                    "description": "UserUUID is the user ID of the requestor"
+                    "description": "UserUUID is the unique opaque identifier for the user performing the action. Optional for backward compatibility: senders on older payload versions may omit this field."
                 },
                 "delete_pod": {
                     "$ref": "#/definitions/DeletePodParams",
