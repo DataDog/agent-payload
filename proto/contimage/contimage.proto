@@ -25,6 +25,7 @@ message ContainerImage {
   string          digest       = 6;
   int64           size         = 7;
   repeated string repo_digests = 8;
+  string          author       = 14;
 
   // platform info
   message OperatingSystem {
