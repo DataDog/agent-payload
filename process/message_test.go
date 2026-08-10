@@ -9,27 +9,17 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// TestDecodeZstd05Payload ensures backward compatibility with our intake
+// TestDecodeZstd05Payload ensures MessageEncodingZstdPB payloads fail to
+// decode now that the vulnerable zstd_0 dependency has been removed.
 func TestDecodeZstd05Payload(t *testing.T) {
 	file := "testdata/test_zstd.0.5.dump"
-	expected := Message{
-		Header: MessageHeader{
-			Version:  MessageV3,
-			Encoding: MessageEncodingZstdPB,
-			Type:     TypeCollectorProc,
-		},
-		Body: &CollectorProc{
-			HostName: "test",
-		},
-	}
 
 	raw, err := ioutil.ReadFile(file)
 	assert.NoError(t, err)
 
-	msg, err := DecodeMessage(raw)
-	assert.NoError(t, err)
-
-	assert.Equal(t, expected, msg)
+	_, err = DecodeMessage(raw)
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "unsupported encoding")
 }
 
 func TestMessageTypeString(t *testing.T) {
@@ -76,7 +66,6 @@ func TestManifestPayloadAllEncodings_CGO(t *testing.T) {
 	}{
 		{"Protobuf", MessageEncodingProtobuf},
 		{"JSON", MessageEncodingJSON},
-		{"ZstdPB", MessageEncodingZstdPB},
 		{"Zstd1xPB", MessageEncodingZstd1xPB},
 		{"ZstdPBxNoCgo", MessageEncodingZstdPBxNoCgo},
 	}
@@ -113,4 +102,23 @@ func TestManifestPayloadAllEncodings_CGO(t *testing.T) {
 			}
 		})
 	}
+}
+
+// TestZstdPBUnsupported_CGO ensures MessageEncodingZstdPB is rejected now
+// that the vulnerable zstd_0 dependency has been removed.
+func TestZstdPBUnsupported_CGO(t *testing.T) {
+	message := Message{
+		Header: MessageHeader{
+			Version:  MessageV3,
+			Encoding: MessageEncodingZstdPB,
+			Type:     TypeCollectorManifest,
+		},
+		Body: &CollectorManifest{
+			HostName: "test",
+		},
+	}
+
+	_, err := EncodeMessage(message)
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "unsupported encoding")
 }
