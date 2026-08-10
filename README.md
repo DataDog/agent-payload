@@ -4,7 +4,7 @@ Payload format description for communication between the Agent and the Datadog b
 
 This repository includes the protocol-buffer IDL used by the agent6 and agent7 to communicate with the Datadog backend.
 Those payloads are only supported by the V2 API endpoints.
-The generated Go, and Java implementations are checked into this repository and can be used directly. Other consumers may copy the `.proto` files into their repository and generate their own bindings.
+The generated Go, Java, and Rust implementations are checked into this repository and can be used directly. Other consumers may copy the `.proto` files into their repository and generate their own bindings.
 
 # Use
 
@@ -25,6 +25,7 @@ You will need
  * Python (3+, CI builds with 3.12)
  * Go (at least the version in `go.mod`)
  * A checkout of this repository within a GOPATH (so, at `$GOPATH/src/github.com/DataDog/agent-payload`)
+ * Rust, only if you're working on [`metrics/dd-metrics-v3/`](./metrics/dd-metrics-v3) — install the toolchain version pinned in `rust-toolchain.toml`.
 
 # Payloads
 
@@ -40,6 +41,14 @@ The following implementations are available:
 The metrics payload is defined in [`proto/metrics/agent_payload.proto`](./proto/metrics/agent_payload.proto).
 The following implementations are available:
  * Go (gogofast): [github.com/DataDog/agent-payload/gogen](https://pkg.go.dev/github.com/DataDog/agent-payload/gogen)
+
+### Metrics V3
+
+The V3 metrics payload is defined in [`proto/metrics/intake_v3.proto`](./proto/metrics/intake_v3.proto).
+It uses a columnar layout with dictionary-based string deduplication instead of one message per
+time series. The following implementations are available:
+ * Go (protoc-gen-go): [github.com/DataDog/agent-payload/v5/metrics/intake_v3](https://pkg.go.dev/github.com/DataDog/agent-payload/v5/metrics/intake_v3).
+ * Rust: [`dd-metrics-v3`](./metrics/dd-metrics-v3), a hand-rolled `no_std` encoder.
 
 ## Process
 
@@ -66,6 +75,7 @@ After updating the IDL you must:
 
 - Regenerate the code: `inv codegen.all`, invoke will use gimme to run the task command with the current defined go version
 - If you have indentation/newlines changes, run `inv codegen.all` with the same Go version as defined in `go.mod`
+- If you changed `proto/metrics/intake_v3.proto`, also regenerate `metrics/dd-metrics-v3/tests/pb/mod.rs` (`cargo build --features generate-protobuf` from within `metrics/dd-metrics-v3/`) and update the hand-rolled encoder in `metrics/dd-metrics-v3/src/` to match, since it doesn't use a Protocol Buffers library
 - Create a new tag with the updated version of the payload
 
 # Publishing Changes
