@@ -286,6 +286,7 @@ enum OriginCollector {
 	collectorUnknown = 0;
 	datadogAgent = 1;
 	datadogExporter = 2;
+	otlpExporter = 3;
 }
 
 // CollectorManifest is the dedicated payload/pipeline for the yaml collection
