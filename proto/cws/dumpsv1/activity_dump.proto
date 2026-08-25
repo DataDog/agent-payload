@@ -162,6 +162,17 @@ message DNSInfo {
     uint32 class = 3;
     uint32 size = 4;
     uint32 count = 5;
+
+    DNSResponseInfo response = 6;
+}
+
+// DNSResponseInfo holds the answers observed for the enclosing DNS question.
+// The IPs and CNAMEs are accumulated across every response seen for that
+// question, so this is a union rather than a single response.
+message DNSResponseInfo {
+    uint32 response_code = 1;
+    repeated string ips = 2;
+    repeated string cnames = 3;
 }
 
 message SyscallNode {
