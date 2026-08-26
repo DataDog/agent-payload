@@ -166,11 +166,16 @@ message DNSInfo {
     DNSResponseInfo response = 6;
 }
 
-// DNSResponseInfo holds the answers observed for the enclosing DNS question.
-// The IPs and CNAMEs are accumulated across every response seen for that
-// question, so this is a union rather than a single response.
+// DNSResponseInfo aggregates every response observed for the enclosing DNS
+// question. All three fields are unions accumulated across those responses, not
+// a snapshot of one of them: a question that resolved and later went NXDOMAIN
+// reports both codes alongside the addresses it did resolve to.
+//
+// Occurrence counts are deliberately absent. DNS samples are rate limited in the
+// kernel before user space sees them, so a count here would not be the number of
+// times the workload actually observed that outcome.
 message DNSResponseInfo {
-    uint32 response_code = 1;
+    repeated uint32 response_codes = 1;
     repeated string ips = 2;
     repeated string cnames = 3;
 }
