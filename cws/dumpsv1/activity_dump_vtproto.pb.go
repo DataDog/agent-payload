@@ -1374,7 +1374,7 @@ func (m *DNSResponseInfo) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 			copy(dAtA[i:], m.Cnames[iNdEx])
 			i = encodeVarint(dAtA, i, uint64(len(m.Cnames[iNdEx])))
 			i--
-			dAtA[i] = 0x1a
+			dAtA[i] = 0x12
 		}
 	}
 	if len(m.Ips) > 0 {
@@ -1383,28 +1383,8 @@ func (m *DNSResponseInfo) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 			copy(dAtA[i:], m.Ips[iNdEx])
 			i = encodeVarint(dAtA, i, uint64(len(m.Ips[iNdEx])))
 			i--
-			dAtA[i] = 0x12
+			dAtA[i] = 0xa
 		}
-	}
-	if len(m.ResponseCodes) > 0 {
-		var pksize2 int
-		for _, num := range m.ResponseCodes {
-			pksize2 += sov(uint64(num))
-		}
-		i -= pksize2
-		j1 := i
-		for _, num := range m.ResponseCodes {
-			for num >= 1<<7 {
-				dAtA[j1] = uint8(uint64(num)&0x7f | 0x80)
-				num >>= 7
-				j1++
-			}
-			dAtA[j1] = uint8(num)
-			j1++
-		}
-		i = encodeVarint(dAtA, i, uint64(pksize2))
-		i--
-		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -3391,13 +3371,6 @@ func (m *DNSResponseInfo) SizeVT() (n int) {
 	}
 	var l int
 	_ = l
-	if len(m.ResponseCodes) > 0 {
-		l = 0
-		for _, e := range m.ResponseCodes {
-			l += sov(uint64(e))
-		}
-		n += 1 + sov(uint64(l)) + l
-	}
 	if len(m.Ips) > 0 {
 		for _, s := range m.Ips {
 			l = len(s)
@@ -7956,82 +7929,6 @@ func (m *DNSResponseInfo) UnmarshalVT(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType == 0 {
-				var v uint32
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					v |= uint32(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				m.ResponseCodes = append(m.ResponseCodes, v)
-			} else if wireType == 2 {
-				var packedLen int
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflow
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					packedLen |= int(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				if packedLen < 0 {
-					return ErrInvalidLength
-				}
-				postIndex := iNdEx + packedLen
-				if postIndex < 0 {
-					return ErrInvalidLength
-				}
-				if postIndex > l {
-					return io.ErrUnexpectedEOF
-				}
-				var elementCount int
-				var count int
-				for _, integer := range dAtA[iNdEx:postIndex] {
-					if integer < 128 {
-						count++
-					}
-				}
-				elementCount = count
-				if elementCount != 0 && len(m.ResponseCodes) == 0 {
-					m.ResponseCodes = make([]uint32, 0, elementCount)
-				}
-				for iNdEx < postIndex {
-					var v uint32
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflow
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						v |= uint32(b&0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					m.ResponseCodes = append(m.ResponseCodes, v)
-				}
-			} else {
-				return fmt.Errorf("proto: wrong wireType = %d for field ResponseCodes", wireType)
-			}
-		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Ips", wireType)
 			}
@@ -8063,7 +7960,7 @@ func (m *DNSResponseInfo) UnmarshalVT(dAtA []byte) error {
 			}
 			m.Ips = append(m.Ips, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
-		case 3:
+		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Cnames", wireType)
 			}
