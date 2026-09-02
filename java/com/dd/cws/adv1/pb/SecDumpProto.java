@@ -5337,6 +5337,58 @@ com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue);
      */
     com.google.protobuf.ByteString
         getTagsBytes(int index);
+
+    /**
+     * <pre>
+     * Capabilities observed at runtime, unioned across every process of this profile
+     * version. used_capabilities is a subset of attempted_capabilities: a capability the
+     * workload was checked for but did not hold appears only in attempted_capabilities.
+     * </pre>
+     *
+     * <code>repeated uint64 attempted_capabilities = 6;</code>
+     * @return A list containing the attemptedCapabilities.
+     */
+    java.util.List<java.lang.Long> getAttemptedCapabilitiesList();
+    /**
+     * <pre>
+     * Capabilities observed at runtime, unioned across every process of this profile
+     * version. used_capabilities is a subset of attempted_capabilities: a capability the
+     * workload was checked for but did not hold appears only in attempted_capabilities.
+     * </pre>
+     *
+     * <code>repeated uint64 attempted_capabilities = 6;</code>
+     * @return The count of attemptedCapabilities.
+     */
+    int getAttemptedCapabilitiesCount();
+    /**
+     * <pre>
+     * Capabilities observed at runtime, unioned across every process of this profile
+     * version. used_capabilities is a subset of attempted_capabilities: a capability the
+     * workload was checked for but did not hold appears only in attempted_capabilities.
+     * </pre>
+     *
+     * <code>repeated uint64 attempted_capabilities = 6;</code>
+     * @param index The index of the element to return.
+     * @return The attemptedCapabilities at the given index.
+     */
+    long getAttemptedCapabilities(int index);
+
+    /**
+     * <code>repeated uint64 used_capabilities = 7;</code>
+     * @return A list containing the usedCapabilities.
+     */
+    java.util.List<java.lang.Long> getUsedCapabilitiesList();
+    /**
+     * <code>repeated uint64 used_capabilities = 7;</code>
+     * @return The count of usedCapabilities.
+     */
+    int getUsedCapabilitiesCount();
+    /**
+     * <code>repeated uint64 used_capabilities = 7;</code>
+     * @param index The index of the element to return.
+     * @return The usedCapabilities at the given index.
+     */
+    long getUsedCapabilities(int index);
   }
   /**
    * Protobuf type {@code datadog.cws.dumpsv1.ProfileContext}
@@ -5353,6 +5405,8 @@ com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue);
     private ProfileContext() {
       syscalls_ = emptyIntList();
       tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      attemptedCapabilities_ = emptyLongList();
+      usedCapabilities_ = emptyLongList();
     }
 
     @java.lang.Override
@@ -5558,6 +5612,82 @@ com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue) {
       return tags_.getByteString(index);
     }
 
+    public static final int ATTEMPTED_CAPABILITIES_FIELD_NUMBER = 6;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.Internal.LongList attemptedCapabilities_;
+    /**
+     * <pre>
+     * Capabilities observed at runtime, unioned across every process of this profile
+     * version. used_capabilities is a subset of attempted_capabilities: a capability the
+     * workload was checked for but did not hold appears only in attempted_capabilities.
+     * </pre>
+     *
+     * <code>repeated uint64 attempted_capabilities = 6;</code>
+     * @return A list containing the attemptedCapabilities.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Long>
+        getAttemptedCapabilitiesList() {
+      return attemptedCapabilities_;
+    }
+    /**
+     * <pre>
+     * Capabilities observed at runtime, unioned across every process of this profile
+     * version. used_capabilities is a subset of attempted_capabilities: a capability the
+     * workload was checked for but did not hold appears only in attempted_capabilities.
+     * </pre>
+     *
+     * <code>repeated uint64 attempted_capabilities = 6;</code>
+     * @return The count of attemptedCapabilities.
+     */
+    public int getAttemptedCapabilitiesCount() {
+      return attemptedCapabilities_.size();
+    }
+    /**
+     * <pre>
+     * Capabilities observed at runtime, unioned across every process of this profile
+     * version. used_capabilities is a subset of attempted_capabilities: a capability the
+     * workload was checked for but did not hold appears only in attempted_capabilities.
+     * </pre>
+     *
+     * <code>repeated uint64 attempted_capabilities = 6;</code>
+     * @param index The index of the element to return.
+     * @return The attemptedCapabilities at the given index.
+     */
+    public long getAttemptedCapabilities(int index) {
+      return attemptedCapabilities_.getLong(index);
+    }
+    private int attemptedCapabilitiesMemoizedSerializedSize = -1;
+
+    public static final int USED_CAPABILITIES_FIELD_NUMBER = 7;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.Internal.LongList usedCapabilities_;
+    /**
+     * <code>repeated uint64 used_capabilities = 7;</code>
+     * @return A list containing the usedCapabilities.
+     */
+    @java.lang.Override
+    public java.util.List<java.lang.Long>
+        getUsedCapabilitiesList() {
+      return usedCapabilities_;
+    }
+    /**
+     * <code>repeated uint64 used_capabilities = 7;</code>
+     * @return The count of usedCapabilities.
+     */
+    public int getUsedCapabilitiesCount() {
+      return usedCapabilities_.size();
+    }
+    /**
+     * <code>repeated uint64 used_capabilities = 7;</code>
+     * @param index The index of the element to return.
+     * @return The usedCapabilities at the given index.
+     */
+    public long getUsedCapabilities(int index) {
+      return usedCapabilities_.getLong(index);
+    }
+    private int usedCapabilitiesMemoizedSerializedSize = -1;
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -5594,6 +5724,20 @@ com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue) {
       }
       for (int i = 0; i < tags_.size(); i++) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 5, tags_.getRaw(i));
+      }
+      if (getAttemptedCapabilitiesList().size() > 0) {
+        output.writeUInt32NoTag(50);
+        output.writeUInt32NoTag(attemptedCapabilitiesMemoizedSerializedSize);
+      }
+      for (int i = 0; i < attemptedCapabilities_.size(); i++) {
+        output.writeUInt64NoTag(attemptedCapabilities_.getLong(i));
+      }
+      if (getUsedCapabilitiesList().size() > 0) {
+        output.writeUInt32NoTag(58);
+        output.writeUInt32NoTag(usedCapabilitiesMemoizedSerializedSize);
+      }
+      for (int i = 0; i < usedCapabilities_.size(); i++) {
+        output.writeUInt64NoTag(usedCapabilities_.getLong(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -5644,6 +5788,34 @@ com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue) {
         size += dataSize;
         size += 1 * getTagsList().size();
       }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < attemptedCapabilities_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeUInt64SizeNoTag(attemptedCapabilities_.getLong(i));
+        }
+        size += dataSize;
+        if (!getAttemptedCapabilitiesList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        attemptedCapabilitiesMemoizedSerializedSize = dataSize;
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < usedCapabilities_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeUInt64SizeNoTag(usedCapabilities_.getLong(i));
+        }
+        size += dataSize;
+        if (!getUsedCapabilitiesList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        usedCapabilitiesMemoizedSerializedSize = dataSize;
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -5669,6 +5841,10 @@ com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue) {
           .equals(other.getSyscallsList())) return false;
       if (!getTagsList()
           .equals(other.getTagsList())) return false;
+      if (!getAttemptedCapabilitiesList()
+          .equals(other.getAttemptedCapabilitiesList())) return false;
+      if (!getUsedCapabilitiesList()
+          .equals(other.getUsedCapabilitiesList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -5697,6 +5873,14 @@ com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue) {
       if (getTagsCount() > 0) {
         hash = (37 * hash) + TAGS_FIELD_NUMBER;
         hash = (53 * hash) + getTagsList().hashCode();
+      }
+      if (getAttemptedCapabilitiesCount() > 0) {
+        hash = (37 * hash) + ATTEMPTED_CAPABILITIES_FIELD_NUMBER;
+        hash = (53 * hash) + getAttemptedCapabilitiesList().hashCode();
+      }
+      if (getUsedCapabilitiesCount() > 0) {
+        hash = (37 * hash) + USED_CAPABILITIES_FIELD_NUMBER;
+        hash = (53 * hash) + getUsedCapabilitiesList().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -5855,6 +6039,8 @@ com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue) {
         syscalls_ = emptyIntList();
         tags_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000010);
+        attemptedCapabilities_ = emptyLongList();
+        usedCapabilities_ = emptyLongList();
         return this;
       }
 
@@ -5898,6 +6084,16 @@ com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue) {
           bitField0_ = (bitField0_ & ~0x00000010);
         }
         result.tags_ = tags_;
+        if (((bitField0_ & 0x00000020) != 0)) {
+          attemptedCapabilities_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000020);
+        }
+        result.attemptedCapabilities_ = attemptedCapabilities_;
+        if (((bitField0_ & 0x00000040) != 0)) {
+          usedCapabilities_.makeImmutable();
+          bitField0_ = (bitField0_ & ~0x00000040);
+        }
+        result.usedCapabilities_ = usedCapabilities_;
       }
 
       private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.ProfileContext result) {
@@ -5987,6 +6183,26 @@ com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue) {
           }
           onChanged();
         }
+        if (!other.attemptedCapabilities_.isEmpty()) {
+          if (attemptedCapabilities_.isEmpty()) {
+            attemptedCapabilities_ = other.attemptedCapabilities_;
+            bitField0_ = (bitField0_ & ~0x00000020);
+          } else {
+            ensureAttemptedCapabilitiesIsMutable();
+            attemptedCapabilities_.addAll(other.attemptedCapabilities_);
+          }
+          onChanged();
+        }
+        if (!other.usedCapabilities_.isEmpty()) {
+          if (usedCapabilities_.isEmpty()) {
+            usedCapabilities_ = other.usedCapabilities_;
+            bitField0_ = (bitField0_ & ~0x00000040);
+          } else {
+            ensureUsedCapabilitiesIsMutable();
+            usedCapabilities_.addAll(other.usedCapabilities_);
+          }
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -6054,6 +6270,38 @@ com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue) {
                 tags_.add(s);
                 break;
               } // case 42
+              case 48: {
+                long v = input.readUInt64();
+                ensureAttemptedCapabilitiesIsMutable();
+                attemptedCapabilities_.addLong(v);
+                break;
+              } // case 48
+              case 50: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                ensureAttemptedCapabilitiesIsMutable();
+                while (input.getBytesUntilLimit() > 0) {
+                  attemptedCapabilities_.addLong(input.readUInt64());
+                }
+                input.popLimit(limit);
+                break;
+              } // case 50
+              case 56: {
+                long v = input.readUInt64();
+                ensureUsedCapabilitiesIsMutable();
+                usedCapabilities_.addLong(v);
+                break;
+              } // case 56
+              case 58: {
+                int length = input.readRawVarint32();
+                int limit = input.pushLimit(length);
+                ensureUsedCapabilitiesIsMutable();
+                while (input.getBytesUntilLimit() > 0) {
+                  usedCapabilities_.addLong(input.readUInt64());
+                }
+                input.popLimit(limit);
+                break;
+              } // case 58
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -6443,6 +6691,210 @@ com.dd.cws.adv1.pb.SecDumpProto.event_type_state defaultValue) {
         checkByteStringIsUtf8(value);
         ensureTagsIsMutable();
         tags_.add(value);
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Internal.LongList attemptedCapabilities_ = emptyLongList();
+      private void ensureAttemptedCapabilitiesIsMutable() {
+        if (!((bitField0_ & 0x00000020) != 0)) {
+          attemptedCapabilities_ = mutableCopy(attemptedCapabilities_);
+          bitField0_ |= 0x00000020;
+        }
+      }
+      /**
+       * <pre>
+       * Capabilities observed at runtime, unioned across every process of this profile
+       * version. used_capabilities is a subset of attempted_capabilities: a capability the
+       * workload was checked for but did not hold appears only in attempted_capabilities.
+       * </pre>
+       *
+       * <code>repeated uint64 attempted_capabilities = 6;</code>
+       * @return A list containing the attemptedCapabilities.
+       */
+      public java.util.List<java.lang.Long>
+          getAttemptedCapabilitiesList() {
+        return ((bitField0_ & 0x00000020) != 0) ?
+                 java.util.Collections.unmodifiableList(attemptedCapabilities_) : attemptedCapabilities_;
+      }
+      /**
+       * <pre>
+       * Capabilities observed at runtime, unioned across every process of this profile
+       * version. used_capabilities is a subset of attempted_capabilities: a capability the
+       * workload was checked for but did not hold appears only in attempted_capabilities.
+       * </pre>
+       *
+       * <code>repeated uint64 attempted_capabilities = 6;</code>
+       * @return The count of attemptedCapabilities.
+       */
+      public int getAttemptedCapabilitiesCount() {
+        return attemptedCapabilities_.size();
+      }
+      /**
+       * <pre>
+       * Capabilities observed at runtime, unioned across every process of this profile
+       * version. used_capabilities is a subset of attempted_capabilities: a capability the
+       * workload was checked for but did not hold appears only in attempted_capabilities.
+       * </pre>
+       *
+       * <code>repeated uint64 attempted_capabilities = 6;</code>
+       * @param index The index of the element to return.
+       * @return The attemptedCapabilities at the given index.
+       */
+      public long getAttemptedCapabilities(int index) {
+        return attemptedCapabilities_.getLong(index);
+      }
+      /**
+       * <pre>
+       * Capabilities observed at runtime, unioned across every process of this profile
+       * version. used_capabilities is a subset of attempted_capabilities: a capability the
+       * workload was checked for but did not hold appears only in attempted_capabilities.
+       * </pre>
+       *
+       * <code>repeated uint64 attempted_capabilities = 6;</code>
+       * @param index The index to set the value at.
+       * @param value The attemptedCapabilities to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAttemptedCapabilities(
+          int index, long value) {
+        
+        ensureAttemptedCapabilitiesIsMutable();
+        attemptedCapabilities_.setLong(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Capabilities observed at runtime, unioned across every process of this profile
+       * version. used_capabilities is a subset of attempted_capabilities: a capability the
+       * workload was checked for but did not hold appears only in attempted_capabilities.
+       * </pre>
+       *
+       * <code>repeated uint64 attempted_capabilities = 6;</code>
+       * @param value The attemptedCapabilities to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAttemptedCapabilities(long value) {
+        
+        ensureAttemptedCapabilitiesIsMutable();
+        attemptedCapabilities_.addLong(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Capabilities observed at runtime, unioned across every process of this profile
+       * version. used_capabilities is a subset of attempted_capabilities: a capability the
+       * workload was checked for but did not hold appears only in attempted_capabilities.
+       * </pre>
+       *
+       * <code>repeated uint64 attempted_capabilities = 6;</code>
+       * @param values The attemptedCapabilities to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllAttemptedCapabilities(
+          java.lang.Iterable<? extends java.lang.Long> values) {
+        ensureAttemptedCapabilitiesIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, attemptedCapabilities_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Capabilities observed at runtime, unioned across every process of this profile
+       * version. used_capabilities is a subset of attempted_capabilities: a capability the
+       * workload was checked for but did not hold appears only in attempted_capabilities.
+       * </pre>
+       *
+       * <code>repeated uint64 attempted_capabilities = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAttemptedCapabilities() {
+        attemptedCapabilities_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000020);
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.Internal.LongList usedCapabilities_ = emptyLongList();
+      private void ensureUsedCapabilitiesIsMutable() {
+        if (!((bitField0_ & 0x00000040) != 0)) {
+          usedCapabilities_ = mutableCopy(usedCapabilities_);
+          bitField0_ |= 0x00000040;
+        }
+      }
+      /**
+       * <code>repeated uint64 used_capabilities = 7;</code>
+       * @return A list containing the usedCapabilities.
+       */
+      public java.util.List<java.lang.Long>
+          getUsedCapabilitiesList() {
+        return ((bitField0_ & 0x00000040) != 0) ?
+                 java.util.Collections.unmodifiableList(usedCapabilities_) : usedCapabilities_;
+      }
+      /**
+       * <code>repeated uint64 used_capabilities = 7;</code>
+       * @return The count of usedCapabilities.
+       */
+      public int getUsedCapabilitiesCount() {
+        return usedCapabilities_.size();
+      }
+      /**
+       * <code>repeated uint64 used_capabilities = 7;</code>
+       * @param index The index of the element to return.
+       * @return The usedCapabilities at the given index.
+       */
+      public long getUsedCapabilities(int index) {
+        return usedCapabilities_.getLong(index);
+      }
+      /**
+       * <code>repeated uint64 used_capabilities = 7;</code>
+       * @param index The index to set the value at.
+       * @param value The usedCapabilities to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUsedCapabilities(
+          int index, long value) {
+        
+        ensureUsedCapabilitiesIsMutable();
+        usedCapabilities_.setLong(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated uint64 used_capabilities = 7;</code>
+       * @param value The usedCapabilities to add.
+       * @return This builder for chaining.
+       */
+      public Builder addUsedCapabilities(long value) {
+        
+        ensureUsedCapabilitiesIsMutable();
+        usedCapabilities_.addLong(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated uint64 used_capabilities = 7;</code>
+       * @param values The usedCapabilities to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllUsedCapabilities(
+          java.lang.Iterable<? extends java.lang.Long> values) {
+        ensureUsedCapabilitiesIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, usedCapabilities_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated uint64 used_capabilities = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUsedCapabilities() {
+        usedCapabilities_ = emptyLongList();
+        bitField0_ = (bitField0_ & ~0x00000040);
         onChanged();
         return this;
       }
@@ -7790,7 +8242,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ImageTagTimes defaultValue) {
     /**
      * <code>uint32 status = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.status is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=64
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=70
      * @return The status.
      */
     @java.lang.Deprecated int getStatus();
@@ -7798,14 +8250,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ImageTagTimes defaultValue) {
     /**
      * <code>string version = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=65
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=71
      * @return The version.
      */
     @java.lang.Deprecated java.lang.String getVersion();
     /**
      * <code>string version = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=65
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=71
      * @return The bytes for version.
      */
     @java.lang.Deprecated com.google.protobuf.ByteString
@@ -7829,7 +8281,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ImageTagTimes defaultValue) {
     /**
      * <code>repeated string tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=73
      * @return A list containing the tags.
      */
     @java.lang.Deprecated java.util.List<java.lang.String>
@@ -7837,14 +8289,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ImageTagTimes defaultValue) {
     /**
      * <code>repeated string tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=73
      * @return The count of tags.
      */
     @java.lang.Deprecated int getTagsCount();
     /**
      * <code>repeated string tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=73
      * @param index The index of the element to return.
      * @return The tags at the given index.
      */
@@ -7852,7 +8304,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ImageTagTimes defaultValue) {
     /**
      * <code>repeated string tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=73
      * @param index The index of the value to return.
      * @return The bytes of the tags at the given index.
      */
@@ -7862,21 +8314,21 @@ com.dd.cws.adv1.pb.SecDumpProto.ImageTagTimes defaultValue) {
     /**
      * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=68
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=74
      * @return A list containing the syscalls.
      */
     @java.lang.Deprecated java.util.List<java.lang.Integer> getSyscallsList();
     /**
      * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=68
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=74
      * @return The count of syscalls.
      */
     @java.lang.Deprecated int getSyscallsCount();
     /**
      * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=68
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=74
      * @param index The index of the element to return.
      * @return The syscalls at the given index.
      */
@@ -8022,7 +8474,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue);
     /**
      * <code>uint32 status = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.status is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=64
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=70
      * @return The status.
      */
     @java.lang.Override
@@ -8036,7 +8488,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue);
     /**
      * <code>string version = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=65
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=71
      * @return The version.
      */
     @java.lang.Override
@@ -8055,7 +8507,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue);
     /**
      * <code>string version = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=65
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=71
      * @return The bytes for version.
      */
     @java.lang.Override
@@ -8105,7 +8557,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue);
     /**
      * <code>repeated string tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=73
      * @return A list containing the tags.
      */
     @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -8115,7 +8567,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue);
     /**
      * <code>repeated string tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=73
      * @return The count of tags.
      */
     @java.lang.Deprecated public int getTagsCount() {
@@ -8124,7 +8576,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue);
     /**
      * <code>repeated string tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=73
      * @param index The index of the element to return.
      * @return The tags at the given index.
      */
@@ -8134,7 +8586,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue);
     /**
      * <code>repeated string tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=73
      * @param index The index of the value to return.
      * @return The bytes of the tags at the given index.
      */
@@ -8149,7 +8601,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue);
     /**
      * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=68
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=74
      * @return A list containing the syscalls.
      */
     @java.lang.Override
@@ -8160,7 +8612,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue);
     /**
      * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=68
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=74
      * @return The count of syscalls.
      */
     @java.lang.Deprecated public int getSyscallsCount() {
@@ -8169,7 +8621,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue);
     /**
      * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=68
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=74
      * @param index The index of the element to return.
      * @return The syscalls at the given index.
      */
@@ -9015,7 +9467,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint32 status = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.status is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=64
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=70
        * @return The status.
        */
       @java.lang.Override
@@ -9025,7 +9477,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint32 status = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.status is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=64
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=70
        * @param value The status to set.
        * @return This builder for chaining.
        */
@@ -9039,7 +9491,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint32 status = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.status is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=64
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=70
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearStatus() {
@@ -9053,7 +9505,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>string version = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=65
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=71
        * @return The version.
        */
       @java.lang.Deprecated public java.lang.String getVersion() {
@@ -9071,7 +9523,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>string version = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=65
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=71
        * @return The bytes for version.
        */
       @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -9090,7 +9542,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>string version = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=65
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=71
        * @param value The version to set.
        * @return This builder for chaining.
        */
@@ -9105,7 +9557,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>string version = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=65
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=71
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearVersion() {
@@ -9117,7 +9569,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>string version = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.version is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=65
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=71
        * @param value The bytes for version to set.
        * @return This builder for chaining.
        */
@@ -9260,7 +9712,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @return A list containing the tags.
        */
       @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -9270,7 +9722,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @return The count of tags.
        */
       @java.lang.Deprecated public int getTagsCount() {
@@ -9279,7 +9731,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @param index The index of the element to return.
        * @return The tags at the given index.
        */
@@ -9289,7 +9741,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @param index The index of the value to return.
        * @return The bytes of the tags at the given index.
        */
@@ -9300,7 +9752,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @param index The index to set the value at.
        * @param value The tags to set.
        * @return This builder for chaining.
@@ -9316,7 +9768,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @param value The tags to add.
        * @return This builder for chaining.
        */
@@ -9331,7 +9783,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @param values The tags to add.
        * @return This builder for chaining.
        */
@@ -9346,7 +9798,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearTags() {
@@ -9358,7 +9810,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=67
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=73
        * @param value The bytes of the tags to add.
        * @return This builder for chaining.
        */
@@ -9382,7 +9834,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=68
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=74
        * @return A list containing the syscalls.
        */
       @java.lang.Deprecated public java.util.List<java.lang.Integer>
@@ -9393,7 +9845,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=68
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=74
        * @return The count of syscalls.
        */
       @java.lang.Deprecated public int getSyscallsCount() {
@@ -9402,7 +9854,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=68
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=74
        * @param index The index of the element to return.
        * @return The syscalls at the given index.
        */
@@ -9412,7 +9864,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=68
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=74
        * @param index The index to set the value at.
        * @param value The syscalls to set.
        * @return This builder for chaining.
@@ -9428,7 +9880,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=68
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=74
        * @param value The syscalls to add.
        * @return This builder for chaining.
        */
@@ -9442,7 +9894,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=68
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=74
        * @param values The syscalls to add.
        * @return This builder for chaining.
        */
@@ -9457,7 +9909,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated uint32 syscalls = 5 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SecurityProfile.syscalls is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=68
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=74
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearSyscalls() {
@@ -10201,21 +10653,21 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=85
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=91
      * @return A list containing the syscalls.
      */
     @java.lang.Deprecated java.util.List<java.lang.Integer> getSyscallsList();
     /**
      * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=85
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=91
      * @return The count of syscalls.
      */
     @java.lang.Deprecated int getSyscallsCount();
     /**
      * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=85
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=91
      * @param index The index of the element to return.
      * @return The syscalls at the given index.
      */
@@ -10224,7 +10676,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=92
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated java.util.List<java.lang.String>
@@ -10232,14 +10684,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=92
      * @return The count of imageTags.
      */
     @java.lang.Deprecated int getImageTagsCount();
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=92
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -10247,7 +10699,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=92
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -10672,7 +11124,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=85
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=91
      * @return A list containing the syscalls.
      */
     @java.lang.Override
@@ -10683,7 +11135,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=85
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=91
      * @return The count of syscalls.
      */
     @java.lang.Deprecated public int getSyscallsCount() {
@@ -10692,7 +11144,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=85
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=91
      * @param index The index of the element to return.
      * @return The syscalls at the given index.
      */
@@ -10707,7 +11159,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=92
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -10717,7 +11169,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=92
      * @return The count of imageTags.
      */
     @java.lang.Deprecated public int getImageTagsCount() {
@@ -10726,7 +11178,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=92
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -10736,7 +11188,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=92
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -13427,7 +13879,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=85
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=91
        * @return A list containing the syscalls.
        */
       @java.lang.Deprecated public java.util.List<java.lang.Integer>
@@ -13438,7 +13890,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=85
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=91
        * @return The count of syscalls.
        */
       @java.lang.Deprecated public int getSyscallsCount() {
@@ -13447,7 +13899,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=85
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=91
        * @param index The index of the element to return.
        * @return The syscalls at the given index.
        */
@@ -13457,7 +13909,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=85
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=91
        * @param index The index to set the value at.
        * @param value The syscalls to set.
        * @return This builder for chaining.
@@ -13473,7 +13925,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=85
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=91
        * @param value The syscalls to add.
        * @return This builder for chaining.
        */
@@ -13487,7 +13939,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=85
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=91
        * @param values The syscalls to add.
        * @return This builder for chaining.
        */
@@ -13502,7 +13954,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated uint32 syscalls = 7 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.syscalls is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=85
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=91
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearSyscalls() {
@@ -13522,7 +13974,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=92
        * @return A list containing the imageTags.
        */
       @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -13532,7 +13984,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=92
        * @return The count of imageTags.
        */
       @java.lang.Deprecated public int getImageTagsCount() {
@@ -13541,7 +13993,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=92
        * @param index The index of the element to return.
        * @return The imageTags at the given index.
        */
@@ -13551,7 +14003,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=92
        * @param index The index of the value to return.
        * @return The bytes of the imageTags at the given index.
        */
@@ -13562,7 +14014,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=92
        * @param index The index to set the value at.
        * @param value The imageTags to set.
        * @return This builder for chaining.
@@ -13578,7 +14030,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=92
        * @param value The imageTags to add.
        * @return This builder for chaining.
        */
@@ -13593,7 +14045,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=92
        * @param values The imageTags to add.
        * @return This builder for chaining.
        */
@@ -13608,7 +14060,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=92
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearImageTags() {
@@ -13620,7 +14072,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=86
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=92
        * @param value The bytes of the imageTags to add.
        * @return This builder for chaining.
        */
@@ -14801,7 +15253,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint32 cookie = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=98
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=104
      * @return The cookie.
      */
     @java.lang.Deprecated int getCookie();
@@ -14842,7 +15294,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint64 span_id = 8 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.span_id is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=105
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=111
      * @return The spanId.
      */
     @java.lang.Deprecated long getSpanId();
@@ -14850,7 +15302,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint64 trace_id = 9 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.trace_id is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=106
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=112
      * @return The traceId.
      */
     @java.lang.Deprecated long getTraceId();
@@ -15082,7 +15534,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint32 cookie = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=98
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=104
      * @return The cookie.
      */
     @java.lang.Override
@@ -15171,7 +15623,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint64 span_id = 8 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.span_id is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=105
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=111
      * @return The spanId.
      */
     @java.lang.Override
@@ -15184,7 +15636,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>uint64 trace_id = 9 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.ProcessInfo.trace_id is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=106
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=112
      * @return The traceId.
      */
     @java.lang.Override
@@ -16468,7 +16920,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint32 cookie = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=98
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=104
        * @return The cookie.
        */
       @java.lang.Override
@@ -16478,7 +16930,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint32 cookie = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=98
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=104
        * @param value The cookie to set.
        * @return This builder for chaining.
        */
@@ -16492,7 +16944,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint32 cookie = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.cookie is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=98
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=104
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearCookie() {
@@ -16729,7 +17181,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 span_id = 8 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.span_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=105
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=111
        * @return The spanId.
        */
       @java.lang.Override
@@ -16739,7 +17191,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 span_id = 8 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.span_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=105
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=111
        * @param value The spanId to set.
        * @return This builder for chaining.
        */
@@ -16753,7 +17205,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 span_id = 8 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.span_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=105
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=111
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearSpanId() {
@@ -16767,7 +17219,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 trace_id = 9 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.trace_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=106
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=112
        * @return The traceId.
        */
       @java.lang.Override
@@ -16777,7 +17229,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 trace_id = 9 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.trace_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=106
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=112
        * @param value The traceId to set.
        * @return This builder for chaining.
        */
@@ -16791,7 +17243,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>uint64 trace_id = 9 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.ProcessInfo.trace_id is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=106
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=112
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearTraceId() {
@@ -17662,7 +18114,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=135
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated java.util.List<java.lang.String>
@@ -17670,14 +18122,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=135
      * @return The count of imageTags.
      */
     @java.lang.Deprecated int getImageTagsCount();
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=135
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -17685,7 +18137,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=135
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -17888,7 +18340,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=135
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -17898,7 +18350,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=135
      * @return The count of imageTags.
      */
     @java.lang.Deprecated public int getImageTagsCount() {
@@ -17907,7 +18359,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=135
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -17917,7 +18369,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 10 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=135
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -19056,7 +19508,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=135
        * @return A list containing the imageTags.
        */
       @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -19066,7 +19518,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=135
        * @return The count of imageTags.
        */
       @java.lang.Deprecated public int getImageTagsCount() {
@@ -19075,7 +19527,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=135
        * @param index The index of the element to return.
        * @return The imageTags at the given index.
        */
@@ -19085,7 +19537,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=135
        * @param index The index of the value to return.
        * @return The bytes of the imageTags at the given index.
        */
@@ -19096,7 +19548,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=135
        * @param index The index to set the value at.
        * @param value The imageTags to set.
        * @return This builder for chaining.
@@ -19112,7 +19564,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=135
        * @param value The imageTags to add.
        * @return This builder for chaining.
        */
@@ -19127,7 +19579,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=135
        * @param values The imageTags to add.
        * @return This builder for chaining.
        */
@@ -19142,7 +19594,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=135
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearImageTags() {
@@ -19154,7 +19606,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 10 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FileActivityNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=129
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=135
        * @param value The bytes of the imageTags to add.
        * @return This builder for chaining.
        */
@@ -20672,7 +21124,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 3 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=158
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated java.util.List<java.lang.String>
@@ -20680,14 +21132,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 3 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=158
      * @return The count of imageTags.
      */
     @java.lang.Deprecated int getImageTagsCount();
     /**
      * <code>repeated string image_tags = 3 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=158
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -20695,7 +21147,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 3 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=158
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -20831,7 +21283,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 3 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=158
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -20841,7 +21293,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 3 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=158
      * @return The count of imageTags.
      */
     @java.lang.Deprecated public int getImageTagsCount() {
@@ -20850,7 +21302,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 3 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=158
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -20860,7 +21312,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 3 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=158
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -21702,7 +22154,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 3 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=158
        * @return A list containing the imageTags.
        */
       @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -21712,7 +22164,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 3 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=158
        * @return The count of imageTags.
        */
       @java.lang.Deprecated public int getImageTagsCount() {
@@ -21721,7 +22173,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 3 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=158
        * @param index The index of the element to return.
        * @return The imageTags at the given index.
        */
@@ -21731,7 +22183,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 3 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=158
        * @param index The index of the value to return.
        * @return The bytes of the imageTags at the given index.
        */
@@ -21742,7 +22194,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 3 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=158
        * @param index The index to set the value at.
        * @param value The imageTags to set.
        * @return This builder for chaining.
@@ -21758,7 +22210,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 3 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=158
        * @param value The imageTags to add.
        * @return This builder for chaining.
        */
@@ -21773,7 +22225,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 3 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=158
        * @param values The imageTags to add.
        * @return This builder for chaining.
        */
@@ -21788,7 +22240,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 3 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=158
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearImageTags() {
@@ -21800,7 +22252,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 3 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.DNSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=152
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=158
        * @param value The bytes of the imageTags to add.
        * @return This builder for chaining.
        */
@@ -23086,7 +23538,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=173
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated java.util.List<java.lang.String>
@@ -23094,14 +23546,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=173
      * @return The count of imageTags.
      */
     @java.lang.Deprecated int getImageTagsCount();
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=173
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -23109,7 +23561,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=173
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -23184,7 +23636,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=173
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -23194,7 +23646,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=173
      * @return The count of imageTags.
      */
     @java.lang.Deprecated public int getImageTagsCount() {
@@ -23203,7 +23655,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=173
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -23213,7 +23665,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=173
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -23672,7 +24124,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=173
        * @return A list containing the imageTags.
        */
       @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -23682,7 +24134,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=173
        * @return The count of imageTags.
        */
       @java.lang.Deprecated public int getImageTagsCount() {
@@ -23691,7 +24143,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=173
        * @param index The index of the element to return.
        * @return The imageTags at the given index.
        */
@@ -23701,7 +24153,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=173
        * @param index The index of the value to return.
        * @return The bytes of the imageTags at the given index.
        */
@@ -23712,7 +24164,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=173
        * @param index The index to set the value at.
        * @param value The imageTags to set.
        * @return This builder for chaining.
@@ -23728,7 +24180,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=173
        * @param value The imageTags to add.
        * @return This builder for chaining.
        */
@@ -23743,7 +24195,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=173
        * @param values The imageTags to add.
        * @return This builder for chaining.
        */
@@ -23758,7 +24210,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=173
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearImageTags() {
@@ -23770,7 +24222,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.SyscallNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=167
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=173
        * @param value The bytes of the imageTags to add.
        * @return This builder for chaining.
        */
@@ -24778,7 +25230,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=188
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated java.util.List<java.lang.String>
@@ -24786,14 +25238,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=188
      * @return The count of imageTags.
      */
     @java.lang.Deprecated int getImageTagsCount();
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=188
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -24801,7 +25253,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=188
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -24927,7 +25379,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=188
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -24937,7 +25389,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=188
      * @return The count of imageTags.
      */
     @java.lang.Deprecated public int getImageTagsCount() {
@@ -24946,7 +25398,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=188
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -24956,7 +25408,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 2 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=188
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -25751,7 +26203,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=188
        * @return A list containing the imageTags.
        */
       @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -25761,7 +26213,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=188
        * @return The count of imageTags.
        */
       @java.lang.Deprecated public int getImageTagsCount() {
@@ -25770,7 +26222,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=188
        * @param index The index of the element to return.
        * @return The imageTags at the given index.
        */
@@ -25780,7 +26232,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=188
        * @param index The index of the value to return.
        * @return The bytes of the imageTags at the given index.
        */
@@ -25791,7 +26243,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=188
        * @param index The index to set the value at.
        * @param value The imageTags to set.
        * @return This builder for chaining.
@@ -25807,7 +26259,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=188
        * @param value The imageTags to add.
        * @return This builder for chaining.
        */
@@ -25822,7 +26274,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=188
        * @param values The imageTags to add.
        * @return This builder for chaining.
        */
@@ -25837,7 +26289,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=188
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearImageTags() {
@@ -25849,7 +26301,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 2 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.IMDSNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=182
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=188
        * @param value The bytes of the imageTags to add.
        * @return This builder for chaining.
        */
@@ -35370,7 +35822,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=286
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated java.util.List<java.lang.String>
@@ -35378,14 +35830,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=286
      * @return The count of imageTags.
      */
     @java.lang.Deprecated int getImageTagsCount();
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=286
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -35393,7 +35845,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=286
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -35529,7 +35981,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=286
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -35539,7 +35991,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=286
      * @return The count of imageTags.
      */
     @java.lang.Deprecated public int getImageTagsCount() {
@@ -35548,7 +36000,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=286
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -35558,7 +36010,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 4 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=286
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -36422,7 +36874,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=286
        * @return A list containing the imageTags.
        */
       @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -36432,7 +36884,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=286
        * @return The count of imageTags.
        */
       @java.lang.Deprecated public int getImageTagsCount() {
@@ -36441,7 +36893,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=286
        * @param index The index of the element to return.
        * @return The imageTags at the given index.
        */
@@ -36451,7 +36903,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=286
        * @param index The index of the value to return.
        * @return The bytes of the imageTags at the given index.
        */
@@ -36462,7 +36914,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=286
        * @param index The index to set the value at.
        * @param value The imageTags to set.
        * @return This builder for chaining.
@@ -36478,7 +36930,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=286
        * @param value The imageTags to add.
        * @return This builder for chaining.
        */
@@ -36493,7 +36945,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=286
        * @param values The imageTags to add.
        * @return This builder for chaining.
        */
@@ -36508,7 +36960,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=286
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearImageTags() {
@@ -36520,7 +36972,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 4 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.BindNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=280
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=286
        * @param value The bytes of the imageTags to add.
        * @return This builder for chaining.
        */
@@ -38310,7 +38762,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=306
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated java.util.List<java.lang.String>
@@ -38318,14 +38770,14 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=306
      * @return The count of imageTags.
      */
     @java.lang.Deprecated int getImageTagsCount();
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=306
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -38333,7 +38785,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=306
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -38474,7 +38926,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=306
      * @return A list containing the imageTags.
      */
     @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -38484,7 +38936,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=306
      * @return The count of imageTags.
      */
     @java.lang.Deprecated public int getImageTagsCount() {
@@ -38493,7 +38945,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=306
      * @param index The index of the element to return.
      * @return The imageTags at the given index.
      */
@@ -38503,7 +38955,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
     /**
      * <code>repeated string image_tags = 1 [deprecated = true];</code>
      * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-     *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+     *     See proto/cws/dumpsv1/activity_dump.proto;l=306
      * @param index The index of the value to return.
      * @return The bytes of the imageTags at the given index.
      */
@@ -39244,7 +39696,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=306
        * @return A list containing the imageTags.
        */
       @java.lang.Deprecated public com.google.protobuf.ProtocolStringList
@@ -39254,7 +39706,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=306
        * @return The count of imageTags.
        */
       @java.lang.Deprecated public int getImageTagsCount() {
@@ -39263,7 +39715,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=306
        * @param index The index of the element to return.
        * @return The imageTags at the given index.
        */
@@ -39273,7 +39725,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=306
        * @param index The index of the value to return.
        * @return The bytes of the imageTags at the given index.
        */
@@ -39284,7 +39736,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=306
        * @param index The index to set the value at.
        * @param value The imageTags to set.
        * @return This builder for chaining.
@@ -39300,7 +39752,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=306
        * @param value The imageTags to add.
        * @return This builder for chaining.
        */
@@ -39315,7 +39767,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=306
        * @param values The imageTags to add.
        * @return This builder for chaining.
        */
@@ -39330,7 +39782,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=306
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearImageTags() {
@@ -39342,7 +39794,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       /**
        * <code>repeated string image_tags = 1 [deprecated = true];</code>
        * @deprecated datadog.cws.dumpsv1.FlowNode.image_tags is deprecated.
-       *     See proto/cws/dumpsv1/activity_dump.proto;l=300
+       *     See proto/cws/dumpsv1/activity_dump.proto;l=306
        * @param value The bytes of the imageTags to add.
        * @return This builder for chaining.
        */
@@ -43344,164 +43796,165 @@ java.lang.String defaultValue) {
       "\004\022\013\n\003end\030\013 \001(\004\022\014\n\004size\030\014 \001(\004\022\025\n\rserializ" +
       "ation\030\016 \001(\t\022\021\n\tcgroup_id\030\017 \001(\t\022\026\n\016cgroup" +
       "_manager\030\020 \001(\t\"8\n\017ProfileSelector\022\022\n\nima" +
-      "ge_name\030\001 \001(\t\022\021\n\timage_tag\030\002 \001(\t\"\210\002\n\016Pro" +
+      "ge_name\030\001 \001(\t\022\021\n\timage_tag\030\002 \001(\t\"\303\002\n\016Pro" +
       "fileContext\022\022\n\nfirst_seen\030\001 \001(\004\022\021\n\tlast_" +
       "seen\030\002 \001(\004\022Q\n\020event_type_state\030\003 \003(\01327.d" +
       "atadog.cws.dumpsv1.ProfileContext.EventT" +
       "ypeStateEntry\022\020\n\010syscalls\030\004 \003(\r\022\014\n\004tags\030" +
-      "\005 \003(\t\032\\\n\023EventTypeStateEntry\022\013\n\003key\030\001 \001(" +
-      "\r\0224\n\005value\030\002 \001(\0132%.datadog.cws.dumpsv1.e" +
-      "vent_type_state:\0028\001\"6\n\rImageTagTimes\022\022\n\n" +
-      "first_seen\030\001 \001(\004\022\021\n\tlast_seen\030\002 \001(\004\"\222\001\n\010" +
-      "NodeBase\0225\n\004seen\030\001 \003(\0132\'.datadog.cws.dum" +
-      "psv1.NodeBase.SeenEntry\032O\n\tSeenEntry\022\013\n\003" +
-      "key\030\001 \001(\t\0221\n\005value\030\002 \001(\0132\".datadog.cws.d" +
-      "umpsv1.ImageTagTimes:\0028\001\"\307\003\n\017SecurityPro" +
-      "file\022\022\n\006status\030\001 \001(\rB\002\030\001\022\023\n\007version\030\002 \001(" +
-      "\tB\002\030\001\022/\n\010metadata\030\003 \001(\0132\035.datadog.cws.du" +
-      "mpsv1.Metadata\022\020\n\004tags\030\004 \003(\tB\002\030\001\022\024\n\010sysc" +
-      "alls\030\005 \003(\rB\002\030\001\0226\n\004tree\030\006 \003(\0132(.datadog.c" +
-      "ws.dumpsv1.ProcessActivityNode\022S\n\020profil" +
-      "e_contexts\030\007 \003(\01329.datadog.cws.dumpsv1.S" +
-      "ecurityProfile.ProfileContextsEntry\0226\n\010s" +
-      "elector\030\010 \001(\0132$.datadog.cws.dumpsv1.Prof" +
-      "ileSelector\022\020\n\010disabled\030\t \001(\010\032[\n\024Profile" +
-      "ContextsEntry\022\013\n\003key\030\001 \001(\t\0222\n\005value\030\002 \001(" +
-      "\0132#.datadog.cws.dumpsv1.ProfileContext:\002" +
-      "8\001\"\347\005\n\023ProcessActivityNode\0221\n\007process\030\001 " +
-      "\001(\0132 .datadog.cws.dumpsv1.ProcessInfo\022<\n" +
-      "\017generation_type\030\010 \001(\0162#.datadog.cws.dum" +
-      "psv1.GenerationType\0227\n\rmatched_rules\030\t \003" +
-      "(\0132 .datadog.cws.dumpsv1.MatchedRule\022:\n\010" +
-      "children\030\003 \003(\0132(.datadog.cws.dumpsv1.Pro" +
-      "cessActivityNode\0224\n\005files\030\004 \003(\0132%.datado" +
-      "g.cws.dumpsv1.FileActivityNode\022/\n\tdns_na" +
-      "mes\030\005 \003(\0132\034.datadog.cws.dumpsv1.DNSNode\022" +
-      "0\n\007sockets\030\006 \003(\0132\037.datadog.cws.dumpsv1.S" +
-      "ocketNode\022\024\n\010syscalls\030\007 \003(\rB\002\030\001\022\026\n\nimage" +
-      "_tags\030\n \003(\tB\002\030\001\0220\n\tnode_base\030\016 \001(\0132\035.dat" +
-      "adog.cws.dumpsv1.NodeBase\0222\n\013imds_events" +
-      "\030\013 \003(\0132\035.datadog.cws.dumpsv1.IMDSNode\0227\n" +
-      "\rsyscall_nodes\030\014 \003(\0132 .datadog.cws.dumps" +
-      "v1.SyscallNode\022?\n\017network_devices\030\r \003(\0132" +
-      "&.datadog.cws.dumpsv1.NetworkDeviceNode\022" +
-      "=\n\020capability_nodes\030\017 \003(\0132#.datadog.cws." +
-      "dumpsv1.CapabilityNodeJ\004\010\002\020\003\"\331\003\n\013Process" +
-      "Info\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\014\n\004ppid\030\003" +
-      " \001(\r\022\022\n\006cookie\030\004 \001(\rB\002\030\001\022\021\n\tis_thread\030\005 " +
-      "\001(\010\022+\n\004file\030\006 \001(\0132\035.datadog.cws.dumpsv1." +
-      "FileInfo\022\024\n\014container_id\030\007 \001(\t\022\023\n\007span_i" +
-      "d\030\010 \001(\004B\002\030\001\022\024\n\010trace_id\030\t \001(\004B\002\030\001\022\013\n\003tty" +
-      "\030\n \001(\t\022\014\n\004comm\030\013 \001(\t\022\021\n\tfork_time\030\014 \001(\004\022" +
-      "\021\n\texit_time\030\r \001(\004\022\021\n\texec_time\030\016 \001(\004\0225\n" +
-      "\013credentials\030\017 \001(\0132 .datadog.cws.dumpsv1" +
-      ".Credentials\022\014\n\004args\030\020 \003(\t\022\r\n\005argv0\030\021 \001(" +
-      "\t\022\026\n\016args_truncated\030\022 \001(\010\022\014\n\004envs\030\023 \003(\t\022" +
-      "\026\n\016envs_truncated\030\024 \001(\010\022\025\n\ris_exec_child" +
-      "\030\025 \001(\010\022\020\n\010cookie64\030\026 \001(\004\"\242\003\n\020FileActivit" +
-      "yNode\0227\n\rmatched_rules\030\t \003(\0132 .datadog.c" +
-      "ws.dumpsv1.MatchedRule\022\026\n\nimage_tags\030\n \003" +
-      "(\tB\002\030\001\0220\n\tnode_base\030\013 \001(\0132\035.datadog.cws." +
-      "dumpsv1.NodeBase\022\014\n\004name\030\001 \001(\t\022\022\n\nis_pat" +
-      "tern\030\007 \001(\010\022+\n\004file\030\002 \001(\0132\035.datadog.cws.d" +
-      "umpsv1.FileInfo\022<\n\017generation_type\030\010 \001(\016" +
-      "2#.datadog.cws.dumpsv1.GenerationType\022\022\n" +
-      "\nfirst_seen\030\004 \001(\004\022+\n\004open\030\005 \001(\0132\035.datado" +
-      "g.cws.dumpsv1.OpenNode\0227\n\010children\030\006 \003(\013" +
-      "2%.datadog.cws.dumpsv1.FileActivityNodeJ" +
-      "\004\010\003\020\004\"7\n\010OpenNode\022\016\n\006retval\030\001 \001(\022\022\r\n\005fla" +
-      "gs\030\002 \001(\r\022\014\n\004mode\030\003 \001(\r\"\274\001\n\007DNSNode\0227\n\rma" +
-      "tched_rules\030\002 \003(\0132 .datadog.cws.dumpsv1." +
-      "MatchedRule\022\026\n\nimage_tags\030\003 \003(\tB\002\030\001\0220\n\tn" +
-      "ode_base\030\004 \001(\0132\035.datadog.cws.dumpsv1.Nod" +
-      "eBase\022.\n\010requests\030\001 \003(\0132\034.datadog.cws.du" +
-      "mpsv1.DNSInfo\"Q\n\007DNSInfo\022\014\n\004name\030\001 \001(\t\022\014" +
-      "\n\004type\030\002 \001(\r\022\r\n\005class\030\003 \001(\r\022\014\n\004size\030\004 \001(" +
-      "\r\022\r\n\005count\030\005 \001(\r\"h\n\013SyscallNode\022\026\n\nimage" +
-      "_tags\030\001 \003(\tB\002\030\001\0220\n\tnode_base\030\003 \001(\0132\035.dat" +
-      "adog.cws.dumpsv1.NodeBase\022\017\n\007syscall\030\002 \001" +
-      "(\005\"j\n\016CapabilityNode\0220\n\tnode_base\030\001 \001(\0132" +
-      "\035.datadog.cws.dumpsv1.NodeBase\022\022\n\ncapabi" +
-      "lity\030\002 \001(\004\022\022\n\nis_capable\030\003 \001(\010\"\274\001\n\010IMDSN" +
-      "ode\0227\n\rmatched_rules\030\001 \003(\0132 .datadog.cws" +
-      ".dumpsv1.MatchedRule\022\026\n\nimage_tags\030\002 \003(\t" +
-      "B\002\030\001\0220\n\tnode_base\030\004 \001(\0132\035.datadog.cws.du" +
-      "mpsv1.NodeBase\022-\n\005event\030\003 \001(\0132\036.datadog." +
-      "cws.dumpsv1.IMDSEvent\"\240\001\n\tIMDSEvent\022\014\n\004t" +
-      "ype\030\001 \001(\t\022\026\n\016cloud_provider\030\002 \001(\t\022\013\n\003url" +
-      "\030\003 \001(\t\022\014\n\004host\030\004 \001(\t\022\022\n\nuser_agent\030\005 \001(\t" +
-      "\022\016\n\006server\030\006 \001(\t\022.\n\003aws\030\007 \001(\0132!.datadog." +
-      "cws.dumpsv1.AWSIMDSEvent\"m\n\014AWSIMDSEvent" +
-      "\022\022\n\nis_imds_v2\030\001 \001(\010\022I\n\024security_credent" +
-      "ials\030\002 \001(\0132+.datadog.cws.dumpsv1.AWSSecu" +
-      "rityCredentials\"y\n\026AWSSecurityCredential" +
-      "s\022\014\n\004code\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\022\025\n\raccess_" +
-      "key_id\030\003 \001(\t\022\024\n\014last_updated\030\004 \001(\t\022\026\n\016ex" +
-      "piration_raw\030\005 \001(\t\"\272\004\n\010FileInfo\022\013\n\003uid\030\001" +
-      " \001(\r\022\014\n\004user\030\002 \001(\t\022\013\n\003gid\030\003 \001(\r\022\r\n\005group" +
-      "\030\004 \001(\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005ctime\030\006 \001(\004\022\r\n\005m" +
-      "time\030\007 \001(\004\022\020\n\010mount_id\030\010 \001(\r\022\r\n\005inode\030\t " +
-      "\001(\004\022\026\n\016in_upper_layer\030\n \001(\010\022\014\n\004path\030\013 \001(" +
-      "\t\022\020\n\010basename\030\014 \001(\t\022\022\n\nfilesystem\030\r \001(\t\022" +
-      "\024\n\014package_name\030\016 \001(\t\022\027\n\017package_version" +
-      "\030\017 \001(\t\022\032\n\rpackage_epoch\030\023 \001(\rH\000\210\001\001\022\034\n\017pa" +
-      "ckage_release\030\024 \001(\tH\001\210\001\001\022\033\n\023package_src_" +
-      "version\030\020 \001(\t\022\036\n\021package_src_epoch\030\025 \001(\r" +
-      "H\002\210\001\001\022 \n\023package_src_release\030\026 \001(\tH\003\210\001\001\022" +
-      "\016\n\006hashes\030\021 \003(\t\0222\n\nhash_state\030\022 \001(\0162\036.da" +
-      "tadog.cws.dumpsv1.HashStateB\020\n\016_package_" +
-      "epochB\022\n\020_package_releaseB\024\n\022_package_sr" +
-      "c_epochB\026\n\024_package_src_release\"\224\002\n\013Cred" +
-      "entials\022\013\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004use" +
-      "r\030\003 \001(\t\022\r\n\005group\030\004 \001(\t\022\025\n\reffective_uid\030" +
-      "\005 \001(\r\022\025\n\reffective_gid\030\006 \001(\r\022\026\n\016effectiv" +
-      "e_user\030\007 \001(\t\022\027\n\017effective_group\030\010 \001(\t\022\016\n" +
-      "\006fs_uid\030\t \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007fs_user" +
-      "\030\013 \001(\t\022\020\n\010fs_group\030\014 \001(\t\022\025\n\rcap_effectiv" +
-      "e\030\r \001(\004\022\025\n\rcap_permitted\030\016 \001(\004\"I\n\nSocket" +
-      "Node\022\016\n\006family\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035.dat" +
-      "adog.cws.dumpsv1.BindNode\"\271\001\n\010BindNode\0227" +
-      "\n\rmatched_rules\030\003 \003(\0132 .datadog.cws.dump" +
-      "sv1.MatchedRule\022\026\n\nimage_tags\030\004 \003(\tB\002\030\001\022" +
-      "0\n\tnode_base\030\006 \001(\0132\035.datadog.cws.dumpsv1" +
-      ".NodeBase\022\014\n\004port\030\001 \001(\r\022\n\n\002ip\030\002 \001(\t\022\020\n\010p" +
-      "rotocol\030\005 \001(\r\"\257\001\n\021NetworkDeviceNode\0227\n\rm" +
-      "atched_rules\030\001 \003(\0132 .datadog.cws.dumpsv1" +
-      ".MatchedRule\022\r\n\005netns\030\002 \001(\r\022\017\n\007ifindex\030\003" +
-      " \001(\r\022\016\n\006ifname\030\004 \001(\t\0221\n\nflow_nodes\030\005 \003(\013" +
-      "2\035.datadog.cws.dumpsv1.FlowNode\"\322\002\n\010Flow" +
-      "Node\022\026\n\nimage_tags\030\001 \003(\tB\002\030\001\0220\n\tnode_bas" +
-      "e\030\010 \001(\0132\035.datadog.cws.dumpsv1.NodeBase\0222" +
-      "\n\006source\030\002 \001(\0132\".datadog.cws.dumpsv1.IPP" +
-      "ortContext\0227\n\013destination\030\003 \001(\0132\".datado" +
-      "g.cws.dumpsv1.IPPortContext\022\023\n\013l3_protoc" +
-      "ol\030\004 \001(\r\022\023\n\013l4_protocol\030\005 \001(\r\0222\n\007ingress" +
-      "\030\006 \001(\0132!.datadog.cws.dumpsv1.NetworkStat" +
-      "s\0221\n\006egress\030\007 \001(\0132!.datadog.cws.dumpsv1." +
-      "NetworkStats\")\n\rIPPortContext\022\n\n\002ip\030\001 \001(" +
-      "\t\022\014\n\004port\030\002 \001(\r\"7\n\014NetworkStats\022\021\n\tdata_" +
-      "size\030\001 \001(\004\022\024\n\014packet_count\030\002 \001(\004\"\325\001\n\013Mat" +
-      "chedRule\022\017\n\007rule_id\030\001 \001(\t\022\024\n\014rule_versio" +
-      "n\030\002 \001(\t\022\023\n\013policy_name\030\003 \001(\t\022\026\n\016policy_v" +
-      "ersion\030\004 \001(\t\022A\n\trule_tags\030\005 \003(\0132..datado" +
-      "g.cws.dumpsv1.MatchedRule.RuleTagsEntry\032" +
-      "/\n\rRuleTagsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002" +
-      " \001(\t:\0028\001\"t\n\020event_type_state\022\031\n\021last_ano" +
-      "maly_nano\030\001 \001(\004\022E\n\023event_profile_state\030\002" +
-      " \001(\0162(.datadog.cws.dumpsv1.event_profile" +
-      "_state*\271\001\n\tHashState\022\013\n\007NO_HASH\020\000\022\010\n\004DON" +
-      "E\020\001\022\022\n\016FILE_NOT_FOUND\020\002\022\035\n\031PATHNAME_RESO" +
-      "LUTION_ERROR\020\003\022\020\n\014FILE_TOO_BIG\020\004\022\035\n\031EVEN" +
-      "T_TYPE_NOT_CONFIGURED\020\005\022\031\n\025HASH_WAS_RATE" +
-      "_LIMITED\020\006\022\026\n\022UNKNOWN_HASH_ERROR\020\007*8\n\016Ge" +
-      "nerationType\022\013\n\007UNKNOWN\020\000\022\013\n\007RUNTIME\020\001\022\014" +
-      "\n\010SNAPSHOT\020\002*\220\001\n\023event_profile_state\022\016\n\n" +
-      "NO_PROFILE\020\000\022\027\n\023PROFILE_AT_MAX_SIZE\020\001\022\024\n" +
-      "\020UNSTABLE_PROFILE\020\002\022\022\n\016STABLE_PROFILE\020\003\022" +
-      "\021\n\rAUTO_LEARNING\020\004\022\023\n\017WORKLOAD_WARMUP\020\005B" +
-      "U\n\022com.dd.cws.adv1.pbB\014SecDumpProtoP\000Z/g" +
-      "ithub.com/DataDog/agent-payload/v5/cws/d" +
-      "umpsv1b\006proto3"
+      "\005 \003(\t\022\036\n\026attempted_capabilities\030\006 \003(\004\022\031\n" +
+      "\021used_capabilities\030\007 \003(\004\032\\\n\023EventTypeSta" +
+      "teEntry\022\013\n\003key\030\001 \001(\r\0224\n\005value\030\002 \001(\0132%.da" +
+      "tadog.cws.dumpsv1.event_type_state:\0028\001\"6" +
+      "\n\rImageTagTimes\022\022\n\nfirst_seen\030\001 \001(\004\022\021\n\tl" +
+      "ast_seen\030\002 \001(\004\"\222\001\n\010NodeBase\0225\n\004seen\030\001 \003(" +
+      "\0132\'.datadog.cws.dumpsv1.NodeBase.SeenEnt" +
+      "ry\032O\n\tSeenEntry\022\013\n\003key\030\001 \001(\t\0221\n\005value\030\002 " +
+      "\001(\0132\".datadog.cws.dumpsv1.ImageTagTimes:" +
+      "\0028\001\"\307\003\n\017SecurityProfile\022\022\n\006status\030\001 \001(\rB" +
+      "\002\030\001\022\023\n\007version\030\002 \001(\tB\002\030\001\022/\n\010metadata\030\003 \001" +
+      "(\0132\035.datadog.cws.dumpsv1.Metadata\022\020\n\004tag" +
+      "s\030\004 \003(\tB\002\030\001\022\024\n\010syscalls\030\005 \003(\rB\002\030\001\0226\n\004tre" +
+      "e\030\006 \003(\0132(.datadog.cws.dumpsv1.ProcessAct" +
+      "ivityNode\022S\n\020profile_contexts\030\007 \003(\01329.da" +
+      "tadog.cws.dumpsv1.SecurityProfile.Profil" +
+      "eContextsEntry\0226\n\010selector\030\010 \001(\0132$.datad" +
+      "og.cws.dumpsv1.ProfileSelector\022\020\n\010disabl" +
+      "ed\030\t \001(\010\032[\n\024ProfileContextsEntry\022\013\n\003key\030" +
+      "\001 \001(\t\0222\n\005value\030\002 \001(\0132#.datadog.cws.dumps" +
+      "v1.ProfileContext:\0028\001\"\347\005\n\023ProcessActivit" +
+      "yNode\0221\n\007process\030\001 \001(\0132 .datadog.cws.dum" +
+      "psv1.ProcessInfo\022<\n\017generation_type\030\010 \001(" +
+      "\0162#.datadog.cws.dumpsv1.GenerationType\0227" +
+      "\n\rmatched_rules\030\t \003(\0132 .datadog.cws.dump" +
+      "sv1.MatchedRule\022:\n\010children\030\003 \003(\0132(.data" +
+      "dog.cws.dumpsv1.ProcessActivityNode\0224\n\005f" +
+      "iles\030\004 \003(\0132%.datadog.cws.dumpsv1.FileAct" +
+      "ivityNode\022/\n\tdns_names\030\005 \003(\0132\034.datadog.c" +
+      "ws.dumpsv1.DNSNode\0220\n\007sockets\030\006 \003(\0132\037.da" +
+      "tadog.cws.dumpsv1.SocketNode\022\024\n\010syscalls" +
+      "\030\007 \003(\rB\002\030\001\022\026\n\nimage_tags\030\n \003(\tB\002\030\001\0220\n\tno" +
+      "de_base\030\016 \001(\0132\035.datadog.cws.dumpsv1.Node" +
+      "Base\0222\n\013imds_events\030\013 \003(\0132\035.datadog.cws." +
+      "dumpsv1.IMDSNode\0227\n\rsyscall_nodes\030\014 \003(\0132" +
+      " .datadog.cws.dumpsv1.SyscallNode\022?\n\017net" +
+      "work_devices\030\r \003(\0132&.datadog.cws.dumpsv1" +
+      ".NetworkDeviceNode\022=\n\020capability_nodes\030\017" +
+      " \003(\0132#.datadog.cws.dumpsv1.CapabilityNod" +
+      "eJ\004\010\002\020\003\"\331\003\n\013ProcessInfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003" +
+      "tid\030\002 \001(\r\022\014\n\004ppid\030\003 \001(\r\022\022\n\006cookie\030\004 \001(\rB" +
+      "\002\030\001\022\021\n\tis_thread\030\005 \001(\010\022+\n\004file\030\006 \001(\0132\035.d" +
+      "atadog.cws.dumpsv1.FileInfo\022\024\n\014container" +
+      "_id\030\007 \001(\t\022\023\n\007span_id\030\010 \001(\004B\002\030\001\022\024\n\010trace_" +
+      "id\030\t \001(\004B\002\030\001\022\013\n\003tty\030\n \001(\t\022\014\n\004comm\030\013 \001(\t\022" +
+      "\021\n\tfork_time\030\014 \001(\004\022\021\n\texit_time\030\r \001(\004\022\021\n" +
+      "\texec_time\030\016 \001(\004\0225\n\013credentials\030\017 \001(\0132 ." +
+      "datadog.cws.dumpsv1.Credentials\022\014\n\004args\030" +
+      "\020 \003(\t\022\r\n\005argv0\030\021 \001(\t\022\026\n\016args_truncated\030\022" +
+      " \001(\010\022\014\n\004envs\030\023 \003(\t\022\026\n\016envs_truncated\030\024 \001" +
+      "(\010\022\025\n\ris_exec_child\030\025 \001(\010\022\020\n\010cookie64\030\026 " +
+      "\001(\004\"\242\003\n\020FileActivityNode\0227\n\rmatched_rule" +
+      "s\030\t \003(\0132 .datadog.cws.dumpsv1.MatchedRul" +
+      "e\022\026\n\nimage_tags\030\n \003(\tB\002\030\001\0220\n\tnode_base\030\013" +
+      " \001(\0132\035.datadog.cws.dumpsv1.NodeBase\022\014\n\004n" +
+      "ame\030\001 \001(\t\022\022\n\nis_pattern\030\007 \001(\010\022+\n\004file\030\002 " +
+      "\001(\0132\035.datadog.cws.dumpsv1.FileInfo\022<\n\017ge" +
+      "neration_type\030\010 \001(\0162#.datadog.cws.dumpsv" +
+      "1.GenerationType\022\022\n\nfirst_seen\030\004 \001(\004\022+\n\004" +
+      "open\030\005 \001(\0132\035.datadog.cws.dumpsv1.OpenNod" +
+      "e\0227\n\010children\030\006 \003(\0132%.datadog.cws.dumpsv" +
+      "1.FileActivityNodeJ\004\010\003\020\004\"7\n\010OpenNode\022\016\n\006" +
+      "retval\030\001 \001(\022\022\r\n\005flags\030\002 \001(\r\022\014\n\004mode\030\003 \001(" +
+      "\r\"\274\001\n\007DNSNode\0227\n\rmatched_rules\030\002 \003(\0132 .d" +
+      "atadog.cws.dumpsv1.MatchedRule\022\026\n\nimage_" +
+      "tags\030\003 \003(\tB\002\030\001\0220\n\tnode_base\030\004 \001(\0132\035.data" +
+      "dog.cws.dumpsv1.NodeBase\022.\n\010requests\030\001 \003" +
+      "(\0132\034.datadog.cws.dumpsv1.DNSInfo\"Q\n\007DNSI" +
+      "nfo\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(\r\022\r\n\005class" +
+      "\030\003 \001(\r\022\014\n\004size\030\004 \001(\r\022\r\n\005count\030\005 \001(\r\"h\n\013S" +
+      "yscallNode\022\026\n\nimage_tags\030\001 \003(\tB\002\030\001\0220\n\tno" +
+      "de_base\030\003 \001(\0132\035.datadog.cws.dumpsv1.Node" +
+      "Base\022\017\n\007syscall\030\002 \001(\005\"j\n\016CapabilityNode\022" +
+      "0\n\tnode_base\030\001 \001(\0132\035.datadog.cws.dumpsv1" +
+      ".NodeBase\022\022\n\ncapability\030\002 \001(\004\022\022\n\nis_capa" +
+      "ble\030\003 \001(\010\"\274\001\n\010IMDSNode\0227\n\rmatched_rules\030" +
+      "\001 \003(\0132 .datadog.cws.dumpsv1.MatchedRule\022" +
+      "\026\n\nimage_tags\030\002 \003(\tB\002\030\001\0220\n\tnode_base\030\004 \001" +
+      "(\0132\035.datadog.cws.dumpsv1.NodeBase\022-\n\005eve" +
+      "nt\030\003 \001(\0132\036.datadog.cws.dumpsv1.IMDSEvent" +
+      "\"\240\001\n\tIMDSEvent\022\014\n\004type\030\001 \001(\t\022\026\n\016cloud_pr" +
+      "ovider\030\002 \001(\t\022\013\n\003url\030\003 \001(\t\022\014\n\004host\030\004 \001(\t\022" +
+      "\022\n\nuser_agent\030\005 \001(\t\022\016\n\006server\030\006 \001(\t\022.\n\003a" +
+      "ws\030\007 \001(\0132!.datadog.cws.dumpsv1.AWSIMDSEv" +
+      "ent\"m\n\014AWSIMDSEvent\022\022\n\nis_imds_v2\030\001 \001(\010\022" +
+      "I\n\024security_credentials\030\002 \001(\0132+.datadog." +
+      "cws.dumpsv1.AWSSecurityCredentials\"y\n\026AW" +
+      "SSecurityCredentials\022\014\n\004code\030\001 \001(\t\022\014\n\004ty" +
+      "pe\030\002 \001(\t\022\025\n\raccess_key_id\030\003 \001(\t\022\024\n\014last_" +
+      "updated\030\004 \001(\t\022\026\n\016expiration_raw\030\005 \001(\t\"\272\004" +
+      "\n\010FileInfo\022\013\n\003uid\030\001 \001(\r\022\014\n\004user\030\002 \001(\t\022\013\n" +
+      "\003gid\030\003 \001(\r\022\r\n\005group\030\004 \001(\t\022\014\n\004mode\030\005 \001(\r\022" +
+      "\r\n\005ctime\030\006 \001(\004\022\r\n\005mtime\030\007 \001(\004\022\020\n\010mount_i" +
+      "d\030\010 \001(\r\022\r\n\005inode\030\t \001(\004\022\026\n\016in_upper_layer" +
+      "\030\n \001(\010\022\014\n\004path\030\013 \001(\t\022\020\n\010basename\030\014 \001(\t\022\022" +
+      "\n\nfilesystem\030\r \001(\t\022\024\n\014package_name\030\016 \001(\t" +
+      "\022\027\n\017package_version\030\017 \001(\t\022\032\n\rpackage_epo" +
+      "ch\030\023 \001(\rH\000\210\001\001\022\034\n\017package_release\030\024 \001(\tH\001" +
+      "\210\001\001\022\033\n\023package_src_version\030\020 \001(\t\022\036\n\021pack" +
+      "age_src_epoch\030\025 \001(\rH\002\210\001\001\022 \n\023package_src_" +
+      "release\030\026 \001(\tH\003\210\001\001\022\016\n\006hashes\030\021 \003(\t\0222\n\nha" +
+      "sh_state\030\022 \001(\0162\036.datadog.cws.dumpsv1.Has" +
+      "hStateB\020\n\016_package_epochB\022\n\020_package_rel" +
+      "easeB\024\n\022_package_src_epochB\026\n\024_package_s" +
+      "rc_release\"\224\002\n\013Credentials\022\013\n\003uid\030\001 \001(\r\022" +
+      "\013\n\003gid\030\002 \001(\r\022\014\n\004user\030\003 \001(\t\022\r\n\005group\030\004 \001(" +
+      "\t\022\025\n\reffective_uid\030\005 \001(\r\022\025\n\reffective_gi" +
+      "d\030\006 \001(\r\022\026\n\016effective_user\030\007 \001(\t\022\027\n\017effec" +
+      "tive_group\030\010 \001(\t\022\016\n\006fs_uid\030\t \001(\r\022\016\n\006fs_g" +
+      "id\030\n \001(\r\022\017\n\007fs_user\030\013 \001(\t\022\020\n\010fs_group\030\014 " +
+      "\001(\t\022\025\n\rcap_effective\030\r \001(\004\022\025\n\rcap_permit" +
+      "ted\030\016 \001(\004\"I\n\nSocketNode\022\016\n\006family\030\001 \001(\t\022" +
+      "+\n\004bind\030\002 \003(\0132\035.datadog.cws.dumpsv1.Bind" +
+      "Node\"\271\001\n\010BindNode\0227\n\rmatched_rules\030\003 \003(\013" +
+      "2 .datadog.cws.dumpsv1.MatchedRule\022\026\n\nim" +
+      "age_tags\030\004 \003(\tB\002\030\001\0220\n\tnode_base\030\006 \001(\0132\035." +
+      "datadog.cws.dumpsv1.NodeBase\022\014\n\004port\030\001 \001" +
+      "(\r\022\n\n\002ip\030\002 \001(\t\022\020\n\010protocol\030\005 \001(\r\"\257\001\n\021Net" +
+      "workDeviceNode\0227\n\rmatched_rules\030\001 \003(\0132 ." +
+      "datadog.cws.dumpsv1.MatchedRule\022\r\n\005netns" +
+      "\030\002 \001(\r\022\017\n\007ifindex\030\003 \001(\r\022\016\n\006ifname\030\004 \001(\t\022" +
+      "1\n\nflow_nodes\030\005 \003(\0132\035.datadog.cws.dumpsv" +
+      "1.FlowNode\"\322\002\n\010FlowNode\022\026\n\nimage_tags\030\001 " +
+      "\003(\tB\002\030\001\0220\n\tnode_base\030\010 \001(\0132\035.datadog.cws" +
+      ".dumpsv1.NodeBase\0222\n\006source\030\002 \001(\0132\".data" +
+      "dog.cws.dumpsv1.IPPortContext\0227\n\013destina" +
+      "tion\030\003 \001(\0132\".datadog.cws.dumpsv1.IPPortC" +
+      "ontext\022\023\n\013l3_protocol\030\004 \001(\r\022\023\n\013l4_protoc" +
+      "ol\030\005 \001(\r\0222\n\007ingress\030\006 \001(\0132!.datadog.cws." +
+      "dumpsv1.NetworkStats\0221\n\006egress\030\007 \001(\0132!.d" +
+      "atadog.cws.dumpsv1.NetworkStats\")\n\rIPPor" +
+      "tContext\022\n\n\002ip\030\001 \001(\t\022\014\n\004port\030\002 \001(\r\"7\n\014Ne" +
+      "tworkStats\022\021\n\tdata_size\030\001 \001(\004\022\024\n\014packet_" +
+      "count\030\002 \001(\004\"\325\001\n\013MatchedRule\022\017\n\007rule_id\030\001" +
+      " \001(\t\022\024\n\014rule_version\030\002 \001(\t\022\023\n\013policy_nam" +
+      "e\030\003 \001(\t\022\026\n\016policy_version\030\004 \001(\t\022A\n\trule_" +
+      "tags\030\005 \003(\0132..datadog.cws.dumpsv1.Matched" +
+      "Rule.RuleTagsEntry\032/\n\rRuleTagsEntry\022\013\n\003k" +
+      "ey\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"t\n\020event_typ" +
+      "e_state\022\031\n\021last_anomaly_nano\030\001 \001(\004\022E\n\023ev" +
+      "ent_profile_state\030\002 \001(\0162(.datadog.cws.du" +
+      "mpsv1.event_profile_state*\271\001\n\tHashState\022" +
+      "\013\n\007NO_HASH\020\000\022\010\n\004DONE\020\001\022\022\n\016FILE_NOT_FOUND" +
+      "\020\002\022\035\n\031PATHNAME_RESOLUTION_ERROR\020\003\022\020\n\014FIL" +
+      "E_TOO_BIG\020\004\022\035\n\031EVENT_TYPE_NOT_CONFIGURED" +
+      "\020\005\022\031\n\025HASH_WAS_RATE_LIMITED\020\006\022\026\n\022UNKNOWN" +
+      "_HASH_ERROR\020\007*8\n\016GenerationType\022\013\n\007UNKNO" +
+      "WN\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPSHOT\020\002*\220\001\n\023even" +
+      "t_profile_state\022\016\n\nNO_PROFILE\020\000\022\027\n\023PROFI" +
+      "LE_AT_MAX_SIZE\020\001\022\024\n\020UNSTABLE_PROFILE\020\002\022\022" +
+      "\n\016STABLE_PROFILE\020\003\022\021\n\rAUTO_LEARNING\020\004\022\023\n" +
+      "\017WORKLOAD_WARMUP\020\005BU\n\022com.dd.cws.adv1.pb" +
+      "B\014SecDumpProtoP\000Z/github.com/DataDog/age" +
+      "nt-payload/v5/cws/dumpsv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -43530,7 +43983,7 @@ java.lang.String defaultValue) {
     internal_static_datadog_cws_dumpsv1_ProfileContext_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_ProfileContext_descriptor,
-        new java.lang.String[] { "FirstSeen", "LastSeen", "EventTypeState", "Syscalls", "Tags", });
+        new java.lang.String[] { "FirstSeen", "LastSeen", "EventTypeState", "Syscalls", "Tags", "AttemptedCapabilities", "UsedCapabilities", });
     internal_static_datadog_cws_dumpsv1_ProfileContext_EventTypeStateEntry_descriptor =
       internal_static_datadog_cws_dumpsv1_ProfileContext_descriptor.getNestedTypes().get(0);
     internal_static_datadog_cws_dumpsv1_ProfileContext_EventTypeStateEntry_fieldAccessorTable = new

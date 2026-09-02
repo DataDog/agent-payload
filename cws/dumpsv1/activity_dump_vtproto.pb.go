@@ -325,6 +325,46 @@ func (m *ProfileContext) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
+	if len(m.UsedCapabilities) > 0 {
+		var pksize2 int
+		for _, num := range m.UsedCapabilities {
+			pksize2 += sov(uint64(num))
+		}
+		i -= pksize2
+		j1 := i
+		for _, num := range m.UsedCapabilities {
+			for num >= 1<<7 {
+				dAtA[j1] = uint8(uint64(num)&0x7f | 0x80)
+				num >>= 7
+				j1++
+			}
+			dAtA[j1] = uint8(num)
+			j1++
+		}
+		i = encodeVarint(dAtA, i, uint64(pksize2))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.AttemptedCapabilities) > 0 {
+		var pksize4 int
+		for _, num := range m.AttemptedCapabilities {
+			pksize4 += sov(uint64(num))
+		}
+		i -= pksize4
+		j3 := i
+		for _, num := range m.AttemptedCapabilities {
+			for num >= 1<<7 {
+				dAtA[j3] = uint8(uint64(num)&0x7f | 0x80)
+				num >>= 7
+				j3++
+			}
+			dAtA[j3] = uint8(num)
+			j3++
+		}
+		i = encodeVarint(dAtA, i, uint64(pksize4))
+		i--
+		dAtA[i] = 0x32
+	}
 	if len(m.Tags) > 0 {
 		for iNdEx := len(m.Tags) - 1; iNdEx >= 0; iNdEx-- {
 			i -= len(m.Tags[iNdEx])
@@ -335,22 +375,22 @@ func (m *ProfileContext) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		}
 	}
 	if len(m.Syscalls) > 0 {
-		var pksize2 int
+		var pksize6 int
 		for _, num := range m.Syscalls {
-			pksize2 += sov(uint64(num))
+			pksize6 += sov(uint64(num))
 		}
-		i -= pksize2
-		j1 := i
+		i -= pksize6
+		j5 := i
 		for _, num := range m.Syscalls {
 			for num >= 1<<7 {
-				dAtA[j1] = uint8(uint64(num)&0x7f | 0x80)
+				dAtA[j5] = uint8(uint64(num)&0x7f | 0x80)
 				num >>= 7
-				j1++
+				j5++
 			}
-			dAtA[j1] = uint8(num)
-			j1++
+			dAtA[j5] = uint8(num)
+			j5++
 		}
-		i = encodeVarint(dAtA, i, uint64(pksize2))
+		i = encodeVarint(dAtA, i, uint64(pksize6))
 		i--
 		dAtA[i] = 0x22
 	}
@@ -2891,6 +2931,20 @@ func (m *ProfileContext) SizeVT() (n int) {
 			n += 1 + l + sov(uint64(l))
 		}
 	}
+	if len(m.AttemptedCapabilities) > 0 {
+		l = 0
+		for _, e := range m.AttemptedCapabilities {
+			l += sov(uint64(e))
+		}
+		n += 1 + sov(uint64(l)) + l
+	}
+	if len(m.UsedCapabilities) > 0 {
+		l = 0
+		for _, e := range m.UsedCapabilities {
+			l += sov(uint64(e))
+		}
+		n += 1 + sov(uint64(l)) + l
+	}
 	n += len(m.unknownFields)
 	return n
 }
@@ -4997,6 +5051,158 @@ func (m *ProfileContext) UnmarshalVT(dAtA []byte) error {
 			}
 			m.Tags = append(m.Tags, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
+		case 6:
+			if wireType == 0 {
+				var v uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					v |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				m.AttemptedCapabilities = append(m.AttemptedCapabilities, v)
+			} else if wireType == 2 {
+				var packedLen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					packedLen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if packedLen < 0 {
+					return ErrInvalidLength
+				}
+				postIndex := iNdEx + packedLen
+				if postIndex < 0 {
+					return ErrInvalidLength
+				}
+				if postIndex > l {
+					return io.ErrUnexpectedEOF
+				}
+				var elementCount int
+				var count int
+				for _, integer := range dAtA[iNdEx:postIndex] {
+					if integer < 128 {
+						count++
+					}
+				}
+				elementCount = count
+				if elementCount != 0 && len(m.AttemptedCapabilities) == 0 {
+					m.AttemptedCapabilities = make([]uint64, 0, elementCount)
+				}
+				for iNdEx < postIndex {
+					var v uint64
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflow
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						v |= uint64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					m.AttemptedCapabilities = append(m.AttemptedCapabilities, v)
+				}
+			} else {
+				return fmt.Errorf("proto: wrong wireType = %d for field AttemptedCapabilities", wireType)
+			}
+		case 7:
+			if wireType == 0 {
+				var v uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					v |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				m.UsedCapabilities = append(m.UsedCapabilities, v)
+			} else if wireType == 2 {
+				var packedLen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					packedLen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if packedLen < 0 {
+					return ErrInvalidLength
+				}
+				postIndex := iNdEx + packedLen
+				if postIndex < 0 {
+					return ErrInvalidLength
+				}
+				if postIndex > l {
+					return io.ErrUnexpectedEOF
+				}
+				var elementCount int
+				var count int
+				for _, integer := range dAtA[iNdEx:postIndex] {
+					if integer < 128 {
+						count++
+					}
+				}
+				elementCount = count
+				if elementCount != 0 && len(m.UsedCapabilities) == 0 {
+					m.UsedCapabilities = make([]uint64, 0, elementCount)
+				}
+				for iNdEx < postIndex {
+					var v uint64
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflow
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						v |= uint64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					m.UsedCapabilities = append(m.UsedCapabilities, v)
+				}
+			} else {
+				return fmt.Errorf("proto: wrong wireType = %d for field UsedCapabilities", wireType)
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skip(dAtA[iNdEx:])

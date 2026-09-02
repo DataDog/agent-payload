@@ -50,6 +50,12 @@ message ProfileContext {
     map<uint32, event_type_state> event_type_state = 3;
     repeated uint32 syscalls = 4;
     repeated string tags = 5;
+
+    // Capabilities observed at runtime, unioned across every process of this profile
+    // version. used_capabilities is a subset of attempted_capabilities: a capability the
+    // workload was checked for but did not hold appears only in attempted_capabilities.
+    repeated uint64 attempted_capabilities = 6;
+    repeated uint64 used_capabilities = 7;
 }
 
 message ImageTagTimes {
