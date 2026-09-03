@@ -162,6 +162,16 @@ message DNSInfo {
     uint32 class = 3;
     uint32 size = 4;
     uint32 count = 5;
+
+    DNSResponseInfo response = 6;
+}
+
+// DNSResponseInfo aggregates what the enclosing DNS question resolved to. Both
+// fields are unions accumulated across every response observed for that
+// question, not a snapshot of one of them.
+message DNSResponseInfo {
+    repeated string ips = 1;
+    repeated string cnames = 2;
 }
 
 message SyscallNode {

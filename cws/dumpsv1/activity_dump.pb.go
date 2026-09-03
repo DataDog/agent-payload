@@ -1438,11 +1438,12 @@ type DNSInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Name  string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Type  uint32 `protobuf:"varint,2,opt,name=type,proto3" json:"type,omitempty"`
-	Class uint32 `protobuf:"varint,3,opt,name=class,proto3" json:"class,omitempty"`
-	Size  uint32 `protobuf:"varint,4,opt,name=size,proto3" json:"size,omitempty"`
-	Count uint32 `protobuf:"varint,5,opt,name=count,proto3" json:"count,omitempty"`
+	Name     string           `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Type     uint32           `protobuf:"varint,2,opt,name=type,proto3" json:"type,omitempty"`
+	Class    uint32           `protobuf:"varint,3,opt,name=class,proto3" json:"class,omitempty"`
+	Size     uint32           `protobuf:"varint,4,opt,name=size,proto3" json:"size,omitempty"`
+	Count    uint32           `protobuf:"varint,5,opt,name=count,proto3" json:"count,omitempty"`
+	Response *DNSResponseInfo `protobuf:"bytes,6,opt,name=response,proto3" json:"response,omitempty"`
 }
 
 func (x *DNSInfo) Reset() {
@@ -1512,6 +1513,71 @@ func (x *DNSInfo) GetCount() uint32 {
 	return 0
 }
 
+func (x *DNSInfo) GetResponse() *DNSResponseInfo {
+	if x != nil {
+		return x.Response
+	}
+	return nil
+}
+
+// DNSResponseInfo aggregates what the enclosing DNS question resolved to. Both
+// fields are unions accumulated across every response observed for that
+// question, not a snapshot of one of them.
+type DNSResponseInfo struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Ips    []string `protobuf:"bytes,1,rep,name=ips,proto3" json:"ips,omitempty"`
+	Cnames []string `protobuf:"bytes,2,rep,name=cnames,proto3" json:"cnames,omitempty"`
+}
+
+func (x *DNSResponseInfo) Reset() {
+	*x = DNSResponseInfo{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DNSResponseInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DNSResponseInfo) ProtoMessage() {}
+
+func (x *DNSResponseInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DNSResponseInfo.ProtoReflect.Descriptor instead.
+func (*DNSResponseInfo) Descriptor() ([]byte, []int) {
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *DNSResponseInfo) GetIps() []string {
+	if x != nil {
+		return x.Ips
+	}
+	return nil
+}
+
+func (x *DNSResponseInfo) GetCnames() []string {
+	if x != nil {
+		return x.Cnames
+	}
+	return nil
+}
+
 type SyscallNode struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1526,7 +1592,7 @@ type SyscallNode struct {
 func (x *SyscallNode) Reset() {
 	*x = SyscallNode{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[13]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1539,7 +1605,7 @@ func (x *SyscallNode) String() string {
 func (*SyscallNode) ProtoMessage() {}
 
 func (x *SyscallNode) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[13]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1552,7 +1618,7 @@ func (x *SyscallNode) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SyscallNode.ProtoReflect.Descriptor instead.
 func (*SyscallNode) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{13}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{14}
 }
 
 // Deprecated: Marked as deprecated in proto/cws/dumpsv1/activity_dump.proto.
@@ -1590,7 +1656,7 @@ type CapabilityNode struct {
 func (x *CapabilityNode) Reset() {
 	*x = CapabilityNode{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[14]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1603,7 +1669,7 @@ func (x *CapabilityNode) String() string {
 func (*CapabilityNode) ProtoMessage() {}
 
 func (x *CapabilityNode) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[14]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1616,7 +1682,7 @@ func (x *CapabilityNode) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CapabilityNode.ProtoReflect.Descriptor instead.
 func (*CapabilityNode) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{14}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *CapabilityNode) GetNodeBase() *NodeBase {
@@ -1655,7 +1721,7 @@ type IMDSNode struct {
 func (x *IMDSNode) Reset() {
 	*x = IMDSNode{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[15]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1668,7 +1734,7 @@ func (x *IMDSNode) String() string {
 func (*IMDSNode) ProtoMessage() {}
 
 func (x *IMDSNode) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[15]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1681,7 +1747,7 @@ func (x *IMDSNode) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IMDSNode.ProtoReflect.Descriptor instead.
 func (*IMDSNode) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{15}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *IMDSNode) GetMatchedRules() []*MatchedRule {
@@ -1730,7 +1796,7 @@ type IMDSEvent struct {
 func (x *IMDSEvent) Reset() {
 	*x = IMDSEvent{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[16]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1743,7 +1809,7 @@ func (x *IMDSEvent) String() string {
 func (*IMDSEvent) ProtoMessage() {}
 
 func (x *IMDSEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[16]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1756,7 +1822,7 @@ func (x *IMDSEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IMDSEvent.ProtoReflect.Descriptor instead.
 func (*IMDSEvent) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{16}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *IMDSEvent) GetType() string {
@@ -1820,7 +1886,7 @@ type AWSIMDSEvent struct {
 func (x *AWSIMDSEvent) Reset() {
 	*x = AWSIMDSEvent{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[17]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1833,7 +1899,7 @@ func (x *AWSIMDSEvent) String() string {
 func (*AWSIMDSEvent) ProtoMessage() {}
 
 func (x *AWSIMDSEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[17]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1846,7 +1912,7 @@ func (x *AWSIMDSEvent) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AWSIMDSEvent.ProtoReflect.Descriptor instead.
 func (*AWSIMDSEvent) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{17}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *AWSIMDSEvent) GetIsImdsV2() bool {
@@ -1878,7 +1944,7 @@ type AWSSecurityCredentials struct {
 func (x *AWSSecurityCredentials) Reset() {
 	*x = AWSSecurityCredentials{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[18]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1891,7 +1957,7 @@ func (x *AWSSecurityCredentials) String() string {
 func (*AWSSecurityCredentials) ProtoMessage() {}
 
 func (x *AWSSecurityCredentials) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[18]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1904,7 +1970,7 @@ func (x *AWSSecurityCredentials) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AWSSecurityCredentials.ProtoReflect.Descriptor instead.
 func (*AWSSecurityCredentials) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{18}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *AWSSecurityCredentials) GetCode() string {
@@ -1974,7 +2040,7 @@ type FileInfo struct {
 func (x *FileInfo) Reset() {
 	*x = FileInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[19]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1987,7 +2053,7 @@ func (x *FileInfo) String() string {
 func (*FileInfo) ProtoMessage() {}
 
 func (x *FileInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[19]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2000,7 +2066,7 @@ func (x *FileInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FileInfo.ProtoReflect.Descriptor instead.
 func (*FileInfo) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{19}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *FileInfo) GetUid() uint32 {
@@ -2181,7 +2247,7 @@ type Credentials struct {
 func (x *Credentials) Reset() {
 	*x = Credentials{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[20]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2194,7 +2260,7 @@ func (x *Credentials) String() string {
 func (*Credentials) ProtoMessage() {}
 
 func (x *Credentials) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[20]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2207,7 +2273,7 @@ func (x *Credentials) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Credentials.ProtoReflect.Descriptor instead.
 func (*Credentials) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{20}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *Credentials) GetUid() uint32 {
@@ -2320,7 +2386,7 @@ type SocketNode struct {
 func (x *SocketNode) Reset() {
 	*x = SocketNode{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[21]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2333,7 +2399,7 @@ func (x *SocketNode) String() string {
 func (*SocketNode) ProtoMessage() {}
 
 func (x *SocketNode) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[21]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2346,7 +2412,7 @@ func (x *SocketNode) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SocketNode.ProtoReflect.Descriptor instead.
 func (*SocketNode) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{21}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *SocketNode) GetFamily() string {
@@ -2380,7 +2446,7 @@ type BindNode struct {
 func (x *BindNode) Reset() {
 	*x = BindNode{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[22]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2393,7 +2459,7 @@ func (x *BindNode) String() string {
 func (*BindNode) ProtoMessage() {}
 
 func (x *BindNode) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[22]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2406,7 +2472,7 @@ func (x *BindNode) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BindNode.ProtoReflect.Descriptor instead.
 func (*BindNode) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{22}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *BindNode) GetMatchedRules() []*MatchedRule {
@@ -2467,7 +2533,7 @@ type NetworkDeviceNode struct {
 func (x *NetworkDeviceNode) Reset() {
 	*x = NetworkDeviceNode{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[23]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2480,7 +2546,7 @@ func (x *NetworkDeviceNode) String() string {
 func (*NetworkDeviceNode) ProtoMessage() {}
 
 func (x *NetworkDeviceNode) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[23]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2493,7 +2559,7 @@ func (x *NetworkDeviceNode) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NetworkDeviceNode.ProtoReflect.Descriptor instead.
 func (*NetworkDeviceNode) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{23}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *NetworkDeviceNode) GetMatchedRules() []*MatchedRule {
@@ -2550,7 +2616,7 @@ type FlowNode struct {
 func (x *FlowNode) Reset() {
 	*x = FlowNode{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[24]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2563,7 +2629,7 @@ func (x *FlowNode) String() string {
 func (*FlowNode) ProtoMessage() {}
 
 func (x *FlowNode) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[24]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2576,7 +2642,7 @@ func (x *FlowNode) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FlowNode.ProtoReflect.Descriptor instead.
 func (*FlowNode) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{24}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{25}
 }
 
 // Deprecated: Marked as deprecated in proto/cws/dumpsv1/activity_dump.proto.
@@ -2648,7 +2714,7 @@ type IPPortContext struct {
 func (x *IPPortContext) Reset() {
 	*x = IPPortContext{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[25]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2661,7 +2727,7 @@ func (x *IPPortContext) String() string {
 func (*IPPortContext) ProtoMessage() {}
 
 func (x *IPPortContext) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[25]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2674,7 +2740,7 @@ func (x *IPPortContext) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IPPortContext.ProtoReflect.Descriptor instead.
 func (*IPPortContext) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{25}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *IPPortContext) GetIp() string {
@@ -2703,7 +2769,7 @@ type NetworkStats struct {
 func (x *NetworkStats) Reset() {
 	*x = NetworkStats{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[26]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2716,7 +2782,7 @@ func (x *NetworkStats) String() string {
 func (*NetworkStats) ProtoMessage() {}
 
 func (x *NetworkStats) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[26]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2729,7 +2795,7 @@ func (x *NetworkStats) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NetworkStats.ProtoReflect.Descriptor instead.
 func (*NetworkStats) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{26}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *NetworkStats) GetDataSize() uint64 {
@@ -2761,7 +2827,7 @@ type MatchedRule struct {
 func (x *MatchedRule) Reset() {
 	*x = MatchedRule{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[27]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[28]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2774,7 +2840,7 @@ func (x *MatchedRule) String() string {
 func (*MatchedRule) ProtoMessage() {}
 
 func (x *MatchedRule) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[27]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[28]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2787,7 +2853,7 @@ func (x *MatchedRule) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MatchedRule.ProtoReflect.Descriptor instead.
 func (*MatchedRule) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{27}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *MatchedRule) GetRuleId() string {
@@ -2837,7 +2903,7 @@ type EventTypeState struct {
 func (x *EventTypeState) Reset() {
 	*x = EventTypeState{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[28]
+		mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[29]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2850,7 +2916,7 @@ func (x *EventTypeState) String() string {
 func (*EventTypeState) ProtoMessage() {}
 
 func (x *EventTypeState) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[28]
+	mi := &file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2863,7 +2929,7 @@ func (x *EventTypeState) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EventTypeState.ProtoReflect.Descriptor instead.
 func (*EventTypeState) Descriptor() ([]byte, []int) {
-	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{28}
+	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *EventTypeState) GetLastAnomalyNano() uint64 {
@@ -3160,14 +3226,22 @@ var file_proto_cws_dumpsv1_activity_dump_proto_rawDesc = []byte{
 	0x75, 0x65, 0x73, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x64, 0x61,
 	0x74, 0x61, 0x64, 0x6f, 0x67, 0x2e, 0x63, 0x77, 0x73, 0x2e, 0x64, 0x75, 0x6d, 0x70, 0x73, 0x76,
 	0x31, 0x2e, 0x44, 0x4e, 0x53, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x08, 0x72, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x73, 0x22, 0x71, 0x0a, 0x07, 0x44, 0x4e, 0x53, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x12,
-	0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61,
-	0x6d, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0d,
-	0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x63, 0x6c, 0x61, 0x73, 0x73, 0x18,
-	0x03, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x05, 0x63, 0x6c, 0x61, 0x73, 0x73, 0x12, 0x12, 0x0a, 0x04,
-	0x73, 0x69, 0x7a, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x04, 0x73, 0x69, 0x7a, 0x65,
-	0x12, 0x14, 0x0a, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0d, 0x52,
-	0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x86, 0x01, 0x0a, 0x0b, 0x53, 0x79, 0x73, 0x63, 0x61,
+	0x73, 0x74, 0x73, 0x22, 0xb3, 0x01, 0x0a, 0x07, 0x44, 0x4e, 0x53, 0x49, 0x6e, 0x66, 0x6f, 0x12,
+	0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e,
+	0x61, 0x6d, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x0d, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x63, 0x6c, 0x61, 0x73, 0x73,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x05, 0x63, 0x6c, 0x61, 0x73, 0x73, 0x12, 0x12, 0x0a,
+	0x04, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x04, 0x73, 0x69, 0x7a,
+	0x65, 0x12, 0x14, 0x0a, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0d,
+	0x52, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x40, 0x0a, 0x08, 0x72, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x24, 0x2e, 0x64, 0x61, 0x74, 0x61,
+	0x64, 0x6f, 0x67, 0x2e, 0x63, 0x77, 0x73, 0x2e, 0x64, 0x75, 0x6d, 0x70, 0x73, 0x76, 0x31, 0x2e,
+	0x44, 0x4e, 0x53, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x52,
+	0x08, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x3b, 0x0a, 0x0f, 0x44, 0x4e, 0x53,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x10, 0x0a, 0x03,
+	0x69, 0x70, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x03, 0x69, 0x70, 0x73, 0x12, 0x16,
+	0x0a, 0x06, 0x63, 0x6e, 0x61, 0x6d, 0x65, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x06,
+	0x63, 0x6e, 0x61, 0x6d, 0x65, 0x73, 0x22, 0x86, 0x01, 0x0a, 0x0b, 0x53, 0x79, 0x73, 0x63, 0x61,
 	0x6c, 0x6c, 0x4e, 0x6f, 0x64, 0x65, 0x12, 0x21, 0x0a, 0x0a, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x5f,
 	0x74, 0x61, 0x67, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x42, 0x02, 0x18, 0x01, 0x52, 0x09,
 	0x69, 0x6d, 0x61, 0x67, 0x65, 0x54, 0x61, 0x67, 0x73, 0x12, 0x3a, 0x0a, 0x09, 0x6e, 0x6f, 0x64,
@@ -3453,7 +3527,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP() []byte {
 }
 
 var file_proto_cws_dumpsv1_activity_dump_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_proto_cws_dumpsv1_activity_dump_proto_msgTypes = make([]protoimpl.MessageInfo, 33)
+var file_proto_cws_dumpsv1_activity_dump_proto_msgTypes = make([]protoimpl.MessageInfo, 34)
 var file_proto_cws_dumpsv1_activity_dump_proto_goTypes = []interface{}{
 	(HashState)(0),                 // 0: datadog.cws.dumpsv1.HashState
 	(GenerationType)(0),            // 1: datadog.cws.dumpsv1.GenerationType
@@ -3471,87 +3545,89 @@ var file_proto_cws_dumpsv1_activity_dump_proto_goTypes = []interface{}{
 	(*OpenNode)(nil),               // 13: datadog.cws.dumpsv1.OpenNode
 	(*DNSNode)(nil),                // 14: datadog.cws.dumpsv1.DNSNode
 	(*DNSInfo)(nil),                // 15: datadog.cws.dumpsv1.DNSInfo
-	(*SyscallNode)(nil),            // 16: datadog.cws.dumpsv1.SyscallNode
-	(*CapabilityNode)(nil),         // 17: datadog.cws.dumpsv1.CapabilityNode
-	(*IMDSNode)(nil),               // 18: datadog.cws.dumpsv1.IMDSNode
-	(*IMDSEvent)(nil),              // 19: datadog.cws.dumpsv1.IMDSEvent
-	(*AWSIMDSEvent)(nil),           // 20: datadog.cws.dumpsv1.AWSIMDSEvent
-	(*AWSSecurityCredentials)(nil), // 21: datadog.cws.dumpsv1.AWSSecurityCredentials
-	(*FileInfo)(nil),               // 22: datadog.cws.dumpsv1.FileInfo
-	(*Credentials)(nil),            // 23: datadog.cws.dumpsv1.Credentials
-	(*SocketNode)(nil),             // 24: datadog.cws.dumpsv1.SocketNode
-	(*BindNode)(nil),               // 25: datadog.cws.dumpsv1.BindNode
-	(*NetworkDeviceNode)(nil),      // 26: datadog.cws.dumpsv1.NetworkDeviceNode
-	(*FlowNode)(nil),               // 27: datadog.cws.dumpsv1.FlowNode
-	(*IPPortContext)(nil),          // 28: datadog.cws.dumpsv1.IPPortContext
-	(*NetworkStats)(nil),           // 29: datadog.cws.dumpsv1.NetworkStats
-	(*MatchedRule)(nil),            // 30: datadog.cws.dumpsv1.MatchedRule
-	(*EventTypeState)(nil),         // 31: datadog.cws.dumpsv1.event_type_state
-	nil,                            // 32: datadog.cws.dumpsv1.ProfileContext.EventTypeStateEntry
-	nil,                            // 33: datadog.cws.dumpsv1.NodeBase.SeenEntry
-	nil,                            // 34: datadog.cws.dumpsv1.SecurityProfile.ProfileContextsEntry
-	nil,                            // 35: datadog.cws.dumpsv1.MatchedRule.RuleTagsEntry
+	(*DNSResponseInfo)(nil),        // 16: datadog.cws.dumpsv1.DNSResponseInfo
+	(*SyscallNode)(nil),            // 17: datadog.cws.dumpsv1.SyscallNode
+	(*CapabilityNode)(nil),         // 18: datadog.cws.dumpsv1.CapabilityNode
+	(*IMDSNode)(nil),               // 19: datadog.cws.dumpsv1.IMDSNode
+	(*IMDSEvent)(nil),              // 20: datadog.cws.dumpsv1.IMDSEvent
+	(*AWSIMDSEvent)(nil),           // 21: datadog.cws.dumpsv1.AWSIMDSEvent
+	(*AWSSecurityCredentials)(nil), // 22: datadog.cws.dumpsv1.AWSSecurityCredentials
+	(*FileInfo)(nil),               // 23: datadog.cws.dumpsv1.FileInfo
+	(*Credentials)(nil),            // 24: datadog.cws.dumpsv1.Credentials
+	(*SocketNode)(nil),             // 25: datadog.cws.dumpsv1.SocketNode
+	(*BindNode)(nil),               // 26: datadog.cws.dumpsv1.BindNode
+	(*NetworkDeviceNode)(nil),      // 27: datadog.cws.dumpsv1.NetworkDeviceNode
+	(*FlowNode)(nil),               // 28: datadog.cws.dumpsv1.FlowNode
+	(*IPPortContext)(nil),          // 29: datadog.cws.dumpsv1.IPPortContext
+	(*NetworkStats)(nil),           // 30: datadog.cws.dumpsv1.NetworkStats
+	(*MatchedRule)(nil),            // 31: datadog.cws.dumpsv1.MatchedRule
+	(*EventTypeState)(nil),         // 32: datadog.cws.dumpsv1.event_type_state
+	nil,                            // 33: datadog.cws.dumpsv1.ProfileContext.EventTypeStateEntry
+	nil,                            // 34: datadog.cws.dumpsv1.NodeBase.SeenEntry
+	nil,                            // 35: datadog.cws.dumpsv1.SecurityProfile.ProfileContextsEntry
+	nil,                            // 36: datadog.cws.dumpsv1.MatchedRule.RuleTagsEntry
 }
 var file_proto_cws_dumpsv1_activity_dump_proto_depIdxs = []int32{
 	4,  // 0: datadog.cws.dumpsv1.SecDump.metadata:type_name -> datadog.cws.dumpsv1.Metadata
 	10, // 1: datadog.cws.dumpsv1.SecDump.tree:type_name -> datadog.cws.dumpsv1.ProcessActivityNode
-	32, // 2: datadog.cws.dumpsv1.ProfileContext.event_type_state:type_name -> datadog.cws.dumpsv1.ProfileContext.EventTypeStateEntry
-	33, // 3: datadog.cws.dumpsv1.NodeBase.seen:type_name -> datadog.cws.dumpsv1.NodeBase.SeenEntry
+	33, // 2: datadog.cws.dumpsv1.ProfileContext.event_type_state:type_name -> datadog.cws.dumpsv1.ProfileContext.EventTypeStateEntry
+	34, // 3: datadog.cws.dumpsv1.NodeBase.seen:type_name -> datadog.cws.dumpsv1.NodeBase.SeenEntry
 	4,  // 4: datadog.cws.dumpsv1.SecurityProfile.metadata:type_name -> datadog.cws.dumpsv1.Metadata
 	10, // 5: datadog.cws.dumpsv1.SecurityProfile.tree:type_name -> datadog.cws.dumpsv1.ProcessActivityNode
-	34, // 6: datadog.cws.dumpsv1.SecurityProfile.profile_contexts:type_name -> datadog.cws.dumpsv1.SecurityProfile.ProfileContextsEntry
+	35, // 6: datadog.cws.dumpsv1.SecurityProfile.profile_contexts:type_name -> datadog.cws.dumpsv1.SecurityProfile.ProfileContextsEntry
 	5,  // 7: datadog.cws.dumpsv1.SecurityProfile.selector:type_name -> datadog.cws.dumpsv1.ProfileSelector
 	11, // 8: datadog.cws.dumpsv1.ProcessActivityNode.process:type_name -> datadog.cws.dumpsv1.ProcessInfo
 	1,  // 9: datadog.cws.dumpsv1.ProcessActivityNode.generation_type:type_name -> datadog.cws.dumpsv1.GenerationType
-	30, // 10: datadog.cws.dumpsv1.ProcessActivityNode.matched_rules:type_name -> datadog.cws.dumpsv1.MatchedRule
+	31, // 10: datadog.cws.dumpsv1.ProcessActivityNode.matched_rules:type_name -> datadog.cws.dumpsv1.MatchedRule
 	10, // 11: datadog.cws.dumpsv1.ProcessActivityNode.children:type_name -> datadog.cws.dumpsv1.ProcessActivityNode
 	12, // 12: datadog.cws.dumpsv1.ProcessActivityNode.files:type_name -> datadog.cws.dumpsv1.FileActivityNode
 	14, // 13: datadog.cws.dumpsv1.ProcessActivityNode.dns_names:type_name -> datadog.cws.dumpsv1.DNSNode
-	24, // 14: datadog.cws.dumpsv1.ProcessActivityNode.sockets:type_name -> datadog.cws.dumpsv1.SocketNode
+	25, // 14: datadog.cws.dumpsv1.ProcessActivityNode.sockets:type_name -> datadog.cws.dumpsv1.SocketNode
 	8,  // 15: datadog.cws.dumpsv1.ProcessActivityNode.node_base:type_name -> datadog.cws.dumpsv1.NodeBase
-	18, // 16: datadog.cws.dumpsv1.ProcessActivityNode.imds_events:type_name -> datadog.cws.dumpsv1.IMDSNode
-	16, // 17: datadog.cws.dumpsv1.ProcessActivityNode.syscall_nodes:type_name -> datadog.cws.dumpsv1.SyscallNode
-	26, // 18: datadog.cws.dumpsv1.ProcessActivityNode.network_devices:type_name -> datadog.cws.dumpsv1.NetworkDeviceNode
-	17, // 19: datadog.cws.dumpsv1.ProcessActivityNode.capability_nodes:type_name -> datadog.cws.dumpsv1.CapabilityNode
-	22, // 20: datadog.cws.dumpsv1.ProcessInfo.file:type_name -> datadog.cws.dumpsv1.FileInfo
-	23, // 21: datadog.cws.dumpsv1.ProcessInfo.credentials:type_name -> datadog.cws.dumpsv1.Credentials
-	30, // 22: datadog.cws.dumpsv1.FileActivityNode.matched_rules:type_name -> datadog.cws.dumpsv1.MatchedRule
+	19, // 16: datadog.cws.dumpsv1.ProcessActivityNode.imds_events:type_name -> datadog.cws.dumpsv1.IMDSNode
+	17, // 17: datadog.cws.dumpsv1.ProcessActivityNode.syscall_nodes:type_name -> datadog.cws.dumpsv1.SyscallNode
+	27, // 18: datadog.cws.dumpsv1.ProcessActivityNode.network_devices:type_name -> datadog.cws.dumpsv1.NetworkDeviceNode
+	18, // 19: datadog.cws.dumpsv1.ProcessActivityNode.capability_nodes:type_name -> datadog.cws.dumpsv1.CapabilityNode
+	23, // 20: datadog.cws.dumpsv1.ProcessInfo.file:type_name -> datadog.cws.dumpsv1.FileInfo
+	24, // 21: datadog.cws.dumpsv1.ProcessInfo.credentials:type_name -> datadog.cws.dumpsv1.Credentials
+	31, // 22: datadog.cws.dumpsv1.FileActivityNode.matched_rules:type_name -> datadog.cws.dumpsv1.MatchedRule
 	8,  // 23: datadog.cws.dumpsv1.FileActivityNode.node_base:type_name -> datadog.cws.dumpsv1.NodeBase
-	22, // 24: datadog.cws.dumpsv1.FileActivityNode.file:type_name -> datadog.cws.dumpsv1.FileInfo
+	23, // 24: datadog.cws.dumpsv1.FileActivityNode.file:type_name -> datadog.cws.dumpsv1.FileInfo
 	1,  // 25: datadog.cws.dumpsv1.FileActivityNode.generation_type:type_name -> datadog.cws.dumpsv1.GenerationType
 	13, // 26: datadog.cws.dumpsv1.FileActivityNode.open:type_name -> datadog.cws.dumpsv1.OpenNode
 	12, // 27: datadog.cws.dumpsv1.FileActivityNode.children:type_name -> datadog.cws.dumpsv1.FileActivityNode
-	30, // 28: datadog.cws.dumpsv1.DNSNode.matched_rules:type_name -> datadog.cws.dumpsv1.MatchedRule
+	31, // 28: datadog.cws.dumpsv1.DNSNode.matched_rules:type_name -> datadog.cws.dumpsv1.MatchedRule
 	8,  // 29: datadog.cws.dumpsv1.DNSNode.node_base:type_name -> datadog.cws.dumpsv1.NodeBase
 	15, // 30: datadog.cws.dumpsv1.DNSNode.requests:type_name -> datadog.cws.dumpsv1.DNSInfo
-	8,  // 31: datadog.cws.dumpsv1.SyscallNode.node_base:type_name -> datadog.cws.dumpsv1.NodeBase
-	8,  // 32: datadog.cws.dumpsv1.CapabilityNode.node_base:type_name -> datadog.cws.dumpsv1.NodeBase
-	30, // 33: datadog.cws.dumpsv1.IMDSNode.matched_rules:type_name -> datadog.cws.dumpsv1.MatchedRule
-	8,  // 34: datadog.cws.dumpsv1.IMDSNode.node_base:type_name -> datadog.cws.dumpsv1.NodeBase
-	19, // 35: datadog.cws.dumpsv1.IMDSNode.event:type_name -> datadog.cws.dumpsv1.IMDSEvent
-	20, // 36: datadog.cws.dumpsv1.IMDSEvent.aws:type_name -> datadog.cws.dumpsv1.AWSIMDSEvent
-	21, // 37: datadog.cws.dumpsv1.AWSIMDSEvent.security_credentials:type_name -> datadog.cws.dumpsv1.AWSSecurityCredentials
-	0,  // 38: datadog.cws.dumpsv1.FileInfo.hash_state:type_name -> datadog.cws.dumpsv1.HashState
-	25, // 39: datadog.cws.dumpsv1.SocketNode.bind:type_name -> datadog.cws.dumpsv1.BindNode
-	30, // 40: datadog.cws.dumpsv1.BindNode.matched_rules:type_name -> datadog.cws.dumpsv1.MatchedRule
-	8,  // 41: datadog.cws.dumpsv1.BindNode.node_base:type_name -> datadog.cws.dumpsv1.NodeBase
-	30, // 42: datadog.cws.dumpsv1.NetworkDeviceNode.matched_rules:type_name -> datadog.cws.dumpsv1.MatchedRule
-	27, // 43: datadog.cws.dumpsv1.NetworkDeviceNode.flow_nodes:type_name -> datadog.cws.dumpsv1.FlowNode
-	8,  // 44: datadog.cws.dumpsv1.FlowNode.node_base:type_name -> datadog.cws.dumpsv1.NodeBase
-	28, // 45: datadog.cws.dumpsv1.FlowNode.source:type_name -> datadog.cws.dumpsv1.IPPortContext
-	28, // 46: datadog.cws.dumpsv1.FlowNode.destination:type_name -> datadog.cws.dumpsv1.IPPortContext
-	29, // 47: datadog.cws.dumpsv1.FlowNode.ingress:type_name -> datadog.cws.dumpsv1.NetworkStats
-	29, // 48: datadog.cws.dumpsv1.FlowNode.egress:type_name -> datadog.cws.dumpsv1.NetworkStats
-	35, // 49: datadog.cws.dumpsv1.MatchedRule.rule_tags:type_name -> datadog.cws.dumpsv1.MatchedRule.RuleTagsEntry
-	2,  // 50: datadog.cws.dumpsv1.event_type_state.event_profile_state:type_name -> datadog.cws.dumpsv1.event_profile_state
-	31, // 51: datadog.cws.dumpsv1.ProfileContext.EventTypeStateEntry.value:type_name -> datadog.cws.dumpsv1.event_type_state
-	7,  // 52: datadog.cws.dumpsv1.NodeBase.SeenEntry.value:type_name -> datadog.cws.dumpsv1.ImageTagTimes
-	6,  // 53: datadog.cws.dumpsv1.SecurityProfile.ProfileContextsEntry.value:type_name -> datadog.cws.dumpsv1.ProfileContext
-	54, // [54:54] is the sub-list for method output_type
-	54, // [54:54] is the sub-list for method input_type
-	54, // [54:54] is the sub-list for extension type_name
-	54, // [54:54] is the sub-list for extension extendee
-	0,  // [0:54] is the sub-list for field type_name
+	16, // 31: datadog.cws.dumpsv1.DNSInfo.response:type_name -> datadog.cws.dumpsv1.DNSResponseInfo
+	8,  // 32: datadog.cws.dumpsv1.SyscallNode.node_base:type_name -> datadog.cws.dumpsv1.NodeBase
+	8,  // 33: datadog.cws.dumpsv1.CapabilityNode.node_base:type_name -> datadog.cws.dumpsv1.NodeBase
+	31, // 34: datadog.cws.dumpsv1.IMDSNode.matched_rules:type_name -> datadog.cws.dumpsv1.MatchedRule
+	8,  // 35: datadog.cws.dumpsv1.IMDSNode.node_base:type_name -> datadog.cws.dumpsv1.NodeBase
+	20, // 36: datadog.cws.dumpsv1.IMDSNode.event:type_name -> datadog.cws.dumpsv1.IMDSEvent
+	21, // 37: datadog.cws.dumpsv1.IMDSEvent.aws:type_name -> datadog.cws.dumpsv1.AWSIMDSEvent
+	22, // 38: datadog.cws.dumpsv1.AWSIMDSEvent.security_credentials:type_name -> datadog.cws.dumpsv1.AWSSecurityCredentials
+	0,  // 39: datadog.cws.dumpsv1.FileInfo.hash_state:type_name -> datadog.cws.dumpsv1.HashState
+	26, // 40: datadog.cws.dumpsv1.SocketNode.bind:type_name -> datadog.cws.dumpsv1.BindNode
+	31, // 41: datadog.cws.dumpsv1.BindNode.matched_rules:type_name -> datadog.cws.dumpsv1.MatchedRule
+	8,  // 42: datadog.cws.dumpsv1.BindNode.node_base:type_name -> datadog.cws.dumpsv1.NodeBase
+	31, // 43: datadog.cws.dumpsv1.NetworkDeviceNode.matched_rules:type_name -> datadog.cws.dumpsv1.MatchedRule
+	28, // 44: datadog.cws.dumpsv1.NetworkDeviceNode.flow_nodes:type_name -> datadog.cws.dumpsv1.FlowNode
+	8,  // 45: datadog.cws.dumpsv1.FlowNode.node_base:type_name -> datadog.cws.dumpsv1.NodeBase
+	29, // 46: datadog.cws.dumpsv1.FlowNode.source:type_name -> datadog.cws.dumpsv1.IPPortContext
+	29, // 47: datadog.cws.dumpsv1.FlowNode.destination:type_name -> datadog.cws.dumpsv1.IPPortContext
+	30, // 48: datadog.cws.dumpsv1.FlowNode.ingress:type_name -> datadog.cws.dumpsv1.NetworkStats
+	30, // 49: datadog.cws.dumpsv1.FlowNode.egress:type_name -> datadog.cws.dumpsv1.NetworkStats
+	36, // 50: datadog.cws.dumpsv1.MatchedRule.rule_tags:type_name -> datadog.cws.dumpsv1.MatchedRule.RuleTagsEntry
+	2,  // 51: datadog.cws.dumpsv1.event_type_state.event_profile_state:type_name -> datadog.cws.dumpsv1.event_profile_state
+	32, // 52: datadog.cws.dumpsv1.ProfileContext.EventTypeStateEntry.value:type_name -> datadog.cws.dumpsv1.event_type_state
+	7,  // 53: datadog.cws.dumpsv1.NodeBase.SeenEntry.value:type_name -> datadog.cws.dumpsv1.ImageTagTimes
+	6,  // 54: datadog.cws.dumpsv1.SecurityProfile.ProfileContextsEntry.value:type_name -> datadog.cws.dumpsv1.ProfileContext
+	55, // [55:55] is the sub-list for method output_type
+	55, // [55:55] is the sub-list for method input_type
+	55, // [55:55] is the sub-list for extension type_name
+	55, // [55:55] is the sub-list for extension extendee
+	0,  // [0:55] is the sub-list for field type_name
 }
 
 func init() { file_proto_cws_dumpsv1_activity_dump_proto_init() }
@@ -3717,7 +3793,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SyscallNode); i {
+			switch v := v.(*DNSResponseInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3729,7 +3805,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CapabilityNode); i {
+			switch v := v.(*SyscallNode); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3741,7 +3817,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*IMDSNode); i {
+			switch v := v.(*CapabilityNode); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3753,7 +3829,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*IMDSEvent); i {
+			switch v := v.(*IMDSNode); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3765,7 +3841,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AWSIMDSEvent); i {
+			switch v := v.(*IMDSEvent); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3777,7 +3853,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AWSSecurityCredentials); i {
+			switch v := v.(*AWSIMDSEvent); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3789,7 +3865,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FileInfo); i {
+			switch v := v.(*AWSSecurityCredentials); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3801,7 +3877,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Credentials); i {
+			switch v := v.(*FileInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3813,7 +3889,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SocketNode); i {
+			switch v := v.(*Credentials); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3825,7 +3901,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BindNode); i {
+			switch v := v.(*SocketNode); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3837,7 +3913,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*NetworkDeviceNode); i {
+			switch v := v.(*BindNode); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3849,7 +3925,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FlowNode); i {
+			switch v := v.(*NetworkDeviceNode); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3861,7 +3937,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*IPPortContext); i {
+			switch v := v.(*FlowNode); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3873,7 +3949,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*NetworkStats); i {
+			switch v := v.(*IPPortContext); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3885,7 +3961,7 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MatchedRule); i {
+			switch v := v.(*NetworkStats); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -3897,6 +3973,18 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MatchedRule); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*EventTypeState); i {
 			case 0:
 				return &v.state
@@ -3909,14 +3997,14 @@ func file_proto_cws_dumpsv1_activity_dump_proto_init() {
 			}
 		}
 	}
-	file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[19].OneofWrappers = []interface{}{}
+	file_proto_cws_dumpsv1_activity_dump_proto_msgTypes[20].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_proto_cws_dumpsv1_activity_dump_proto_rawDesc,
 			NumEnums:      3,
-			NumMessages:   33,
+			NumMessages:   34,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
