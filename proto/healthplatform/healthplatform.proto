@@ -99,6 +99,13 @@ message HostInfo {
     optional string agent_version = 2;
     // ParIDs are the partition/organization IDs
     repeated string par_ids = 3;
+    // ResourceType identifies the kind of resource this report's Host represents:
+    // "host" for a plain host agent, "cluster" for the Cluster Agent, or
+    // "deployment" for a node agent running under a Kubernetes DaemonSet.
+    string resource_type = 4;
+    // ResourceID is the identifier for resource_type: the hostname, the
+    // Kubernetes cluster id, or the DaemonSet UID, respectively.
+    string resource_id = 5;
 }
 
 // HealthReport represents the formatted health report structure sent to Datadog intake
