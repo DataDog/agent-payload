@@ -17,6 +17,7 @@ message SecDump {
 
     repeated string tags = 5;
     repeated ProcessActivityNode tree = 6;
+    HardeningDeclared declared = 7;
 }
 
 message Metadata {
@@ -37,6 +38,28 @@ message Metadata {
     string serialization = 14;
     string cgroup_id = 15;
     string cgroup_manager = 16;
+}
+
+message SeccompProfile {
+    enum Type {
+        TYPE_UNKNOWN         = 0;
+        TYPE_UNCONFINED      = 1;
+        TYPE_RUNTIME_DEFAULT = 2;
+        TYPE_LOCALHOST       = 3;
+    }
+
+    Type type = 1;
+    // Set iff type == TYPE_LOCALHOST.
+    optional string localhost_profile = 2;
+}
+
+message HardeningDeclared {
+    bool privileged = 1;
+
+    SeccompProfile seccomp = 2;
+
+    repeated string capabilities_add  = 3;
+    repeated string capabilities_drop = 4;
 }
 
 message ProfileSelector {
@@ -71,6 +94,7 @@ message SecurityProfile {
     map<string, ProfileContext> profile_contexts = 7;
     ProfileSelector selector = 8;
     bool disabled = 9;
+    HardeningDeclared declared = 10;
 }
 
 message ProcessActivityNode {
