@@ -191,12 +191,9 @@ func (EventProfileState) EnumDescriptor() ([]byte, []int) {
 	return file_proto_cws_dumpsv1_activity_dump_proto_rawDescGZIP(), []int{2}
 }
 
-// Type is nested so its value names don't collide with unrelated enums in
-// the same proto file.
 type SeccompProfile_Type int32
 
 const (
-	// Absence-friendly zero value; consumers should treat it as "no data".
 	SeccompProfile_TYPE_UNKNOWN         SeccompProfile_Type = 0
 	SeccompProfile_TYPE_UNCONFINED      SeccompProfile_Type = 1
 	SeccompProfile_TYPE_RUNTIME_DEFAULT SeccompProfile_Type = 2
@@ -508,10 +505,6 @@ func (x *Metadata) GetCgroupManager() string {
 	return ""
 }
 
-// SeccompProfile describes the declared seccomp profile for a workload. The
-// enum type is always meaningful; localhost_profile is set only when the type
-// is TYPE_LOCALHOST and names a file under the kubelet seccomp root
-// (e.g. "profiles/audit.json"). The full profile content is not carried.
 type SeccompProfile struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -568,23 +561,15 @@ func (x *SeccompProfile) GetLocalhostProfile() string {
 	return ""
 }
 
-// HardeningDeclared captures the *declared* hardening posture of the profiled
-// workload (K8s container.securityContext today). It is the complement of the
-// *observed* attempted/used capabilities on ProfileContext, so the backend
-// can compare intent against runtime behaviour.
 type HardeningDeclared struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// K8s default is false, so absent-vs-false is not meaningful.
-	Privileged bool `protobuf:"varint,1,opt,name=privileged,proto3" json:"privileged,omitempty"`
-	// Nil when no seccomp is declared. Message-typed so absence is naturally
-	// encoded as an unset field.
-	Seccomp *SeccompProfile `protobuf:"bytes,2,opt,name=seccomp,proto3" json:"seccomp,omitempty"`
-	// Capabilities declared on container.securityContext.capabilities.
-	CapabilitiesAdd  []string `protobuf:"bytes,3,rep,name=capabilities_add,json=capabilitiesAdd,proto3" json:"capabilities_add,omitempty"`
-	CapabilitiesDrop []string `protobuf:"bytes,4,rep,name=capabilities_drop,json=capabilitiesDrop,proto3" json:"capabilities_drop,omitempty"`
+	Privileged       bool            `protobuf:"varint,1,opt,name=privileged,proto3" json:"privileged,omitempty"`
+	Seccomp          *SeccompProfile `protobuf:"bytes,2,opt,name=seccomp,proto3" json:"seccomp,omitempty"`
+	CapabilitiesAdd  []string        `protobuf:"bytes,3,rep,name=capabilities_add,json=capabilitiesAdd,proto3" json:"capabilities_add,omitempty"`
+	CapabilitiesDrop []string        `protobuf:"bytes,4,rep,name=capabilities_drop,json=capabilitiesDrop,proto3" json:"capabilities_drop,omitempty"`
 }
 
 func (x *HardeningDeclared) Reset() {
