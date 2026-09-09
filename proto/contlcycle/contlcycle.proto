@@ -53,6 +53,7 @@ message ContainerEvent {
 
     optional string containerName = 6;
     optional ContainerStateTransition transition = 7;
+    repeated string dd_tags = 9; // dd_tags contains the tagger-resolved tags for the container
 }
 
 // PodEvent contains pod event metadata
@@ -62,6 +63,7 @@ message PodEvent {
     optional int64 exitTimestamp = 3; // exitTimestamp contains the exit timestamp of the pod
     optional int64 creationTimestamp = 4; // creationTimestamp contains the creation timestamp of the pod
     optional PodStateTransition transition = 5;
+    repeated string dd_tags = 6; // dd_tags contains the tagger-resolved tags for the pod
 }
 
 // TaskEvent contains task event metadata
