@@ -17,6 +17,7 @@ message SecDump {
 
     repeated string tags = 5;
     repeated ProcessActivityNode tree = 6;
+    repeated MountNode mounts = 7;
 }
 
 message Metadata {
@@ -71,6 +72,21 @@ message SecurityProfile {
     map<string, ProfileContext> profile_contexts = 7;
     ProfileSelector selector = 8;
     bool disabled = 9;
+    repeated MountNode mounts = 10;
+}
+
+message MountNode {
+    reserved 6; // formerly sb_flags
+
+    NodeBase node_base = 1;
+
+    string mount_point = 2;
+    string mount_root = 3;
+    string filesystem = 4;
+
+    uint32 mount_flags = 5;
+
+    bool base_namespace = 7;
 }
 
 message ProcessActivityNode {
