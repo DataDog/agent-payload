@@ -49,8 +49,8 @@ func (m *SecDump) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
-	if m.Declared != nil {
-		size, err := m.Declared.MarshalToSizedBufferVT(dAtA[:i])
+	if m.ContainerSecurityContext != nil {
+		size, err := m.ContainerSecurityContext.MarshalToSizedBufferVT(dAtA[:i])
 		if err != nil {
 			return 0, err
 		}
@@ -303,7 +303,7 @@ func (m *SeccompProfile) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *HardeningDeclared) MarshalVT() (dAtA []byte, err error) {
+func (m *ContainerSecurityContext) MarshalVT() (dAtA []byte, err error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -316,12 +316,12 @@ func (m *HardeningDeclared) MarshalVT() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *HardeningDeclared) MarshalToVT(dAtA []byte) (int, error) {
+func (m *ContainerSecurityContext) MarshalToVT(dAtA []byte) (int, error) {
 	size := m.SizeVT()
 	return m.MarshalToSizedBufferVT(dAtA[:size])
 }
 
-func (m *HardeningDeclared) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
+func (m *ContainerSecurityContext) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 	if m == nil {
 		return 0, nil
 	}
@@ -641,8 +641,8 @@ func (m *SecurityProfile) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
-	if m.Declared != nil {
-		size, err := m.Declared.MarshalToSizedBufferVT(dAtA[:i])
+	if m.ContainerSecurityContext != nil {
+		size, err := m.ContainerSecurityContext.MarshalToSizedBufferVT(dAtA[:i])
 		if err != nil {
 			return 0, err
 		}
@@ -2958,8 +2958,8 @@ func (m *SecDump) SizeVT() (n int) {
 			n += 1 + l + sov(uint64(l))
 		}
 	}
-	if m.Declared != nil {
-		l = m.Declared.SizeVT()
+	if m.ContainerSecurityContext != nil {
+		l = m.ContainerSecurityContext.SizeVT()
 		n += 1 + l + sov(uint64(l))
 	}
 	n += len(m.unknownFields)
@@ -3053,7 +3053,7 @@ func (m *SeccompProfile) SizeVT() (n int) {
 	return n
 }
 
-func (m *HardeningDeclared) SizeVT() (n int) {
+func (m *ContainerSecurityContext) SizeVT() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -3237,8 +3237,8 @@ func (m *SecurityProfile) SizeVT() (n int) {
 	if m.Disabled {
 		n += 2
 	}
-	if m.Declared != nil {
-		l = m.Declared.SizeVT()
+	if m.ContainerSecurityContext != nil {
+		l = m.ContainerSecurityContext.SizeVT()
 		n += 1 + l + sov(uint64(l))
 	}
 	n += len(m.unknownFields)
@@ -4337,7 +4337,7 @@ func (m *SecDump) UnmarshalVT(dAtA []byte) error {
 			iNdEx = postIndex
 		case 7:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Declared", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ContainerSecurityContext", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -4364,10 +4364,10 @@ func (m *SecDump) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Declared == nil {
-				m.Declared = &HardeningDeclared{}
+			if m.ContainerSecurityContext == nil {
+				m.ContainerSecurityContext = &ContainerSecurityContext{}
 			}
-			if err := m.Declared.UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.ContainerSecurityContext.UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -5008,7 +5008,7 @@ func (m *SeccompProfile) UnmarshalVT(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *HardeningDeclared) UnmarshalVT(dAtA []byte) error {
+func (m *ContainerSecurityContext) UnmarshalVT(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -5031,10 +5031,10 @@ func (m *HardeningDeclared) UnmarshalVT(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: HardeningDeclared: wiretype end group for non-group")
+			return fmt.Errorf("proto: ContainerSecurityContext: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: HardeningDeclared: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: ContainerSecurityContext: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -6320,7 +6320,7 @@ func (m *SecurityProfile) UnmarshalVT(dAtA []byte) error {
 			m.Disabled = bool(v != 0)
 		case 10:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Declared", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ContainerSecurityContext", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -6347,10 +6347,10 @@ func (m *SecurityProfile) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.Declared == nil {
-				m.Declared = &HardeningDeclared{}
+			if m.ContainerSecurityContext == nil {
+				m.ContainerSecurityContext = &ContainerSecurityContext{}
 			}
-			if err := m.Declared.UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.ContainerSecurityContext.UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

@@ -542,19 +542,19 @@ public final class SecDumpProto {
         int index);
 
     /**
-     * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 7;</code>
-     * @return Whether the declared field is set.
+     * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 7;</code>
+     * @return Whether the containerSecurityContext field is set.
      */
-    boolean hasDeclared();
+    boolean hasContainerSecurityContext();
     /**
-     * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 7;</code>
-     * @return The declared.
+     * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 7;</code>
+     * @return The containerSecurityContext.
      */
-    com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared getDeclared();
+    com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext getContainerSecurityContext();
     /**
-     * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 7;</code>
+     * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 7;</code>
      */
-    com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclaredOrBuilder getDeclaredOrBuilder();
+    com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContextOrBuilder getContainerSecurityContextOrBuilder();
   }
   /**
    * Protobuf type {@code datadog.cws.dumpsv1.SecDump}
@@ -821,30 +821,30 @@ public final class SecDumpProto {
       return tree_.get(index);
     }
 
-    public static final int DECLARED_FIELD_NUMBER = 7;
-    private com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared declared_;
+    public static final int CONTAINER_SECURITY_CONTEXT_FIELD_NUMBER = 7;
+    private com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext containerSecurityContext_;
     /**
-     * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 7;</code>
-     * @return Whether the declared field is set.
+     * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 7;</code>
+     * @return Whether the containerSecurityContext field is set.
      */
     @java.lang.Override
-    public boolean hasDeclared() {
-      return declared_ != null;
+    public boolean hasContainerSecurityContext() {
+      return containerSecurityContext_ != null;
     }
     /**
-     * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 7;</code>
-     * @return The declared.
+     * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 7;</code>
+     * @return The containerSecurityContext.
      */
     @java.lang.Override
-    public com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared getDeclared() {
-      return declared_ == null ? com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.getDefaultInstance() : declared_;
+    public com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext getContainerSecurityContext() {
+      return containerSecurityContext_ == null ? com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.getDefaultInstance() : containerSecurityContext_;
     }
     /**
-     * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 7;</code>
+     * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 7;</code>
      */
     @java.lang.Override
-    public com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclaredOrBuilder getDeclaredOrBuilder() {
-      return declared_ == null ? com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.getDefaultInstance() : declared_;
+    public com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContextOrBuilder getContainerSecurityContextOrBuilder() {
+      return containerSecurityContext_ == null ? com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.getDefaultInstance() : containerSecurityContext_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -879,8 +879,8 @@ public final class SecDumpProto {
       for (int i = 0; i < tree_.size(); i++) {
         output.writeMessage(6, tree_.get(i));
       }
-      if (declared_ != null) {
-        output.writeMessage(7, getDeclared());
+      if (containerSecurityContext_ != null) {
+        output.writeMessage(7, getContainerSecurityContext());
       }
       getUnknownFields().writeTo(output);
     }
@@ -916,9 +916,9 @@ public final class SecDumpProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(6, tree_.get(i));
       }
-      if (declared_ != null) {
+      if (containerSecurityContext_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(7, getDeclared());
+          .computeMessageSize(7, getContainerSecurityContext());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -950,10 +950,10 @@ public final class SecDumpProto {
           .equals(other.getTagsList())) return false;
       if (!getTreeList()
           .equals(other.getTreeList())) return false;
-      if (hasDeclared() != other.hasDeclared()) return false;
-      if (hasDeclared()) {
-        if (!getDeclared()
-            .equals(other.getDeclared())) return false;
+      if (hasContainerSecurityContext() != other.hasContainerSecurityContext()) return false;
+      if (hasContainerSecurityContext()) {
+        if (!getContainerSecurityContext()
+            .equals(other.getContainerSecurityContext())) return false;
       }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
@@ -984,9 +984,9 @@ public final class SecDumpProto {
         hash = (37 * hash) + TREE_FIELD_NUMBER;
         hash = (53 * hash) + getTreeList().hashCode();
       }
-      if (hasDeclared()) {
-        hash = (37 * hash) + DECLARED_FIELD_NUMBER;
-        hash = (53 * hash) + getDeclared().hashCode();
+      if (hasContainerSecurityContext()) {
+        hash = (37 * hash) + CONTAINER_SECURITY_CONTEXT_FIELD_NUMBER;
+        hash = (53 * hash) + getContainerSecurityContext().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -1134,10 +1134,10 @@ public final class SecDumpProto {
           treeBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000020);
-        declared_ = null;
-        if (declaredBuilder_ != null) {
-          declaredBuilder_.dispose();
-          declaredBuilder_ = null;
+        containerSecurityContext_ = null;
+        if (containerSecurityContextBuilder_ != null) {
+          containerSecurityContextBuilder_.dispose();
+          containerSecurityContextBuilder_ = null;
         }
         return this;
       }
@@ -1205,9 +1205,9 @@ public final class SecDumpProto {
               : metadataBuilder_.build();
         }
         if (((from_bitField0_ & 0x00000040) != 0)) {
-          result.declared_ = declaredBuilder_ == null
-              ? declared_
-              : declaredBuilder_.build();
+          result.containerSecurityContext_ = containerSecurityContextBuilder_ == null
+              ? containerSecurityContext_
+              : containerSecurityContextBuilder_.build();
         }
       }
 
@@ -1309,8 +1309,8 @@ public final class SecDumpProto {
             }
           }
         }
-        if (other.hasDeclared()) {
-          mergeDeclared(other.getDeclared());
+        if (other.hasContainerSecurityContext()) {
+          mergeContainerSecurityContext(other.getContainerSecurityContext());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -1381,7 +1381,7 @@ public final class SecDumpProto {
               } // case 50
               case 58: {
                 input.readMessage(
-                    getDeclaredFieldBuilder().getBuilder(),
+                    getContainerSecurityContextFieldBuilder().getBuilder(),
                     extensionRegistry);
                 bitField0_ |= 0x00000040;
                 break;
@@ -2082,123 +2082,123 @@ public final class SecDumpProto {
         return treeBuilder_;
       }
 
-      private com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared declared_;
+      private com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext containerSecurityContext_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared, com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.Builder, com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclaredOrBuilder> declaredBuilder_;
+          com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext, com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.Builder, com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContextOrBuilder> containerSecurityContextBuilder_;
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 7;</code>
-       * @return Whether the declared field is set.
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 7;</code>
+       * @return Whether the containerSecurityContext field is set.
        */
-      public boolean hasDeclared() {
+      public boolean hasContainerSecurityContext() {
         return ((bitField0_ & 0x00000040) != 0);
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 7;</code>
-       * @return The declared.
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 7;</code>
+       * @return The containerSecurityContext.
        */
-      public com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared getDeclared() {
-        if (declaredBuilder_ == null) {
-          return declared_ == null ? com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.getDefaultInstance() : declared_;
+      public com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext getContainerSecurityContext() {
+        if (containerSecurityContextBuilder_ == null) {
+          return containerSecurityContext_ == null ? com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.getDefaultInstance() : containerSecurityContext_;
         } else {
-          return declaredBuilder_.getMessage();
+          return containerSecurityContextBuilder_.getMessage();
         }
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 7;</code>
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 7;</code>
        */
-      public Builder setDeclared(com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared value) {
-        if (declaredBuilder_ == null) {
+      public Builder setContainerSecurityContext(com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext value) {
+        if (containerSecurityContextBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          declared_ = value;
+          containerSecurityContext_ = value;
         } else {
-          declaredBuilder_.setMessage(value);
+          containerSecurityContextBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 7;</code>
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 7;</code>
        */
-      public Builder setDeclared(
-          com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.Builder builderForValue) {
-        if (declaredBuilder_ == null) {
-          declared_ = builderForValue.build();
+      public Builder setContainerSecurityContext(
+          com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.Builder builderForValue) {
+        if (containerSecurityContextBuilder_ == null) {
+          containerSecurityContext_ = builderForValue.build();
         } else {
-          declaredBuilder_.setMessage(builderForValue.build());
+          containerSecurityContextBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 7;</code>
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 7;</code>
        */
-      public Builder mergeDeclared(com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared value) {
-        if (declaredBuilder_ == null) {
+      public Builder mergeContainerSecurityContext(com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext value) {
+        if (containerSecurityContextBuilder_ == null) {
           if (((bitField0_ & 0x00000040) != 0) &&
-            declared_ != null &&
-            declared_ != com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.getDefaultInstance()) {
-            getDeclaredBuilder().mergeFrom(value);
+            containerSecurityContext_ != null &&
+            containerSecurityContext_ != com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.getDefaultInstance()) {
+            getContainerSecurityContextBuilder().mergeFrom(value);
           } else {
-            declared_ = value;
+            containerSecurityContext_ = value;
           }
         } else {
-          declaredBuilder_.mergeFrom(value);
+          containerSecurityContextBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 7;</code>
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 7;</code>
        */
-      public Builder clearDeclared() {
+      public Builder clearContainerSecurityContext() {
         bitField0_ = (bitField0_ & ~0x00000040);
-        declared_ = null;
-        if (declaredBuilder_ != null) {
-          declaredBuilder_.dispose();
-          declaredBuilder_ = null;
+        containerSecurityContext_ = null;
+        if (containerSecurityContextBuilder_ != null) {
+          containerSecurityContextBuilder_.dispose();
+          containerSecurityContextBuilder_ = null;
         }
         onChanged();
         return this;
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 7;</code>
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 7;</code>
        */
-      public com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.Builder getDeclaredBuilder() {
+      public com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.Builder getContainerSecurityContextBuilder() {
         bitField0_ |= 0x00000040;
         onChanged();
-        return getDeclaredFieldBuilder().getBuilder();
+        return getContainerSecurityContextFieldBuilder().getBuilder();
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 7;</code>
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 7;</code>
        */
-      public com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclaredOrBuilder getDeclaredOrBuilder() {
-        if (declaredBuilder_ != null) {
-          return declaredBuilder_.getMessageOrBuilder();
+      public com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContextOrBuilder getContainerSecurityContextOrBuilder() {
+        if (containerSecurityContextBuilder_ != null) {
+          return containerSecurityContextBuilder_.getMessageOrBuilder();
         } else {
-          return declared_ == null ?
-              com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.getDefaultInstance() : declared_;
+          return containerSecurityContext_ == null ?
+              com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.getDefaultInstance() : containerSecurityContext_;
         }
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 7;</code>
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 7;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared, com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.Builder, com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclaredOrBuilder> 
-          getDeclaredFieldBuilder() {
-        if (declaredBuilder_ == null) {
-          declaredBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared, com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.Builder, com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclaredOrBuilder>(
-                  getDeclared(),
+          com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext, com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.Builder, com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContextOrBuilder> 
+          getContainerSecurityContextFieldBuilder() {
+        if (containerSecurityContextBuilder_ == null) {
+          containerSecurityContextBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext, com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.Builder, com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContextOrBuilder>(
+                  getContainerSecurityContext(),
                   getParentForChildren(),
                   isClean());
-          declared_ = null;
+          containerSecurityContext_ = null;
         }
-        return declaredBuilder_;
+        return containerSecurityContextBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -5602,8 +5602,8 @@ public final class SecDumpProto {
 
   }
 
-  public interface HardeningDeclaredOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.HardeningDeclared)
+  public interface ContainerSecurityContextOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datadog.cws.dumpsv1.ContainerSecurityContext)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -5678,18 +5678,18 @@ public final class SecDumpProto {
         getCapabilitiesDropBytes(int index);
   }
   /**
-   * Protobuf type {@code datadog.cws.dumpsv1.HardeningDeclared}
+   * Protobuf type {@code datadog.cws.dumpsv1.ContainerSecurityContext}
    */
-  public static final class HardeningDeclared extends
+  public static final class ContainerSecurityContext extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.HardeningDeclared)
-      HardeningDeclaredOrBuilder {
+      // @@protoc_insertion_point(message_implements:datadog.cws.dumpsv1.ContainerSecurityContext)
+      ContainerSecurityContextOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use HardeningDeclared.newBuilder() to construct.
-    private HardeningDeclared(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use ContainerSecurityContext.newBuilder() to construct.
+    private ContainerSecurityContext(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private HardeningDeclared() {
+    private ContainerSecurityContext() {
       capabilitiesAdd_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       capabilitiesDrop_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
@@ -5698,7 +5698,7 @@ public final class SecDumpProto {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new HardeningDeclared();
+      return new ContainerSecurityContext();
     }
 
     @java.lang.Override
@@ -5708,15 +5708,15 @@ public final class SecDumpProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_HardeningDeclared_descriptor;
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ContainerSecurityContext_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_HardeningDeclared_fieldAccessorTable
+      return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ContainerSecurityContext_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.class, com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.Builder.class);
+              com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.class, com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.Builder.class);
     }
 
     public static final int PRIVILEGED_FIELD_NUMBER = 1;
@@ -5897,10 +5897,10 @@ public final class SecDumpProto {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared)) {
+      if (!(obj instanceof com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext)) {
         return super.equals(obj);
       }
-      com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared other = (com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared) obj;
+      com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext other = (com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext) obj;
 
       if (getPrivileged()
           != other.getPrivileged()) return false;
@@ -5944,69 +5944,69 @@ public final class SecDumpProto {
       return hash;
     }
 
-    public static com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared parseFrom(byte[] data)
+    public static com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared parseFrom(java.io.InputStream input)
+    public static com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared parseDelimitedFrom(java.io.InputStream input)
+    public static com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared parseDelimitedFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared parseFrom(
+    public static com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -6019,7 +6019,7 @@ public final class SecDumpProto {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared prototype) {
+    public static Builder newBuilder(com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -6035,26 +6035,26 @@ public final class SecDumpProto {
       return builder;
     }
     /**
-     * Protobuf type {@code datadog.cws.dumpsv1.HardeningDeclared}
+     * Protobuf type {@code datadog.cws.dumpsv1.ContainerSecurityContext}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.HardeningDeclared)
-        com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclaredOrBuilder {
+        // @@protoc_insertion_point(builder_implements:datadog.cws.dumpsv1.ContainerSecurityContext)
+        com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContextOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_HardeningDeclared_descriptor;
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ContainerSecurityContext_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_HardeningDeclared_fieldAccessorTable
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ContainerSecurityContext_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.class, com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.Builder.class);
+                com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.class, com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.Builder.class);
       }
 
-      // Construct using com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.newBuilder()
+      // Construct using com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.newBuilder()
       private Builder() {
 
       }
@@ -6084,17 +6084,17 @@ public final class SecDumpProto {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_HardeningDeclared_descriptor;
+        return com.dd.cws.adv1.pb.SecDumpProto.internal_static_datadog_cws_dumpsv1_ContainerSecurityContext_descriptor;
       }
 
       @java.lang.Override
-      public com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared getDefaultInstanceForType() {
-        return com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.getDefaultInstance();
+      public com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext getDefaultInstanceForType() {
+        return com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.getDefaultInstance();
       }
 
       @java.lang.Override
-      public com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared build() {
-        com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared result = buildPartial();
+      public com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext build() {
+        com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -6102,15 +6102,15 @@ public final class SecDumpProto {
       }
 
       @java.lang.Override
-      public com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared buildPartial() {
-        com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared result = new com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared(this);
+      public com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext buildPartial() {
+        com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext result = new com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext(this);
         buildPartialRepeatedFields(result);
         if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
       }
 
-      private void buildPartialRepeatedFields(com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared result) {
+      private void buildPartialRepeatedFields(com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext result) {
         if (((bitField0_ & 0x00000004) != 0)) {
           capabilitiesAdd_ = capabilitiesAdd_.getUnmodifiableView();
           bitField0_ = (bitField0_ & ~0x00000004);
@@ -6123,7 +6123,7 @@ public final class SecDumpProto {
         result.capabilitiesDrop_ = capabilitiesDrop_;
       }
 
-      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared result) {
+      private void buildPartial0(com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
           result.privileged_ = privileged_;
@@ -6169,16 +6169,16 @@ public final class SecDumpProto {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared) {
-          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared)other);
+        if (other instanceof com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext) {
+          return mergeFrom((com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared other) {
-        if (other == com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext other) {
+        if (other == com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.getDefaultInstance()) return this;
         if (other.getPrivileged() != false) {
           setPrivileged(other.getPrivileged());
         }
@@ -6643,23 +6643,23 @@ public final class SecDumpProto {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.HardeningDeclared)
+      // @@protoc_insertion_point(builder_scope:datadog.cws.dumpsv1.ContainerSecurityContext)
     }
 
-    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.HardeningDeclared)
-    private static final com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:datadog.cws.dumpsv1.ContainerSecurityContext)
+    private static final com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared();
+      DEFAULT_INSTANCE = new com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext();
     }
 
-    public static com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared getDefaultInstance() {
+    public static com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<HardeningDeclared>
-        PARSER = new com.google.protobuf.AbstractParser<HardeningDeclared>() {
+    private static final com.google.protobuf.Parser<ContainerSecurityContext>
+        PARSER = new com.google.protobuf.AbstractParser<ContainerSecurityContext>() {
       @java.lang.Override
-      public HardeningDeclared parsePartialFrom(
+      public ContainerSecurityContext parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -6678,17 +6678,17 @@ public final class SecDumpProto {
       }
     };
 
-    public static com.google.protobuf.Parser<HardeningDeclared> parser() {
+    public static com.google.protobuf.Parser<ContainerSecurityContext> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<HardeningDeclared> getParserForType() {
+    public com.google.protobuf.Parser<ContainerSecurityContext> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared getDefaultInstanceForType() {
+    public com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -10113,19 +10113,19 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue);
     boolean getDisabled();
 
     /**
-     * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 10;</code>
-     * @return Whether the declared field is set.
+     * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 10;</code>
+     * @return Whether the containerSecurityContext field is set.
      */
-    boolean hasDeclared();
+    boolean hasContainerSecurityContext();
     /**
-     * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 10;</code>
-     * @return The declared.
+     * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 10;</code>
+     * @return The containerSecurityContext.
      */
-    com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared getDeclared();
+    com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext getContainerSecurityContext();
     /**
-     * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 10;</code>
+     * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 10;</code>
      */
-    com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclaredOrBuilder getDeclaredOrBuilder();
+    com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContextOrBuilder getContainerSecurityContextOrBuilder();
   }
   /**
    * Protobuf type {@code datadog.cws.dumpsv1.SecurityProfile}
@@ -10501,30 +10501,30 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       return disabled_;
     }
 
-    public static final int DECLARED_FIELD_NUMBER = 10;
-    private com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared declared_;
+    public static final int CONTAINER_SECURITY_CONTEXT_FIELD_NUMBER = 10;
+    private com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext containerSecurityContext_;
     /**
-     * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 10;</code>
-     * @return Whether the declared field is set.
+     * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 10;</code>
+     * @return Whether the containerSecurityContext field is set.
      */
     @java.lang.Override
-    public boolean hasDeclared() {
-      return declared_ != null;
+    public boolean hasContainerSecurityContext() {
+      return containerSecurityContext_ != null;
     }
     /**
-     * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 10;</code>
-     * @return The declared.
+     * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 10;</code>
+     * @return The containerSecurityContext.
      */
     @java.lang.Override
-    public com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared getDeclared() {
-      return declared_ == null ? com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.getDefaultInstance() : declared_;
+    public com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext getContainerSecurityContext() {
+      return containerSecurityContext_ == null ? com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.getDefaultInstance() : containerSecurityContext_;
     }
     /**
-     * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 10;</code>
+     * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 10;</code>
      */
     @java.lang.Override
-    public com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclaredOrBuilder getDeclaredOrBuilder() {
-      return declared_ == null ? com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.getDefaultInstance() : declared_;
+    public com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContextOrBuilder getContainerSecurityContextOrBuilder() {
+      return containerSecurityContext_ == null ? com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.getDefaultInstance() : containerSecurityContext_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -10576,8 +10576,8 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       if (disabled_ != false) {
         output.writeBool(9, disabled_);
       }
-      if (declared_ != null) {
-        output.writeMessage(10, getDeclared());
+      if (containerSecurityContext_ != null) {
+        output.writeMessage(10, getContainerSecurityContext());
       }
       getUnknownFields().writeTo(output);
     }
@@ -10643,9 +10643,9 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(9, disabled_);
       }
-      if (declared_ != null) {
+      if (containerSecurityContext_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(10, getDeclared());
+          .computeMessageSize(10, getContainerSecurityContext());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -10686,10 +10686,10 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       }
       if (getDisabled()
           != other.getDisabled()) return false;
-      if (hasDeclared() != other.hasDeclared()) return false;
-      if (hasDeclared()) {
-        if (!getDeclared()
-            .equals(other.getDeclared())) return false;
+      if (hasContainerSecurityContext() != other.hasContainerSecurityContext()) return false;
+      if (hasContainerSecurityContext()) {
+        if (!getContainerSecurityContext()
+            .equals(other.getContainerSecurityContext())) return false;
       }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
@@ -10733,9 +10733,9 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
       hash = (37 * hash) + DISABLED_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getDisabled());
-      if (hasDeclared()) {
-        hash = (37 * hash) + DECLARED_FIELD_NUMBER;
-        hash = (53 * hash) + getDeclared().hashCode();
+      if (hasContainerSecurityContext()) {
+        hash = (37 * hash) + CONTAINER_SECURITY_CONTEXT_FIELD_NUMBER;
+        hash = (53 * hash) + getContainerSecurityContext().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -10912,10 +10912,10 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           selectorBuilder_ = null;
         }
         disabled_ = false;
-        declared_ = null;
-        if (declaredBuilder_ != null) {
-          declaredBuilder_.dispose();
-          declaredBuilder_ = null;
+        containerSecurityContext_ = null;
+        if (containerSecurityContextBuilder_ != null) {
+          containerSecurityContextBuilder_.dispose();
+          containerSecurityContextBuilder_ = null;
         }
         return this;
       }
@@ -10997,9 +10997,9 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
           result.disabled_ = disabled_;
         }
         if (((from_bitField0_ & 0x00000200) != 0)) {
-          result.declared_ = declaredBuilder_ == null
-              ? declared_
-              : declaredBuilder_.build();
+          result.containerSecurityContext_ = containerSecurityContextBuilder_ == null
+              ? containerSecurityContext_
+              : containerSecurityContextBuilder_.build();
         }
       }
 
@@ -11113,8 +11113,8 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         if (other.getDisabled() != false) {
           setDisabled(other.getDisabled());
         }
-        if (other.hasDeclared()) {
-          mergeDeclared(other.getDeclared());
+        if (other.hasContainerSecurityContext()) {
+          mergeContainerSecurityContext(other.getContainerSecurityContext());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -11217,7 +11217,7 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
               } // case 72
               case 82: {
                 input.readMessage(
-                    getDeclaredFieldBuilder().getBuilder(),
+                    getContainerSecurityContextFieldBuilder().getBuilder(),
                     extensionRegistry);
                 bitField0_ |= 0x00000200;
                 break;
@@ -12213,123 +12213,123 @@ com.dd.cws.adv1.pb.SecDumpProto.ProfileContext defaultValue) {
         return this;
       }
 
-      private com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared declared_;
+      private com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext containerSecurityContext_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared, com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.Builder, com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclaredOrBuilder> declaredBuilder_;
+          com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext, com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.Builder, com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContextOrBuilder> containerSecurityContextBuilder_;
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 10;</code>
-       * @return Whether the declared field is set.
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 10;</code>
+       * @return Whether the containerSecurityContext field is set.
        */
-      public boolean hasDeclared() {
+      public boolean hasContainerSecurityContext() {
         return ((bitField0_ & 0x00000200) != 0);
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 10;</code>
-       * @return The declared.
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 10;</code>
+       * @return The containerSecurityContext.
        */
-      public com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared getDeclared() {
-        if (declaredBuilder_ == null) {
-          return declared_ == null ? com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.getDefaultInstance() : declared_;
+      public com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext getContainerSecurityContext() {
+        if (containerSecurityContextBuilder_ == null) {
+          return containerSecurityContext_ == null ? com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.getDefaultInstance() : containerSecurityContext_;
         } else {
-          return declaredBuilder_.getMessage();
+          return containerSecurityContextBuilder_.getMessage();
         }
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 10;</code>
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 10;</code>
        */
-      public Builder setDeclared(com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared value) {
-        if (declaredBuilder_ == null) {
+      public Builder setContainerSecurityContext(com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext value) {
+        if (containerSecurityContextBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          declared_ = value;
+          containerSecurityContext_ = value;
         } else {
-          declaredBuilder_.setMessage(value);
+          containerSecurityContextBuilder_.setMessage(value);
         }
         bitField0_ |= 0x00000200;
         onChanged();
         return this;
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 10;</code>
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 10;</code>
        */
-      public Builder setDeclared(
-          com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.Builder builderForValue) {
-        if (declaredBuilder_ == null) {
-          declared_ = builderForValue.build();
+      public Builder setContainerSecurityContext(
+          com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.Builder builderForValue) {
+        if (containerSecurityContextBuilder_ == null) {
+          containerSecurityContext_ = builderForValue.build();
         } else {
-          declaredBuilder_.setMessage(builderForValue.build());
+          containerSecurityContextBuilder_.setMessage(builderForValue.build());
         }
         bitField0_ |= 0x00000200;
         onChanged();
         return this;
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 10;</code>
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 10;</code>
        */
-      public Builder mergeDeclared(com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared value) {
-        if (declaredBuilder_ == null) {
+      public Builder mergeContainerSecurityContext(com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext value) {
+        if (containerSecurityContextBuilder_ == null) {
           if (((bitField0_ & 0x00000200) != 0) &&
-            declared_ != null &&
-            declared_ != com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.getDefaultInstance()) {
-            getDeclaredBuilder().mergeFrom(value);
+            containerSecurityContext_ != null &&
+            containerSecurityContext_ != com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.getDefaultInstance()) {
+            getContainerSecurityContextBuilder().mergeFrom(value);
           } else {
-            declared_ = value;
+            containerSecurityContext_ = value;
           }
         } else {
-          declaredBuilder_.mergeFrom(value);
+          containerSecurityContextBuilder_.mergeFrom(value);
         }
         bitField0_ |= 0x00000200;
         onChanged();
         return this;
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 10;</code>
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 10;</code>
        */
-      public Builder clearDeclared() {
+      public Builder clearContainerSecurityContext() {
         bitField0_ = (bitField0_ & ~0x00000200);
-        declared_ = null;
-        if (declaredBuilder_ != null) {
-          declaredBuilder_.dispose();
-          declaredBuilder_ = null;
+        containerSecurityContext_ = null;
+        if (containerSecurityContextBuilder_ != null) {
+          containerSecurityContextBuilder_.dispose();
+          containerSecurityContextBuilder_ = null;
         }
         onChanged();
         return this;
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 10;</code>
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 10;</code>
        */
-      public com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.Builder getDeclaredBuilder() {
+      public com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.Builder getContainerSecurityContextBuilder() {
         bitField0_ |= 0x00000200;
         onChanged();
-        return getDeclaredFieldBuilder().getBuilder();
+        return getContainerSecurityContextFieldBuilder().getBuilder();
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 10;</code>
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 10;</code>
        */
-      public com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclaredOrBuilder getDeclaredOrBuilder() {
-        if (declaredBuilder_ != null) {
-          return declaredBuilder_.getMessageOrBuilder();
+      public com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContextOrBuilder getContainerSecurityContextOrBuilder() {
+        if (containerSecurityContextBuilder_ != null) {
+          return containerSecurityContextBuilder_.getMessageOrBuilder();
         } else {
-          return declared_ == null ?
-              com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.getDefaultInstance() : declared_;
+          return containerSecurityContext_ == null ?
+              com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.getDefaultInstance() : containerSecurityContext_;
         }
       }
       /**
-       * <code>.datadog.cws.dumpsv1.HardeningDeclared declared = 10;</code>
+       * <code>.datadog.cws.dumpsv1.ContainerSecurityContext container_security_context = 10;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared, com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.Builder, com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclaredOrBuilder> 
-          getDeclaredFieldBuilder() {
-        if (declaredBuilder_ == null) {
-          declaredBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared, com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclared.Builder, com.dd.cws.adv1.pb.SecDumpProto.HardeningDeclaredOrBuilder>(
-                  getDeclared(),
+          com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext, com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.Builder, com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContextOrBuilder> 
+          getContainerSecurityContextFieldBuilder() {
+        if (containerSecurityContextBuilder_ == null) {
+          containerSecurityContextBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext, com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContext.Builder, com.dd.cws.adv1.pb.SecDumpProto.ContainerSecurityContextOrBuilder>(
+                  getContainerSecurityContext(),
                   getParentForChildren(),
                   isClean());
-          declared_ = null;
+          containerSecurityContext_ = null;
         }
-        return declaredBuilder_;
+        return containerSecurityContextBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -46549,10 +46549,10 @@ java.lang.String defaultValue) {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_datadog_cws_dumpsv1_SeccompProfile_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_datadog_cws_dumpsv1_HardeningDeclared_descriptor;
+    internal_static_datadog_cws_dumpsv1_ContainerSecurityContext_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_datadog_cws_dumpsv1_HardeningDeclared_fieldAccessorTable;
+      internal_static_datadog_cws_dumpsv1_ContainerSecurityContext_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_datadog_cws_dumpsv1_ProfileSelector_descriptor;
   private static final 
@@ -46723,193 +46723,194 @@ java.lang.String defaultValue) {
   static {
     java.lang.String[] descriptorData = {
       "\n%proto/cws/dumpsv1/activity_dump.proto\022" +
-      "\023datadog.cws.dumpsv1\"\351\001\n\007SecDump\022\014\n\004host" +
+      "\023datadog.cws.dumpsv1\"\202\002\n\007SecDump\022\014\n\004host" +
       "\030\001 \001(\t\022\017\n\007service\030\002 \001(\t\022\016\n\006source\030\003 \001(\t\022" +
       "/\n\010metadata\030\004 \001(\0132\035.datadog.cws.dumpsv1." +
       "Metadata\022\014\n\004tags\030\005 \003(\t\0226\n\004tree\030\006 \003(\0132(.d" +
-      "atadog.cws.dumpsv1.ProcessActivityNode\0228" +
-      "\n\010declared\030\007 \001(\0132&.datadog.cws.dumpsv1.H" +
-      "ardeningDeclared\"\315\002\n\010Metadata\022\025\n\ragent_v" +
-      "ersion\030\001 \001(\t\022\024\n\014agent_commit\030\002 \001(\t\022\026\n\016ke" +
-      "rnel_version\030\003 \001(\t\022\032\n\022linux_distribution" +
-      "\030\004 \001(\t\022\014\n\004arch\030\r \001(\t\022\014\n\004name\030\005 \001(\t\022\030\n\020pr" +
-      "otobuf_version\030\006 \001(\t\022\032\n\022differentiate_ar" +
-      "gs\030\007 \001(\010\022\014\n\004comm\030\010 \001(\t\022\024\n\014container_id\030\t" +
-      " \001(\t\022\r\n\005start\030\n \001(\004\022\013\n\003end\030\013 \001(\004\022\014\n\004size" +
-      "\030\014 \001(\004\022\025\n\rserialization\030\016 \001(\t\022\021\n\tcgroup_" +
-      "id\030\017 \001(\t\022\026\n\016cgroup_manager\030\020 \001(\t\"\333\001\n\016Sec" +
-      "compProfile\0226\n\004type\030\001 \001(\0162(.datadog.cws." +
-      "dumpsv1.SeccompProfile.Type\022\036\n\021localhost" +
-      "_profile\030\002 \001(\tH\000\210\001\001\"[\n\004Type\022\020\n\014TYPE_UNKN" +
-      "OWN\020\000\022\023\n\017TYPE_UNCONFINED\020\001\022\030\n\024TYPE_RUNTI" +
-      "ME_DEFAULT\020\002\022\022\n\016TYPE_LOCALHOST\020\003B\024\n\022_loc" +
-      "alhost_profile\"\222\001\n\021HardeningDeclared\022\022\n\n" +
-      "privileged\030\001 \001(\010\0224\n\007seccomp\030\002 \001(\0132#.data" +
-      "dog.cws.dumpsv1.SeccompProfile\022\030\n\020capabi" +
-      "lities_add\030\003 \003(\t\022\031\n\021capabilities_drop\030\004 " +
-      "\003(\t\"8\n\017ProfileSelector\022\022\n\nimage_name\030\001 \001" +
-      "(\t\022\021\n\timage_tag\030\002 \001(\t\"\210\002\n\016ProfileContext" +
-      "\022\022\n\nfirst_seen\030\001 \001(\004\022\021\n\tlast_seen\030\002 \001(\004\022" +
-      "Q\n\020event_type_state\030\003 \003(\01327.datadog.cws." +
-      "dumpsv1.ProfileContext.EventTypeStateEnt" +
-      "ry\022\020\n\010syscalls\030\004 \003(\r\022\014\n\004tags\030\005 \003(\t\032\\\n\023Ev" +
-      "entTypeStateEntry\022\013\n\003key\030\001 \001(\r\0224\n\005value\030" +
-      "\002 \001(\0132%.datadog.cws.dumpsv1.event_type_s" +
-      "tate:\0028\001\"6\n\rImageTagTimes\022\022\n\nfirst_seen\030" +
-      "\001 \001(\004\022\021\n\tlast_seen\030\002 \001(\004\"\222\001\n\010NodeBase\0225\n" +
-      "\004seen\030\001 \003(\0132\'.datadog.cws.dumpsv1.NodeBa" +
-      "se.SeenEntry\032O\n\tSeenEntry\022\013\n\003key\030\001 \001(\t\0221" +
-      "\n\005value\030\002 \001(\0132\".datadog.cws.dumpsv1.Imag" +
-      "eTagTimes:\0028\001\"\201\004\n\017SecurityProfile\022\022\n\006sta" +
-      "tus\030\001 \001(\rB\002\030\001\022\023\n\007version\030\002 \001(\tB\002\030\001\022/\n\010me" +
-      "tadata\030\003 \001(\0132\035.datadog.cws.dumpsv1.Metad" +
-      "ata\022\020\n\004tags\030\004 \003(\tB\002\030\001\022\024\n\010syscalls\030\005 \003(\rB" +
-      "\002\030\001\0226\n\004tree\030\006 \003(\0132(.datadog.cws.dumpsv1." +
-      "ProcessActivityNode\022S\n\020profile_contexts\030" +
-      "\007 \003(\01329.datadog.cws.dumpsv1.SecurityProf" +
-      "ile.ProfileContextsEntry\0226\n\010selector\030\010 \001" +
-      "(\0132$.datadog.cws.dumpsv1.ProfileSelector" +
-      "\022\020\n\010disabled\030\t \001(\010\0228\n\010declared\030\n \001(\0132&.d" +
-      "atadog.cws.dumpsv1.HardeningDeclared\032[\n\024" +
-      "ProfileContextsEntry\022\013\n\003key\030\001 \001(\t\0222\n\005val" +
-      "ue\030\002 \001(\0132#.datadog.cws.dumpsv1.ProfileCo" +
-      "ntext:\0028\001\"\347\005\n\023ProcessActivityNode\0221\n\007pro" +
-      "cess\030\001 \001(\0132 .datadog.cws.dumpsv1.Process" +
-      "Info\022<\n\017generation_type\030\010 \001(\0162#.datadog." +
-      "cws.dumpsv1.GenerationType\0227\n\rmatched_ru" +
-      "les\030\t \003(\0132 .datadog.cws.dumpsv1.MatchedR" +
-      "ule\022:\n\010children\030\003 \003(\0132(.datadog.cws.dump" +
-      "sv1.ProcessActivityNode\0224\n\005files\030\004 \003(\0132%" +
-      ".datadog.cws.dumpsv1.FileActivityNode\022/\n" +
-      "\tdns_names\030\005 \003(\0132\034.datadog.cws.dumpsv1.D" +
-      "NSNode\0220\n\007sockets\030\006 \003(\0132\037.datadog.cws.du" +
-      "mpsv1.SocketNode\022\024\n\010syscalls\030\007 \003(\rB\002\030\001\022\026" +
-      "\n\nimage_tags\030\n \003(\tB\002\030\001\0220\n\tnode_base\030\016 \001(" +
-      "\0132\035.datadog.cws.dumpsv1.NodeBase\0222\n\013imds" +
-      "_events\030\013 \003(\0132\035.datadog.cws.dumpsv1.IMDS" +
-      "Node\0227\n\rsyscall_nodes\030\014 \003(\0132 .datadog.cw" +
-      "s.dumpsv1.SyscallNode\022?\n\017network_devices" +
-      "\030\r \003(\0132&.datadog.cws.dumpsv1.NetworkDevi" +
-      "ceNode\022=\n\020capability_nodes\030\017 \003(\0132#.datad" +
-      "og.cws.dumpsv1.CapabilityNodeJ\004\010\002\020\003\"\331\003\n\013" +
-      "ProcessInfo\022\013\n\003pid\030\001 \001(\r\022\013\n\003tid\030\002 \001(\r\022\014\n" +
-      "\004ppid\030\003 \001(\r\022\022\n\006cookie\030\004 \001(\rB\002\030\001\022\021\n\tis_th" +
-      "read\030\005 \001(\010\022+\n\004file\030\006 \001(\0132\035.datadog.cws.d" +
-      "umpsv1.FileInfo\022\024\n\014container_id\030\007 \001(\t\022\023\n" +
-      "\007span_id\030\010 \001(\004B\002\030\001\022\024\n\010trace_id\030\t \001(\004B\002\030\001" +
-      "\022\013\n\003tty\030\n \001(\t\022\014\n\004comm\030\013 \001(\t\022\021\n\tfork_time" +
-      "\030\014 \001(\004\022\021\n\texit_time\030\r \001(\004\022\021\n\texec_time\030\016" +
-      " \001(\004\0225\n\013credentials\030\017 \001(\0132 .datadog.cws." +
-      "dumpsv1.Credentials\022\014\n\004args\030\020 \003(\t\022\r\n\005arg" +
-      "v0\030\021 \001(\t\022\026\n\016args_truncated\030\022 \001(\010\022\014\n\004envs" +
-      "\030\023 \003(\t\022\026\n\016envs_truncated\030\024 \001(\010\022\025\n\ris_exe" +
-      "c_child\030\025 \001(\010\022\020\n\010cookie64\030\026 \001(\004\"\242\003\n\020File" +
-      "ActivityNode\0227\n\rmatched_rules\030\t \003(\0132 .da" +
+      "atadog.cws.dumpsv1.ProcessActivityNode\022Q" +
+      "\n\032container_security_context\030\007 \001(\0132-.dat" +
+      "adog.cws.dumpsv1.ContainerSecurityContex" +
+      "t\"\315\002\n\010Metadata\022\025\n\ragent_version\030\001 \001(\t\022\024\n" +
+      "\014agent_commit\030\002 \001(\t\022\026\n\016kernel_version\030\003 " +
+      "\001(\t\022\032\n\022linux_distribution\030\004 \001(\t\022\014\n\004arch\030" +
+      "\r \001(\t\022\014\n\004name\030\005 \001(\t\022\030\n\020protobuf_version\030" +
+      "\006 \001(\t\022\032\n\022differentiate_args\030\007 \001(\010\022\014\n\004com" +
+      "m\030\010 \001(\t\022\024\n\014container_id\030\t \001(\t\022\r\n\005start\030\n" +
+      " \001(\004\022\013\n\003end\030\013 \001(\004\022\014\n\004size\030\014 \001(\004\022\025\n\rseria" +
+      "lization\030\016 \001(\t\022\021\n\tcgroup_id\030\017 \001(\t\022\026\n\016cgr" +
+      "oup_manager\030\020 \001(\t\"\333\001\n\016SeccompProfile\0226\n\004" +
+      "type\030\001 \001(\0162(.datadog.cws.dumpsv1.Seccomp" +
+      "Profile.Type\022\036\n\021localhost_profile\030\002 \001(\tH" +
+      "\000\210\001\001\"[\n\004Type\022\020\n\014TYPE_UNKNOWN\020\000\022\023\n\017TYPE_U" +
+      "NCONFINED\020\001\022\030\n\024TYPE_RUNTIME_DEFAULT\020\002\022\022\n" +
+      "\016TYPE_LOCALHOST\020\003B\024\n\022_localhost_profile\"" +
+      "\231\001\n\030ContainerSecurityContext\022\022\n\nprivileg" +
+      "ed\030\001 \001(\010\0224\n\007seccomp\030\002 \001(\0132#.datadog.cws." +
+      "dumpsv1.SeccompProfile\022\030\n\020capabilities_a" +
+      "dd\030\003 \003(\t\022\031\n\021capabilities_drop\030\004 \003(\t\"8\n\017P" +
+      "rofileSelector\022\022\n\nimage_name\030\001 \001(\t\022\021\n\tim" +
+      "age_tag\030\002 \001(\t\"\210\002\n\016ProfileContext\022\022\n\nfirs" +
+      "t_seen\030\001 \001(\004\022\021\n\tlast_seen\030\002 \001(\004\022Q\n\020event" +
+      "_type_state\030\003 \003(\01327.datadog.cws.dumpsv1." +
+      "ProfileContext.EventTypeStateEntry\022\020\n\010sy" +
+      "scalls\030\004 \003(\r\022\014\n\004tags\030\005 \003(\t\032\\\n\023EventTypeS" +
+      "tateEntry\022\013\n\003key\030\001 \001(\r\0224\n\005value\030\002 \001(\0132%." +
+      "datadog.cws.dumpsv1.event_type_state:\0028\001" +
+      "\"6\n\rImageTagTimes\022\022\n\nfirst_seen\030\001 \001(\004\022\021\n" +
+      "\tlast_seen\030\002 \001(\004\"\222\001\n\010NodeBase\0225\n\004seen\030\001 " +
+      "\003(\0132\'.datadog.cws.dumpsv1.NodeBase.SeenE" +
+      "ntry\032O\n\tSeenEntry\022\013\n\003key\030\001 \001(\t\0221\n\005value\030" +
+      "\002 \001(\0132\".datadog.cws.dumpsv1.ImageTagTime" +
+      "s:\0028\001\"\232\004\n\017SecurityProfile\022\022\n\006status\030\001 \001(" +
+      "\rB\002\030\001\022\023\n\007version\030\002 \001(\tB\002\030\001\022/\n\010metadata\030\003" +
+      " \001(\0132\035.datadog.cws.dumpsv1.Metadata\022\020\n\004t" +
+      "ags\030\004 \003(\tB\002\030\001\022\024\n\010syscalls\030\005 \003(\rB\002\030\001\0226\n\004t" +
+      "ree\030\006 \003(\0132(.datadog.cws.dumpsv1.ProcessA" +
+      "ctivityNode\022S\n\020profile_contexts\030\007 \003(\01329." +
+      "datadog.cws.dumpsv1.SecurityProfile.Prof" +
+      "ileContextsEntry\0226\n\010selector\030\010 \001(\0132$.dat" +
+      "adog.cws.dumpsv1.ProfileSelector\022\020\n\010disa" +
+      "bled\030\t \001(\010\022Q\n\032container_security_context" +
+      "\030\n \001(\0132-.datadog.cws.dumpsv1.ContainerSe" +
+      "curityContext\032[\n\024ProfileContextsEntry\022\013\n" +
+      "\003key\030\001 \001(\t\0222\n\005value\030\002 \001(\0132#.datadog.cws." +
+      "dumpsv1.ProfileContext:\0028\001\"\347\005\n\023ProcessAc" +
+      "tivityNode\0221\n\007process\030\001 \001(\0132 .datadog.cw" +
+      "s.dumpsv1.ProcessInfo\022<\n\017generation_type" +
+      "\030\010 \001(\0162#.datadog.cws.dumpsv1.GenerationT" +
+      "ype\0227\n\rmatched_rules\030\t \003(\0132 .datadog.cws" +
+      ".dumpsv1.MatchedRule\022:\n\010children\030\003 \003(\0132(" +
+      ".datadog.cws.dumpsv1.ProcessActivityNode" +
+      "\0224\n\005files\030\004 \003(\0132%.datadog.cws.dumpsv1.Fi" +
+      "leActivityNode\022/\n\tdns_names\030\005 \003(\0132\034.data" +
+      "dog.cws.dumpsv1.DNSNode\0220\n\007sockets\030\006 \003(\013" +
+      "2\037.datadog.cws.dumpsv1.SocketNode\022\024\n\010sys" +
+      "calls\030\007 \003(\rB\002\030\001\022\026\n\nimage_tags\030\n \003(\tB\002\030\001\022" +
+      "0\n\tnode_base\030\016 \001(\0132\035.datadog.cws.dumpsv1" +
+      ".NodeBase\0222\n\013imds_events\030\013 \003(\0132\035.datadog" +
+      ".cws.dumpsv1.IMDSNode\0227\n\rsyscall_nodes\030\014" +
+      " \003(\0132 .datadog.cws.dumpsv1.SyscallNode\022?" +
+      "\n\017network_devices\030\r \003(\0132&.datadog.cws.du" +
+      "mpsv1.NetworkDeviceNode\022=\n\020capability_no" +
+      "des\030\017 \003(\0132#.datadog.cws.dumpsv1.Capabili" +
+      "tyNodeJ\004\010\002\020\003\"\331\003\n\013ProcessInfo\022\013\n\003pid\030\001 \001(" +
+      "\r\022\013\n\003tid\030\002 \001(\r\022\014\n\004ppid\030\003 \001(\r\022\022\n\006cookie\030\004" +
+      " \001(\rB\002\030\001\022\021\n\tis_thread\030\005 \001(\010\022+\n\004file\030\006 \001(" +
+      "\0132\035.datadog.cws.dumpsv1.FileInfo\022\024\n\014cont" +
+      "ainer_id\030\007 \001(\t\022\023\n\007span_id\030\010 \001(\004B\002\030\001\022\024\n\010t" +
+      "race_id\030\t \001(\004B\002\030\001\022\013\n\003tty\030\n \001(\t\022\014\n\004comm\030\013" +
+      " \001(\t\022\021\n\tfork_time\030\014 \001(\004\022\021\n\texit_time\030\r \001" +
+      "(\004\022\021\n\texec_time\030\016 \001(\004\0225\n\013credentials\030\017 \001" +
+      "(\0132 .datadog.cws.dumpsv1.Credentials\022\014\n\004" +
+      "args\030\020 \003(\t\022\r\n\005argv0\030\021 \001(\t\022\026\n\016args_trunca" +
+      "ted\030\022 \001(\010\022\014\n\004envs\030\023 \003(\t\022\026\n\016envs_truncate" +
+      "d\030\024 \001(\010\022\025\n\ris_exec_child\030\025 \001(\010\022\020\n\010cookie" +
+      "64\030\026 \001(\004\"\242\003\n\020FileActivityNode\0227\n\rmatched" +
+      "_rules\030\t \003(\0132 .datadog.cws.dumpsv1.Match" +
+      "edRule\022\026\n\nimage_tags\030\n \003(\tB\002\030\001\0220\n\tnode_b" +
+      "ase\030\013 \001(\0132\035.datadog.cws.dumpsv1.NodeBase" +
+      "\022\014\n\004name\030\001 \001(\t\022\022\n\nis_pattern\030\007 \001(\010\022+\n\004fi" +
+      "le\030\002 \001(\0132\035.datadog.cws.dumpsv1.FileInfo\022" +
+      "<\n\017generation_type\030\010 \001(\0162#.datadog.cws.d" +
+      "umpsv1.GenerationType\022\022\n\nfirst_seen\030\004 \001(" +
+      "\004\022+\n\004open\030\005 \001(\0132\035.datadog.cws.dumpsv1.Op" +
+      "enNode\0227\n\010children\030\006 \003(\0132%.datadog.cws.d" +
+      "umpsv1.FileActivityNodeJ\004\010\003\020\004\"7\n\010OpenNod" +
+      "e\022\016\n\006retval\030\001 \001(\022\022\r\n\005flags\030\002 \001(\r\022\014\n\004mode" +
+      "\030\003 \001(\r\"\274\001\n\007DNSNode\0227\n\rmatched_rules\030\002 \003(" +
+      "\0132 .datadog.cws.dumpsv1.MatchedRule\022\026\n\ni" +
+      "mage_tags\030\003 \003(\tB\002\030\001\0220\n\tnode_base\030\004 \001(\0132\035" +
+      ".datadog.cws.dumpsv1.NodeBase\022.\n\010request" +
+      "s\030\001 \003(\0132\034.datadog.cws.dumpsv1.DNSInfo\"\211\001" +
+      "\n\007DNSInfo\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(\r\022\r\n" +
+      "\005class\030\003 \001(\r\022\014\n\004size\030\004 \001(\r\022\r\n\005count\030\005 \001(" +
+      "\r\0226\n\010response\030\006 \001(\0132$.datadog.cws.dumpsv" +
+      "1.DNSResponseInfo\".\n\017DNSResponseInfo\022\013\n\003" +
+      "ips\030\001 \003(\t\022\016\n\006cnames\030\002 \003(\t\"h\n\013SyscallNode" +
+      "\022\026\n\nimage_tags\030\001 \003(\tB\002\030\001\0220\n\tnode_base\030\003 " +
+      "\001(\0132\035.datadog.cws.dumpsv1.NodeBase\022\017\n\007sy" +
+      "scall\030\002 \001(\005\"j\n\016CapabilityNode\0220\n\tnode_ba" +
+      "se\030\001 \001(\0132\035.datadog.cws.dumpsv1.NodeBase\022" +
+      "\022\n\ncapability\030\002 \001(\004\022\022\n\nis_capable\030\003 \001(\010\"" +
+      "\274\001\n\010IMDSNode\0227\n\rmatched_rules\030\001 \003(\0132 .da" +
       "tadog.cws.dumpsv1.MatchedRule\022\026\n\nimage_t" +
-      "ags\030\n \003(\tB\002\030\001\0220\n\tnode_base\030\013 \001(\0132\035.datad" +
-      "og.cws.dumpsv1.NodeBase\022\014\n\004name\030\001 \001(\t\022\022\n" +
-      "\nis_pattern\030\007 \001(\010\022+\n\004file\030\002 \001(\0132\035.datado" +
-      "g.cws.dumpsv1.FileInfo\022<\n\017generation_typ" +
-      "e\030\010 \001(\0162#.datadog.cws.dumpsv1.Generation" +
-      "Type\022\022\n\nfirst_seen\030\004 \001(\004\022+\n\004open\030\005 \001(\0132\035" +
-      ".datadog.cws.dumpsv1.OpenNode\0227\n\010childre" +
-      "n\030\006 \003(\0132%.datadog.cws.dumpsv1.FileActivi" +
-      "tyNodeJ\004\010\003\020\004\"7\n\010OpenNode\022\016\n\006retval\030\001 \001(\022" +
-      "\022\r\n\005flags\030\002 \001(\r\022\014\n\004mode\030\003 \001(\r\"\274\001\n\007DNSNod" +
-      "e\0227\n\rmatched_rules\030\002 \003(\0132 .datadog.cws.d" +
-      "umpsv1.MatchedRule\022\026\n\nimage_tags\030\003 \003(\tB\002" +
-      "\030\001\0220\n\tnode_base\030\004 \001(\0132\035.datadog.cws.dump" +
-      "sv1.NodeBase\022.\n\010requests\030\001 \003(\0132\034.datadog" +
-      ".cws.dumpsv1.DNSInfo\"\211\001\n\007DNSInfo\022\014\n\004name" +
-      "\030\001 \001(\t\022\014\n\004type\030\002 \001(\r\022\r\n\005class\030\003 \001(\r\022\014\n\004s" +
-      "ize\030\004 \001(\r\022\r\n\005count\030\005 \001(\r\0226\n\010response\030\006 \001" +
-      "(\0132$.datadog.cws.dumpsv1.DNSResponseInfo" +
-      "\".\n\017DNSResponseInfo\022\013\n\003ips\030\001 \003(\t\022\016\n\006cnam" +
-      "es\030\002 \003(\t\"h\n\013SyscallNode\022\026\n\nimage_tags\030\001 " +
-      "\003(\tB\002\030\001\0220\n\tnode_base\030\003 \001(\0132\035.datadog.cws" +
-      ".dumpsv1.NodeBase\022\017\n\007syscall\030\002 \001(\005\"j\n\016Ca" +
-      "pabilityNode\0220\n\tnode_base\030\001 \001(\0132\035.datado" +
-      "g.cws.dumpsv1.NodeBase\022\022\n\ncapability\030\002 \001" +
-      "(\004\022\022\n\nis_capable\030\003 \001(\010\"\274\001\n\010IMDSNode\0227\n\rm" +
-      "atched_rules\030\001 \003(\0132 .datadog.cws.dumpsv1" +
-      ".MatchedRule\022\026\n\nimage_tags\030\002 \003(\tB\002\030\001\0220\n\t" +
-      "node_base\030\004 \001(\0132\035.datadog.cws.dumpsv1.No" +
-      "deBase\022-\n\005event\030\003 \001(\0132\036.datadog.cws.dump" +
-      "sv1.IMDSEvent\"\240\001\n\tIMDSEvent\022\014\n\004type\030\001 \001(" +
-      "\t\022\026\n\016cloud_provider\030\002 \001(\t\022\013\n\003url\030\003 \001(\t\022\014" +
-      "\n\004host\030\004 \001(\t\022\022\n\nuser_agent\030\005 \001(\t\022\016\n\006serv" +
-      "er\030\006 \001(\t\022.\n\003aws\030\007 \001(\0132!.datadog.cws.dump" +
-      "sv1.AWSIMDSEvent\"m\n\014AWSIMDSEvent\022\022\n\nis_i" +
-      "mds_v2\030\001 \001(\010\022I\n\024security_credentials\030\002 \001" +
-      "(\0132+.datadog.cws.dumpsv1.AWSSecurityCred" +
-      "entials\"y\n\026AWSSecurityCredentials\022\014\n\004cod" +
-      "e\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\022\025\n\raccess_key_id\030\003" +
-      " \001(\t\022\024\n\014last_updated\030\004 \001(\t\022\026\n\016expiration" +
-      "_raw\030\005 \001(\t\"\272\004\n\010FileInfo\022\013\n\003uid\030\001 \001(\r\022\014\n\004" +
-      "user\030\002 \001(\t\022\013\n\003gid\030\003 \001(\r\022\r\n\005group\030\004 \001(\t\022\014" +
-      "\n\004mode\030\005 \001(\r\022\r\n\005ctime\030\006 \001(\004\022\r\n\005mtime\030\007 \001" +
-      "(\004\022\020\n\010mount_id\030\010 \001(\r\022\r\n\005inode\030\t \001(\004\022\026\n\016i" +
-      "n_upper_layer\030\n \001(\010\022\014\n\004path\030\013 \001(\t\022\020\n\010bas" +
-      "ename\030\014 \001(\t\022\022\n\nfilesystem\030\r \001(\t\022\024\n\014packa" +
-      "ge_name\030\016 \001(\t\022\027\n\017package_version\030\017 \001(\t\022\032" +
-      "\n\rpackage_epoch\030\023 \001(\rH\000\210\001\001\022\034\n\017package_re" +
-      "lease\030\024 \001(\tH\001\210\001\001\022\033\n\023package_src_version\030" +
-      "\020 \001(\t\022\036\n\021package_src_epoch\030\025 \001(\rH\002\210\001\001\022 \n" +
-      "\023package_src_release\030\026 \001(\tH\003\210\001\001\022\016\n\006hashe" +
-      "s\030\021 \003(\t\0222\n\nhash_state\030\022 \001(\0162\036.datadog.cw" +
-      "s.dumpsv1.HashStateB\020\n\016_package_epochB\022\n" +
-      "\020_package_releaseB\024\n\022_package_src_epochB" +
-      "\026\n\024_package_src_release\"\224\002\n\013Credentials\022" +
-      "\013\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001(\r\022\014\n\004user\030\003 \001(\t\022" +
-      "\r\n\005group\030\004 \001(\t\022\025\n\reffective_uid\030\005 \001(\r\022\025\n" +
-      "\reffective_gid\030\006 \001(\r\022\026\n\016effective_user\030\007" +
-      " \001(\t\022\027\n\017effective_group\030\010 \001(\t\022\016\n\006fs_uid\030" +
-      "\t \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017\n\007fs_user\030\013 \001(\t\022\020" +
-      "\n\010fs_group\030\014 \001(\t\022\025\n\rcap_effective\030\r \001(\004\022" +
-      "\025\n\rcap_permitted\030\016 \001(\004\"I\n\nSocketNode\022\016\n\006" +
-      "family\030\001 \001(\t\022+\n\004bind\030\002 \003(\0132\035.datadog.cws" +
-      ".dumpsv1.BindNode\"\271\001\n\010BindNode\0227\n\rmatche" +
-      "d_rules\030\003 \003(\0132 .datadog.cws.dumpsv1.Matc" +
-      "hedRule\022\026\n\nimage_tags\030\004 \003(\tB\002\030\001\0220\n\tnode_" +
-      "base\030\006 \001(\0132\035.datadog.cws.dumpsv1.NodeBas" +
-      "e\022\014\n\004port\030\001 \001(\r\022\n\n\002ip\030\002 \001(\t\022\020\n\010protocol\030" +
-      "\005 \001(\r\"\257\001\n\021NetworkDeviceNode\0227\n\rmatched_r" +
-      "ules\030\001 \003(\0132 .datadog.cws.dumpsv1.Matched" +
-      "Rule\022\r\n\005netns\030\002 \001(\r\022\017\n\007ifindex\030\003 \001(\r\022\016\n\006" +
-      "ifname\030\004 \001(\t\0221\n\nflow_nodes\030\005 \003(\0132\035.datad" +
-      "og.cws.dumpsv1.FlowNode\"\322\002\n\010FlowNode\022\026\n\n" +
-      "image_tags\030\001 \003(\tB\002\030\001\0220\n\tnode_base\030\010 \001(\0132" +
-      "\035.datadog.cws.dumpsv1.NodeBase\0222\n\006source" +
-      "\030\002 \001(\0132\".datadog.cws.dumpsv1.IPPortConte" +
-      "xt\0227\n\013destination\030\003 \001(\0132\".datadog.cws.du" +
-      "mpsv1.IPPortContext\022\023\n\013l3_protocol\030\004 \001(\r" +
-      "\022\023\n\013l4_protocol\030\005 \001(\r\0222\n\007ingress\030\006 \001(\0132!" +
-      ".datadog.cws.dumpsv1.NetworkStats\0221\n\006egr" +
-      "ess\030\007 \001(\0132!.datadog.cws.dumpsv1.NetworkS" +
-      "tats\")\n\rIPPortContext\022\n\n\002ip\030\001 \001(\t\022\014\n\004por" +
-      "t\030\002 \001(\r\"7\n\014NetworkStats\022\021\n\tdata_size\030\001 \001" +
-      "(\004\022\024\n\014packet_count\030\002 \001(\004\"\325\001\n\013MatchedRule" +
-      "\022\017\n\007rule_id\030\001 \001(\t\022\024\n\014rule_version\030\002 \001(\t\022" +
-      "\023\n\013policy_name\030\003 \001(\t\022\026\n\016policy_version\030\004" +
-      " \001(\t\022A\n\trule_tags\030\005 \003(\0132..datadog.cws.du" +
-      "mpsv1.MatchedRule.RuleTagsEntry\032/\n\rRuleT" +
-      "agsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001" +
-      "\"t\n\020event_type_state\022\031\n\021last_anomaly_nan" +
-      "o\030\001 \001(\004\022E\n\023event_profile_state\030\002 \001(\0162(.d" +
-      "atadog.cws.dumpsv1.event_profile_state*\271" +
-      "\001\n\tHashState\022\013\n\007NO_HASH\020\000\022\010\n\004DONE\020\001\022\022\n\016F" +
-      "ILE_NOT_FOUND\020\002\022\035\n\031PATHNAME_RESOLUTION_E" +
-      "RROR\020\003\022\020\n\014FILE_TOO_BIG\020\004\022\035\n\031EVENT_TYPE_N" +
-      "OT_CONFIGURED\020\005\022\031\n\025HASH_WAS_RATE_LIMITED" +
-      "\020\006\022\026\n\022UNKNOWN_HASH_ERROR\020\007*8\n\016Generation" +
-      "Type\022\013\n\007UNKNOWN\020\000\022\013\n\007RUNTIME\020\001\022\014\n\010SNAPSH" +
-      "OT\020\002*\220\001\n\023event_profile_state\022\016\n\nNO_PROFI" +
-      "LE\020\000\022\027\n\023PROFILE_AT_MAX_SIZE\020\001\022\024\n\020UNSTABL" +
-      "E_PROFILE\020\002\022\022\n\016STABLE_PROFILE\020\003\022\021\n\rAUTO_" +
-      "LEARNING\020\004\022\023\n\017WORKLOAD_WARMUP\020\005BU\n\022com.d" +
-      "d.cws.adv1.pbB\014SecDumpProtoP\000Z/github.co" +
-      "m/DataDog/agent-payload/v5/cws/dumpsv1b\006" +
-      "proto3"
+      "ags\030\002 \003(\tB\002\030\001\0220\n\tnode_base\030\004 \001(\0132\035.datad" +
+      "og.cws.dumpsv1.NodeBase\022-\n\005event\030\003 \001(\0132\036" +
+      ".datadog.cws.dumpsv1.IMDSEvent\"\240\001\n\tIMDSE" +
+      "vent\022\014\n\004type\030\001 \001(\t\022\026\n\016cloud_provider\030\002 \001" +
+      "(\t\022\013\n\003url\030\003 \001(\t\022\014\n\004host\030\004 \001(\t\022\022\n\nuser_ag" +
+      "ent\030\005 \001(\t\022\016\n\006server\030\006 \001(\t\022.\n\003aws\030\007 \001(\0132!" +
+      ".datadog.cws.dumpsv1.AWSIMDSEvent\"m\n\014AWS" +
+      "IMDSEvent\022\022\n\nis_imds_v2\030\001 \001(\010\022I\n\024securit" +
+      "y_credentials\030\002 \001(\0132+.datadog.cws.dumpsv" +
+      "1.AWSSecurityCredentials\"y\n\026AWSSecurityC" +
+      "redentials\022\014\n\004code\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\022\025" +
+      "\n\raccess_key_id\030\003 \001(\t\022\024\n\014last_updated\030\004 " +
+      "\001(\t\022\026\n\016expiration_raw\030\005 \001(\t\"\272\004\n\010FileInfo" +
+      "\022\013\n\003uid\030\001 \001(\r\022\014\n\004user\030\002 \001(\t\022\013\n\003gid\030\003 \001(\r" +
+      "\022\r\n\005group\030\004 \001(\t\022\014\n\004mode\030\005 \001(\r\022\r\n\005ctime\030\006" +
+      " \001(\004\022\r\n\005mtime\030\007 \001(\004\022\020\n\010mount_id\030\010 \001(\r\022\r\n" +
+      "\005inode\030\t \001(\004\022\026\n\016in_upper_layer\030\n \001(\010\022\014\n\004" +
+      "path\030\013 \001(\t\022\020\n\010basename\030\014 \001(\t\022\022\n\nfilesyst" +
+      "em\030\r \001(\t\022\024\n\014package_name\030\016 \001(\t\022\027\n\017packag" +
+      "e_version\030\017 \001(\t\022\032\n\rpackage_epoch\030\023 \001(\rH\000" +
+      "\210\001\001\022\034\n\017package_release\030\024 \001(\tH\001\210\001\001\022\033\n\023pac" +
+      "kage_src_version\030\020 \001(\t\022\036\n\021package_src_ep" +
+      "och\030\025 \001(\rH\002\210\001\001\022 \n\023package_src_release\030\026 " +
+      "\001(\tH\003\210\001\001\022\016\n\006hashes\030\021 \003(\t\0222\n\nhash_state\030\022" +
+      " \001(\0162\036.datadog.cws.dumpsv1.HashStateB\020\n\016" +
+      "_package_epochB\022\n\020_package_releaseB\024\n\022_p" +
+      "ackage_src_epochB\026\n\024_package_src_release" +
+      "\"\224\002\n\013Credentials\022\013\n\003uid\030\001 \001(\r\022\013\n\003gid\030\002 \001" +
+      "(\r\022\014\n\004user\030\003 \001(\t\022\r\n\005group\030\004 \001(\t\022\025\n\reffec" +
+      "tive_uid\030\005 \001(\r\022\025\n\reffective_gid\030\006 \001(\r\022\026\n" +
+      "\016effective_user\030\007 \001(\t\022\027\n\017effective_group" +
+      "\030\010 \001(\t\022\016\n\006fs_uid\030\t \001(\r\022\016\n\006fs_gid\030\n \001(\r\022\017" +
+      "\n\007fs_user\030\013 \001(\t\022\020\n\010fs_group\030\014 \001(\t\022\025\n\rcap" +
+      "_effective\030\r \001(\004\022\025\n\rcap_permitted\030\016 \001(\004\"" +
+      "I\n\nSocketNode\022\016\n\006family\030\001 \001(\t\022+\n\004bind\030\002 " +
+      "\003(\0132\035.datadog.cws.dumpsv1.BindNode\"\271\001\n\010B" +
+      "indNode\0227\n\rmatched_rules\030\003 \003(\0132 .datadog" +
+      ".cws.dumpsv1.MatchedRule\022\026\n\nimage_tags\030\004" +
+      " \003(\tB\002\030\001\0220\n\tnode_base\030\006 \001(\0132\035.datadog.cw" +
+      "s.dumpsv1.NodeBase\022\014\n\004port\030\001 \001(\r\022\n\n\002ip\030\002" +
+      " \001(\t\022\020\n\010protocol\030\005 \001(\r\"\257\001\n\021NetworkDevice" +
+      "Node\0227\n\rmatched_rules\030\001 \003(\0132 .datadog.cw" +
+      "s.dumpsv1.MatchedRule\022\r\n\005netns\030\002 \001(\r\022\017\n\007" +
+      "ifindex\030\003 \001(\r\022\016\n\006ifname\030\004 \001(\t\0221\n\nflow_no" +
+      "des\030\005 \003(\0132\035.datadog.cws.dumpsv1.FlowNode" +
+      "\"\322\002\n\010FlowNode\022\026\n\nimage_tags\030\001 \003(\tB\002\030\001\0220\n" +
+      "\tnode_base\030\010 \001(\0132\035.datadog.cws.dumpsv1.N" +
+      "odeBase\0222\n\006source\030\002 \001(\0132\".datadog.cws.du" +
+      "mpsv1.IPPortContext\0227\n\013destination\030\003 \001(\013" +
+      "2\".datadog.cws.dumpsv1.IPPortContext\022\023\n\013" +
+      "l3_protocol\030\004 \001(\r\022\023\n\013l4_protocol\030\005 \001(\r\0222" +
+      "\n\007ingress\030\006 \001(\0132!.datadog.cws.dumpsv1.Ne" +
+      "tworkStats\0221\n\006egress\030\007 \001(\0132!.datadog.cws" +
+      ".dumpsv1.NetworkStats\")\n\rIPPortContext\022\n" +
+      "\n\002ip\030\001 \001(\t\022\014\n\004port\030\002 \001(\r\"7\n\014NetworkStats" +
+      "\022\021\n\tdata_size\030\001 \001(\004\022\024\n\014packet_count\030\002 \001(" +
+      "\004\"\325\001\n\013MatchedRule\022\017\n\007rule_id\030\001 \001(\t\022\024\n\014ru" +
+      "le_version\030\002 \001(\t\022\023\n\013policy_name\030\003 \001(\t\022\026\n" +
+      "\016policy_version\030\004 \001(\t\022A\n\trule_tags\030\005 \003(\013" +
+      "2..datadog.cws.dumpsv1.MatchedRule.RuleT" +
+      "agsEntry\032/\n\rRuleTagsEntry\022\013\n\003key\030\001 \001(\t\022\r" +
+      "\n\005value\030\002 \001(\t:\0028\001\"t\n\020event_type_state\022\031\n" +
+      "\021last_anomaly_nano\030\001 \001(\004\022E\n\023event_profil" +
+      "e_state\030\002 \001(\0162(.datadog.cws.dumpsv1.even" +
+      "t_profile_state*\271\001\n\tHashState\022\013\n\007NO_HASH" +
+      "\020\000\022\010\n\004DONE\020\001\022\022\n\016FILE_NOT_FOUND\020\002\022\035\n\031PATH" +
+      "NAME_RESOLUTION_ERROR\020\003\022\020\n\014FILE_TOO_BIG\020" +
+      "\004\022\035\n\031EVENT_TYPE_NOT_CONFIGURED\020\005\022\031\n\025HASH" +
+      "_WAS_RATE_LIMITED\020\006\022\026\n\022UNKNOWN_HASH_ERRO" +
+      "R\020\007*8\n\016GenerationType\022\013\n\007UNKNOWN\020\000\022\013\n\007RU" +
+      "NTIME\020\001\022\014\n\010SNAPSHOT\020\002*\220\001\n\023event_profile_" +
+      "state\022\016\n\nNO_PROFILE\020\000\022\027\n\023PROFILE_AT_MAX_" +
+      "SIZE\020\001\022\024\n\020UNSTABLE_PROFILE\020\002\022\022\n\016STABLE_P" +
+      "ROFILE\020\003\022\021\n\rAUTO_LEARNING\020\004\022\023\n\017WORKLOAD_" +
+      "WARMUP\020\005BU\n\022com.dd.cws.adv1.pbB\014SecDumpP" +
+      "rotoP\000Z/github.com/DataDog/agent-payload" +
+      "/v5/cws/dumpsv1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -46920,7 +46921,7 @@ java.lang.String defaultValue) {
     internal_static_datadog_cws_dumpsv1_SecDump_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_SecDump_descriptor,
-        new java.lang.String[] { "Host", "Service", "Source", "Metadata", "Tags", "Tree", "Declared", });
+        new java.lang.String[] { "Host", "Service", "Source", "Metadata", "Tags", "Tree", "ContainerSecurityContext", });
     internal_static_datadog_cws_dumpsv1_Metadata_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_datadog_cws_dumpsv1_Metadata_fieldAccessorTable = new
@@ -46933,11 +46934,11 @@ java.lang.String defaultValue) {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_SeccompProfile_descriptor,
         new java.lang.String[] { "Type", "LocalhostProfile", "LocalhostProfile", });
-    internal_static_datadog_cws_dumpsv1_HardeningDeclared_descriptor =
+    internal_static_datadog_cws_dumpsv1_ContainerSecurityContext_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_datadog_cws_dumpsv1_HardeningDeclared_fieldAccessorTable = new
+    internal_static_datadog_cws_dumpsv1_ContainerSecurityContext_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_datadog_cws_dumpsv1_HardeningDeclared_descriptor,
+        internal_static_datadog_cws_dumpsv1_ContainerSecurityContext_descriptor,
         new java.lang.String[] { "Privileged", "Seccomp", "CapabilitiesAdd", "CapabilitiesDrop", });
     internal_static_datadog_cws_dumpsv1_ProfileSelector_descriptor =
       getDescriptor().getMessageTypes().get(4);
@@ -46980,7 +46981,7 @@ java.lang.String defaultValue) {
     internal_static_datadog_cws_dumpsv1_SecurityProfile_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datadog_cws_dumpsv1_SecurityProfile_descriptor,
-        new java.lang.String[] { "Status", "Version", "Metadata", "Tags", "Syscalls", "Tree", "ProfileContexts", "Selector", "Disabled", "Declared", });
+        new java.lang.String[] { "Status", "Version", "Metadata", "Tags", "Syscalls", "Tree", "ProfileContexts", "Selector", "Disabled", "ContainerSecurityContext", });
     internal_static_datadog_cws_dumpsv1_SecurityProfile_ProfileContextsEntry_descriptor =
       internal_static_datadog_cws_dumpsv1_SecurityProfile_descriptor.getNestedTypes().get(0);
     internal_static_datadog_cws_dumpsv1_SecurityProfile_ProfileContextsEntry_fieldAccessorTable = new

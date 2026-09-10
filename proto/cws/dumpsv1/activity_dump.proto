@@ -17,7 +17,7 @@ message SecDump {
 
     repeated string tags = 5;
     repeated ProcessActivityNode tree = 6;
-    HardeningDeclared declared = 7;
+    ContainerSecurityContext container_security_context = 7;
 }
 
 message Metadata {
@@ -53,7 +53,7 @@ message SeccompProfile {
     optional string localhost_profile = 2;
 }
 
-message HardeningDeclared {
+message ContainerSecurityContext {
     bool privileged = 1;
 
     SeccompProfile seccomp = 2;
@@ -94,7 +94,7 @@ message SecurityProfile {
     map<string, ProfileContext> profile_contexts = 7;
     ProfileSelector selector = 8;
     bool disabled = 9;
-    HardeningDeclared declared = 10;
+    ContainerSecurityContext container_security_context = 10;
 }
 
 message ProcessActivityNode {
