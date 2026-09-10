@@ -49,15 +49,17 @@ func (m *SecDump) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
-	if m.ContainerSecurityContext != nil {
-		size, err := m.ContainerSecurityContext.MarshalToSizedBufferVT(dAtA[:i])
-		if err != nil {
-			return 0, err
+	if len(m.SecurityContexts) > 0 {
+		for iNdEx := len(m.SecurityContexts) - 1; iNdEx >= 0; iNdEx-- {
+			size, err := m.SecurityContexts[iNdEx].MarshalToSizedBufferVT(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarint(dAtA, i, uint64(size))
+			i--
+			dAtA[i] = 0x3a
 		}
-		i -= size
-		i = encodeVarint(dAtA, i, uint64(size))
-		i--
-		dAtA[i] = 0x3a
 	}
 	if len(m.Tree) > 0 {
 		for iNdEx := len(m.Tree) - 1; iNdEx >= 0; iNdEx-- {
@@ -303,7 +305,7 @@ func (m *SeccompProfile) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *ContainerSecurityContext) MarshalVT() (dAtA []byte, err error) {
+func (m *SecurityContext) MarshalVT() (dAtA []byte, err error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -316,12 +318,12 @@ func (m *ContainerSecurityContext) MarshalVT() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *ContainerSecurityContext) MarshalToVT(dAtA []byte) (int, error) {
+func (m *SecurityContext) MarshalToVT(dAtA []byte) (int, error) {
 	size := m.SizeVT()
 	return m.MarshalToSizedBufferVT(dAtA[:size])
 }
 
-func (m *ContainerSecurityContext) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
+func (m *SecurityContext) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 	if m == nil {
 		return 0, nil
 	}
@@ -332,6 +334,36 @@ func (m *ContainerSecurityContext) MarshalToSizedBufferVT(dAtA []byte) (int, err
 	if m.unknownFields != nil {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
+	}
+	if m.ReadOnlyRootFilesystem != nil {
+		i--
+		if *m.ReadOnlyRootFilesystem {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x38
+	}
+	if m.AllowPrivilegeEscalation != nil {
+		i--
+		if *m.AllowPrivilegeEscalation {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x30
+	}
+	if m.RunAsNonRoot != nil {
+		i--
+		if *m.RunAsNonRoot {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x28
 	}
 	if len(m.CapabilitiesDrop) > 0 {
 		for iNdEx := len(m.CapabilitiesDrop) - 1; iNdEx >= 0; iNdEx-- {
@@ -370,6 +402,77 @@ func (m *ContainerSecurityContext) MarshalToSizedBufferVT(dAtA []byte) (int, err
 		}
 		i--
 		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *SecurityContextEntry) MarshalVT() (dAtA []byte, err error) {
+	if m == nil {
+		return nil, nil
+	}
+	size := m.SizeVT()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBufferVT(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *SecurityContextEntry) MarshalToVT(dAtA []byte) (int, error) {
+	size := m.SizeVT()
+	return m.MarshalToSizedBufferVT(dAtA[:size])
+}
+
+func (m *SecurityContextEntry) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
+	if m == nil {
+		return 0, nil
+	}
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.unknownFields != nil {
+		i -= len(m.unknownFields)
+		copy(dAtA[i:], m.unknownFields)
+	}
+	if m.SecurityContext != nil {
+		size, err := m.SecurityContext.MarshalToSizedBufferVT(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarint(dAtA, i, uint64(size))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.ContainerName) > 0 {
+		i -= len(m.ContainerName)
+		copy(dAtA[i:], m.ContainerName)
+		i = encodeVarint(dAtA, i, uint64(len(m.ContainerName)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.OwnerName) > 0 {
+		i -= len(m.OwnerName)
+		copy(dAtA[i:], m.OwnerName)
+		i = encodeVarint(dAtA, i, uint64(len(m.OwnerName)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.OwnerKind) > 0 {
+		i -= len(m.OwnerKind)
+		copy(dAtA[i:], m.OwnerKind)
+		i = encodeVarint(dAtA, i, uint64(len(m.OwnerKind)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Namespace) > 0 {
+		i -= len(m.Namespace)
+		copy(dAtA[i:], m.Namespace)
+		i = encodeVarint(dAtA, i, uint64(len(m.Namespace)))
+		i--
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -641,15 +744,17 @@ func (m *SecurityProfile) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
-	if m.ContainerSecurityContext != nil {
-		size, err := m.ContainerSecurityContext.MarshalToSizedBufferVT(dAtA[:i])
-		if err != nil {
-			return 0, err
+	if len(m.SecurityContexts) > 0 {
+		for iNdEx := len(m.SecurityContexts) - 1; iNdEx >= 0; iNdEx-- {
+			size, err := m.SecurityContexts[iNdEx].MarshalToSizedBufferVT(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarint(dAtA, i, uint64(size))
+			i--
+			dAtA[i] = 0x52
 		}
-		i -= size
-		i = encodeVarint(dAtA, i, uint64(size))
-		i--
-		dAtA[i] = 0x52
 	}
 	if m.Disabled {
 		i--
@@ -2765,9 +2870,14 @@ func (m *SecDump) ResetVT() {
 		mm.ResetVT()
 	}
 	f1 := m.Tree[:0]
+	for _, mm := range m.SecurityContexts {
+		mm.Reset()
+	}
+	f2 := m.SecurityContexts[:0]
 	m.Reset()
 	m.Tags = f0
 	m.Tree = f1
+	m.SecurityContexts = f2
 }
 func (m *SecDump) ReturnToVTPool() {
 	if m != nil {
@@ -2958,9 +3068,11 @@ func (m *SecDump) SizeVT() (n int) {
 			n += 1 + l + sov(uint64(l))
 		}
 	}
-	if m.ContainerSecurityContext != nil {
-		l = m.ContainerSecurityContext.SizeVT()
-		n += 1 + l + sov(uint64(l))
+	if len(m.SecurityContexts) > 0 {
+		for _, e := range m.SecurityContexts {
+			l = e.SizeVT()
+			n += 1 + l + sov(uint64(l))
+		}
 	}
 	n += len(m.unknownFields)
 	return n
@@ -3053,7 +3165,7 @@ func (m *SeccompProfile) SizeVT() (n int) {
 	return n
 }
 
-func (m *ContainerSecurityContext) SizeVT() (n int) {
+func (m *SecurityContext) SizeVT() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -3077,6 +3189,45 @@ func (m *ContainerSecurityContext) SizeVT() (n int) {
 			l = len(s)
 			n += 1 + l + sov(uint64(l))
 		}
+	}
+	if m.RunAsNonRoot != nil {
+		n += 2
+	}
+	if m.AllowPrivilegeEscalation != nil {
+		n += 2
+	}
+	if m.ReadOnlyRootFilesystem != nil {
+		n += 2
+	}
+	n += len(m.unknownFields)
+	return n
+}
+
+func (m *SecurityContextEntry) SizeVT() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Namespace)
+	if l > 0 {
+		n += 1 + l + sov(uint64(l))
+	}
+	l = len(m.OwnerKind)
+	if l > 0 {
+		n += 1 + l + sov(uint64(l))
+	}
+	l = len(m.OwnerName)
+	if l > 0 {
+		n += 1 + l + sov(uint64(l))
+	}
+	l = len(m.ContainerName)
+	if l > 0 {
+		n += 1 + l + sov(uint64(l))
+	}
+	if m.SecurityContext != nil {
+		l = m.SecurityContext.SizeVT()
+		n += 1 + l + sov(uint64(l))
 	}
 	n += len(m.unknownFields)
 	return n
@@ -3237,9 +3388,11 @@ func (m *SecurityProfile) SizeVT() (n int) {
 	if m.Disabled {
 		n += 2
 	}
-	if m.ContainerSecurityContext != nil {
-		l = m.ContainerSecurityContext.SizeVT()
-		n += 1 + l + sov(uint64(l))
+	if len(m.SecurityContexts) > 0 {
+		for _, e := range m.SecurityContexts {
+			l = e.SizeVT()
+			n += 1 + l + sov(uint64(l))
+		}
 	}
 	n += len(m.unknownFields)
 	return n
@@ -4337,7 +4490,7 @@ func (m *SecDump) UnmarshalVT(dAtA []byte) error {
 			iNdEx = postIndex
 		case 7:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ContainerSecurityContext", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityContexts", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -4364,10 +4517,15 @@ func (m *SecDump) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.ContainerSecurityContext == nil {
-				m.ContainerSecurityContext = &ContainerSecurityContext{}
+			if len(m.SecurityContexts) == cap(m.SecurityContexts) {
+				m.SecurityContexts = append(m.SecurityContexts, &SecurityContextEntry{})
+			} else {
+				m.SecurityContexts = m.SecurityContexts[:len(m.SecurityContexts)+1]
+				if m.SecurityContexts[len(m.SecurityContexts)-1] == nil {
+					m.SecurityContexts[len(m.SecurityContexts)-1] = &SecurityContextEntry{}
+				}
 			}
-			if err := m.ContainerSecurityContext.UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.SecurityContexts[len(m.SecurityContexts)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -5008,7 +5166,7 @@ func (m *SeccompProfile) UnmarshalVT(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *ContainerSecurityContext) UnmarshalVT(dAtA []byte) error {
+func (m *SecurityContext) UnmarshalVT(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -5031,10 +5189,10 @@ func (m *ContainerSecurityContext) UnmarshalVT(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: ContainerSecurityContext: wiretype end group for non-group")
+			return fmt.Errorf("proto: SecurityContext: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: ContainerSecurityContext: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: SecurityContext: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -5156,6 +5314,284 @@ func (m *ContainerSecurityContext) UnmarshalVT(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.CapabilitiesDrop = append(m.CapabilitiesDrop, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RunAsNonRoot", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			b := bool(v != 0)
+			m.RunAsNonRoot = &b
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AllowPrivilegeEscalation", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			b := bool(v != 0)
+			m.AllowPrivilegeEscalation = &b
+		case 7:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReadOnlyRootFilesystem", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			b := bool(v != 0)
+			m.ReadOnlyRootFilesystem = &b
+		default:
+			iNdEx = preIndex
+			skippy, err := skip(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLength
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.unknownFields = append(m.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *SecurityContextEntry) UnmarshalVT(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflow
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: SecurityContextEntry: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: SecurityContextEntry: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Namespace", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLength
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLength
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Namespace = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OwnerKind", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLength
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLength
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OwnerKind = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OwnerName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLength
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLength
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OwnerName = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContainerName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLength
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLength
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContainerName = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityContext", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLength
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLength
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.SecurityContext == nil {
+				m.SecurityContext = &SecurityContext{}
+			}
+			if err := m.SecurityContext.UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -6320,7 +6756,7 @@ func (m *SecurityProfile) UnmarshalVT(dAtA []byte) error {
 			m.Disabled = bool(v != 0)
 		case 10:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ContainerSecurityContext", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SecurityContexts", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -6347,10 +6783,8 @@ func (m *SecurityProfile) UnmarshalVT(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.ContainerSecurityContext == nil {
-				m.ContainerSecurityContext = &ContainerSecurityContext{}
-			}
-			if err := m.ContainerSecurityContext.UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
+			m.SecurityContexts = append(m.SecurityContexts, &SecurityContextEntry{})
+			if err := m.SecurityContexts[len(m.SecurityContexts)-1].UnmarshalVT(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

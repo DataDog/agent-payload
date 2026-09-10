@@ -17,7 +17,7 @@ message SecDump {
 
     repeated string tags = 5;
     repeated ProcessActivityNode tree = 6;
-    ContainerSecurityContext container_security_context = 7;
+    repeated SecurityContextEntry security_contexts = 7;
 }
 
 message Metadata {
@@ -53,13 +53,26 @@ message SeccompProfile {
     optional string localhost_profile = 2;
 }
 
-message ContainerSecurityContext {
+message SecurityContext {
     bool privileged = 1;
 
     SeccompProfile seccomp = 2;
 
     repeated string capabilities_add  = 3;
     repeated string capabilities_drop = 4;
+
+    optional bool run_as_non_root             = 5;
+    optional bool allow_privilege_escalation  = 6;
+    optional bool read_only_root_filesystem   = 7;
+}
+
+message SecurityContextEntry {
+    string namespace       = 1;
+    string owner_kind      = 2;
+    string owner_name      = 3;
+    string container_name  = 4;
+
+    SecurityContext security_context = 5;
 }
 
 message ProfileSelector {
@@ -94,7 +107,7 @@ message SecurityProfile {
     map<string, ProfileContext> profile_contexts = 7;
     ProfileSelector selector = 8;
     bool disabled = 9;
-    ContainerSecurityContext container_security_context = 10;
+    repeated SecurityContextEntry security_contexts = 10;
 }
 
 message ProcessActivityNode {
