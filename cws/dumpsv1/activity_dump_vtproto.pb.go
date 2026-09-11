@@ -685,7 +685,7 @@ func (m *MountNode) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 			dAtA[i] = 0
 		}
 		i--
-		dAtA[i] = 0x38
+		dAtA[i] = 0x30
 	}
 	if m.MountFlags != 0 {
 		i = encodeVarint(dAtA, i, uint64(m.MountFlags))
@@ -6247,7 +6247,7 @@ func (m *MountNode) UnmarshalVT(dAtA []byte) error {
 					break
 				}
 			}
-		case 7:
+		case 6:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field BaseNamespace", wireType)
 			}

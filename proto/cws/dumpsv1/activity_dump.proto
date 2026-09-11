@@ -76,8 +76,6 @@ message SecurityProfile {
 }
 
 message MountNode {
-    reserved 6; // formerly sb_flags
-
     NodeBase node_base = 1;
 
     string mount_point = 2;
@@ -85,8 +83,7 @@ message MountNode {
     string filesystem = 4;
 
     uint32 mount_flags = 5;
-
-    bool base_namespace = 7;
+    bool base_namespace = 6;
 }
 
 message ProcessActivityNode {
