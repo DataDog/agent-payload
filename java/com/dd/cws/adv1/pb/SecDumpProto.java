@@ -4934,7 +4934,7 @@ public final class SecDumpProto {
 
     /**
      * <pre>
-     * Set iff type == TYPE_LOCALHOST.
+     * Set if type == TYPE_LOCALHOST.
      * </pre>
      *
      * <code>optional string localhost_profile = 2;</code>
@@ -4943,7 +4943,7 @@ public final class SecDumpProto {
     boolean hasLocalhostProfile();
     /**
      * <pre>
-     * Set iff type == TYPE_LOCALHOST.
+     * Set if type == TYPE_LOCALHOST.
      * </pre>
      *
      * <code>optional string localhost_profile = 2;</code>
@@ -4952,7 +4952,7 @@ public final class SecDumpProto {
     java.lang.String getLocalhostProfile();
     /**
      * <pre>
-     * Set iff type == TYPE_LOCALHOST.
+     * Set if type == TYPE_LOCALHOST.
      * </pre>
      *
      * <code>optional string localhost_profile = 2;</code>
@@ -5153,7 +5153,7 @@ public final class SecDumpProto {
     private volatile java.lang.Object localhostProfile_ = "";
     /**
      * <pre>
-     * Set iff type == TYPE_LOCALHOST.
+     * Set if type == TYPE_LOCALHOST.
      * </pre>
      *
      * <code>optional string localhost_profile = 2;</code>
@@ -5165,7 +5165,7 @@ public final class SecDumpProto {
     }
     /**
      * <pre>
-     * Set iff type == TYPE_LOCALHOST.
+     * Set if type == TYPE_LOCALHOST.
      * </pre>
      *
      * <code>optional string localhost_profile = 2;</code>
@@ -5186,7 +5186,7 @@ public final class SecDumpProto {
     }
     /**
      * <pre>
-     * Set iff type == TYPE_LOCALHOST.
+     * Set if type == TYPE_LOCALHOST.
      * </pre>
      *
      * <code>optional string localhost_profile = 2;</code>
@@ -5617,7 +5617,7 @@ public final class SecDumpProto {
       private java.lang.Object localhostProfile_ = "";
       /**
        * <pre>
-       * Set iff type == TYPE_LOCALHOST.
+       * Set if type == TYPE_LOCALHOST.
        * </pre>
        *
        * <code>optional string localhost_profile = 2;</code>
@@ -5628,7 +5628,7 @@ public final class SecDumpProto {
       }
       /**
        * <pre>
-       * Set iff type == TYPE_LOCALHOST.
+       * Set if type == TYPE_LOCALHOST.
        * </pre>
        *
        * <code>optional string localhost_profile = 2;</code>
@@ -5648,7 +5648,7 @@ public final class SecDumpProto {
       }
       /**
        * <pre>
-       * Set iff type == TYPE_LOCALHOST.
+       * Set if type == TYPE_LOCALHOST.
        * </pre>
        *
        * <code>optional string localhost_profile = 2;</code>
@@ -5669,7 +5669,7 @@ public final class SecDumpProto {
       }
       /**
        * <pre>
-       * Set iff type == TYPE_LOCALHOST.
+       * Set if type == TYPE_LOCALHOST.
        * </pre>
        *
        * <code>optional string localhost_profile = 2;</code>
@@ -5686,7 +5686,7 @@ public final class SecDumpProto {
       }
       /**
        * <pre>
-       * Set iff type == TYPE_LOCALHOST.
+       * Set if type == TYPE_LOCALHOST.
        * </pre>
        *
        * <code>optional string localhost_profile = 2;</code>
@@ -5700,7 +5700,7 @@ public final class SecDumpProto {
       }
       /**
        * <pre>
-       * Set iff type == TYPE_LOCALHOST.
+       * Set if type == TYPE_LOCALHOST.
        * </pre>
        *
        * <code>optional string localhost_profile = 2;</code>

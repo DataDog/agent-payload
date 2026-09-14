@@ -7,10 +7,11 @@
 package dumpsv1
 
 import (
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
+
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -511,7 +512,7 @@ type SeccompProfile struct {
 	unknownFields protoimpl.UnknownFields
 
 	Type SeccompProfile_Type `protobuf:"varint,1,opt,name=type,proto3,enum=datadog.cws.dumpsv1.SeccompProfile_Type" json:"type,omitempty"`
-	// Set iff type == TYPE_LOCALHOST.
+	// Set if type == TYPE_LOCALHOST.
 	LocalhostProfile *string `protobuf:"bytes,2,opt,name=localhost_profile,json=localhostProfile,proto3,oneof" json:"localhost_profile,omitempty"`
 }
 

@@ -49,7 +49,7 @@ message SeccompProfile {
     }
 
     Type type = 1;
-    // Set iff type == TYPE_LOCALHOST.
+    // Set if type == TYPE_LOCALHOST.
     optional string localhost_profile = 2;
 }
 
