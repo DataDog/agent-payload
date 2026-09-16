@@ -52,5 +52,69 @@ jobs:
     - run: inv codegen.all
       env:
         GOPATH: "/home/runner/work/agent-payload/agent-payload/go"
+    - name: Read Rust version from rust-toolchain.toml
+      id: rust-version
+      run: echo "version=$(grep -Po '^channel = "\K[^"]+' rust-toolchain.toml)" >> $GITHUB_OUTPUT
+    - name: Install ${{ steps.rust-version.outputs.version }} toolchain
+      run: |
+        rustup set profile minimal
+        rustup install ${{ steps.rust-version.outputs.version }}
+        rustup default ${{ steps.rust-version.outputs.version }}
+    # `inv codegen.all` (above) already ran `inv codegen.install-protoc`, so `metrics/dd-metrics-v3`'s
+    # build script (which reuses that same pinned protoc, see tasks/codegen.py's `protoc_version`)
+    # finds it without a separate install step.
+    - name: Regenerate metrics/dd-metrics-v3's protobuf test bindings
+      run: cargo build --features generate-protobuf
+      working-directory: "/home/runner/work/agent-payload/agent-payload/go/src/github.com/DataDog/agent-payload/metrics/dd-metrics-v3"
     - name: Check for diffs
       run: git diff --exit-code
+
+  test-rust:
+    name: "cargo test / fmt / clippy (dd-metrics-v3)"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: metrics/dd-metrics-v3
+    steps:
+    - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+    - name: Read Rust version from rust-toolchain.toml
+      id: rust-version
+      run: echo "version=$(grep -Po '^channel = "\K[^"]+' ../../rust-toolchain.toml)" >> $GITHUB_OUTPUT
+    - name: Install ${{ steps.rust-version.outputs.version }} toolchain
+      run: |
+        rustup set profile minimal
+        rustup install ${{ steps.rust-version.outputs.version }}
+        rustup default ${{ steps.rust-version.outputs.version }}
+        rustup component add rustfmt clippy
+    - name: cargo fmt --check
+      run: cargo fmt -- --check
+    - name: cargo test
+      run: cargo test --all-targets
+    - name: cargo clippy
+      run: cargo clippy --all-targets -- -D warnings
+
+  test-rust-no-std-check:
+    # `#![no_std]` alone only stops this crate's own code from referencing `std`; a dependency
+    # that quietly requires std would still link fine on a normal host target. To verify this,
+    # we build for a target with no OS where `std` is not available at all.
+    name: "dd-metrics-v3 builds for a target with no OS and no std"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: metrics/dd-metrics-v3
+    steps:
+    - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+    - name: Read Rust version from rust-toolchain.toml
+      id: rust-version
+      run: echo "version=$(grep -Po '^channel = "\K[^"]+' ../../rust-toolchain.toml)" >> $GITHUB_OUTPUT
+    - name: Install ${{ steps.rust-version.outputs.version }} toolchain
+      run: |
+        rustup set profile minimal
+        rustup install ${{ steps.rust-version.outputs.version }}
+        rustup default ${{ steps.rust-version.outputs.version }}
+        rustup target add x86_64-unknown-none
+        rustup component add clippy
+    - name: Build for no_std target
+      run: cargo build --target x86_64-unknown-none
+    - name: Clippy for no_std target
+      run: cargo clippy --target x86_64-unknown-none -- -D warnings
