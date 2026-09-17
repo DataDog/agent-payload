@@ -58,8 +58,26 @@ message SeccompProfile {
 message SeccompFilter {
     // Default action applied to syscalls not explicitly listed.
     string default_action = 1;
-    // Per-syscall action, keyed by syscall name (e.g. "read" → "ALLOW").
-    map<string, string> syscalls = 2;
+    // Per-syscall rule, keyed by syscall name.
+    map<string, SyscallRule> syscalls = 2;
+}
+
+message SyscallRule {
+    // Base action (evaluated with args=0).
+    string action = 1;
+    // Argument-level conditions extracted from the BPF filter.
+    repeated ArgCondition conditions = 2;
+}
+
+message ArgCondition {
+    // Argument index (0..5).
+    int32 arg_index = 1;
+    // Comparison operator: "==", "!=", "&", ">", ">=", "<", "<=".
+    string op = 2;
+    // Constant value compared against.
+    uint32 value = 3;
+    // Action when condition matches.
+    string action = 4;
 }
 
 message SecurityContext {
