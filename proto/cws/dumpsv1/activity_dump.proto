@@ -51,6 +51,15 @@ message SeccompProfile {
     Type type = 1;
     // Set if type == TYPE_LOCALHOST.
     optional string localhost_profile = 2;
+    // Effective filter extracted at runtime via ptrace.
+    optional SeccompFilter filter = 3;
+}
+
+message SeccompFilter {
+    // Default action applied to syscalls not explicitly listed.
+    string default_action = 1;
+    // Per-syscall action, keyed by syscall name (e.g. "read" → "ALLOW").
+    map<string, string> syscalls = 2;
 }
 
 message SecurityContext {
