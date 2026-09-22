@@ -75,7 +75,7 @@ message ArgCondition {
     // Comparison operator: "==", "!=", "&", ">", ">=", "<", "<=".
     string op = 2;
     // Constant value compared against.
-    uint32 value = 3;
+    uint64 value = 3;
     // Action when condition matches.
     string action = 4;
 }
