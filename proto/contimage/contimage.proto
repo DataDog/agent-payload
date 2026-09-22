@@ -48,6 +48,10 @@ message ContainerImage {
       bool                      emptyLayer = 5;
     }
     History         history   = 5;
+
+    // Logical file bytes stored in this layer that later layers of this image
+    // hide through deletion or replacement. Absent when collection is unavailable.
+    optional uint64 hidden_bytes = 6;
   }
   repeated ContainerImageLayer layers = 10;
 
