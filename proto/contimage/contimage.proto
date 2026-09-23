@@ -57,4 +57,9 @@ message ContainerImage {
 
   google.protobuf.Timestamp          builtAt     = 11;
   optional google.protobuf.Timestamp publishedAt = 13;
+
+  // Logical regular-file bytes across all layers, including versions hidden by
+  // later layers. Same-layer hardlinks count once. Excludes archive and filesystem
+  // overhead, symlinks, config and manifest. Absent when collection is unavailable.
+  optional uint64 uncompressed_size = 14;
 }
