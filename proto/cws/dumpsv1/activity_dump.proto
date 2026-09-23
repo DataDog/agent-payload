@@ -297,6 +297,7 @@ message Credentials {
 message SocketNode {
     string family = 1;
     repeated BindNode bind = 2;
+    repeated ConnectNode connect = 3;
 }
 
 message BindNode {
@@ -304,6 +305,15 @@ message BindNode {
     repeated string image_tags = 4 [deprecated = true];
     NodeBase node_base =6;
     
+
+    uint32 port = 1;
+    string ip = 2;
+    uint32 protocol = 5;
+}
+
+message ConnectNode {
+    repeated MatchedRule matched_rules = 3;
+    NodeBase node_base = 4;
 
     uint32 port = 1;
     string ip = 2;
