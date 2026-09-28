@@ -18,6 +18,7 @@ message SecDump {
     repeated string tags = 5;
     repeated ProcessActivityNode tree = 6;
     repeated MountNode mounts = 7;
+    repeated SecurityContextEntry security_contexts = 8;
 }
 
 message Metadata {
@@ -38,6 +39,68 @@ message Metadata {
     string serialization = 14;
     string cgroup_id = 15;
     string cgroup_manager = 16;
+}
+
+message SeccompProfile {
+    enum Type {
+        TYPE_UNKNOWN         = 0;
+        TYPE_UNCONFINED      = 1;
+        TYPE_RUNTIME_DEFAULT = 2;
+        TYPE_LOCALHOST       = 3;
+    }
+
+    Type type = 1;
+    // Set if type == TYPE_LOCALHOST.
+    optional string localhost_profile = 2;
+    // Effective filter extracted at runtime via ptrace.
+    optional SeccompFilter filter = 3;
+}
+
+message SeccompFilter {
+    // Default action applied to syscalls not explicitly listed.
+    string default_action = 1;
+    // Per-syscall rule, keyed by syscall name.
+    map<string, SyscallRule> syscalls = 2;
+}
+
+message SyscallRule {
+    // Base action (evaluated with args=0).
+    string action = 1;
+    // Argument-level conditions extracted from the BPF filter.
+    repeated ArgCondition conditions = 2;
+}
+
+message ArgCondition {
+    // Argument index (0..5).
+    int32 arg_index = 1;
+    // Comparison operator: "==", "!=", "&", ">", ">=", "<", "<=".
+    string op = 2;
+    // Constant value compared against.
+    uint64 value = 3;
+    // Action when condition matches.
+    string action = 4;
+}
+
+message SecurityContext {
+    bool privileged = 1;
+
+    SeccompProfile seccomp = 2;
+
+    repeated string capabilities_add  = 3;
+    repeated string capabilities_drop = 4;
+
+    optional bool run_as_non_root             = 5;
+    optional bool allow_privilege_escalation  = 6;
+    optional bool read_only_root_filesystem   = 7;
+}
+
+message SecurityContextEntry {
+    string namespace       = 1;
+    string owner_kind      = 2;
+    string owner_name      = 3;
+    string container_name  = 4;
+
+    SecurityContext security_context = 5;
 }
 
 message ProfileSelector {
@@ -73,6 +136,7 @@ message SecurityProfile {
     ProfileSelector selector = 8;
     bool disabled = 9;
     repeated MountNode mounts = 10;
+    repeated SecurityContextEntry security_contexts = 11;
 }
 
 message MountNode {
