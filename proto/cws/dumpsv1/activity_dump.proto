@@ -17,7 +17,8 @@ message SecDump {
 
     repeated string tags = 5;
     repeated ProcessActivityNode tree = 6;
-    repeated SecurityContextEntry security_contexts = 7;
+    repeated MountNode mounts = 7;
+    repeated SecurityContextEntry security_contexts = 8;
 }
 
 message Metadata {
@@ -134,7 +135,19 @@ message SecurityProfile {
     map<string, ProfileContext> profile_contexts = 7;
     ProfileSelector selector = 8;
     bool disabled = 9;
-    repeated SecurityContextEntry security_contexts = 10;
+    repeated MountNode mounts = 10;
+    repeated SecurityContextEntry security_contexts = 11;
+}
+
+message MountNode {
+    NodeBase node_base = 1;
+
+    string mount_point = 2;
+    string mount_root = 3;
+    string filesystem = 4;
+
+    uint32 mount_flags = 5;
+    bool base_namespace = 6;
 }
 
 message ProcessActivityNode {
@@ -348,6 +361,7 @@ message Credentials {
 message SocketNode {
     string family = 1;
     repeated BindNode bind = 2;
+    repeated ConnectNode connect = 3;
 }
 
 message BindNode {
@@ -355,6 +369,15 @@ message BindNode {
     repeated string image_tags = 4 [deprecated = true];
     NodeBase node_base =6;
     
+
+    uint32 port = 1;
+    string ip = 2;
+    uint32 protocol = 5;
+}
+
+message ConnectNode {
+    repeated MatchedRule matched_rules = 3;
+    NodeBase node_base = 4;
 
     uint32 port = 1;
     string ip = 2;
