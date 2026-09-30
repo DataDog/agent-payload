@@ -263,6 +263,8 @@ message CapabilityNode {
 
     uint64 capability = 2;
     bool is_capable = 3;
+    bool is_attempted_host_userns = 4;
+    bool is_capable_host_userns = 5;
 }
 
 message IMDSNode {
