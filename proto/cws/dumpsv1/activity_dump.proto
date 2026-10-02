@@ -119,6 +119,7 @@ message ProfileContext {
 message ImageTagTimes {
     uint64 first_seen = 1;
     uint64 last_seen  = 2;
+    bool base_namespace = 3;
 }
 
 message NodeBase {
@@ -147,7 +148,8 @@ message MountNode {
     string filesystem = 4;
 
     uint32 mount_flags = 5;
-    bool base_namespace = 6;
+    reserved 6;
+    reserved "base_namespace";
 }
 
 message ProcessActivityNode {
