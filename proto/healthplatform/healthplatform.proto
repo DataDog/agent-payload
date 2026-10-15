@@ -67,6 +67,9 @@ message Remediation {
     repeated RemediationStep steps = 2;
     // Script is an automated script to fix the issue
     Script script = 3;
+    // AIPrompt is a prompt the user can hand to an AI assistant to help fix the issue.
+    // Set by the Datadog backend from its remediation catalog; agents leave it empty.
+    string ai_prompt = 4;
 }
 
 // RemediationStep represents a single remediation step
