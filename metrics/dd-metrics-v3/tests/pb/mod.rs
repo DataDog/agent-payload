@@ -95,16 +95,35 @@ pub struct MetricData {
     /// based on valueType
     #[prost(double, repeated, tag = "19")]
     pub vals_float64: ::prost::alloc::vec::Vec<f64>,
+    /// Shared bin columns. DDSketch uses one key/count pair per bin; its keys are
+    /// independently delta encoded per point. Histograms never consume binKeys.
+    /// ExplicitHistogram: numBins is the number of bucket counts (B); B-1 bounds
+    /// follow optional Sum/Min/Max in the selected values column. B=0 denotes
+    /// a summary-only point (no bounds); B=1 has one count and no finite bounds.
+    /// ExponentialHistogram: two numBins entries per point, [positiveLength,
+    /// negativeLength]. binCnts contains positive counts followed by negative
+    /// counts, retaining zero-count buckets in each dense range.
     #[prost(uint64, repeated, tag = "20")]
-    pub sketch_num_bins: ::prost::alloc::vec::Vec<u64>,
-    /// per-metric sequence is delta encoded
+    pub num_bins: ::prost::alloc::vec::Vec<u64>,
     #[prost(sint32, repeated, tag = "21")]
-    pub sketch_bin_keys: ::prost::alloc::vec::Vec<i32>,
-    /// sketch summary Sum, Min, Max are encoded as three consecutive elements in one of vals using valueType
-    /// sketch summary Cnt is always encoded in valInt64
-    /// sketch summary Avg is reconstructed as Sum/Cnt in the intake
-    #[prost(uint32, repeated, tag = "22")]
-    pub sketch_bin_cnts: ::prost::alloc::vec::Vec<u32>,
+    pub bin_keys: ::prost::alloc::vec::Vec<i32>,
+    #[prost(uint64, repeated, tag = "22")]
+    pub bin_cnts: ::prost::alloc::vec::Vec<u64>,
+    /// Currently one bitmask per ExplicitHistogram or ExponentialHistogram POINT.
+    /// DDSketch/scalar points consume no entries. Extending this column to other
+    /// types requires an explicit consumption rule. Unknown bits are invalid.
+    /// Sum/Min/Max presence may change between points without splitting the series.
+    /// Missing values consume no value slots; NaN is a value, not a presence marker.
+    /// Count always has a valsUint64 slot.
+    ///
+    /// pointFlags enum bitmask
+    #[prost(uint32, repeated, tag = "30")]
+    pub point_flags: ::prost::alloc::vec::Vec<u32>,
+    /// Unsigned histogram counts, independent of valueType. Each ExplicitHistogram
+    /// point consumes \[Count\]; each ExponentialHistogram point consumes
+    /// \[Count, zeroCount\]. DDSketch/scalar points consume no entries.
+    #[prost(uint64, repeated, tag = "31")]
+    pub vals_uint64: ::prost::alloc::vec::Vec<u64>,
 }
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Response {
@@ -118,7 +137,14 @@ pub enum MetricType {
     Count = 1,
     Rate = 2,
     Gauge = 3,
-    Sketch = 4,
+    DdSketch = 4,
+    /// Both histogram types carry delta temporality only. Clients must perform
+    /// cumulative-to-delta conversion before encoding; no temporality is encoded.
+    ///
+    /// OTel explicit-bounds histogram
+    ExplicitHistogram = 6,
+    /// OTel base-2 exponential histogram
+    ExponentialHistogram = 7,
 }
 impl MetricType {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -131,7 +157,9 @@ impl MetricType {
             Self::Count => "Count",
             Self::Rate => "Rate",
             Self::Gauge => "Gauge",
-            Self::Sketch => "Sketch",
+            Self::DdSketch => "DDSketch",
+            Self::ExplicitHistogram => "ExplicitHistogram",
+            Self::ExponentialHistogram => "ExponentialHistogram",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -141,7 +169,9 @@ impl MetricType {
             "Count" => Some(Self::Count),
             "Rate" => Some(Self::Rate),
             "Gauge" => Some(Self::Gauge),
-            "Sketch" => Some(Self::Sketch),
+            "DDSketch" => Some(Self::DdSketch),
+            "ExplicitHistogram" => Some(Self::ExplicitHistogram),
+            "ExponentialHistogram" => Some(Self::ExponentialHistogram),
             _ => None,
         }
     }
@@ -209,6 +239,40 @@ impl MetricFlags {
             "flagNone" => Some(Self::FlagNone),
             "flagNoIndex" => Some(Self::FlagNoIndex),
             "flagHasUnit" => Some(Self::FlagHasUnit),
+            _ => None,
+        }
+    }
+}
+/// Point-level presence for histogram summaries. These bits are independent of
+/// metricFlags, which applies to a whole series in the types column.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum PointFlags {
+    None = 0,
+    PointHasMin = 1,
+    PointHasMax = 2,
+    PointHasSum = 4,
+}
+impl PointFlags {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Self::None => "pointFlagsNone",
+            Self::PointHasMin => "pointHasMin",
+            Self::PointHasMax => "pointHasMax",
+            Self::PointHasSum => "pointHasSum",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "pointFlagsNone" => Some(Self::None),
+            "pointHasMin" => Some(Self::PointHasMin),
+            "pointHasMax" => Some(Self::PointHasMax),
+            "pointHasSum" => Some(Self::PointHasSum),
             _ => None,
         }
     }

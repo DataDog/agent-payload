@@ -48,9 +48,11 @@ fn to_reference_message(data: V3EncodedData) -> pb::MetricData {
         vals_sint64: data.vals_sint64,
         vals_float32: data.vals_float32,
         vals_float64: data.vals_float64,
-        sketch_num_bins: data.sketch_num_bins,
-        sketch_bin_keys: data.sketch_bin_keys,
-        sketch_bin_cnts: data.sketch_bin_cnts,
+        num_bins: data.sketch_num_bins,
+        bin_keys: data.sketch_bin_keys,
+        bin_cnts: data.sketch_bin_cnts,
+        point_flags: vec![],
+        vals_uint64: vec![],
     }
 }
 
@@ -97,7 +99,7 @@ enum DecodedPoint {
         min_bits: u64,
         max_bits: u64,
         bin_keys: Vec<i32>,
-        bin_counts: Vec<u32>,
+        bin_counts: Vec<u64>,
     },
 }
 
@@ -160,7 +162,7 @@ fn decode_points(data: &pb::MetricData) -> Vec<Vec<DecodedPoint>> {
 
     let mut timestamps = data.timestamps.clone();
     delta_decode(&mut timestamps);
-    let mut sketch_bin_keys = data.sketch_bin_keys.clone();
+    let mut sketch_bin_keys = data.bin_keys.clone();
 
     let (mut ts_cursor, mut sint_cursor, mut f32_cursor, mut f64_cursor) = (0, 0, 0, 0);
     let (mut sketch_point_cursor, mut sketch_key_cursor, mut sketch_cnt_cursor) = (0, 0, 0);
@@ -203,7 +205,7 @@ fn decode_points(data: &pb::MetricData) -> Vec<Vec<DecodedPoint>> {
                         let count = data.vals_sint64[sint_cursor];
                         sint_cursor += 1;
 
-                        let num_bins = data.sketch_num_bins[sketch_point_cursor] as usize;
+                        let num_bins = data.num_bins[sketch_point_cursor] as usize;
                         sketch_point_cursor += 1;
 
                         let start = sketch_key_cursor;
@@ -211,9 +213,8 @@ fn decode_points(data: &pb::MetricData) -> Vec<Vec<DecodedPoint>> {
                         let bin_keys = sketch_bin_keys[start..start + num_bins].to_vec();
                         sketch_key_cursor += num_bins;
 
-                        let bin_counts = data.sketch_bin_cnts
-                            [sketch_cnt_cursor..sketch_cnt_cursor + num_bins]
-                            .to_vec();
+                        let bin_counts =
+                            data.bin_cnts[sketch_cnt_cursor..sketch_cnt_cursor + num_bins].to_vec();
                         sketch_cnt_cursor += num_bins;
 
                         DecodedPoint::Sketch {
@@ -599,6 +600,29 @@ fn sketch_with_integer_summary() {
             max_bits: 9.0_f64.to_bits(),
             bin_keys: vec![-2, -1, 0, 1, 2],
             bin_counts: vec![1, 1, 1, 1, 1],
+        }]],
+    );
+}
+
+#[test]
+fn sketch_with_full_width_bin_count() {
+    let build = |writer: &mut V3Writer| {
+        let mut m = writer.write(V3MetricType::Sketch, "sketch.full_width_count");
+        m.add_sketch(1_000, -1, 0.0, 0.0, 0.0, &[0], &[u64::MAX])
+            .unwrap();
+        m.close();
+    };
+    assert_wire_parity(build);
+    assert_points_round_trip(
+        build,
+        &[vec![DecodedPoint::Sketch {
+            timestamp: 1_000,
+            count: -1,
+            sum_bits: 0.0_f64.to_bits(),
+            min_bits: 0.0_f64.to_bits(),
+            max_bits: 0.0_f64.to_bits(),
+            bin_keys: vec![0],
+            bin_counts: vec![u64::MAX],
         }]],
     );
 }
