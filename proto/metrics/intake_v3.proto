@@ -47,12 +47,74 @@ message MetricData {
   repeated sint64 valsSint64 = 17;      // or
   repeated float valsFloat32 = 18;      // or
   repeated double valsFloat64 = 19;     // based on valueType
-  repeated uint64 sketchNumBins = 20;
-  repeated sint32 sketchBinKeys = 21;   // per-metric sequence is delta encoded
-  repeated uint32 sketchBinCnts = 22;
-  // sketch summary Sum, Min, Max are encoded as three consecutive elements in one of vals using valueType
-  // sketch summary Cnt is always encoded in valInt64
-  // sketch summary Avg is reconstructed as Sum/Cnt in the intake
+  // Shared bin columns. DDSketch uses one key/count pair per bin; its keys are
+  // independently delta encoded per point. Histograms never consume binKeys.
+  // ExplicitHistogram: numBins is the number of bucket counts (B); B-1 bounds
+  // follow optional Sum/Min/Max in the selected values column. B=0 denotes
+  // a summary-only point (no bounds); B=1 has one count and no finite bounds.
+  // ExponentialHistogram: two numBins entries per point, [positiveLength,
+  // negativeLength]. binCnts contains positive counts followed by negative
+  // counts, retaining zero-count buckets in each dense range.
+  repeated uint64 numBins = 20;
+  repeated sint32 binKeys = 21;
+  repeated uint64 binCnts = 22;
+
+  // Currently one bitmask per ExplicitHistogram or ExponentialHistogram POINT.
+  // DDSketch/scalar points consume no entries. Extending this column to other
+  // types requires an explicit consumption rule. Unknown bits are invalid.
+  // Sum/Min/Max presence may change between points without splitting the series.
+  // Missing values consume no value slots; NaN is a value, not a presence marker.
+  // Count always has a valsUint64 slot.
+  repeated uint32 pointFlags = 30; // pointFlags enum bitmask
+
+  // Unsigned histogram counts, independent of valueType. Each ExplicitHistogram
+  // point consumes [Count]; each ExponentialHistogram point consumes
+  // [Count, zeroCount]. DDSketch/scalar points consume no entries.
+  repeated uint64 valsUint64 = 31;
+
+  // DDSketch retains the legacy layout: [Sum, Min, Max] in the selected values
+  // column, then Count in valsSint64 (after the summary if valueType=Sint64).
+  //
+  // ExplicitHistogram has no signed integer header. Each ExponentialHistogram
+  // point first consumes [scale, positiveOffset, negativeOffset] from valsSint64.
+  // Both range lengths are read from numBins. Offsets and scale are signed
+  // int32 values carried exactly as integers. Empty ranges may have any int32
+  // offset and contribute no observations. For nonempty ranges, offset+length-1
+  // must fit int32, including zero-count buckets. This is an API v3 format
+  // restriction, not an OTLP requirement. Clients must drop points with
+  // out-of-range bucket indices before encoding. Range element i has OTel
+  // index offset+i.
+  // Positive and negative ranges identify observation sign separately: negative
+  // indices do NOT mean negative observations. No internal key bias or flags
+  // sentinel is encoded. The receiver derives exponential bucket boundaries.
+  //
+  // After any signed header, read [Sum?, Min?, Max?] in that order from the column
+  // selected by valueType, followed by explicit bounds or exponential
+  // zero_threshold. If valueType=Sint64 these values follow the header in that
+  // same column. Zero omits all numeric value slots (including bounds/threshold)
+  // but never omits headers, unsigned counts or bin counts. Explicit bounds must
+  // be finite and strictly increasing; zero_threshold must be finite and
+  // nonnegative.
+  // Compaction must preserve every boundary exactly, using Float64 when needed.
+  //
+  // Histogram Count and zeroCount retain their full unsigned range in valsUint64;
+  // neither is converted to float or reinterpreted as signed. DDSketch Count
+  // retains its legacy uint64-to-int64 bit reinterpretation in valsSint64.
+  // An absent OTel sum clears pointHasSum and consumes no value slot; a present
+  // zero or NaN sets pointHasSum. Preserve missing sums without dropping points
+  // or substituting numeric values. Numeric-value acceptance and count-total
+  // validation are separate from this transport contract.
+  // DDSketch Avg is reconstructed as Sum/Count at query time.
+  //
+  // Example: explicit bounds [10], counts [2,3], Count=5, Sum=30, no min/max:
+  //   pointFlags=[4], numBins=[2], binKeys=[], binCnts=[2,3],
+  //   valueType=Sint64, valsUint64=[5], valsSint64=[30,10].
+  // Example: exponential scale=0, positive(offset=0,counts=[2,0,3]),
+  // negative(offset=-1,counts=[4]), zeroCount=1, threshold=0, Count=10, Sum=18:
+  //   pointFlags=[4], numBins=[3,1], binKeys=[], binCnts=[2,0,3,4],
+  //   valueType=Sint64, valsUint64=[10,1], valsSint64=[0,0,-1,18,0].
+  // One possible population: [1.5,1.5,6,6,6,-0.75,-0.75,-0.75,-0.75,0].
+
 }
 
 enum metricType {
@@ -60,7 +122,11 @@ enum metricType {
   Count = 1;
   Rate = 2;
   Gauge = 3;
-  Sketch = 4;
+  DDSketch = 4;
+  // Both histogram types carry delta temporality only. Clients must perform
+  // cumulative-to-delta conversion before encoding; no temporality is encoded.
+  ExplicitHistogram = 6;     // OTel explicit-bounds histogram
+  ExponentialHistogram = 7; // OTel base-2 exponential histogram
 }
 
 enum valueType {
@@ -74,6 +140,15 @@ enum metricFlags {
   flagNone    = 0;
   flagNoIndex = 0x100; // metric should not be indexed (equivalent to origin metric type == agent_hidden in v2)
   flagHasUnit = 0x200; // timeseries has a unit in the unitRefs column
+}
+
+// Point-level presence for histogram summaries. These bits are independent of
+// metricFlags, which applies to a whole series in the types column.
+enum pointFlags {
+  pointFlagsNone = 0;
+  pointHasMin = 1;
+  pointHasMax = 2;
+  pointHasSum = 4;
 }
 
 message Response {

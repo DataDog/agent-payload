@@ -40,12 +40,12 @@ pub const VALS_SINT64_FIELD_NUMBER: u32 = 17;
 pub const VALS_FLOAT32_FIELD_NUMBER: u32 = 18;
 /// Field number for the `ValueFloat64` column.
 pub const VALS_FLOAT64_FIELD_NUMBER: u32 = 19;
-/// Field number for the `SketchNBins` column.
-pub const SKETCH_NUM_BINS_FIELD_NUMBER: u32 = 20;
-/// Field number for the `SketchBinKeys` column.
-pub const SKETCH_BIN_KEYS_FIELD_NUMBER: u32 = 21;
-/// Field number for the `SketchBinCounts` column.
-pub const SKETCH_BIN_CNTS_FIELD_NUMBER: u32 = 22;
+/// Field number for the `NumBins` column.
+pub const NUM_BINS_FIELD_NUMBER: u32 = 20;
+/// Field number for the `BinKeys` column.
+pub const BIN_KEYS_FIELD_NUMBER: u32 = 21;
+/// Field number for the `BinCounts` column.
+pub const BIN_CNTS_FIELD_NUMBER: u32 = 22;
 /// Field number for the `SourceTypeName` column.
 pub const SOURCE_TYPE_NAME_FIELD_NUMBER: u32 = 23;
 /// Field number for the `OriginInfo` column.
@@ -54,12 +54,16 @@ pub const ORIGIN_INFO_FIELD_NUMBER: u32 = 24;
 pub const DICT_UNIT_STR_FIELD_NUMBER: u32 = 25;
 /// Field number for the `UnitRef` column.
 pub const UNIT_REFS_FIELD_NUMBER: u32 = 26;
+/// Field number for the `PointFlags` column.
+pub const POINT_FLAGS_FIELD_NUMBER: u32 = 30;
+/// Field number for the `ValueUint64` column.
+pub const VALS_UINT64_FIELD_NUMBER: u32 = 31;
 
 /// Display names for the V3 columns, indexed by their Protocol Buffers field number.
 ///
 /// Field numbers come from `proto/intake_v3.proto`, also mirrored in `crate::writer` as the
 /// `*_FIELD_NUMBER` constants. Index 0 is unused since field numbers start at 1.
-pub const COLUMN_NAMES: [&str; 27] = [
+pub const COLUMN_NAMES: [&str; 32] = [
     "reserved",
     "DictNameStr",
     "DictTagsStr",
@@ -80,13 +84,18 @@ pub const COLUMN_NAMES: [&str; 27] = [
     "ValueSint64",
     "ValueFloat32",
     "ValueFloat64",
-    "SketchNBins",
-    "SketchBinKeys",
-    "SketchBinCounts",
+    "NumBins",
+    "BinKeys",
+    "BinCounts",
     "SourceTypeName",
     "OriginInfo",
     "DictUnitStr",
     "UnitRef",
+    "reserved",
+    "reserved",
+    "reserved",
+    "PointFlags",
+    "ValueUint64",
 ];
 
 #[cfg(test)]
@@ -115,13 +124,15 @@ mod tests {
             (VALS_SINT64_FIELD_NUMBER, "ValueSint64"),
             (VALS_FLOAT32_FIELD_NUMBER, "ValueFloat32"),
             (VALS_FLOAT64_FIELD_NUMBER, "ValueFloat64"),
-            (SKETCH_NUM_BINS_FIELD_NUMBER, "SketchNBins"),
-            (SKETCH_BIN_KEYS_FIELD_NUMBER, "SketchBinKeys"),
-            (SKETCH_BIN_CNTS_FIELD_NUMBER, "SketchBinCounts"),
+            (NUM_BINS_FIELD_NUMBER, "NumBins"),
+            (BIN_KEYS_FIELD_NUMBER, "BinKeys"),
+            (BIN_CNTS_FIELD_NUMBER, "BinCounts"),
             (SOURCE_TYPE_NAME_FIELD_NUMBER, "SourceTypeName"),
             (ORIGIN_INFO_FIELD_NUMBER, "OriginInfo"),
             (DICT_UNIT_STR_FIELD_NUMBER, "DictUnitStr"),
             (UNIT_REFS_FIELD_NUMBER, "UnitRef"),
+            (POINT_FLAGS_FIELD_NUMBER, "PointFlags"),
+            (VALS_UINT64_FIELD_NUMBER, "ValueUint64"),
         ];
 
         for (field_number, expected_name) in pairs {

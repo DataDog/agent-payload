@@ -8,13 +8,13 @@ use alloc::{string::String, vec::Vec};
 
 use crate::{
     constants::{
-        DICT_NAME_STR_FIELD_NUMBER, DICT_ORIGIN_INFO_FIELD_NUMBER, DICT_RESOURCE_LEN_FIELD_NUMBER,
+        BIN_CNTS_FIELD_NUMBER, BIN_KEYS_FIELD_NUMBER, DICT_NAME_STR_FIELD_NUMBER,
+        DICT_ORIGIN_INFO_FIELD_NUMBER, DICT_RESOURCE_LEN_FIELD_NUMBER,
         DICT_RESOURCE_NAME_FIELD_NUMBER, DICT_RESOURCE_STR_FIELD_NUMBER,
         DICT_RESOURCE_TYPE_FIELD_NUMBER, DICT_SOURCE_TYPE_NAME_FIELD_NUMBER,
         DICT_TAGSETS_FIELD_NUMBER, DICT_TAGS_STR_FIELD_NUMBER, DICT_UNIT_STR_FIELD_NUMBER,
-        INTERVALS_FIELD_NUMBER, NAMES_FIELD_NUMBER, NUM_POINTS_FIELD_NUMBER,
-        ORIGIN_INFO_FIELD_NUMBER, RESOURCES_FIELD_NUMBER, SKETCH_BIN_CNTS_FIELD_NUMBER,
-        SKETCH_BIN_KEYS_FIELD_NUMBER, SKETCH_NUM_BINS_FIELD_NUMBER, SOURCE_TYPE_NAME_FIELD_NUMBER,
+        INTERVALS_FIELD_NUMBER, NAMES_FIELD_NUMBER, NUM_BINS_FIELD_NUMBER, NUM_POINTS_FIELD_NUMBER,
+        ORIGIN_INFO_FIELD_NUMBER, RESOURCES_FIELD_NUMBER, SOURCE_TYPE_NAME_FIELD_NUMBER,
         TAGS_FIELD_NUMBER, TIMESTAMPS_FIELD_NUMBER, TYPES_FIELD_NUMBER, UNIT_REFS_FIELD_NUMBER,
         VALS_FLOAT32_FIELD_NUMBER, VALS_FLOAT64_FIELD_NUMBER, VALS_SINT64_FIELD_NUMBER,
     },
@@ -147,7 +147,7 @@ pub struct V3EncodedData {
     /// Delta-encoded sketch bin keys, grouped contiguously per sketch.
     pub sketch_bin_keys: Vec<i32>,
     /// Sketch bin counts, grouped contiguously per sketch.
-    pub sketch_bin_cnts: Vec<u32>,
+    pub sketch_bin_cnts: Vec<u64>,
 
     /// Telemetry produced while encoding the columns.
     pub value_encoding_stats: V3ValueEncodingStats,
@@ -241,7 +241,7 @@ pub struct V3Writer {
     // Sketch data
     sketch_num_bins: Vec<u64>,
     sketch_bin_keys: Vec<i32>,
-    sketch_bin_cnts: Vec<u32>,
+    sketch_bin_cnts: Vec<u64>,
 
     // Scratch data
     tag_ids: Vec<i64>,
@@ -508,23 +508,23 @@ impl V3Writer {
         write_packed_column(
             &mut output,
             &mut columns,
-            SKETCH_NUM_BINS_FIELD_NUMBER,
+            NUM_BINS_FIELD_NUMBER,
             &data.sketch_num_bins,
             write_uint64_value,
         );
         write_packed_column(
             &mut output,
             &mut columns,
-            SKETCH_BIN_KEYS_FIELD_NUMBER,
+            BIN_KEYS_FIELD_NUMBER,
             &data.sketch_bin_keys,
             write_sint32_value,
         );
         write_packed_column(
             &mut output,
             &mut columns,
-            SKETCH_BIN_CNTS_FIELD_NUMBER,
+            BIN_CNTS_FIELD_NUMBER,
             &data.sketch_bin_cnts,
-            write_uint32_value,
+            write_uint64_value,
         );
 
         V3EncodedMetrics {
@@ -816,7 +816,7 @@ impl V3MetricBuilder<'_> {
         min: f64,
         max: f64,
         bin_keys: &[i32],
-        bin_counts: &[u32],
+        bin_counts: &[u64],
     ) -> Result<(), V3WriterError> {
         if (self.writer.types[self.metric_idx] & METRIC_TYPE_MASK) != V3MetricType::Sketch as u64 {
             return Err(V3WriterError::SketchOnNonSketchMetric);
@@ -998,10 +998,6 @@ fn write_int32_value(buf: &mut Vec<u8>, v: i32) {
 
 fn write_sint32_value(buf: &mut Vec<u8>, v: i32) {
     write_varint(buf, u64::from(zigzag32(v)));
-}
-
-fn write_uint32_value(buf: &mut Vec<u8>, v: u32) {
-    write_varint(buf, u64::from(v));
 }
 
 fn write_f32_value(buf: &mut Vec<u8>, v: f32) {
