@@ -139,21 +139,15 @@ message SecurityProfile {
     repeated SecurityContextEntry security_contexts = 11;
 }
 
-message MountSeen {
-    ImageTagTimes times = 1;
-    bool base_namespace = 2;
-}
-
 message MountNode {
-    reserved 1, 6;
-    reserved "node_base", "base_namespace";
+    NodeBase node_base = 1;
 
     string mount_point = 2;
     string mount_root = 3;
     string filesystem = 4;
 
     uint32 mount_flags = 5;
-    map<string, MountSeen> seen = 7;
+    bool base_namespace = 6;
 }
 
 message ProcessActivityNode {
