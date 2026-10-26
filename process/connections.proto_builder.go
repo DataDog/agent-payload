@@ -1373,6 +1373,15 @@ func (x *ConnectionBuilder) SetNetworkPath(cb func(w *NetworkPathBuilder)) {
 	x.writer.Write(x.scratch)
 	x.writer.Write(x.buf.Bytes())
 }
+func (x *ConnectionBuilder) SetNetnsOriginalContainerId(v string) {
+	if v == "" {
+		return
+	}
+	x.scratch = x.scratch[:0]
+	x.scratch = protowire.AppendVarint(x.scratch, 0x212)
+	x.scratch = protowire.AppendString(x.scratch, v)
+	x.writer.Write(x.scratch)
+}
 
 type Connection_DnsCountByRcodeEntryBuilder struct {
 	writer  io.Writer
