@@ -236,7 +236,7 @@ type SBOMEntity struct {
 	RepoDigests     []string          `protobuf:"bytes,14,rep,name=repo_digests,json=repoDigests,proto3" json:"repo_digests,omitempty"` // The digests of the container image
 	KernelVersion   string            `protobuf:"bytes,15,opt,name=kernel_version,json=kernelVersion,proto3" json:"kernel_version,omitempty"`
 	CpuArchitecture string            `protobuf:"bytes,16,opt,name=cpu_architecture,json=cpuArchitecture,proto3" json:"cpu_architecture,omitempty"`
-	Ccrid           string            `protobuf:"bytes,17,opt,name=ccrid,proto3" json:"ccrid,omitempty"` // Cloud Resource ID of the scanned resource the SBOM is attached to: ARN (AWS), ARM resource ID (Azure) or Full Resource Name (GCP)
+	Ccrid           string            `protobuf:"bytes,17,opt,name=ccrid,proto3" json:"ccrid,omitempty"` // ID of the resource associated with the SBOM (ARN, Azure ARM ID, GCP FRN, etc.).
 }
 
 func (x *SBOMEntity) Reset() {
