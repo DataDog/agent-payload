@@ -136,7 +136,7 @@ message Connections {
 message Connection {
   reserved 2, 3, 4, 7, 8, 9, 12, 13, 14, 15, 35;
   // Please update when adding fields
-  // next identifier: 66
+  // next identifier: 67
 
   int32 pid = 1;
   Addr laddr = 5; // Local address
@@ -255,6 +255,11 @@ message Connection {
 
   // Network Path metadata for this connection.
   NetworkPath networkPath = 65;
+
+  // netnsOriginalContainerId is the container of the socket's owning process when system-probe attributed the
+  // connection (laddr.containerId) to the container owning the socket's network namespace, for example a pod
+  // whose traffic a node-level proxy handles. Empty when the connection wasn't reattributed.
+  string netnsOriginalContainerId = 66;
 }
 
 message NetworkPath {
