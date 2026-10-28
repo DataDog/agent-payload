@@ -938,6 +938,7 @@ enum OrchestratorResource {
     K8S_ENDPOINTSLICE = 28;
     KUBELETCONFIGURATION = 29;
     CONFIGMAP = 30;
+    SECRET = 31;
     ECSTASK = 150;
 }
 
