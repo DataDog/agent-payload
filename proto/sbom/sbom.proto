@@ -36,6 +36,7 @@ message SBOMEntity {
   repeated string repo_digests = 14; // The digests of the container image
   string kernel_version        = 15;
   string cpu_architecture      = 16;
+  string ccrid                 = 17; // ID of the resource associated with the SBOM (ARN, Azure ARM ID, GCP FRN, etc.).
 }
 
 enum SBOMSourceType {
