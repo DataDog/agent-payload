@@ -123,6 +123,8 @@ message ImageTagTimes {
 
 message NodeBase {
     map<string, ImageTagTimes> seen = 1;
+    // last time, in unix nanoseconds, an anomaly detection event was sent for this activity. 0 if none was sent.
+    uint64 last_anomaly_sent = 2;
 }
 
 message SecurityProfile {
