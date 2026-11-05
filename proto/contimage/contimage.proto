@@ -48,9 +48,18 @@ message ContainerImage {
       bool                      emptyLayer = 5;
     }
     History         history   = 5;
+
+    // Logical file bytes stored in this layer that later layers of this image
+    // hide through deletion or replacement. Absent when collection is unavailable.
+    optional uint64 hidden_bytes = 6;
   }
   repeated ContainerImageLayer layers = 10;
 
   google.protobuf.Timestamp          builtAt     = 11;
   optional google.protobuf.Timestamp publishedAt = 13;
+
+  // Logical regular-file bytes across all layers, including versions hidden by
+  // later layers. Same-layer hardlinks count once. Excludes archive and filesystem
+  // overhead, symlinks, config and manifest. Absent when collection is unavailable.
+  optional uint64 uncompressed_size = 14;
 }
