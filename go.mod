@@ -7,7 +7,7 @@ require (
 	github.com/DataDog/zstd v1.4.8
 	github.com/chrusty/protoc-gen-jsonschema v0.0.0-20240212064413-73d5723042b8
 	github.com/gogo/protobuf v1.3.2
-	github.com/klauspost/compress v1.20.1
+	github.com/klauspost/compress v1.20.4
 	github.com/stretchr/testify v1.6.1
 	google.golang.org/grpc v1.83.2
 	google.golang.org/protobuf v1.36.11
@@ -16,7 +16,7 @@ require (
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	golang.org/x/net v0.61.0 // indirect
+	golang.org/x/net v0.62.0 // indirect
 	golang.org/x/sys v0.49.0 // indirect
 	golang.org/x/text v0.43.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260526163538-3dc84a4a5aaa // indirect
