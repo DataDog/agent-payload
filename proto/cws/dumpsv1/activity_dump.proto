@@ -19,6 +19,7 @@ message SecDump {
     repeated ProcessActivityNode tree = 6;
     repeated MountNode mounts = 7;
     repeated SecurityContextEntry security_contexts = 8;
+    UnattributedActivity unattributed_activity = 9;
 }
 
 message Metadata {
@@ -137,6 +138,7 @@ message SecurityProfile {
     bool disabled = 9;
     repeated MountNode mounts = 10;
     repeated SecurityContextEntry security_contexts = 11;
+    UnattributedActivity unattributed_activity = 12;
 }
 
 message MountNode {
@@ -167,6 +169,20 @@ message ProcessActivityNode {
     repeated SyscallNode syscall_nodes = 12;
     repeated NetworkDeviceNode network_devices = 13;
     repeated CapabilityNode capability_nodes = 15;
+}
+
+// UnattributedActivity is the activity of the workload that couldn't be attached to a process of the tree, for example
+// because the lineage of the process that generated it was broken inside the workload.
+message UnattributedActivity {
+    NodeBase node_base = 1;
+
+    repeated FileActivityNode files = 2;
+    repeated DNSNode dns_names = 3;
+    repeated SocketNode sockets = 4;
+    repeated IMDSNode imds_events = 5;
+    repeated SyscallNode syscall_nodes = 6;
+    repeated NetworkDeviceNode network_devices = 7;
+    repeated CapabilityNode capability_nodes = 8;
 }
 
 message ProcessInfo {
