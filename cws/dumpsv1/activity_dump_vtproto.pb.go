@@ -49,6 +49,16 @@ func (m *SecDump) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
 	}
+	if m.CapabilitiesMonitoring {
+		i--
+		if m.CapabilitiesMonitoring {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x50
+	}
 	if m.UnattributedActivity != nil {
 		size, err := m.UnattributedActivity.MarshalToSizedBufferVT(dAtA[:i])
 		if err != nil {
@@ -537,6 +547,46 @@ func (m *SecurityContext) MarshalToSizedBufferVT(dAtA []byte) (int, error) {
 	if m.unknownFields != nil {
 		i -= len(m.unknownFields)
 		copy(dAtA[i:], m.unknownFields)
+	}
+	if m.HostIpc {
+		i--
+		if m.HostIpc {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x58
+	}
+	if m.HostPid {
+		i--
+		if m.HostPid {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x50
+	}
+	if m.HostNetwork {
+		i--
+		if m.HostNetwork {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x48
+	}
+	if m.HostUsers != nil {
+		i--
+		if *m.HostUsers {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x40
 	}
 	if m.ReadOnlyRootFilesystem != nil {
 		i--
@@ -3629,6 +3679,9 @@ func (m *SecDump) SizeVT() (n int) {
 		l = m.UnattributedActivity.SizeVT()
 		n += 1 + l + sov(uint64(l))
 	}
+	if m.CapabilitiesMonitoring {
+		n += 2
+	}
 	n += len(m.unknownFields)
 	return n
 }
@@ -3827,6 +3880,18 @@ func (m *SecurityContext) SizeVT() (n int) {
 		n += 2
 	}
 	if m.ReadOnlyRootFilesystem != nil {
+		n += 2
+	}
+	if m.HostUsers != nil {
+		n += 2
+	}
+	if m.HostNetwork {
+		n += 2
+	}
+	if m.HostPid {
+		n += 2
+	}
+	if m.HostIpc {
 		n += 2
 	}
 	n += len(m.unknownFields)
@@ -5379,6 +5444,26 @@ func (m *SecDump) UnmarshalVT(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
+		case 10:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CapabilitiesMonitoring", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.CapabilitiesMonitoring = bool(v != 0)
 		default:
 			iNdEx = preIndex
 			skippy, err := skip(dAtA[iNdEx:])
@@ -6746,6 +6831,87 @@ func (m *SecurityContext) UnmarshalVT(dAtA []byte) error {
 			}
 			b := bool(v != 0)
 			m.ReadOnlyRootFilesystem = &b
+		case 8:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HostUsers", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			b := bool(v != 0)
+			m.HostUsers = &b
+		case 9:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HostNetwork", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.HostNetwork = bool(v != 0)
+		case 10:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HostPid", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.HostPid = bool(v != 0)
+		case 11:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HostIpc", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.HostIpc = bool(v != 0)
 		default:
 			iNdEx = preIndex
 			skippy, err := skip(dAtA[iNdEx:])
